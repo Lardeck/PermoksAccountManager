@@ -1,10 +1,10 @@
-## Interface: 80100
-## Title: Method Alt Manager
+## Interface: 90002
+## Title: Martins Alt Manager
 ## Author: Qoning
 ## Version: v1
 ## Notes: This is a note
 ## OptionalDependencies: Ace3, LibRealmInfo, LibDBIcon, LibDataBroker-1.1
-## SavedVariables: MethodAltManagerDB
+## SavedVariables: MartinsAltManagerDB
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
@@ -14,10 +14,19 @@ libs\AceConsole-3.0\AceConsole-3.0.xml
 libs\AceEvent-3.0\AceEvent-3.0.xml
 libs\AceDB-3.0\AceDB-3.0.xml
 libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
-Libs\LibDBIcon-1.0\lib.xml
+libs\LibDBIcon-1.0\lib.xml
+libs\LibQTip-1.0\lib.xml
 #@end-no-lib-strip@
 
-MethodAltManager.lua
+modules\callings.lua
+modules\currencies.lua
+modules\factions.lua
+modules\instances.lua
+modules\jailer.lua
+modules\quests.lua
+modules\torghast.lua
+modules\vault.lua
+
+options.lua
+MartinsAltManager.lua
 db.lua
-
-
