@@ -21,8 +21,9 @@ function AltManager:UpdateCurrency(currencyType, quantity, quantityChange, gaine
 	if not currencyType or not self.currencies[currencyType] then return end
 	local char_table = self.validateData()
 	if not char_table then return end
-	
-	char_table.currencyInfo[currencyType] = quantity
+	if type(char_table.currencyInfo[currencyType]) ~= "table" then AltManager:UpdateAllCurrencies() end
+
+	char_table.currencyInfo[currencyType].quantity = quantity
 end
 
 function AltManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum)
