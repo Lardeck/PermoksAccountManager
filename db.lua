@@ -62,11 +62,15 @@ AltManager.dungeons = {
 }
 
 AltManager.factions = {
-	[2432] = {name = "Ve'nari", type = "friendship"},
-	[2407] = {name = "The Ascended", type = "faction"},
-	[2465] = {name = "The Wild Hunt", type = "faction"},
-	[2410] = {name = "The Undying Army", type = "faction"},
-	[2413] = {name = "Court of Harvesters", type = "faction"},
+	friendship = {
+		[2432] = {name = "Ve'nari", type = "friendship"},
+	},
+	faction = {
+		[2407] = {name = "The Ascended", type = "faction"},
+		[2465] = {name = "The Wild Hunt", type = "faction"},
+		[2410] = {name = "The Undying Army", type = "faction"},
+		[2413] = {name = "Court of Harvesters", type = "faction"},
+	}
 }
 
 AltManager.currencies = {
