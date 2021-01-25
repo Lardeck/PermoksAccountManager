@@ -4,25 +4,30 @@ function AltManager:UpdateFactions()
 	local char_table = self.validateData()
 	if not char_table then return end
 
-	local factionReputations = {}
+	local factionReputations = char_table.factions or {}
 
-	local standingID, barMin, barMax, barValue, standing, _
-	for factionId, info in pairs(self.factions) do
-		if info.type == "faction" then
-			standingID, barMin, barMax, barValue = select(3, GetFactionInfoByID(factionId))
-		elseif info.type == "friendship" then
-			_, barValue, _,  _, _, _, standing, barMin, barMax = GetFriendshipReputation(factionId)
-		end
+	-- Probably not that efficient to use two for loops but its easier to understand
+	local standingID, barMin, barMax, barValue
+	for factionId, info in pairs(self.factions.faction) do
+		standingID, barMin, barMax, barValue = select(3, GetFactionInfoByID(factionId))
 
 		if barMin and barMax then
-			local today = char_table.factions and char_table.factions[factionId] and char_table.factions[factionId].today
-
-			-- Need to find a better way
 			local current = standingID < 8 and barValue - barMin or 21000
 			local maximum = standingID < 8 and barMax - barMin or 21000
 
-			factionReputations[factionId] = {current = current, max = maximum, today = today or 0, standing = standing}
+			factionReputations[factionId] = factionReputations[factionId] or {}
+			factionReputations[factionId].current = current
+			factionReputations[factionId].max = maximum
 		end
+	end
+
+	local barValue, barMin, barMax, _
+	for factionId, info in pairs(self.factions.friendship) do
+		_, barValue, _,  _, _, _, _, barMin, barMax = GetFriendshipReputation(factionId)
+
+		factionReputations[factionId] = factionReputations[factionId] or {}
+		factionReputations[factionId].current = barMin and barValue - barMin
+		factionReputations[factionId].max = barMax
 	end
 
 	char_table.factions = factionReputations
@@ -31,5 +36,9 @@ end
 function AltManager:CreateFactionString(factionInfo)
 	if not factionInfo then return "-" end
 
-	return string.format("%s/|cffffff00%s|r", AbbreviateNumbers(factionInfo.current), AbbreviateNumbers(factionInfo.max))
+	if factionInfo.max then
+		return string.format("%s/|cffffff00%s|r", AbbreviateLargeNumbers(factionInfo.current), AbbreviateNumbers(factionInfo.max))
+	elseif factionInfo.current then
+		return "|cff00ff00BFF|r"
+	end
 end
