@@ -21,13 +21,16 @@ function AltManager:UpdateFactions()
 		end
 	end
 
-	local barValue, barMin, barMax, _
+	local barValue, barMin, barMax, maxRep, _
 	for factionId, info in pairs(self.factions.friendship) do
-		_, barValue, _,  _, _, _, _, barMin, barMax = GetFriendshipReputation(factionId)
+		_, barValue, maxRep,  _, _, _, _, barMin, barMax = GetFriendshipReputation(factionId)
 
 		factionReputations[factionId] = factionReputations[factionId] or {}
-		factionReputations[factionId].current = barMin and barValue - barMin
-		factionReputations[factionId].max = barMax
+		if barMin then
+			factionReputations[factionId].current = barValue - barMin
+			factionReputations[factionId].max = (barMax and barMax - barMin) or nil
+			factionReputations[factionId].bff = barValue == maxRep
+		end
 	end
 
 	char_table.factions = factionReputations
@@ -36,9 +39,11 @@ end
 function AltManager:CreateFactionString(factionInfo)
 	if not factionInfo then return "-" end
 
-	if factionInfo.max then
-		return string.format("%s/|cffffff00%s|r", AbbreviateLargeNumbers(factionInfo.current), AbbreviateNumbers(factionInfo.max))
-	elseif factionInfo.current then
-		return "|cff00ff00BFF|r"
+	if factionInfo.bff then 
+		return "|cff00ff00BFF|r" 
+	elseif factionInfo.max then
+		return string.format("%s/|cffffff00%s|r", AbbreviateLargeNumbers(factionInfo.current), AbbreviateNumbers(factionInfo.max))	
 	end
+
+	return 
 end
