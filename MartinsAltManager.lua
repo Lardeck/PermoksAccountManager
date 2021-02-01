@@ -353,7 +353,7 @@ local function CreateOptionsMenu(frame, panel)
 
 	    	local numColumn = numFrames % 3
 	    	local numRow = floor(numFrames/3) + 1
-	    	rowOption:SetPoint("TOPLEFT", reloadWarning, "TOPLEFT", (numColumn * 150), numRow * (-25))
+	    	rowOption:SetPoint("TOPLEFT", savePosition, "TOPLEFT", (numColumn * 150), numRow * (-25))
 	    	rowOption.Text:SetText(row.label)
 	    	numFrames = numFrames + 1
 	    end
