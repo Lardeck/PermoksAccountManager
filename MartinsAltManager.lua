@@ -1046,6 +1046,7 @@ function AltManager:CreateMenu(alts)
 		if row.enabled and row.enabled(options, row_iden) then
 			if row.label then
 				local label_row = self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0);
+				self.main_frame.label_rows[row_iden] = label_row
 				i = i + 1
 			elseif row.fakeLabel then
 				i = i + 1
