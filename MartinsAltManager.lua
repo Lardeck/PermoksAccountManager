@@ -430,6 +430,7 @@ function AltManager:CreateFontFrame(parent, x_size, height, relative_to, y_offse
 	
 	if option and option == "gold" then
 		local texture = CreateMoneyButtonNormalTexture(f, 14, x_size)
+		f.texture = texture
 		texture:SetTexCoord(0, 0.25, 0, 1)
 	end
 
