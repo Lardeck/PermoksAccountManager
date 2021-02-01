@@ -822,6 +822,12 @@ function AltManager:PopulateStrings()
 						current_row:GetFontString():SetJustifyV(column.justify);
 					end
 					i = i + 1
+				elseif self.main_frame.alt_columns[alt].label_columns[column_iden] then
+					local row = self.main_frame.alt_columns[alt].label_columns[column_iden]
+					if row.texture then
+						row.texture:Hide()
+					end
+					row:Hide()
 				end
 			end
 		end
