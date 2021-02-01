@@ -797,10 +797,11 @@ function AltManager:PopulateStrings()
 			for column_iden, column in self.spairs(self.columns_table, function(t, a, b) return t[a].order < t[b].order end) do
 				-- only display data with values
 				if type(column.data) == "function" and column.enabled and column.enabled(options, column_iden) then
-					local current_row = label_columns[i] or self:CreateFontFrame(self.main_frame, per_alt_x, column.font_height or font_height, anchor_frame, -(i - 1) * font_height, column.data(alt_data), "CENTER", nil, column.option);
+					local current_row = label_columns[column_iden] or self:CreateFontFrame(self.main_frame, per_alt_x, column.font_height or font_height, anchor_frame, -(i - 1) * font_height, column.data(alt_data), "CENTER", nil, column.option);
+					current_row:SetPoint("TOPLEFT", anchor_frame, "TOPLEFT", per_alt_x, -(i - 1) * font_height);
 					-- insert it into storage if just created
-					if not self.main_frame.alt_columns[alt].label_columns[i] then
-						self.main_frame.alt_columns[alt].label_columns[i] = current_row;
+					if not self.main_frame.alt_columns[alt].label_columns[column_iden] then
+						self.main_frame.alt_columns[alt].label_columns[column_iden] = current_row;
 					end
 
 					if column.tooltip then
