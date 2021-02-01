@@ -971,6 +971,36 @@ function AltManager:RollUp(button, name, icon)
 	self.unroll_state[name].state = "closed";
 end
 
+function AltManager:UpdateMenu()
+	local alts = self.db.global.alts
+	if not self.main_frame.label_column then self:CreateMenu(alts) end
+
+	local i = 0
+	local font_height = 20
+	local options = self.db.global.options
+	local label_column = self.main_frame.label_column
+
+	for row_iden, row in self.spairs(self.columns_table, function(t, a, b) return t[a].order < t[b].order end) do
+		if options[row_iden] and options[row_iden].enabled then
+			if row.label then
+				-- parent, x_size, height, relative_to, y_offset, label, justify, x_offset, option
+				local label_row = self.main_frame.label_rows[row_iden] or self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0);
+				label_row:SetPoint("TOPLEFT", label_column, "TOPLEFT", 0, -i*font_height);
+				i = i + 1
+			elseif row.fakeLabel then
+				i = i + 1
+			end
+		elseif self.main_frame.label_rows[row_iden] then
+			self.main_frame.label_rows[row_iden]:Hide()
+		end
+	end
+
+	self.main_frame.height = max(i*font_height, 130)
+	self.main_frame:SetSize(max((alts + 2) * per_alt_x, min_x_size), self.main_frame.height);
+	self.main_frame.lowest_point = -self.main_frame.height;
+	self.main_frame.numRows = i
+end
+
 function AltManager:CreateMenu(alts)
 	-- Close button
 	self.main_frame.closeButton = CreateFrame("Button", nil, self.main_frame, "UIPanelCloseButton");
