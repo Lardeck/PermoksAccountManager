@@ -1032,7 +1032,8 @@ function AltManager:CreateMenu(alts)
 
 	-- create labels and unrolls
 	self.main_frame.unroll_buttons = self.main_frame.unroll_buttons or {}
-	local font_height = 20;
+	self.main_frame.label_rows = self.main_frame.label_rows or {}
+	local font_height = 20
 	local label_column = self.main_frame.label_column or CreateFrame("Button", nil, self.main_frame);
 	self.main_frame.label_column = self.main_frame.label_column or label_column
 	label_column:SetSize(per_alt_x, sizey);
