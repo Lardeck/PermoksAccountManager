@@ -1175,8 +1175,9 @@ function AltManager:ShowInterface()
 	self.myGUID = self.myGUID or UnitGUID("player")
 	self:UpdateEverything()
 
-	self.main_frame:Show();
-	self:PopulateStrings();
+	self.main_frame:Show()
+	self:UpdateMenu()
+	self:PopulateStrings()
 end
 
 function AltManager:MakeTopBottomTextures(frame)
