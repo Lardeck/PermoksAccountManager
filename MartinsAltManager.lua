@@ -341,11 +341,6 @@ local function CreateOptionsMenu(frame, panel)
     savePosition:SetPoint("TOPLEFT", title, "TOPLEFT", 0, -25)
     savePosition.Text:SetText("Save Position Between Reloads")
 
-    local reloadWarning = panel.reloadWarning or frame:CreateFontString(nil, "ARTWORK", "GameFontRed")
-    panel.reloadWarning = reloadWarning
-    reloadWarning:SetPoint("TOPLEFT", savePosition, "TOPLEFT", 0, -40)
-    reloadWarning:SetText("The following options only apply after a reload:")
-
     local rows = AltManager.columns_table
     local numFrames = 0
     for row_identifier, row in AltManager.spairs(rows, function(t, a, b) return t[a].order < t[b].order end) do
