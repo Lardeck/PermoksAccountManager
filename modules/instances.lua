@@ -54,15 +54,11 @@ function AltManager:CreateRaidString(savedInfo)
 	if not savedInfo then return "-" end
 	local raidString = ""
 
-	local difficulties = {}
+	local highestDifficulty = 0
 	for difficulty in pairs(savedInfo) do
-		difficulties[#difficulties + 1] = difficulty
-	end
-
-	table.sort(difficulties)
-	local highestDifficulty = difficulties[#difficulties]
-	if highestDifficulty == 17 and #difficulties > 1 then
-		highestDifficulty = difficulties[#difficulties-1]
+		if difficulty < 17 and difficulty > highestDifficulty then
+			highestDifficulty = difficulty
+		end
 	end
 
 	local raidInfo = savedInfo[highestDifficulty]
@@ -102,7 +98,7 @@ function AltManager:RaidTooltip_OnEnter(button, alt_data, name)
 	tooltip:AddLine("")
 
 	--spairs(db.data, function(t, a, b)  return t[a].ilevel > t[b].ilevel end) do
-	for difficulty, info in AltManager.spairs(raidInfo, function(t, a, b) if a and b then if a<17 and b<17 then return a < b else return a > b end end end) do
+	for difficulty, info in AltManager.spairs(raidInfo, function(t, a, b) if a == 17 then return b < a else return a < b end end) do
 		tooltip:AddLine(info.difficulty..":", "", self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 	end
 
