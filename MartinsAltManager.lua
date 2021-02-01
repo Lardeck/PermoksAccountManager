@@ -52,12 +52,17 @@ local defaultDB = {
 				['**'] = {
 					enabled = true,
 				},
+			},
+			daily_unroll = {
 				conductor = {
 					enabled = false,
 				},
 				sanctum = {
 					enabled = false,
 				},
+				['**'] = {
+					enabled = true,
+				}
 			}
 		},
 		currentCallings = {},
