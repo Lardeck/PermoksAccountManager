@@ -31,3 +31,4 @@ modules\vault.lua
 options.lua
 MartinsAltManager.lua
 db.lua
+testdb.lua
