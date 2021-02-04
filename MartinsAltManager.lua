@@ -126,6 +126,7 @@ function AltManager:OnInitialize()
 		if AltManager.addon_loaded then
 			if event == "QUEST_TURNED_IN" then
 				AltManager:UpdateQuest(...)
+				AltManager:UpdateTorghast()
 			elseif event == "COVENANT_CALLINGS_UPDATED" then
 				AltManager:UpdateCallings(...)
 			elseif event == "CURRENCY_DISPLAY_UPDATE" then
