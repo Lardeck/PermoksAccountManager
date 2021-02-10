@@ -4,11 +4,12 @@ local LibQTip = LibStub("LibQTip-1.0")
 function AltManager:UpdateAllCurrencies()
 	local char_table = self.validateData()
 	if not char_table then return end
+	char_table.currencyInfo = char_table.currencyInfo or {}
 
 	local currencyInfo = {}
 	for currencyType in pairs(self.currencies) do
 		local info = C_CurrencyInfo.GetCurrencyInfo(currencyType)
-		currencyInfo[currencyType] = type(char_table.currencyInfo[currencyType]) == "table" and char_table.currencyInfo[currencyType] or {name = info.name}
+		currencyInfo[currencyType] = (type(char_table.currencyInfo[currencyType]) == "table" and char_table.currencyInfo[currencyType]) or {name = info.name}
 		currencyInfo[currencyType].quantity = info.quantity
 		currencyInfo[currencyType].maxQuantity = info.maxQuantity
 		currencyInfo[currencyType].totalEarned = info.totalEarned
