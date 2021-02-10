@@ -35,7 +35,7 @@ local min_x_size = 360;
 local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel());
 local locale = GetLocale()
 
-local VERSION = "9.0.16.6"					   
+local VERSION = "9.0.16.7"					   
 
 local defaultDB = {
     profile = {
@@ -121,11 +121,11 @@ function AltManager:OnInitialize()
 		if AltManager.addon_loaded then
 			if event == "QUEST_TURNED_IN" then
 				AltManager:UpdateQuest(...)
-				AltManager:UpdateTorghast()
 			elseif event == "COVENANT_CALLINGS_UPDATED" then
 				AltManager:UpdateCallings(...)
 			elseif event == "CURRENCY_DISPLAY_UPDATE" then
 				AltManager:UpdateCurrency(...)
+				AltManager:UpdateTorghast()
 			elseif (event == "BAG_UPDATE_DELAYED" or event == "LFG_COMPLETION_REWARD" or event == "UPDATE_BATTLEFIELD_STATUS") then
 				AltManager:CollectData();
 			elseif event == "UPDATE_FACTION" then
