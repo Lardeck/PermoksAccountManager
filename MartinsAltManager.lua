@@ -154,7 +154,8 @@ function AltManager:OnDisable()
 end
 
 function AltManager:getGUID()
-	return self.myGUID or UnitGUID("player")
+	self.myGUID = self.myGUID or UnitGUID("player")
+	return self.myGUID
 end
 
 local function CreateMoneyButtonNormalTexture (button, iconWidth, buttonWidth)
@@ -276,16 +277,17 @@ local function Tooltip_OnLeave(self)
 	end
 end
 
+function AltManager.isBlacklisted(guid)
+	return AltManager.db.global.blacklist[guid]
+end
+
 function AltManager.validateData()
 	local guid = AltManager:getGUID()
 	if not guid then return end
+	if AltManager.isBlacklisted() then return end
 
 	local db = AltManager.db.global
 	local char_table = db.data[guid]
-	if not char_table then return end;
-
-	if db.blacklist[guid] then return end
-
 	return char_table
 end
 
@@ -381,14 +383,16 @@ function AltManager:OnLogin()
 	self:ValidateReset();
 
 	local db = self.db.global
-	local guid = UnitGUID("player")
+	local guid = self:getGUID()
 	local level = UnitLevel("player")
 
-	if guid and not db.data[guid] and not db.blacklist[guid] and not (level < min_level) then
+	if guid and not db.data[guid] then
 		db.data[guid] = {}
-		db.alts = db.alts + 1
+
+		if not self.isBlacklisted(guid) and not (level < min_level) then
+			db.alts = db.alts + 1
+		end
 	end
-	
 	self:UpdateEverything()
 	
 	local alts = db.alts;
@@ -407,8 +411,6 @@ function AltManager:OnLogin()
 			self:CreateOptions(info.unroll_name, unroll)
 		end
 	end
-
-	AltManager.myGUID = UnitGUID("player")
 end
 
 function AltManager:CreateFontFrame(parent, x_size, height, relative_to, y_offset, label, justify, x_offset, option)
@@ -662,48 +664,42 @@ end
 function AltManager:CollectData()
 	local guid = self:getGUID()
 	if not guid then return end
-	
-	-- Basic Char Information
-	local name, realm = UnitFullName('player')
-	local _, class = UnitClass('player')
-	local faction = UnitFactionGroup("player")
-	local level = UnitLevel('player')
-	local _, ilevel = GetAverageItemLevel()
-	local gold = BreakUpLargeNumbers(floor(GetMoney() / (COPPER_PER_SILVER * SILVER_PER_GOLD)))
-	local covenant = C_Covenants.GetActiveCovenantID()
-
-	if level < min_level then return end
-	
 	local char_table = self.validateData()
 	if not char_table then return end
+	char_table.guid = guid
+
+	-- Basic
+	local name, realm = UnitFullName('player')
+	char_table.name = name
+	char_table.realm = realm
+
+	local _, class = UnitClass('player')
+	char_table.class = class
+
+	local faction = UnitFactionGroup("player")
+	char_table.faction = faction
+
+	local _, ilevel = GetAverageItemLevel()
+	char_table.ilevel = ilevel
+
+	local gold = BreakUpLargeNumbers(floor(GetMoney() / (COPPER_PER_SILVER * SILVER_PER_GOLD)))
+	char_table.gold = gold
+
 
 	-- Keystone
 	local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
-	local keystone_found = false
-	local dungeon = nil
-	local level = nil
+	local dungeon = "Unknown"
+	local level = "?"
 	
 	if ownedKeystone then
 		dungeon = self.keys[ownedKeystone]
 		level = C_MythicPlus.GetOwnedKeystoneLevel()
-		keystone_found = true
 	end
-	
-	if not keystone_found then
-		dungeon = "Unknown";
-		level = "?"
-	end
+	char_table.dungeon = dungeon
+	char_table.level = level
 
-	--LFGRewardsFrame_UpdateFrame(LFDQueueFrameRandomScrollFrameChildFrame, 1671, LFDQueueFrameBackground)
-	--local daily_heroic
-	--local done, money = GetLFGDungeonRewards(1671);
-	--if done and money > 0 then daily_heroic = true end
-	
-	--RequestPVPRewards()
-	--RequestRandomBattlegroundInstanceInfo()
-	--local rnd_bg = select(3,C_PvP.GetRandomBGRewards());
 
-	-- Contract
+	-- Contracts
 	local contract = nil
 	local contracts = {[311457] = "CoH",[311458] = "Ascended",[311460] = "UA",[311459] = "WH"}
 	for spellId, faction in pairs(contracts) do
@@ -713,8 +709,10 @@ function AltManager:CollectData()
 			break
 		end
 	end
+	char_table.contract = contract
 
-	-- dungeons/raids
+
+	-- IDs
 	local nathria_lfr_ids = {2096, 2092, 2091, 2090}
 	local nathria_lfr = 0
 	
@@ -722,51 +720,21 @@ function AltManager:CollectData()
 		local _, killed = GetLFGDungeonNumEncounters(v)
 		nathria_lfr = nathria_lfr + killed
 	end
-	
-	local renown = C_CovenantSanctumUI.GetRenownLevel()
-	local callingsUnlocked = C_CovenantCallings.AreCallingsUnlocked()
-	-- store data into a table
-
-	char_table.guid = guid
-	char_table.name = name
-	char_table.realm = realm
-	char_table.class = class
-	char_table.faction = faction;
-	char_table.ilevel = ilevel
-	char_table.gold = gold
-	char_table.covenant = covenant > 0 and covenant
-	char_table.renown = renown
-	char_table.contract = contract
-	char_table.callingsUnlocked = callingsUnlocked
-
-	char_table.dungeon = dungeon
-	char_table.level = level
-	
-	char_table.nathria = nathria
 	char_table.nathria_lfr = nathrya_lfr
-	char_table.mythicDungeons = mythicDungeons
+
+
+	-- Covenant
+	local covenant = C_Covenants.GetActiveCovenantID()
+	char_table.covenant = covenant > 0 and covenant
+
+	local renown = C_CovenantSanctumUI.GetRenownLevel()
+	char_table.renown = renown
+
+	local callingsUnlocked = C_CovenantCallings.AreCallingsUnlocked()
+	char_table.callingsUnlocked = callingsUnlocked
 	
-	char_table.daily_heroic = daily_heroic
-	char_table.rnd_bg = rnd_bg
 	char_table.expires = self:GetNextWeeklyResetTime()
 	char_table.daily = self:GetNextDailyResetTime()
-
-	return char_table;
-end
-
-function AltManager:UpdateJailerInfo(widgetInfo)
-	if not widgetInfo or not self.jailerWidgets[widgetInfo.widgetID] then return end
-	local char_table = self.validateData()
-	if not char_table then return end
-
-	local widgetInfo = C_UIWidgetManager.GetDiscreteProgressStepsVisualizationInfo(widgetInfo.widgetID)
-
-	if widgetInfo and widgetInfo.shownState == 1 then
-		local barValue, barMin, barMax = widgetInfo.progressVal, widgetInfo.progressMin, widgetInfo.progressMax
-   		local stage = floor(barValue/1000)
-
-		char_table.jailerInfo = {stage = stage, threat = barValue - (stage*1000)}
-	end	
 end
 
 function AltManager:PopulateStrings()
@@ -779,7 +747,7 @@ function AltManager:PopulateStrings()
 	
 	local options = self.db.global.options
 	local alt = 0
-	for alt_guid, alt_data in self.spairs(db.data, function(t, a, b)  return t[a].ilevel > t[b].ilevel end) do
+	for alt_guid, alt_data in self.spairs(db.data, function(t, a, b)  return (t[a].ilevel or 0) > (t[b].ilevel or 0) end) do
 		if not self.db.global.blacklist[alt_guid] then
 			alt = alt + 1
 			-- create the frame to which all the fontstrings anchor
@@ -873,7 +841,7 @@ function AltManager:Unroll(button, my_rows, default_state, name, option, icon)
 		lu.alt_columns = lu.alt_columns or {};
 		local alt = 0
 		local db = self.db.global;
-		for alt_guid, alt_data in self.spairs(db.data, function(t, a, b) return t[a].ilevel > t[b]. ilevel end) do
+		for alt_guid, alt_data in self.spairs(db.data, function(t, a, b) return (t[a].ilevel or 0) > (t[b].ilevel or 0) end) do
 			if not self.db.global.blacklist[alt_guid] then
 				alt = alt + 1
 				-- create the frame to which all the fontstrings anchor
