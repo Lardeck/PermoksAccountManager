@@ -159,8 +159,7 @@ function AltManager:OnDisable()
 end
 
 function AltManager:getGUID()
-	self.myGUID = self.myGUID or UnitGUID("player")
-	return self.myGUID
+	return self.myGUID or UnitGUID("player")
 end
 
 local function CreateMoneyButtonNormalTexture (button, iconWidth, buttonWidth)
