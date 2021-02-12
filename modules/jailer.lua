@@ -1,1 +1,16 @@
 local addonName, AltManager = ...
+
+function AltManager:UpdateJailerInfo(widgetInfo)
+	if not widgetInfo or not self.jailerWidgets[widgetInfo.widgetID] then return end
+	local char_table = self.validateData()
+	if not char_table then return end
+
+	local widgetInfo = C_UIWidgetManager.GetDiscreteProgressStepsVisualizationInfo(widgetInfo.widgetID)
+
+	if widgetInfo and widgetInfo.shownState == 1 then
+		local barValue, barMin, barMax = widgetInfo.progressVal, widgetInfo.progressMin, widgetInfo.progressMax
+   		local stage = floor(barValue/1000)
+
+		char_table.jailerInfo = {stage = stage, threat = barValue - (stage*1000)}
+	end	
+end
