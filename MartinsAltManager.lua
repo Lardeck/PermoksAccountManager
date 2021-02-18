@@ -73,7 +73,7 @@ local defaultDB = {
 
 function AltManager:OnInitialize()
   -- init databroker
-	self.db = LibStub("AceDB-3.0"):New("MartinsAltManagerDB", defaultDB);
+	self.db = LibStub("AceDB-3.0"):New("MartinsAltManagerDB", defaultDB, true);
 
   	icon:Register("MartinsAltManager", AltManagerLDB, self.db.profile.minimap)
   	AltManager:RegisterChatCommand('mam', 'HandleChatCommand')
