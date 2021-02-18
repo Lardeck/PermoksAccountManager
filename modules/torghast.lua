@@ -7,7 +7,7 @@ function AltManager:UpdateTorghast()
 	local widgetSetInfo = C_UIWidgetManager.GetAllWidgetsBySetID(399)
 
 	local torghastNames = {}
-	local torghastInfo = {}
+	local torghastInfo = char_table.torghastInfo or {}
 	if not widgetSetInfo then return end
 	for i, uiWidetInfo in ipairs(widgetSetInfo) do
 		local widgetInfo = C_UIWidgetManager.GetTextWithStateWidgetVisualizationInfo(uiWidetInfo.widgetID)
@@ -15,7 +15,13 @@ function AltManager:UpdateTorghast()
 			if widgetInfo.orderIndex%2 == 0 then
 				torghastNames[widgetInfo.orderIndex + 1] = widgetInfo.text:gsub("\124n", "")
 			elseif torghastNames[widgetInfo.orderIndex] then
-				torghastInfo[torghastNames[widgetInfo.orderIndex]] = widgetInfo.text:match("(%d)%)") or widgetInfo.text
+				local layer = tonumber(widgetInfo.text:match("(%d)%)"))
+				local prevLayer = char_table.torghastInfo and tonumber(char_table.torghastInfo[torghastNames[widgetInfo.orderIndex]])
+				torghastInfo[torghastNames[widgetInfo.orderIndex]] = prevLayer or 0
+
+				if layer and layer > torghastInfo[torghastNames[widgetInfo.orderIndex]] then
+					torghastInfo[torghastNames[widgetInfo.orderIndex]] = layer
+				end
 			end
 		end
 	end
