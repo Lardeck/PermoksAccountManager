@@ -293,6 +293,7 @@ function AltManager.validateData()
 
 	local db = AltManager.db.global
 	local char_table = db.data[guid]
+
 	return char_table
 end
 
