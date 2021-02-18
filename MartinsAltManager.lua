@@ -465,11 +465,16 @@ function AltManager:ValidateReset()
 	local keyset = self:Keyset()
 	
 	for alt = 1, db.alts do
-		local expiry = db.data[keyset[alt]].expires or 0
-		local daily = db.data[keyset[alt]].daily or 0
-		local hunt = db.data[keyset[alt]].huntReset or 0
-		
 		local char_table = db.data[keyset[alt]];
+		local expiry = char_table.expires or 0
+		local daily = char_table.daily or 0
+
+
+		--modernize
+		if type(char_table.currencyInfo) ~= "table" then
+			char_table.currencyInfo = {}
+		end
+
 		if time() > expiry then
 			-- M0/Raids
 			if char_table.instanceInfo then
