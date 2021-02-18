@@ -54,11 +54,15 @@ function AltManager:CreateRaidString(savedInfo)
 	if not savedInfo then return "-" end
 	local raidString = ""
 
-	local highestDifficulty = 0
+	local difficulties = {}
 	for difficulty in pairs(savedInfo) do
-		if difficulty > highestDifficulty then
-			highestDifficulty = difficulty
-		end
+		difficulties[#difficulties + 1] = difficulty
+	end
+
+	table.sort(difficulties)
+	local highestDifficulty = difficulties[#difficulties]
+	if highestDifficulty == 17 and #difficulties > 1 then
+		highestDifficulty = difficulties[#difficulties-1]
 	end
 
 	local raidInfo = savedInfo[highestDifficulty]
