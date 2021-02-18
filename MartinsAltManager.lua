@@ -678,6 +678,9 @@ function AltManager:CollectData()
 	char_table.name = name
 	char_table.realm = realm
 
+	local charLevel = UnitLevel("player")
+	char_table.charLevel = charLevel
+
 	local _, class = UnitClass('player')
 	char_table.class = class
 
