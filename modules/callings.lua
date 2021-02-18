@@ -92,6 +92,7 @@ function AltManager:UpdateSanctumBuildings()
 	if not char_table then return end
 
 	local covenant = char_table.covenant or C_Covenants.GetActiveCovenantID()
+	if not covenant or not self.sanctum[covenant] then return end
 	local sanctumInfo = char_table.sanctumInfo or {}
 	for featureType, talentTreeID in pairs(self.sanctum[covenant]) do
 		local talentTree = C_Garrison.GetTalentTreeInfo(talentTreeID)
