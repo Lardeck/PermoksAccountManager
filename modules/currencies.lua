@@ -10,6 +10,11 @@ function AltManager:UpdateAllCurrencies()
 	for currencyType in pairs(self.currencies) do
 		local info = C_CurrencyInfo.GetCurrencyInfo(currencyType)
 		currencyInfo[currencyType] = (type(char_table.currencyInfo[currencyType]) == "table" and char_table.currencyInfo[currencyType]) or {name = info.name}
+
+		if info.maxQuantity > 0 and info.quantity > (info.maxQuantity + 2) then
+			info.quantity = info.quantity / 100
+		end			
+
 		currencyInfo[currencyType].quantity = info.quantity
 		currencyInfo[currencyType].maxQuantity = info.maxQuantity
 		currencyInfo[currencyType].totalEarned = info.totalEarned
