@@ -98,7 +98,7 @@ function AltManager:RaidTooltip_OnEnter(button, alt_data, name)
 	tooltip:AddLine("")
 
 	--spairs(db.data, function(t, a, b)  return t[a].ilevel > t[b].ilevel end) do
-	for difficulty, info in AltManager.spairs(raidInfo, function(t, a, b) print(a, b) if b == 17 then return a > b else return a < b end end) do
+	for difficulty, info in AltManager.spairs(raidInfo, function(t, a, b) if a == 17 then return b < a else return a < b end end) do
 		tooltip:AddLine(info.difficulty..":", "", self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 	end
 
