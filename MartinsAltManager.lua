@@ -561,7 +561,7 @@ end
 
 function AltManager:Purge()
 	MartinsAltManagerDB = nil
-	self.db = LibStub("AceDB-3.0"):New("MartinsAltManagerDB", defaultDB);
+	self.db = self.db:ResetDB()
 	print("[|cfff49b42MartinsAltManager|r] Please reload your interface to update the displayed info.")
 end
 
