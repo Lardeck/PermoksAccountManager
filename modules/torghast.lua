@@ -26,9 +26,9 @@ function AltManager:UpdateTorghast()
 		end
 	end
 
+	char_table.torghastInfo = torghastInfo
 	char_table.torghastInfo["PLEASE"] = nil
 	char_table.torghastInfo["LOGIN"] = nil
-	char_table.torghastInfo = torghastInfo
 end
 
 function AltManager:CreateTorghastString(torghastInfo)
