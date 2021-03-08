@@ -55,6 +55,10 @@ function AltManager:CurrencyTooltip_OnEnter(button, alt_data, currencyId)
 
 	tooltip:AddLine("Total Earned:", self:CreateFractionString(currencyInfo.totalEarned, currencyInfo.maxQuantity))
 
+	if (currencyInfo.maxQuantity or 0) > currencyInfo.totalEarned then
+		tooltip:AddLine("Left:", currencyInfo.maxQuantity - currencyInfo.totalEarned)
+	end
+
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
 end
