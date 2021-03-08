@@ -80,6 +80,7 @@ AltManager.currencies = {
 	[1810] = true,
 	[1813] = true,
 	[1828] = true,
+	[1191] = true,
 }
 
 AltManager.quests = {
@@ -234,6 +235,7 @@ AltManager.locale = {
 		["redeemed_soul"] = C_CurrencyInfo.GetBasicCurrencyInfo(1810).name,
 		["conquest"] = C_CurrencyInfo.GetBasicCurrencyInfo(1602).name,
 		["honor"] = C_CurrencyInfo.GetBasicCurrencyInfo(1792).name,
+		["valor"] = C_CurrencyInfo.GetBasicCurrencyInfo(1191).name,
 	},
 	raids = {
 		nathria = {
