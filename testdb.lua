@@ -8,6 +8,7 @@ local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
 AltManager.columns_table_test2 = {
 	general = {
 		name = "General",
+		group = true,
 		args = {
 			character_name = {
 				hidden = true, 
@@ -29,6 +30,9 @@ AltManager.columns_table_test2 = {
 
 				}
 			},
+			highest_key = {
+				name = "Highest Key"
+			}
 
 		}
 	}
@@ -36,12 +40,14 @@ AltManager.columns_table_test2 = {
 
 
 function AltManager:CreateOptions()
-	local CreateOptionsRecursive = function(options, args)
+	local CreateOptionsRecursive
+	CreateOptionsRecursive = function(options, args)
 		local i = 0
 		for category, infos in pairs(args) do
 			i = i + 0.1
 			if infos.toggle then
 				options[category .. "_toggle"] = {
+					order = i,
 					name = infos.name,
 					type = "toggle"
 				}
@@ -52,10 +58,11 @@ function AltManager:CreateOptions()
 					order = i + 0.05,
 					name = infos.name,
 					type = "group",
+					childGroups = infos.childGroups,
 					args = {}
 				}
 
-				CreateOptionsRecursive(options[category .. "_group"], infos.args)
+				CreateOptionsRecursive(options[category .. "_group"].args, infos.args)
 			end
 		end
 	end
@@ -63,6 +70,7 @@ function AltManager:CreateOptions()
 	local options = {
 		type = "group",
 		name = addonName,
+		childGroups = "tab",
 		get  = function(info) 
 			if #info > 1 then
 				return AltManager.db.global.options[info[#info-1]][info[#info]].enabled
@@ -82,15 +90,15 @@ function AltManager:CreateOptions()
 		}
 	}
 
-	CreateOptionsRecursive(options)
+	CreateOptionsRecursive(options.args, AltManager.columns_table_test2)
+
+	if ViragDevTool_AddData then ViragDevTool_AddData(options) end
+	return options
 end
 
 local function test_new_options()
 	AceConfigDialog:Open(addonName)
-
-	for column_iden, column in AltManager.spairs(AltManager.columns_table_test.args, function(t, a, b) return t[a].order < t[b].order end) do
-	end
 end
 
-AceConfigRegistry:RegisterOptionsTable(addonName, AltManager.columns_table_test, true)
+AceConfigRegistry:RegisterOptionsTable(addonName, AltManager:CreateOptions(), true)
 AltManager:RegisterChatCommand('abcdefg', test_new_options)
