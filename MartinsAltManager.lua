@@ -14,7 +14,7 @@ local AltManagerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("MartinsAltMana
 				AltManager:ShowInterface()
 			end
 		elseif button == "RightButton" then
-			AltManager:ShowOptions()
+			AltManager:OpenOptions()
 		end
 	end,
 	OnTooltipShow = function(tt)
@@ -31,7 +31,7 @@ local LibQTip = LibStub("LibQTip-1.0")
 
 local sizey = 200;
 local per_alt_x = 120;
-local min_x_size = 360;
+local min_x_size = 240;
 local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel());
 local locale = GetLocale()
 
@@ -48,22 +48,21 @@ local defaultDB = {
 		data = {},
 		alts = 0,
 		options = {
-			['**'] = {
-				['**'] = {
-					enabled = true,
-				},
+			daily = true,
+			weekly = true,
+			reputation = true,
+			raid = true,
+			sanctum = true,
+			general = true,
+			savePosition = false,
+			defaultCategories = {['**'] = {['**'] = true}},
+			customCategories = {
+				general = {name = 1, ilevel = 2, childs = {"name", "ilevel"}},
+				['**'] = {childs = {}}
 			},
-			daily_unroll = {
-				conductor = {
-					enabled = false,
-				},
-				sanctum = {
-					enabled = false,
-				},
-				['**'] = {
-					enabled = true,
-				}
-			}
+		},
+		customCategories = {
+			general = {name = "General", order = 0, hideToggle = true}
 		},
 		currentCallings = {},
 		position = {},
@@ -74,6 +73,7 @@ local defaultDB = {
 function AltManager:OnInitialize()
   -- init databroker
 	self.db = LibStub("AceDB-3.0"):New("MartinsAltManagerDB", defaultDB, true);
+	self:LoadOptions()
 
   	icon:Register("MartinsAltManager", AltManagerLDB, self.db.profile.minimap)
   	AltManager:RegisterChatCommand('mam', 'HandleChatCommand')
@@ -90,7 +90,7 @@ function AltManager:OnInitialize()
 	main_frame.scan_tooltip = CreateFrame('GameTooltip', 'DepletedTooltipScan', UIParent, 'GameTooltipTemplate');
 	
 	main_frame:ClearAllPoints();
-  	if self.db.global.options["savePosition"].enabled then
+  	if self.db.global.options["savePosition"] then
 		local position = self.db.global.position
 		main_frame:SetPoint(position.point or "TOP", WorldFrame, position.relativePoint or "TOP", position.xOffset or 0, position.yOffset or -300);
 	else
@@ -126,11 +126,11 @@ function AltManager:OnInitialize()
 		if AltManager.addon_loaded then
 			if event == "QUEST_TURNED_IN" then
 				AltManager:UpdateQuest(...)
-				AltManager:UpdateTorghast()
 			elseif event == "COVENANT_CALLINGS_UPDATED" then
 				AltManager:UpdateCallings(...)
 			elseif event == "CURRENCY_DISPLAY_UPDATE" then
 				AltManager:UpdateCurrency(...)
+				AltManager:UpdateTorghast()
 			elseif (event == "BAG_UPDATE_DELAYED" or event == "LFG_COMPLETION_REWARD" or event == "UPDATE_BATTLEFIELD_STATUS") then
 				AltManager:CollectData();
 			elseif event == "UPDATE_FACTION" then
@@ -404,13 +404,6 @@ function AltManager:OnLogin()
 	self:CreateMenu(alts);
 	self:MakeTopBottomTextures(self.main_frame);
 	self:MakeBorder(self.main_frame, 5);
-
-	self:CreateMainOptions()
-	for unroll, info in self.spairs(self.columns_table, function(t, a, b) return t[a].order < t[b].order end) do
-		if info.data == "unroll" then
-			self:CreateOptions(info.unroll_name, unroll)
-		end
-	end
 end
 
 function AltManager:CreateFontFrame(parent, x_size, height, relative_to, y_offset, label, justify, x_offset, option)
@@ -746,6 +739,8 @@ function AltManager:CollectData()
 	char_table.daily = self:GetNextDailyResetTime()
 end
 
+
+
 function AltManager:PopulateStrings()
 	local font_height = 20;
 	local db = self.db.global;
@@ -754,7 +749,7 @@ function AltManager:PopulateStrings()
 	
 	self.main_frame.alt_columns = self.main_frame.alt_columns or {};
 	
-	local options = self.db.global.options
+	local options = self.db.global.custom and self.db.global.options.customCategories.general or self.db.global.options.defaultCategories.general
 	local alt = 0
 	for alt_guid, alt_data in self.spairs(db.data, function(t, a, b)  return (t[a].ilevel or 0) > (t[b].ilevel or 0) end) do
 		if not self.db.global.blacklist[alt_guid] then
@@ -764,18 +759,26 @@ function AltManager:PopulateStrings()
 			if not self.main_frame.alt_columns[alt] then
 				self.main_frame.alt_columns[alt] = anchor_frame;
 			end
-			anchor_frame:SetPoint("TOPLEFT", self.main_frame, "TOPLEFT", per_alt_x * alt, -1);
+			anchor_frame:SetPoint("TOPLEFT", self.main_frame.label_column, "TOPLEFT", per_alt_x * alt, -1);
 			anchor_frame:SetSize(per_alt_x, font_height);
 			-- init table for fontstring storage
 			self.main_frame.alt_columns[alt].label_columns = self.main_frame.alt_columns[alt].label_columns or {};
 			local label_columns = self.main_frame.alt_columns[alt].label_columns;
 			-- create / fill fontstrings
 			local i = 1;
-			for column_iden, column in self.spairs(self.columns_table, function(t, a, b) return t[a].order < t[b].order end) do
+			local columns = (self.db.global.custom and self.db.global.options.customCategories.general) or self.db.global.defaultCategories.general
+			for j, column_iden in ipairs(columns.childs) do
 				-- only display data with values
-				if type(column.data) == "function" and column.enabled and column.enabled(options, column_iden) then
+				local column = self.columns[column_iden]
+				if column and type(column.data) == "function" and options[column_iden] then
 					local current_row = label_columns[column_iden] or self:CreateFontFrame(self.main_frame, per_alt_x, column.font_height or font_height, anchor_frame, -(i - 1) * font_height, column.data(alt_data), "CENTER", nil, column.option);
-					current_row:SetPoint("TOPLEFT", anchor_frame, "TOPLEFT", per_alt_x, -(i - 1) * font_height);
+					current_row:SetPoint("TOPLEFT", anchor_frame, "TOPLEFT", 0, -(i - 1) * font_height);
+					current_row:Show()
+
+					if current_row.texture then
+						current_row.texture:Show()
+					end
+
 					-- insert it into storage if just created
 					if not self.main_frame.alt_columns[alt].label_columns[column_iden] then
 						self.main_frame.alt_columns[alt].label_columns[column_iden] = current_row;
@@ -799,8 +802,11 @@ function AltManager:PopulateStrings()
 						current_row:GetFontString():SetJustifyV(column.justify);
 					end
 					i = i + 1
-				elseif self.main_frame.alt_columns[alt].label_columns[column_iden] then
-					local row = self.main_frame.alt_columns[alt].label_columns[column_iden]
+				end
+			end
+
+			for column_iden, row in pairs(label_columns) do
+				if not options[column_iden] then
 					if row.texture then
 						row.texture:Hide()
 					end
@@ -809,21 +815,15 @@ function AltManager:PopulateStrings()
 			end
 		end
 	end
-	
 end
 
-function AltManager:Unroll(button, my_rows, default_state, name, option, icon)
+function AltManager:Unroll(button, my_rows, default_state, name, category)
 	self.unroll_state = self.unroll_state or {}
 	self.unroll_state[name] = self.unroll_state[name] or {}
 	local lu = self.unroll_state[name]
 	lu.state = default_state or lu.state or "closed";
 	lu.icon = lu.icon or icon
 
-	--frame.bottomPanel:SetColorTexture(0, 0, 0, 0.85);
-	--frame.bottomPanel:ClearAllPoints();
-	--frame.bottomPanel:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 0, 0);
-	--frame.bottomPanel:SetSize(frame:GetWidth(), 30);
-	--frame.bottomPanel:SetDrawLayer("ARTWORK", 7);
 	lu.unroll_frame = lu.unroll_frame or CreateFrame("Button", nil, self.main_frame);
 	lu.unroll_frame:SetPoint("TOPLEFT",self.main_frame, "TOPLEFT", per_alt_x, self.main_frame.lowest_point - 30);
 
@@ -834,22 +834,27 @@ function AltManager:Unroll(button, my_rows, default_state, name, option, icon)
 		-- create the rows for the unroll
 		lu.labels = lu.labels or {}
 		local numRows = 0
-		local prev_identifier
-		for row_identifier, row, next_identifier in self.spairs(my_rows, function(t, a, b) return t[a].order < t[b].order end) do
-			if row.enabled and row.enabled(option, row_identifier) then
+		local options = self.db.global.custom and self.db.global.options.customCategories[category] or self.db.global.options.defaultCategories[category]
+		for i, row_identifier in ipairs(my_rows) do
+			if options[row_identifier] then
+				local row = self.columns[row_identifier]
 				if row.label then
 					-- parent, 			x_size,    height, 	    relative_to,     y_offset,           label,          justify, x_offset, option
-					local label_row = lu.labels[row_identifier] or self:CreateFontFrame(lu.unroll_frame, per_alt_x, font_height, lu.unroll_frame, -(numRows*font_height), row.label, "RIGHT", 0);
+					local label_row = lu.labels[row_identifier] or self:CreateFontFrame(lu.unroll_frame, per_alt_x, font_height, lu.unroll_frame, -(numRows*font_height), row.label, "RIGHT", 0)
+					label_row:Show()
 					label_row:SetPoint("TOPLEFT", lu.unroll_frame, "TOPLEFT", 0, -(numRows*font_height));
 					lu.labels[row_identifier] = label_row
 				else
 					lu.labels[row_identifier] = true
 				end
 				numRows = numRows + 1
-				prev_identifier = row_identifier
-			elseif lu.labels[row_identifier] then
-				lu.labels[row_identifier]:Hide()
-				lu.labels[row_identifier] = nil
+			end
+		end
+
+		for row_iden, label in pairs(lu.labels) do
+			if not options[row_iden] then
+				label:Hide()
+				lu.labels[row_iden] = nil
 			end
 		end
 					
@@ -874,9 +879,11 @@ function AltManager:Unroll(button, my_rows, default_state, name, option, icon)
 				local label_columns = lu.alt_columns[alt].label_columns;
 				-- create / fill fontstrings
 				local i = 1;
-				for column_iden, column in self.spairs(my_rows, function(t, a, b) return t[a].order < t[b].order end) do
+				for j, column_iden in ipairs(my_rows) do
 					if lu.labels[column_iden] then
+						local column = self.columns[column_iden]
 						local current_row = label_columns[column_iden] or self:CreateFontFrame(lu.unroll_frame, per_alt_x, column.font_height or font_height, anchor_frame, (-(i - 1) * font_height), column.data(alt_data), "CENTER", 0);
+						current_row:Show()
 						current_row:SetPoint("TOPLEFT", anchor_frame, "TOPLEFT", 0, (-(i - 1) * font_height));
 
 						if column.tooltip then
@@ -890,8 +897,12 @@ function AltManager:Unroll(button, my_rows, default_state, name, option, icon)
 
 						current_row:SetText(column.data(alt_data))
 						i = i + 1
-					elseif lu.alt_columns[alt].label_columns[column_iden] then
-						lu.alt_columns[alt].label_columns[column_iden]:Hide()
+					end
+				end
+
+				for column_iden, label in pairs(lu.alt_columns[alt].label_columns) do
+					if not lu.labels[column_iden] then
+						label:Hide()
 					end
 				end
 			end
@@ -912,25 +923,19 @@ function AltManager:Unroll(button, my_rows, default_state, name, option, icon)
 			lu.unroll_frame.unroll_texture:Show()
 
 			local beforeTop = self.main_frame:GetTop()
-			self.main_frame:SetSize(max((alt+2) * per_alt_x, min_x_size), self.main_frame.height + (numRows * font_height) + 30);
-			self.main_frame.background:SetAllPoints();
+			self.main_frame:SetHeight(self.main_frame.height + (numRows * font_height) + 30)
+			self.main_frame.background:SetAllPoints()
 
-			if not icon then
-				button:SetText(name .. " <<");
-			else
-				button:SetText(icon)
-				button:SetNormalTexture("Interface\\AddOns\\MartinsAltManager\\textures\\normalTexture.blp")
-			end
-			
-			--self.main_frame:SetPoint("CENTER", WorldFrame, "CENTER", xoffset, yoffset);
-			lu.state = "open";
+			button:SetText(name .. " <<")
+
+			lu.state = "open"
 		end
 	else
-		self:RollUp(button, name, icon)	
+		self:RollUp(button, name)	
 	end
 end
 
-function AltManager:RollUp(button, name, icon)
+function AltManager:RollUp(button, name)
 	local db = self.db.global
 	self.main_frame:SetSize(max((db.alts + 2) * per_alt_x, min_x_size), self.main_frame.height);
 	self.main_frame.background:SetAllPoints();
@@ -940,40 +945,89 @@ function AltManager:RollUp(button, name, icon)
 		self.unroll_state[name].unroll_frame.unroll_texture:Hide()
 	end
 
-	if not icon then
-		self.main_frame.unroll_buttons[name]:SetText(name .. " >");
-	else
-		self.main_frame.unroll_buttons[name]:SetNormalTexture("")
-	end
+	self.main_frame.unroll_buttons[name]:SetText(name .. " >");
 	self.unroll_state[name].state = "closed";
 end
 
 function AltManager:UpdateMenu()
 	local alts = self.db.global.alts
 	if not self.main_frame.label_column then self:CreateMenu(alts) end
+	local moveLabel = self.db.global.custom and AltManager.numCustomCategories > 0 or not self.db.global.custom and true
+	self.main_frame.label_column:SetPoint("TOPLEFT", self.main_frame, "TOPLEFT", (moveLabel and per_alt_x) or 0, 0);
 
 	local i = 0
 	local font_height = 20
-	local options = self.db.global.options
+	
 	local label_column = self.main_frame.label_column
+	local options = self.db.global.custom and self.db.global.options.customCategories.general or self.db.global.options.defaultCategories.general
+	local general = self.db.global.custom and self.db.global.options.customCategories.general.childs or self.db.global.defaultCategories.general.childs
 
-	for row_iden, row in self.spairs(self.columns_table, function(t, a, b) return t[a].order < t[b].order end) do
-		if options[row_iden] and options[row_iden].enabled then
+	for j, row_iden in ipairs(general) do
+		if options[row_iden] then
+			local row = self.columns[row_iden]
 			if row.label then
 				-- parent, x_size, height, relative_to, y_offset, label, justify, x_offset, option
-				local label_row = self.main_frame.label_rows[row_iden] or self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0);
-				label_row:SetPoint("TOPLEFT", label_column, "TOPLEFT", 0, -i*font_height);
+				local label_row = self.main_frame.label_rows[row_iden] or self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0)
+				self.main_frame.label_rows[row_iden] = label_row
+
+				label_row:SetPoint("TOPLEFT", label_column, "TOPLEFT", 0, -i*font_height)
+				label_row:Show()
+
 				i = i + 1
 			elseif row.fakeLabel then
 				i = i + 1
 			end
-		elseif self.main_frame.label_rows[row_iden] then
-			self.main_frame.label_rows[row_iden]:Hide()
+		end
+	end
+
+	for row_iden, label in pairs(self.main_frame.label_rows) do
+		if not options[row_iden] then
+			label:Hide()
+		end
+	end
+
+	local buttonrows = {}
+	local categories = self.db.global.custom and self.db.global.customCategories or self.db.global.defaultCategories
+	local customCategories = self.db.global.options.customCategories
+	for category, row in self.spairs(categories, function(t, a, b) return t[a].order < t[b].order end) do
+		if category ~= "general" and self.db.global.options[category] then
+			local childs = self.db.global.custom and customCategories[category].childs or row.childs
+			local bp = row.button_pos
+			local order = row.order
+			local w,h = row.w_size or 100, row.h_size or 25
+			-- create a button that will unroll it
+			local unroll_button = self.main_frame.unroll_buttons[row.name] or CreateFrame("Button", addonName .. "UnrollButton" .. category, self.main_frame, "UIPanelButtonTemplate")
+			unroll_button:Show()
+			table.insert(buttonrows,{category, row, unroll_button})
+			unroll_button:SetText(row.name .. " >");
+			unroll_button:SetFrameStrata("HIGH");
+			--unroll_button:SetFrameLevel(self.main_frame:GetFrameLevel() - 1);
+			unroll_button:SetSize(w, h);
+			unroll_button:SetPoint("BOTTOMRIGHT", self.main_frame, "TOPLEFT", per_alt_x, -(#buttonrows*h));
+			
+			if row.disable_drawLayer then
+				unroll_button:DisableDrawLayer("BACKGROUND")
+			end
+			
+			unroll_button:SetScript("OnClick", function() 
+				for x,r in ipairs(buttonrows) do
+					local r_i, ro, u_b = r[1], r[2], r[3]
+					if r_i ~= category then
+						AltManager:Unroll(u_b, nil, "open", ro.name, category)
+					end
+				end
+				
+				AltManager:Unroll(unroll_button, childs, nil, row.name, category) 
+			end)
+			self.main_frame.unroll_buttons[row.name] = unroll_button
+		elseif self.main_frame.unroll_buttons[row.name] and not self.db.global.options[category] then
+			self.main_frame.unroll_buttons[row.name]:Hide()
 		end
 	end
 
 	self.main_frame.height = max(i*font_height, 130)
-	self.main_frame:SetSize(max((alts + 2) * per_alt_x, min_x_size), self.main_frame.height);
+	local categorySpace = (AltManager.numCustomCategories > 0 or not self.db.global.custom) and 2 or 1
+	self.main_frame:SetSize(max((alts + categorySpace) * per_alt_x, min_x_size), self.main_frame.height);
 	self.main_frame.lowest_point = -self.main_frame.height;
 	self.main_frame.numRows = i
 end
@@ -991,7 +1045,7 @@ function AltManager:CreateMenu(alts)
 	self.main_frame.optionsButton:ClearAllPoints()
 	self.main_frame.optionsButton:SetPoint("RIGHT", self.main_frame.closeButton, "LEFT", 0, 1)
 	self.main_frame.optionsButton:SetScript("OnClick", function()
-		AltManager:ShowOptions()
+		AltManager:OpenOptions()
 	end)
 	self.main_frame.optionsButton:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
@@ -1014,49 +1068,60 @@ function AltManager:CreateMenu(alts)
 	local label_column = self.main_frame.label_column or CreateFrame("Button", nil, self.main_frame);
 	self.main_frame.label_column = self.main_frame.label_column or label_column
 	label_column:SetSize(per_alt_x, sizey);
-	label_column:SetPoint("TOPLEFT", self.main_frame, "TOPLEFT", per_alt_x, 0);
+	label_column:SetPoint("TOPLEFT", self.main_frame, "TOPLEFT", ((AltManager.numCustomCategories > 0) and per_alt_x) or 0, 0);
 
 	local i = 0;
 	local buttonrows = {}
-	local options = self.db.global.options
-	for row_iden, row in self.spairs(self.columns_table, function(t, a, b) return t[a].order < t[b].order end) do
-		if row.enabled and row.enabled(options, row_iden) then
-			if row.label then
-				local label_row = self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0);
-				self.main_frame.label_rows[row_iden] = label_row
-				i = i + 1
-			elseif row.fakeLabel then
-				i = i + 1
-			elseif row.data == "unroll" then
-				local bp = row.button_pos
-				local order = row.order
-				local w,h = row.w_size or 100, row.h_size or 25
-				-- create a button that will unroll it
-				local unroll_button = self.main_frame.unroll_buttons[row.unroll_name] or CreateFrame("Button", addonName .. "UnrollButton" .. i, self.main_frame, "UIPanelButtonTemplate");
-				table.insert(buttonrows,{row_iden, row, unroll_button})
-				unroll_button:SetText(row.name);
-				unroll_button:SetFrameStrata("HIGH");
-				--unroll_button:SetFrameLevel(self.main_frame:GetFrameLevel() - 1);
-				unroll_button:SetSize(w, h);
-				unroll_button:SetPoint("BOTTOMRIGHT", self.main_frame, "TOPLEFT", per_alt_x, -(#buttonrows*h));
-				
-				if row.disable_drawLayer then
-					unroll_button:DisableDrawLayer("BACKGROUND")
+	local customCategories = self.db.global.options.customCategories
+	local options = self.db.global.custom and customCategories.general or self.db.global.options.defaultCategories.general
+	local general = self.db.global.custom and customCategories.general.childs or self.db.global.defaultCategories.general.childs
+	local categories = self.db.global.custom and self.db.global.customCategories or self.db.global.defaultCategories
+
+	for j, row_iden in ipairs(general) do
+		if options[row_iden] then
+			local row = self.columns[row_iden]
+			if row then
+				if row.label then
+					local label_row = self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0);
+					self.main_frame.label_rows[row_iden] = label_row
+					i = i + 1
+				elseif row.fakeLabel then
+					i = i + 1
+				end
+			end
+		end
+	end
+
+	for category, row in self.spairs(categories, function(t, a, b) return t[a].order < t[b].order end) do
+		if category ~= "general" and self.db.global.options[category] then
+			local childs = self.db.global.custom and customCategories[category].childs or row.childs
+			local bp = row.button_pos
+			local order = row.order
+			local w,h = row.w_size or 100, row.h_size or 25
+			-- create a button that will unroll it
+			local unroll_button = self.main_frame.unroll_buttons[row.unroll_name] or CreateFrame("Button", addonName .. "UnrollButton" .. category, self.main_frame, "UIPanelButtonTemplate");
+			table.insert(buttonrows,{category, row, unroll_button})
+			unroll_button:SetText(row.name .. " >");
+			unroll_button:SetFrameStrata("HIGH");
+			--unroll_button:SetFrameLevel(self.main_frame:GetFrameLevel() - 1);
+			unroll_button:SetSize(w, h);
+			unroll_button:SetPoint("BOTTOMRIGHT", self.main_frame, "TOPLEFT", per_alt_x, -(#buttonrows*h));
+			
+			if row.disable_drawLayer then
+				unroll_button:DisableDrawLayer("BACKGROUND")
+			end
+			
+			unroll_button:SetScript("OnClick", function() 
+				for x,r in ipairs(buttonrows) do
+					local r_i, ro, u_b = r[1], r[2], r[3]
+					if r_i ~= category then
+						AltManager:Unroll(u_b, nil, "open", ro.name, category)
+					end
 				end
 				
-				unroll_button:SetScript("OnClick", 
-				function() 
-					for x,r in ipairs(buttonrows) do
-						local r_i, ro, u_b = r[1], r[2], r[3]
-						if r_i ~= row_iden then
-							ro.unroll_function(u_b, nil, "open", row)
-						end
-					end
-					
-					row.unroll_function(unroll_button, row.rows) 
-				end);
-				self.main_frame.unroll_buttons[row.unroll_name] = unroll_button
-			end
+				AltManager:Unroll(unroll_button, childs, nil, row.name, category) 
+			end)
+			self.main_frame.unroll_buttons[row.name] = unroll_button
 		end
 	end
 
@@ -1140,7 +1205,7 @@ function AltManager:HideInterface()
 		end
 	end
 
-	if self.db.global.options["savePosition"].enabled then
+	if self.db.global.options["savePosition"] then
 		local frame = self.main_frame
 		local position = self.db.global.position
 		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset = frame:GetPoint()
@@ -1185,13 +1250,15 @@ function AltManager:MakeTopBottomTextures(frame)
 	end
 	frame.bottomPanel:SetColorTexture(0, 0, 0, 0.85);
 	frame.bottomPanel:ClearAllPoints();
-	frame.bottomPanel:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 0, 0);
-	frame.bottomPanel:SetSize(frame:GetWidth(), 30);
+	frame.bottomPanel:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 0, 0)
+	frame.bottomPanel:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT", 0, 0)
+	frame.bottomPanel:SetHeight(30);
 	frame.bottomPanel:SetDrawLayer("ARTWORK", 7);
 
 	frame.topPanel:ClearAllPoints();
-	frame.topPanel:SetSize(frame:GetWidth(), 30);
-	frame.topPanel:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 0);
+	frame.topPanel:SetHeight(30);
+	frame.topPanel:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 0)
+	frame.topPanel:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", 0, 0)
 
 	frame:SetMovable(true);
 	frame.topPanel:EnableMouse(true);
