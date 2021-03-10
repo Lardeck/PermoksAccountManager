@@ -28,7 +28,6 @@ modules\quests.lua
 modules\torghast.lua
 modules\vault.lua
 
-options.lua
 MartinsAltManager.lua
 db.lua
 testdb.lua
