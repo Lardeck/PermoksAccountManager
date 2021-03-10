@@ -346,6 +346,13 @@ AltManager.columns_table = {
 		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1792) end,
 		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1792], true, true)) or "-" end,
 	},
+	valor = {
+		order = 0.46,
+		label = lCurrency.valor,
+		enabled = function(option, key) return option[key].enabled end,
+		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1191) end,
+		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1191], nil, nil, true)) or "-" end,
+	},
 	contract = {
 		order = 0.5,
 		label = "Contract",
