@@ -764,6 +764,7 @@ local function loadToggleOptions()
 					order = i,
 					type = "input",
 					name = AltManager.columns[child].label,
+					width = "half",
 					validate = function(info, value) return tonumber(value) or "Please insert a number." end,
 					set = function(info, value) 
 						local key = info[#info]
