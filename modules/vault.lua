@@ -10,13 +10,13 @@ function AltManager:UpdateVaultInfo()
 	for i, activityInfo in ipairs(activities) do
 		if activityInfo.type == Enum.WeeklyRewardChestThresholdType.Raid then
 			vaultInfo.Raid = vaultInfo.Raid or {}
-			vaultInfo.Raid[#vaultInfo.Raid + 1] = activityInfo
+			vaultInfo.Raid[activityInfo.index] = activityInfo
 		elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus then
 			vaultInfo.MythicPlus = vaultInfo.MythicPlus or {}
-			vaultInfo.MythicPlus[#vaultInfo.MythicPlus + 1] = activityInfo
+			vaultInfo.MythicPlus[activityInfo.index] = activityInfo
 		elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
 			vaultInfo.RankedPvP = vaultInfo.RankedPvP or {}
-			vaultInfo.RankedPvP[#vaultInfo.RankedPvP + 1] = activityInfo
+			vaultInfo.RankedPvP[activityInfo.index] = activityInfo
 		end
 	end
 
