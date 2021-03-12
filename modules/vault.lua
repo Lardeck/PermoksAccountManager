@@ -5,18 +5,27 @@ function AltManager:UpdateVaultInfo()
 	local char_table = self.validateData()
 	if not char_table then return end
 
-	local vaultInfo = {}
+	local vaultInfo = char_table.vaultInfo or {}
 	local activities = C_WeeklyRewards.GetActivities();
 	for i, activityInfo in ipairs(activities) do
 		if activityInfo.type == Enum.WeeklyRewardChestThresholdType.Raid then
 			vaultInfo.Raid = vaultInfo.Raid or {}
-			vaultInfo.Raid[#vaultInfo.Raid + 1] = activityInfo
+
+			if not vaultInfo.Raid[activityInfo.index] or (activityInfo.progress > vaultInfo.Raid[activityInfo.index].progress) then
+				vaultInfo.Raid[activityInfo.index] = activityInfo
+			end
 		elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus then
 			vaultInfo.MythicPlus = vaultInfo.MythicPlus or {}
-			vaultInfo.MythicPlus[#vaultInfo.MythicPlus + 1] = activityInfo
+
+			if not vaultInfo.MythicPlus[activityInfo.index] or (activityInfo.progress > vaultInfo.MythicPlus[activityInfo.index].progress) then
+				vaultInfo.MythicPlus[activityInfo.index] = activityInfo
+			end
 		elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
 			vaultInfo.RankedPvP = vaultInfo.RankedPvP or {}
-			vaultInfo.RankedPvP[#vaultInfo.RankedPvP + 1] = activityInfo
+
+			if not vaultInfo.RankedPvP[activityInfo.index] or (activityInfo.progress > vaultInfo.RankedPvP[activityInfo.index].progress) then
+				vaultInfo.RankedPvP[activityInfo.index] = activityInfo
+			end
 		end
 	end
 
