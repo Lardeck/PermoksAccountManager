@@ -118,6 +118,7 @@ function AltManager:OnInitialize()
 				main_frame:RegisterEvent("UPDATE_UI_WIDGET")
 				main_frame:RegisterEvent("WEEKLY_REWARDS_UPDATE")
 				main_frame:RegisterEvent("COVENANT_SANCTUM_INTERACTION_STARTED")
+				main_frame:RegisterEvent("CHALLENGE_MODE_COMPLETED")
 
 				--UIParentLoadAddOn("Blizzard_CovenantSanctum")
 			end
@@ -139,7 +140,7 @@ function AltManager:OnInitialize()
 				AltManager:UpdateInstanceInfo()
 			elseif event == "UPDATE_UI_WIDGET" then
 				AltManager:UpdateJailerInfo(...)
-			elseif event == "WEEKLY_REWARDS_UPDATE" then
+			elseif event == "WEEKLY_REWARDS_UPDATE" or event == "CHALLENGE_MODE_COMPLETED" then
 				AltManager:UpdateVaultInfo()
 			elseif event == "COVENANT_SANCTUM_INTERACTION_ENDED" then
 				AltManager:UpdateSanctumBuildings()
