@@ -754,7 +754,7 @@ function AltManager:PopulateStrings()
 	
 	self.main_frame.alt_columns = self.main_frame.alt_columns or {};
 	
-	local options = self.db.global.custom and self.db.global.options.customCategories.general or self.db.global.options.defaultCategories.general
+	local options = self.db.global.custom and self.db.global.options.customCategories.general.order or self.db.global.options.defaultCategories.general
 	local alt = 0
 	for alt_guid, alt_data in self.spairs(db.data, function(t, a, b)  return (t[a].ilevel or 0) > (t[b].ilevel or 0) end) do
 		if not self.db.global.blacklist[alt_guid] then
@@ -839,7 +839,7 @@ function AltManager:Unroll(button, my_rows, default_state, name, category)
 		-- create the rows for the unroll
 		lu.labels = lu.labels or {}
 		local numRows = 0
-		local options = self.db.global.custom and self.db.global.options.customCategories[category] or self.db.global.options.defaultCategories[category]
+		local options = self.db.global.custom and self.db.global.options.customCategories[category].order or self.db.global.options.defaultCategories[category]
 		for i, row_identifier in ipairs(my_rows) do
 			if options[row_identifier] then
 				local row = self.columns[row_identifier]
@@ -964,7 +964,7 @@ function AltManager:UpdateMenu()
 	local font_height = 20
 	
 	local label_column = self.main_frame.label_column
-	local options = self.db.global.custom and self.db.global.options.customCategories.general or self.db.global.options.defaultCategories.general
+	local options = self.db.global.custom and self.db.global.options.customCategories.general.order or self.db.global.options.defaultCategories.general
 	local general = self.db.global.custom and self.db.global.options.customCategories.general.childs or self.db.global.defaultCategories.general.childs
 
 	for j, row_iden in ipairs(general) do
@@ -992,10 +992,10 @@ function AltManager:UpdateMenu()
 	end
 
 	local buttonrows = {}
-	local categories = self.db.global.custom and self.db.global.customCategories or self.db.global.defaultCategories
+	local categories = self.db.global.custom and self.db.global.options.customCategories or self.db.global.options.defaultCategories
 	local customCategories = self.db.global.options.customCategories
 	for category, row in self.spairs(categories, function(t, a, b) return t[a].order < t[b].order end) do
-		if category ~= "general" and self.db.global.options[category] then
+		if category ~= "general" and self.db.global.options[category].enabled then
 			local childs = self.db.global.custom and customCategories[category].childs or row.childs
 			local bp = row.button_pos
 			local order = row.order
