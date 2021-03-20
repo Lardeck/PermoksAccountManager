@@ -36,7 +36,8 @@ function AltManager:CreateTorghastString(torghastInfo)
 
 	local torghastString
 	for wingName, completedLayer in pairs(torghastInfo) do
-		torghastString = string.format("%s%d",  torghastString and (torghastString .. " - ") or "", completedLayer)
+		local color = completedLayer and completedLayer == 8 and "00ff00" or "ff000"
+		torghastString = string.format("%s|cff%s%d|r",  torghastString and (torghastString .. " - ") or "", color, completedLayer)
 	end
 
 	return torghastString
