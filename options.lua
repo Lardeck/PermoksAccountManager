@@ -14,7 +14,7 @@ local default_categories = {
 		order = 1,
 		cantDisable = true,
 		name = "General",
-		childs = {"name", "ilevel", "gold", "weekly_key", "keystone", "soul_ash", "stygia", "conquest", "honor", "contract"},
+		childs = {"characterName", "ilevel", "gold", "weekly_key", "keystone", "soul_ash", "stygia", "conquest", "honor", "valor", "contract"},
 	},
 	daily = {
 		order = 2,
