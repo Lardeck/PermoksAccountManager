@@ -363,7 +363,20 @@ AltManager.columns = {
 local function sortCategoryChilds(category)
 	local category = AltManager.db.global.options.customCategories[category]
 	local childs = category.childs
-	table.sort(childs, function(a, b) return category[a] < category[b] end)
+	table.sort(childs, function(a, b) return category.order[a] < category.order[b] end)
+end
+
+local function setCustomOrder(info, value)
+	local key = info[#info]
+	local category = info[#info-1]
+	AltManager.db.global.options.customCategories[category].order[key] = tonumber(value)
+	sortCategoryChilds(category)
+end
+
+local function getCustomOrder(info)
+	local key = info[#info]
+	local category = info[#info-1]
+	return tostring(AltManager.db.global.options.customCategories[category].order[key])
 end
 
 local function setCustomOption(info, value)
@@ -375,34 +388,26 @@ local function setCustomOption(info, value)
 		tDeleteItem(childs, key)
 
 		for i, child in ipairs(childs) do
-			AltManager.db.global.options.customCategories[mainCategory][child] = i
+			AltManager.db.global.options.customCategories[mainCategory].order[child] = i
 		end
 
-		AltManager.db.global.options.customCategories[mainCategory][key] = value
+		AltManager.db.global.options.customCategories[mainCategory].order[key] = nil
 		options.args.custom_order.args[mainCategory].args[key] = nil
 	elseif value and not tContains(childs, key) then
 		tinsert(childs, key)
-		AltManager.db.global.options.customCategories[mainCategory][key] = #childs
+		AltManager.db.global.options.customCategories[mainCategory].order[key] = #childs
 
 		options.args.custom_order.args[mainCategory].args[key] = {
 			order = #childs,
 			type = "input",
 			name = AltManager.columns[key].label,
+			width = "half",
 			validate = function(info, value) return tonumber(value) or "Please insert a number." end,
-			set = function(info, value) 
-				local key = info[#info]
-				local category = info[#info-1]
-				AltManager.db.global.options.customCategories[category][key] = tonumber(value)
-				sortCategoryChilds(category)
-			end,
-			get = function(info)
-				local key = info[#info]
-				local category = info[#info-1]
-				return tostring(AltManager.db.global.options.customCategories[category][key])
-			end,
+			set = setCustomOrder,
+			get = getCustomOrder,
 		}
 	else
-		AltManager.db.global.options.customCategories[mainCategory][key] = value
+		AltManager.db.global.options.customCategories[mainCategory].order[key] = value
 		options.args.custom_order.args[mainCategory].args[key] = nil
 	end
 end
@@ -411,7 +416,7 @@ local function getCustomOption(info)
 	local key = info[#info]
 	local mainCategory = info[#info-2]
 
-	local value = AltManager.db.global.options.customCategories[mainCategory][key]
+	local value = AltManager.db.global.options.customCategories[mainCategory].order[key]
 	return type(value) == "number" or (type(value) == "boolean" and value)
 end
 
@@ -475,53 +480,133 @@ do
 	end
 end
 
+local function createDefaultOptions()
+	for category, info in pairs(default_categories) do
+		if type(AltManager.db.global.options.defaultCategories[category]) == "nil" then
+			AltManager.db.global.options.defaultCategories[category] = true
+		end
+
+		if not info.cantDisable then
+			options.args.categoryToggles.args.default_categories_toggles.args[category] = {
+				order = info.order,
+				type = "toggle",
+				name = info.name,
+			}
+		end
+
+		options.args.default_categories.args[category] = {
+			order = info.order,
+			type = "group",
+			name = info.name,
+			hidden = function(info) return not AltManager.db.global.options[category] end,
+			args = {
+			}
+		}
+
+		for i, child in ipairs(info.childs) do
+			if AltManager.columns[child] and not AltManager.columns[child].hideOption then
+				options.args.default_categories.args[category].args[child] = {
+					order = i,
+					type = "toggle",
+					name = AltManager.columns[child].label,
+				}
+			end
+		end
+	end	
+
+end
+
+local function createCustomOrderOptionsForCategory(category)
+	local categoryOptions = AltManager.db.global.options.customCategories[category]
+	for child, enabled in pairs(categoryOptions.order) do
+		if enabled and type(enabled) == "boolean" and not tContains(categoryOptions.childs, child) then
+			tinsert(categoryOptions.childs, child)
+		end
+	end
+
+	table.sort(categoryOptions.childs, function(a, b) return categoryOptions.order[a] < categoryOptions.order[b] end)
+	for i, child in ipairs(categoryOptions.childs) do
+		if not AltManager.columns[child].hideOption then
+			options.args.custom_order.args[category].args[child] = {
+				order = i,
+				type = "input",
+				name = AltManager.columns[child].label,
+				width = "half",
+				validate = function(info, value) return tonumber(value) or "Please insert a number." end,
+				set = setCustomOrder,
+				get = getCustomOrder,
+			}
+		end
+	end
+end
+
+local function addCustomCategoryOptions(category, name, order)
+	options.args.custom_categories.args[category] = {
+		order = order,
+		type = "group",
+		name = name,
+		hidden = function(info) return not AltManager.db.global.options[category] end,
+		set = setCustomOption,
+		get = getCustomOption,
+		args = customCategoryDefault,
+	}
+
+	options.args.custom_order.args[category] = {
+		order = order,
+		type = "group",
+		name = name,
+		hidden = function(info) return not AltManager.db.global.options[category] end,
+		args = {
+		}
+	}
+end
+
+local function addCustomCategoryToggle(category, name, order)
+	options.args.categoryToggles.args.custom_categories_toggles.args[category] = {
+		order = order,
+		type = "toggle",
+		name = name,
+	}
+end
 
 local function addCustomCategory(category, name)
 	if not custom_categories[category] then
 		AltManager.numCustomCategories = AltManager.numCustomCategories + 1
 		local order = AltManager.numCustomCategories
 
-		custom_categories[category] = {
+		custom_categories[category].info = {
 			order = order,
 			name = name,
 		}
 
-		options.args.categoryToggles.args.custom_categories_toggles.args[category] = {
-			order = order,
-			type = "toggle",
-			name = name,
-		}
-
-		options.args.custom_categories.args[category] = {
-			order = order,
-			type = "group",
-			name = name,
-			hidden = function(info) return not AltManager.db.global.options[category] end,
-			set = setCustomOption,
-			get = getCustomOption,
-			args = customCategoryDefault,
-		}
-
-		options.args.custom_order.args[category] = {
-			order = order,
-			type = "group",
-			name = name,
-			hidden = function(info) return not AltManager.db.global.options[category] end,
-			args = {
-			}
-		}
-
+		addCustomCategoryToggle(category, name, order)
+		addCustomCategoryOptions(category, name, order)
 
 		AltManager.db.global.options[category]  = true
 		selectDifferentTab("custom_categories", category)
 	end
 end
 
-local function loadToggleOptions()
+local function createCustomOptions()
+	AltManager.numCustomCategories = 0
+
+	for category, info in pairs(custom_categories) do
+		if not info.hideToggle then
+			AltManager.numCustomCategories = AltManager.numCustomCategories + 1
+			addCustomCategoryToggle(category, name, order)
+		end
+
+		addCustomCategoryOptions(category, info.name, info.order)
+		createCustomOrderOptionsForCategory(category)
+	end
+end
+
+
+local function loadOptions()
 	AltManager.db.global.defaultCategories = default_categories
 
 	local categoryData = {}
-	custom_categories = AltManager.db.global.customCategories
+	custom_categories = AltManager.db.global.options.customCategories
 
 	options.args.categoryToggles = {
 		order = 1,
@@ -689,104 +774,6 @@ local function loadToggleOptions()
 
 		}
 	}
-
-
-
-	for category, info in pairs(default_categories) do
-		if type(AltManager.db.global.options.defaultCategories[category]) == "nil" then
-			AltManager.db.global.options.defaultCategories[category] = true
-		end
-
-		if not info.cantDisable then
-			options.args.categoryToggles.args.default_categories_toggles.args[category] = {
-				order = info.order,
-				type = "toggle",
-				name = info.name,
-			}
-		end
-
-		options.args.default_categories.args[category] = {
-			order = info.order,
-			type = "group",
-			name = info.name,
-			hidden = function(info) return not AltManager.db.global.options[category] end,
-			args = {
-			}
-		}
-
-		for i, child in ipairs(info.childs) do
-			if AltManager.columns[child] and not AltManager.columns[child].hideOption then
-				options.args.default_categories.args[category].args[child] = {
-					order = i,
-					type = "toggle",
-					name = AltManager.columns[child].label,
-				}
-			end
-		end
-	end
-
-	AltManager.numCustomCategories = 0
-	for category, info in pairs(custom_categories) do
-		if not info.hideToggle then
-			AltManager.numCustomCategories = AltManager.numCustomCategories + 1
-			options.args.categoryToggles.args.custom_categories_toggles.args[category] = {
-				order = info.order,
-				type = "toggle",
-				name = info.name,
-			}
-		end
-
-		options.args.custom_categories.args[category] = {
-			order = info.order,
-			type = "group",
-			name = info.name,
-			hidden = function(info) return not AltManager.db.global.options[category] end,
-			set = setCustomOption,
-			get = getCustomOption,
-			args = customCategoryDefault
-		}
-
-		options.args.custom_order.args[category] = {
-			order = info.order,
-			type = "group",
-			name = info.name,
-			hidden = function(info) return not AltManager.db.global.options[category] end,
-			args = {
-
-			}
-		}
-
-		local categoryOptions = AltManager.db.global.options.customCategories[category]
-		for child, enabled in pairs(categoryOptions) do
-			if enabled and type(enabled) == "boolean" and not tContains(categoryOptions.childs, child) then
-				tinsert(categoryOptions.childs, child)
-			end
-		end
-
-		table.sort(categoryOptions.childs, function(a, b) return categoryOptions[a] < categoryOptions[b] end)
-		for i, child in ipairs(categoryOptions.childs) do
-			if not AltManager.columns[child].hideOption then
-				options.args.custom_order.args[category].args[child] = {
-					order = i,
-					type = "input",
-					name = AltManager.columns[child].label,
-					width = "half",
-					validate = function(info, value) return tonumber(value) or "Please insert a number." end,
-					set = function(info, value) 
-						local key = info[#info]
-						local category = info[#info-1]
-						AltManager.db.global.options.customCategories[category][key] = tonumber(value)
-						sortCategoryChilds(category)
-					end,
-					get = function(info)
-						local key = info[#info]
-						local category = info[#info-1]
-						return tostring(AltManager.db.global.options.customCategories[category][key])
-					end,
-				}
-			end
-		end
-	end
 end
 
 function AltManager.OpenOptions()
@@ -800,7 +787,7 @@ function AltManager:LoadOptions()
 		args = {}
 	}
 
-	loadToggleOptions()
+	loadOptions()
 	AceConfigRegistry:RegisterOptionsTable(addonName, options, true)
 	AltManager:RegisterChatCommand('abcdefg', self.OpenOptions)
 end
