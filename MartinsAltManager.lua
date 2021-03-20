@@ -57,12 +57,15 @@ local defaultDB = {
 			savePosition = false,
 			defaultCategories = {['**'] = {['**'] = true}},
 			customCategories = {
-				general = {name = 1, ilevel = 2, childs = {"name", "ilevel"}},
-				['**'] = {childs = {}}
+				general = {
+					order = {characterName = 1, ilevel = 2}, 
+					childs = {"characterName", "ilevel"}, 
+					info = {name = "General", order = 0}, 
+					hideToggle = true, 
+					name = "General", 
+					enabled = true},
+				['**'] = {order = {}, childs = {}, info = {}, enabled = true}
 			},
-		},
-		customCategories = {
-			general = {name = "General", order = 0, hideToggle = true}
 		},
 		currentCallings = {},
 		position = {},
