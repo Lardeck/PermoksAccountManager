@@ -62,9 +62,10 @@ function AltManager:CreateRaidString(savedInfo)
 	end
 
 	local raidInfo = savedInfo[highestDifficulty]
-	raidString = string.format("%s%s", self:CreateQuestString(raidInfo.defeatedEncounters, raidInfo.numEncounters), raidInfo.difficulty:sub(1,1))
-
-	return raidString
+	if raidInfo then
+		raidString = string.format("%s%s", self:CreateQuestString(raidInfo.defeatedEncounters, raidInfo.numEncounters), raidInfo.difficulty:sub(1,1))
+		return raidString
+	end
 end
 
 function AltManager:DungeonTooltip_OnEnter(button, alt_data)
