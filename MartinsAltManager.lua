@@ -141,6 +141,7 @@ function AltManager:OnInitialize()
 				AltManager:UpdateFactions()
 			elseif event == "UPDATE_INSTANCE_INFO" then
 				AltManager:UpdateInstanceInfo()
+				AltManager:UpdateVaultInfo()
 			elseif event == "UPDATE_UI_WIDGET" then
 				AltManager:UpdateJailerInfo(...)
 			elseif event == "WEEKLY_REWARDS_UPDATE" or event == "CHALLENGE_MODE_COMPLETED" then
