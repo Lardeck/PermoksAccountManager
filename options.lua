@@ -139,6 +139,12 @@ AltManager.columns = {
 		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1792], true, true)) or "-" end,
 		group = "currency",
 	},
+	valor = {
+		label = "Valor",
+		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1191) end,
+		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1191], nil, nil, true)) or "-" end,
+		group = "currency",
+	},
 	contract = {
 		label = "Contract",
 		enabled = function(option, key) return option[key].enabled end,
