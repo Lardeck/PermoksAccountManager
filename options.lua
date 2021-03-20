@@ -77,7 +77,7 @@ AltManager.groups = {
 }
 
 AltManager.columns = {
-	name = {
+	characterName = {
 		order = 0.1,
 		label = "Name",
 		enabled = function() return true end,
