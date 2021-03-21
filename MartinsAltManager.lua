@@ -263,55 +263,6 @@ function AltManager:HandleChatCommand(cmd)
 	end
 end
 
--- Will probably switch to AceDBConfig in an upcoming version
-local function CreateOptionsMenu(frame, panel)
-	local title = panel.title or frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-	panel.title = title
-    title:SetPoint("TOPLEFT", 16, -16)
-    title:SetText(panel.name)
-
-    local savePosition = panel["savePosition"] or CreateFrame("CheckButton", nil, frame, "InterfaceOptionsCheckButtonTemplate")
-    panel["savePosition"] = savePosition
-    savePosition:RegisterForClicks("LeftButtonUp")
-    savePosition:SetChecked(AltManager.db.global.options["savePosition"].enabled)
-    savePosition:SetScript("OnClick", function(button) AltManager.db.global.options["savePosition"].enabled = button:GetChecked() end)
-    savePosition:SetPoint("TOPLEFT", title, "TOPLEFT", 0, -25)
-    savePosition.Text:SetText("Save Position Between Reloads")
-
-    local rows = AltManager.columns_table
-    local numFrames = 0
-    for row_identifier, row in AltManager.spairs(rows, function(t, a, b) return t[a].order < t[b].order end) do
-    	if row.data ~= "unroll" and row.enabled and not row.hideOption then
-	    	local rowOption = panel[row_identifier] or CreateFrame("CheckButton", nil, frame, "InterfaceOptionsCheckButtonTemplate")
-	    	panel[row_identifier] = rowOption
-	    	rowOption:RegisterForClicks("LeftButtonUp")
-	    	rowOption:SetChecked(AltManager.db.global.options[row_identifier].enabled)
-	    	rowOption:SetScript("OnClick", function(button)	AltManager.db.global.options[row_identifier].enabled = button:GetChecked() end)
-
-	    	local numColumn = numFrames % 3
-	    	local numRow = floor(numFrames/3) + 1
-	    	rowOption:SetPoint("TOPLEFT", savePosition, "TOPLEFT", (numColumn * 150), numRow * (-25))
-	    	rowOption.Text:SetText(row.label)
-	    	numFrames = numFrames + 1
-	    end
-    end
-end
-
-function AltManager:CreateMainOptions()
-	local panel = CreateFrame("Frame", addonName .. "ConfigFrame", UIParent)
-	AltManager.panel = panel
-	panel.name = addonName
-	panel:SetScript("OnShow", function(frame) CreateOptionsMenu(frame, panel) end)
-	panel:Hide()
-
-	InterfaceOptions_AddCategory(panel)
-end
-
-function AltManager:ShowOptions()
-	InterfaceOptionsFrame_OpenToCategory(AltManager.panel)
-	InterfaceOptionsFrame_OpenToCategory(AltManager.panel)
-end
-
 -- because of guid...
 function AltManager:OnLogin()
 	self:ValidateReset();
