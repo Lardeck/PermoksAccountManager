@@ -60,3 +60,28 @@ function AltManager:UpdateAllQuests()
 	questInfo.maxMawQuests = C_QuestLog.IsQuestFlaggedCompleted(60284) and 3 or 2
 	char_table.questInfo = questInfo
 end
+
+function AltManager:CreateQuestString(questInfo, numDesired, replaceWithPlus)
+	if not questInfo then return end
+	local numCompleted = 0
+
+	if type(questInfo) == "table" then
+		for questID, questCompleted in pairs(questInfo) do
+			numCompleted = questCompleted and numCompleted + 1 or numCompleted
+		end
+	elseif type(questInfo) == "number" then
+		numCompleted = questInfo
+	end
+
+	local color = (numDesired and numCompleted >= numDesired and "00ff00") or (numCompleted > 0 and "ff9900") or "ffffff"
+
+	if numDesired then
+		if replaceWithPlus and numCompleted >= numDesired then
+			return string.format("|cff%s+|r", color)
+		else
+			return string.format("|cff%s%d|r/%d", color, numCompleted, numDesired)
+		end
+	else
+		return string.format("|cff%s%d|r", color, numCompleted)
+	end
+end

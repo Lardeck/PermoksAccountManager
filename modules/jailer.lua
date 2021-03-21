@@ -14,3 +14,9 @@ function AltManager:UpdateJailerInfo(widgetInfo)
 		char_table.jailerInfo = {stage = stage, threat = barValue - (stage*1000)}
 	end	
 end
+
+function AltManager:CreateJailerString(jailerInfo)
+	if not jailerInfo then return end
+
+	return string.format("Stage %d - %d", jailerInfo.stage, jailerInfo.stage == 5 and 1000 or jailerInfo.threat)
+end
