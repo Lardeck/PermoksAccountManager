@@ -55,16 +55,16 @@ local defaultDB = {
 			sanctum = true,
 			general = true,
 			savePosition = false,
-			defaultCategories = {['**'] = {['**'] = true}},
+			showOptionsButton = true,
 			customCategories = {
 				general = {
-					order = {characterName = 1, ilevel = 2}, 
+					childOrder = {characterName = 0, ilevel = 0.5}, 
 					childs = {"characterName", "ilevel"}, 
-					info = {name = "General", order = 0}, 
+					order = 0, 
 					hideToggle = true, 
 					name = "General", 
 					enabled = true},
-				['**'] = {order = {}, childs = {}, info = {}, enabled = true}
+				['**'] = {childOrder = {}, childs = {}, info = {}, enabled = true}
 			},
 		},
 		currentCallings = {},
@@ -73,12 +73,48 @@ local defaultDB = {
 	},
 }
 
+local altManagerEvents = {
+	"BAG_UPDATE_DELAYED",
+	"CURRENCY_DISPLAY_UPDATE",
+	"COVENANT_CALLINGS_UPDATED",
+	"QUEST_TURNED_IN",
+	"LFG_COMPLETION_REWARD",
+	"UPDATE_BATTLEFIELD_STATUS",
+	"UPDATE_FACTION",
+	"UPDATE_INSTANCE_INFO",
+	"COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED",
+	"UPDATE_UI_WIDGET",
+	"WEEKLY_REWARDS_UPDATE",
+	"COVENANT_SANCTUM_INTERACTION_STARTED",
+	"CHALLENGE_MODE_COMPLETED",
+}
+
+local function spairs(t, order)
+    local keys = {}
+    for k in pairs(t) do keys[#keys+1] = k end
+
+    if order then
+        table.sort(keys, function(a,b) return order(t, a, b) end)
+    else
+        table.sort(keys)
+    end
+
+    local i = 0
+    return function()
+        i = i + 1
+        if keys[i] then
+            return keys[i], t[keys[i]], keys[i+1]
+        end
+    end
+end
+
 function AltManager:OnInitialize()
   -- init databroker
 	self.db = LibStub("AceDB-3.0"):New("MartinsAltManagerDB", defaultDB, true);
 	self:LoadOptions()
+	self.spairs = spairs
 
-  	icon:Register("MartinsAltManager", AltManagerLDB, self.db.profile.minimap)
+  	LibIcon:Register("MartinsAltManager", AltManagerLDB, self.db.profile.minimap)
   	AltManager:RegisterChatCommand('mam', 'HandleChatCommand')
   	AltManager:RegisterChatCommand('alts', 'HandleChatCommand')
 
