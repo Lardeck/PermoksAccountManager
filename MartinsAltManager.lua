@@ -24,7 +24,7 @@ local AltManagerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("MartinsAltMana
 		tt:AddLine("Type '/mam minimap' to hide the Minimap Button!")
 	end
 })
-local icon = LibStub("LibDBIcon-1.0")
+local LibIcon = LibStub("LibDBIcon-1.0")
 local LibQTip = LibStub("LibQTip-1.0")
 
 -- Made by: Qooning - Tarren Mill, 2017
@@ -326,15 +326,15 @@ end
 function AltManager:HandleChatCommand(cmd)
 	local rqst, arg, arg2, arg3 = strsplit(' ', cmd)
 	if rqst == "purge" then
-		AltManager:Purge();
+		AltManager:Purge()
 	elseif rqst == "remove" then
 		AltManager:RemoveCharacterByName(arg, arg2)
 	elseif rqst == "minimap" then
 		self.db.profile.minimap.hide = not self.db.profile.minimap.hide
 		if (self.db.profile.minimap.hide) then
-			icon:Hide("MartinsAltManager")
+			LibIcon:Hide("MartinsAltManager")
 		else
-			icon:Show("MartinsAltManager")
+			LibIcon:Show("MartinsAltManager")
 		end
 	elseif rqst == "blacklist" then
 		AltManager:Blacklist(arg, arg2, arg3)
