@@ -143,23 +143,8 @@ function AltManager:OnInitialize()
 			local isLogin, isReload = ...
 
 			if isLogin or isReload then
-				AltManager:OnLogin();
-
-				main_frame:RegisterEvent("BAG_UPDATE_DELAYED");
-				main_frame:RegisterEvent("CURRENCY_DISPLAY_UPDATE");
-				main_frame:RegisterEvent("COVENANT_CALLINGS_UPDATED")
-				main_frame:RegisterEvent("QUEST_TURNED_IN")
-				main_frame:RegisterEvent("LFG_COMPLETION_REWARD")
-				main_frame:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
-				main_frame:RegisterEvent("UPDATE_FACTION")
-				main_frame:RegisterEvent("UPDATE_INSTANCE_INFO")
-				main_frame:RegisterEvent("COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED")
-				main_frame:RegisterEvent("UPDATE_UI_WIDGET")
-				main_frame:RegisterEvent("WEEKLY_REWARDS_UPDATE")
-				main_frame:RegisterEvent("COVENANT_SANCTUM_INTERACTION_STARTED")
-				main_frame:RegisterEvent("CHALLENGE_MODE_COMPLETED")
-
-				--UIParentLoadAddOn("Blizzard_CovenantSanctum")
+				AltManager:OnLogin()
+				FrameUtil.RegisterFrameForEvents(main_frame, altManagerEvents)
 			end
 		end
 		
