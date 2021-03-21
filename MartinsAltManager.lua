@@ -189,7 +189,7 @@ function AltManager:getGUID()
 	return self.myGUID
 end
 
-local function CreateMoneyButtonNormalTexture (button, iconWidth, buttonWidth)
+local function CreateMoneyButtonNormalTexture(button, iconWidth, buttonWidth)
 	local texture = button:CreateTexture()
 	texture:SetTexture("Interface\\MoneyFrame\\UI-MoneyIcons")
 	texture:SetWidth(iconWidth)
