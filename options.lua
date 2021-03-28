@@ -22,16 +22,17 @@ local default_categories = {
 	daily = {
 		order = 1,
 		name = "Daily",
-		childs = {"callings", "maw_dailies", "eye_of_the_jailer", "sanctum_quests", "conductor"},
-		childOrder = {callings = 1, maw_dailies = 2, eye_of_the_jailer = 3, sanctum_quests = 4, conductor = 5},
+		childs = {"callings", "seperator1", "maw_dailies", "eye_of_the_jailer", "seperator2", "sanctum_quests", "conductor"},
+		childOrder = {callings = 1, seperator1 = 2, maw_dailies = 3, eye_of_the_jailer = 4, seperator2 = 5, sanctum_quests = 6, conductor = 7},
 	},
 	weekly = {
 		order = 2,
 		name = "Weekly",
-		childs = {"great_vault_mplus", "great_vault_raid", "great_vault_pvp", "mythics_done", "dungeon_quests", "pvp_quests",
-			 	  "weekend_event", "world_boss", "anima", "maw_souls", "maw_weekly", "torghast_layer", "wrath", "hunt"},
-		childOrder = {great_vault_mplus = 1, great_vault_raid = 2, great_vault_pvp = 3, mythics_done = 4, dungeon_quests = 5, pvp_quests = 6,
-					  weekend_event = 7, world_boss = 8, anima = 9, maw_souls = 10, maw_weekly = 11, torghast_layer = 12, wrath = 13, hunt = 14}
+		childs = {"great_vault_mplus", "great_vault_raid", "great_vault_pvp", "seperator1", "mythics_done", "dungeon_quests", "pvp_quests",
+			 	  "weekend_event", "seperator2", "world_boss", "anima", "maw_souls", "seperator3", "maw_weekly", "torghast_layer", "seperator4", "wrath", "hunt"},
+		childOrder = {great_vault_mplus = 1, great_vault_raid = 2, great_vault_pvp = 3, seperator1 = 4, mythics_done = 5, dungeon_quests = 6, pvp_quests = 7,
+					  weekend_event = 8, seperator2 = 9, world_boss = 10, anima = 11, maw_souls = 12, seperator3 = 13, maw_weekly = 14, torghast_layer = 15, 
+					  seperator4 = 16, wrath = 17, hunt = 18}
 	},
 	reputation = {
 		order = 3,
@@ -48,8 +49,8 @@ local default_categories = {
 	sanctum = {
 		order = 5,
 		name = "Sanctum",
-		childs = {"reservoir_anima", "renown", "redeemed_soul", "transport_network", "anima_conductor", "command_table", "sanctum_unique"},
-		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, transport_network = 4, anima_conductor = 5, command_table = 6, sanctum_unique = 7}
+		childs = {"reservoir_anima", "renown", "redeemed_soul", "seperator1", "transport_network", "anima_conductor", "command_table", "sanctum_unique"},
+		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, seperator1 = 4, transport_network = 5, anima_conductor = 6, command_table = 7, sanctum_unique = 8}
 	},
 }
 
