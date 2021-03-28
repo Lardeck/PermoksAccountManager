@@ -13,20 +13,20 @@ local lCurrency = {}
 local custom_categories
 local default_categories = {
 	general = {
-		order = 1,
+		order = 0,
 		name = "General",
 		childs = {"characterName", "ilevel", "gold", "weekly_key", "keystone", "soul_ash", "stygia", "conquest", "honor", "valor", "contract"},
 		childOrder = {characterName = 1, ilevel = 2, gold = 3, weekly_key = 4, keystone = 5, soul_ash = 6, stygia = 7, conquest = 8, honor = 9, valor = 10, contract = 11},
 		hideToggle = true,
 	},
 	daily = {
-		order = 2,
+		order = 1,
 		name = "Daily",
 		childs = {"callings", "maw_dailies", "eye_of_the_jailer", "sanctum_quests", "conductor"},
 		childOrder = {callings = 1, maw_dailies = 2, eye_of_the_jailer = 3, sanctum_quests = 4, conductor = 5},
 	},
 	weekly = {
-		order = 3,
+		order = 2,
 		name = "Weekly",
 		childs = {"great_vault_mplus", "great_vault_raid", "great_vault_pvp", "mythics_done", "dungeon_quests", "pvp_quests",
 			 	  "weekend_event", "world_boss", "anima", "maw_souls", "maw_weekly", "torghast_layer", "wrath", "hunt"},
@@ -34,19 +34,19 @@ local default_categories = {
 					  weekend_event = 7, world_boss = 8, anima = 9, maw_souls = 10, maw_weekly = 11, torghast_layer = 12, wrath = 13, hunt = 14}
 	},
 	reputation = {
-		order = 4,
+		order = 3,
 		name = "Reputation",
 		childs = {"venari", "ascended", "wild_hunt", "undying_army", "court_of_harvesters"},
 		childOrder = {venari = 1, ascended = 2, wild_hunt = 3, undying_army = 4, court_of_harvesters = 5},
 	},
 	raid = {
-		order = 5,
+		order = 4,
 		name = "Raid",
 		childs = {"nathria"},
 		childOrder = {nathria = 1}
 	},
 	sanctum = {
-		order = 6,
+		order = 5,
 		name = "Sanctum",
 		childs = {"reservoir_anima", "renown", "redeemed_soul", "transport_network", "anima_conductor", "command_table", "sanctum_unique"},
 		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, transport_network = 4, anima_conductor = 5, command_table = 6, sanctum_unique = 7}
