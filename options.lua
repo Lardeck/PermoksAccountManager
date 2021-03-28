@@ -934,7 +934,7 @@ do
 		end
 	end
 
-	local groupOrder = {"currency", "resetDaily", "resetWeekly", "vault", "torghast", "dungeons", "raids", "reputation", "buff", "sanctum"}
+	local groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "vault", "torghast", "dungeons", "raids", "reputation", "buff", "sanctum"}
 	for i, group in ipairs(groupOrder) do
 		customCategoryDefault[group] = {
 			order = i,
@@ -947,7 +947,7 @@ do
 		for j, child in ipairs(default_category_childs[group]) do
 			customCategoryDefault[group].args[child] = {
 				type = "toggle",
-				name = AltManager.columns[child].label,
+				name = AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
 			}
 		end
 	end
