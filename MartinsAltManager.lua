@@ -674,7 +674,13 @@ function AltManager:PopulateStrings()
 					end
 
 					if column.tooltip then
-						current_row:SetScript("OnEnter", function(self) column.tooltip(self, alt_data) end)
+						current_row:SetScript("OnEnter", function(self) 
+							if self.tooltip then
+								LibQTip:Release(self.tooltip)
+								self.tooltip = nil
+							end
+							column.tooltip(self, alt_data) 
+						end)
 						current_row:SetScript("OnLeave", Tooltip_OnLeave)
 					end
 
