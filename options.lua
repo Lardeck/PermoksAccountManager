@@ -620,7 +620,7 @@ local function createDefaultOptions()
 				args[child] = {
 					order = i,
 					type = "toggle",
-					name = AltManager.columns[child].label,
+					name = AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
 				}
 			end
 		end
