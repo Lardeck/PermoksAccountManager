@@ -910,7 +910,7 @@ function AltManager:UpdateMenu()
 		end
 	end
 
-	self.main_frame.height = max(i*font_height, 130)
+	self.main_frame.height = max(i*font_height, max(0,(self.numCategories-2)*30))
 	self.main_frame:SetSize(max((alts + 1) * per_alt_x, min_x_size), self.main_frame.height);
 	self.main_frame.lowest_point = -self.main_frame.height;
 	self.main_frame.numRows = i
@@ -1004,7 +1004,7 @@ function AltManager:CreateMenu(alts)
 		end
 	end
 
-	self.main_frame.height = i*font_height
+	self.main_frame.height = max(i*font_height, max(0,(self.numCategories-2)*30))
 	self.main_frame:SetSize(max((alts + 1) * per_alt_x, min_x_size), self.main_frame.height);
 	self.main_frame.lowest_point = -self.main_frame.height;
 	self.main_frame.numRows = i
