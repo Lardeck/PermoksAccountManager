@@ -110,13 +110,19 @@ end
 
 function AltManager:OnInitialize()
   -- init databroker
-	self.db = LibStub("AceDB-3.0"):New("MartinsAltManagerDB", defaultDB, true);
-	self:LoadOptions()
+	self.db = LibStub("AceDB-3.0"):New("MartinsAltManagerDB", defaultDB, true)
+	AltManager:RegisterChatCommand('mam', 'HandleChatCommand')
+  	AltManager:RegisterChatCommand('alts', 'HandleChatCommand')
+
+	local optionsLoaded = pcall(self.LoadOptions)
+	if not optionsLoaded then
+		BasicMessageDialog.Text:SetText("You need to purge your alt manager!")
+		BasicMessageDialog:Show()
+	end
+
 	self.spairs = spairs
 
   	LibIcon:Register("MartinsAltManager", AltManagerLDB, self.db.profile.minimap)
-  	AltManager:RegisterChatCommand('mam', 'HandleChatCommand')
-  	AltManager:RegisterChatCommand('alts', 'HandleChatCommand')
 
 	local main_frame = CreateFrame("frame", "AltManagerFrame", UIParent);
 	AltManager.main_frame = main_frame;
@@ -436,8 +442,8 @@ function AltManager:ValidateReset()
 end
 
 function AltManager:Purge()
-	MartinsAltManagerDB = nil
 	self.db = self.db:ResetDB()
+
 	print("[|cfff49b42MartinsAltManager|r] Please reload your interface to update the displayed info.")
 end
 

@@ -899,7 +899,6 @@ end
 
 function AltManager:LoadOptions()
 	AltManager.numCategories = 0
-
 	if type(AltManager.db.global.options.defaultCategories) == "nil" then
 		AltManager.db.global.options.defaultCategories = default_categories
 	end
@@ -916,14 +915,13 @@ function AltManager:LoadOptions()
 	local numDefaultCategories = createDefaultOptions()
 	local numCustomCategories = createCustomOptions()
 
-	if self.db.global.custom then
+	if AltManager.db.global.custom then
 		AltManager.numCategories = numCustomCategories
 	else
 		AltManager.numCategories = numDefaultCategories
 	end
 
 	AceConfigRegistry:RegisterOptionsTable(addonName, options, true)
-	AltManager:RegisterChatCommand('abcdefg', self.OpenOptions)
 end
 
 do
