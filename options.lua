@@ -534,6 +534,21 @@ local function addCustomCategory(category, name)
 end
 
 local function createOrderOptionsForCategory(categoryOptions, optionsTable, category)
+	if not categoryOptions.hideToggle then
+		options.args.order.args[optionsTable .. "Order"].args[category] = {
+			order = categoryOptions.order,
+			type = "input",
+			name = categoryOptions.name,
+			width = "half",
+			validate = function(info, value) 
+				local newOrder = tonumber(value) 
+				return (not newOrder and "Please insert a number.") or (newOrder <= 0 and "Please insert a number greater than 0") or true end,
+			set = setCategoryOrder,
+			get = getCategoryOrder,
+		}
+	end
+
+
 	table.sort(categoryOptions.childs, function(a, b) return categoryOptions.childOrder[a] < categoryOptions.childOrder[b] end)
 	for i, child in ipairs(categoryOptions.childs) do
 		options.args.order.args[optionsTable].args[category].args[child] = {
@@ -808,17 +823,31 @@ local function loadOptionsTemplate()
 				name = "Default",
 				childGroups = "tab",
 				args = {
-
+				}
+			},
+			defaultCategoriesOrder = {
+				order = 2,
+				type = "group",
+				name = "Default",
+				inline = true,
+				args = {
 				}
 			},
 			customCategories = {
-				order = 2,
+				order = 3,
 				type = "group",
 				name = "Custom",
 				childGroups = "tab",
 				args = {
-
 				},
+			},
+			customCategoriesOrder = {
+				order = 4,
+				type = "group",
+				name = "Custom",
+				inline = true,
+				args = {
+				}
 			},
 		}
 	}
