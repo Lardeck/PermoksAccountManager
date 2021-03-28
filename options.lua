@@ -84,7 +84,10 @@ AltManager.groups = {
 	},
 	sanctum = {
 		label = "Sanctum",
-	}
+	},
+	separator = {
+		label = "Separator",
+	},
 }
 
 AltManager.columns = {
