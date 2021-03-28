@@ -577,7 +577,7 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
 		options.args.order.args[optionsTable].args[category].args[child] = {
 			order = i,
 			type = "input",
-			name = AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
+			name =  AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
 			width = "half",
 			validate = function(info, value) return tonumber(value) or "Please insert a number." end,
 			set = setOrder,
@@ -586,7 +586,24 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
 	end
 end
 
+local function addCustomCategory(category, name)
+	if not custom_categories[category].name then
+		if AltManager.db.global.custom then
+			AltManager.numCategories = AltManager.numCategories + 1
+		end
+		local order = AltManager.numCategories
 
+		custom_categories[category].order = order
+		custom_categories[category].name = name
+
+		addCategoryToggle("custom_categories_toggles", category, name, order)
+		addCategoryOptions("customCategories", nil, category, name, order)
+		createOrderOptionsForCategory(AltManager.db.global.options.customCategories[category], "customCategories", category)
+
+		AltManager.db.global.options[category]  = true
+		selectDifferentTab("customCategories", category)
+	end
+end
 
 local function createDefaultOptions()
 	local numCategories = 0
