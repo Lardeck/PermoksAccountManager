@@ -11,7 +11,7 @@ function AltManager:UpdateAllCurrencies()
 		local info = C_CurrencyInfo.GetCurrencyInfo(currencyType)
 		currencyInfo[currencyType] = (type(char_table.currencyInfo[currencyType]) == "table" and char_table.currencyInfo[currencyType]) or {name = info.name}
 
-		if currencyType ~= 1602 and info.maxQuantity > 0 and info.quantity > info.maxQuantity then
+		if currencyType ~= 1810 and info.maxQuantity > 0 and info.quantity > info.maxQuantity then
 			info.quantity = info.quantity / 100
 		end			
 
