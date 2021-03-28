@@ -331,6 +331,36 @@ AltManager.columns = {
 		label = "Unique",
 		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[5] and alt_data.sanctumInfo[5].tier) or "-" end,
 		group = "sanctum",
+	},
+	separator1 = {
+		fakeLabel = "Separator1",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator2 = {
+		fakeLabel = "Separator2",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator3 = {
+		fakeLabel = "Separator3",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator4 = {
+		fakeLabel = "Separator4",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator5 = {
+		fakeLabel = "Separator5",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator6 = {
+		fakeLabel = "Separator6",
+		data = function() return "" end,
+		group = "separator",
 	}
 }
 
