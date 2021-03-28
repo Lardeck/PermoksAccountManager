@@ -762,7 +762,7 @@ local function loadOptionsTemplate()
 						order = 0,
 						type = "execute",
 						name = "Purge",
-						func = function() AltManager:Purge() end,
+						func = function() AltManager:Purge() ReloadUI() end,
 						confirm = true,
 						confirmText = "Are you sure?",
 					}
