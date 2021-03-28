@@ -1,6 +1,18 @@
 local addonName, AltManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
 
+local function valueChanged(oldTable, newTable, key, checkUneven)
+	if not oldTable or not newTable or not key then return false end
+	if not oldTable[key] or not newTable[key] then return false end
+
+	if checkUneven then
+		return newTable[key] ~= oldTable[key]
+	else
+		return newTable[key] > oldTable[key]
+	end
+end
+
+
 function AltManager:UpdateVaultInfo()
 	local char_table = self.validateData()
 	if not char_table then return end
@@ -10,20 +22,26 @@ function AltManager:UpdateVaultInfo()
 	for i, activityInfo in ipairs(activities) do
 		if activityInfo.type == Enum.WeeklyRewardChestThresholdType.Raid then
 			vaultInfo.Raid = vaultInfo.Raid or {}
+			local progressChanged = valueChanged(vaultInfo.Raid[activityInfo.index], activityInfo, "progress")
+			local levelChanged = valueChanged(vaultInfo.Raid[activityInfo.index], activityInfo, "level", true)
 
-			if not vaultInfo.Raid[activityInfo.index] or (activityInfo.progress > vaultInfo.Raid[activityInfo.index].progress) then
+			if not vaultInfo.Raid[activityInfo.index] or progressChanged or levelChanged then
 				vaultInfo.Raid[activityInfo.index] = activityInfo
 			end
 		elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus then
 			vaultInfo.MythicPlus = vaultInfo.MythicPlus or {}
+			local progressChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, "progress")
+			local levelChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, "level", true)
 
-			if not vaultInfo.MythicPlus[activityInfo.index] or (activityInfo.progress > vaultInfo.MythicPlus[activityInfo.index].progress) then
+			if not vaultInfo.MythicPlus[activityInfo.index] or progressChanged or levelChanged then
 				vaultInfo.MythicPlus[activityInfo.index] = activityInfo
 			end
 		elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
 			vaultInfo.RankedPvP = vaultInfo.RankedPvP or {}
+			local progressChanged = valueChanged(vaultInfo.RankedPvP[activityInfo.index], activityInfo, "progress")
+			local levelChanged = valueChanged(vaultInfo.RankedPvP[activityInfo.index], activityInfo, "level", true)
 
-			if not vaultInfo.RankedPvP[activityInfo.index] or (activityInfo.progress > vaultInfo.RankedPvP[activityInfo.index].progress) then
+			if not vaultInfo.RankedPvP[activityInfo.index] or progressChanged or levelChanged then
 				vaultInfo.RankedPvP[activityInfo.index] = activityInfo
 			end
 		end
