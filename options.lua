@@ -554,23 +554,7 @@ local function addCategoryOptions(optionsTable, args, category, name, order)
 	}
 end
 
-local function addCustomCategory(category, name)
-	if not custom_categories[category].name then
-		if AltManager.db.global.custom then
-			AltManager.numCategories = AltManager.numCategories + 1
-		end
-		local order = AltManager.numCategories
 
-		custom_categories[category].order = order
-		custom_categories[category].name = name
-
-		addCategoryToggle("custom_categories_toggles", category, name, order)
-		addCategoryOptions("customCategories", nil, category, name, order)
-
-		AltManager.db.global.options[category]  = true
-		selectDifferentTab("customCategories", category)
-	end
-end
 
 local function createOrderOptionsForCategory(categoryOptions, optionsTable, category)
 	if not categoryOptions.hideToggle then
