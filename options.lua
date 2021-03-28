@@ -452,6 +452,7 @@ local function setCustomOption(info, value)
 
 		for i, child in ipairs(childs) do
 			AltManager.db.global.options.customCategories[category].childOrder[child] = i
+			options.args.order.args.customCategories.args[category].args[child].order = i
 		end
 
 		AltManager.db.global.options.customCategories[category].childOrder[key] = nil
@@ -459,12 +460,14 @@ local function setCustomOption(info, value)
 	elseif value and not tContains(childs, key) then
 		tinsert(childs, key)
 
-		AltManager.db.global.options.customCategories[category].childOrder[key] = #childs
+		for i, child in ipairs(childs) do
+			AltManager.db.global.options.customCategories[category].childOrder[child] = i
+		end
 
 		options.args.order.args.customCategories.args[category].args[key] = {
 			order = #childs,
 			type = "input",
-			name = AltManager.columns[key].label,
+			name = AltManager.columns[key].label or AltManager.columns[key].fakeLabel,
 			width = "half",
 			validate = function(info, value) return tonumber(value) or "Please insert a number." end,
 			set = setOrder,
