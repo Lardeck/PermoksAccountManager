@@ -370,6 +370,22 @@ local function sortCategoryChilds(optionsTable, category)
 	table.sort(category.childs, function(a, b) return category.childOrder[a] < category.childOrder[b] end)
 end
 
+local function setCategoryOrder(info, value)
+	local category = info[#info]
+	local optionsTable = info[#info-1]
+	local newOrder = tonumber(value)
+
+	AltManager.db.global.options[optionsTable:gsub("Order", "")][category].order = newOrder
+	options.args.order.args[optionsTable].args[category].order = newOrder
+	AceConfigRegistry:NotifyChange(addonName)
+end
+
+local function getCategoryOrder(info)
+	local category = info[#info]
+	local optionsTable = info[#info-1]
+	return tostring(AltManager.db.global.options[optionsTable:gsub("Order", "")][category].order)
+end
+
 local function setOrder(info, value)
 	local key = info[#info]
 	local category = info[#info-1]
