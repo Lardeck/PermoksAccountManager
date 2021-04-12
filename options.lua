@@ -21,12 +21,14 @@ local default_categories = {
 		childs = {"characterName", "ilevel", "gold", "weekly_key", "keystone", "soul_ash", "stygia", "conquest", "honor", "valor", "contract"},
 		childOrder = {characterName = 1, ilevel = 2, gold = 3, weekly_key = 4, keystone = 5, soul_ash = 6, stygia = 7, conquest = 8, honor = 9, valor = 10, contract = 11},
 		hideToggle = true,
+		enabled = true,
 	},
 	daily = {
 		order = 1,
 		name = "Daily",
 		childs = {"callings", "separator1", "maw_dailies", "eye_of_the_jailer", "separator2", "sanctum_quests", "conductor"},
 		childOrder = {callings = 1, separator1 = 2, maw_dailies = 3, eye_of_the_jailer = 4, separator2 = 5, sanctum_quests = 6, conductor = 7},
+		enabled = true,
 	},
 	weekly = {
 		order = 2,
@@ -35,25 +37,29 @@ local default_categories = {
 			 	  "weekend_event", "separator2", "world_boss", "anima", "maw_souls", "separator3", "maw_weekly", "torghast_layer", "separator4", "wrath", "hunt"},
 		childOrder = {great_vault_mplus = 1, great_vault_raid = 2, great_vault_pvp = 3, separator1 = 4, mythics_done = 5, dungeon_quests = 6, pvp_quests = 7,
 					  weekend_event = 8, separator2 = 9, world_boss = 10, anima = 11, maw_souls = 12, separator3 = 13, maw_weekly = 14, torghast_layer = 15, 
-					  separator4 = 16, wrath = 17, hunt = 18}
+					  separator4 = 16, wrath = 17, hunt = 18},
+		enabled = true,
 	},
 	reputation = {
 		order = 3,
 		name = "Reputation",
 		childs = {"venari", "ascended", "wild_hunt", "undying_army", "court_of_harvesters"},
 		childOrder = {venari = 1, ascended = 2, wild_hunt = 3, undying_army = 4, court_of_harvesters = 5},
+		enabled = true,
 	},
 	raid = {
 		order = 4,
 		name = "Raid",
 		childs = {"nathria"},
-		childOrder = {nathria = 1}
+		childOrder = {nathria = 1},
+		enabled = true,
 	},
 	sanctum = {
 		order = 5,
 		name = "Sanctum",
 		childs = {"reservoir_anima", "renown", "redeemed_soul", "separator1", "transport_network", "anima_conductor", "command_table", "sanctum_unique"},
-		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, separator1 = 4, transport_network = 5, anima_conductor = 6, command_table = 7, sanctum_unique = 8}
+		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, separator1 = 4, transport_network = 5, anima_conductor = 6, command_table = 7, sanctum_unique = 8},
+		enabled = true,
 	},
 }
 
