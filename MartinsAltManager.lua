@@ -116,10 +116,12 @@ function AltManager:OnInitialize()
 	AltManager:RegisterChatCommand('mam', 'HandleChatCommand')
   	AltManager:RegisterChatCommand('alts', 'HandleChatCommand')
 
-	local optionsLoaded = pcall(self.LoadOptions)
+	local optionsLoaded, error = pcall(self.LoadOptions)
 	if not optionsLoaded then
 		BasicMessageDialog.Text:SetText("You need to purge your alt manager!")
 		BasicMessageDialog:Show()
+
+		print("[|cfff49b42MartinsAltManager|r]", error)
 	end
 
 	self.spairs = spairs
