@@ -180,6 +180,7 @@ function AltManager:OnInitialize()
 			elseif event == "COVENANT_SANCTUM_INTERACTION_ENDED" then
 				AltManager:UpdateSanctumBuildings()
 			end
+			AltManager:UpdateCompletionDataForCharacter()
 		end
 	end)
 
@@ -612,6 +613,27 @@ function AltManager:UpdateEverything()
 	self:UpdateTorghast()
 	self:UpdateVaultInfo()
 	self:CollectData()
+end
+
+function AltManager:UpdateCompletionData()
+	for alt_guid, alt_data in pairs(self.db.global.data) do
+		for key, info in pairs(self.columns) do
+			if info.isComplete then
+				self:SaveCompletionData(key, info.isComplete(alt_data), alt_guid)
+			end
+		end
+	end
+end
+
+function AltManager:UpdateCompletionDataForCharacter()
+	local char_table = self.validateData()
+	if not char_table then return end
+
+	for key, info in pairs(self.columns) do
+		if info.isComplete then
+			self:SaveCompletionData(key, info.isComplete(char_table), char_table.guid)
+		end
+	end
 end
 
 function AltManager:CollectData()
