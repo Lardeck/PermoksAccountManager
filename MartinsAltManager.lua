@@ -1063,7 +1063,7 @@ function AltManager:CreateMenu(alts)
 	for j, row_iden in ipairs(general) do
 		local row = self.columns[row_iden]
 		if row.label then
-			local label_row = self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0);
+			local label_row = self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0)
 			self.main_frame.label_rows[row_iden] = label_row
 			i = i + 1
 		elseif row.fakeLabel then
