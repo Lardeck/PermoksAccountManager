@@ -670,6 +670,107 @@ local function createCustomOptions()
 	return numCategories
 end
 
+local function createConfirmPopup()
+	-- mostly copied from AceConfigDialog-3.0.lua
+	local frame = CreateFrame("Frame", nil, UIParent)
+	AltManager.confirm = frame
+	frame:Hide()
+	frame:SetPoint("CENTER", UIParent, "CENTER")
+	frame:SetSize(320, 85)
+	frame:SetFrameStrata("TOOLTIP")
+
+	local border = CreateFrame("Frame", nil, frame, "DialogBorderDarkTemplate")
+	border:SetAllPoints(frame)
+
+	local text = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+	text:SetSize(290, 0)
+	text:SetPoint("TOP", 0, -16)
+	text:SetText("You need to reload the interface to import a profile.")
+
+	local function newButton(text, parent)
+		local button = AceGUI:Create("Button")
+		button.frame:SetParent(frame)
+		button.frame:SetFrameLevel(button.frame:GetFrameLevel() + 1)
+		button:SetText(text)
+		return button
+	end
+
+	local accept = newButton(ACCEPT)
+	accept:SetPoint("BOTTOMRIGHT", frame, "BOTTOM", -6, 16)
+	accept.frame:SetSize(128, 21)
+	accept.frame:Show()
+	frame.accept = accept
+
+	local cancel = newButton(CANCEL)
+	cancel:SetPoint("LEFT", accept.frame, "RIGHT", 13, 0)
+	cancel.frame:SetSize(128, 21)
+	cancel.frame:Show()
+	cancel:SetCallback("OnClick", function() frame:Hide() end)
+	frame.cancel = cancel
+end
+
+local function createImportExportFrame(options)
+	local editGroup = AceGUI:Create("InlineGroup")
+	editGroup:SetLayout("fill")
+	editGroup.frame:SetParent(options.frame)
+	editGroup.frame:SetPoint("BOTTOMLEFT", options.frame, "BOTTOMLEFT", 17, 52)
+	editGroup.frame:SetPoint("TOPRIGHT", options.frame, "TOPRIGHT", -17, -10)
+	editGroup.frame:Hide()
+
+	local editBox = AceGUI:Create("MultiLineEditBox")
+	editBox:SetWidth(options.frame:GetWidth() - 20)
+	editBox:SetLabel("Export Options")
+	editBox.button:Hide()
+	editBox.frame:SetClipsChildren(true)
+	editBox.editBox:SetScript("OnEscapePressed", function() editGroup:Close() end)
+	editGroup:AddChild(editBox)
+
+	local close = AceGUI:Create("Button")
+	close.frame:SetParent(editGroup.frame)
+	close:SetPoint("BOTTOMRIGHT", -27, 13)
+	close.frame:SetFrameLevel(close.frame:GetFrameLevel() + 1)
+	close:SetHeight(20)
+	close:SetWidth(100)
+	close.frame:Hide()
+
+	function editGroup.OpenBox(self, mode)
+		if mode == "export" then
+			editGroup.frame:Show()
+
+			local optionsString = AltManager:OptionsToString()
+			editBox.editBox:SetMaxBytes(nil)
+			editBox.editBox:SetScript("OnChar", function() editBox:SetText(optionsString) editBox.editBox:HighlightText() end)
+			editBox.button:Hide()
+			editBox:SetText(optionsString)
+			editBox.editBox:HighlightText()
+			editBox:SetFocus()
+			close:SetCallback("OnClick", function() editGroup:Close() end)
+			close:SetText("Done")
+			close.frame:Show()
+
+			C_Timer.After(0, function() options:ReleaseChildren() end)
+		elseif mode == "import" then
+			editBox:SetText("")
+			editGroup.frame:Show()
+			editBox:SetFocus()
+
+			close:SetCallback("OnClick", function() AltManager:ImportOptions(editBox:GetText()) end)
+			close:SetText("Import")
+			close.frame:Show()
+
+			C_Timer.After(0, function() options:ReleaseChildren() end)
+		end
+	end
+
+	function editGroup.Close(self)
+		editBox:ClearFocus()
+		editGroup.frame:Hide()
+		AltManager.OpenOptions()
+	end
+
+	return editGroup
+end
+
 local function loadOptionsTemplate()
 	local categoryData = {}
 
