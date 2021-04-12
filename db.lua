@@ -180,46 +180,46 @@ AltManager.quests = {
 	 	[63433] = {key = "hunt"},
 
 	 	-- Maw Weekly
-	 	[60622] = {key = "maw"},
-	 	[60646] = {key = "maw"},
-	 	[60762] = {key = "maw"},
-	 	[60775] = {key = "maw"},
-	 	[60902] = {key = "maw"},
-	 	[61075] = {key = "maw"},
-	 	[61079] = {key = "maw"},
-	 	[61088] = {key = "maw"},
-	 	[61103] = {key = "maw"},
-	 	[61104] = {key = "maw"},
-	 	[61765] = {key = "maw"},
-	 	[62214] = {key = "maw"},
-	 	[62234] = {key = "maw"},
-	 	[63206] = {key = "maw"},
+	 	[60622] = {key = "maw_weekly"},
+	 	[60646] = {key = "maw_weekly"},
+	 	[60762] = {key = "maw_weekly"},
+	 	[60775] = {key = "maw_weekly"},
+	 	[60902] = {key = "maw_weekly"},
+	 	[61075] = {key = "maw_weekly"},
+	 	[61079] = {key = "maw_weekly"},
+	 	[61088] = {key = "maw_weekly"},
+	 	[61103] = {key = "maw_weekly"},
+	 	[61104] = {key = "maw_weekly"},
+	 	[61765] = {key = "maw_weekly"},
+	 	[62214] = {key = "maw_weekly"},
+	 	[62234] = {key = "maw_weekly"},
+	 	[63206] = {key = "maw_weekly"},
 
 	 	-- World Boss
-	 	[61813] = {key = "wb"}, -- Valinor - Bastion
-	 	[61814] = {key = "wb"}, -- Nurghash - Revendreth
-	 	[61815] = {key = "wb"}, -- Oranomonos - Ardenweald
-	 	[61816] = {key = "wb"}, -- Mortanis - Maldraxxus
+	 	[61813] = {key = "world_boss"}, -- Valinor - Bastion
+	 	[61814] = {key = "world_boss"}, -- Nurghash - Revendreth
+	 	[61815] = {key = "world_boss"}, -- Oranomonos - Ardenweald
+	 	[61816] = {key = "world_boss"}, -- Mortanis - Maldraxxus
 
 	 	-- PVP Weekly
-	 	[62284] = {key = "pvp"}, -- Random BGs
-	 	[62285] = {key = "pvp"}, -- Epic BGs
-	 	[62286] = {key = "pvp"},
-	 	[62287] = {key = "pvp"},
-	 	[62288] = {key = "pvp"},
-	 	[62289] = {key = "pvp"},
+	 	[62284] = {key = "pvp_quests"}, -- Random BGs
+	 	[62285] = {key = "pvp_quests"}, -- Epic BGs
+	 	[62286] = {key = "pvp_quests"},
+	 	[62287] = {key = "pvp_quests"},
+	 	[62288] = {key = "pvp_quests"},
+	 	[62289] = {key = "pvp_quests"},
 
 	 	-- Weekend Event
-	 	[62631] = {key = "weekend"}, -- World Quests
-	 	[62632] = {key = "weekend"}, -- BC Timewalking
-	 	[62633] = {key = "weekend"}, -- WotLK Timewalking
-	 	[62634] = {key = "weekend"}, -- Cata Timewalking
-	 	[62635] = {key = "weekend"}, -- MOP Timewalking
-	 	[62636] = {key = "weekend"}, -- Draenor Timewalking
-	 	[62637] = {key = "weekend"}, -- Battleground Event
-	 	[62638] = {key = "weekend"}, -- Mythuc Dungeon Event
-	 	[62639] = {key = "weekend"}, -- Pet Battle Event
-	 	[62640] = {key = "weekend"}, -- Arena Event
+	 	[62631] = {key = "weekend_event"}, -- World Quests
+	 	[62632] = {key = "weekend_event"}, -- BC Timewalking
+	 	[62633] = {key = "weekend_event"}, -- WotLK Timewalking
+	 	[62634] = {key = "weekend_event"}, -- Cata Timewalking
+	 	[62635] = {key = "weekend_event"}, -- MOP Timewalking
+	 	[62636] = {key = "weekend_event"}, -- Draenor Timewalking
+	 	[62637] = {key = "weekend_event"}, -- Battleground Event
+	 	[62638] = {key = "weekend_event"}, -- Mythuc Dungeon Event
+	 	[62639] = {key = "weekend_event"}, -- Pet Battle Event
+	 	[62640] = {key = "weekend_event"}, -- Arena Event
 	},
 }
 
