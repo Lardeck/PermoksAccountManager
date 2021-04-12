@@ -415,6 +415,8 @@ function AltManager:ValidateReset()
 		end
 
 		if time() > expiry then
+			wipe(db.completionData)
+
 			-- M0/Raids
 			if char_table.instanceInfo then
 				char_table.instanceInfo.raids = {}
@@ -457,7 +459,8 @@ function AltManager:ValidateReset()
 		end
 
 		if time() > daily then
-
+			wipe(db.completionData)
+			
 			-- Callings
 			if char_table.callingsUnlocked and char_table.callingInfo and char_table.callingInfo.numCallings and char_table.callingInfo.numCallings < 3 then
 				char_table.callingInfo.numCallings = char_table.callingInfo.numCallings + 1
