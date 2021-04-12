@@ -40,6 +40,7 @@ AltManager.vault_rewards = {
 	},
 	-- Raid
 	[Enum.WeeklyRewardChestThresholdType.Raid] = {
+		[17] = 187,
 		[14] = 200,
 		[15] = 213,
 		[16] = 226,
