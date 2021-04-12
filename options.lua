@@ -712,7 +712,7 @@ local function loadOptionsTemplate()
 						desc = "Toggle the use of custom categories.",
 						set = function(info, value)
 							AltManager.db.global.custom = value
-							ReloadUI()
+							C_UI.Reload()
 						end,
 						get = function(info)
 							return AltManager.db.global.custom
