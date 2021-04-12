@@ -18,6 +18,7 @@ function AltManager:UpdateAllCurrencies()
 		currencyInfo[currencyType].quantity = info.quantity
 		currencyInfo[currencyType].maxQuantity = info.maxQuantity
 		currencyInfo[currencyType].totalEarned = info.totalEarned
+		currencyInfo[currencyType].icon = info.iconFileID
 	end
 
 	char_table.currencyInfo = currencyInfo
