@@ -47,6 +47,7 @@ local defaultDB = {
 	global = {
 		blacklist = {},
 		data = {},
+		completionData = {['**'] = {numCompleted = 0}},
 		alts = 0,
 		options = {
 			daily = true,
@@ -800,6 +801,7 @@ function AltManager:PopulateStrings()
 end
 
 function AltManager:Unroll(button, my_rows, default_state, name, category)
+	local alts = self.db.global.alts
 	self.unroll_state = self.unroll_state or {}
 	self.unroll_state[name] = self.unroll_state[name] or {}
 	local lu = self.unroll_state[name]
@@ -812,6 +814,7 @@ function AltManager:Unroll(button, my_rows, default_state, name, category)
 		-- do unroll
 					
 		local font_height = 20
+		local completionData = self.db.global.completionData
 		-- create the rows for the unroll
 		lu.labels = lu.labels or {}
 		local numRows = 0
@@ -825,6 +828,12 @@ function AltManager:Unroll(button, my_rows, default_state, name, category)
 					label_row:Show()
 					label_row:SetPoint("TOPLEFT", lu.unroll_frame, "TOPLEFT", 0, -(numRows*font_height));
 					lu.labels[row_identifier] = label_row
+
+					if completionData[row_identifier] and completionData[row_identifier].numCompleted == alts then
+						label_row:GetFontString():SetTextColor(0, 1, 0, 1)
+					else
+						label_row:GetFontString():SetTextColor(1, 1, 1, 1)
+					end
 				else
 					lu.labels[row_identifier] = true
 				end
@@ -949,6 +958,7 @@ function AltManager:UpdateMenu()
 	local label_column = self.main_frame.label_column
 	local options = self.db.global.currentCategories.general.childOrder
 	local general = self.db.global.currentCategories.general.childs
+	local completionData = self.db.global.completionData
 
 	for j, row_iden in ipairs(general) do
 		local row = self.columns[row_iden]
@@ -956,6 +966,12 @@ function AltManager:UpdateMenu()
 			-- parent, x_size, height, relative_to, y_offset, label, justify, x_offset, option
 			local label_row = self.main_frame.label_rows[row_iden] or self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0)
 			self.main_frame.label_rows[row_iden] = label_row
+
+			if completionData[row_iden] and completionData[row_iden].numCompleted == alts then
+				label_row:GetFontString():SetTextColor(0, 1, 0, 1)
+			else
+				label_row:GetFontString():SetTextColor(1, 1, 1, 1)
+			end
 
 			label_row:SetPoint("TOPLEFT", label_column, "TOPLEFT", 0, -i*font_height)
 			label_row:Show()
