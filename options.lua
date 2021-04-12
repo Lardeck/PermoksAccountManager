@@ -780,11 +780,27 @@ local function loadOptionsTemplate()
 				name = "Commands",
 				inline = true,
 				args = {
-					purge = {
+					export = {
 						order = 0,
 						type = "execute",
+						name = "Export",
+						func = function()
+							imexport:OpenBox("export")
+						end,
+					},
+					import = {
+						order = 1,
+						type = "execute",
+						name = "Import",
+						func = function() 
+							imexport:OpenBox("import")
+						end,
+					},
+					purge = {
+						order = 2,
+						type = "execute",
 						name = "Purge",
-						func = function() AltManager:Purge() ReloadUI() end,
+						func = function() AltManager:Purge() C_UI.Reload() end,
 						confirm = true,
 						confirmText = "Are you sure?",
 					}
