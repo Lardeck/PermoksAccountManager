@@ -17,6 +17,8 @@ libs\AceConfig-3.0\AceConfig-3.0.xml
 libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 libs\LibDBIcon-1.0\lib.xml
 libs\LibQTip-1.0\lib.xml
+libs\LibDeflate\LibDeflate.lua
+libs\LibSerialize\LibSerialize.lua
 #@end-no-lib-strip@
 
 modules\callings.lua
