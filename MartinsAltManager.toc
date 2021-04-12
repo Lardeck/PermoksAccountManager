@@ -1,9 +1,8 @@
 ## Interface: 90005
 ## Title: Martins Alt Manager
 ## Author: Qoning
-## Version: v1
+## Version: v9.0.18.2
 ## Notes: This is a note
-## OptionalDependencies: Ace3, LibRealmInfo, LibDBIcon, LibDataBroker-1.1
 ## SavedVariables: MartinsAltManagerDB
 
 libs\LibStub\LibStub.lua
