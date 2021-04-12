@@ -993,7 +993,7 @@ function AltManager:UpdateMenu()
 	local buttonrows = {}
 	local categories = self.db.global.currentCategories
 	for category, row in self.spairs(categories, function(t, a, b) return t[a].order < t[b].order end) do
-		if category ~= "general" and self.db.global.options[category] then
+		if category ~= "general" and self.db.global.currentCategories[category].enabled then
 			local bp = row.button_pos
 			local order = row.order
 			local w,h = row.w_size or 100, row.h_size or 25
@@ -1022,7 +1022,7 @@ function AltManager:UpdateMenu()
 			end)
 			table.insert(buttonrows,{category, row, unroll_button})
 			self.main_frame.unroll_buttons[row.name] = unroll_button
-		elseif self.main_frame.unroll_buttons[row.name] and not self.db.global.options[category] then
+		elseif self.main_frame.unroll_buttons[row.name] and not self.db.global.currentCategories[category].enabled then
 			self.main_frame.unroll_buttons[row.name]:Hide()
 		end
 	end
