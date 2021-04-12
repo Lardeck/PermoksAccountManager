@@ -189,7 +189,7 @@ AltManager.columns = {
 			if alt_data.covenant then
 				local covenant = alt_data.covenant
 				local rightFeatureType = (covenant == 3 and 2) or (covenant == 4 and 5) or 0
-				return (alt_data.questInfo and AltManager:CreateSanctumString(alt_data.sanctumInfo, rightFeatureType, alt_data.questInfo.daily.nfTransport, alt_data.questInfo.maxnfTransport or 1)) or "-" 
+				return (alt_data.questInfo and AltManager:CreateSanctumString(alt_data.sanctumInfo, rightFeatureType, alt_data.questInfo.daily.transport_network, alt_data.questInfo.maxnfTransport or 1)) or "-" 
 			else
 				return "-"
 			end
