@@ -526,9 +526,9 @@ function AltManager:FindCharacterByName(name, num, func, blacklist)
 			end
 		end
 	elseif blacklist == "remove" or blacklist == "r" then
-		for guid, char_name in pairs(self.db.global.blacklist) do
-			if char_name == name then
-				indices[#indicies+1] = guid
+		for guid, info in pairs(self.db.global.blacklist) do
+			if info.name == name then
+				indices[#indices+1] = guid
 			end
 		end
 	end
@@ -568,9 +568,9 @@ function AltManager:Blacklist(arg, name, num)
 	if arg == "p" or arg == "print" then
 		print("|cfff49b42MartinsAltManager|r Blacklist:")
 		local list = {}
-		for guid, name in pairs(blacklist) do
-			local color = db.data[guid].class and CreateColor(GetClassColor(db.data[guid].class))
-			local coloredName = color and ((db.data[guid].realm and color:WrapTextInColorCode(name .."-"..db.data[guid].realm)) or color:WrapTextInColorCode(name)) or name
+		for guid, info in pairs(blacklist) do
+			local color = info.class and CreateColor(GetClassColor(info.class))
+			local coloredName = color and ((info.realm and color:WrapTextInColorCode(info.name .."-"..info.realm)) or color:WrapTextInColorCode(info.name)) or info.name
 			tinsert(list, coloredName)
 		end
 		print(table.concat(list, ", "))
@@ -579,11 +579,13 @@ function AltManager:Blacklist(arg, name, num)
 		local guid = self:FindCharacterByName(name, num, "blacklist " .. arg, arg)
 
 		if guid then
-			local check = ((arg == "add" or arg == "a") and name) or ((arg == "remove" or arg == "r") and nil)
-			blacklist[guid] = check
+			local check = ((arg == "add" or arg == "a") and true)
+			blacklist[guid] = check and {name = name, class = db.data[guid].class, realm = db.data[guid].realm} or nil
 
 			if check then
 				db.alts = db.alts - 1
+			else
+				db.alts = db.alts + 1
 			end
 			print("[|cfff49b42MartinsAltManager|r] Please reload your interface to update the displayed info.")
 		end
