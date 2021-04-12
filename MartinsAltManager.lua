@@ -502,7 +502,12 @@ function AltManager:ValidateReset()
 end
 
 function AltManager:Purge()
+	local blacklist = self.db.global.blacklist
+	local internalVersion = self.db.global.internalVersion
+
 	self.db = self.db:ResetDB()
+	self.db.global.blacklist = blacklist
+	self.db.global.internalVersion = internalVersion
 
 	print("[|cfff49b42MartinsAltManager|r] Please reload your interface to update the displayed info.")
 end
