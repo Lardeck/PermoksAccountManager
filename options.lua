@@ -5,7 +5,10 @@ local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
 local AceGUI = LibStub("AceGUI-3.0")
 local LibIcon = LibStub("LibDBIcon-1.0")
+local LibDeflate = LibStub("LibDeflate")
+local LibSerialize = LibStub("LibSerialize")
 local options
+local imexport
 
 AltManager.numCategories = 0
 
