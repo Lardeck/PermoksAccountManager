@@ -64,8 +64,9 @@ local defaultDB = {
 					order = 0, 
 					hideToggle = true, 
 					name = "General", 
+					enabled = true,
 				},
-				['**'] = {childOrder = {}, childs = {}, info = {}}
+				['**'] = {childOrder = {}, childs = {}, enabled = true}
 			},
 		},
 		currentCallings = {},
