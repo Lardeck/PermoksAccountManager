@@ -863,7 +863,7 @@ function AltManager:Unroll(button, my_rows, default_state, name, category)
 				for j, column_iden in ipairs(my_rows) do
 					if lu.labels[column_iden] then
 						local column = self.columns[column_iden]
-						local current_row = label_columns[column_iden] or self:CreateFontFrame(lu.unroll_frame, per_alt_x, column.font_height or font_height, anchor_frame, (-(i - 1) * font_height), column.data(alt_data), "CENTER", 0);
+						local current_row = label_columns[column_iden] or self:CreateFontFrame(lu.unroll_frame, per_alt_x, column.font_height or font_height, anchor_frame, (-(i - 1) * font_height), column.data(alt_data), "CENTER", 0, column.option)
 						current_row:Show()
 						current_row:SetPoint("TOPLEFT", anchor_frame, "TOPLEFT", 0, (-(i - 1) * font_height));
 
