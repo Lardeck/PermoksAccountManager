@@ -43,6 +43,17 @@ function AltManager:CreateTorghastString(torghastInfo)
 	return torghastString
 end
 
+function AltManager:CompletedTorghastLayers(torghastInfo)
+	if not torghastInfo then return end
+
+	local completedLayerTotal = 0
+	for wingName, completedLayer in pairs(torghastInfo) do
+		completedLayerTotal = completedLayerTotal + completedLayer
+	end
+
+	return completedLayerTotal==16
+end
+
 function AltManager:TorghastTooltip_OnEnter(button, alt_data)
 	if not alt_data or not alt_data.torghastInfo then return end
 
