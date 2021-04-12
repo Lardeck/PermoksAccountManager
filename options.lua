@@ -116,6 +116,7 @@ AltManager.columns = {
 		label = "Highest Key",
 		enabled = function(option, key) return option[key].enabled end,
 		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateWeeklyString(alt_data.vaultInfo.MythicPlus) or "-" end,
+		isComplete = function(alt_data) return alt_data.vaultInfo and alt_data.vaultInfo.MythicPlus and alt_data.vaultInfo.MythicPlus[1].level > 13 end,
 		group = "dungeons"
 	},
 	keystone = {
@@ -164,7 +165,8 @@ AltManager.columns = {
 	},
 	maw_dailies = {
 		label = "Maw Dailies",
-		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.daily.maw, alt_data.questInfo.maxMawQuests or 2)) or "-" end,
+		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.daily.maw_dailies, alt_data.questInfo.maxMawQuests or 2)) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) == (alt_data.questInfo.maxMawQuests or 2) end,
 		group = "resetDaily",
 	},
 	eye_of_the_jailer = {
@@ -212,58 +214,69 @@ AltManager.columns = {
 		label = "Mythic+0",
 		tooltip = function(button, alt_data) AltManager:DungeonTooltip_OnEnter(button, alt_data) end,
 		data = function(alt_data) return alt_data.instanceInfo and AltManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 2 end,
 		group = "dungeons",
 	},
 	dungeon_quests = {
 		label = "Dungeon Quests",
-		data = function(alt_data) return alt_data.questInfo and  AltManager:CreateQuestString(alt_data.questInfo.weekly.dungeon, 2) or "-" end,
+		data = function(alt_data) return alt_data.questInfo and  AltManager:CreateQuestString(alt_data.questInfo.weekly.dungeon_quests, 2) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 2 end,
 		group = "resetWeekly",
 	},
 	pvp_quests = {
 		label = "PVP Quests",
 		enabled = function(option, key) return option[key].enabled end,
-		data = function(alt_data) return alt_data.questInfo and  AltManager:CreateQuestString(alt_data.questInfo.weekly.pvp, 2) or "-" end,
+		data = function(alt_data) return alt_data.questInfo and  AltManager:CreateQuestString(alt_data.questInfo.weekly.pvp_quests, 2) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 2 end,
 		group = "resetWeekly",
 	},
 	weekend_event = {
 		label = "Weekend Event",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.weekend, 1, true) or "-" end,
+		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.weekend_event, 1, true) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.weekend_event) == 1 end,
 		group = "resetWeekly",
 	},
 	world_boss = {
 		label = "World Boss",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.wb, 1, true) or "-" end,
+		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.world_boss, 1, true) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.world_boss) == 1 end,
 		group = "resetWeekly",
 	},
 	anima = {
 		label = "1k Anima",
 		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.anima, 1, true) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.anima) == 1 end,
 		group = "resetWeekly",
 	},
 	maw_souls = {
 		label = "Return Souls",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.souls, 1, true) or "-" end,
+		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.maw_souls, 1, true) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.maw_souls) == 1 end,
 		group = "resetWeekly",
 	},
 	maw_weekly = {
 		label = "Maw Weeklies",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.maw, alt_data.questInfo.maxMawQuests or 2) or "-" end,
+		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.maw_weekly, alt_data.questInfo.maxMawQuests or 2) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.maw_weekly) == (alt_data.questInfo.maxMawQuests or 2) end,
 		group = "resetWeekly",
 	},
 	torghast_layer = {
 		label = "Torghast",
 		tooltip = function(button, alt_data) AltManager:TorghastTooltip_OnEnter(button, alt_data) end,
 		data = function(alt_data) return alt_data.torghastInfo and AltManager:CreateTorghastString(alt_data.torghastInfo) or "-" end,
+		isComplete = function(alt_data) return alt_data.torghastInfo and AltManager:CompletedTorghastLayers(alt_data.torghastInfo) end,
 		group = "torghast",
 	},
 	wrath = {
 		label = "Wrath of the Jailer",
 		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.wrath, 1, true) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.wrath) == 1 end,
 		group = "resetWeekly"
 	},
 	hunt = {
 		label = "The Hunt",
 		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.hunt, 2, true) or "-" end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hunt) == 1 end,
 		group = "resetWeekly",
 	},
 	venari = {
