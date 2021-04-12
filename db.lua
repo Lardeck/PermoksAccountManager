@@ -86,43 +86,43 @@ AltManager.currencies = {
 
 AltManager.quests = {
 	daily = {
-		[60732] = {key = "maw"},
-		[61334] = {key = "maw"},
-		[62239] = {key = "maw"},
-		[63031] = {key = "maw"},
-		[63038] = {key = "maw"},	
-		[63039] = {key = "maw"},
-		[63040] = {key = "maw"},
-		[63043] = {key = "maw"},
-		[63045] = {key = "maw"},
-		[63047] = {key = "maw"},
-		[63050] = {key = "maw"},
-		[63062] = {key = "maw"},
-		[63069] = {key = "maw"},
-		[63072] = {key = "maw"},
-		[63100] = {key = "maw"},
-		[63179] = {key = "maw"},
+		[60732] = {key = "maw_dailies"},
+		[61334] = {key = "maw_dailies"},
+		[62239] = {key = "maw_dailies"},
+		[63031] = {key = "maw_dailies"},
+		[63038] = {key = "maw_dailies"},	
+		[63039] = {key = "maw_dailies"},
+		[63040] = {key = "maw_dailies"},
+		[63043] = {key = "maw_dailies"},
+		[63045] = {key = "maw_dailies"},
+		[63047] = {key = "maw_dailies"},
+		[63050] = {key = "maw_dailies"},
+		[63062] = {key = "maw_dailies"},
+		[63069] = {key = "maw_dailies"},
+		[63072] = {key = "maw_dailies"},
+		[63100] = {key = "maw_dailies"},
+		[63179] = {key = "maw_dailies"},
 
 		-- Kyrian
 		-- Venthyr
 		-- Night Fae
-		[62614] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 1},
-		[62615] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 1},
-		[62611] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 1},
-		[62610] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 1},
-		[62606] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 1},
-		[62608] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 1},
-		[60175] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 1},
-		[62607] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 1},
-		[62453] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 2},
-		[62296] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 2},
-		[60153] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 2},
-		[62382] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 2},
-		[62263] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 3},
-		[62459] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 3},
-		[62466] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 3},
-		[60188] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 3},
-		[62465] = {covenant = 3, key = "nfTransport", sanctum = 2, minSanctumTier = 3},
+		[62614] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 1},
+		[62615] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 1},
+		[62611] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 1},
+		[62610] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 1},
+		[62606] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 1},
+		[62608] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 1},
+		[60175] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 1},
+		[62607] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 1},
+		[62453] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 2},
+		[62296] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 2},
+		[60153] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 2},
+		[62382] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 2},
+		[62263] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 3},
+		[62459] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 3},
+		[62466] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 3},
+		[60188] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 3},
+		[62465] = {covenant = 3, key = "transport_network", sanctum = 2, minSanctumTier = 3},
 
 		[61691] = {covenant = 3, key = "conductor", sanctum = 1, minSanctumTier = 1, addToMax = 1}, -- Large Lunarlight Pod
 		[61633] = {covenant = 3, key = "conductor", sanctum = 1, minSanctumTier = 1, addToMax = 1}, -- Dreamsong Fenn
@@ -131,44 +131,44 @@ AltManager.quests = {
 		[61647] = {covenant = 4, key = "conductor", sanctum = 1, minSanctumTier = 1, addToMax = 1}, -- Chosen Runecoffer
 	},
 	weekly = {
-		[61332] = {covenant = 1, key = "souls"}, -- kyrian 5 souls
-		[62861] = {covenant = 1, key = "souls"}, -- kyrian 10 souls
-		[62862] = {covenant = 1, key = "souls"}, -- kyrian 15 souls
-		[62863] = {covenant = 1, key = "souls"}, -- kyrian 20 souls
-		[61334] = {covenant = 2, key = "souls"}, -- venthyr 5 souls
-		[62867] = {covenant = 2, key = "souls"}, -- venthyr 10 souls
-		[62868] = {covenant = 2, key = "souls"}, -- venthyr 15 souls
-		[62869] = {covenant = 2, key = "souls"}, -- venthyr 20 souls
-		[61331] = {covenant = 3, key = "souls"}, -- night fae 5 souls
-		[62858] = {covenant = 3, key = "souls"}, -- night fae 10 souls
-		[62859] = {covenant = 3, key = "souls"}, -- night fae 15 souls
-		[62860] = {covenant = 3, key = "souls"}, -- night fae 20 souls
-		[61333] = {covenant = 4, key = "souls"}, -- necro 5 souls
-		[62864] = {covenant = 4, key = "souls"}, -- necro 10 souls
-		[62865] = {covenant = 4, key = "souls"}, -- necro 15 souls
-		[62866] = {covenant = 4, key = "souls"}, -- necro 20 souls
+		[61332] = {covenant = 1, key = "maw_souls"}, -- kyrian 5 souls
+		[62861] = {covenant = 1, key = "maw_souls"}, -- kyrian 10 souls
+		[62862] = {covenant = 1, key = "maw_souls"}, -- kyrian 15 souls
+		[62863] = {covenant = 1, key = "maw_souls"}, -- kyrian 20 souls
+		[61334] = {covenant = 2, key = "maw_souls"}, -- venthyr 5 souls
+		[62867] = {covenant = 2, key = "maw_souls"}, -- venthyr 10 souls
+		[62868] = {covenant = 2, key = "maw_souls"}, -- venthyr 15 souls
+		[62869] = {covenant = 2, key = "maw_souls"}, -- venthyr 20 souls
+		[61331] = {covenant = 3, key = "maw_souls"}, -- night fae 5 souls
+		[62858] = {covenant = 3, key = "maw_souls"}, -- night fae 10 souls
+		[62859] = {covenant = 3, key = "maw_souls"}, -- night fae 15 souls
+		[62860] = {covenant = 3, key = "maw_souls"}, -- night fae 20 souls
+		[61333] = {covenant = 4, key = "maw_souls"}, -- necro 5 souls
+		[62864] = {covenant = 4, key = "maw_souls"}, -- necro 10 souls
+		[62865] = {covenant = 4, key = "maw_souls"}, -- necro 15 souls
+		[62866] = {covenant = 4, key = "maw_souls"}, -- necro 20 souls
 
 		[61982] = {covenant = 1, key = "anima"}, -- kyrian 1k anima
 		[61981] = {covenant = 2, key = "anima"}, -- venthyr 1k anima
 		[61984] = {covenant = 3, key = "anima"}, -- night fae 1k anima
 		[61983] = {covenant = 4, key = "anima"}, -- necro 1k anima
 
-		[60242] = {key = "dungeon"}, -- Trading Favors: Necrotic Wake
-		[60243] = {key = "dungeon"}, -- Trading Favors: Sanguine Depths
-		[60244] = {key = "dungeon"}, -- Trading Favors: Halls of Atonement
-		[60245] = {key = "dungeon"}, -- Trading Favors: The Other Side
-		[60246] = {key = "dungeon"}, -- Trading Favors: Tirna Scithe
-		[60247] = {key = "dungeon"}, -- Trading Favors: Theater of Pain
-		[60248] = {key = "dungeon"}, -- Trading Favors: Plaguefall
-		[60249] = {key = "dungeon"}, -- Trading Favors: Spires of Ascension
-		[60250] = {key = "dungeon"}, -- A Valuable Find: Theater of Pain
-		[60251] = {key = "dungeon"}, -- A Valuable Find: Plaguefall
-	 	[60252] = {key = "dungeon"}, -- A Valuable Find: Spires of Ascension
-	 	[60253] = {key = "dungeon"}, -- A Valuable Find: Necrotic Wake
-	 	[60254] = {key = "dungeon"}, -- A Valuable Find: Tirna Scithe
-	 	[60255] = {key = "dungeon"}, -- A Valuable Find: The Other Side
-	 	[60256] = {key = "dungeon"}, -- A Valuable Find: Halls of Atonement
-	 	[60257] = {key = "dungeon"}, -- A Valuable Find: Sanguine Depths
+		[60242] = {key = "dungeon_quests"}, -- Trading Favors: Necrotic Wake
+		[60243] = {key = "dungeon_quests"}, -- Trading Favors: Sanguine Depths
+		[60244] = {key = "dungeon_quests"}, -- Trading Favors: Halls of Atonement
+		[60245] = {key = "dungeon_quests"}, -- Trading Favors: The Other Side
+		[60246] = {key = "dungeon_quests"}, -- Trading Favors: Tirna Scithe
+		[60247] = {key = "dungeon_quests"}, -- Trading Favors: Theater of Pain
+		[60248] = {key = "dungeon_quests"}, -- Trading Favors: Plaguefall
+		[60249] = {key = "dungeon_quests"}, -- Trading Favors: Spires of Ascension
+		[60250] = {key = "dungeon_quests"}, -- A Valuable Find: Theater of Pain
+		[60251] = {key = "dungeon_quests"}, -- A Valuable Find: Plaguefall
+	 	[60252] = {key = "dungeon_quests"}, -- A Valuable Find: Spires of Ascension
+	 	[60253] = {key = "dungeon_quests"}, -- A Valuable Find: Necrotic Wake
+	 	[60254] = {key = "dungeon_quests"}, -- A Valuable Find: Tirna Scithe
+	 	[60255] = {key = "dungeon_quests"}, -- A Valuable Find: The Other Side
+	 	[60256] = {key = "dungeon_quests"}, -- A Valuable Find: Halls of Atonement
+	 	[60257] = {key = "dungeon_quests"}, -- A Valuable Find: Sanguine Depths
 
 	 	-- Maw Warth of the Jailer
 	 	[63414] = {key = "wrath"}, -- Wrath of the Jailer
