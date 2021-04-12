@@ -194,6 +194,44 @@ function AltManager:OnDisable()
 	self.addon_loaded = false
 end
 
+function AltManager:Modernize(oldInternalVersion)
+	if not oldInternalVersion then
+		local data = self.db.global.data
+		for alt_guid, alt_data in pairs(data) do
+			local questInfo = alt_data.questInfo
+
+			questInfo.daily.maw_dailies = questInfo.daily.maw
+			questInfo.daily.maw = nil
+
+			questInfo.daily.transport_network = questInfo.daily.nfTransport
+			questInfo.daily.nfTransport = nil
+
+			questInfo.weekly.dungeon_quests = questInfo.weekly.dungeon
+			questInfo.weekly.dungeon = nil
+
+			questInfo.weekly.pvp_quests = questInfo.weekly.pvp
+			questInfo.weekly.pvp = nil
+
+			questInfo.weekly.weekend_event = questInfo.weekly.weekend
+			questInfo.weekly.weekend = nil
+
+			questInfo.weekly.world_boss = questInfo.weekly.wb
+			questInfo.weekly.wb = nil
+
+			questInfo.weekly.maw_souls = questInfo.weekly.souls
+			questInfo.weekly.souls = nil
+
+			questInfo.weekly.maw_weekly = questInfo.weekly.maw
+			questInfo.weekly.maw = nil
+		end
+
+		local blacklist = self.db.global.blacklist
+		for guid, name in pairs(self.db.global.blacklist) do
+			blacklist[guid] = {name = name, class = data[guid].class, realm = data[guid].realm}
+		end
+	end
+end
+
 function AltManager:getGUID()
 	self.myGUID = self.myGUID or UnitGUID("player")
 	return self.myGUID
