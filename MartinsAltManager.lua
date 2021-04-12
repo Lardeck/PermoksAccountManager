@@ -325,13 +325,28 @@ function AltManager:OnLogin()
 			db.alts = db.alts + 1
 		end
 	end
+
 	self:UpdateEverything()
 	
+
+	if not db.battleTag then
+		local numBNetTotal = BNGetNumFriends()
+		local battleTag = C_BattleNet.GetAccountInfoByID(numBNetTotal + 1).battleTag
+		db.battleTag = battleTag
+	end
+
+	local internalVersion = self.db.global.internalVersion
+	if not internalVersion or internalVersion < INTERNALVERSION then
+		self:Modernize(internalVersion)
+		self.db.global.internalVersion = INTERNALVERSION
+	end
+
 	local alts = db.alts;
 	
 	self.main_frame.background:SetAllPoints();
 	
 	-- Create menus
+	self:UpdateCompletionData()
 	self:CreateMenu(alts);
 	self:MakeTopBottomTextures(self.main_frame);
 	self:MakeBorder(self.main_frame, 5);
