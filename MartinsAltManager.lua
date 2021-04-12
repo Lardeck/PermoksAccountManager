@@ -35,7 +35,8 @@ local min_x_size = 240;
 local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel());
 local locale = GetLocale()
 
-local VERSION = "9.0.18.1"
+local VERSION = "9.0.18.2"
+local INTERNALVERSION = 1
 
 local defaultDB = {
     profile = {
