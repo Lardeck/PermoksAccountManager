@@ -1252,3 +1252,16 @@ function AltManager:GetNextDailyResetTime()
 	local weeklyReset = C_DateAndTime.GetSecondsUntilWeeklyReset()
 	return weeklyReset and time() + (weeklyReset % 86400)
 end
+
+function AltManager:SaveCompletionData(key, isComplete, guid)
+	if not guid then return end
+
+	if self.columns[key] then
+		local completionData = self.db.global.completionData[key]
+
+		if not completionData[guid] then
+			completionData[guid] = isComplete or nil
+			completionData.numCompleted = (completionData.numCompleted or 0) + (isComplete and 1 or 0)
+		end
+	end
+end
