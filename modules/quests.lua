@@ -47,12 +47,16 @@ function AltManager:UpdateAllQuests()
 				end
 
 				if not info.sanctum or (sanctumTier >= info.minSanctumTier) then
+					local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
+
 					questInfo[reset][info.key] = questInfo[reset][info.key] or {}
-					questInfo[reset][info.key][questID] = C_QuestLog.IsQuestFlaggedCompleted(questID)
+					questInfo[reset][info.key][questID] = isComplete
 				end
 			elseif not info.covenant then
+				local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
+
 				questInfo[reset][info.key] = questInfo[reset][info.key] or {}
-				questInfo[reset][info.key][questID] = C_QuestLog.IsQuestFlaggedCompleted(questID)
+				questInfo[reset][info.key][questID] = isComplete
 			end
 		end
 	end
@@ -61,22 +65,32 @@ function AltManager:UpdateAllQuests()
 	char_table.questInfo = questInfo
 end
 
-function AltManager:CreateQuestString(questInfo, numDesired, replaceWithPlus)
-	if not questInfo then return end
+function AltManager:GetNumCompletedQuests(questInfo)
+	if not questInfo then return 0 end
 	local numCompleted = 0
 
+	for questID, questCompleted in pairs(questInfo) do
+		numCompleted = questCompleted and numCompleted + 1 or numCompleted
+	end
+
+	return numCompleted
+end
+
+function AltManager:CreateQuestString(questInfo, numDesired, replaceWithPlus)
+	if not questInfo then return end
+	if not numDesired then return end
+	local numCompleted = 0
 	if type(questInfo) == "table" then
-		for questID, questCompleted in pairs(questInfo) do
-			numCompleted = questCompleted and numCompleted + 1 or numCompleted
-		end
-	elseif type(questInfo) == "number" then
+		numCompleted = self:GetNumCompletedQuests(questInfo)
+	else
 		numCompleted = questInfo
 	end
 
-	local color = (numDesired and numCompleted >= numDesired and "00ff00") or (numCompleted > 0 and "ff9900") or "ffffff"
+	local isComplete = numCompleted >= numDesired
+	local color = (isComplete and "00ff00") or (numCompleted > 0 and "ff9900") or "ffffff"
 
 	if numDesired then
-		if replaceWithPlus and numCompleted >= numDesired then
+		if replaceWithPlus and isComplete then
 			return string.format("|cff%s+|r", color)
 		else
 			return string.format("|cff%s%d|r/%d", color, numCompleted, numDesired)
@@ -85,3 +99,4 @@ function AltManager:CreateQuestString(questInfo, numDesired, replaceWithPlus)
 		return string.format("|cff%s%d|r", color, numCompleted)
 	end
 end
+
