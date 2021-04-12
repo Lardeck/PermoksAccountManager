@@ -1033,7 +1033,8 @@ local function loadOptionsTemplate()
 end
 
 function AltManager.OpenOptions()
-	AceConfigDialog:Open(addonName)
+	AceConfigDialog:Open(addonName, AltManager.optionsFrame)
+	--if ViragDevTool_AddData then ViragDevTool_AddData(AltManager.optionsFrame) end
 end
 
 function AltManager:LoadOptions()
@@ -1060,7 +1061,43 @@ function AltManager:LoadOptions()
 		AltManager.numCategories = numDefaultCategories
 	end
 
+	AltManager.optionsFrame = AceGUI:Create("Frame")
+	AltManager.optionsFrame:EnableResize(false)
+	AltManager.optionsFrame:Hide()
+
+	createConfirmPopup()
+	imexport = imexport or createImportExportFrame(AltManager.optionsFrame)
+
 	AceConfigRegistry:RegisterOptionsTable(addonName, options, true)
+end
+
+function AltManager:OptionsToString()
+	local export = {custom = self.db.global.custom, options = self.db.global.options}
+
+	local serialized = LibSerialize:Serialize(export)
+    local compressed = LibDeflate:CompressDeflate(serialized)
+    local encode = LibDeflate:EncodeForPrint(compressed)
+
+	return encode or "HMM"
+end
+
+function AltManager:ImportOptions(optionsString)
+	local decoded = LibDeflate:DecodeForPrint(optionsString)
+	if not decoded then return end
+	local decompressed = LibDeflate:DecompressDeflate(decoded)
+	if not decompressed then return end
+	local success, data = LibSerialize:Deserialize(decompressed)
+	if not success then return end
+
+	AltManager.confirm.accept:SetCallback("OnClick", function()
+		AltManager.db.global.custom = data.custom
+		AltManager.db.global.options = data.options
+
+		C_UI.Reload()
+	end)
+	AltManager.confirm:Show()
+
+	--if ViragDevTool_AddData then ViragDevTool_AddData(data) end
 end
 
 do
