@@ -729,7 +729,7 @@ local function loadOptionsTemplate()
 				inline = true,
 				set = function(info, value)
 					local key = info[#info]
-					AltManager.db.global.options[key] = value
+					AltManager.db.global.options.defaultCategories[key].enabled = value
 
 					if not AltManager.db.global.custom then
 						if not value then
@@ -741,7 +741,7 @@ local function loadOptionsTemplate()
 				end,
 				get = function(info)
 					local key = info[#info]
-					return AltManager.db.global.options[key]
+					return AltManager.db.global.options.defaultCategories[key].enabled
 				end,
 				hidden = function() return AltManager.db.global.custom end,
 				args = {
@@ -756,7 +756,7 @@ local function loadOptionsTemplate()
 				hidden = function() return not AltManager.db.global.custom end,
 				set = function(info, value)
 					local key = info[#info]
-					AltManager.db.global.options[key] = value
+					AltManager.db.global.options.customCategories[key].enabled = value
 
 					if AltManager.db.global.custom then
 						if not value then
@@ -768,7 +768,7 @@ local function loadOptionsTemplate()
 				end,
 				get = function(info)
 					local key = info[#info]
-					return AltManager.db.global.options[key]
+					return AltManager.db.global.options.customCategories[key].enabled
 				end,
 				args = {
 
