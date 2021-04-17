@@ -15,10 +15,14 @@ function AltManager:UpdateAllCurrencies()
 			info.quantity = info.quantity / 100
 		end			
 
+		currencyInfo[currencyType].currencyType = currencyType
 		currencyInfo[currencyType].quantity = info.quantity
 		currencyInfo[currencyType].maxQuantity = info.maxQuantity
 		currencyInfo[currencyType].totalEarned = info.totalEarned
-		currencyInfo[currencyType].icon = info.iconFileID
+		
+		if not self.db.global.currencyIcons[info.name] then
+			self.db.global.currencyIcons[info.name] = info.iconFileID
+		end
 	end
 
 	char_table.currencyInfo = currencyInfo
