@@ -201,8 +201,6 @@ function AltManager:OnInitialize()
 			AltManager:UpdateCompletionDataForCharacter()
 		end
 	end)
-
-	self.db.global.currentCategories = self.db.global.custom and self.db.global.options.customCategories or self.db.global.options.defaultCategories
 end
 
 function AltManager:OnEnable()
@@ -365,6 +363,9 @@ function AltManager:OnLogin()
 		self.db.global.internalVersion = INTERNALVERSION
 	end
 
+	self.LoadOptions()
+	self.db.global.currentCategories = self.db.global.custom and self.db.global.options.customCategories or self.db.global.options.defaultCategories
+
 	local alts = db.alts;
 	
 	self.main_frame.background:SetAllPoints();
@@ -374,11 +375,6 @@ function AltManager:OnLogin()
 	self:CreateMenu(alts);
 	self:MakeTopBottomTextures(self.main_frame);
 	self:MakeBorder(self.main_frame, 5);
-
-	local optionsLoaded, error = pcall(self.LoadOptions)
-	if not optionsLoaded then
-		print("[|cfff49b42MartinsAltManager|r]", error)
-	end
 end
 
 function AltManager:CreateFontFrame(parent, x_size, height, relative_to, y_offset, label, justify, x_offset, option)
