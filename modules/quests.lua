@@ -10,6 +10,21 @@ local function GetCurrentTier(talents)
 	return currentTier;
 end
 
+function AltManager:AddQuest(questID)
+	local mapId = C_Map.GetBestMapForUnit("player")
+	if not self.allowedMapIds[mapId] then return end
+	--if self.db.global.quests[questID] then return end
+
+	local questLogIndex = C_QuestLog.GetLogIndexForQuestID(questID)
+	if questLogIndex then
+		local mapInfo = self.allowedMapIds[mapId]
+		local questInfo = C_QuestLog.GetInfo(questLogIndex)
+		local title = questInfo.title
+
+		self.db.global.quests[questID] = {map = mapId, frequency = self.frequency[questInfo.frequency], name = questInfo.title, key = mapInfo.key}
+	end
+end
+
 function AltManager:UpdateQuest(questID)
 	if not questID then return end
 	local char_table = self.validateData()
