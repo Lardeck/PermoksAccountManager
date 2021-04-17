@@ -330,6 +330,8 @@ function AltManager:HandleChatCommand(cmd)
 |cfff49b42/mam help|r - Show this help text]])
 	elseif rqst == "version" then
 		print("|cfff49b42MartinsAltManager Version:|r", VERSION)
+	elseif rqst == "keys" then
+		AltManager:PostKeysIntoChat(arg)
 	else
 		if AltManagerFrame:IsShown() then
 			AltManager:HideInterface()
@@ -1308,4 +1310,25 @@ function AltManager:SaveCompletionData(key, isComplete, guid)
 			completionData.numCompleted = (completionData.numCompleted or 0) + (isComplete and 1 or 0)
 		end
 	end
+end
+
+function AltManager:PostKeysIntoChat(channel)
+	local chatChannel
+	if channel and (channel == "raid" or channel == "guild" or channel == "party") then
+		chatChannel = channel:upper()
+	else
+		chatChannel = UnitInParty("player") and "PARTY" or "GUILD"
+	end
+
+	local data = self.db.global.data
+	local keys = {}
+	for alt_guid, alt_data in pairs(data) do
+		if alt_data.level ~= "?" then
+			local key = string.format("[%s: %s+%d]",alt_data.name, alt_data.dungeon, alt_data.level)
+			tinsert(keys, key)
+		end
+	end
+
+	local msg = table.concat(keys, " ")
+	SendChatMessage(msg, chatChannel)
 end
