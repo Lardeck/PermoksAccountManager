@@ -1152,7 +1152,7 @@ end
 
 function AltManager:LoadOptions()
 	AltManager.numCategories = 0
-	if type(AltManager.db.global.options.defaultCategories) == "nil" then
+	if type(AltManager.db.global.options.defaultCategories.general.childs) == "nil" then
 		AltManager.db.global.options.defaultCategories = copyTable(default_categories)
 	end
 
