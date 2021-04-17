@@ -1121,10 +1121,18 @@ function AltManager.OpenOptions()
 	--if ViragDevTool_AddData then ViragDevTool_AddData(AltManager.optionsFrame) end
 end
 
+local function copyTable(obj)
+    if type(obj) ~= 'table' then return obj end
+    local res = {}
+    for k, v in pairs(obj) do res[copyTable(k)] = copyTable(v) end
+    return res
+end
+
+
 function AltManager:LoadOptions()
 	AltManager.numCategories = 0
 	if type(AltManager.db.global.options.defaultCategories) == "nil" then
-		AltManager.db.global.options.defaultCategories = default_categories
+		AltManager.db.global.options.defaultCategories = copyTable(default_categories)
 	end
 
 	custom_categories = AltManager.db.global.options.customCategories
@@ -1153,6 +1161,10 @@ function AltManager:LoadOptions()
 	imexport = imexport or createImportExportFrame(AltManager.optionsFrame)
 
 	AceConfigRegistry:RegisterOptionsTable(addonName, options, true)
+end
+
+function AltManager:UpdateDefaultCategories(key)
+	AltManager.db.global.options.defaultCategories[key] = copyTable(default_categories[key])
 end
 
 function AltManager:OptionsToString()
