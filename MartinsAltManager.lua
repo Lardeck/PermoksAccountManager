@@ -846,7 +846,9 @@ function AltManager:Unroll(button, my_rows, default_state, name, category)
 		-- create the rows for the unroll
 		lu.labels = lu.labels or {}
 		local numRows = 0
-		local options = self.db.global.currentCategories[category].childOrder
+		local options = self.db.global.currentCategories[category] and self.db.global.currentCategories[category].childOrder
+		if not options then return end
+
 		for i, row_identifier in ipairs(my_rows) do
 			if options[row_identifier] then
 				local row = self.columns[row_identifier]
