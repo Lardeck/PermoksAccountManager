@@ -155,16 +155,16 @@ function AltManager:OnInitialize()
 	main_frame.background:SetDrawLayer("ARTWORK", 1);
 	main_frame.background:SetColorTexture(0, 0, 0, 0.7);
 	
-	main_frame.scan_tooltip = CreateFrame('GameTooltip', 'DepletedTooltipScan', UIParent, 'GameTooltipTemplate');
+	main_frame.scan_tooltip = CreateFrame('GameTooltip', 'DepletedTooltipScan', UIParent, 'GameTooltipTemplate')
 	
-	main_frame:ClearAllPoints();
+	main_frame:ClearAllPoints()
   	if self.db.global.options["savePosition"] then
 		local position = self.db.global.position
-		main_frame:SetPoint(position.point or "TOP", WorldFrame, position.relativePoint or "TOP", position.xOffset or 0, position.yOffset or -300);
+		main_frame:SetPoint(position.point or "TOP", WorldFrame, position.relativePoint or "TOP", position.xOffset or 0, position.yOffset or -300)
 	else
 		main_frame:SetPoint("TOP", WorldFrame, "TOP", 0, -300)
 	end
-	main_frame:Hide();
+	main_frame:Hide()
 	main_frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	main_frame:SetScript("OnEvent", function(self, event, ...)
