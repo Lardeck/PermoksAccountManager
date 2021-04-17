@@ -534,6 +534,8 @@ function AltManager:Purge()
 	self.db.global.blacklist = blacklist
 	self.db.global.internalVersion = internalVersion
 
+	self:OnLogin()
+
 	print("[|cfff49b42MartinsAltManager|r] Please reload your interface to update the displayed info.")
 end
 
