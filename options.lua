@@ -104,6 +104,9 @@ AltManager.groups = {
 	separator = {
 		label = "Separator",
 	},
+	item = {
+		label = "Items",
+	},
 }
 
 AltManager.columns = {

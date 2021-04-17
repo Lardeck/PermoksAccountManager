@@ -40,11 +40,20 @@ end
 function AltManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum)
 	if not currencyInfo or type(currencyInfo) ~= "table" then return end
 
-	if not hideMaximum and currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 then
-		return self:CreateFractionString(currencyInfo.quantity, currencyInfo.maxQuantity, abbreviateCurrent, abbreviateMaximum)
-	else
-		return abbreviateCurrent and AbbreviateNumbers(currencyInfo.quantity) or AbbreviateLargeNumbers(currencyInfo.quantity)
+	local iconString
+	local currencyIcon = self.db.global.currencyIcons[currencyInfo.name] 
+	if currencyIcon and self.db.global.options.currencyIcons then
+		iconString = string.format("\124T%d:20:20\124t", currencyIcon)
 	end
+
+	local currencyString
+	if not hideMaximum and currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 then
+		currencyString = self:CreateFractionString(currencyInfo.quantity, currencyInfo.maxQuantity, abbreviateCurrent, abbreviateMaximum)
+	else
+		currencyString = abbreviateCurrent and AbbreviateNumbers(currencyInfo.quantity) or AbbreviateLargeNumbers(currencyInfo.quantity)
+	end
+
+	return string.format("%s%s", currencyString, iconString or "")
 end
 
 function AltManager:CurrencyTooltip_OnEnter(button, alt_data, currencyId)

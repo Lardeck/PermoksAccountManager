@@ -48,7 +48,7 @@ function AltManager:UpdateAllQuests()
 
 				if not info.sanctum or (sanctumTier >= info.minSanctumTier) then
 					local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
-
+					
 					questInfo[reset][info.key] = questInfo[reset][info.key] or {}
 					questInfo[reset][info.key][questID] = isComplete
 				end
