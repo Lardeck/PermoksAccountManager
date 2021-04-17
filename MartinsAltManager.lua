@@ -343,8 +343,9 @@ function AltManager:OnLogin()
 	local guid = self:getGUID()
 	local level = UnitLevel("player")
 
-	if guid and not db.data[guid].name then
+	if guid and not db.data[guid] then
 		if not self.isBlacklisted(guid) and not (level < min_level) then
+			db.data[guid] = {itemCounts = {}}
 			db.alts = db.alts + 1
 		end
 	end
