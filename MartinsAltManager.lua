@@ -135,14 +135,6 @@ function AltManager:OnInitialize()
 	AltManager:RegisterChatCommand('mam', 'HandleChatCommand')
   	AltManager:RegisterChatCommand('alts', 'HandleChatCommand')
 
-	local optionsLoaded, error = pcall(self.LoadOptions)
-	if not optionsLoaded then
-		BasicMessageDialog.Text:SetText("You need to purge your alt manager!")
-		BasicMessageDialog:Show()
-
-		print("[|cfff49b42MartinsAltManager|r]", error)
-	end
-
 	self.spairs = spairs
 
   	LibIcon:Register("MartinsAltManager", AltManagerLDB, self.db.profile.minimap)
@@ -260,6 +252,11 @@ function AltManager:Modernize(oldInternalVersion)
 		for guid, name in pairs(self.db.global.blacklist) do
 			blacklist[guid] = {name = name, class = data[guid].class, realm = data[guid].realm}
 		end
+		oldInternalVersion = 1
+	end
+
+	if oldInternalVersion == 1 then
+		self:UpdateDefaultCategories("items")
 	end
 end
 
