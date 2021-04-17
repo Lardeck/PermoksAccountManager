@@ -472,9 +472,11 @@ local function setCustomOption(info, value)
 	if not value and tContains(childs, key) then
 		tDeleteItem(childs, key)
 
+		local j = 0
 		for i, child in ipairs(childs) do
-			AltManager.db.global.options.customCategories[category].childOrder[child] = i
-			options.args.order.args.customCategories.args[category].args[child].order = i
+			AltManager.db.global.options.customCategories[category].childOrder[child] = j
+			options.args.order.args.customCategories.args[category].args[child].order = j
+			j = j + 1
 		end
 
 		AltManager.db.global.options.customCategories[category].childOrder[key] = nil
@@ -482,8 +484,10 @@ local function setCustomOption(info, value)
 	elseif value and not tContains(childs, key) then
 		tinsert(childs, key)
 
-		for i, child in ipairs(childs) do
-			AltManager.db.global.options.customCategories[category].childOrder[child] = i
+		local j = 0
+		for i, child in pairs(childs) do
+			AltManager.db.global.options.customCategories[category].childOrder[child] = j
+			j = j + 1
 		end
 
 		options.args.order.args.customCategories.args[category].args[key] = {
@@ -514,11 +518,13 @@ local function setDefaultOption(info, value)
 	local category = info[#info-1]
 
 	local childs = AltManager.db.global.options.defaultCategories[category].childs
-	if not value and tContains(childs, key) then
+	if not value then
 		tDeleteItem(childs, key)
 
-		for i, child in ipairs(childs) do
-			AltManager.db.global.options.defaultCategories[category].childOrder[child] = i
+		local j = 0
+		for i, child in pairs(childs) do
+			AltManager.db.global.options.defaultCategories[category].childOrder[child] = j
+			j = j + 1
 		end
 
 		AltManager.db.global.options.defaultCategories[category].childOrder[key] = nil
@@ -637,7 +643,7 @@ local function createDefaultOptions()
 		end
 
 		local args = {}
-		for i, child in ipairs(info.childs) do
+		for i, child in pairs(info.childs) do
 			if AltManager.columns[child] and not AltManager.columns[child].hideOption then
 				args[child] = {
 					order = i,

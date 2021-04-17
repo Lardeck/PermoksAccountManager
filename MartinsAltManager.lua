@@ -777,7 +777,7 @@ function AltManager:PopulateStrings()
 			-- create / fill fontstrings
 			local i = 1;
 			local columns = self.db.global.currentCategories.general
-			for j, column_iden in ipairs(columns.childs) do
+			for j, column_iden in pairs(columns.childs) do
 				-- only display data with values
 				local column = self.columns[column_iden]
 				if column and type(column.data) == "function" and options[column_iden] then
