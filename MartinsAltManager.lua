@@ -1106,7 +1106,7 @@ function AltManager:CreateMenu(alts)
 	local general = self.db.global.currentCategories.general.childs
 	local categories = self.db.global.currentCategories
 
-	for j, row_iden in ipairs(general) do
+	for j, row_iden in pairs(general) do
 		local row = self.columns[row_iden]
 		if row.label then
 			local label_row = self:CreateFontFrame(self.main_frame, per_alt_x, font_height, label_column, -i*font_height, row.label, "RIGHT", 0)
