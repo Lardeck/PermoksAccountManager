@@ -677,9 +677,8 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
 		}
 	end
 
-
-	table.sort(categoryOptions.childs, function(a, b) return categoryOptions.childOrder[a] < categoryOptions.childOrder[b] end)
-	for i, child in ipairs(categoryOptions.childs) do
+	table.sort(categoryOptions.childs, function(a, b) if a and b then return categoryOptions.childOrder[a] < categoryOptions.childOrder[b] end end)
+	for i, child in pairs(categoryOptions.childs) do
 		options.args.order.args[optionsTable].args[category].args[child] = {
 			order = i,
 			type = "input",
