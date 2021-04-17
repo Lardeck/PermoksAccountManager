@@ -177,7 +177,17 @@ function AltManager:OnInitialize()
 			end
 		end
 		
-		if AltManager.addon_loaded then
+		if event == "CHAT_MSG_PARTY" or event == "CHAT_MSG_PARTY_LEADER" then
+			local msg = ...
+			if msg and msg:lower() == "!keys" then
+				AltManager:PostKeysIntoChat("party")
+			end
+		elseif event == "CHAT_MSG_GUILD" then
+			local msg = ...
+			if msg and msg:lower() == "!keys" then
+				AltManager:PostKeysIntoChat("guild")
+			end
+		elseif AltManager.addon_loaded then
 			if event == "QUEST_TURNED_IN" then
 				AltManager:UpdateQuest(...)
 			elseif event == "COVENANT_CALLINGS_UPDATED" then
@@ -186,7 +196,8 @@ function AltManager:OnInitialize()
 				AltManager:UpdateCurrency(...)
 				AltManager:UpdateTorghast()
 			elseif (event == "BAG_UPDATE_DELAYED" or event == "LFG_COMPLETION_REWARD" or event == "UPDATE_BATTLEFIELD_STATUS") then
-				AltManager:CollectData();
+				AltManager:CollectData()
+				AltManager:UpdateItemCounts()
 			elseif event == "UPDATE_FACTION" then
 				AltManager:UpdateFactions()
 			elseif event == "UPDATE_INSTANCE_INFO" then
