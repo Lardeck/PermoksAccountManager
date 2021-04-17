@@ -349,16 +349,14 @@ function AltManager:OnLogin()
 	local guid = self:getGUID()
 	local level = UnitLevel("player")
 
-	if guid and not db.data[guid] then
+	if guid and not db.data[guid].name then
 		if not self.isBlacklisted(guid) and not (level < min_level) then
-			db.data[guid] = {}
 			db.alts = db.alts + 1
 		end
 	end
 
 	self:UpdateEverything()
 	
-
 	if not db.battleTag then
 		local numBNetTotal = BNGetNumFriends()
 		local battleTag = C_BattleNet.GetAccountInfoByID(numBNetTotal + 1).battleTag
@@ -380,6 +378,11 @@ function AltManager:OnLogin()
 	self:CreateMenu(alts);
 	self:MakeTopBottomTextures(self.main_frame);
 	self:MakeBorder(self.main_frame, 5);
+
+	local optionsLoaded, error = pcall(self.LoadOptions)
+	if not optionsLoaded then
+		print("[|cfff49b42MartinsAltManager|r]", error)
+	end
 end
 
 function AltManager:CreateFontFrame(parent, x_size, height, relative_to, y_offset, label, justify, x_offset, option)
