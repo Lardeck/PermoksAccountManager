@@ -46,11 +46,7 @@ local defaultDB = {
 	},
 	global = {
 		blacklist = {},
-		data = {
-			['**'] = {
-				itemCounts = {}
-			}
-		},
+		data = {},
 		completionData = {['**'] = {numCompleted = 0}},
 		alts = 0,
 		options = {
