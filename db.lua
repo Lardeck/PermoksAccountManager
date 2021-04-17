@@ -62,6 +62,20 @@ AltManager.dungeons = {
 	[2291] = GetRealZoneText(2291),
 }
 
+AltManager.items = {
+	[171276] = {key = "flask"}, -- Flask
+	[172045] = {key = "foodHaste"}, -- Haste Food
+	[181468] = {key = "augmentRune"}, -- Rune
+	[172347] = {key = "armorKit"}, -- Armor Kit
+	[171286] = {key = "oilHeal"}, -- Heal Oil
+	[171285] = {key = "oilDPS"}, -- DPS Oil
+	[171267] = {key = "potHP"}, -- HP Pot
+	[172233] = {key = "drum"}, -- Drum
+	[171272] = {key = "potManaInstant"}, -- Mana Pot Instant
+	[171268] = {key = "potManaChannel"}, -- Mana Pot Channel
+	[173049] = {key = "tome"}, -- Tome
+}
+
 AltManager.factions = {
 	friendship = {
 		[2432] = {name = "Ve'nari", type = "friendship"},

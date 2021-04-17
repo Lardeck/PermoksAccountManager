@@ -993,7 +993,7 @@ function AltManager:UpdateMenu()
 	local general = self.db.global.currentCategories.general.childs
 	local completionData = self.db.global.completionData
 
-	for j, row_iden in ipairs(general) do
+	for j, row_iden in pairs(general) do
 		local row = self.columns[row_iden]
 		if row.label then
 			-- parent, x_size, height, relative_to, y_offset, label, justify, x_offset, option

@@ -29,6 +29,7 @@ modules\jailer.lua
 modules\quests.lua
 modules\torghast.lua
 modules\vault.lua
+modules\items.lua
 
 MartinsAltManager.lua
 db.lua

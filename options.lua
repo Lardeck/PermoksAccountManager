@@ -61,6 +61,13 @@ local default_categories = {
 		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, separator1 = 4, transport_network = 5, anima_conductor = 6, command_table = 7, sanctum_unique = 8},
 		enabled = true,
 	},
+	items = {
+		order = 6,
+		name = "Items",
+		childs = {"flask", "foodHaste", "augmentRune", "armorKit", "oilHeal", "oilDPS", "potHP", "drum", "potManaInstant", "potManaChannel", "tome"},
+		childOrder = {flask = 1, foodHaste = 2, augmentRune = 3, armorKit = 4, oilHeal = 5, oilDPS = 6, potHP = 7, drum = 8, potManaInstant = 9, potManaChannel = 10, tome = 11},
+		enabled = false
+	}
 }
 
 AltManager.groups = {
@@ -383,7 +390,75 @@ AltManager.columns = {
 		fakeLabel = "Separator6",
 		data = function() return "" end,
 		group = "separator",
-	}
+	},
+
+	-- Items
+	flask = {
+		label = "Flasks",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flask, 171276) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flask") end,
+		group = "item",
+	},
+	foodHaste = {
+		label = "Haste Food",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.foodHaste, 172045) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "foodHaste") end,
+		group = "item",
+	},
+	augmentRune = {
+		label = "Augment Runes",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.augmentRune, 181468) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "augmentRune") end,
+		group = "item",
+	},
+	armorKit = {
+		label = "Armor Kits",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.armorKit, 172347) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "armorKit") end,
+		group = "item",
+	},
+	oilHeal = {
+		label = "Heal Oils",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.oilHeal, 171286) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "oilHeal") end,
+		group = "item",
+	},
+	oilDPS = {
+		label = "DPS Oils",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.oilDPS, 171285) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "oilDPS") end,
+		group = "item",
+	},
+	potHP = {
+		label = "HP Pots",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potHP, 171267) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potHP") end,
+		group = "item",
+	},
+	drum = {
+		label = "Drums",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.drum, 172233) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "drum") end,
+		group = "item",
+	},
+	potManaInstant = {
+		label = "Instant Mana",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potManaInstant, 171272) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potManaInstant") end,
+		group = "item",
+	},
+	potManaChannel = {
+		label = "Channal Mana",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potManaChannel, 171268) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potManaChannel") end,
+		group = "item",
+	},
+	tome = {
+		label = "Tomes",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.tome, 173049) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "tome") end,
+		group = "item",
+	},
 }
 
 -- credit to the author of Shadowed Unit Frames
@@ -1114,7 +1189,7 @@ do
 		end
 	end
 
-	local groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "vault", "torghast", "dungeons", "raids", "reputation", "buff", "sanctum"}
+	local groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "vault", "torghast", "dungeons", "raids", "reputation", "buff", "sanctum", "item"}
 	for i, group in ipairs(groupOrder) do
 		customCategoryDefault[group] = {
 			order = i,
