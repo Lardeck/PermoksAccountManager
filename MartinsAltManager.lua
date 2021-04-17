@@ -46,7 +46,11 @@ local defaultDB = {
 	},
 	global = {
 		blacklist = {},
-		data = {},
+		data = {
+			['**'] = {
+				itemCounts = {}
+			}
+		},
 		completionData = {['**'] = {numCompleted = 0}},
 		alts = 0,
 		options = {
@@ -69,8 +73,19 @@ local defaultDB = {
 				},
 				['**'] = {childOrder = {}, childs = {}, enabled = true}
 			},
+			defaultCategories = {
+				['**'] = {
+					enabled = true
+				},
+				items = {
+					enabled = false
+				}
+			}
 		},
 		currentCallings = {},
+		quests = {},
+		currencyIcons = {},
+		itemIcons = {},
 		position = {},
 		version = VERSION,
 	},
