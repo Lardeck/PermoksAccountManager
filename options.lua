@@ -989,6 +989,28 @@ local function loadOptionsTemplate()
 						confirmText = "Are you sure?",
 					}
 				}
+			},
+			testOptions = {
+				order = 6,
+				type = "group",
+				name = "Test Options",
+				inline = true,
+				args = {
+					currencyIcons = {
+						order = 1,
+						type = "toggle",
+						name = "Currency Icons",
+						set = function(info, value) AltManager.db.global.options.currencyIcons = value end,
+						get = function(info) return AltManager.db.global.options.currencyIcons end,
+					},
+					itemIcons = {
+						order = 2,
+						type = "toggle",
+						name = "Item Icons",
+						set = function(info, value) AltManager.db.global.options.itemIcons = value end,
+						get = function(info) return AltManager.db.global.options.itemIcons end,
+					}
+				}
 			}
 		},
 	}
