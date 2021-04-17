@@ -56,7 +56,6 @@ function AltManager:CreateWeeklyString(vaultInfo)
 	local activityInfo = vaultInfo[1]
 	if not activityInfo or activityInfo.level == 0 then return end
 
-	self:SaveCompletionData()
 	return string.format("+%d", activityInfo.level)
 end
 
