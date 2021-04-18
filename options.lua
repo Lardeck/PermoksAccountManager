@@ -1189,7 +1189,7 @@ function AltManager:UpdateDefaultCategories(key)
 end
 
 function AltManager:OptionsToString()
-	local export = {custom = self.db.global.custom, options = self.db.global.options}
+	local export = {internalVersion = self.db.global.internalVersion, custom = self.db.global.custom, options = self.db.global.options}
 
 	local serialized = LibSerialize:Serialize(export)
     local compressed = LibDeflate:CompressDeflate(serialized)
@@ -1209,6 +1209,7 @@ function AltManager:ImportOptions(optionsString)
 	AltManager.confirm.accept:SetCallback("OnClick", function()
 		AltManager.db.global.custom = data.custom
 		AltManager.db.global.options = data.options
+		AltManager.db.global.internalVersion = data.internalVersion
 
 		C_UI.Reload()
 	end)
