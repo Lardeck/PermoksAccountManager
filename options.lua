@@ -730,6 +730,10 @@ local function createDefaultOptions()
 			end
 		end
 
+		if not AltManager.db.global.options.defaultCategories[category].childs then
+			AltManager:UpdateDefaultCategories(category)
+		end
+
 		addCategoryOptions("defaultCategories", args, category, info.name, info.order)
 		createOrderOptionsForCategory(AltManager.db.global.options.defaultCategories[category], "defaultCategories", category)
 	end	
