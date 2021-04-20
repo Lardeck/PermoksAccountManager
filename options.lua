@@ -705,7 +705,6 @@ local function addCustomCategory(category, name)
 		addCategoryOptions("customCategories", nil, category, name, order)
 		createOrderOptionsForCategory(AltManager.db.global.options.customCategories[category], "customCategories", category)
 
-		AltManager.db.global.options[category]  = true
 		selectDifferentTab("customCategories", category)
 	end
 end
