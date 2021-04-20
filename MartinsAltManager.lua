@@ -183,7 +183,7 @@ function AltManager:OnInitialize()
 			elseif event == "CURRENCY_DISPLAY_UPDATE" then
 				AltManager:UpdateCurrency(...)
 				AltManager:UpdateTorghast()
-			elseif (event == "BAG_UPDATE_DELAYED" or event == "LFG_COMPLETION_REWARD" or event == "UPDATE_BATTLEFIELD_STATUS") then
+			elseif (event == "BAG_UPDATE_DELAYED") then
 				AltManager:CollectData()
 				AltManager:UpdateItemCounts()
 			elseif event == "UPDATE_FACTION" then
