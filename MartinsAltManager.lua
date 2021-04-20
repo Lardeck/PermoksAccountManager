@@ -641,6 +641,7 @@ function AltManager:UpdateEverything()
 	self:UpdateFactions()
 	self:UpdateTorghast()
 	self:UpdateVaultInfo()
+	self:UpdateItemCounts()
 	self:CollectData()
 end
 
