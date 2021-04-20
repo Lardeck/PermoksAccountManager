@@ -167,12 +167,12 @@ function AltManager:OnInitialize()
 		
 		if event == "CHAT_MSG_PARTY" or event == "CHAT_MSG_PARTY_LEADER" then
 			local msg = ...
-			if msg and msg:lower() == "!keys" then
+			if msg and msg:lower() == "!allkeys" then
 				AltManager:PostKeysIntoChat("party")
 			end
 		elseif event == "CHAT_MSG_GUILD" then
 			local msg = ...
-			if msg and msg:lower() == "!keys" then
+			if msg and msg:lower() == "!allkeys" then
 				AltManager:PostKeysIntoChat("guild")
 			end
 		elseif AltManager.addon_loaded then
