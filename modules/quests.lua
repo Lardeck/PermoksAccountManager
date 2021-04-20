@@ -1,15 +1,5 @@
 local addonName, AltManager = ...
 
-local function GetCurrentTier(talents)
-	local currentTier = 0;
-	for i, talentInfo in ipairs(talents) do
-		if talentInfo.talentAvailability == Enum.GarrisonTalentAvailability.UnavailableAlreadyHave then
-			currentTier = currentTier + 1;
-		end
-	end
-	return currentTier;
-end
-
 function AltManager:AddQuest(questID)
 	local mapId = C_Map.GetBestMapForUnit("player")
 	if not self.allowedMapIds[mapId] then return end
