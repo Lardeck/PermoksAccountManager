@@ -1062,8 +1062,8 @@ local function loadOptionsTemplate()
 												return "You can only use letters, numbers, and colons (for now)."
 											elseif string.len(value)==0 then
 												return "Can't create an empty category."
-											elseif AltManager.db.global.options.defaultCategories[value:lower()] then
-												return "Can't override a default category (for now)."
+											elseif AltManager.db.global.options.customCategories[value:lower()].name then
+												return "This category already exists."
 											end
 
 											return true
