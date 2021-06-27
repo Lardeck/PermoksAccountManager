@@ -219,7 +219,7 @@ function AltManager:UpdateAccounts()
 	if self.db.global.numAccounts > 1 then
 		self:Print("Initiating Account Update.")
 		self:UpdateAccountButtons()
-		C_Timer.After(10, function() AltManager:SendAccountUpdates(true) end)
+		C_Timer.After(15, function() AltManager:SendAccountUpdates(true) end)
 	end
 end
 

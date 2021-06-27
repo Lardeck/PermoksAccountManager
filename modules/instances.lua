@@ -15,12 +15,12 @@ function AltManager:UpdateInstanceInfo()
 		name, _, _, difficulty, locked, extended, _, isRaid, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
 
 		if locked or (extended and encounterProgress>0) then
-			if self.raids[instanceID] or (self:IsBCCClient() and self.raids[name]) then
+			if self.raids[instanceID] or (self.isBC and self.raids[name]) then
 				local info = self.raids[instanceID] or self.raids[name]
 
 				instanceInfo.raids[info.englishName] = instanceInfo.raids[info.englishName] or {}
 				instanceInfo.raids[info.englishName][difficulty] = {difficulty = difficultyName, numEncounters = numEncounters, defeatedEncounters = encounterProgress}
-			elseif (self.dungeons[instanceID] and difficulty == 23) or ((self:IsBCCClient() and self.dungeons[name] and difficulty == 174)) then
+			elseif (self.dungeons[instanceID] and difficulty == 23) or ((self.isBC and self.dungeons[name] and difficulty == 174)) then
 				instanceInfo.dungeons[instanceID or self.dungeons[name]] = {
 					numEncounters = numEncounters, 
 					defeatedEncounters = encounterProgress,
@@ -53,7 +53,7 @@ end
 function AltManager:CreateRaidString(savedInfo, hideDifficulty)
 	if not savedInfo then return "-" end
 	local raidString = ""
-	local maxDifficultyId = self:IsBCCClient() and 175 or 16
+	local maxDifficultyId = self.isBC and 175 or 16
 
 	local highestDifficulty = 0
 	for difficulty in pairs(savedInfo) do
@@ -71,14 +71,13 @@ end
 
 function AltManager:DungeonTooltip_OnEnter(button, alt_data)
 	if not alt_data or not alt_data.instanceInfo then return end
-	local isBC = self:IsBCCClient()
 	local dungeonInfo = alt_data.instanceInfo.dungeons
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 3, "LEFT", "CENTER", "RIGHT")
 	button.tooltip = tooltip
 
 	for key, value in self.spairs(self.dungeons, function(t, a, b) return t[a] < t[b] end) do
-		local left = isBC and key or value
-		local info = isBC and dungeonInfo[value] or dungeonInfo[key]
+		local left = self.isBC and key or value
+		local info = self.isBC and dungeonInfo[value] or dungeonInfo[key]
 		local right = "|cffff0000-|r"
 
 		if info then

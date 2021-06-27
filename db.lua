@@ -15,8 +15,10 @@ local default_categories = {
 	current = {
 		order = 2,
 		name = "9.1 Grind",
-		childs = {"korthia_dailies", "korthia_weekly", "tormentors_of_torghast", "maw_assault", "battle_plans", "korthia_supplies", "separator1", "deaths_advance", "archivists", "separator2", "torghast_layer", "world_boss"},
-		childOrder = {korthia_dailies = 1, korthia_weekly = 2, tormentors_of_torghast = 3, maw_assault = 4, battle_plans = 5, korthia_supplies = 6, separator1 = 7, deaths_advance = 8, archivists = 9, separator2 = 10, torghast_layer = 11, world_boss = 12},
+		childs = {"korthia_dailies", "korthia_weekly", "tormentors_of_torghast", "maw_assault", "battle_plans", "korthia_supplies", "containing_the_helsworn", 
+		"separator1", "deaths_advance", "archivists", "separator2", "torghast_layer", "world_boss"},
+		childOrder = {korthia_dailies = 1, korthia_weekly = 2, tormentors_of_torghast = 3, maw_assault = 4, battle_plans = 5, korthia_supplies = 6, containing_the_helsworn = 7, 
+		separator1 = 8, deaths_advance = 9, archivists = 10, separator2 = 11, torghast_layer = 12, world_boss = 13},
 		enabled = true,
 	},
 	daily = {
@@ -396,7 +398,7 @@ AltManager.columns = {
 		type = "quest",
 		reset = "biweekly",
 		key = "assault",
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.biweekly.assault) >= 1 end,
+		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.biweekly and AltManager:GetNumCompletedQuests(alt_data.questInfo.biweekly.assault) >= 1 end,
 		group = "resetWeekly",
 	},
 	battle_plans = {
@@ -413,6 +415,13 @@ AltManager.columns = {
 		reset = "weekly",
 		key = "korthia_supplies",
 		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.korthia_supplies) == 1 end,
+		group = "resetWeekly",
+	},
+	containing_the_helsworn = {
+		label = "Maw WQ",
+		type = "quest",
+		reset = "weekly",
+		key = "containing_the_helsworn",
 		group = "resetWeekly",
 	},
 	torghast_layer = {
@@ -902,6 +911,8 @@ AltManager.quests = {
 
 	 	[64521] = {key = "battle_plans"}, -- Helsworn Battle Plans
 	 	[64522] = {key = "korthia_supplies"}, -- Stolen Korthia Supplies
+
+	 	[64273] = {key = "containing_the_helsworn"}, -- Containing the Helsworn World Quest
 	},
 	biweekly = {
 		[63824] = {key = "assault"}, -- Kyrian

@@ -190,10 +190,10 @@ function AltManager:OnInitialize()
 		elseif AltManager.addon_loaded then
 			if event == "BAG_UPDATE_DELAYED" then
 				AltManager:CollectData()
-				AltManager:SendInfo("charLevel")
+				AltManager:SendCharacterUpdate("charLevel")
 			elseif event == "PLAYER_MONEY" then
 				AltManager:UpdateGold()
-				AltManager:SendInfo("gold")
+				AltManager:SendCharacterUpdate("gold")
 			elseif event =="CHALLENGE_MODE_COMPLETED" then
 				AltManager:UpdateMythicScore()
 			end
@@ -203,7 +203,7 @@ end
 
 function AltManager:OnEnable()
 	self.addon_loaded = true
-	if not self:IsBCCClient() then
+	if not self.isBC then
 		tinsert(altManagerEvents, "CHALLENGE_MODE_COMPLETED")
 	end
 end
@@ -218,7 +218,7 @@ end
 
 function AltManager:CheckForModernize()
 	local internalVersion = self.db.global.internalVersion
-	if internalVersion and internalVersion < INTERNALVERSION then
+	if not internalVersion or internalVersion < INTERNALVERSION then
 		self:Modernize(internalVersion)
 	end
 	self.db.global.internalVersion = INTERNALVERSION
@@ -325,7 +325,7 @@ end
 function AltManager:SortPages()
 	local account = self.db.global.accounts.main
 	local data = account.data
-	local sortKey = self:IsBCCClient() and "charLevel" or "ilevel"
+	local sortKey = self.isBC and "charLevel" or "ilevel"
 	wipe(account.pages)
 
 	local enabledAlts = 1
@@ -370,6 +370,7 @@ function AltManager:OnLogin()
 	local guid = self:getGUID()
 	local level = UnitLevel("player")
 
+	self.isBC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 	self:SaveBattleTag(db)
 	self:CheckForModernize()
 	self.account = db.accounts.main
@@ -604,14 +605,14 @@ function AltManager:ValidateReset()
 end
 
 function AltManager:RequestCharacterInfo()
-	if not self:IsBCCClient() then
+	if not self.isBC then
 		RequestRatedInfo()
 		CovenantCalling_CheckCallings()
 	end
 end
 
 function AltManager:UpdateEverything()
-	if self:IsBCCClient() then
+	if self.isBC then
 		self:UpdateAllBCCQuests()
 		self:UpdateLocation()
 		self:UpdateProfessions()
@@ -690,7 +691,7 @@ function AltManager:CollectData()
 	char_table.daily = self:GetNextDailyResetTime()
 	char_table.biweekly = self:GetNextBiWeeklyResetTime()
 
-	if not self:IsBCCClient() then
+	if not self.isBC then
 		local _, ilevel = GetAverageItemLevel()
 		char_table.ilevel = ilevel
 			-- Keystone
@@ -1304,7 +1305,7 @@ AltManager.functions = {
 		if not alt_data or not alt_data.questInfo then return "-" end
 		if not column.reset or not column.key then return "-" end
 
-		local questInfo = alt_data.questInfo[column.reset][column.key]
+		local questInfo = alt_data.questInfo[column.reset] and alt_data.questInfo[column.reset][column.key]
 		if not questInfo then return "-" end
 
 		local required = column.required or 1
@@ -1312,7 +1313,7 @@ AltManager.functions = {
 			required = column.required(alt_data)
 		end
 
-		return AltManager:CreateQuestString(questInfo, column.required or 1, (column.plus) or (column.plus == nil and required == 1)) or "-"
+		return AltManager:CreateQuestString(questInfo, required, (column.plus) or (column.plus == nil and required == 1)) or "-"
 	end,
 	currency = function(alt_data, column)
 		if not alt_data or not alt_data.currencyInfo then return "-" end

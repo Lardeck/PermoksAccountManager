@@ -13,7 +13,7 @@ local default = {
 }
 
 function AltManager:GetQuestInfo(questLogIndex)
-	if self:IsBCCClient() then
+	if self.isBC then
 		local title, _, _, isHeader, _, _, frequency, questID, _, _, _, _, _, _, _, isHidden = GetQuestLogTitle(questLogIndex)
 		return {title = title, isHeader = isHeader, frequency = frequency, isHidden = isHidden, questID = questID}
 	else
@@ -52,14 +52,13 @@ end
 
 
 function AltManager:UpdateQuest(questID)
-	if not questID then return end
-	local char_table = self.validateData()
-	if not char_table then return end
+	local char_table = self.char_table
+	if not questID or not char_table then return end
 	if not char_table.questInfo then 
-		if self:IsBCCClient() then
-			self:UpdateAllBCCQuests()
+		if self.isBC then
+			self:UpdateAllBCCQuests(char_table)
 		else
-			self:UpdateAllQuests() 
+			self:UpdateAllRetailQuests() 
 		end
 	end
 
@@ -86,7 +85,6 @@ function AltManager:UpdateAllRetailQuests()
 	local char_table = self.char_table
 	if not char_table then return end
 	char_table.questInfo = char_table.questInfo or default
-
 
 	local covenant = char_table.covenant or C_Covenants.GetActiveCovenantID()
 	local questInfo = char_table.questInfo
@@ -120,14 +118,16 @@ function AltManager:UpdateAllRetailQuests()
 end
 
 function AltManager:UpdateAllBCCQuests()
-	local char_table = self.validateData()
+	local char_table = self.char_table
 	if not char_table then return end
+
+	char_table.questInfo = char_table.questInfo or default
 	char_table.completedDailies = {}
 	char_table.completedDailies.num = 0
 
-	local questInfo = {}
+	local questInfo = char_table.questInfo
 	for reset, quests in pairs(self.quests) do
-		questInfo[reset] = {}
+		questInfo[reset] = questInfo[reset] or {}
 		for questID, info in pairs(quests) do
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 

@@ -944,6 +944,16 @@ function AltManager:ImportOptions(optionsString)
 	local success, data = LibSerialize:Deserialize(decompressed)
 	if not success then return end
 
+	local categories = data.options.customCategories
+	for category, info in pairs(categories) do
+		for identifier, index in pairs(info.childOrder) do
+			if not AltManager.columns[identifier] then
+				info.childOrder[identifier] = nil
+				tDeleteItem(info.childs, identifier)
+			end
+		end
+	end
+
 	AltManager.confirm.accept:SetCallback("OnClick", function()
 		AltManager.db.global.custom = data.custom
 		AltManager.db.global.options = data.options
@@ -951,6 +961,7 @@ function AltManager:ImportOptions(optionsString)
 
 		C_UI.Reload()
 	end)
+
 	AltManager.confirm:Show()
 
 	--if ViragDevTool_AddData then ViragDevTool_AddData(data) end

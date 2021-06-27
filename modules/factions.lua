@@ -30,7 +30,7 @@ function AltManager:UpdateFactions()
 		end
 	end
 
-	if not self:IsBCCClient() then
+	if not self.isBC then
 		local barValue, barMin, barMax, maxRep, _
 		for factionId, info in pairs(self.factions.friendship) do
 			_, barValue, maxRep,  _, _, _, standing, barMin, barMax = GetFriendshipReputation(factionId)

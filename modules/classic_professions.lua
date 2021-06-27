@@ -24,6 +24,11 @@ local function GetCooldownLeft(start, duration)
     return cdLeftDuration
 end
 
+
+-- Need to rewrite most of this stuff. I hate the classic API
+
+
+
 function AltManager:UpdateProfessions()
 	local char_table = self.validateData()
 	if not char_table then return end
@@ -62,8 +67,8 @@ function AltManager:UpdateProfessionCDs()
 				for spellId, cdName in pairs(self.professionCDs[professionName].cds) do
 					local start, duration = GetSpellCooldown(spellId)
 					local cooldown = start > 0 and time() + GetCooldownLeft(start, duration) or 0
-					if not professionCDs[cdName] or professionCDs[cdName] ~= cooldown then updated = true end
-					professionCDs[cdName] = cooldown
+					if not professionCDs[spellId] or professionCDs[spellId] ~= cooldown then updated = true end
+					professionCDs[spellId] = cooldown
 				end
 			end
 		end
@@ -77,36 +82,23 @@ function AltManager:UpdateProfessionCDs()
 end
 
 
-function AltManager:CreateProfessionString(professionInfo)
-	if not professionInfo then return end
+function AltManager:CreateProfessionString(professionInfo, professionCDs)
+	if not professionInfo or not professionCDs then return end
 
-	local icon = self.professionCDs[professionInfo.name].icon
+	local cdInfo = self.professionCDs[professionInfo.name]
+	local professionString = string.format("\124T%d:18:18\124t %s", cdInfo.icon, professionInfo.skillRank)
 
-	return string.format("\124T%d:18:18\124t %s", icon, self:CreateFractionString(professionInfo.skillRank, professionInfo.skillMaxRank))
-end
-
-function AltManager:CreateProfessionCDString(professions, professionCDs, index)
-	if not index then return end
-	if #professions == 0 then return end
-
-	local cdIndex, professionIndex = 0, 1
-	if self.professionCDs[professions[professionIndex].name] and index > self.professionCDs[professions[professionIndex].name].num then
-		cdIndex = self.professionCDs[professions[1].name].num
-		professionIndex = 2
+	local professionCDString
+	if cdInfo.cds then
+		for spellId, cdName in pairs(cdInfo.cds) do
+			local cooldown = professionCDs[spellId]
+			if cooldown and (cooldown == 0 or time() > cooldown) then
+				professionCDString = string.format("%s\124T%d:18:18\124t", professionCDString or "", cdInfo.items and select(5, GetItemInfoInstant(cdInfo.items[spellId])) or GetSpellTexture(spellId))
+			end
+		end
 	end
 
-	if not professions[professionIndex] then return end
-
-	for _, cdName in pairs(self.professionCDs[professions[professionIndex].name]) do
-		cdIndex = cdIndex + 1
-		if cdIndex == index then
-			local expirationTime = professionCDs[cdName]
-			if expirationTime == 0 then return end
-
-			local days, hours, minutes = self:timeToDaysHoursMinutes(expirationTime)
-			return self:CreateTimeString(days, hours, minutes)
-		end
-	end 
+	return professionCDString and string.format("%s %s", professionString, professionCDString) or professionString
 end
 
 function AltManager:ProfessionTooltip_OnEnter(button, alt_data, professionInfo)
@@ -114,8 +106,8 @@ function AltManager:ProfessionTooltip_OnEnter(button, alt_data, professionInfo)
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "RIGHT", "LEFT")
 	button.tooltip = tooltip
 
-	for _, cdName in pairs(self.professionCDs[professionInfo.name].cds) do
-		local expirationTime = alt_data.professionCDs[cdName]
+	for spellId, cdName in pairs(self.professionCDs[professionInfo.name].cds) do
+		local expirationTime = alt_data.professionCDs[spellId]
 		if expirationTime and expirationTime > 0 and expirationTime > time() then
 			local days, hours, minutes = self:timeToDaysHoursMinutes(expirationTime)
 			tooltip:AddLine(cdName, self:CreateTimeString(days, hours, minutes))

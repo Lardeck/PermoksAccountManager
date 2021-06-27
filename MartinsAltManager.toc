@@ -1,7 +1,7 @@
 ## Interface: 90005
 ## Title: Martins Alt Manager
 ## Author: Qoning
-## Version: 9.0.18.7
+## Version: 9.0.19.0
 ## Notes: This is a note
 ## SavedVariables: MartinsAltManagerDB
 

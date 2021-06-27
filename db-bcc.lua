@@ -136,13 +136,13 @@ AltManager.columns = {
 	profession1CDs = {
 		label = "Profession 1",
 		tooltip = function(button, alt_data) AltManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[1]) end,
-		data = function(alt_data) return alt_data.professions and AltManager:CreateProfessionString(alt_data.professions[1]) or "-" end,
+		data = function(alt_data) return alt_data.professions and alt_data.professionCDs and AltManager:CreateProfessionString(alt_data.professions[1], alt_data.professionCDs) or "-" end,
 		group = "profession",
 	},
 	profession2CDs = {
 		label = "Profession 2",
 		tooltip = function(button, alt_data) AltManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[2]) end,
-		data = function(alt_data) return alt_data.professions and AltManager:CreateProfessionString(alt_data.professions[2]) or "-" end,
+		data = function(alt_data) return alt_data.professions and alt_data.professionCDs and AltManager:CreateProfessionString(alt_data.professions[2], alt_data.professionCDs) or "-" end,
 		group = "profession",
 	},
 	dailyQuestCounter = {
@@ -712,12 +712,20 @@ AltManager.professionCDs = {
 			[31373] = L["Spellcloth"], -- Spellcloth
 			[36686] = L["Shadowcloth"], -- Shadowcloth
 		},
+		items = {
+			[26751] = 21845,
+			[31373] = 24271,
+			[36686] = 24272,
+		},
 		icon = 136249,
 		num = 3,
 	},
 	[L["Alchemy"]] = {
 		cds = {
 			[29688]  = L["Transmute"], -- Transmute: Primal Might
+		},
+		items = {
+			[29688] = 23571,
 		},
 		icon = 136240,
 		num = 1,
@@ -726,12 +734,18 @@ AltManager.professionCDs = {
 		cds = {
 			[19566] = L["Salt Shaker"], -- Salt Shaker
 		},
+		items = {
+			[19566] = 15846,
+		},
 		icon = 133611,
 		num = 1,
 	},
 	[L["Enchanting"]] = {
 		cds = {
 			[28027] = L["Void Sphere"], -- Void Sphere
+		},
+		items = {
+			[28027] = 22459,
 		},
 		icon = 136244,
 		num = 1,
@@ -759,6 +773,9 @@ AltManager.professionCDs = {
 	[L["Jewelcrafting"]] = {
 		cds = {
 			[47280] = L["Brilliant Glass"], -- Brilliant Glass
+		},
+		items = {
+			[47280] = 35945,
 		},
 		icon = 134071,
 		num = 1,
