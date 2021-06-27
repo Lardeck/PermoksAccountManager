@@ -14,455 +14,7 @@ AltManager.numCategories = 0
 
 local lCurrency = {}
 local custom_categories
-local default_categories = {
-	general = {
-		order = 0,
-		name = "General",
-		childs = {"characterName", "ilevel", "gold", "weekly_key", "keystone", "soul_ash", "stygia", "conquest", "honor", "valor", "contract"},
-		childOrder = {characterName = 1, ilevel = 2, gold = 3, weekly_key = 4, keystone = 5, soul_ash = 6, stygia = 7, conquest = 8, honor = 9, valor = 10, contract = 11},
-		hideToggle = true,
-		enabled = true,
-	},
-	daily = {
-		order = 1,
-		name = "Daily",
-		childs = {"callings", "separator1", "maw_dailies", "eye_of_the_jailer", "separator2", "sanctum_quests", "conductor"},
-		childOrder = {callings = 1, separator1 = 2, maw_dailies = 3, eye_of_the_jailer = 4, separator2 = 5, sanctum_quests = 6, conductor = 7},
-		enabled = true,
-	},
-	weekly = {
-		order = 2,
-		name = "Weekly",
-		childs = {"great_vault_mplus", "great_vault_raid", "great_vault_pvp", "separator1", "mythics_done", "dungeon_quests", "pvp_quests",
-			 	  "weekend_event", "separator2", "world_boss", "anima", "maw_souls", "separator3", "maw_weekly", "torghast_layer", "separator4", "wrath", "hunt"},
-		childOrder = {great_vault_mplus = 1, great_vault_raid = 2, great_vault_pvp = 3, separator1 = 4, mythics_done = 5, dungeon_quests = 6, pvp_quests = 7,
-					  weekend_event = 8, separator2 = 9, world_boss = 10, anima = 11, maw_souls = 12, separator3 = 13, maw_weekly = 14, torghast_layer = 15, 
-					  separator4 = 16, wrath = 17, hunt = 18},
-		enabled = true,
-	},
-	reputation = {
-		order = 3,
-		name = "Reputation",
-		childs = {"venari", "ascended", "wild_hunt", "undying_army", "court_of_harvesters"},
-		childOrder = {venari = 1, ascended = 2, wild_hunt = 3, undying_army = 4, court_of_harvesters = 5},
-		enabled = true,
-	},
-	raid = {
-		order = 4,
-		name = "Raid",
-		childs = {"nathria"},
-		childOrder = {nathria = 1},
-		enabled = true,
-	},
-	sanctum = {
-		order = 5,
-		name = "Sanctum",
-		childs = {"reservoir_anima", "renown", "redeemed_soul", "separator1", "transport_network", "anima_conductor", "command_table", "sanctum_unique"},
-		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, separator1 = 4, transport_network = 5, anima_conductor = 6, command_table = 7, sanctum_unique = 8},
-		enabled = true,
-	},
-	items = {
-		order = 6,
-		name = "Items",
-		childs = {"flask", "foodHaste", "augmentRune", "armorKit", "oilHeal", "oilDPS", "potHP", "drum", "potManaInstant", "potManaChannel", "tome"},
-		childOrder = {flask = 1, foodHaste = 2, augmentRune = 3, armorKit = 4, oilHeal = 5, oilDPS = 6, potHP = 7, drum = 8, potManaInstant = 9, potManaChannel = 10, tome = 11},
-		enabled = false
-	}
-}
-
-AltManager.groups = {
-	currency = {
-		label = "Currency",
-	},
-	resetDaily = {
-		label = "Daily Reset",
-	},
-	resetWeekly = {
-		label = "Weekly Reset",
-	},
-	vault = {
-		label = "Vault",
-	},
-	torghast = {
-		label = "Torghast",
-	},
-	dungeons = {
-		label = "Dungeons",
-	},
-	raids = {
-		label = "Raids",
-	},
-	reputation = {
-		label = "Reputation",
-	},
-	buff = {
-		label = "Buff",
-	},
-	sanctum = {
-		label = "Sanctum",
-	},
-	separator = {
-		label = "Separator",
-	},
-	item = {
-		label = "Items",
-	},
-}
-
-AltManager.columns = {
-	characterName = {
-		order = 0.1,
-		label = "Name",
-		hideOption = true,
-		data = function(alt_data) return alt_data.name end,
-		color = function(alt_data) return RAID_CLASS_COLORS[alt_data.class] end,
-	},
-	ilevel = {
-		order = 0.2,
-		fakeLabel = "Ilvl",
-		hideOption = true,
-		data = function(alt_data) return string.format("%.2f", alt_data.ilevel or 0) end,
-		justify = "TOP",
-		font = "Fonts\\FRIZQT__.TTF",
-	},
-	gold = {
-		label = "Gold",
-		option = "gold",
-		data = function(alt_data) return alt_data.gold and alt_data.gold or 0 end,
-		group = "currency",
-	},
-	weekly_key = {
-		label = "Highest Key",
-		enabled = function(option, key) return option[key].enabled end,
-		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateWeeklyString(alt_data.vaultInfo.MythicPlus) or "-" end,
-		isComplete = function(alt_data) return alt_data.vaultInfo and alt_data.vaultInfo.MythicPlus and alt_data.vaultInfo.MythicPlus[1].level > 13 end,
-		group = "dungeons"
-	},
-	keystone = {
-		label = "Keystone",
-		data = function(alt_data) return (AltManager.keys[alt_data.dungeon] or alt_data.dungeon) .. " +" .. tostring(alt_data.level) end,
-		group = "dungeons",
-	},
-	soul_ash = {
-		label = "Soul Ash",
-		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1828], false, true)) or "-" end,
-		group = "currency",
-	},
-	stygia = {
-		label = "Stygia",
-		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1767])) or "-" end,
-		group = "currency",
-	},
-	conquest = {
-		label = "Conquest",
-		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1602) end,
-		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1602], nil, nil, true)) or "-" end,
-		group = "currency",
-	},
-	honor = {
-		label = "Honor",
-		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1792) end,
-		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1792], true, true)) or "-" end,
-		group = "currency",
-	},
-	valor = {
-		label = "Valor",
-		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1191) end,
-		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1191], nil, nil, true)) or "-" end,
-		group = "currency",
-	},
-	contract = {
-		label = "Contract",
-		data = function(alt_data) return alt_data.contract and AltManager:CreateContractString(alt_data.contract) or "-" end,
-		group = "buff",
-	},
-	callings = {
-		label = "Callings",
-		tooltip = function(button, alt_data) AltManager:CallingTooltip_OnEnter(button, alt_data) end,
-		data = function(alt_data) return AltManager:CreateCallingString(alt_data.callingInfo) end,
-		group = "resetDaily"
-	},
-	maw_dailies = {
-		label = "Maw Dailies",
-		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.daily.maw_dailies, alt_data.questInfo.maxMawQuests or 2)) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) == (alt_data.questInfo.maxMawQuests or 2) end,
-		group = "resetDaily",
-	},
-	eye_of_the_jailer = {
-		label = "Eye of the Jailer",
-		data = function(alt_data) return (alt_data.jailerInfo and AltManager:CreateJailerString(alt_data.jailerInfo)) or "-" end,
-		group = "resetDaily",
-	},
-	sanctum_quests = {
-		label = "Covenant Specific",
-		data = function(alt_data) 
-			if alt_data.covenant then
-				local covenant = alt_data.covenant
-				local rightFeatureType = (covenant == 3 and 2) or (covenant == 4 and 5) or 0
-				return (alt_data.questInfo and AltManager:CreateSanctumString(alt_data.sanctumInfo, rightFeatureType, alt_data.questInfo.daily.transport_network, alt_data.questInfo.maxnfTransport or 1)) or "-" 
-			else
-				return "-"
-			end
-		end,
-		group = "resetDaily",
-	},
-	conductor = {
-		label = "Conductor (NYI)",
-		data = function(alt_data) return "-" end,
-		group = "NYI",
-	},			
-	great_vault_mplus = {
-		label = "Vault M+",
-		tooltip = function(button, alt_data) AltManager:VaultTooltip_OnEnter(button, alt_data, "MythicPlus") end,
-		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateVaultString(alt_data.vaultInfo.MythicPlus) or "-" end,
-		group = "vault",
-	},
-	great_vault_raid = {
-		label = "Vault Raid",
-		tooltip = function(button, alt_data) AltManager:VaultTooltip_OnEnter(button, alt_data, "Raid") end,
-		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateVaultString(alt_data.vaultInfo.Raid) or "-" end,
-		group = "vault",
-	},
-	great_vault_pvp = {
-		label = "Vault PVP",
-		tooltip = function(button, alt_data) AltManager:VaultTooltip_OnEnter(button, alt_data, "RankedPvP") end,
-		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateVaultString(alt_data.vaultInfo.RankedPvP) or "-" end,
-		group = "vault",
-	},
-	mythics_done = {
-		label = "Mythic+0",
-		tooltip = function(button, alt_data) AltManager:DungeonTooltip_OnEnter(button, alt_data) end,
-		data = function(alt_data) return alt_data.instanceInfo and AltManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 2 end,
-		group = "dungeons",
-	},
-	dungeon_quests = {
-		label = "Dungeon Quests",
-		data = function(alt_data) return alt_data.questInfo and  AltManager:CreateQuestString(alt_data.questInfo.weekly.dungeon_quests, 2) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 2 end,
-		group = "resetWeekly",
-	},
-	pvp_quests = {
-		label = "PVP Quests",
-		enabled = function(option, key) return option[key].enabled end,
-		data = function(alt_data) return alt_data.questInfo and  AltManager:CreateQuestString(alt_data.questInfo.weekly.pvp_quests, 2) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 2 end,
-		group = "resetWeekly",
-	},
-	weekend_event = {
-		label = "Weekend Event",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.weekend_event, 1, true) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.weekend_event) == 1 end,
-		group = "resetWeekly",
-	},
-	world_boss = {
-		label = "World Boss",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.world_boss, 1, true) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.world_boss) == 1 end,
-		group = "resetWeekly",
-	},
-	anima = {
-		label = "1k Anima",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.anima, 1, true) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.anima) == 1 end,
-		group = "resetWeekly",
-	},
-	maw_souls = {
-		label = "Return Souls",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.maw_souls, 1, true) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.maw_souls) == 1 end,
-		group = "resetWeekly",
-	},
-	maw_weekly = {
-		label = "Maw Weeklies",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.maw_weekly, alt_data.questInfo.maxMawQuests or 2) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.maw_weekly) == (alt_data.questInfo.maxMawQuests or 2) end,
-		group = "resetWeekly",
-	},
-	torghast_layer = {
-		label = "Torghast",
-		tooltip = function(button, alt_data) AltManager:TorghastTooltip_OnEnter(button, alt_data) end,
-		data = function(alt_data) return alt_data.torghastInfo and AltManager:CreateTorghastString(alt_data.torghastInfo) or "-" end,
-		isComplete = function(alt_data) return alt_data.torghastInfo and AltManager:CompletedTorghastLayers(alt_data.torghastInfo) end,
-		group = "torghast",
-	},
-	wrath = {
-		label = "Wrath of the Jailer",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.wrath, 1, true) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.wrath) == 1 end,
-		group = "resetWeekly"
-	},
-	hunt = {
-		label = "The Hunt",
-		data = function(alt_data) return alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.weekly.hunt, 2, true) or "-" end,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hunt) == 1 end,
-		group = "resetWeekly",
-	},
-	venari = {
-		label = "Ve'nari",
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[2432])) or "-" end,
-		group = "reputation",
-	},
-	ascended = {
-		label = "Ascended",
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[2407])) or "-" end,
-		group = "reputation",
-	},
-	wild_hunt = {
-		label = "Wild Hunt",
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[2465])) or "-" end,
-		group = "reputation",
-	},
-	undying_army = {
-		label = "Undying Army",
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[2410])) or "-" end,
-		group = "reputation",
-	},
-	court_of_harvesters = {
-		label = "Court of Harvesters",
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[2413])) or "-" end,
-		group = "reputation",
-	},
-	nathria = {
-		label = "Castle Nathria",
-		tooltip = function(button, alt_data) AltManager:RaidTooltip_OnEnter(button, alt_data, AltManager.raids[2296].name) end,
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.nathria)) or "-" end,
-		group = "raids",
-	},
-	reservoir_anima = {
-		label = "Reservoir Anima",
-		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1813], nil, nil, true)) or "-" end,
-		group = "currency",
-	},
-	renown = {
-		label = "Renown",
-		data = function(alt_data) return alt_data.renown or "-" end,
-		group = "sanctum",
-	},	
-	redeemed_soul = {
-		label = "Redeemed Soul",
-		data = function(alt_data) return (alt_data.currencyInfo and AltManager:CreateCurrencyString(alt_data.currencyInfo[1810])) or "-" end,
-		group = "sanctum",
-	},
-	transport_network = {
-		label = "Transport Network",
-		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[2] and alt_data.sanctumInfo[2].tier) or "-" end,
-		group = "sanctum",
-	},
-	anima_conductor = {
-		label = "Anima Conductor",
-		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[1] and alt_data.sanctumInfo[1].tier) or "-" end,
-		group = "sanctum",
-	},
-	command_table = {
-		label = "Command Table",
-		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[3] and alt_data.sanctumInfo[3].tier) or "-" end,
-		group = "sanctum",
-	},
-	sanctum_unique = {
-		label = "Unique",
-		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[5] and alt_data.sanctumInfo[5].tier) or "-" end,
-		group = "sanctum",
-	},
-	separator1 = {
-		fakeLabel = "Separator1",
-		data = function() return "" end,
-		group = "separator",
-	},
-	separator2 = {
-		fakeLabel = "Separator2",
-		data = function() return "" end,
-		group = "separator",
-	},
-	separator3 = {
-		fakeLabel = "Separator3",
-		data = function() return "" end,
-		group = "separator",
-	},
-	separator4 = {
-		fakeLabel = "Separator4",
-		data = function() return "" end,
-		group = "separator",
-	},
-	separator5 = {
-		fakeLabel = "Separator5",
-		data = function() return "" end,
-		group = "separator",
-	},
-	separator6 = {
-		fakeLabel = "Separator6",
-		data = function() return "" end,
-		group = "separator",
-	},
-
-	-- Items
-	flask = {
-		label = "Flasks",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flask, 171276) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flask") end,
-		group = "item",
-	},
-	foodHaste = {
-		label = "Haste Food",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.foodHaste, 172045) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "foodHaste") end,
-		group = "item",
-	},
-	augmentRune = {
-		label = "Augment Runes",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.augmentRune, 181468) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "augmentRune") end,
-		group = "item",
-	},
-	armorKit = {
-		label = "Armor Kits",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.armorKit, 172347) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "armorKit") end,
-		group = "item",
-	},
-	oilHeal = {
-		label = "Heal Oils",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.oilHeal, 171286) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "oilHeal") end,
-		group = "item",
-	},
-	oilDPS = {
-		label = "DPS Oils",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.oilDPS, 171285) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "oilDPS") end,
-		group = "item",
-	},
-	potHP = {
-		label = "HP Pots",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potHP, 171267) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potHP") end,
-		group = "item",
-	},
-	drum = {
-		label = "Drums",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.drum, 172233) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "drum") end,
-		group = "item",
-	},
-	potManaInstant = {
-		label = "Instant Mana",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potManaInstant, 171272) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potManaInstant") end,
-		group = "item",
-	},
-	potManaChannel = {
-		label = "Channal Mana",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potManaChannel, 171268) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potManaChannel") end,
-		group = "item",
-	},
-	tome = {
-		label = "Tomes",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.tome, 173049) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "tome") end,
-		group = "item",
-	},
-}
+local default_categories = AltManager:getDefaultCategories()
 
 -- credit to the author of Shadowed Unit Frames
 local function selectDifferentTab(group, key)
@@ -581,6 +133,8 @@ local function setCustomOption(info, value)
 		AltManager.db.global.options.customCategories[category].childOrder[key] = value
 		options.args.order.args.customCategories.args[category].args[key] = nil
 	end
+
+	AltManager:UpdateAnchorsAndSize(category, nil, true, true)
 end
 
 local function getCustomOption(info)
@@ -623,6 +177,8 @@ local function setDefaultOption(info, value)
 			get = getOrder,
 		}
 	end
+
+	AltManager:UpdateAnchorsAndSize(category, nil, true, true)
 end
 
 local function getDefaultOption(info)
@@ -646,7 +202,7 @@ local function addCategoryOptions(optionsTable, args, category, name, order)
 		order = order,
 		type = "group",
 		name = name,
-		hidden = function(info) return not AltManager.db.global.options[category] end,
+		hidden = function(info) return not AltManager.db.global.options[optionsTable][category].enabled end,
 		args = args or customCategoryDefault,
 	}
 
@@ -654,7 +210,7 @@ local function addCategoryOptions(optionsTable, args, category, name, order)
 		order = order,
 		type = "group",
 		name = name,
-		hidden = function(info) return not AltManager.db.global.options[category] end,
+		hidden = function(info) return not AltManager.db.global.options[optionsTable][category].enabled end,
 		args = {
 		}
 	}
@@ -679,15 +235,18 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
 
 	table.sort(categoryOptions.childs, function(a, b) if a and b then return categoryOptions.childOrder[a] < categoryOptions.childOrder[b] end end)
 	for i, child in pairs(categoryOptions.childs) do
-		options.args.order.args[optionsTable].args[category].args[child] = {
-			order = i,
-			type = "input",
-			name =  AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
-			width = "half",
-			validate = function(info, value) return tonumber(value) or "Please insert a number." end,
-			set = setOrder,
-			get = getOrder,
-		}
+		local name = AltManager.columns[child] and (AltManager.columns[child].label or AltManager.columns[child].fakeLabel)
+		if name then
+			options.args.order.args[optionsTable].args[category].args[child] = {
+				order = i,
+				type = "input",
+				name =  AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
+				width = "half",
+				validate = function(info, value) return tonumber(value) or "Please insert a number." end,
+				set = setOrder,
+				get = getOrder,
+			}
+		end
 	end
 end
 
@@ -714,7 +273,9 @@ local function createDefaultOptions()
 
 	for category, info in pairs(default_categories) do
 		if not info.hideToggle then
-			numCategories = numCategories + 1
+			if AltManager.db.global.options.defaultCategories[category].enabled then
+				numCategories = numCategories + 1
+			end
 			addCategoryToggle("default_categories_toggles", category, info.name, info.order)
 		end
 
@@ -859,6 +420,7 @@ end
 
 local function loadOptionsTemplate()
 	local categoryData = {}
+	local syncData = {}
 
 	options.args.categoryToggles = {
 		order = 1,
@@ -878,8 +440,18 @@ local function loadOptionsTemplate()
 						set = function(info,value) AltManager.db.global.options.showOptionsButton = value end,
 						get = function(info) return AltManager.db.global.options.showOptionsButton end,
 					},
-					showMinimapButton = {
+					showGuildAttunementButton = {
 						order = 1.5,
+						type = "toggle",
+						name = "Show Guild Attunement Button",
+						set = function(info,value) 
+							AltManager.db.global.options.showGuildAttunementButton = value 
+							AltManager.main_frame.guildAttunmentButton:SetShown(value)
+						end,
+						get = function(info) return AltManager.db.global.options.showGuildAttunementButton end,
+					},
+					showMinimapButton = {
+						order = 2,
 						type = "toggle",
 						name = "Show Minimap Button",
 						set = function(info, value) 
@@ -893,7 +465,7 @@ local function loadOptionsTemplate()
 						get = function(info) return not AltManager.db.profile.minimap.hide end,
 					},
 					useCustom = {
-						order = 2,
+						order = 3,
 						type = "toggle",
 						name = "Use Custom",
 						desc = "Toggle the use of custom categories.",
@@ -990,11 +562,12 @@ local function loadOptionsTemplate()
 						func = function() AltManager:Purge() C_UI.Reload() end,
 						confirm = true,
 						confirmText = "Are you sure?",
-					}
+					},
+
 				}
 			},
 			testOptions = {
-				order = 6,
+				order = 7,
 				type = "group",
 				name = "Test Options",
 				inline = true,
@@ -1018,10 +591,98 @@ local function loadOptionsTemplate()
 		},
 	}
 
+		options.args.frame = {
+		order = 1.5,
+		type = "group",
+		name = "Frame Config",
+		get = function(info) 
+			local key = info[#info]
+			local parentKey = info[#info-1]
+			return AltManager.db.global.options[parentKey][key]
+		end,
+		args = {
+			buttons = {
+				order = 1,
+				type = "group",
+				name = "Button",
+				inline = true,
+				set = function(info, value)
+					local key = info[#info]
+					local parentKey = info[#info-1]
+					AltManager.db.global.options[parentKey][key] = value					
+
+					if key == "buttonWidth" and AltManager.db.global.options[parentKey].buttonTextWidth > value then
+						AltManager.db.global.options[parentKey].buttonTextWidth = value
+					end
+
+					AltManager:UpdateAnchorsAndSize("general", true)
+				end,
+				args = {
+					buttonWidth = {
+						order = 1,
+						type = "range",
+						name = "Button Width",
+						min = 60,
+						max = 250,
+						bigStep = 1,
+					},
+					buttonTextWidth =  {
+						order = 2,
+						type = "range",
+						name = "Text Width",
+						min = 60,
+						max = 250,
+					},
+					justifyH = {
+						order = 3,
+						type = "select",
+						name = "Justify Horizontal",
+						values = {["LEFT"] = "Left", ["CENTER"] = "Center", ["RIGHT"] = "Right"},
+						sorting = {"LEFT", "CENTER", "RIGHT"},
+						style = "dropdown",
+					}
+				}
+			},
+			other = {
+				order = 2,
+				type = "group",
+				name = "Other",
+				inline = true,
+				set = function(info, value)
+					local key = info[#info]
+					local parentKey = info[#info-1]
+					local options = AltManager.db.global.options
+					options[parentKey].updated = options[parentKey].updated or options[parentKey][key]
+					options[parentKey][key] = value
+
+					AltManager:UpdateAnchorsAndSize("general", true)
+				end,
+				args = {
+					labelOffset = {
+						order = 1,
+						type = "range",
+						name = "Label Offset",
+						min = 0,
+						max = 40,
+						bigStep = 1,
+					},
+					widthPerAlt = {
+						order = 2,
+						type = "range",
+						name = "Width per Alt",
+						min = 60,
+						max = 250,
+						bigStep = 1,
+					},
+				}
+			},
+		}
+	}
+
 	options.args.categories = {
 		order = 2,
 		type = "group",
-		name = "Categories",
+		name = "Category Config",
 		args = {
 			defaultCategories = {
 				order = 1,
@@ -1102,7 +763,7 @@ local function loadOptionsTemplate()
 	options.args.order = {
 		order = 4,
 		type = "group",
-		name = "Order",
+		name = "Category Order",
 		args = {
 			defaultCategories = {
 				order = 1,
@@ -1138,6 +799,80 @@ local function loadOptionsTemplate()
 			},
 		}
 	}
+
+	options.args.sync = {
+		order = 5,
+		type = "group",
+		name = "Account Syncing",
+		args = {
+			syncOptions = {
+				order = 1,
+				type = "group",
+				name = "Sync Accounts",
+				inline = true,
+				args =  {
+					name = {
+						order = 1,
+						name = "Character Name",
+						type = "input",
+						validate = function(info, value)
+							if value:match("[^%a]") then
+								return "Character names can only consist of letters."
+							end
+
+							return true
+						end,
+						set = function(info, value) syncData.name = value	end,
+						get = function(info) return syncData.name or "" end,
+					},
+					realm = {
+						order = 2,
+						name = "Realm",
+						type = "input",
+						hidden = function() local connectedRealms = GetAutoCompleteRealms() return AltManager:IsBCCClient() or #connectedRealms == 0 end,
+						validate = function(info, value)
+							if value:match("[^%a]") then
+								return "Realm names can only consist of letters."
+							end
+
+							return true
+						end,
+						set = function(info, value) syncData.realm = value	end,
+						get = function(info) return syncData.realm or "" end,
+					},
+					sync = {
+						order = 3,
+						name = "sync",
+						type = "execute",
+						func = function(info) 
+							if syncData.name then
+								AltManager:RequestAccountsync(syncData.name, syncData.realm)
+							end
+						end,
+					},
+					forceUpdate = {
+						order = 4,
+						name = "Send Update",
+						type = "execute",
+						desc = "To update the character list. Make sure to click this button on a character that existed in the manager at the time of syncing.",
+						disabled = function() return AltManager:GetNumAccounts() == 1 end,
+						func = function(info)
+							AltManager:SendAccountUpdates()
+						end,
+					}
+				}
+			},
+			syncedAccounts = {
+				order = 2,
+				type = "group",
+				name = "synced Accounts",
+				inline = true,
+				args = {
+				}
+			}
+		},
+	}
+
 end
 
 function AltManager.OpenOptions()
@@ -1229,8 +964,7 @@ do
 		end
 	end
 
-	local groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "vault", "torghast", "dungeons", "raids", "reputation", "buff", "sanctum", "item"}
-	for i, group in ipairs(groupOrder) do
+	for i, group in ipairs(AltManager.groupOrder) do
 		customCategoryDefault[group] = {
 			order = i,
 			type = "group",
@@ -1239,11 +973,13 @@ do
 			args = {}
 		}
 
-		for j, child in ipairs(default_category_childs[group]) do
-			customCategoryDefault[group].args[child] = {
-				type = "toggle",
-				name = AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
-			}
+		if default_category_childs[group] then
+			for j, child in ipairs(default_category_childs[group]) do
+				customCategoryDefault[group].args[child] = {
+					type = "toggle",
+					name = AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
+				}
+			end
 		end
 	end
 end

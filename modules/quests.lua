@@ -1,48 +1,97 @@
 local addonName, AltManager = ...
 
-function AltManager:AddQuest(questID)
-	local mapId = C_Map.GetBestMapForUnit("player")
-	if not self.allowedMapIds[mapId] then return end
-	--if self.db.global.quests[questID] then return end
+local frequencyNames = {
+	[0] = "default",
+	[1] = "daily",
+	[2] = "weekly",
+}
 
-	local questLogIndex = C_QuestLog.GetLogIndexForQuestID(questID)
-	if questLogIndex then
-		local mapInfo = self.allowedMapIds[mapId]
-		local questInfo = C_QuestLog.GetInfo(questLogIndex)
-		local title = questInfo.title
+local default = {
+	daily = {},
+	weekly = {},
+	biweekly = {},
+}
 
-		self.db.global.quests[questID] = {map = mapId, frequency = self.frequency[questInfo.frequency], name = questInfo.title, key = mapInfo.key}
+function AltManager:GetQuestInfo(questLogIndex)
+	if self:IsBCCClient() then
+		local title, _, _, isHeader, _, _, frequency, questID, _, _, _, _, _, _, _, isHidden = GetQuestLogTitle(questLogIndex)
+		return {title = title, isHeader = isHeader, frequency = frequency, isHidden = isHidden, questID = questID}
+	else
+		return C_QuestLog.GetInfo(questLogIndex)
 	end
 end
+
+function AltManager:AddQuest(questID, questLogIndex, questInfo)
+	local questLogIndex = questLogIndex or (self:IsBCCClient() and GetQuestLogIndexByID(questID) or C_QuestLog.GetLogIndexForQuestID(questID))
+	if questLogIndex then
+		local questInfo = questInfo or self:GetQuestInfo(questLogIndex)
+		local title = questInfo.title
+
+		self.db.global.quests[questID] = {frequency = questInfo.frequency, name = questInfo.title}
+	end
+end
+
+function AltManager:FindQuestByQuestID(questID)
+	local resetKey, key
+	if self.db.global.quests[questID] then
+		local questInfo = self.db.global.quests[questID]
+		resetKey = frequencyNames[questInfo.frequency]
+		if self.quests[resetKey] then
+			key = self.quests[resetKey][questID]
+		end
+	else
+		for reset, quests in pairs(self.quests) do
+			if quests[questID] then
+				return reset, quests[questID].key
+			end
+		end
+	end
+
+	return resetKey, key
+end
+
 
 function AltManager:UpdateQuest(questID)
 	if not questID then return end
 	local char_table = self.validateData()
 	if not char_table then return end
-	if not char_table.questInfo then self:UpdateAllQuests() end
-
-	local foundResetKey, key
-	for resetKey, quests in pairs(self.quests) do
-		if quests[questID] then
-			foundResetKey = resetKey
-			key = quests[questID].key
-			break
+	if not char_table.questInfo then 
+		if self:IsBCCClient() then
+			self:UpdateAllBCCQuests()
+		else
+			self:UpdateAllQuests() 
 		end
 	end
 
-	if foundResetKey and key and char_table.questInfo[foundResetKey][key] then
-		char_table.questInfo[foundResetKey][key][questID] = true
+	local resetKey, key = self:FindQuestByQuestID(questID)
+
+	if resetKey and key and char_table.questInfo[resetKey][key] then
+		char_table.questInfo[resetKey][key][questID] = true
+		if self:IsBCCClient() and resetKey == "daily" then
+			if self.quests[resetKey][questID].unique then
+				if not char_table.completedDailies[key] then
+					char_table.completedDailies[key] = true
+					char_table.completedDailies.num = char_table.completedDailies.num + 1
+				end
+			elseif not char_table.completedDailies[questID] then
+				char_table.completedDailies[questID] = true
+				char_table.completedDailies.num = char_table.completedDailies.num + 1
+			end
+		end
+		self:RemoveQuest(questID)
 	end
 end
 
-function AltManager:UpdateAllQuests()
-	local char_table = self.validateData()
+function AltManager:UpdateAllRetailQuests()
+	local char_table = self.char_table
 	if not char_table then return end
+	char_table.questInfo = char_table.questInfo or default
+
 
 	local covenant = char_table.covenant or C_Covenants.GetActiveCovenantID()
-	local questInfo = {}
+	local questInfo = char_table.questInfo
 	for reset, quests in pairs(self.quests) do
-		questInfo[reset] = {}
+		questInfo[reset] = questInfo[reset] or {}
 		for questID, info in pairs(quests) do
 			if info.covenant and covenant == info.covenant then
 				local sanctumTier
@@ -51,23 +100,70 @@ function AltManager:UpdateAllQuests()
 					questInfo["max" .. info.key] = max(1, sanctumTier)
 				end
 
-				if not info.sanctum or (sanctumTier >= info.minSanctumTier) then
+				if not info.sanctum or (sanctumTier and sanctumTier >= info.minSanctumTier) then
 					local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 					
 					questInfo[reset][info.key] = questInfo[reset][info.key] or {}
-					questInfo[reset][info.key][questID] = isComplete
+					questInfo[reset][info.key][questID] = isComplete or nil
 				end
 			elseif not info.covenant then
 				local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 
 				questInfo[reset][info.key] = questInfo[reset][info.key] or {}
-				questInfo[reset][info.key][questID] = isComplete
+				questInfo[reset][info.key][questID] = isComplete or nil
 			end
 		end
 	end
 
 	questInfo.maxMawQuests = C_QuestLog.IsQuestFlaggedCompleted(60284) and 3 or 2
 	char_table.questInfo = questInfo
+end
+
+function AltManager:UpdateAllBCCQuests()
+	local char_table = self.validateData()
+	if not char_table then return end
+	char_table.completedDailies = {}
+	char_table.completedDailies.num = 0
+
+	local questInfo = {}
+	for reset, quests in pairs(self.quests) do
+		questInfo[reset] = {}
+		for questID, info in pairs(quests) do
+			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
+
+			questInfo[reset][info.key] = questInfo[reset][info.key] or {}
+			questInfo[reset][info.key][questID] = isComplete
+
+			if reset == "daily" and isComplete then
+				if info.unique then
+					if not char_table.completedDailies[info.key] then
+						char_table.completedDailies.num = char_table.completedDailies.num + 1
+						char_table.completedDailies[info.key] = true
+					end
+				else
+					char_table.completedDailies[questID] = true
+					char_table.completedDailies.num = char_table.completedDailies.num + 1
+				end
+			end
+		end
+	end
+
+	char_table.questInfo = questInfo
+end
+
+function AltManager:UpdateCurrentlyActiveQuests()
+	local numQuests = self:IsBCCClient() and GetNumQuestLogEntries() or C_QuestLog.GetNumQuestLogEntries()
+	local info
+	for questLogIndex=1, numQuests do
+		info = self:GetQuestInfo(questLogIndex)
+		if info and not info.isHeader and not info.isHidden then
+			self:AddQuest(info.questID, questLogIndex, info)
+		end
+	end
+end
+
+function AltManager:RemoveQuest(questID)
+	self.db.global.quests[questID] = nil
 end
 
 function AltManager:GetNumCompletedQuests(questInfo)
@@ -105,3 +201,27 @@ function AltManager:CreateQuestString(questInfo, numDesired, replaceWithPlus)
 	end
 end
 
+do
+	local questEvents = {
+		"QUEST_ACCEPTED",
+		"QUEST_TURNED_IN",
+		"QUEST_REMOVED",
+	}
+
+	local questFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(questFrame, questEvents)
+
+	questFrame:SetScript("OnEvent", function(self, e, questID)
+		if AltManager.addon_loaded then
+			if e == "QUEST_ACCEPTED" then
+				AltManager:AddQuest(questID)
+			elseif e == "QUEST_TURNED_IN" then
+				AltManager:UpdateQuest(questID)
+				AltManager:SendCharacterUpdate("questInfo")
+			elseif e == "QUEST_REMOVED" then
+				AltManager:RemoveQuest(questID)
+			end
+			AltManager:UpdateCompletionDataForCharacter()
+		end
+	end)
+end

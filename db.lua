@@ -1,7 +1,638 @@
 local addonName, AltManager = ...
 local locale = GetLocale()
 
-AltManager.numMythicDungeons = 8
+local default_categories = {
+	general = {
+		order = 0,
+		name = "General",
+		childs = {"characterName", "ilevel", "gold", "weekly_key", "mplus_score", "keystone", "soul_cinders", 
+		"soul_ash", "valor", "stygian_ember", "stygia", "cataloged_research"},
+		childOrder = {characterName = 1, ilevel = 2, gold = 3, weekly_key = 4, mplus_score = 5, keystone = 6, soul_cinders = 7, 
+		soul_ash = 8, valor = 9, stygian_ember = 10, stygia = 11, cataloged_research = 12},
+		hideToggle = true,
+		enabled = true,
+	},
+	current = {
+		order = 2,
+		name = "9.1 Grind",
+		childs = {"korthia_dailies", "korthia_weekly", "tormentors_of_torghast", "maw_assault", "battle_plans", "korthia_supplies", "separator1", "deaths_advance", "archivists", "separator2", "torghast_layer", "world_boss"},
+		childOrder = {korthia_dailies = 1, korthia_weekly = 2, tormentors_of_torghast = 3, maw_assault = 4, battle_plans = 5, korthia_supplies = 6, separator1 = 7, deaths_advance = 8, archivists = 9, separator2 = 10, torghast_layer = 11, world_boss = 12},
+		enabled = true,
+	},
+	daily = {
+		order = 3,
+		name = "Daily",
+		childs = {"callings", "separator1", "maw_dailies", "eye_of_the_jailer", "separator2", "sanctum_quests", "conductor"},
+		childOrder = {callings = 1, separator1 = 2, maw_dailies = 3, eye_of_the_jailer = 4, separator2 = 5, sanctum_quests = 6, conductor = 7},
+		enabled = true,
+	},
+	weekly = {
+		order = 4,
+		name = "Weekly",
+		childs = {"great_vault_mplus", "great_vault_raid", "great_vault_pvp", "separator1", "mythics_done", "dungeon_quests", "pvp_quests",
+			 	  "weekend_event", "separator2", "anima", "maw_souls", "separator3", "maw_weekly", "separator4", "wrath", "hunt", "separator5", "contract"},
+		childOrder = {great_vault_mplus = 1, great_vault_raid = 2, great_vault_pvp = 3, separator1 = 4, mythics_done = 5, dungeon_quests = 6, pvp_quests = 7,
+					  weekend_event = 8, separator2 = 9, anima = 11, maw_souls = 12, separator3 = 13, maw_weekly = 14, separator4 = 16, wrath = 17, hunt = 18, separator5 = 19, contract = 20},
+		enabled = true,
+	},
+	reputation = {
+		order = 5,
+		name = "Reputation",
+		childs = {"archivists", "deaths_advance", "venari", "ascended", "wild_hunt", "undying_army", "court_of_harvesters", },
+		childOrder = {archivists = 1, deaths_advance = 2, venari = 3, ascended = 4, wild_hunt = 5, undying_army = 6, court_of_harvesters = 7, },
+		enabled = true,
+	},
+	raid = {
+		order = 6,
+		name = "Raid",
+		childs = {"nathria", "sanctum_of_domination"},
+		childOrder = {nathria = 1, sanctum_of_domination = 2},
+		enabled = true,
+	},
+	sanctum = {
+		order = 7,
+		name = "Sanctum",
+		childs = {"reservoir_anima", "renown", "redeemed_soul", "separator1", "transport_network", "anima_conductor", "command_table", "sanctum_unique"},
+		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, separator1 = 4, transport_network = 5, anima_conductor = 6, command_table = 7, sanctum_unique = 8},
+		enabled = true,
+	},
+	pvp = {
+		order = 8,
+		name = "PVP",
+		childs = {"conquest", "honor", "arenaRating2v2", "arenaRating3v3", "rbgRating"},
+		childOrder = {conquest = 1, honor = 2, arenaRating2v2 = 3, arenaRating3v3 = 4, rbgRating = 5},
+		enabled = true,
+	},
+	items = {
+		order = 9,
+		name = "Items",
+		childs = {"flask", "foodHaste", "augmentRune", "armorKit", "oilHeal", "oilDPS", "potHP", "drum", "potManaInstant", "potManaChannel", "tome"},
+		childOrder = {flask = 1, foodHaste = 2, augmentRune = 3, armorKit = 4, oilHeal = 5, oilDPS = 6, potHP = 7, drum = 8, potManaInstant = 9, potManaChannel = 10, tome = 11},
+		enabled = false
+	}
+}
+
+AltManager.groups = {
+	currency = {
+		label = "Currency",
+	},
+	resetDaily = {
+		label = "Daily Reset",
+	},
+	resetWeekly = {
+		label = "Weekly Reset",
+	},
+	vault = {
+		label = "Vault",
+	},
+	torghast = {
+		label = "Torghast",
+	},
+	dungeons = {
+		label = "Dungeons",
+	},
+	raids = {
+		label = "Raids",
+	},
+	reputation = {
+		label = "Reputation",
+	},
+	buff = {
+		label = "Buff",
+	},
+	sanctum = {
+		label = "Sanctum",
+	},
+	separator = {
+		label = "Separator",
+	},
+	item = {
+		label = "Items",
+	},
+	pvp = {
+		label = "PVP",
+	},
+}
+
+AltManager.groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "vault", "torghast", "dungeons", "raids", "reputation", "buff", "sanctum", "item", "pvp"}
+
+AltManager.columns = {
+	characterName = {
+		order = 0.1,
+		fakeLabel = "Name",
+		hideOption = true,
+		data = function(alt_data) return alt_data.name end,
+		color = function(alt_data) return RAID_CLASS_COLORS[alt_data.class] end,
+	},
+	ilevel = {
+		order = 0.2,
+		fakeLabel = "Ilvl",
+		hideOption = true,
+		data = function(alt_data) return string.format("%.2f", alt_data.ilevel or 0) end,
+		justify = "TOP",
+		small = true,
+	},
+	gold = {
+		label = "Gold",
+		option = "gold",
+		data = function(alt_data) return alt_data.gold and tonumber(alt_data.gold) and GetMoneyString(alt_data.gold, true) or "-" end,
+		group = "currency",
+	},
+	weekly_key = {
+		label = "Highest Key",
+		enabled = function(option, key) return option[key].enabled end,
+		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateWeeklyString(alt_data.vaultInfo.MythicPlus) or "-" end,
+		isComplete = function(alt_data) return alt_data.vaultInfo and alt_data.vaultInfo.MythicPlus and alt_data.vaultInfo.MythicPlus[1].level >= 15 end,
+		group = "dungeons"
+	},
+	mplus_score = {
+		label = "Mythic+ Score",
+		data = function(alt_data) return alt_data.mythicScore or "-" end,
+		group = "dungeons",
+	},
+	keystone = {
+		label = "Keystone",
+		data = function(alt_data) return (AltManager.keys[alt_data.dungeon] or alt_data.dungeon) .. " +" .. tostring(alt_data.level) end,
+		group = "dungeons",
+	},
+	soul_cinders = {
+		label = "Soul Cinders",
+		type = "currency",
+		id = 1906,
+		group = "currency",
+	},
+	soul_ash = {
+		label = "Soul Ash",
+		type = "currency",
+		id = 1828,
+		group = "currency",
+	},
+	stygia = {
+		label = "Stygia",
+		type = "currency",
+		id = 1767,
+		group = "currency",
+	},
+	conquest = {
+		label = "Conquest",
+		type = "currency",
+		id = 1602,
+		hideMax = true,
+		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1602) end,
+		group = "currency",
+	},
+	honor = {
+		label = "Honor",
+		type = "currency",
+		id = 1792,
+		abbCurrent = true,
+		abbMax = true,
+		group = "currency",
+	},
+	valor = {
+		label = "Valor",
+		type = "currency",
+		id = 1191,
+		hideMax = true,
+		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1191) end,
+		group = "currency",
+	},
+	tower_knowledge = {
+		label = "Tower Knowledge",
+		type = "currency",
+		id = 1904,
+		hideMax = true,
+		tooltip = function(button, alt_data) AltManager:CurrencyTooltip_OnEnter(button, alt_data, 1904) end,
+		group = "currency",
+	},
+	stygian_ember = {
+		label = "Stygian Ember",
+		type = "currency",
+		id = 1977,
+		group = "currency",
+	},
+	cataloged_research = {
+		label = "Cataloged Research",
+		type = "currency",
+		id = 1931,
+		abbMax = true,
+		group = "currency",
+	},
+	contract = {
+		label = "Contract",
+		data = function(alt_data) return alt_data.contract and AltManager:CreateContractString(alt_data.contract) or "-" end,
+		group = "buff",
+	},
+	arenaRating2v2 = {
+		label = "2v2 Rating",
+		tooltip = function(button, alt_data) AltManager:PVPTooltip_OnEnter(button, alt_data, 1) end,
+		data = function(alt_data) return alt_data.pvp and alt_data.pvp[1] and AltManager:CreateRatingString(alt_data.pvp[1]) or "-" end,
+		group = "pvp",
+	},
+	arenaRating3v3 = {
+		label = "3v3 Rating",
+		tooltip = function(button, alt_data) AltManager:PVPTooltip_OnEnter(button, alt_data, 2) end,
+		data = function(alt_data) return alt_data.pvp and alt_data.pvp[2] and AltManager:CreateRatingString(alt_data.pvp[2]) or "-" end,
+		group = "pvp",
+	},
+	rbgRating = {
+		label = "RBG Rating",
+		tooltip = function(button, alt_data) AltManager:PVPTooltip_OnEnter(button, alt_data, 3) end,
+		data = function(alt_data) return alt_data.pvp and alt_data.pvp[3] and AltManager:CreateRatingString(alt_data.pvp[3]) or "-" end,
+		group = "pvp",
+	},
+	callings = {
+		label = "Callings",
+		tooltip = function(button, alt_data) AltManager:CallingTooltip_OnEnter(button, alt_data) end,
+		data = function(alt_data) return AltManager:CreateCallingString(alt_data.callingInfo) end,
+		group = "resetDaily"
+	},
+	korthia_dailies = {
+		label = "Korthia Dailies",
+		type = "quest",
+		reset = "daily",
+		key = "korthia_dailies",
+		required = 3,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.korthia_dailies) >= 3 end,	
+		group = "resetDaily",
+	},
+	maw_dailies = {
+		label = "Maw Dailies",
+		type = "quest",
+		reset = "daily",
+		key = "maw_dailies",
+		required = 2,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) == (alt_data.questInfo.maxMawQuests or 2) end,
+		group = "resetDaily",
+	},
+	eye_of_the_jailer = {
+		label = "Eye of the Jailer",
+		data = function(alt_data) return (alt_data.jailerInfo and AltManager:CreateJailerString(alt_data.jailerInfo)) or "-" end,
+		group = "resetDaily",
+	},
+	sanctum_quests = {
+		label = "Covenant Specific",
+		data = function(alt_data) 
+			if alt_data.covenant then
+				local covenant = alt_data.covenant
+				local rightFeatureType = (covenant == 3 and 2) or (covenant == 4 and 5) or 0
+				return (alt_data.questInfo and AltManager:CreateSanctumString(alt_data.sanctumInfo, rightFeatureType, alt_data.questInfo.daily.transport_network, alt_data.questInfo.maxnfTransport or 1)) or "-" 
+			else
+				return "-"
+			end
+		end,
+		group = "resetDaily",
+	},
+	conductor = {
+		label = "Conductor (NYI)",
+		data = function(alt_data) return "-" end,
+		group = "NYI",
+	},			
+	great_vault_mplus = {
+		label = "Vault M+",
+		tooltip = function(button, alt_data) AltManager:VaultTooltip_OnEnter(button, alt_data, "MythicPlus") end,
+		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateVaultString(alt_data.vaultInfo.MythicPlus) or "-" end,
+		group = "vault",
+	},
+	great_vault_raid = {
+		label = "Vault Raid",
+		tooltip = function(button, alt_data) AltManager:VaultTooltip_OnEnter(button, alt_data, "Raid") end,
+		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateVaultString(alt_data.vaultInfo.Raid) or "-" end,
+		group = "vault",
+	},
+	great_vault_pvp = {
+		label = "Vault PVP",
+		tooltip = function(button, alt_data) AltManager:VaultTooltip_OnEnter(button, alt_data, "RankedPvP") end,
+		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateVaultString(alt_data.vaultInfo.RankedPvP) or "-" end,
+		group = "vault",
+	},
+	mythics_done = {
+		label = "Mythic+0",
+		tooltip = function(button, alt_data) AltManager:DungeonTooltip_OnEnter(button, alt_data) end,
+		data = function(alt_data) return alt_data.instanceInfo and AltManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or "-" end,
+		group = "dungeons",
+	},
+	dungeon_quests = {
+		label = "Dungeon Quests",
+		type = "quest",
+		reset = "weekly",
+		key = "dungeon_quests",
+		required = 2,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 2 end,
+		group = "resetWeekly",
+	},
+	pvp_quests = {
+		label = "PVP Quests",
+		type = "quest",
+		reset = "weekly",
+		key = "pvp_quests",
+		required = 2,
+		enabled = function(option, key) return option[key].enabled end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 2 end,
+		group = "resetWeekly",
+	},
+	weekend_event = {
+		label = "Weekend Event",
+		type = "quest",
+		reset = "weekly",
+		key = "weekend_event",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.weekend_event) == 1 end,
+		group = "resetWeekly",
+	},
+	world_boss = {
+		label = "World Boss",
+		type = "quest",
+		reset = "weekly",
+		key = "world_boss",
+		required = 2,
+		plus = true,
+		isCompleteTest = true,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.world_boss) == 2 end,
+		group = "resetWeekly",
+	},
+	anima = {
+		label = "1k Anima",
+		type = "quest",
+		reset = "weekly",
+		key = "anima",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.anima) == 1 end,
+		group = "resetWeekly",
+	},
+	maw_souls = {
+		label = "Return Souls",
+		type = "quest",
+		reset = "weekly",
+		key = "maw_souls",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.maw_souls) == 1 end,
+		group = "resetWeekly",
+	},
+	korthia_weekly = {
+		label = "Korthia Weekly",
+		type = "quest",
+		reset = "weekly",
+		key = "korthia_weekly",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.korthia_weekly)==1 end,
+		group = "resetWeekly",
+	},
+	maw_weekly = {
+		label = "Maw Weeklies",
+		type = "quest",
+		reset = "weekly",
+		key = "maw_weekly",
+		required = function(alt_data) return alt_data.questInfo.maxMawQuests or 2 end,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.maw_weekly) == (alt_data.questInfo.maxMawQuests or 2) end,
+		group = "resetWeekly",
+	},
+	tormentors_of_torghast = {
+		label = "Tormentors",
+		type = "quest",
+		reset = "weekly",
+		key = "tormentors",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.tormentors)>=1 end,
+		group = "resetWeekly",
+	},
+	maw_assault = {
+		label = "Maw Assault",
+		type = "quest",
+		reset = "biweekly",
+		key = "assault",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.biweekly.assault) >= 1 end,
+		group = "resetWeekly",
+	},
+	battle_plans = {
+		label = "Maw Battle Plans",
+		type = "quest",
+		reset = "weekly",
+		key = "battle_plans",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.battle_plans) == 1 end,
+		group = "resetWeekly",
+	},
+	korthia_supplies = {
+		label = "Korthia Supplies",
+		type = "quest",
+		reset = "weekly",
+		key = "korthia_supplies",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.korthia_supplies) == 1 end,
+		group = "resetWeekly",
+	},
+	torghast_layer = {
+		label = "Torghast",
+		tooltip = function(button, alt_data) AltManager:TorghastTooltip_OnEnter(button, alt_data) end,
+		data = function(alt_data) return alt_data.torghastInfo and AltManager:CreateTorghastString(alt_data.torghastInfo) or "-" end,
+		isComplete = function(alt_data) return alt_data.torghastInfo and AltManager:CompletedTorghastLayers(alt_data.torghastInfo) end,
+		group = "torghast",
+	},
+	wrath = {
+		label = "Wrath of the Jailer",
+		type = "quest",
+		reset = "weekly",
+		key = "wrath",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.wrath) == 1 end,
+		group = "resetWeekly"
+	},
+	hunt = {
+		label = "The Hunt",
+		type = "quest",
+		reset = "weekly",
+		key = "hunt",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hunt) == 1 end,
+		group = "resetWeekly",
+	},
+	archivists = {
+		label = "Archivists",
+		type = "faction",
+		id = 2472,
+		group = "reputation",
+	},
+	deaths_advance = {
+		label = "Death's Advance",
+		type = "faction",
+		id = 2470,
+		group = "reputation",
+	},
+	venari = {
+		label = "Ve'nari",
+		type = "faction",
+		id = 2432,
+		group = "reputation",
+	},
+	ascended = {
+		label = "Ascended",
+		type = "faction",
+		id = 2407,
+		group = "reputation",
+	},
+	wild_hunt = {
+		label = "Wild Hunt",
+		type = "faction",
+		id = 2465,
+		group = "reputation",
+	},
+	undying_army = {
+		label = "Undying Army",
+		type = "faction",
+		id = 2410,
+		group = "reputation",
+	},
+	court_of_harvesters = {
+		label = "Court of Harvesters",
+		type = "faction",
+		id = 2413,
+		group = "reputation",
+	},
+	nathria = {
+		label = "Nathria",
+		tooltip = function(button, alt_data) AltManager:RaidTooltip_OnEnter(button, alt_data, 2296) end,
+		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.nathria)) or "-" end,
+		isComplete = function(alt_data) return alt_data.instanceInfo and alt_data.instanceInfo.raids.nathria and alt_data.instanceInfo.raids.nathria.defeatedEncounters == 10 end,
+		group = "raids",
+	},
+	sanctum_of_domination = {
+		label = "SoD",
+		tooltip = function(button, alt_data) AltManager:RaidTooltip_OnEnter(button, alt_data, 2450) end,
+		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.sanctum_of_domination)) or "-" end,
+		isComplete = function(alt_data) return alt_data.instanceInfo and alt_data.instanceInfo.raids.sanctum_of_domination and alt_data.instanceInfo.raids.sanctum_of_domination.defeatedEncounters == 10 end,
+		group = "raids",
+	},
+	reservoir_anima = {
+		label = "Reservoir Anima",
+		type = "currency",
+		id = 1813,
+		hideMax = true,
+		group = "currency",
+	},
+	renown = {
+		label = "Renown",
+		data = function(alt_data) return alt_data.renown or "-" end,
+		group = "sanctum",
+	},	
+	redeemed_soul = {
+		label = "Redeemed Soul",
+		type = "currency",
+		id = 1810,
+		group = "sanctum",
+	},
+	transport_network = {
+		label = "Transport Network",
+		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[2] and alt_data.sanctumInfo[2].tier) or "-" end,
+		group = "sanctum",
+	},
+	anima_conductor = {
+		label = "Anima Conductor",
+		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[1] and alt_data.sanctumInfo[1].tier) or "-" end,
+		group = "sanctum",
+	},
+	command_table = {
+		label = "Command Table",
+		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[3] and alt_data.sanctumInfo[3].tier) or "-" end,
+		group = "sanctum",
+	},
+	sanctum_unique = {
+		label = "Unique",
+		data = function(alt_data) return (alt_data.sanctumInfo and alt_data.sanctumInfo[5] and alt_data.sanctumInfo[5].tier) or "-" end,
+		group = "sanctum",
+	},
+	separator1 = {
+		fakeLabel = "Separator1",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator2 = {
+		fakeLabel = "Separator2",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator3 = {
+		fakeLabel = "Separator3",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator4 = {
+		fakeLabel = "Separator4",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator5 = {
+		fakeLabel = "Separator5",
+		data = function() return "" end,
+		group = "separator",
+	},
+	separator6 = {
+		fakeLabel = "Separator6",
+		data = function() return "" end,
+		group = "separator",
+	},
+
+	-- Items
+	flask = {
+		label = "Flasks",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flask, 171276) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flask") end,
+		group = "item",
+	},
+	foodHaste = {
+		label = "Haste Food",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.foodHaste, 172045) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "foodHaste") end,
+		group = "item",
+	},
+	augmentRune = {
+		label = "Augment Runes",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.augmentRune, 181468) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "augmentRune") end,
+		group = "item",
+	},
+	armorKit = {
+		label = "Armor Kits",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.armorKit, 172347) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "armorKit") end,
+		group = "item",
+	},
+	oilHeal = {
+		label = "Heal Oils",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.oilHeal, 171286) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "oilHeal") end,
+		group = "item",
+	},
+	oilDPS = {
+		label = "DPS Oils",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.oilDPS, 171285) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "oilDPS") end,
+		group = "item",
+	},
+	potHP = {
+		label = "HP Pots",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potHP, 171267) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potHP") end,
+		group = "item",
+	},
+	drum = {
+		label = "Drums",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.drum, 172233) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "drum") end,
+		group = "item",
+	},
+	potManaInstant = {
+		label = "Instant Mana",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potManaInstant, 171272) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potManaInstant") end,
+		group = "item",
+	},
+	potManaChannel = {
+		label = "Channal Mana",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potManaChannel, 171268) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potManaChannel") end,
+		group = "item",
+	},
+	tome = {
+		label = "Tomes",
+		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.tome, 173049) end,
+		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "tome") end,
+		group = "item",
+	},
+}
+
+AltManager.numDungeons = 9
 AltManager.keys = {
 	[375] = "MISTS", 	-- Mists of Tirna Scithe
 	[376] = "NW",		-- The Necrotic Wage
@@ -13,42 +644,10 @@ AltManager.keys = {
 	[382] = "TOP",	-- Theater of Pain
 }
 
-AltManager.vault_rewards = {
-	-- MythicPlus
-	[Enum.WeeklyRewardChestThresholdType.MythicPlus] = {
-		[2] = 200,
-		[3] = 203,
-		[4] = 207,
-		[5] = 210,
-		[6] = 210,
-		[7] = 213,
-		[8] = 216,
-		[9] = 216,
-		[10] = 220,
-		[11] = 220,
-		[12] = 223,
-		[13] = 223,
-	},
-	-- RankedPvP
-	[Enum.WeeklyRewardChestThresholdType.RankedPvP] = {
-		[0] = 200,
-		[1] = 207,
-		[2] = 213,
-		[3] = 220,
-		[4] = 226,
-		[5] = 233,
-	},
-	-- Raid
-	[Enum.WeeklyRewardChestThresholdType.Raid] = {
-		[17] = 187,
-		[14] = 200,
-		[15] = 213,
-		[16] = 226,
-	},
-}
 
 AltManager.raids = {
 	[2296] = {name = GetRealZoneText(2296), englishName = "nathria"},
+	[2450] = {name = GetRealZoneText(2450), englishName = "sanctum_of_domination"},
 }
 
 AltManager.dungeons = {
@@ -60,6 +659,7 @@ AltManager.dungeons = {
 	[2284] = GetRealZoneText(2284),
 	[2290] = GetRealZoneText(2290),
 	[2291] = GetRealZoneText(2291),
+	[2441] = GetRealZoneText(2441),
 }
 
 AltManager.items = {
@@ -78,13 +678,15 @@ AltManager.items = {
 
 AltManager.factions = {
 	friendship = {
-		[2432] = {name = "Ve'nari", type = "friendship"},
+		[2432] = {name = "Ve'nari", paragon = 2474},
+		[2472] = {name = "The Archivists' Codex", paragon = 2473}
 	},
 	faction = {
-		[2407] = {name = "The Ascended", type = "faction"},
-		[2465] = {name = "The Wild Hunt", type = "faction"},
-		[2410] = {name = "The Undying Army", type = "faction"},
-		[2413] = {name = "Court of Harvesters", type = "faction"},
+		[2407] = {name = "The Ascended", paragon = 2441},
+		[2465] = {name = "The Wild Hunt", paragon = 2444},
+		[2410] = {name = "The Undying Army", paragon = 2440},
+		[2413] = {name = "Court of Harvesters", paragon = 2442},
+		[2470] = {name = "Death's Advance", paragon = 2471},
 	}
 }
 
@@ -96,6 +698,10 @@ AltManager.currencies = {
 	[1813] = true,
 	[1828] = true,
 	[1191] = true,
+	[1931] = true,
+	[1904] = true,
+	[1906] = true,
+	[1977] = true,
 }
 
 AltManager.quests = {
@@ -143,6 +749,59 @@ AltManager.quests = {
 		-- Necrolords
 		[58872] = {covenant = 4, key = "conductor", sanctum = 1, minSanctumTier = 1, addToMax = 1}, -- Gieger
 		[61647] = {covenant = 4, key = "conductor", sanctum = 1, minSanctumTier = 1, addToMax = 1}, -- Chosen Runecoffer
+
+		[63775] = {key = "korthia_dailies"},
+		[63776] = {key = "korthia_dailies"},
+		[63777] = {key = "korthia_dailies"},
+		[63778] = {key = "korthia_dailies"},
+		[63779] = {key = "korthia_dailies"},
+		[63780] = {key = "korthia_dailies"},
+		[63781] = {key = "korthia_dailies"},
+		[63782] = {key = "korthia_dailies"},
+		[63783] = {key = "korthia_dailies"},
+		[63784] = {key = "korthia_dailies"},
+		[63785] = {key = "korthia_dailies"},
+		[63786] = {key = "korthia_dailies"},
+		[63787] = {key = "korthia_dailies"},
+		[63788] = {key = "korthia_dailies"},
+		[63789] = {key = "korthia_dailies"},
+		[63790] = {key = "korthia_dailies"},
+		[63791] = {key = "korthia_dailies"},
+		[63792] = {key = "korthia_dailies"},
+		[63793] = {key = "korthia_dailies"},
+		[63794] = {key = "korthia_dailies"},
+		[63934] = {key = "korthia_dailies"},
+		[63935] = {key = "korthia_dailies"},
+		[63936] = {key = "korthia_dailies"},
+		[63937] = {key = "korthia_dailies"},
+		[63950] = {key = "korthia_dailies"},
+		[63954] = {key = "korthia_dailies"},
+		[63955] = {key = "korthia_dailies"},
+		[63956] = {key = "korthia_dailies"},
+		[63957] = {key = "korthia_dailies"},
+		[63958] = {key = "korthia_dailies"},
+		[63959] = {key = "korthia_dailies"},
+		[63960] = {key = "korthia_dailies"},
+		[63961] = {key = "korthia_dailies"},
+		[63962] = {key = "korthia_dailies"},
+		[63963] = {key = "korthia_dailies"},
+		[63964] = {key = "korthia_dailies"},
+		[63965] = {key = "korthia_dailies"},
+		[63989] = {key = "korthia_dailies"},
+		[64015] = {key = "korthia_dailies"},
+		[64016] = {key = "korthia_dailies"},
+		[64017] = {key = "korthia_dailies"},
+		[64043] = {key = "korthia_dailies"},
+		[64065] = {key = "korthia_dailies"},
+		[64070] = {key = "korthia_dailies"},
+		[64080] = {key = "korthia_dailies"},
+		[64089] = {key = "korthia_dailies"},
+		[64101] = {key = "korthia_dailies"},
+		[64103] = {key = "korthia_dailies"},
+		[64104] = {key = "korthia_dailies"},
+		[64129] = {key = "korthia_dailies"},
+		[64166] = {key = "korthia_dailies"},
+		[64194] = {key = "korthia_dailies"},
 	},
 	weekly = {
 		[61332] = {covenant = 1, key = "maw_souls"}, -- kyrian 5 souls
@@ -214,6 +873,7 @@ AltManager.quests = {
 	 	[61814] = {key = "world_boss"}, -- Nurghash - Revendreth
 	 	[61815] = {key = "world_boss"}, -- Oranomonos - Ardenweald
 	 	[61816] = {key = "world_boss"}, -- Mortanis - Maldraxxus
+	 	[64531] = {key = "world_boss"}, -- Mor'geth, Tormentor of the Damned
 
 	 	-- PVP Weekly
 	 	[62284] = {key = "pvp_quests"}, -- Random BGs
@@ -234,6 +894,20 @@ AltManager.quests = {
 	 	[62638] = {key = "weekend_event"}, -- Mythuc Dungeon Event
 	 	[62639] = {key = "weekend_event"}, -- Pet Battle Event
 	 	[62640] = {key = "weekend_event"}, -- Arena Event
+
+	 	[63949] = {key = "korthia_weekly"}, -- Shaping Fate
+
+	 	[63854] = {key = "tormentors"}, -- Tormentors of Torghast
+	 	[64122] = {key = "tormentors"}, -- Tormentors of Torghast
+
+	 	[64521] = {key = "battle_plans"}, -- Helsworn Battle Plans
+	 	[64522] = {key = "korthia_supplies"}, -- Stolen Korthia Supplies
+	},
+	biweekly = {
+		[63824] = {key = "assault"}, -- Kyrian
+		[63543] = {key = "assault"}, -- Necrolord
+		[63822] = {key = "assault"}, -- Venthyr
+		[63823] = {key = "assault"}, -- Nightfae
 	},
 }
 
@@ -295,3 +969,80 @@ AltManager.sanctum = {
 		[5] = 321, -- Abomination Factory
 	},
 }
+
+function AltManager:getDefaultCategories()
+	return default_categories
+end
+
+local tocversion = select(4, GetBuildInfo())
+if tocversion == 90005 then
+	AltManager.vault_rewards = {
+		-- MythicPlus
+		[Enum.WeeklyRewardChestThresholdType.MythicPlus] = {
+			[2] = 200,
+			[3] = 203,
+			[4] = 207,
+			[5] = 210,
+			[6] = 210,
+			[7] = 213,
+			[8] = 216,
+			[9] = 216,
+			[10] = 220,
+			[11] = 220,
+			[12] = 223,
+			[13] = 223,
+		},
+		-- RankedPvP
+		[Enum.WeeklyRewardChestThresholdType.RankedPvP] = {
+			[0] = 200,
+			[1] = 207,
+			[2] = 213,
+			[3] = 220,
+			[4] = 226,
+			[5] = 233,
+		},
+		-- Raid
+		[Enum.WeeklyRewardChestThresholdType.Raid] = {
+			[17] = 187,
+			[14] = 200,
+			[15] = 213,
+			[16] = 226,
+		},
+	}
+elseif tocversion == 90100 then
+		AltManager.vault_rewards = {
+		-- MythicPlus
+		[Enum.WeeklyRewardChestThresholdType.MythicPlus] = {
+			[2] = 226,
+			[3] = 226,
+			[4] = 226,
+			[5] = 229,
+			[6] = 229,
+			[7] = 233,
+			[8] = 236,
+			[9] = 236,
+			[10] = 239,
+			[11] = 242,
+			[12] = 246,
+			[13] = 246,
+			[14] = 249,
+			[15] = 252,
+		},
+		-- RankedPvP
+		[Enum.WeeklyRewardChestThresholdType.RankedPvP] = {
+			[0] = 213,
+			[1] = 220,
+			[2] = 226,
+			[3] = 233,
+			[4] = 240,
+			[5] = 246,
+		},
+		-- Raid
+		[Enum.WeeklyRewardChestThresholdType.Raid] = {
+			[17] = 213,
+			[14] = 226,
+			[15] = 239,
+			[16] = 252,
+		},
+	}
+end

@@ -9,19 +9,21 @@ function AltManager:UpdateAllCurrencies()
 	local currencyInfo = {}
 	for currencyType in pairs(self.currencies) do
 		local info = C_CurrencyInfo.GetCurrencyInfo(currencyType)
-		currencyInfo[currencyType] = (type(char_table.currencyInfo[currencyType]) == "table" and char_table.currencyInfo[currencyType]) or {name = info.name}
+		if info then
+			currencyInfo[currencyType] = (type(char_table.currencyInfo[currencyType]) == "table" and char_table.currencyInfo[currencyType]) or {name = info.name}
 
-		if currencyType ~= 1810 and info.maxQuantity > 0 and info.quantity > info.maxQuantity then
-			info.quantity = info.quantity / 100
-		end			
+			if currencyType ~= 1810 and info.maxQuantity > 0 and info.quantity > info.maxQuantity then
+				info.quantity = info.quantity / 100
+			end			
 
-		currencyInfo[currencyType].currencyType = currencyType
-		currencyInfo[currencyType].quantity = info.quantity
-		currencyInfo[currencyType].maxQuantity = info.maxQuantity
-		currencyInfo[currencyType].totalEarned = info.totalEarned
-		
-		if not self.db.global.currencyIcons[info.name] then
-			self.db.global.currencyIcons[info.name] = info.iconFileID
+			currencyInfo[currencyType].currencyType = currencyType
+			currencyInfo[currencyType].quantity = info.quantity
+			currencyInfo[currencyType].maxQuantity = info.maxQuantity
+			currencyInfo[currencyType].totalEarned = info.totalEarned
+			
+			if not self.db.global.currencyIcons[info.name] then
+				self.db.global.currencyIcons[info.name] = info.iconFileID
+			end
 		end
 	end
 
@@ -43,7 +45,7 @@ function AltManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbrev
 	local iconString
 	local currencyIcon = self.db.global.currencyIcons[currencyInfo.name] 
 	if currencyIcon and self.db.global.options.currencyIcons then
-		iconString = string.format("\124T%d:20:20\124t", currencyIcon)
+		iconString = string.format("\124T%d:18:18\124t", currencyIcon)
 	end
 
 	local currencyString
@@ -53,13 +55,13 @@ function AltManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbrev
 		currencyString = abbreviateCurrent and AbbreviateNumbers(currencyInfo.quantity) or AbbreviateLargeNumbers(currencyInfo.quantity)
 	end
 
-	return string.format("%s%s", currencyString, iconString or "")
+	return string.format("%s %s", currencyString, iconString or "")
 end
 
 function AltManager:CurrencyTooltip_OnEnter(button, alt_data, currencyId)
 	if not alt_data or not alt_data.currencyInfo then return end
 	local currencyInfo = alt_data.currencyInfo[currencyId]
-	if not currencyInfo or not currencyInfo.name or (currencyInfo.totalEarned or 0) == 0 then return end
+	if not currencyInfo or not currencyInfo.name then return end
 
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "LEFT", "RIGHT")
 	button.tooltip = tooltip
@@ -75,4 +77,21 @@ function AltManager:CurrencyTooltip_OnEnter(button, alt_data, currencyId)
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
+end
+
+do
+	local currencyEvents = {
+		"CURRENCY_DISPLAY_UPDATE",
+	}
+
+	local currencyFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(currencyFrame, currencyEvents)
+
+	currencyFrame:SetScript("OnEvent", function(self, e, ...)
+		if AltManager.addon_loaded then
+			AltManager:UpdateCurrency(...)
+			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:SendCharacterUpdate("currencyInfo")
+		end
+	end)
 end

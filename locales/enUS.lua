@@ -1,0 +1,24 @@
+local addonName, AltManager = ...
+local L = LibStub("AceLocale-3.0"):NewLocale(addonName, "enUS", true)
+
+L["Tailoring"] = true
+L["Alchemy"] = true
+L["Leatherworking"] = true
+L["Enchanting"] = true
+L["Engineering"] = true
+L["Blacksmithing"] = true
+L["Herbalism"] = true
+L["Mining"] = true
+L["Skinning"] = true
+L["Jewelcrafting"] = true
+L["Exalted"] = true
+L["Shadowcloth"] = true
+L["Spellcloth"] = true
+L["Primal Mooncloth"] = true
+L["Primal Nether"] = true
+L["Transmute"] = true
+L["Brilliant Glass"] = true
+L["Void Sphere"] = true
+L["Salt Shaker"] = true
+L["|cff00ff00READY|r"] = true
+L["Main"] = true

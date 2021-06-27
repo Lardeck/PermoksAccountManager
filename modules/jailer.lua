@@ -20,3 +20,20 @@ function AltManager:CreateJailerString(jailerInfo)
 
 	return string.format("Stage %d - %d", jailerInfo.stage, jailerInfo.stage == 5 and 1000 or jailerInfo.threat)
 end
+
+do
+	local jailerEvents = {
+		"UPDATE_UI_WIDGET",
+	}
+
+	local jailerFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(jailerFrame, jailerEvents)
+
+	jailerFrame:SetScript("OnEvent", function(e, widgetInfo)
+		if AltManager.addon_loaded then
+			AltManager:UpdateJailerInfo(widgetInfo)
+			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:SendCharacterUpdate("jailerInfo")
+		end
+	end)
+end

@@ -1,8 +1,7 @@
-## Interface: 90005
+## Interface: 20501
 ## Title: Martins Alt Manager
-## Author: Qoning
+## Author: Permok
 ## Version: 9.0.18.7
-## Notes: This is a note
 ## SavedVariables: MartinsAltManagerDB
 
 libs\LibStub\LibStub.lua
@@ -15,28 +14,28 @@ libs\AceDB-3.0\AceDB-3.0.xml
 libs\AceGUI-3.0\AceGUI-3.0.xml
 libs\AceConfig-3.0\AceConfig-3.0.xml
 libs\AceLocale-3.0\AceLocale-3.0.xml
+libs\AceComm-3.0\AceComm-3.0.xml
 libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 libs\LibDBIcon-1.0\lib.xml
 libs\LibQTip-1.0\lib.xml
 libs\LibDeflate\LibDeflate.lua
 libs\LibSerialize\LibSerialize.lua
+libs\AceGUIWidget-TwoTextButton.lua
 #@end-no-lib-strip@
 
 locales\locales.xml
 modules\commands.lua
 modules\communication.lua
 modules\accounts.lua
-modules\callings.lua
 modules\currencies.lua
 modules\factions.lua
 modules\instances.lua
-modules\jailer.lua
 modules\quests.lua
-modules\torghast.lua
-modules\vault.lua
 modules\items.lua
-modules\pvp.lua
+modules\zone.lua
+modules\classic_professions.lua
+modules\guild_attunements.lua
 
 MartinsAltManager.lua
-db.lua
+db-bcc.lua
 options.lua

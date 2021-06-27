@@ -9,18 +9,20 @@ function AltManager:UpdateItemCounts()
 	char_table.itemCounts = char_table.itemCounts or {}
 	for itemID, info in pairs(self.items) do
 		local item = Item:CreateFromItemID(itemID)
-		item:ContinueOnItemLoad(function()
-			local bagCount = GetItemCount(itemID)
-			local totalCount = GetItemCount(itemID, true)
-			local name = item:GetItemName()
-			local icon = item:GetItemIcon()
+		if not item:IsItemEmpty() then
+			item:ContinueOnItemLoad(function()
+				local bagCount = GetItemCount(itemID)
+				local totalCount = GetItemCount(itemID, true)
+				local name = item:GetItemName()
+				local icon = item:GetItemIcon()
 
-			char_table.itemCounts[info.key] = {name = name, bank = (totalCount - bagCount), total = totalCount, bags = bagCount}
+				char_table.itemCounts[info.key] = {name = name, bank = (totalCount - bagCount), total = totalCount, bags = bagCount, itemID = itemID}
 
-			if not AltManager.db.global.itemIcons[itemID] then
-				AltManager.db.global.itemIcons[itemID] = icon
-			end
-		end)
+				if not AltManager.db.global.itemIcons[itemID] then
+					AltManager.db.global.itemIcons[itemID] = icon
+				end
+			end)
+		end
 	end
 end
 
@@ -28,10 +30,10 @@ function AltManager:CreateItemString(itemCounts, itemID)
 	local itemIcon = self.db.global.itemIcons[itemID]
 	local iconString
 	if itemIcon and self.db.global.options.itemIcons then
-		iconString = string.format("\124T%d:20:20\124t", itemIcon)
+		iconString = string.format("\124T%d:18:18\124t", itemIcon)
 	end
 	
-	return string.format("%s%d", iconString or "", itemCounts and itemCounts.bags or 0)
+	return string.format("%d %s", itemCounts and itemCounts.bags or 0, iconString or "")
 end
 
 function AltManager:ItemTooltip_OnEnter(button, alt_data, key)
@@ -51,4 +53,21 @@ function AltManager:ItemTooltip_OnEnter(button, alt_data, key)
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
+end
+
+do
+	local itemEvents = {
+		"BAG_UPDATE_DELAYED",
+	}
+
+	local itemFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(itemFrame, itemEvents)
+
+	itemFrame:SetScript("OnEvent", function(self, e, ...)
+		if AltManager.addon_loaded then
+			AltManager:UpdateItemCounts()
+			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:SendCharacterUpdate("itemCounts")
+		end
+	end)
 end

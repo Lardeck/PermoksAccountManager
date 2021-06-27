@@ -25,7 +25,6 @@ function AltManager:CreateCallingString(callingInfo)
 
 	if leastTimeLeft then
 		local days, hours, minutes = self:timeToDaysHoursMinutes(leastTimeLeft)
-
 		return string.format("%s - %s", self:CreateQuestString(3 - callingInfo.numCallings, 3), self:CreateTimeString(days, hours, minutes))
 	else
 		return string.format("%s", self:CreateQuestString(3 - callingInfo.numCallings, 3))
@@ -34,10 +33,9 @@ end
 
 function AltManager:UpdateCallings(callings)
 	if not callings and not IsAddOnLoaded("Blizzard_CovenantCallings") then UIParentLoadAddOn("Blizzard_CovenantCallings") return end
-	local char_table = self.validateData()
+	local char_table = self.char_table
 	if not char_table then return end
 	if not char_table.covenant or not char_table.callingsUnlocked then char_table.callingInfo = nil return end
-
 
 	self.db.global.currentCallings[char_table.covenant] = self.db.global.currentCallings[char_table.covenant] or {}
 
@@ -104,4 +102,35 @@ function AltManager:UpdateSanctumBuildings()
 	end
 
 	char_table.sanctumInfo = sanctumInfo
+end
+
+do
+	local callingEvents = {
+		"COVENANT_CALLINGS_UPDATED",
+	}
+
+	local callingFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(callingFrame, callingEvents)
+
+	callingFrame:SetScript("OnEvent", function(self, e, ...)
+		if AltManager.addon_loaded then
+			AltManager:UpdateCallings(...)
+			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:SendCharacterUpdate("callingInfo")
+		end
+	end)
+
+	local sanctumEvents = {
+		"COVENANT_SANCTUM_INTERACTION_ENDED",
+	}
+
+	local sanctumFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(sanctumFrame, sanctumEvents)
+	sanctumFrame:SetScript("OnEvent", function(self, e, ...)
+		if AltManager.addon_loaded then
+			AltManager:UpdateSanctumBuildings()
+			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:SendCharacterUpdate("sanctumInfo")
+		end
+	end)
 end

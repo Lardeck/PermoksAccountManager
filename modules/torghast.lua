@@ -2,6 +2,7 @@ local addonName, AltManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
 
 function AltManager:UpdateTorghast()
+	-- Should probably switch to quests at some point
 	local char_table = self.validateData()
 	if not char_table then return end
 	local widgetSetInfo = C_UIWidgetManager.GetAllWidgetsBySetID(399)
@@ -15,7 +16,7 @@ function AltManager:UpdateTorghast()
 			if widgetInfo.orderIndex%2 == 0 then
 				torghastNames[widgetInfo.orderIndex + 1] = widgetInfo.text:gsub("\124n", "")
 			elseif torghastNames[widgetInfo.orderIndex] then
-				local layer = tonumber(widgetInfo.text:match("(%d)%)"))
+				local layer = tonumber(widgetInfo.text:match("(%d+)%)"))
 				local prevLayer = char_table.torghastInfo and tonumber(char_table.torghastInfo[torghastNames[widgetInfo.orderIndex]])
 				torghastInfo[torghastNames[widgetInfo.orderIndex]] = prevLayer or 0
 
@@ -36,7 +37,7 @@ function AltManager:CreateTorghastString(torghastInfo)
 
 	local torghastString
 	for wingName, completedLayer in pairs(torghastInfo) do
-		local color = completedLayer and completedLayer == 8 and "00ff00" or "ff000"
+		local color = completedLayer and completedLayer == 12 and "00ff00" or "ff0000"
 		torghastString = string.format("%s|cff%s%d|r",  torghastString and (torghastString .. " - ") or "", color, completedLayer)
 	end
 
@@ -51,7 +52,7 @@ function AltManager:CompletedTorghastLayers(torghastInfo)
 		completedLayerTotal = completedLayerTotal + completedLayer
 	end
 
-	return completedLayerTotal==16
+	return completedLayerTotal==24
 end
 
 function AltManager:TorghastTooltip_OnEnter(button, alt_data)
@@ -69,4 +70,21 @@ function AltManager:TorghastTooltip_OnEnter(button, alt_data)
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
+end
+
+do
+	local torghastEvents = {
+		"CURRENCY_DISPLAY_UPDATE",
+	}
+
+	local torghastFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(torghastFrame, torghastEvents)
+
+	torghastFrame:SetScript("OnEvent", function(self, e, ...)
+		if AltManager.addon_loaded then
+			AltManager:UpdateTorghast()
+			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:SendCharacterUpdate("torghastInfo")
+		end
+	end)
 end

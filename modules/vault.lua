@@ -121,3 +121,22 @@ function AltManager:VaultTooltip_OnEnter(button, alt_data, name)
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
 end
+
+do
+	local vaultEvents = {
+		"UPDATE_INSTANCE_INFO",
+		"WEEKLY_REWARDS_UPDATE",
+		"CHALLENGE_MODE_COMPLETED",
+	}
+
+	local questFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(questFrame, vaultEvents)
+
+	questFrame:SetScript("OnEvent", function(self, e, ...)
+		if AltManager.addon_loaded then
+			AltManager:UpdateVaultInfo()
+			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:SendCharacterUpdate("vaultInfo")
+		end
+	end)
+end
