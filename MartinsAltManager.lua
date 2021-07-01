@@ -31,7 +31,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel())
 local min_test_level = 0
 local locale = GetLocale()
-local VERSION = "9.0.19.0"
+local VERSION = "9.0.19.1"
 local INTERNALVERSION = 5
 local INTERNALBCVERSION = 1
 local defaultDB = {
@@ -270,7 +270,7 @@ function AltManager:Modernize(oldInternalVersion)
 	end
 
 	if oldInternalVersion < 3 then
-		db.global.accounts.main.data = data and data or db.global.accounts.main.data
+		db.global.accounts.main.data = (data and data) or (db.battleTag and db.global.accounts[db.battleTag] and db.global.accounts[db.battleTag].data) or db.global.accounts.main.data
 		local accountTable = db.global.accounts.main
 
 		local numCharacter = 1

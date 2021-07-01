@@ -1,7 +1,6 @@
-## Interface: 90005
+## Interface: 90100
 ## Title: Martins Alt Manager
-## Author: Qoning
-## Version: 9.0.19.0
+## Version: 9.0.19.1
 ## Notes: This is a note
 ## SavedVariables: MartinsAltManagerDB
 
@@ -14,6 +13,7 @@ libs\AceEvent-3.0\AceEvent-3.0.xml
 libs\AceDB-3.0\AceDB-3.0.xml
 libs\AceGUI-3.0\AceGUI-3.0.xml
 libs\AceConfig-3.0\AceConfig-3.0.xml
+libs\AceComm-30\AceComm-3.0.xml
 libs\AceLocale-3.0\AceLocale-3.0.xml
 libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 libs\LibDBIcon-1.0\lib.xml
