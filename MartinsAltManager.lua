@@ -31,8 +31,8 @@ local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel())
 local min_test_level = 0
 local locale = GetLocale()
-local VERSION = "9.0.19.1"
-local INTERNALVERSION = 5
+local VERSION = "9.0.19.2"
+local INTERNALVERSION = 6
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -295,6 +295,11 @@ function AltManager:Modernize(oldInternalVersion)
 		oldInternalVersion = 5
 
 		message("[MartinsAltManager]\n Default Categories have been reset.")
+	end
+
+	if oldInternalVersion < 6 then
+		self:UpdateDefaultCategories("general")
+		oldInternalVersion = 6
 	end
 end
 
