@@ -15,9 +15,9 @@ local default_categories = {
 	current = {
 		order = 2,
 		name = "9.1 Grind",
-		childs = {"korthia_dailies", "korthia_weekly", "tormentors_of_torghast", "maw_assault", "battle_plans", "korthia_supplies", "containing_the_helsworn", 
+		childs = {"korthia_dailies", "riftbound_cache", "korthia_weekly", "tormentors_of_torghast", "maw_assault", "battle_plans", "korthia_supplies", "containing_the_helsworn", 
 		"separator1", "deaths_advance", "archivists", "separator2", "torghast_layer", "world_boss"},
-		childOrder = {korthia_dailies = 1, korthia_weekly = 2, tormentors_of_torghast = 3, maw_assault = 4, battle_plans = 5, korthia_supplies = 6, containing_the_helsworn = 7, 
+		childOrder = {korthia_dailies = 1, riftbound_cache = 1.5, korthia_weekly = 2, tormentors_of_torghast = 3, maw_assault = 4, battle_plans = 5, korthia_supplies = 6, containing_the_helsworn = 7, 
 		separator1 = 8, deaths_advance = 9, archivists = 10, separator2 = 11, torghast_layer = 12, world_boss = 13},
 		enabled = true,
 	},
@@ -258,13 +258,21 @@ AltManager.columns = {
 		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.korthia_dailies) >= 3 end,	
 		group = "resetDaily",
 	},
+	riftbound_cache = {
+		label = "Riftbound Caches",
+		type = "quest",
+		reset = "daily",
+		key = "riftbound_cache",
+		required = 4,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.riftbound_cache)>=4 end,
+		group = "resetDaily",
+	},
 	maw_dailies = {
 		label = "Maw Dailies",
 		type = "quest",
 		reset = "daily",
 		key = "maw_dailies",
 		required = 2,
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) == (alt_data.questInfo.maxMawQuests or 2) end,
 		group = "resetDaily",
 	},
 	eye_of_the_jailer = {
@@ -811,6 +819,12 @@ AltManager.quests = {
 		[64129] = {key = "korthia_dailies"},
 		[64166] = {key = "korthia_dailies"},
 		[64194] = {key = "korthia_dailies"},
+
+
+	 	[64456] = {key = "riftbound_cache"},
+	 	[64470] = {key = "riftbound_cache"},
+	 	[64471] = {key = "riftbound_cache"},
+	 	[64472] = {key = "riftbound_cache"},
 	},
 	weekly = {
 		[61332] = {covenant = 1, key = "maw_souls"}, -- kyrian 5 souls

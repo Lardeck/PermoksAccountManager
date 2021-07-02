@@ -1,7 +1,7 @@
 ## Interface: 90100
 ## Title: Martins Alt Manager
-## Version: 9.0.19.2
-## Notes: This is a note
+## Version: 9.0.19.3
+## Notes: Hi
 ## SavedVariables: MartinsAltManagerDB
 
 libs\LibStub\LibStub.lua

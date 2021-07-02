@@ -31,8 +31,8 @@ local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel())
 local min_test_level = 0
 local locale = GetLocale()
-local VERSION = "9.0.19.2"
-local INTERNALVERSION = 6
+local VERSION = "9.0.19.3"
+local INTERNALVERSION = 7
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -300,6 +300,11 @@ function AltManager:Modernize(oldInternalVersion)
 	if oldInternalVersion < 6 then
 		self:UpdateDefaultCategories("general")
 		oldInternalVersion = 6
+	end
+
+	if oldInternalVersion < 7 then
+		self:UpdateDefaultCategories("current")
+		oldInternalVersion = 7
 	end
 end
 
