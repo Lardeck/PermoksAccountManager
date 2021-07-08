@@ -31,8 +31,8 @@ local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel())
 local min_test_level = 0
 local locale = GetLocale()
-local VERSION = "9.0.19.3"
-local INTERNALVERSION = 7
+local VERSION = "9.0.19.4"
+local INTERNALVERSION = 8
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -290,21 +290,11 @@ function AltManager:Modernize(oldInternalVersion)
 		oldInternalVersion = 3
 	end
 
-	if oldInternalVersion < 5 then
+	if oldInternalVersion < 8 then
 		wipe(AltManager.db.global.options.defaultCategories.general)
-		oldInternalVersion = 5
+		oldInternalVersion = 8
 
 		message("[MartinsAltManager]\n Default Categories have been reset.")
-	end
-
-	if oldInternalVersion < 6 then
-		self:UpdateDefaultCategories("general")
-		oldInternalVersion = 6
-	end
-
-	if oldInternalVersion < 7 then
-		self:UpdateDefaultCategories("current")
-		oldInternalVersion = 7
 	end
 end
 
@@ -460,7 +450,7 @@ do
 		local button = CreateFrame("Button", nil, parent)
 		button:SetSize(width or buttonOptions.buttonWidth, 20)
 		button:SetPushedTextOffset(0, 0)
-		button:SetFrameStrata("MEDIUM")
+		--button:SetFrameStrata("MEDIUM")
 
 		if column then
 			if not column.hideOption and not column.fakeLabel then
@@ -768,6 +758,7 @@ function AltManager:UpdateAccountButtons()
 			AltManager:RollUpAll()
 			AltManager:UpdateAltAnchors("general", self.main_frame.label_column)
 			AltManager:PopulateStrings(1, "general")
+			AltManager:UpdatePageButtons()
 			AltManager:UpdateMainFrameSize()
 		end)
 		self.main_frame.accountButtons[accountName] = accountButton
@@ -786,30 +777,47 @@ function AltManager:UpdatePageButtons()
 	local pages = self.account.pages
 	self.main_frame.pageButtons = self.main_frame.pageButtons or {}
 
-	for pageNumber, alts in pairs(pages) do
-		local pageButton = self.main_frame.pageButtons[pageNumber] or CreateFrame("Button", nil, AltManager.main_frame, "UIPanelButtonTemplate")
-		if not self.main_frame.pageButtons[pageNumber] then
-			pageButton:SetSize(50, 25)
-			pageButton:SetText(pageNumber)
-			pageButton:SetFrameStrata("MEDIUM")
-			pageButton:SetNormalTexture("Interface\\PaperDollInfoFrame\\UI-CHARACTER-INACTIVETAB")
-			pageButton:Show()
-		end
-		pageButton:SetPoint("TOPLEFT", self.main_frame, "BOTTOMLEFT", (pageNumber - 1) * 50 + 3, -4)
-		
-		pageButton:SetScript("OnClick", function(self)
-			AltManager.db.global.currentPage = pageNumber
-			AltManager:UpdateAltAnchors("general", AltManager.main_frame.label_column)
-			AltManager:PopulateStrings(pageNumber, "general")
-			AltManager:UpdateMainFrameSize(true)
 
-			if AltManager.main_frame.openUnroll then
-				local category = AltManager.main_frame.openUnroll
-				AltManager:UpdateAltAnchors(category, AltManager.main_frame.unrollLabelColumn[category])
-				AltManager:PopulateStrings(nil, category)
+	if #pages == 1 then
+		for pageNumber, button in pairs(self.main_frame.pageButtons) do
+			button:Hide()
+		end
+	else
+		for pageNumber, alts in pairs(pages) do
+			local pageButton = self.main_frame.pageButtons[pageNumber] or CreateFrame("Button", nil, AltManager.main_frame, "UIPanelButtonTemplate")
+			if not self.main_frame.pageButtons[pageNumber] then
+				pageButton:SetSize(45, 25)
+				pageButton:SetText(pageNumber)
+				--pageButton:SetFrameStrata("MEDIUM")
+
+				if pageNumber == self.db.global.currentPage then
+					pageButton:SetText("[" .. pageNumber .. "]")
+				else
+					pageButton:SetText(pageNumber)
+				end
 			end
-		end)
-		self.main_frame.pageButtons[pageNumber] = pageButton
+			pageButton:Show()
+			pageButton:SetPoint("TOPLEFT", self.main_frame, "BOTTOMLEFT", (pageNumber - 1) * 45 + 3, -4)
+			
+			pageButton:SetScript("OnClick", function(self)
+				for buttonPageNumber, button in pairs(AltManager.main_frame.pageButtons) do
+					button:SetText(buttonPageNumber)
+				end
+
+				self:SetText("[" .. pageNumber .. "]")
+				AltManager.db.global.currentPage = pageNumber
+				AltManager:UpdateAltAnchors("general", AltManager.main_frame.label_column)
+				AltManager:PopulateStrings(pageNumber, "general")
+				AltManager:UpdateMainFrameSize(true)
+
+				if AltManager.main_frame.openUnroll then
+					local category = AltManager.main_frame.openUnroll
+					AltManager:UpdateAltAnchors(category, AltManager.main_frame.unrollLabelColumn[category])
+					AltManager:PopulateStrings(nil, category)
+				end
+			end)
+			self.main_frame.pageButtons[pageNumber] = pageButton
+		end
 	end
 end
 
@@ -987,7 +995,7 @@ function AltManager:Unroll(button, defaultState, name, category)
 			texture:ClearAllPoints()
 			texture:SetPoint("TOPLEFT", self.main_frame, "TOPLEFT", 0, -self.main_frame.height)
 			texture:SetPoint("BOTTOMRIGHT", self.main_frame, "TOPRIGHT", 0, -self.main_frame.height - 30)
-			texture:SetDrawLayer("ARTWORK", 7)
+			--texture:SetDrawLayer("ARTWORK", 7)
 
 			self.main_frame:SetHeight(self.main_frame.height + (numRows * 20) + 30)
 			self.main_frame.optionsButton:SetPoint("TOPRIGHT", self.main_frame, "TOPRIGHT", -3, -self.main_frame.height-4)
@@ -1039,13 +1047,15 @@ local function updateOrCreateUnrollButtons()
 	for category, row in AltManager.spairs(categories, function(t, a, b) return t[a].order < t[b].order end) do
 		if category ~= "general" and db.currentCategories[category].enabled then
 			local unrollButton = AltManager.main_frame.unrollButtons[category] or CreateFrame("Button", addonName .. "UnrollButton" .. category, AltManager.main_frame, "UIPanelButtonTemplate")
+			if not AltManager.main_frame.unrollButtons[category] then
+				unrollButton:SetText(row.name .. " >")
+				unrollButton:SetSize(100, 25)
+				unrollButton.name = row.name			
+			end
 			unrollButton:Show()
-			unrollButton:SetText(row.name .. " >")
-			unrollButton:SetFrameStrata("MEDIUM")
-			unrollButton:SetSize(100, 25)
+			--unrollButton:SetFrameStrata("MEDIUM")
 			unrollButton:SetPoint("TOPRIGHT", AltManager.main_frame, "TOPLEFT", 0, -(buttonrows*25) + 30)
-			unrollButton.name = row.name
-			
+
 			if row.disable_drawLayer then
 				unrollButton:DisableDrawLayer("BACKGROUND")
 			end
@@ -1125,6 +1135,7 @@ function AltManager:CreateMenuButtons()
 	self.main_frame.optionsButton:SetSize(80, 20)
 	self.main_frame.optionsButton:ClearAllPoints()
 	self.main_frame.optionsButton:SetPoint("TOPRIGHT", self.main_frame, "BOTTOMRIGHT", -3, -4)
+	self.main_frame.optionsButton:SetFrameLevel(10)
 	self.main_frame.optionsButton:SetScript("OnClick", function()
 		AltManager:OpenOptions()
 	end)
@@ -1139,7 +1150,7 @@ function AltManager:CreateMenuButtons()
 		end
 	end)
 	self.main_frame.optionsButton:SetText("Options")
-	self.main_frame.optionsButton:SetFrameStrata("HIGH")
+	--self.main_frame.optionsButton:SetFrameStrata("HIGH")
 
 	-------------------
 	-- Guild Attunment Button
@@ -1148,7 +1159,7 @@ function AltManager:CreateMenuButtons()
 	self.main_frame.guildAttunmentButton:ClearAllPoints()
 	self.main_frame.guildAttunmentButton:SetPoint("RIGHT", self.main_frame.optionsButton, "LEFT", -3, 0)
 	self.main_frame.guildAttunmentButton:SetText("Attunement")
-	self.main_frame.guildAttunmentButton:SetFrameStrata("HIGH")
+	--self.main_frame.guildAttunmentButton:SetFrameStrata("HIGH")
 	self.main_frame.guildAttunmentButton:SetScript("OnClick", AltManager.ShowGuildAttunements)
 end
 
@@ -1189,9 +1200,11 @@ function AltManager:CreateTimeString(days, hours, minutes)
 end
 
 function AltManager:HideInterface()
-	self:RollUpAll()
+	if self.db.global.options.unrollOnHide then
+		self:RollUpAll()
+	end
 
-	if self.db.global.options["savePosition"] then
+	if self.db.global.options.savePosition then
 		local frame = self.main_frame
 		local position = self.db.global.position
 		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset = frame:GetPoint()
@@ -1204,9 +1217,12 @@ function AltManager:ShowInterface()
 	self:UpdateEverything()
 
 	self.main_frame:Show()
-	--self:RollUpAll()
 	self:UpdateMenu()
 	self:PopulateStrings(self.db.global.currentPage, "general")
+	if self.main_frame.openUnroll then
+		local unrollCategory = self.main_frame.openUnroll
+		self:Unroll(self.main_frame.unrollButtons[unrollCategory], "closed", nil, unrollCategory)
+	end
 end
 
 function AltManager:MakeTopBottomTextures(frame)

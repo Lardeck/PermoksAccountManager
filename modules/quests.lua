@@ -10,6 +10,8 @@ local default = {
 	daily = {},
 	weekly = {},
 	biweekly = {},
+	relics = {},
+	unlocks = {},
 }
 
 function AltManager:GetQuestInfo(questLogIndex)
@@ -63,7 +65,6 @@ function AltManager:UpdateQuest(questID)
 	end
 
 	local resetKey, key = self:FindQuestByQuestID(questID)
-
 	if resetKey and key and char_table.questInfo[resetKey][key] then
 		char_table.questInfo[resetKey][key][questID] = true
 		if self:IsBCCClient() and resetKey == "daily" then
@@ -91,6 +92,7 @@ function AltManager:UpdateAllRetailQuests()
 	for reset, quests in pairs(self.quests) do
 		questInfo[reset] = questInfo[reset] or {}
 		for questID, info in pairs(quests) do
+			questInfo[reset][info.key] = questInfo[reset][info.key] or {}
 			if info.covenant and covenant == info.covenant then
 				local sanctumTier
 				if info.sanctum and char_table.sanctumInfo then
@@ -100,14 +102,10 @@ function AltManager:UpdateAllRetailQuests()
 
 				if not info.sanctum or (sanctumTier and sanctumTier >= info.minSanctumTier) then
 					local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
-					
-					questInfo[reset][info.key] = questInfo[reset][info.key] or {}
 					questInfo[reset][info.key][questID] = isComplete or nil
 				end
 			elseif not info.covenant then
 				local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
-
-				questInfo[reset][info.key] = questInfo[reset][info.key] or {}
 				questInfo[reset][info.key][questID] = isComplete or nil
 			end
 		end

@@ -432,13 +432,13 @@ local function loadOptionsTemplate()
 				type = "group",
 				name = "General",
 				inline = true,
+				set = function(info,value) AltManager.db.global.options[info[#info]] = value end,
+				get = function(info) return AltManager.db.global.options[info[#info]] end,
 				args = {
 					showOptionsButton = {
 						order = 1,
 						type = "toggle",
 						name = "Show Options Button",
-						set = function(info,value) AltManager.db.global.options.showOptionsButton = value end,
-						get = function(info) return AltManager.db.global.options.showOptionsButton end,
 					},
 					showGuildAttunementButton = {
 						order = 1.5,
@@ -479,6 +479,18 @@ local function loadOptionsTemplate()
 						confirm = true,
 						confirmText = "Requires a reload!",
 					},
+					unrollOnHide = {
+						order = 4,
+						type = "toggle",
+						name = "Unroll On Hide",
+						set = function(info, value)
+							if value then
+								AltManager:RollUpAll()
+							end
+
+							AltManager.db.global.options[info[#info]] = value
+						end,
+					}
 				}
 			},
 			default_categories_toggles = {
@@ -846,7 +858,7 @@ local function loadOptionsTemplate()
 						type = "execute",
 						func = function(info) 
 							if syncData.name then
-								AltManager:RequestAccountsync(syncData.name, syncData.realm)
+								AltManager:RequestAccountSync(syncData.name, syncData.realm)
 							end
 						end,
 					},

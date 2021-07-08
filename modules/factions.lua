@@ -1,73 +1,64 @@
 local addonName, AltManager = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
-local FACTION_BAR_COLORS_CUSTOM = {}
+local FACTION_BAR_COLORS_CUSTOM, FACTION_STANDING_LABEL_CUSTOM = {}, {}
+
+local function GetFactionOrFriendshipInfo(factionId, factionType)
+	local hasReward
+	local name, _, standing, barMin, barMax, barValue = GetFactionInfoByID(factionId)
+	local isParagon = C_Reputation.IsFactionParagon(factionId)
+
+	if isParagon then
+		barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)
+		barMin, standing, barValue = 0, 9, barValue % barMax
+	elseif factionType == "friend" then
+		_, barValue, _,  _, _, _, standing, barMin, barMax = GetFriendshipReputation(factionId)
+	end
+
+	if not barMax or not barMin then return end
+	return barValue - barMin, (barMax - barMin), standing, name, hasReward
+end
+
 
 function AltManager:UpdateFactions()
 	local char_table = self.validateData()
 	if not char_table then return end
+	char_table.factions = char_table.factions or {}
+	local factions = char_table.factions
 
-	local factionReputations = char_table.factions or {}
+	for factionId, info in pairs(self.factions) do
+		local current, maximum, standing, name, hasReward = GetFactionOrFriendshipInfo(factionId, info.type)
 
-	-- Probably not efficient to use two for loops but its easier to understand
-	local name, _, standingID, barMin, barMax, barValue
-	for factionId, info in pairs(self.factions.faction) do
-		if not info.faction or char_table.faction == info.faction then
-			name, _, standingID, barMin, barMax, barValue = GetFactionInfoByID(factionId)
+		factions[factionId] = factions[factionId] or {}
+		factions[factionId].standing = standing
+		factions[factionId].current = current
+		factions[factionId].max = maximum
+		factions[factionId].type = info.type
+		factions[factionId].hasReward = hasReward
+		factions[factionId].exalted = not info.paragon and standing == 8
 
-			if barMin and barMax then
-				local current = standingID < 8 and barValue - barMin or 21000
-				local maximum = standingID < 8 and barMax - barMin or 21000
-				factionReputations[factionId] = factionReputations[factionId] or {}
-				factionReputations[factionId].standingID = standingID
-				factionReputations[factionId].current = current
-				factionReputations[factionId].max = maximum
-				factionReputations[factionId].exalted = standingID == 8
-			end
-
-			if not info.localName then
-				info.localName = name
-			end
+		if not info.localName then
+			info.localName = name
 		end
 	end
 
-	if not self.isBC then
-		local barValue, barMin, barMax, maxRep, _
-		for factionId, info in pairs(self.factions.friendship) do
-			_, barValue, maxRep,  _, _, _, standing, barMin, barMax = GetFriendshipReputation(factionId)
 
-			factionReputations[factionId] = factionReputations[factionId] or {}
-			if barMin then
-				factionReputations[factionId].current = barValue - barMin
-				factionReputations[factionId].standing = standing
-				factionReputations[factionId].max = (barMax and barMax - barMin) or nil
-				factionReputations[factionId].bff = barValue == maxRep
-			end
-		end
-	end
-
-	char_table.factions = factionReputations
 end
 
 function AltManager:CreateFactionString(factionInfo)
 	if not factionInfo then return end
-	if not factionInfo.standingID and not factionInfo.standing then return "No Data" end
+	if not factionInfo.standing then return "No Data" end
+	if factionInfo.exalted then return string.format("|cff00ff00%s|r", L["Exalted"]) end
 
-	local color, standing = FACTION_BAR_COLORS_CUSTOM[5]
-	if factionInfo.standingID then
-		if factionInfo.exalted then return string.format("|cff00ff00%s|r", L["Exalted"]) end
-
-		standing = GetText("FACTION_STANDING_LABEL".. factionInfo.standingID)
-		color = FACTION_BAR_COLORS_CUSTOM[factionInfo.standingID]
-
-	elseif factionInfo.standing then
-		if factionInfo.bff then return "|cff00ff00BFF|r" end
-
+	local standingColor, standing = FACTION_BAR_COLORS_CUSTOM[5], FACTION_STANDING_LABEL_CUSTOM[factionInfo.standing]
+	local color = factionInfo.hasReward and factionInfo.current >= 10000 and "00ff00" or "ffffff"
+	if standing then
+		standingColor = FACTION_BAR_COLORS_CUSTOM[factionInfo.standing]
+	else
 		standing = factionInfo.standing
 	end
 
-
 	if factionInfo.max then
-		return string.format("%s/%s |cff%02X%02X%02X%s|r", AbbreviateNumbers(factionInfo.current), AbbreviateNumbers(factionInfo.max), color.r, color.g, color.b, standing)
+		return string.format("|cff%s%s/%s|r |cff%02X%02X%02X%s|r", color, AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, standing)
 	end
 
 	return 
@@ -92,4 +83,10 @@ do
 	for standingID, color in pairs(FACTION_BAR_COLORS) do
 		FACTION_BAR_COLORS_CUSTOM[standingID] = {r = color.r*256, g = color.g*256, b = color.b*256}
 	end
+	FACTION_BAR_COLORS_CUSTOM[9] = {r = 16, g = 165, b = 202}
+
+	for i=1, 8 do
+		FACTION_STANDING_LABEL_CUSTOM[i] = GetText("FACTION_STANDING_LABEL" .. i)
+	end
+	FACTION_STANDING_LABEL_CUSTOM[9] = "Paragon"
 end

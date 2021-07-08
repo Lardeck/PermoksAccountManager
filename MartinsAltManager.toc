@@ -1,6 +1,6 @@
 ## Interface: 90100
 ## Title: Martins Alt Manager
-## Version: 9.0.19.3
+## Version: 9.0.19.4
 ## Notes: Hi
 ## SavedVariables: MartinsAltManagerDB
 

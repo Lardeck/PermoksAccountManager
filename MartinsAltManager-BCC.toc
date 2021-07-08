@@ -1,7 +1,7 @@
 ## Interface: 20501
 ## Title: Martins Alt Manager
 ## Author: Permok
-## Version: 9.0.19.3
+## Version: 9.0.19.4
 ## SavedVariables: MartinsAltManagerDB
 
 libs\LibStub\LibStub.lua

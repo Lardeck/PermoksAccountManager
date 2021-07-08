@@ -2,7 +2,7 @@ local addonName, AltManager = ...
 local AceComm = LibStub("AceComm-3.0")
 local accountsPrefix = "MAM_ACCOUNTS"
 local requestedAccepts = {}
-local requestedSynch
+local requestedSync
 
 
 function AltManager:GetNumAccounts()
@@ -15,7 +15,7 @@ function AltManager:GetNumAccounts()
 end
 
 
-function AltManager:RequestAccountSynch(name, realm)
+function AltManager:RequestAccountSync(name, realm)
 	if name == UnitName("player") then return end
 	if realm then
 		local connectedRealms = GetAutoCompleteRealms()
@@ -28,14 +28,14 @@ function AltManager:RequestAccountSynch(name, realm)
 	end
 
 	if self.db.global.synchedCharacters[name] then
-		self:Print("You're already synched with that character. Account:",self.db.global.synchedCharacters[name])
+		self:Print("You're already synced with that character. Account:",self.db.global.synchedCharacters[name])
 		return
 	end
 
-	self:Print("Sending a synch request to:", synchData.name, synchData.realm or "")
-	requestedSynch = name
-	local message = {type = "synchrequest"}
-	self:SendInfo("synchrequest", accountsPrefix, message, "WHISPER", name)
+	self:Print("Sending a sync request to:", name, realm or "")
+	requestedSync = name
+	local message = {type = "syncrequest"}
+	self:SendInfo("syncrequest", accountsPrefix, message, "WHISPER", name)
 end
 
 
@@ -43,23 +43,23 @@ function AltManager:ProcessAccountsMessage(prefix, msg, channel, sender, x, y)
 	local db = self.db.global
 	local deserializedMsg = self:Deserialze(msg)
 	if deserializedMsg and deserializedMsg.type then
-		if deserializedMsg.type == "synchrequest" then
+		if deserializedMsg.type == "syncrequest" then
 			if db.blockedCharacters[sender] then return end
 
 			requestedAccepts[sender] = true
-			self:Print(sender, "requests a synch. Type |cff00ff00/mam accept name|r to accept it or |cff00ff00/mam block name|r to block it. Don't forget the realm if it's in the name.")
-		elseif deserializedMsg.type == "synchaccepted" then
-			if requestedSynch and sender == requestedSynch then
-				self:Print(sender, "accepted the synch request.")
-				self:Print("Don't forget to use the 'Send Upate' button if you add/remove characters afterwards.")
-				self:SynchCharacter(sender)
+			self:Print(sender, "requests a sync. Type |cff00ff00/mam accept name|r to accept it or |cff00ff00/mam block name|r to block it. Don't forget the realm if it's in the name.")
+		elseif deserializedMsg.type == "syncaccepted" then
+			if requestedSync and sender == requestedSync then
+				self:Print(sender, "accepted the sync request.")
+				self:Print("Don't forget to use the 'Send Update' button if you add/remove characters afterwards.")
+				self:SyncCharacter(sender)
 
 				if deserializedMsg.account then
 					self:AddAccount(deserializedMsg.account, sender)
 					self:SendAccountUpdate(sender)
 				end
-			elseif requestedSynch and sender ~= requestedSynch then
-				self:Print(requestedSynch, "is not", sender)
+			elseif requestedSync and sender ~= requestedSync then
+				self:Print(requestedSync, "is not", sender)
 			end
 		else
 			if db.blockedCharacters[sender] or not db.synchedCharacters[sender] then return end
@@ -79,22 +79,22 @@ function AltManager:ProcessAccountsMessage(prefix, msg, channel, sender, x, y)
 	end
 end
 
-function AltManager:AcceptSynch(name)
+function AltManager:AcceptSync(name)
 	if not name then return end
-	if not requestedAccepts[name] then self:Print(name, "didn't request to synch.") return end
-	self:SynchCharacter(name)
+	if not requestedAccepts[name] then self:Print(name, "didn't request to sync.") return end
+	self:SyncCharacter(name)
 
-	self:Print("Synch Accepted", name)
+	self:Print("Sync Accepted", name)
 	local accountData = self.db.global.accounts.main
-	local message = {type = "synchaccepted", account = accountData}
-	self:SendInfo("synchaccepted", accountsPrefix, message, "WHISPER", name)
+	local message = {type = "syncaccepted", account = accountData}
+	self:SendInfo("syncaccepted", accountsPrefix, message, "WHISPER", name)
 
 	requestedAccepts[name] = nil
 end
 
-function AltManager:SynchCharacter(name)
+function AltManager:SyncCharacter(name)
 	local accountName = self.db.global.synchedCharacters[name] or "account" .. #self.db.global.accounts + 2
-	self:Print("Synching with character", name)
+	self:Print("Syncing with character", name)
 
 	self.db.global.synchedCharacters[name] = accountName
 
@@ -133,7 +133,7 @@ function AltManager:AddAccount(account, name)
 	self.db.global.numAccounts = self:GetNumAccounts()
 	self:BefriendEveryoneOfAccount(account)
 	self:UpdateAccountButtons()
-	requestedSynch = nil
+	requestedSync = nil
 end
 
 function AltManager:SendAccountUpdate(name)
@@ -144,7 +144,7 @@ end
 function AltManager:SendAccountUpdates(isLogin)
 	if self.db.global.numAccounts == 1 then return end
 
-	local targets = self:GetOnlineSynchedCharacters()
+	local targets = self:GetOnlineSyncedCharacters()
 	local message = {type = "updateaccount", account = self.db.global.accounts.main, login = isLogin}
 
 
@@ -173,7 +173,7 @@ function AltManager:BefriendEveryoneOfAccount(account)
 	end
 end
 
-function AltManager:GetOnlineSynchedCharacters()
+function AltManager:GetOnlineSyncedCharacters()
 	local targets = {}
 	local realm = GetNormalizedRealmName()
 
@@ -202,7 +202,7 @@ function AltManager:SendCharacterUpdate(key)
 	local char_table = self.char_table
 	if not char_table then return end
 
-	local targets = self:GetOnlineSynchedCharacters()
+	local targets = self:GetOnlineSyncedCharacters()
 	if #targets > 0 then
 		--self:Print("Send Update", key)
 		local guid = self:getGUID()

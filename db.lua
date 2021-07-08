@@ -6,67 +6,74 @@ local default_categories = {
 		order = 0,
 		name = "General",
 		childs = {"characterName", "ilevel", "gold", "weekly_key", "mplus_score", "keystone", "soul_cinders", 
-		"soul_ash", "valor", "stygian_ember", "stygia", "cataloged_research", "tower_knowledge"},
+		"soul_ash", "valor", "stygian_ember", "stygia", "cataloged_research", "tower_knowledge", "deaths_advance", "archivists"},
 		childOrder = {characterName = 1, ilevel = 2, gold = 3, weekly_key = 4, mplus_score = 5, keystone = 6, soul_cinders = 7, 
-		soul_ash = 8, valor = 9, stygian_ember = 10, stygia = 11, cataloged_research = 12, tower_knowledge = 13,},
+		soul_ash = 8, valor = 9, stygian_ember = 10, stygia = 11, cataloged_research = 12, tower_knowledge = 13, deaths_advance = 14, archivists = 15},
 		hideToggle = true,
 		enabled = true,
 	},
-	current = {
+	currentdaily = {
 		order = 2,
-		name = "9.1 Grind",
-		childs = {"korthia_dailies", "riftbound_cache", "korthia_weekly", "tormentors_of_torghast", "maw_assault", "battle_plans", "korthia_supplies", "containing_the_helsworn", 
-		"separator1", "deaths_advance", "archivists", "separator2", "torghast_layer", "world_boss"},
-		childOrder = {korthia_dailies = 1, riftbound_cache = 1.5, korthia_weekly = 2, tormentors_of_torghast = 3, maw_assault = 4, battle_plans = 5, korthia_supplies = 6, containing_the_helsworn = 7, 
-		separator1 = 8, deaths_advance = 9, archivists = 10, separator2 = 11, torghast_layer = 12, world_boss = 13},
-		enabled = true,
-	},
-	daily = {
-		order = 3,
 		name = "Daily",
-		childs = {"callings", "separator1", "maw_dailies", "eye_of_the_jailer", "separator2", "sanctum_quests", "conductor"},
-		childOrder = {callings = 1, separator1 = 2, maw_dailies = 3, eye_of_the_jailer = 4, separator2 = 5, sanctum_quests = 6, conductor = 7},
+		childs = {"korthia_dailies", "relic_creatures", "riftbound_cache", "helsworn_chest"},
+		childOrder = {korthia_dailies = 1, relic_creatures = 2, riftbound_cache = 3, helsworn_chest = 4},
 		enabled = true,
 	},
-	weekly = {
+	currentweekly = {
+		order = 3,
+		name = "(Bi)Weekly",
+		childs = {"korthia_weekly", "anima_weekly", "maw_assault", "assault_vessels", "rift_vessels", "separator1", "battle_plans", "korthia_supplies", "containing_the_helsworn", "tormentors_weekly", "tormentors_locations",	
+		"separator2", "torghast_layer", "world_boss", "contract"},
+		childOrder = {korthia_weekly = 1, anima_weekly = 2, maw_assault = 3, assault_vessels = 4, rift_vessels = 5, separator1 = 10, battle_plans = 11, korthia_supplies = 12, containing_the_helsworn = 13, tormentors_weekly = 14, tormentors_locations = 15, 
+		separator2 = 20, torghast_layer = 21, world_boss = 22, contract = 23},
+		enabled = true,
+	},
+	vault = {
 		order = 4,
-		name = "Weekly",
-		childs = {"great_vault_mplus", "great_vault_raid", "great_vault_pvp", "separator1", "mythics_done", "dungeon_quests", "pvp_quests",
-			 	  "weekend_event", "separator2", "anima", "maw_souls", "separator3", "maw_weekly", "separator4", "wrath", "hunt", "separator5", "contract"},
-		childOrder = {great_vault_mplus = 1, great_vault_raid = 2, great_vault_pvp = 3, separator1 = 4, mythics_done = 5, dungeon_quests = 6, pvp_quests = 7,
-					  weekend_event = 8, separator2 = 9, anima = 11, maw_souls = 12, separator3 = 13, maw_weekly = 14, separator4 = 16, wrath = 17, hunt = 18, separator5 = 19, contract = 20},
+		name = "Vault",
+		childs = {"great_vault_mplus", "great_vault_raid", "great_vault_pvp"},
+		childOrder = {great_vault_mplus = 1, great_vault_raid = 2, great_vault_pvp = 3},
+		enabled = true,
+	},
+	old =  {
+		order = 5,
+		name = "Old",
+		childs = {"callings", "maw_dailies", "sanctum_quests", "separator1", "mythics_done", "dungeon_quests", "pvp_quests", "weekend_event", 
+		"separator2", "maw_souls", "wrath", "hunt"},
+		childOrder = {callings = 1, maw_dailies = 2, sanctum_quests = 3, separator1 = 10, mythics_done = 11, dungeon_quests = 12, pvp_quests = 13, weekend_event = 14,
+		separator2 = 20, maw_souls = 21, wrath = 22, hunt = 23},
 		enabled = true,
 	},
 	reputation = {
-		order = 5,
+		order = 6,
 		name = "Reputation",
 		childs = {"archivists", "deaths_advance", "venari", "ascended", "wild_hunt", "undying_army", "court_of_harvesters", },
 		childOrder = {archivists = 1, deaths_advance = 2, venari = 3, ascended = 4, wild_hunt = 5, undying_army = 6, court_of_harvesters = 7, },
 		enabled = true,
 	},
 	raid = {
-		order = 6,
+		order = 7,
 		name = "Raid",
 		childs = {"nathria", "sanctum_of_domination"},
 		childOrder = {nathria = 1, sanctum_of_domination = 2},
 		enabled = true,
 	},
 	sanctum = {
-		order = 7,
+		order = 8,
 		name = "Sanctum",
 		childs = {"reservoir_anima", "renown", "redeemed_soul", "separator1", "transport_network", "anima_conductor", "command_table", "sanctum_unique"},
 		childOrder = {reservoir_anima = 1, renown = 2, redeemed_soul = 3, separator1 = 4, transport_network = 5, anima_conductor = 6, command_table = 7, sanctum_unique = 8},
 		enabled = true,
 	},
 	pvp = {
-		order = 8,
+		order = 9,
 		name = "PVP",
 		childs = {"conquest", "honor", "arenaRating2v2", "arenaRating3v3", "rbgRating"},
 		childOrder = {conquest = 1, honor = 2, arenaRating2v2 = 3, arenaRating3v3 = 4, rbgRating = 5},
 		enabled = true,
 	},
 	items = {
-		order = 9,
+		order = 10,
 		name = "Items",
 		childs = {"flask", "foodHaste", "augmentRune", "armorKit", "oilHeal", "oilDPS", "potHP", "drum", "potManaInstant", "potManaChannel", "tome"},
 		childOrder = {flask = 1, foodHaste = 2, augmentRune = 3, armorKit = 4, oilHeal = 5, oilDPS = 6, potHP = 7, drum = 8, potManaInstant = 9, potManaChannel = 10, tome = 11},
@@ -114,9 +121,12 @@ AltManager.groups = {
 	pvp = {
 		label = "PVP",
 	},
+	onetime = {
+		label = "ETC",
+	}
 }
 
-AltManager.groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "vault", "torghast", "dungeons", "raids", "reputation", "buff", "sanctum", "item", "pvp"}
+AltManager.groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "vault", "torghast", "dungeons", "raids", "reputation", "buff", "sanctum", "item", "pvp", "onetime"}
 
 AltManager.columns = {
 	characterName = {
@@ -149,7 +159,7 @@ AltManager.columns = {
 	},
 	mplus_score = {
 		label = "Mythic+ Score",
-		data = function(alt_data) return alt_data.mythicScore or "-" end,
+		data = function(alt_data) return alt_data.mythicScore and AbbreviateLargeNumbers(alt_data.mythicScore) or "-" end,
 		group = "dungeons",
 	},
 	keystone = {
@@ -254,7 +264,13 @@ AltManager.columns = {
 		type = "quest",
 		reset = "daily",
 		key = "korthia_dailies",
-		required = 3,
+		required = function(alt_data) 
+			if alt_data.questInfo.unlocks then
+				local _, unlocked = next(alt_data.questInfo.unlocks.korthia_five_dailies)
+				return unlocked and 4 or 3
+			end
+			return 3
+		end,
 		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.korthia_dailies) >= 3 end,	
 		group = "resetDaily",
 	},
@@ -267,12 +283,50 @@ AltManager.columns = {
 		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.riftbound_cache)>=4 end,
 		group = "resetDaily",
 	},
+	relic_creatures = {
+		label = "Relic Creatures",
+		type = "quest",
+		reset = "daily",
+		key = "relic_creatures",
+		required = 15,
+		plus = true,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.relic_creatures) >= 15 end,
+		group = "resetDaily"
+	},
+	helsworn_chest = {
+		label = "Helsworn Chest",
+		type = "quest",
+		reset = "daily",
+		key = "helsworn_chest",
+		plus = true,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.helsworn_chest) >= 1 end,
+		group = "resetDaily"
+	},
+	assault_vessels = {
+		label = "Assault Vessels",
+		type = "quest",
+		reset = "biweekly",
+		key = "assault_vessels",
+		required = 2,
+		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.biweekly and AltManager:GetNumCompletedQuests(alt_data.questInfo.biweekly.assault_vessels) >= 2 end,
+		group = "resetWeekly"
+	},
+	rift_vessels = {
+		label = "Rift Vessels",
+		type = "quest",
+		reset = "weekly",
+		key = "rift_vessels",
+		required = 3,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.rift_vessels) >= 3 end,
+		group = "resetWeekly"
+	},
 	maw_dailies = {
 		label = "Maw Dailies",
 		type = "quest",
 		reset = "daily",
 		key = "maw_dailies",
 		required = 2,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) >= 2 end,
 		group = "resetDaily",
 	},
 	eye_of_the_jailer = {
@@ -360,12 +414,12 @@ AltManager.columns = {
 		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.world_boss) == 2 end,
 		group = "resetWeekly",
 	},
-	anima = {
+	anima_weekly = {
 		label = "1k Anima",
 		type = "quest",
 		reset = "weekly",
-		key = "anima",
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.anima) == 1 end,
+		key = "anima_weekly",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.anima_weekly) == 1 end,
 		group = "resetWeekly",
 	},
 	maw_souls = {
@@ -393,13 +447,22 @@ AltManager.columns = {
 		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.maw_weekly) == (alt_data.questInfo.maxMawQuests or 2) end,
 		group = "resetWeekly",
 	},
-	tormentors_of_torghast = {
-		label = "Tormentors",
+	tormentors_weekly = {
+		label = "Tormentors Weekly",
 		type = "quest",
 		reset = "weekly",
-		key = "tormentors",
-		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.tormentors)>=1 end,
+		key = "tormentors_weekly",
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.tormentors_weekly)>=1 end,
 		group = "resetWeekly",
+	},
+	tormentors_locations = {
+		label = "NYI Tormentors Locs",
+		type = "quest",
+		reset = "weekly",
+		key = "tormentors_locations",
+		required = 6,
+		isComplete = function(alt_data) return alt_data.questInfo and AltManager:GetNumCompletedQuests(alt_data.questInfo.weekly.tormentors_locations)>=1 end,
+		group = "resetWeekly"
 	},
 	maw_assault = {
 		label = "Maw Assault",
@@ -647,6 +710,15 @@ AltManager.columns = {
 		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "tome") end,
 		group = "item",
 	},
+	relic = {
+		label = "Korthia Relics",
+		type = "quest",
+		reset = "relics",
+		key = "relic",
+		required = 20,
+		plus = true,
+		group = "onetime",
+	}
 }
 
 AltManager.numDungeons = 9
@@ -694,17 +766,13 @@ AltManager.items = {
 }
 
 AltManager.factions = {
-	friendship = {
-		[2432] = {name = "Ve'nari", paragon = 2474},
-		[2472] = {name = "The Archivists' Codex", paragon = 2473}
-	},
-	faction = {
-		[2407] = {name = "The Ascended", paragon = 2441},
-		[2465] = {name = "The Wild Hunt", paragon = 2444},
-		[2410] = {name = "The Undying Army", paragon = 2440},
-		[2413] = {name = "Court of Harvesters", paragon = 2442},
-		[2470] = {name = "Death's Advance", paragon = 2471},
-	}
+	[2432] = {name = "Ve'nari", paragon = true, type = "friend"},
+	[2472] = {name = "The Archivists' Codex", paragon = true, type = "friend"},
+	[2407] = {name = "The Ascended", paragon = true},
+	[2465] = {name = "The Wild Hunt", paragon = true},
+	[2410] = {name = "The Undying Army", paragon = true},
+	[2413] = {name = "Court of Harvesters", paragon = true},
+	[2470] = {name = "Death's Advance", paragon = true},
 }
 
 AltManager.currencies = {
@@ -819,12 +887,31 @@ AltManager.quests = {
 		[64129] = {key = "korthia_dailies"},
 		[64166] = {key = "korthia_dailies"},
 		[64194] = {key = "korthia_dailies"},
+		[64432] = {key = "korthia_dailies"},
 
 
 	 	[64456] = {key = "riftbound_cache"},
 	 	[64470] = {key = "riftbound_cache"},
 	 	[64471] = {key = "riftbound_cache"},
 	 	[64472] = {key = "riftbound_cache"},
+
+	 	[64341] = {key = "relic_creatures"},
+	 	[64342] = {key = "relic_creatures"},
+	 	[64343] = {key = "relic_creatures"},
+	 	[64344] = {key = "relic_creatures"},
+	 	[64747] = {key = "relic_creatures"},
+	 	[64748] = {key = "relic_creatures"},
+	 	[64749] = {key = "relic_creatures"},
+	 	[64750] = {key = "relic_creatures"},
+	 	[64751] = {key = "relic_creatures"},
+	 	[64752] = {key = "relic_creatures"},
+	 	[64753] = {key = "relic_creatures"},
+	 	[64754] = {key = "relic_creatures"},
+	 	[64755] = {key = "relic_creatures"},
+	 	[64756] = {key = "relic_creatures"},
+	 	[64757] = {key = "relic_creatures"},
+
+	 	[64256]= {key = "helsworn_chest"},
 	},
 	weekly = {
 		[61332] = {covenant = 1, key = "maw_souls"}, -- kyrian 5 souls
@@ -844,10 +931,10 @@ AltManager.quests = {
 		[62865] = {covenant = 4, key = "maw_souls"}, -- necro 15 souls
 		[62866] = {covenant = 4, key = "maw_souls"}, -- necro 20 souls
 
-		[61982] = {covenant = 1, key = "anima"}, -- kyrian 1k anima
-		[61981] = {covenant = 2, key = "anima"}, -- venthyr 1k anima
-		[61984] = {covenant = 3, key = "anima"}, -- night fae 1k anima
-		[61983] = {covenant = 4, key = "anima"}, -- necro 1k anima
+		[61982] = {covenant = 1, key = "anima_weekly"}, -- kyrian 1k anima
+		[61981] = {covenant = 2, key = "anima_weekly"}, -- venthyr 1k anima
+		[61984] = {covenant = 3, key = "anima_weekly"}, -- night fae 1k anima
+		[61983] = {covenant = 4, key = "anima_weekly"}, -- necro 1k anima
 
 		[60242] = {key = "dungeon_quests"}, -- Trading Favors: Necrotic Wake
 		[60243] = {key = "dungeon_quests"}, -- Trading Favors: Sanguine Depths
@@ -920,20 +1007,60 @@ AltManager.quests = {
 
 	 	[63949] = {key = "korthia_weekly"}, -- Shaping Fate
 
-	 	[63854] = {key = "tormentors"}, -- Tormentors of Torghast
-	 	[64122] = {key = "tormentors"}, -- Tormentors of Torghast
+	 	[63854] = {key = "tormentors_weekly"}, -- Tormentors of Torghast
+	 	[64122] = {key = "tormentors_weekly"}, -- Tormentors of Torghast
+
+	 	[64694] = {key = "tormentors_locations"},
+	 	[64695] = {key = "tormentors_locations"},
+	 	[64696] = {key = "tormentors_locations"},
+	 	[64697] = {key = "tormentors_locations"},
+	 	[64698] = {key = "tormentors_locations"},
 
 	 	[64521] = {key = "battle_plans"}, -- Helsworn Battle Plans
 	 	[64522] = {key = "korthia_supplies"}, -- Stolen Korthia Supplies
 
 	 	[64273] = {key = "containing_the_helsworn"}, -- Containing the Helsworn World Quest
+
+	 	[64265] = {key = "rift_vessels"},
+	 	[64269] = {key = "rift_vessels"},
+	 	[64270] = {key = "rift_vessels"},
 	},
 	biweekly = {
 		[63824] = {key = "assault"}, -- Kyrian
 		[63543] = {key = "assault"}, -- Necrolord
 		[63822] = {key = "assault"}, -- Venthyr
 		[63823] = {key = "assault"}, -- Nightfae
+
+		[64056] = {key = "assault_vessels"},
+	 	[64055] = {key = "assault_vessels"},
+	 	[64058] = {key = "assault_vessels"},
+	 	[64057] = {key = "assault_vessels"},
 	},
+	relics = {
+		[63860] = {key = "relic", item = 185914, tier = 1},
+		[63911] = {key = "relic", item = 187200, tier = 1},
+		[63899] = {key = "relic", item = 187206, tier = 1},
+		[63912] = {key = "relic", item = 187201, tier = 1},
+		[63892] = {key = "relic", item = 187055, tier = 1},
+		[63910] = {key = "relic", item = 187052, tier = 2},
+		[63924] = {key = "relic", item = 187150, tier = 2},
+		[63909] = {key = "relic", item = 187047, tier = 2},
+		[63921] = {key = "relic", item = 187119, tier = 2},
+		[63915] = {key = "relic", item = 187204, tier = 3},
+		[63917] = {key = "relic", item = 187103, tier = 3},
+		[63916] = {key = "relic", item = 187205, tier = 3},
+		[63918] = {key = "relic", item = 187104, tier = 3},
+		[63919] = {key = "relic", item = 187210, tier = 4},
+		[63913] = {key = "relic", item = 187202, tier = 4},
+		[63920] = {key = "relic", item = 187207, tier = 4},
+		[63914] = {key = "relic", item = 187203, tier = 4},
+		[63922] = {key = "relic", item = 187208, tier = 5},
+		[63923] = {key = "relic", item = 187209, tier = 5},
+		[63908] = {key = "relic", item = 186014, tier = 5},
+	},
+	unlocks = {
+		[63727] = {key = "korthia_five_dailies"},
+	}
 }
 
 AltManager.jailerWidgets = {

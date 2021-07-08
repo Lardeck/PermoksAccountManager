@@ -66,7 +66,7 @@ function AltManager:HandleChatCommand(chatString)
 		AltManager:PostKeysIntoChat(channel)
 	elseif command == "accept" then
 		local characterName = AltManager:GetArgs(chatString, 1, nextposition)
-		AltManager:AcceptSynch(characterName)
+		AltManager:AcceptSync(characterName)
 	elseif command == "block" then
 		local characterName = AltManager:GetArgs(chatString, 1, nextposition)
 		AltManager:BlockAccount(characterName)
