@@ -16,6 +16,94 @@ local lCurrency = {}
 local custom_categories
 local default_categories = AltManager:getDefaultCategories()
 
+
+local function changeAccountName(accountKey, name)
+	local account = AltManager.db.global.accounts[accountKey]
+	if account then
+		account.name = name
+		AceConfigRegistry:NotifyChange(addonName)
+		AltManager:UpdateAccountButtons()
+	end
+end
+
+
+StaticPopupDialogs[addonName .. "_ACCOUNT_RENAME"] = {
+	text = "New Name",
+	button1 = "Rename",
+	button2 = "Cancel",
+	OnShow = function(self, data)
+		self.button1:Disable()
+	end,
+	EditBoxOnTextChanged = function(self, data)
+		local text = self:GetText()
+		self:GetParent().button1:SetEnabled(#text > 0)
+	end,
+	OnAccept = function(self, accountKey)
+		local name = self.editBox:GetText()
+		changeAccountName(accountKey, name)
+	end,
+	hasEditBox = true,
+	hideOnEscape = true,
+}
+
+local function UnsyncAccount(accountKey)
+	options.args.sync.args.syncedAccounts.args[accountKey] = nil
+	AltManager:UnsyncAccount(accountKey)
+
+	AceConfigRegistry:NotifyChange(addonName)
+end
+
+local function AddAccount(accountKey, accountInfo)
+	if not options.args.sync.args.syncedAccounts.args[accountKey] then
+		options.args.sync.args.syncedAccounts.args[accountKey] = {
+			type = "group",
+			name = "",
+			inline = true,
+			args = {
+				name = {
+					order = 1,
+					type = "description",
+					name = function() return accountInfo.name end,
+					fontSize = "medium",
+					width = "half"
+				},
+				rename = {
+					order = 2,
+					type = "execute",
+					name = "Rename",
+					func = function(info)
+						local accountKey = info[#info - 1]
+						local dialog = StaticPopup_Show(addonName .. "_ACCOUNT_RENAME")
+						if dialog then
+							dialog.data = accountKey
+						end
+					end,
+				},
+				unsync = {
+					order = 3,
+					type = "execute",
+					name = "Delete",
+					func = function(info)
+						local accountKey = info[#info - 1]
+						UnsyncAccount(accountKey)
+					end,
+					confirm = true,
+					confirmText = "Are you sure?",
+
+				}
+			}
+		}
+	end
+end
+
+local function AddAccounts()
+	for account, info in pairs(AltManager.db.global.accounts) do
+		if account ~= "main" then
+			AddAccount(account, info)
+		end
+	end
+end
+
 -- credit to the author of Shadowed Unit Frames
 local function selectDifferentTab(group, key)
 	AceConfigDialog.Status[addonName].children.categories.children[group].status.groups.selected = key
@@ -686,6 +774,20 @@ local function loadOptionsTemplate()
 						max = 250,
 						bigStep = 1,
 					},
+					frameStrata = {
+						order = 3,
+						type = "select",
+						name = "Frame Strata",
+						values = {BACKGROUND = "BACKGROUND", LOW = "LOW", MEDIUM = "MEDIUM", HIGH = "HIGH", DIALOG = "DIALOG", TOOLTIP = "TOOLTIP"},
+						sorting = {"BACKGROUND", "LOW", "MEDIUM", "HIGH", "DIALOG", "TOOLTIP"},
+						set = function(info, value)
+							local key = info[#info]
+							local parentKey = info[#info-1]
+
+							AltManager.main_frame:SetFrameStrata(value)
+							AltManager.db.global.options[parentKey][key] = value
+						end,
+					}
 				}
 			},
 		}
@@ -816,12 +918,12 @@ local function loadOptionsTemplate()
 		order = 5,
 		type = "group",
 		name = "Account Syncing",
+		childGroups = "tab",
 		args = {
 			syncOptions = {
 				order = 1,
 				type = "group",
 				name = "Sync Accounts",
-				inline = true,
 				args =  {
 					name = {
 						order = 1,
@@ -877,8 +979,7 @@ local function loadOptionsTemplate()
 			syncedAccounts = {
 				order = 2,
 				type = "group",
-				name = "synced Accounts",
-				inline = true,
+				name = "Synced Accounts",
 				args = {
 				}
 			}
@@ -886,6 +987,7 @@ local function loadOptionsTemplate()
 	}
 
 end
+
 
 function AltManager.OpenOptions()
 	AceConfigDialog:Open(addonName, AltManager.optionsFrame)
@@ -928,6 +1030,7 @@ function AltManager:LoadOptions()
 	AltManager.optionsFrame:EnableResize(false)
 	AltManager.optionsFrame:Hide()
 
+	AddAccounts()
 	createConfirmPopup()
 	imexport = imexport or createImportExportFrame(AltManager.optionsFrame)
 

@@ -1,4 +1,5 @@
 local addonName, AltManager = ...
+local LibQTip = LibStub("LibQTip-1.0")
 
 local frequencyNames = {
 	[0] = "default",
@@ -32,7 +33,6 @@ function AltManager:AddQuest(questID, questLogIndex, questInfo)
 		self.db.global.quests[questID] = {frequency = questInfo.frequency, name = questInfo.title}
 	end
 end
-
 function AltManager:FindQuestByQuestID(questID)
 	local resetKey, key
 	if self.db.global.quests[questID] then
@@ -52,22 +52,29 @@ function AltManager:FindQuestByQuestID(questID)
 	return resetKey, key
 end
 
-
-function AltManager:UpdateQuest(questID)
+function AltManager:UpdateRetailQuest(questID)
 	local char_table = self.char_table
-	if not questID or not char_table then return end
-	if not char_table.questInfo then 
-		if self.isBC then
-			self:UpdateAllBCCQuests(char_table)
-		else
-			self:UpdateAllRetailQuests() 
-		end
+	if not char_table then return end
+	if not char_table.questInfo then self:UpdateAllRetailQuests() end
+
+	local questInfo = self.quests[questID]
+	if not questInfo then return end
+	local questType, visibility, key = questInfo.questType, questInfo.visibility, questInfo.key
+	if questType and visibility and key and char_table.questInfo[questType][visibility][key] then
+		char_table.questInfo[questType][visibility][key][questID] = true
+		self:RemoveQuest(questID)
 	end
+end
+
+function AltManager:UpdateBCCQuest(questID)
+	local char_table = self.char_table
+	if not char_table then return end
+	if not char_table.questInfo then self:UpdateAllBCCQuests(char_table) end
 
 	local resetKey, key = self:FindQuestByQuestID(questID)
 	if resetKey and key and char_table.questInfo[resetKey][key] then
 		char_table.questInfo[resetKey][key][questID] = true
-		if self:IsBCCClient() and resetKey == "daily" then
+		if resetKey == "daily" then
 			if self.quests[resetKey][questID].unique then
 				if not char_table.completedDailies[key] then
 					char_table.completedDailies[key] = true
@@ -82,6 +89,32 @@ function AltManager:UpdateQuest(questID)
 	end
 end
 
+function AltManager:UpdateQuest(questID)
+	if not questID then return end
+	if self.isBC then
+		self:UpdateBCCQuest(questID)
+	else
+		self:UpdateRetailQuest(questID)
+	end
+end
+
+function AltManager:UpdateAllHiddenQuests()
+	local char_table = self.char_table
+	if not char_table or not char_table.questInfo then return end	
+	self:Debug("Update Hidden Quests")
+
+	for questType, keys in pairs(char_table.questInfo) do
+		if type(keys) == "table" and keys.hidden then
+			for key, quests in pairs(keys.hidden) do
+				for questID, _ in pairs(self.quests[key]) do
+					local isComplete = char_table.questInfo[questType].hidden[key][questID]
+					char_table.questInfo[questType].hidden[key][questID] = isComplete or C_QuestLog.IsQuestFlaggedCompleted(questID)
+				end
+			end
+		end
+	end
+end
+
 function AltManager:UpdateAllRetailQuests()
 	local char_table = self.char_table
 	if not char_table then return end
@@ -89,29 +122,33 @@ function AltManager:UpdateAllRetailQuests()
 
 	local covenant = char_table.covenant or C_Covenants.GetActiveCovenantID()
 	local questInfo = char_table.questInfo
-	for reset, quests in pairs(self.quests) do
-		questInfo[reset] = questInfo[reset] or {}
+	for key, quests in pairs(self.quests) do
 		for questID, info in pairs(quests) do
-			questInfo[reset][info.key] = questInfo[reset][info.key] or {}
+			local visibleType = info.log and "visible" or "hidden"
+
+			questInfo[info.questType] = questInfo[info.questType] or {}
+			questInfo[info.questType][visibleType] = questInfo[info.questType][visibleType] or {}
+			questInfo[info.questType][visibleType][key] = questInfo[info.questType][visibleType][key] or {}
+			local currentQuestInfo = questInfo[info.questType][visibleType][key]
+			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
+
 			if info.covenant and covenant == info.covenant then
 				local sanctumTier
 				if info.sanctum and char_table.sanctumInfo then
 					sanctumTier = char_table.sanctumInfo[info.sanctum] and char_table.sanctumInfo[info.sanctum].tier or 0
-					questInfo["max" .. info.key] = max(1, sanctumTier)
+					questInfo["max" .. key] = max(1, sanctumTier)
 				end
 
 				if not info.sanctum or (sanctumTier and sanctumTier >= info.minSanctumTier) then
-					local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
-					questInfo[reset][info.key][questID] = isComplete or nil
+					currentQuestInfo[questID] = isComplete or nil
 				end
 			elseif not info.covenant then
-				local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
-				questInfo[reset][info.key][questID] = isComplete or nil
+				currentQuestInfo[questID] = isComplete or nil
 			end
 		end
 	end
 
-	questInfo.maxMawQuests = C_QuestLog.IsQuestFlaggedCompleted(60284) and 3 or 2
+	--questInfo.maxMawQuests = C_QuestLog.IsQuestFlaggedCompleted(60284) and 3 or 2
 	char_table.questInfo = questInfo
 end
 
@@ -128,7 +165,6 @@ function AltManager:UpdateAllBCCQuests()
 		questInfo[reset] = questInfo[reset] or {}
 		for questID, info in pairs(quests) do
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
-
 			questInfo[reset][info.key] = questInfo[reset][info.key] or {}
 			questInfo[reset][info.key][questID] = isComplete
 
@@ -199,18 +235,47 @@ function AltManager:CreateQuestString(questInfo, numDesired, replaceWithPlus)
 	end
 end
 
+function AltManager:QuestTooltip_OnEnter(button, alt_data, reset, visibility, key)
+	if not alt_data or not alt_data.questInfo then return end
+	local info = alt_data.questInfo[reset][visibility] and alt_data.questInfo[reset][visibility][key]
+	if not info then return end
+
+	local quests = self.quests[key]
+	local completedByName = {}
+	for questId, isComplete in pairs(info) do
+		if isComplete and quests[questId] and quests[questId].name then
+			completedByName[quests[questId].name] = completedByName[quests[questId].name] or {num = 0, total = quests[questId].total}
+			completedByName[quests[questId].name].num = completedByName[quests[questId].name].num + 1
+		end
+	end
+
+	if not next(completedByName) then return end
+	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "LEFT", "RIGHT")
+	button.tooltip = tooltip
+	for name, completionInfo in pairs(completedByName) do
+		tooltip:AddLine(name, self:CreateFractionString(completionInfo.num, completionInfo.total))
+	end
+
+	tooltip:SmartAnchorTo(button)
+	tooltip:Show()
+end
+
+
 do
 	local questEvents = {
 		"QUEST_ACCEPTED",
 		"QUEST_TURNED_IN",
 		"QUEST_REMOVED",
+		"QUEST_LOG_UPDATE",
 	}
 
 	local questFrame = CreateFrame("Frame")
+	local timer
 	FrameUtil.RegisterFrameForEvents(questFrame, questEvents)
 
 	questFrame:SetScript("OnEvent", function(self, e, questID)
 		if AltManager.addon_loaded then
+			AltManager:Debug(e, questID, GetTime())
 			if e == "QUEST_ACCEPTED" then
 				AltManager:AddQuest(questID)
 			elseif e == "QUEST_TURNED_IN" then
@@ -218,6 +283,8 @@ do
 				AltManager:SendCharacterUpdate("questInfo")
 			elseif e == "QUEST_REMOVED" then
 				AltManager:RemoveQuest(questID)
+			elseif e == "QUEST_LOG_UPDATE" then
+				timer = timer or C_Timer.NewTimer(1, function() AltManager:UpdateAllHiddenQuests() timer=nil end)
 			end
 			AltManager:UpdateCompletionDataForCharacter()
 		end

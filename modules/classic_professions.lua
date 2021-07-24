@@ -92,6 +92,7 @@ function AltManager:CreateProfessionString(professionInfo, professionCDs)
 	if cdInfo.cds then
 		for spellId, cdName in pairs(cdInfo.cds) do
 			local cooldown = professionCDs[spellId]
+			self:Debug("Name: ", cdName, "CD: ", cooldown, "Time: ", time())
 			if cooldown and (cooldown == 0 or time() > cooldown) then
 				professionCDString = string.format("%s\124T%d:18:18\124t", professionCDString or "", cdInfo.items and select(5, GetItemInfoInstant(cdInfo.items[spellId])) or GetSpellTexture(spellId))
 			end

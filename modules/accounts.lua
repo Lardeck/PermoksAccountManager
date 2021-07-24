@@ -93,7 +93,7 @@ function AltManager:AcceptSync(name)
 end
 
 function AltManager:SyncCharacter(name)
-	local accountName = self.db.global.synchedCharacters[name] or "account" .. #self.db.global.accounts + 2
+	local accountName = self.db.global.synchedCharacters[name] or "account" .. self.db.global.numAccounts + 1
 	self:Print("Syncing with character", name)
 
 	self.db.global.synchedCharacters[name] = accountName
@@ -134,6 +134,21 @@ function AltManager:AddAccount(account, name)
 	self:BefriendEveryoneOfAccount(account)
 	self:UpdateAccountButtons()
 	requestedSync = nil
+end
+
+function AltManager:UnsyncAccount(accountKey)
+	for charName, accountName in pairs(self.db.global.synchedCharacters) do
+		if accountName == accountKey then
+			self.db.global.synchedCharacters[characterName] = nil
+		end
+	end
+
+	local accounts = self.db.global.accounts
+	if self.main_frame:IsShown() and self.account == accounts[accountKey] then
+		self.main_frame.accountButtons.main:Click()
+	end
+	accounts[accountKey] = nil
+	self:UpdateAccountButtons()
 end
 
 function AltManager:SendAccountUpdate(name)

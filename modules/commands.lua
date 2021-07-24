@@ -70,6 +70,8 @@ function AltManager:HandleChatCommand(chatString)
 	elseif command == "block" then
 		local characterName = AltManager:GetArgs(chatString, 1, nextposition)
 		AltManager:BlockAccount(characterName)
+	elseif command == "debug" then
+		AltManager.db.global.options.debug = not AltManager.db.global.options.debug
 	else
 		if AltManagerFrame:IsShown() then
 			AltManager:HideInterface()
@@ -111,7 +113,9 @@ function AltManager:RemoveCharacterFromDB(guid)
 
 	tDeleteItem(self.db.global.accounts.main.pages[page], guid)
 	if page == self.db.global.currentPage then
-		self:UpdateAnchorsAndSize(true)
+		self:SortPages()
+		self:UpdatePageButtons()
+		self:UpdateAnchorsAndSize("general")
 	end
 end
 

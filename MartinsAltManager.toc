@@ -1,6 +1,6 @@
 ## Interface: 90100
 ## Title: Martins Alt Manager
-## Version: 9.0.19.4
+## Version: 9.0.19.5
 ## Notes: Hi
 ## SavedVariables: MartinsAltManagerDB
 
@@ -37,6 +37,7 @@ modules\vault.lua
 modules\items.lua
 modules\pvp.lua
 
+db\db.lua
+
 MartinsAltManager.lua
-db.lua
 options.lua

@@ -90,8 +90,8 @@ function AltManager:VaultTooltip_OnEnter(button, alt_data, name)
 		if activityInfo.progress >= activityInfo.threshold then
 			exampleRewardItem = C_WeeklyRewards.GetExampleRewardItemHyperlinks(activityInfo.id)
 
-			if activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level >= 14 then
-				rewardItemLevel = 226
+			if activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level >= 15 then
+				rewardItemLevel = 252
 			else
 				rewardItemLevel = self.vault_rewards[activityInfo.type][activityInfo.level] or (exampleRewardItem and GetDetailedItemLevelInfo(exampleRewardItem)) or nil
 			end

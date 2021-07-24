@@ -32,7 +32,7 @@ local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel())
 local min_test_level = 0
 local locale = GetLocale()
 local VERSION = "9.0.19.4"
-local INTERNALVERSION = 8
+local INTERNALVERSION = 10
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -68,6 +68,7 @@ local defaultDB = {
 				updated = false,
 				labelOffset = 15,
 				widthPerAlt = 120,
+				frameStrata = "MEDIUM",
 			},
 			savePosition = false,
 			showOptionsButton = true,
@@ -128,10 +129,16 @@ local function spairs(t, order)
     end
 end
 
+function AltManager:Debug(...)
+	if self.db.global.options.debug then
+		self:Print(...)
+	end
+end
+
 function AltManager:CreateMainFrame()
 	local main_frame = CreateFrame("Frame", "AltManagerFrame", UIParent)
 	self.main_frame = main_frame
-	main_frame:SetFrameStrata("MEDIUM")
+	main_frame:SetFrameStrata(self.db.global.options.other.frameStrata)
 	main_frame.background = main_frame:CreateTexture(nil, "BACKGROUND")
 	main_frame.background:SetAllPoints()
 	main_frame.background:SetDrawLayer("ARTWORK", 1)
@@ -292,9 +299,30 @@ function AltManager:Modernize(oldInternalVersion)
 
 	if oldInternalVersion < 8 then
 		wipe(AltManager.db.global.options.defaultCategories.general)
-		oldInternalVersion = 8
+		oldInternalVersion = 9
 
-		message("[MartinsAltManager]\n Default Categories have been reset.")
+		BasicMessageDialog.Text:SetText("[MartinsAltManager]\n Default Categories have been reset.")
+		BasicMessageDialog:Show()
+	end
+
+	if oldInternalVersion < 9 then
+		self:UpdateDefaultCategories("currentdaily")
+		oldInternalVersion = 9
+	end
+
+	if oldInternalVersion < 10 then
+		for key, info in pairs(self.db.global.accounts) do
+			for alt_guid, alt_data in pairs(info.data) do
+				for questType, keys in pairs(alt_data.questInfo) do
+					if type(keys) == "table" then
+						wipe(alt_data.questInfo[questType])
+					end
+				end
+			end
+		end
+
+		self:UpdateDefaultCategories("currentweekly")
+		oldInternalVersion = 10
 	end
 end
 
@@ -330,12 +358,14 @@ function AltManager:SortPages()
 
 	local enabledAlts = 1
 	for alt_guid, alt_data in self.spairs(data, function(t, a, b) if t[a] and t[b] then return t[a][sortKey] > t[b][sortKey] end end) do
-		local page = ceil(enabledAlts/self.db.global.charactersPerPage)
-		account.pages[page] = account.pages[page] or {}
-		tinsert(account.pages[page], alt_guid)
-		enabledAlts = enabledAlts + 1
+		if not self.db.global.blacklist[alt_guid] then
+			local page = ceil(enabledAlts/self.db.global.charactersPerPage)
+			account.pages[page] = account.pages[page] or {}
+			tinsert(account.pages[page], alt_guid)
+			enabledAlts = enabledAlts + 1
 
-		alt_data.page = page
+			alt_data.page = page
+		end
 	end
 
 	if self.db.global.currentPage > #account.pages then
@@ -535,11 +565,8 @@ function AltManager:ValidateReset()
 
 				-- Weekly Quests
 				if char_table.questInfo and char_table.questInfo.weekly then
-					for key, quests in pairs(char_table.questInfo.weekly) do
-						if not quests then break end
-						for questID in pairs(quests) do
-							char_table.questInfo.weekly[key][questID] = nil
-						end
+					for visibility, quests in pairs(char_table.questInfo.weekly) do
+						wipe(char_table.questInfo.weekly[visibility])
 					end
 				end
 
@@ -576,11 +603,8 @@ function AltManager:ValidateReset()
 
 				-- Daily Quests
 				if char_table.questInfo and char_table.questInfo.daily then
-					for key, quests in pairs(char_table.questInfo.daily) do
-						if not quests then break end
-						for questID in pairs(quests) do
-							char_table.questInfo.daily[key][questID] = nil
-						end
+					for visibility, quests in pairs(char_table.questInfo.daily) do
+						wipe(char_table.questInfo.daily[visibility])
 					end
 				end
 
@@ -590,11 +614,8 @@ function AltManager:ValidateReset()
 
 			if currentTime > biweekly then
 				if char_table.questInfo and char_table.questInfo.biweekly then
-					for key, quests in pairs(char_table.questInfo.biweekly) do
-						if not quests then break end
-						for questID in pairs(quests) do
-							quests[questID] = nil
-						end
+					for visibility, quests in pairs(char_table.questInfo.biweekly) do
+						wipe(char_table.questInfo.biweekly[visibility])
 					end
 				end
 
@@ -749,18 +770,18 @@ function AltManager:UpdateAccountButtons()
 			accountButton:SetSize(100, 20)
 			accountButton:SetText(accountInfo.name or accountName)
 			accountButton:Show()
+			
+			accountButton:SetScript("OnClick", function()
+				AltManager.db.global.currentPage = 1
+				AltManager.account = accountInfo
+				AltManager:RollUpAll()
+				AltManager:UpdateAltAnchors("general", self.main_frame.label_column)
+				AltManager:PopulateStrings(1, "general")
+				AltManager:UpdatePageButtons()
+				AltManager:UpdateMainFrameSize()
+			end)
 		end
 		accountButton:SetPoint("BOTTOMLEFT", self.main_frame, "TOPLEFT", accountIndex * 100, 32)
-
-		accountButton:SetScript("OnClick", function()
-			AltManager.db.global.currentPage = 1
-			AltManager.account = accountInfo
-			AltManager:RollUpAll()
-			AltManager:UpdateAltAnchors("general", self.main_frame.label_column)
-			AltManager:PopulateStrings(1, "general")
-			AltManager:UpdatePageButtons()
-			AltManager:UpdateMainFrameSize()
-		end)
 		self.main_frame.accountButtons[accountName] = accountButton
 		accountIndex = accountIndex + 1
 	end
@@ -906,6 +927,7 @@ function AltManager:UpdateAltAnchors(category, customAnchorFrame)
 		local anchorFrame = altColumns[index] or CreateFrame("Button", nil, customAnchorFrame)
 		anchorFrame:SetPoint("TOPLEFT", customAnchorFrame, "TOPRIGHT", (widthPerAlt * (index - 1)) + labelOffset, -1)
 		anchorFrame:SetPoint("BOTTOMRIGHT", customAnchorFrame, "BOTTOMLEFT", (widthPerAlt * index) + widthPerAlt + labelOffset, 1)
+		anchorFrame.GUID = alt_guid
 		anchorFrame:Show()
 
 		altColumns[index] = anchorFrame
@@ -919,6 +941,7 @@ function AltManager:UpdateColumnForAlt(alt_guid, anchorFrame, category)
 	local childs = db.currentCategories[category].childs
 	local enabledChilds = db.currentCategories[category].childOrder
 	local altData = self.account.data[alt_guid]
+	if not altData then return end
 
 	local rows = anchorFrame.rows
 	local enabledRows = 0
@@ -1327,28 +1350,29 @@ function AltManager:PostKeysIntoChat(channel)
 end
 
 AltManager.functions = {
-	quest = function(alt_data, column, reset, key, required, replaceWithPlus)
-		if not alt_data or not alt_data.questInfo then return "-" end
-		if not column.reset or not column.key then return "-" end
-
-		local questInfo = alt_data.questInfo[column.reset] and alt_data.questInfo[column.reset][column.key]
-		if not questInfo then return "-" end
+	quest = function(alt_data, column)
+		if not alt_data.questInfo then return "-" end
+		if not column.questType or not column.visibility or not column.key then return "-" end
 
 		local required = column.required or 1
 		if type(column.required) == "function" then
 			required = column.required(alt_data)
 		end
 
+		AltManager:Debug(alt_data.name)
+		local questInfo = alt_data.questInfo[column.questType] and alt_data.questInfo[column.questType][column.visibility] and alt_data.questInfo[column.questType][column.visibility][column.key]
+		if not questInfo then return AltManager:CreateQuestString(0, required) or "-" end
+
 		return AltManager:CreateQuestString(questInfo, required, (column.plus) or (column.plus == nil and required == 1)) or "-"
 	end,
 	currency = function(alt_data, column)
-		if not alt_data or not alt_data.currencyInfo then return "-" end
+		if not alt_data.currencyInfo then return "-" end
 		local currencyInfo = alt_data.currencyInfo[column.id]
 
 		return AltManager:CreateCurrencyString(currencyInfo, column.abbCurrent, column.abbMax, column.hideMax) or "-"
 	end,
 	faction = function(alt_data, column)
-		if not alt_data or not alt_data.factions then return "-" end
+		if not alt_data.factions then return "-" end
 
 		local factionInfo = alt_data.factions[column.id]
 		if not factionInfo then return "-" end

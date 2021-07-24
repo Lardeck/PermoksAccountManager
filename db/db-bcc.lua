@@ -679,27 +679,25 @@ AltManager.items = {
 }
 
 AltManager.factions = {
-	faction = {
-		[911] = {name = "Silvermoon City", faction = "Horde"},
-		[930] = {name = "Exodar", faction = "Alliance"},
-		[932] = {name = "The Aldor"},
-		[933] = {name = "The Consortium"},
-		[934] = {name = "The Scryers"},
-		[935] = {name = "The Sha'tar"},
-		[941] = {name = "The Mag'har", faction = "Horde"},
-		[942] = {name = "Cenarion Expedition"},
-		[946] = {name = "Honor Hold", faction = "Alliance"},
-		[947] = {name = "Thrallmar", faction = "Horde"},
-		[967] = {name = "The Violet Eye"},
-		[970] = {name = "Sporeggar"},
-		[978] = {name = "Kurenai", faction = "Alliance"},
-		[989] = {name = "Keepers of Time"},
-		[990] = {name = "The Scale of the Sands"},
-		[1011] = {name = "Lower City"},
-		[1015] = {name = "Netherwing"},
-		[1038] = {name = "Ogri'la"},
-		[1077] = {name = "Shattered Sun Offensive"},
-	}
+	[911] = {name = "Silvermoon City", faction = "Horde"},
+	[930] = {name = "Exodar", faction = "Alliance"},
+	[932] = {name = "The Aldor"},
+	[933] = {name = "The Consortium"},
+	[934] = {name = "The Scryers"},
+	[935] = {name = "The Sha'tar"},
+	[941] = {name = "The Mag'har", faction = "Horde"},
+	[942] = {name = "Cenarion Expedition"},
+	[946] = {name = "Honor Hold", faction = "Alliance"},
+	[947] = {name = "Thrallmar", faction = "Horde"},
+	[967] = {name = "The Violet Eye"},
+	[970] = {name = "Sporeggar"},
+	[978] = {name = "Kurenai", faction = "Alliance"},
+	[989] = {name = "Keepers of Time"},
+	[990] = {name = "The Scale of the Sands"},
+	[1011] = {name = "Lower City"},
+	[1015] = {name = "Netherwing"},
+	[1038] = {name = "Ogri'la"},
+	[1077] = {name = "Shattered Sun Offensive"},
 }
 
 AltManager.currencies = {

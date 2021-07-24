@@ -1,7 +1,7 @@
 ## Interface: 20501
 ## Title: Martins Alt Manager
 ## Author: Permok
-## Version: 9.0.19.4
+## Version: 9.0.19.5
 ## SavedVariables: MartinsAltManagerDB
 
 libs\LibStub\LibStub.lua
@@ -36,6 +36,7 @@ modules\zone.lua
 modules\classic_professions.lua
 modules\guild_attunements.lua
 
+db\db-bcc.lua
+
 MartinsAltManager.lua
-db-bcc.lua
 options.lua
