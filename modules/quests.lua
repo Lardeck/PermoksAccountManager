@@ -33,6 +33,16 @@ function AltManager:AddQuest(questID, questLogIndex, questInfo)
 		self.db.global.quests[questID] = {frequency = questInfo.frequency, name = questInfo.title}
 	end
 end
+
+
+function AltManager:FindQuestKeyByQuestID(questID)
+	for key, quests in pairs(self.quests) do
+		if quests[questID] then
+			return key
+		end
+	end
+end
+
 function AltManager:FindQuestByQuestID(questID)
 	local resetKey, key
 	if self.db.global.quests[questID] then
@@ -57,9 +67,12 @@ function AltManager:UpdateRetailQuest(questID)
 	if not char_table then return end
 	if not char_table.questInfo then self:UpdateAllRetailQuests() end
 
-	local questInfo = self.quests[questID]
-	if not questInfo then return end
-	local questType, visibility, key = questInfo.questType, questInfo.visibility, questInfo.key
+	local key = self:FindQuestKeyByQuestID(questID)
+	if not key then return end
+
+	local questInfo = self.quests[key][questID]
+	local questType, visibility = questInfo.questType, questInfo.log and "visible" or "hidden"
+	self:Debug("Update", questType, visibility, key, questID)
 	if questType and visibility and key and char_table.questInfo[questType][visibility][key] then
 		char_table.questInfo[questType][visibility][key][questID] = true
 		self:RemoveQuest(questID)
