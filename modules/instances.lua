@@ -95,14 +95,14 @@ function AltManager:RaidTooltip_OnEnter(button, alt_data, id)
 	local raidInfo = alt_data.instanceInfo.raids[self.raids[id].englishName]
 	if not raidInfo then return end
 
-	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 3, "LEFT", "CENTER", "RIGHT")
+	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "LEFT", "RIGHT")
 	button.tooltip = tooltip
 
-	tooltip:AddHeader(name, '', '')
+	tooltip:AddHeader(self.raids[id].name)
 	tooltip:AddLine("")
 
 	for difficulty, info in AltManager.spairs(raidInfo, function(t, a, b) if a == 17 then return b < a else return a < b end end) do
-		tooltip:AddLine(info.difficulty..":", "", self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
+		tooltip:AddLine(info.difficulty..":", self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 	end
 
 	tooltip:SmartAnchorTo(button)

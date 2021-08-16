@@ -154,6 +154,7 @@ AltManager.columns = {
 		label = "Highest Key",
 		enabled = function(option, key) return option[key].enabled end,
 		data = function(alt_data) return alt_data.vaultInfo and AltManager:CreateWeeklyString(alt_data.vaultInfo.MythicPlus) or "-" end,
+		tooltip = function(button, alt_data) AltManager:HighestKeyTooltip_OnEnter(button, alt_data) end,
 		isComplete = function(alt_data) return alt_data.vaultInfo and alt_data.vaultInfo.MythicPlus and alt_data.vaultInfo.MythicPlus[1].level >= 15 end,
 		group = "dungeons"
 	},
@@ -171,6 +172,7 @@ AltManager.columns = {
 		label = "Soul Cinders",
 		type = "currency",
 		id = 1906,
+		tooltip = function(button, alt_data) AltManager:SoulCindersTooltip_OnEnter(button,alt_data) end,
 		group = "currency",
 	},
 	soul_ash = {
@@ -221,6 +223,7 @@ AltManager.columns = {
 		label = "Stygian Ember",
 		type = "currency",
 		id = 1977,
+		tooltip = function(button, alt_data) AltManager:StygianEmbersTooltip_OnEnter(button, alt_data) end,
 		group = "currency",
 	},
 	cataloged_research = {
@@ -1165,6 +1168,22 @@ AltManager.quests = {
 	adamant_vault_conduit = {
 		[64347] = {questType = "weekly"}
 	},
+
+	sanctum_normal_embers_trash = {
+        [64610] = {questType = "weekly"},
+        [64613] = {questType = "weekly"},
+        [64616] = {questType = "weekly"},
+        [64619] = {questType = "weekly"}, 
+        [64622] = {questType = "weekly"},
+    },
+
+    sanctum_heroic_embers_trash = {
+        [64611] = {questType = "weekly"},
+        [64614] = {questType = "weekly"},
+        [64617] = {questType = "weekly"},
+        [64620] = {questType = "weekly"},
+        [64623] = {questType = "weekly"},
+    },
 
 	korthia_five_dailies = {
 		[63727] = {questType = "unlocks", log = true},

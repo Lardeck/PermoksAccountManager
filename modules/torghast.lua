@@ -1,6 +1,23 @@
 local addonName, AltManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
 
+do
+	local torghastEvents = {
+		"CURRENCY_DISPLAY_UPDATE",
+	}
+
+	local torghastFrame = CreateFrame("Frame")
+	FrameUtil.RegisterFrameForEvents(torghastFrame, torghastEvents)
+
+	torghastFrame:SetScript("OnEvent", function(self, e, ...)
+		if AltManager.addon_loaded then
+			AltManager:UpdateTorghast()
+			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:SendCharacterUpdate("torghastInfo")
+		end
+	end)
+end
+
 function AltManager:UpdateTorghast()
 	-- Should probably switch to quests at some point
 	local char_table = self.validateData()
@@ -70,21 +87,4 @@ function AltManager:TorghastTooltip_OnEnter(button, alt_data)
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
-end
-
-do
-	local torghastEvents = {
-		"CURRENCY_DISPLAY_UPDATE",
-	}
-
-	local torghastFrame = CreateFrame("Frame")
-	FrameUtil.RegisterFrameForEvents(torghastFrame, torghastEvents)
-
-	torghastFrame:SetScript("OnEvent", function(self, e, ...)
-		if AltManager.addon_loaded then
-			AltManager:UpdateTorghast()
-			AltManager:UpdateCompletionDataForCharacter()
-			AltManager:SendCharacterUpdate("torghastInfo")
-		end
-	end)
 end

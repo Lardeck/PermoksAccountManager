@@ -249,7 +249,7 @@ function AltManager:CreateQuestString(questInfo, numDesired, replaceWithPlus)
 end
 
 function AltManager:QuestTooltip_OnEnter(button, alt_data, reset, visibility, key)
-	if not alt_data or not alt_data.questInfo then return end
+	if not alt_data or not alt_data.questInfo or not alt_data.questInfo[reset] then return end
 	local info = alt_data.questInfo[reset][visibility] and alt_data.questInfo[reset][visibility][key]
 	if not info then return end
 

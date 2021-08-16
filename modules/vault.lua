@@ -48,8 +48,16 @@ function AltManager:UpdateVaultInfo()
 	end
 
 	char_table.vaultInfo = vaultInfo
+	char_table.raidActivityInfo = C_WeeklyRewards.GetActivityEncounterInfo(Enum.WeeklyRewardChestThresholdType.Raid, 1)
 end
 
+
+function AltManager:UpdateMythicPlusHistory()
+	local char_table = self.char_table
+	if not char_table then return end
+
+	char_table.mythicPlusHistory = C_MythicPlus.GetRunHistory()
+end
 
 function AltManager:CreateWeeklyString(vaultInfo)
 	if not vaultInfo then return end
@@ -122,6 +130,33 @@ function AltManager:VaultTooltip_OnEnter(button, alt_data, name)
 	tooltip:Show()
 end
 
+function AltManager:HighestKeyTooltip_OnEnter(button, alt_data)
+	if not alt_data or not alt_data.mythicPlusHistory then return end
+
+	local runs = {}
+	for run, info in ipairs(alt_data.mythicPlusHistory) do
+		if info.completed and info.thisWeek then
+			tinsert(runs, info.level)
+		end
+	end
+	if #runs < 2 then return end
+	table.sort(runs, function(a, b) return a > b end)
+
+	for i in ipairs(runs) do
+		if i == 1 or i == 4 or i == 10 then
+			runs[i] = string.format("|cff00f7ff%d|r", runs[i])
+		end
+	end
+
+
+	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 1, "LEFT")
+	button.tooltip = tooltip
+
+	tooltip:AddLine(table.concat(runs, ", "))
+	tooltip:SmartAnchorTo(button)
+	tooltip:Show()
+end
+
 do
 	local vaultEvents = {
 		"UPDATE_INSTANCE_INFO",
@@ -136,6 +171,7 @@ do
 		if AltManager.addon_loaded then
 			AltManager:UpdateVaultInfo()
 			AltManager:UpdateCompletionDataForCharacter()
+			AltManager:UpdateMythicPlusHistory()
 			AltManager:SendCharacterUpdate("vaultInfo")
 		end
 	end)

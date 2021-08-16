@@ -1,7 +1,6 @@
 local addonName, AltManager = ...
 
 AltManager = LibStub("AceAddon-3.0"):NewAddon(AltManager, "MartinsAltManager", "AceConsole-3.0", "AceEvent-3.0")
-
 local AltManagerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("MartinsAltManager", {
 	type = "data source",
 	text = "Martins Alt Manager",
@@ -28,10 +27,7 @@ local AltManagerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("MartinsAltMana
 local LibIcon = LibStub("LibDBIcon-1.0")
 local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
-local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel())
-local min_test_level = 0
-local locale = GetLocale()
-local VERSION = "9.0.19.6"
+local VERSION = "9.0.19.7"
 local INTERNALVERSION = 10
 local INTERNALBCVERSION = 1
 local defaultDB = {
@@ -102,14 +98,6 @@ local defaultDB = {
 	},
 }
 
-local altManagerEvents = {
-	"BAG_UPDATE_DELAYED",
-	"CHAT_MSG_PARTY",
-	"CHAT_MSG_PARTY_LEADER",
-	"CHAT_MSG_GUILD",
-	"PLAYER_MONEY",
-}
-
 local function spairs(t, order)
     local keys = {}
     for k in pairs(t) do keys[#keys+1] = k end
@@ -163,6 +151,14 @@ function AltManager:CreateMainFrame()
 
 	return main_frame
 end
+
+local altManagerEvents = {
+	"BAG_UPDATE_DELAYED",
+	"CHAT_MSG_PARTY",
+	"CHAT_MSG_PARTY_LEADER",
+	"CHAT_MSG_GUILD",
+	"PLAYER_MONEY",
+}
 
 function AltManager:OnInitialize()
 	self.spairs = spairs
@@ -399,6 +395,8 @@ function AltManager:OnLogin()
 	local db = self.db.global
 	local guid = self:getGUID()
 	local level = UnitLevel("player")
+	local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel())
+	local min_test_level = 0
 
 	self.isBC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 	self:SaveBattleTag(db)
@@ -439,6 +437,7 @@ function AltManager:OnLogin()
 	end
 
 	self:UpdateAccounts()
+	C_Timer.After(self:GetNextWeeklyResetTime(), function() self:ValidateReset() end)
 end
 
 local CreateFontFrame
@@ -545,8 +544,6 @@ function AltManager:ValidateReset()
 				-- Torghast
 				if char_table.torghastInfo then
 					wipe(char_table.torghastInfo)
-					char_table.torghastInfo["PLEASE"] = 0
-					char_table.torghastInfo["LOGIN"] = 0
 				end
 
 				-- Vault
@@ -571,7 +568,7 @@ function AltManager:ValidateReset()
 				end
 
 				-- Reset
-				char_table.expires = self:GetNextWeeklyResetTime();
+				char_table.expires = currentTime + self:GetNextWeeklyResetTime();
 			end
 
 			if currentTime > daily then
@@ -584,7 +581,7 @@ function AltManager:ValidateReset()
 				-- Callings
 				if char_table.callingsUnlocked and char_table.callingInfo and char_table.callingInfo.numCallings and char_table.callingInfo.numCallings < 3 then
 					char_table.callingInfo.numCallings = char_table.callingInfo.numCallings + 1
-					char_table.callingInfo[#char_table.callingInfo + 1] = self:GetNextDailyResetTime() + (86400*2)
+					char_table.callingInfo[#char_table.callingInfo + 1] = currentTime + self:GetNextDailyResetTime() + (86400*2)
 				end
 
 				if char_table.covenant and db.currentCallings[char_table.covenant] then
@@ -609,7 +606,7 @@ function AltManager:ValidateReset()
 				end
 
 				-- Reset
-				char_table.daily = self:GetNextDailyResetTime()
+				char_table.daily = currentTime + self:GetNextDailyResetTime()
 			end
 
 			if currentTime > biweekly then
@@ -619,7 +616,7 @@ function AltManager:ValidateReset()
 					end
 				end
 
-				char_table.biweekly = self:GetNextBiWeeklyResetTime()
+				char_table.biweekly = currentTime + self:GetNextBiWeeklyResetTime()
 			end
 		end
 	end
@@ -708,9 +705,10 @@ function AltManager:CollectData()
 
 	char_table.gold = floor(GetMoney() / (COPPER_PER_SILVER * SILVER_PER_GOLD)) * 10000
 
-	char_table.expires = self:GetNextWeeklyResetTime()
-	char_table.daily = self:GetNextDailyResetTime()
-	char_table.biweekly = self:GetNextBiWeeklyResetTime()
+	local currentTime = time()
+	char_table.expires = currentTime + self:GetNextWeeklyResetTime()
+	char_table.daily = currentTime + self:GetNextDailyResetTime()
+	char_table.biweekly = currentTime + self:GetNextBiWeeklyResetTime()
 
 	if not self.isBC then
 		local _, ilevel = GetAverageItemLevel()
@@ -1299,12 +1297,12 @@ end
 
 function AltManager:GetNextWeeklyResetTime()
 	local weeklyReset = C_DateAndTime.GetSecondsUntilWeeklyReset()
-	return weeklyReset and time() + weeklyReset
+	return weeklyReset
 end
 
 function AltManager:GetNextDailyResetTime()
-	local weeklyReset = C_DateAndTime.GetSecondsUntilWeeklyReset()
-	return weeklyReset and time() + (weeklyReset % 86400)
+	local dailyReset = C_DateAndTime.GetSecondsUntilDailyReset()
+	return dailyReset
 end
 
 function AltManager:GetNextBiWeeklyResetTime()

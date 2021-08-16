@@ -60,7 +60,7 @@ function AltManager:HandleChatCommand(chatString)
 	elseif command == "help" then
 		AltManager:PrintCommandList()
 	elseif command == "version" then
-		print("|cfff49b42AltManager Version:|r", VERSION)
+		print("|cfff49b42AltManager Version:|r", AltManager.db.global.version)
 	elseif command == "keys" then
 		local channel = AltManager:GetArgs(chatString, 1, nextposition)
 		AltManager:PostKeysIntoChat(channel)
