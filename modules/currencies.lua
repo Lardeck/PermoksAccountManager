@@ -175,8 +175,8 @@ do
 	        end
 	    end
 
-	    local embersFromShapingFate = next(questInfo.visible.korthia_weekly) and 10 or 0
-	    local embersFromWB = questInfo.hidden.world_boss[64531] and 1 or 0
+	    local embersFromShapingFate = questInfo.visible.korthia_weekly and next(questInfo.visible.korthia_weekly) and 10 or 0
+	    local embersFromWB = questInfo.hidden.world_boss and questInfo.hidden.world_boss[64531] and 1 or 0
 	    local embersFromNormalRaidTrash = self:GetNumCompletedQuests(questInfo.hidden.sanctum_normal_embers_trash)
 	    local embersFromHeroicRaidTrash = self:GetNumCompletedQuests(questInfo.hidden.sanctum_heroic_embers_trash)
 	    local total = GetTotalNumRaidEmbers(embersFromRaidBosses) + embersFromShapingFate + embersFromWB + embersFromNormalRaidTrash + embersFromHeroicRaidTrash

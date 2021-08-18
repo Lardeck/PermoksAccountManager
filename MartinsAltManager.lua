@@ -27,8 +27,8 @@ local AltManagerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("MartinsAltMana
 local LibIcon = LibStub("LibDBIcon-1.0")
 local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
-local VERSION = "9.0.19.7"
-local INTERNALVERSION = 10
+local VERSION = "9.0.19.8"
+local INTERNALVERSION = 11
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -320,6 +320,20 @@ function AltManager:Modernize(oldInternalVersion)
 		self:UpdateDefaultCategories("currentweekly")
 		oldInternalVersion = 10
 	end
+
+	----------------------------------------------
+	-- - Fix raidActivityInfo not resetting weekly
+	-- - Fix biweekly reset calculation
+	if oldInternalVersion < 11 then
+		for key, info in pairs(self.db.global.accounts) do
+			for alt_guid, alt_data in pairs(info.data) do
+				alt_data.raidActivityInfo = {}
+				alt_data.biweekly = time() + self:GetNextBiWeeklyResetTime()
+			end
+		end
+
+		oldInternalVersion = 11
+	end
 end
 
 function AltManager:getGUID()
@@ -555,6 +569,8 @@ function AltManager:ValidateReset()
 						end
 					end
 				end
+
+				char_table.raidActivityInfo = {}
 
 				-- M+
 				char_table.dungeon = "Unknown";
@@ -1308,7 +1324,7 @@ end
 function AltManager:GetNextBiWeeklyResetTime()
 	local weeklyReset = C_DateAndTime.GetSecondsUntilWeeklyReset()
 	if weeklyReset then
-		return time() + (weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset)
+		return (weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset)
 	end
 end
 
