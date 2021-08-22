@@ -120,8 +120,8 @@ function AltManager:UpdateAllHiddenQuests()
 		if type(keys) == "table" and keys.hidden then
 			for key, quests in pairs(keys.hidden) do
 				for questID, _ in pairs(self.quests[key]) do
-					local isComplete = char_table.questInfo[questType].hidden[key][questID]
-					char_table.questInfo[questType].hidden[key][questID] = isComplete or C_QuestLog.IsQuestFlaggedCompleted(questID)
+					local isComplete = char_table.questInfo[questType].hidden[key][questID] or C_QuestLog.IsQuestFlaggedCompleted(questID)
+					char_table.questInfo[questType].hidden[key][questID] = isComplete or nil
 				end
 			end
 		end

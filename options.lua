@@ -23,9 +23,9 @@ local function changeAccountName(accountKey, name)
 		account.name = name
 		AceConfigRegistry:NotifyChange(addonName)
 		AltManager:UpdateAccountButtons()
+
 	end
 end
-
 
 StaticPopupDialogs[addonName .. "_ACCOUNT_RENAME"] = {
 	text = "New Name",
@@ -1078,8 +1078,6 @@ function AltManager:ImportOptions(optionsString)
 	end)
 
 	AltManager.confirm:Show()
-
-	--if ViragDevTool_AddData then ViragDevTool_AddData(data) end
 end
 
 do

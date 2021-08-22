@@ -42,12 +42,12 @@ function AltManager:HandleChatCommand(chatString)
 	if command == "purge" then
 		AltManager:Purge()
 	elseif command == "remove" then
-		local characterName, characterIndex = AltManager:GetArgs(chatString, 2, nextposition)
-		AltManager:RemoveCharacterByName(characterName, characterIndex)
+		local characterName, realm = AltManager:GetArgs(chatString, 2, nextposition)
+		AltManager:RemoveCharacterFromDBByName(characterName, realm)
 	elseif command == "minimap" then
 		AltManager:ToggleMinimap()
 	elseif command == "filter" then
-		local subCommand, characterName, characterIndex = AltManager:GetArgs(chatString, 3, nextposition)
+		local subCommand, characterName, realm = AltManager:GetArgs(chatString, 3, nextposition)
 		if subCommand then
 			if subCommand == "a" or subCommand == "add" then
 				AltManager:UpdateCharacterFilter(characterName, realm, true)
@@ -81,6 +81,26 @@ function AltManager:HandleChatCommand(chatString)
 	end
 end
 
+function AltManager:RemoveCharacterFromDBByName(name, realm)
+	local characters = self:FindCharacterInDBByName(name, true, realm)
+	if characters then
+		if realm then
+			for alt_guid, info in pairs(characters.guids) do
+				if info.realm == realm then
+					self:RemoveCharacterFromDB(alt_guid)
+					return
+				end
+			end
+		else
+			local guid, info = next(characters.guids)
+			if guid then
+				self:RemoveCharacterFromDB(guid)
+				return
+			end
+		end
+	end
+end
+
 function AltManager:PrintFilter(tbl, listName)
 	local list = {}
 	for guid, info in pairs(tbl) do
@@ -93,7 +113,7 @@ function AltManager:PrintFilter(tbl, listName)
 	print(table.concat(list, ", "))
 end
 
-function AltManager:FindCharacterInDBByName(name, filter)
+function AltManager:FindCharacterInDBByName(name, filter, realm)
 	local characters = {num = 0, guids = {}}
 	local data = filter and self.db.global.accounts.main.data or self.db.global.blacklist
 	for alt_guid, alt_data in pairs(data) do
@@ -102,6 +122,13 @@ function AltManager:FindCharacterInDBByName(name, filter)
 			characters.num = characters.num + 1
 		end
 	end
+
+	if characters.num > 1 and not realm then
+		self:Print("Found more than one character with that name. please specify a realm.")
+		self:PrintFilter(characters, "Characters")
+		return
+	end
+
 	return characters
 end
 
@@ -130,23 +157,20 @@ end
 
 function AltManager:UpdateCharacterFilter(characterName, realm, filter)
 	local characters = self:FindCharacterInDBByName(characterName, filter)
-	if characters.num > 1 then
-		if not realm then
-			self:Print("Found more than one character with that name. please specify a realm.")
-			self:PrintFilter(characters, "Characters")
-		else
+	if characters then
+		if realm then
 			for alt_guid, info in pairs(characters.guids) do
 				if info.realm == realm then
 					self:HandleFilterAction(alt_guid, filter, info)
 					return
 				end
 			end
-		end
-	else
-		local guid, info = next(characters.guids)
-		if guid then
-			self:HandleFilterAction(guid, filter, info)
-			return
+		else
+			local guid, info = next(characters.guids)
+			if guid then
+				self:HandleFilterAction(guid, filter, info)
+				return
+			end
 		end
 	end
 end

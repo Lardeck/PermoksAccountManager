@@ -1142,29 +1142,6 @@ AltManager.quests = {
 	 	[64045] = {name = "Necrolord", total = 2, questType = "weekly"},
 	},
 
-	relic = {
-		[63860] = {item = 185914, tier = 1, questType = "relics", log = true},
-		[63911] = {item = 187200, tier = 1, questType = "relics", log = true},
-		[63899] = {item = 187206, tier = 1, questType = "relics", log = true},
-		[63912] = {item = 187201, tier = 1, questType = "relics", log = true},
-		[63892] = {item = 187055, tier = 1, questType = "relics", log = true},
-		[63910] = {item = 187052, tier = 2, questType = "relics", log = true},
-		[63924] = {item = 187150, tier = 2, questType = "relics", log = true},
-		[63909] = {item = 187047, tier = 2, questType = "relics", log = true},
-		[63921] = {item = 187119, tier = 2, questType = "relics", log = true},
-		[63915] = {item = 187204, tier = 3, questType = "relics", log = true},
-		[63917] = {item = 187103, tier = 3, questType = "relics", log = true},
-		[63916] = {item = 187205, tier = 3, questType = "relics", log = true},
-		[63918] = {item = 187104, tier = 3, questType = "relics", log = true},
-		[63919] = {item = 187210, tier = 4, questType = "relics", log = true},
-		[63913] = {item = 187202, tier = 4, questType = "relics", log = true},
-		[63920] = {item = 187207, tier = 4, questType = "relics", log = true},
-		[63914] = {item = 187203, tier = 4, questType = "relics", log = true},
-		[63922] = {item = 187208, tier = 5, questType = "relics", log = true},
-		[63923] = {item = 187209, tier = 5, questType = "relics", log = true},
-		[63908] = {item = 186014, tier = 5, questType = "relics", log = true},
-	},
-
 	adamant_vault_conduit = {
 		[64347] = {questType = "weekly"}
 	},

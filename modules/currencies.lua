@@ -112,7 +112,7 @@ do
 		local biweekly = alt_data.questInfo.biweekly
 
 		local assaults = AltManager:GetNumCompletedQuests(biweekly.hidden.assault) * 50
-		local tormentors = weekly.hidden.tormentors_weekly and next(weekly.hidden.tormentors_weekly) and 50 or 0
+		local tormentors = min(self:GetNumCompletedQuests(weekly.hidden.tormentors_weekly) * 50, 50)
 
 		local torghast = 0
 		for layer, completed in pairs(torghastInfo) do
