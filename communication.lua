@@ -1,11 +1,11 @@
-local addonName, AltManager = ...
+local addonName, PermoksAccountManager = ...
 local AceComm = LibStub("AceComm-3.0")
 local LibSerialize = LibStub("LibSerialize")
 local LibDeflate = LibStub("LibDeflate")
 local lastTimeSend = {}
 
 
-function AltManager:Deserialze(msg)
+function PermoksAccountManager:Deserialze(msg)
 	local decoded = LibDeflate:DecodeForWoWAddonChannel(msg)
     if not decoded then return end
     local decompressed = LibDeflate:DecompressDeflate(decoded)
@@ -16,7 +16,7 @@ function AltManager:Deserialze(msg)
 	return data
 end
 
-function AltManager:Serialize(msg)
+function PermoksAccountManager:Serialize(msg)
 	local serialized = LibSerialize:Serialize(msg)
 	local compressed = LibDeflate:CompressDeflate(serialized)
 	local encoded = LibDeflate:EncodeForWoWAddonChannel(compressed)
@@ -24,11 +24,11 @@ function AltManager:Serialize(msg)
 	return encoded
 end
 
-function AltManager:RequestData(prefix, channel, target)
+function PermoksAccountManager:RequestData(prefix, channel, target)
 	AceComm:SendCommMessage(prefix, "request", channel, target or nil)
 end
 
-function AltManager:SendInfo(type, prefix, msg, channel, target, overrideLimit)
+function PermoksAccountManager:SendInfo(type, prefix, msg, channel, target, overrideLimit)
 	if not overrideLimit and GetTime() - (lastTimeSend[type] or 0) < 5 then return end
 
 	if msg then

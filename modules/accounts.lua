@@ -1,45 +1,59 @@
-local addonName, AltManager = ...
+local addonName, PermoksAccountManager = ...
+PermoksAccountManager.modules = {}
 local AceComm = LibStub("AceComm-3.0")
 local accountsPrefix = "MAM_ACCOUNTS"
 local requestedAccepts = {}
 local requestedSync
 
 
-function AltManager:GetNumAccounts()
-	local numAccounts = 0
-	for accountName in pairs(AltManager.db.global.accounts) do
-		numAccounts = numAccounts + 1
-	end
-
-	return numAccounts
-end
-
-
-function AltManager:RequestAccountSync(name, realm)
-	if name == UnitName("player") then return end
-	if realm then
+local onlineFriends = {}
+local UpdateOnlineFriends
+do
+	function UpdateOnlineFriends()
+		wipe(onlineFriends)
+		local realm = GetNormalizedRealmName()
 		local connectedRealms = GetAutoCompleteRealms()
-		if not tContains(connectedRealms, realm) then 
-			self:Print(realm, "is not a connected realm.")
-			return 
+
+		for accountName, accountInfo in pairs(PermoksAccountManager.db.global.accounts) do
+			if accountName ~= "main" then
+				for alt_guid, alt_data in pairs(accountInfo.data) do
+					if alt_data.realm == realm or tContains(connectedRealms, alt_data.realm) then
+						local characterName = alt_data.realm ~= realm and alt_data.name .. "-" .. alt_data.realm or alt_data.name
+
+						local friendInfo = C_FriendList.GetFriendInfo(characterName)
+						if not friendInfo then
+							C_FriendList.AddFriend(characterName)
+							friendInfo = C_FriendList.GetFriendInfo(characterName)
+						end
+
+						if friendInfo and friendInfo.connected then
+							tinsert(onlineFriends, characterName)
+							break
+						end
+					end
+				end
+			end
 		end
 
-		name = name .. "-" .. realm
+		PermoksAccountManager:Debug(#onlineFriends, table.concat(onlineFriends, ", "))
 	end
 
-	if self.db.global.synchedCharacters[name] then
-		self:Print("You're already synced with that character. Account:",self.db.global.synchedCharacters[name])
-		return
+	local module = "accounts"
+	local function Update()
+		UpdateOnlineFriends()
 	end
 
-	self:Print("Sending a sync request to:", name, realm or "")
-	requestedSync = name
-	local message = {type = "syncrequest"}
-	self:SendInfo("syncrequest", accountsPrefix, message, "WHISPER", name)
+	local payload = {
+		update = Update,
+		events = {
+			["FRIENDLIST_UPDATE"] = UpdateOnlineFriends,
+		}
+	}
+	PermoksAccountManager:AddModule(module, payload)
+	AceComm:RegisterComm(accountsPrefix, function(...) PermoksAccountManager:ProcessAccountMessage(...) end)
 end
 
-
-function AltManager:ProcessAccountsMessage(prefix, msg, channel, sender, x, y)
+function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sender, x, y)
 	local db = self.db.global
 	local deserializedMsg = self:Deserialze(msg)
 	if deserializedMsg and deserializedMsg.type then
@@ -79,7 +93,40 @@ function AltManager:ProcessAccountsMessage(prefix, msg, channel, sender, x, y)
 	end
 end
 
-function AltManager:AcceptSync(name)
+function PermoksAccountManager:GetNumAccounts()
+	local numAccounts = 0
+	for accountName in pairs(PermoksAccountManager.db.global.accounts) do
+		numAccounts = numAccounts + 1
+	end
+
+	return numAccounts
+end
+
+
+function PermoksAccountManager:RequestAccountSync(name, realm)
+	if name == UnitName("player") then return end
+	if realm then
+		local connectedRealms = GetAutoCompleteRealms()
+		if not tContains(connectedRealms, realm) then 
+			self:Print(realm, "is not a connected realm.")
+			return 
+		end
+
+		name = name .. "-" .. realm
+	end
+
+	if self.db.global.synchedCharacters[name] then
+		self:Print("You're already synced with that character. Account:",self.db.global.synchedCharacters[name])
+		return
+	end
+
+	self:Print("Sending a sync request to:", name, realm or "")
+	requestedSync = name
+	local message = {type = "syncrequest"}
+	self:SendInfo("syncrequest", accountsPrefix, message, "WHISPER", name)
+end
+
+function PermoksAccountManager:AcceptSync(name)
 	if not name then return end
 	if not requestedAccepts[name] then self:Print(name, "didn't request to sync.") return end
 	self:SyncCharacter(name)
@@ -92,7 +139,7 @@ function AltManager:AcceptSync(name)
 	requestedAccepts[name] = nil
 end
 
-function AltManager:SyncCharacter(name)
+function PermoksAccountManager:SyncCharacter(name)
 	local accountName = self.db.global.synchedCharacters[name] or "account" .. self.db.global.numAccounts + 1
 	self:Print("Syncing with character", name)
 
@@ -100,12 +147,12 @@ function AltManager:SyncCharacter(name)
 
 end
 
-function AltManager:BlockCharacter(name)
+function PermoksAccountManager:BlockCharacter(name)
 	if not name then return end
 	self.db.global.options.blockedCharacters[name] = true
 end
 
-function AltManager:RemoveOldAccountData(accountName)
+function PermoksAccountManager:RemoveOldAccountData(accountName)
 	if not accountName then return end
 
 	for characterName, oldAccountName in pairs(self.db.global.synchedCharacters) do
@@ -117,10 +164,9 @@ function AltManager:RemoveOldAccountData(accountName)
 	self.db.global.accounts[accountName] = nil
 end
 
-function AltManager:AddAccount(account, name)
+function PermoksAccountManager:AddAccount(account, name)
 	local accountName = self.db.global.synchedCharacters[name]
 	self:Print("Add/Update Account", accountName, ". Initiated by", name)
-	self:RemoveOldAccountData(accountName)
 
 	local realm = GetNormalizedRealmName()
 	for alt_guid, alt_data in pairs(account.data) do
@@ -128,48 +174,46 @@ function AltManager:AddAccount(account, name)
 		self.db.global.synchedCharacters[characterName] = accountName
 	end
 
-	account.name = accountName:gsub("^%l", string.upper)
+	account.name = self.db.global.accounts[accountName] and self.db.global.accounts[accountName].name or accountName:gsub("^%l", string.upper)
 	self.db.global.accounts[accountName] = account
+	self:AddAccountToOptions(accountName)
 	self.db.global.numAccounts = self:GetNumAccounts()
 	self:BefriendEveryoneOfAccount(account)
 	self:UpdateAccountButtons()
+
 	requestedSync = nil
 end
 
-function AltManager:UnsyncAccount(accountKey)
-	for charName, accountName in pairs(self.db.global.synchedCharacters) do
+function PermoksAccountManager:UnsyncAccount(accountKey)
+	for characterName, accountName in pairs(self.db.global.synchedCharacters) do
 		if accountName == accountKey then
 			self.db.global.synchedCharacters[characterName] = nil
 		end
 	end
 
 	local accounts = self.db.global.accounts
-	if self.main_frame:IsShown() and self.account == accounts[accountKey] then
-		self.main_frame.accountButtons.main:Click()
+	if self.managerFrame:IsShown() and self.account == accounts[accountKey] then
+		self.managerFrame.accountButtons.main:Click()
 	end
 	accounts[accountKey] = nil
 	self:UpdateAccountButtons()
 end
 
-function AltManager:SendAccountUpdate(name)
+function PermoksAccountManager:SendAccountUpdate(name)
 	local message = {type = "updateaccount", account = self.db.global.accounts.main}
 	self:SendInfo("updateaccount", accountsPrefix, message, "WHISPER", name)
 end
 
-function AltManager:SendAccountUpdates(isLogin)
-	if self.db.global.numAccounts == 1 then return end
+function PermoksAccountManager:SendAccountUpdates(isLogin)
+	if self.db.global.numAccounts == 1 or #onlineFriends == 0 then return end
 
-	local targets = self:GetOnlineSyncedCharacters()
-	local message = {type = "updateaccount", account = self.db.global.accounts.main, login = isLogin}
-
-
-	if #targets == 0 then return end
-	for i, target in ipairs(targets) do
+	local message = {type = "updateaccount", account = self.db.global.accounts.main, login = isLogin and 1}
+	for i, target in ipairs(onlineFriends) do
 		self:SendInfo("updateaccount", accountsPrefix, message, "WHISPER", target)
 	end
 end
 
-function AltManager:UpdateCharacter(name, guid, key, info)
+function PermoksAccountManager:UpdateCharacter(name, guid, key, info)
 	local accountName = self.db.global.synchedCharacters[name]
 	local accountData = self.db.global.accounts[accountName].data
 
@@ -178,7 +222,7 @@ function AltManager:UpdateCharacter(name, guid, key, info)
 	end
 end
 
-function AltManager:BefriendEveryoneOfAccount(account)
+function PermoksAccountManager:BefriendEveryoneOfAccount(account)
 	local realm = GetNormalizedRealmName()
 	for alt_guid, alt_data in pairs(account.data) do
 		if not C_FriendList.IsFriend(alt_guid) then
@@ -188,56 +232,30 @@ function AltManager:BefriendEveryoneOfAccount(account)
 	end
 end
 
-function AltManager:GetOnlineSyncedCharacters()
-	local targets = {}
-	local realm = GetNormalizedRealmName()
-
-	for accountName, accountInfo in pairs(self.db.global.accounts) do
-		if accountName ~= "main" then
-			for alt_guid, alt_data in pairs(accountInfo.data) do
-				local characterName = alt_data.realm ~= realm and alt_data.name .. "-" .. alt_data.realm or alt_data.name
-				if not C_FriendList.IsFriend(alt_guid) then
-					C_FriendList.AddFriend(characterName)
-				end
-
-				local friendInfo = C_FriendList.GetFriendInfo(characterName)
-				if friendInfo and friendInfo.connected then
-					tinsert(targets, characterName)
-					break
-				end
-			end
-		end
-	end
-
-	return targets
-end
-
-function AltManager:SendCharacterUpdate(key)
+function PermoksAccountManager:SendCharacterUpdate(key)
 	if self.db.global.numAccounts == 1 then return end
-	local char_table = self.char_table
-	if not char_table then return end
+	local charInfo = self.charInfo
+	if not charInfo then return end
 
-	local targets = self:GetOnlineSyncedCharacters()
-	if #targets > 0 then
+	if #onlineFriends > 0 then
 		--self:Print("Send Update", key)
 		local guid = self:getGUID()
 
-		local info = char_table[key]
+		local info = charInfo[key]
 		local message = {type = "updatecharacter", guid = guid, key = key, info = info}
-		for i, target in ipairs(targets) do
+		for i, target in ipairs(onlineFriends) do
 			self:SendInfo("updatecharacter", accountsPrefix, message, "WHISPER", target, true)
 		end
 	end
 end
 
-function AltManager:UpdateAccounts()
+function PermoksAccountManager:UpdateAccounts()
+	self:UpdateAccountButtons()
 	if self.db.global.numAccounts > 1 then
 		self:Print("Initiating Account Update.")
-		self:UpdateAccountButtons()
-		C_Timer.After(15, function() AltManager:SendAccountUpdates(true) end)
+		C_Timer.After(15, function() 
+			UpdateOnlineFriends()
+			PermoksAccountManager:SendAccountUpdates(true) 
+		end)
 	end
-end
-
-do
-	AceComm:RegisterComm(accountsPrefix, function(...) AltManager:ProcessAccountsMessage(...) end)
 end

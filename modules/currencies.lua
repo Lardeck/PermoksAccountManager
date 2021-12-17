@@ -1,73 +1,157 @@
-local addonName, AltManager = ...
+local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
+local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 
-do
-	local currencyEvents = {
-		"CURRENCY_DISPLAY_UPDATE",
-	}
 
-	local currencyFrame = CreateFrame("Frame")
-	FrameUtil.RegisterFrameForEvents(currencyFrame, currencyEvents)
+local module = "currencies"
+local labelRows = {
+	soul_cinders = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1906].name or "Soul Cinders" end,
+		type = "currency",
+		id = 1906,
+		customTooltip = function(button, alt_data) PermoksAccountManager:SoulCindersTooltip_OnEnter(button,alt_data) end,
+		tooltip = true,
+		group = "currency",
+	},
+	soul_ash = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1828].name or "Soul Ash" end,
+		type = "currency",
+		id = 1828,
+		group = "currency",
+	},
+	stygia = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1767].name or "Stygia" end,
+		type = "currency",
+		id = 1767,
+		group = "currency",
+	},
+	conquest = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1602].name or "Conquest" end,
+		type = "currency",
+		id = 1602,
+		hideMax = true,
+		tooltip = true,
+		group = "currency",
+	},
+	honor = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1792].name or "Honor" end,
+		type = "currency",
+		id = 1792,
+		abbCurrent = true,
+		abbMax = true,
+		tooltip = true,
+		group = "currency",
+	},
+	valor = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1191].name or "Valor" end,
+		type = "currency",
+		id = 1191,
+		hideMax = true,
+		tooltip = true,
+		group = "currency",
+	},
+	tower_knowledge = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1904].name or "Tower Knowledge" end,
+		type = "currency",
+		id = 1904,
+		hideMax = true,
+		tooltip = true,
+		group = "currency",
+	},
+	stygian_ember = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1977].name or "Stygian Ember" end,
+		type = "currency",
+		id = 1977,
+		customTooltip = function(button, alt_data) PermoksAccountManager:StygianEmbersTooltip_OnEnter(button, alt_data) end,
+		tooltip = true,
+		group = "currency",
+	},
+	cataloged_research = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1931].name or "Cataloged Research" end,
+		type = "currency",
+		id = 1931,
+		abbMax = true,
+		group = "currency",
+	},
+	reservoir_anima = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1813].name or "Reservoir Anima" end,
+		type = "currency",
+		id = 1813,
+		hideMax = true,
+		group = "currency",
+	},
+	redeemed_soul = {
+		label = function() return PermoksAccountManager.db.global.currencyInfo[1810].name or "Redeemed Soul" end,
+		type = "currency",
+		id = 1810,
+		group = "currency",
+	},
+}
 
-	currencyFrame:SetScript("OnEvent", function(self, e, ...)
-		if AltManager.addon_loaded then
-			AltManager:UpdateCurrency(...)
-			AltManager:UpdateCompletionDataForCharacter()
-			AltManager:SendCharacterUpdate("currencyInfo")
-		end
-	end)
-end
+local function UpdateAllCurrencies(charInfo)
+	local self = PermoksAccountManager
+	charInfo.currencyInfo = charInfo.currencyInfo or {}
 
-function AltManager:UpdateAllCurrencies()
-	local char_table = self.validateData()
-	if not char_table then return end
-	char_table.currencyInfo = char_table.currencyInfo or {}
-
-	local currencyInfo = {}
-	for currencyType in pairs(self.currencies) do
+	local currencyInfo = charInfo.currencyInfo
+	for currencyType, offset in pairs(self.currency) do
 		local info = C_CurrencyInfo.GetCurrencyInfo(currencyType)
 		if info then
-			currencyInfo[currencyType] = (type(char_table.currencyInfo[currencyType]) == "table" and char_table.currencyInfo[currencyType]) or {name = info.name}
+			currencyInfo[currencyType] = charInfo.currencyInfo[currencyType] or {name = info.name}
 
+			-- Fix for returning the wrong quantity
 			if currencyType ~= 1810 and info.maxQuantity > 0 and info.quantity > info.maxQuantity then
 				info.quantity = info.quantity / 100
 			end			
 
 			currencyInfo[currencyType].currencyType = currencyType
-			currencyInfo[currencyType].quantity = info.quantity
+			currencyInfo[currencyType].quantity = info.quantity + offset
 			currencyInfo[currencyType].maxQuantity = info.maxQuantity
 			currencyInfo[currencyType].totalEarned = info.totalEarned
 			
-			if not self.db.global.currencyIcons[info.name] then
-				self.db.global.currencyIcons[info.name] = info.iconFileID
-			end
+			self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType] or {icon = info.iconFileID, name = info.name}
+			self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity
 		end
 	end
-
-	char_table.currencyInfo = currencyInfo
 end
 
-function AltManager:UpdateCurrency(currencyType, quantity, quantityChange, gained, lost)
-	if not currencyType or not self.currencies[currencyType] then return end
-	local char_table = self.validateData()
-	if not char_table then return end
-	if type(char_table.currencyInfo[currencyType]) ~= "table" then AltManager:UpdateAllCurrencies() end
-
-	char_table.currencyInfo[currencyType].quantity = quantity
+local function Update(charInfo)
+	UpdateAllCurrencies(charInfo)
 end
 
-function AltManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum)
-	if not currencyInfo or type(currencyInfo) ~= "table" then return end
+local function UpdateCurrency(charInfo, currencyType, quantity)
+	local self = PermoksAccountManager
+	if not currencyType or not self.currency[currencyType] then return end
+
+	charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
+end
+	
+
+local payload = {
+	update = Update,
+	labels = labelRows,
+	events = {
+		["CURRENCY_DISPLAY_UPDATE"] = UpdateCurrency,
+	},
+	share = {
+		[UpdateCurrency] = "currencyInfo"
+	},
+}
+PermoksAccountManager:AddModule(module, payload)
+
+
+function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum)
+	if not currencyInfo then return end
 
 	local iconString
-	local currencyIcon = self.db.global.currencyIcons[currencyInfo.name] 
+	local globalCurrencyInfo = self.db.global.currencyInfo[currencyInfo.currencyType]
+	local currencyIcon = globalCurrencyInfo.icon
 	if currencyIcon and self.db.global.options.currencyIcons then
 		iconString = string.format("\124T%d:18:18\124t", currencyIcon)
 	end
 
 	local currencyString
 	if not hideMaximum and currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 then
-		currencyString = self:CreateFractionString(currencyInfo.quantity, currencyInfo.maxQuantity, abbreviateCurrent, abbreviateMaximum)
+		currencyString = self:CreateFractionString(currencyInfo.quantity, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity, abbreviateCurrent, abbreviateMaximum)
 	else
 		currencyString = abbreviateCurrent and AbbreviateNumbers(currencyInfo.quantity) or AbbreviateLargeNumbers(currencyInfo.quantity)
 	end
@@ -75,9 +159,11 @@ function AltManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbrev
 	return string.format("%s %s", currencyString, iconString or "")
 end
 
-function AltManager:CurrencyTooltip_OnEnter(button, alt_data, currencyId)
-	if not alt_data or not alt_data.currencyInfo then return end
-	local currencyInfo = alt_data.currencyInfo[currencyId]
+function PermoksAccountManager.CurrencyTooltip_OnEnter(button, altData, labelRow)
+	if not altData.currencyInfo then return end
+	local self = PermoksAccountManager
+	local currencyInfo = altData.currencyInfo[labelRow.id]
+	local globalCurrencyInfo = self.db.global.currencyInfo[labelRow.id]
 	if not currencyInfo or not currencyInfo.name then return end
 
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "LEFT", "RIGHT")
@@ -86,10 +172,10 @@ function AltManager:CurrencyTooltip_OnEnter(button, alt_data, currencyId)
 	tooltip:AddHeader(currencyInfo.name)
 	tooltip:AddLine("")
 
-	tooltip:AddLine("Total Earned:", self:CreateFractionString(currencyInfo.totalEarned, currencyInfo.maxQuantity))
+	tooltip:AddLine("Total Earned:", self:CreateFractionString(currencyInfo.totalEarned, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity))
 
-	if (currencyInfo.maxQuantity or 0) > currencyInfo.totalEarned then
-		tooltip:AddLine("Left:", currencyInfo.maxQuantity - currencyInfo.totalEarned)
+	if ((globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity) or 0) > currencyInfo.totalEarned then
+		tooltip:AddLine("Left:", (globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity) - currencyInfo.totalEarned)
 	end
 
 	tooltip:SmartAnchorTo(button)
@@ -105,13 +191,12 @@ do
 		[12] = 180,
 	}
 
-	function AltManager:SoulCindersTooltip_OnEnter(button, alt_data)
-		if not alt_data or not alt_data.questInfo or not alt_data.questInfo.biweekly or not alt_data.torghastInfo then return end
+	function PermoksAccountManager:SoulCindersTooltip_OnEnter(button, alt_data)
+		if not alt_data or not alt_data.questInfo or not alt_data.torghastInfo then return end
 		local torghastInfo = alt_data.torghastInfo
 		local weekly = alt_data.questInfo.weekly
-		local biweekly = alt_data.questInfo.biweekly
 
-		local assaults = AltManager:GetNumCompletedQuests(biweekly.hidden.assault) * 50
+		local assaults = PermoksAccountManager:GetNumCompletedQuests(weekly.hidden.assault) * 50
 		local tormentors = min(self:GetNumCompletedQuests(weekly.hidden.tormentors_weekly) * 50, 50)
 
 		local torghast = 0
@@ -124,11 +209,12 @@ do
 		local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "LEFT", "RIGHT")
 		button.tooltip = tooltip
 		tooltip:AddHeader(alt_data.currencyInfo[1906].name)
-		tooltip:AddLine("Assaults:", AltManager:CreateFractionString(assaults, 100))
-		tooltip:AddLine("Tormentors:", AltManager:CreateFractionString(tormentors, 50))
-		tooltip:AddLine("Torghast:", AltManager:CreateFractionString(torghast, 360))
 		tooltip:AddSeparator(2, 1, 1, 1)
-		tooltip:AddLine("|cff00f7ffTotal:|r", AltManager:CreateFractionString(assaults + tormentors + torghast, 510))
+		tooltip:AddLine("Assaults:", PermoksAccountManager:CreateFractionString(assaults, 100))
+		tooltip:AddLine("Tormentors:", PermoksAccountManager:CreateFractionString(tormentors, 50))
+		tooltip:AddLine("Torghast:", PermoksAccountManager:CreateFractionString(torghast, 360))
+		tooltip:AddSeparator(2, 1, 1, 1)
+		tooltip:AddLine("|cff00f7ffTotal:|r", PermoksAccountManager:CreateFractionString(assaults + tormentors + torghast, 510))
 		tooltip:SmartAnchorTo(button)
 		tooltip:Show()
 	end
@@ -145,7 +231,7 @@ do
 	local function GetEmbersForDifficulty(embersTable, difficulty)
 
 		local totalNumEmbers = 0
-		for boss, numEmbers in ipairs(embersTable) do
+		for boss, numEmbers in pairs(embersTable) do
 			if numEmbers >= raidBossEmbers[difficulty] then
 				totalNumEmbers = totalNumEmbers + 1
 			end
@@ -163,8 +249,8 @@ do
 		return total
 	end
 
-	function AltManager:StygianEmbersTooltip_OnEnter(button, alt_data)
-		if not alt_data or not alt_data.raidActivityInfo or not alt_data.questInfo then return end
+	function PermoksAccountManager:StygianEmbersTooltip_OnEnter(button, alt_data)
+		if not alt_data or not alt_data.raidActivityInfo or not alt_data.questInfo or not alt_data.questInfo.weekly or not alt_data.questInfo.weekly.visible then return end
 		local raidActivityInfo = alt_data.raidActivityInfo
 		local questInfo = alt_data.questInfo.weekly
 
@@ -184,19 +270,20 @@ do
 		local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "LEFT", "RIGHT")
 		button.tooltip = tooltip
 		tooltip:AddHeader(alt_data.currencyInfo[1977].name)
-		tooltip:AddLine("LFR Raid:", AltManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 17), 10))
-		tooltip:AddLine("Normal Raid:", AltManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 14), 10))
-		tooltip:AddLine("Heroic Raid:", AltManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 15), 10))
-		tooltip:AddLine("Mythic Raid:", AltManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 16), 10))
 		tooltip:AddSeparator(2, 1, 1, 1)
-		tooltip:AddLine("Normal Trash:", AltManager:CreateFractionString(embersFromNormalRaidTrash, 5))
-		tooltip:AddLine("Heroic Trash:", AltManager:CreateFractionString(embersFromHeroicRaidTrash, 5))
+		tooltip:AddLine("LFR Raid:", PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 17), 10))
+		tooltip:AddLine("Normal Raid:", PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 14), 10))
+		tooltip:AddLine("Heroic Raid:", PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 15), 10))
+		tooltip:AddLine("Mythic Raid:", PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 16), 10))
 		tooltip:AddSeparator(2, 1, 1, 1)
-		tooltip:AddLine("Shaping Fate:", AltManager:CreateFractionString(embersFromShapingFate, 10))
+		tooltip:AddLine("Normal Trash:", PermoksAccountManager:CreateFractionString(embersFromNormalRaidTrash, 5))
+		tooltip:AddLine("Heroic Trash:", PermoksAccountManager:CreateFractionString(embersFromHeroicRaidTrash, 5))
 		tooltip:AddSeparator(2, 1, 1, 1)
-		tooltip:AddLine("World Boss:", AltManager:CreateFractionString(embersFromWB, 1))
+		tooltip:AddLine("Shaping Fate:", PermoksAccountManager:CreateFractionString(embersFromShapingFate, 10))
 		tooltip:AddSeparator(2, 1, 1, 1)
-		tooltip:AddLine("|cff00f7ffTotal:|r", AltManager:CreateFractionString(total, 61))
+		tooltip:AddLine("World Boss:", PermoksAccountManager:CreateFractionString(embersFromWB, 1))
+		tooltip:AddSeparator(2, 1, 1, 1)
+		tooltip:AddLine("|cff00f7ffTotal:|r", PermoksAccountManager:CreateFractionString(total, 61))
 		tooltip:SmartAnchorTo(button)
 		tooltip:Show()
 	end

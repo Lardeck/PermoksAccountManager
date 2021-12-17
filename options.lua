@@ -1,5 +1,5 @@
-local addonName, AltManager = ...
-local locale = GetLocale()
+local addonName, PermoksAccountManager = ...
+local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local AceConfig = LibStub("AceConfig-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
@@ -7,53 +7,33 @@ local AceGUI = LibStub("AceGUI-3.0")
 local LibIcon = LibStub("LibDBIcon-1.0")
 local LibDeflate = LibStub("LibDeflate")
 local LibSerialize = LibStub("LibSerialize")
+local LSM = LibStub("LibSharedMedia-3.0")
 local options
 local imexport
 
-AltManager.numCategories = 0
+PermoksAccountManager.numCategories = 0
 
 local lCurrency = {}
 local custom_categories
-local default_categories = AltManager:getDefaultCategories()
+local default_categories = PermoksAccountManager:getDefaultCategories()
 
 
 local function changeAccountName(accountKey, name)
-	local account = AltManager.db.global.accounts[accountKey]
+	local account = PermoksAccountManager.db.global.accounts[accountKey]
 	if account then
 		account.name = name
-		AceConfigRegistry:NotifyChange(addonName)
-		AltManager:UpdateAccountButtons()
-
+		PermoksAccountManager:UpdateAccountButtons()
 	end
 end
 
-StaticPopupDialogs[addonName .. "_ACCOUNT_RENAME"] = {
-	text = "New Name",
-	button1 = "Rename",
-	button2 = "Cancel",
-	OnShow = function(self, data)
-		self.button1:Disable()
-	end,
-	EditBoxOnTextChanged = function(self, data)
-		local text = self:GetText()
-		self:GetParent().button1:SetEnabled(#text > 0)
-	end,
-	OnAccept = function(self, accountKey)
-		local name = self.editBox:GetText()
-		changeAccountName(accountKey, name)
-	end,
-	hasEditBox = true,
-	hideOnEscape = true,
-}
-
 local function UnsyncAccount(accountKey)
 	options.args.sync.args.syncedAccounts.args[accountKey] = nil
-	AltManager:UnsyncAccount(accountKey)
+	PermoksAccountManager:UnsyncAccount(accountKey)
 
 	AceConfigRegistry:NotifyChange(addonName)
 end
 
-local function AddAccount(accountKey, accountInfo)
+function PermoksAccountManager:AddAccountToOptions(accountKey)
 	if not options.args.sync.args.syncedAccounts.args[accountKey] then
 		options.args.sync.args.syncedAccounts.args[accountKey] = {
 			type = "group",
@@ -62,27 +42,22 @@ local function AddAccount(accountKey, accountInfo)
 			args = {
 				name = {
 					order = 1,
-					type = "description",
-					name = function() return accountInfo.name end,
-					fontSize = "medium",
-					width = "half"
-				},
-				rename = {
-					order = 2,
-					type = "execute",
-					name = "Rename",
-					func = function(info)
-						local accountKey = info[#info - 1]
-						local dialog = StaticPopup_Show(addonName .. "_ACCOUNT_RENAME")
-						if dialog then
-							dialog.data = accountKey
-						end
+					type = "input",
+					name = L["Rename"],
+					desc = nil,
+					get = function(info) 
+						local accountKey = info[#info-1]
+						return PermoksAccountManager.db.global.accounts[accountKey].name
 					end,
+					set = function(info, value)
+						local accountKey = info[#info-1]
+						changeAccountName(accountKey, value)
+					end
 				},
 				unsync = {
 					order = 3,
 					type = "execute",
-					name = "Delete",
+					name = L["Delete"],
 					func = function(info)
 						local accountKey = info[#info - 1]
 						UnsyncAccount(accountKey)
@@ -97,11 +72,20 @@ local function AddAccount(accountKey, accountInfo)
 end
 
 local function AddAccounts()
-	for account, info in pairs(AltManager.db.global.accounts) do
+	for account, info in pairs(PermoksAccountManager.db.global.accounts) do
 		if account ~= "main" then
-			AddAccount(account, info)
+			PermoksAccountManager:AddAccountToOptions(account, info)
 		end
 	end
+end
+
+local function GetAccountSyncDescription()
+	local comment = "THIS ONLY WORKS ON CONNECTED REALMS"
+	local first = "Enter the necessary info of a currently online character of the second account."
+	local second = "Press the Sync Button."
+	local third = "Follow the instruction in the chat on the second account."
+
+	return string.format("|cffff0000%s|r\nSteps:\n1 - %s\n2 - %s\n3 - %s", comment, first, second, third)
 end
 
 -- credit to the author of Shadowed Unit Frames
@@ -111,9 +95,17 @@ local function selectDifferentTab(group, key)
 end
 
 local function deleteCustomCategory(category)
-	if AltManager.main_frame.unroll_buttons[custom_categories[category].name] then
-		AltManager.main_frame.unroll_buttons[custom_categories[category].name]:Hide()
-		AltManager.main_frame.unroll_buttons[custom_categories[category].name] = nil
+	local categoryButtons = PermoksAccountManager.managerFrame.categoryButtons
+	local categoryFrame = PermoksAccountManager.categoryFrame
+
+	if categoryFrame.openCategory and categoryFrame.openCategory == category then
+		PermoksAccountManager:UpdateCategory(categoryButtons[category], "open", nil, category)
+		categoryFrame.labelColumn.categories[category] = nil
+	end
+
+	if categoryButtons[category] then
+		categoryButtons[category]:Hide()
+		categoryButtons[category] = nil
 	end
 
 	custom_categories[category] = nil
@@ -122,8 +114,8 @@ local function deleteCustomCategory(category)
 	options.args.order.args.customCategories.args[category] = nil
 	options.args.order.args.customCategoriesOrder.args[category] = nil
 
-	if AltManager.db.global.custom then
-		AltManager.numCategories = AltManager.numCategories - 1
+	if PermoksAccountManager.db.global.custom then
+		PermoksAccountManager.numCategories = PermoksAccountManager.numCategories - 1
 	end
 
 	selectDifferentTab("customCategories", "create")
@@ -134,15 +126,18 @@ local customCategoryDefault = {
 	delete = {
 		order = 0.5,
 		type = "execute",
-		name = "Delete",
-		func = function(info) deleteCustomCategory(info[#info-1]) end,
+		name = L["Delete"],
+		func = function(info) 
+			deleteCustomCategory(info[#info-1]) 
+			PermoksAccountManager:UpdateOrCreateCategoryButtons() 
+		end,
 		hidden = function(info) if info[#info-1] == "general" then return true end end,
 		confirm = true,
 	},
 }
 
 local function sortCategoryChilds(optionsTable, category)
-	local category = AltManager.db.global.options[optionsTable][category]
+	local category = PermoksAccountManager.db.global.options[optionsTable][category]
 	table.sort(category.childs, function(a, b) return category.childOrder[a] < category.childOrder[b] end)
 end
 
@@ -151,7 +146,7 @@ local function setCategoryOrder(info, value)
 	local optionsTable = info[#info-1]
 	local newOrder = tonumber(value)
 
-	AltManager.db.global.options[optionsTable:gsub("Order", "")][category].order = newOrder
+	PermoksAccountManager.db.global.options[optionsTable:gsub("Order", "")][category].order = newOrder
 	options.args.order.args[optionsTable].args[category].order = newOrder
 	AceConfigRegistry:NotifyChange(addonName)
 end
@@ -159,7 +154,7 @@ end
 local function getCategoryOrder(info)
 	local category = info[#info]
 	local optionsTable = info[#info-1]
-	return tostring(AltManager.db.global.options[optionsTable:gsub("Order", "")][category].order)
+	return tostring(PermoksAccountManager.db.global.options[optionsTable:gsub("Order", "")][category].order)
 end
 
 local function setOrder(info, value)
@@ -167,69 +162,77 @@ local function setOrder(info, value)
 	local category = info[#info-1]
 	local optionsTable = info[#info-2]
 	local newOrder = tonumber(value)
+	local categoryOptions = PermoksAccountManager.db.global.options[optionsTable][category]
 
-	AltManager.db.global.options[optionsTable][category].childOrder[key] = newOrder
+	categoryOptions.childOrder[key] = newOrder
+	tDeleteItem(categoryOptions.childs, key)
+	tinsert(categoryOptions.childs, floor(newOrder), key)
 
-	options.args.order.args[optionsTable].args[category].args[key].order = newOrder
 	sortCategoryChilds(optionsTable, category)
+	for i, child in pairs(categoryOptions.childs) do
+		categoryOptions.childOrder[child] = i
+		options.args.order.args[optionsTable].args[category].args[child].order = i
+	end
+
 	AceConfigRegistry:NotifyChange(addonName)
+	PermoksAccountManager:UpdateAnchorsAndSize(category, nil, true, true)
 end
 
 local function getOrder(info)
 	local key = info[#info]
 	local category = info[#info-1]
 	local optionsTable = info[#info-2]
-	return tostring(AltManager.db.global.options[optionsTable][category].childOrder[key])
+	return tostring(PermoksAccountManager.db.global.options[optionsTable][category].childOrder[key])
 end
 
 local function setCustomOption(info, value)
 	local key = info[#info]
 	local category = info[#info-2]
 
-	local childs = AltManager.db.global.options.customCategories[category].childs
+	local childs = PermoksAccountManager.db.global.options.customCategories[category].childs
 	if not value and tContains(childs, key) then
 		tDeleteItem(childs, key)
 
 		local j = 0
 		for i, child in ipairs(childs) do
-			AltManager.db.global.options.customCategories[category].childOrder[child] = j
+			PermoksAccountManager.db.global.options.customCategories[category].childOrder[child] = j
 			options.args.order.args.customCategories.args[category].args[child].order = j
 			j = j + 1
 		end
 
-		AltManager.db.global.options.customCategories[category].childOrder[key] = nil
+		PermoksAccountManager.db.global.options.customCategories[category].childOrder[key] = nil
 		options.args.order.args.customCategories.args[category].args[key] = nil
 	elseif value and not tContains(childs, key) then
 		tinsert(childs, key)
 
 		local j = 0
 		for i, child in pairs(childs) do
-			AltManager.db.global.options.customCategories[category].childOrder[child] = j
+			PermoksAccountManager.db.global.options.customCategories[category].childOrder[child] = j
 			j = j + 1
 		end
 
 		options.args.order.args.customCategories.args[category].args[key] = {
 			order = #childs,
 			type = "input",
-			name = AltManager.columns[key].label or AltManager.columns[key].fakeLabel,
+			name = PermoksAccountManager.labelRows[key].label,
 			width = "half",
 			validate = function(info, value) return tonumber(value) or "Please insert a number." end,
 			set = setOrder,
 			get = getOrder,
 		}
 	else
-		AltManager.db.global.options.customCategories[category].childOrder[key] = value
+		PermoksAccountManager.db.global.options.customCategories[category].childOrder[key] = value
 		options.args.order.args.customCategories.args[category].args[key] = nil
 	end
 
-	AltManager:UpdateAnchorsAndSize(category, nil, true, true)
+	PermoksAccountManager:UpdateAnchorsAndSize(category, nil, true, true)
 end
 
 local function getCustomOption(info)
 	local key = info[#info]
 	local category = info[#info-2]
 
-	local value = AltManager.db.global.options.customCategories[category].childOrder[key]
+	local value = PermoksAccountManager.db.global.options.customCategories[category].childOrder[key]
 	return type(value) == "number" or (type(value) == "boolean" and value)
 end
 
@@ -237,28 +240,28 @@ local function setDefaultOption(info, value)
 	local key = info[#info]
 	local category = info[#info-1]
 
-	local childs = AltManager.db.global.options.defaultCategories[category].childs
+	local childs = PermoksAccountManager.db.global.options.defaultCategories[category].childs
 	if not value then
 		tDeleteItem(childs, key)
 
 		local j = 0
 		for i, child in pairs(childs) do
-			AltManager.db.global.options.defaultCategories[category].childOrder[child] = j
+			PermoksAccountManager.db.global.options.defaultCategories[category].childOrder[child] = j
 			j = j + 1
 		end
 
-		AltManager.db.global.options.defaultCategories[category].childOrder[key] = nil
+		PermoksAccountManager.db.global.options.defaultCategories[category].childOrder[key] = nil
 		options.args.order.args.defaultCategories.args[category].args[key] = nil
 	elseif value and not tContains(childs, key) then
 		local order = default_categories[category].childOrder[key]
 		tinsert(childs, order, key)
 
-		AltManager.db.global.options.defaultCategories[category].childOrder[key] = order
+		PermoksAccountManager.db.global.options.defaultCategories[category].childOrder[key] = order
 
 		options.args.order.args.defaultCategories.args[category].args[key] = {
 			order = order,
 			type = "input",
-			name = AltManager.columns[key].label,
+			name = PermoksAccountManager.labelRows[key].label,
 			width = "half",
 			validate = function(info, value) return tonumber(value) or "Please insert a number." end,
 			set = setOrder,
@@ -266,14 +269,14 @@ local function setDefaultOption(info, value)
 		}
 	end
 
-	AltManager:UpdateAnchorsAndSize(category, nil, true, true)
+	PermoksAccountManager:UpdateAnchorsAndSize(category, nil, true, true)
 end
 
 local function getDefaultOption(info)
 	local key = info[#info]
 	local category = info[#info-1]
 
-	local value = AltManager.db.global.options.defaultCategories[category].childOrder[key]
+	local value = PermoksAccountManager.db.global.options.defaultCategories[category].childOrder[key]
 	return type(value) == "number" or (type(value) == "boolean" and value)
 end
 
@@ -290,7 +293,7 @@ local function addCategoryOptions(optionsTable, args, category, name, order)
 		order = order,
 		type = "group",
 		name = name,
-		hidden = function(info) return not AltManager.db.global.options[optionsTable][category].enabled end,
+		hidden = function(info) return not PermoksAccountManager.db.global.options[optionsTable][category].enabled end,
 		args = args or customCategoryDefault,
 	}
 
@@ -298,7 +301,7 @@ local function addCategoryOptions(optionsTable, args, category, name, order)
 		order = order,
 		type = "group",
 		name = name,
-		hidden = function(info) return not AltManager.db.global.options[optionsTable][category].enabled end,
+		hidden = function(info) return not PermoksAccountManager.db.global.options[optionsTable][category].enabled end,
 		args = {
 		}
 	}
@@ -323,12 +326,12 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
 
 	table.sort(categoryOptions.childs, function(a, b) if a and b then return categoryOptions.childOrder[a] < categoryOptions.childOrder[b] end end)
 	for i, child in pairs(categoryOptions.childs) do
-		local name = AltManager.columns[child] and (AltManager.columns[child].label or AltManager.columns[child].fakeLabel)
+		local name = PermoksAccountManager.labelRows[child] and PermoksAccountManager.labelRows[child].label
 		if name then
 			options.args.order.args[optionsTable].args[category].args[child] = {
 				order = i,
 				type = "input",
-				name =  AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
+				name =  name,
 				width = "half",
 				validate = function(info, value) return tonumber(value) or "Please insert a number." end,
 				set = setOrder,
@@ -340,19 +343,20 @@ end
 
 local function addCustomCategory(category, name)
 	if not custom_categories[category].name then
-		if AltManager.db.global.custom then
-			AltManager.numCategories = AltManager.numCategories + 1
+		if PermoksAccountManager.db.global.custom then
+			PermoksAccountManager.numCategories = PermoksAccountManager.numCategories + 1
 		end
-		local order = AltManager.numCategories
+		local order = PermoksAccountManager.numCategories
 
 		custom_categories[category].order = order
 		custom_categories[category].name = name
 
 		addCategoryToggle("custom_categories_toggles", category, name, order)
 		addCategoryOptions("customCategories", nil, category, name, order)
-		createOrderOptionsForCategory(AltManager.db.global.options.customCategories[category], "customCategories", category)
+		createOrderOptionsForCategory(PermoksAccountManager.db.global.options.customCategories[category], "customCategories", category)
 
 		selectDifferentTab("customCategories", category)
+		PermoksAccountManager:UpdateOrCreateCategoryButtons()
 	end
 end
 
@@ -361,7 +365,7 @@ local function createDefaultOptions()
 
 	for category, info in pairs(default_categories) do
 		if not info.hideToggle then
-			if AltManager.db.global.options.defaultCategories[category].enabled then
+			if PermoksAccountManager.db.global.options.defaultCategories[category].enabled then
 				numCategories = numCategories + 1
 			end
 			addCategoryToggle("default_categories_toggles", category, info.name, info.order)
@@ -369,21 +373,21 @@ local function createDefaultOptions()
 
 		local args = {}
 		for i, child in pairs(info.childs) do
-			if AltManager.columns[child] and not AltManager.columns[child].hideOption then
+			if PermoksAccountManager.labelRows[child] and not PermoksAccountManager.labelRows[child].hideOption then
 				args[child] = {
 					order = i,
 					type = "toggle",
-					name = AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
+					name = PermoksAccountManager.labelRows[child].label,
 				}
 			end
 		end
 
-		if not AltManager.db.global.options.defaultCategories[category].childs then
-			AltManager:UpdateDefaultCategories(category)
+		if not PermoksAccountManager.db.global.options.defaultCategories[category].childs then
+			PermoksAccountManager:UpdateDefaultCategories(category)
 		end
 
 		addCategoryOptions("defaultCategories", args, category, info.name, info.order)
-		createOrderOptionsForCategory(AltManager.db.global.options.defaultCategories[category], "defaultCategories", category)
+		createOrderOptionsForCategory(PermoksAccountManager.db.global.options.defaultCategories[category], "defaultCategories", category)
 	end	
 
 	return numCategories
@@ -399,7 +403,7 @@ local function createCustomOptions()
 		end
 
 		addCategoryOptions("customCategories", nil, category, info.name, info.order)
-		createOrderOptionsForCategory(AltManager.db.global.options.customCategories[category], "customCategories", category)
+		createOrderOptionsForCategory(PermoksAccountManager.db.global.options.customCategories[category], "customCategories", category)
 	end
 
 	return numCategories
@@ -408,7 +412,7 @@ end
 local function createConfirmPopup()
 	-- mostly copied from AceConfigDialog-3.0.lua
 	local frame = CreateFrame("Frame", nil, UIParent)
-	AltManager.confirm = frame
+	PermoksAccountManager.confirm = frame
 	frame:Hide()
 	frame:SetPoint("CENTER", UIParent, "CENTER")
 	frame:SetSize(320, 85)
@@ -472,7 +476,7 @@ local function createImportExportFrame(options)
 		if mode == "export" then
 			editGroup.frame:Show()
 
-			local optionsString = AltManager:OptionsToString()
+			local optionsString = PermoksAccountManager:OptionsToString()
 			editBox.editBox:SetMaxBytes(nil)
 			editBox.editBox:SetScript("OnChar", function() editBox:SetText(optionsString) editBox.editBox:HighlightText() end)
 			editBox.button:Hide()
@@ -489,7 +493,7 @@ local function createImportExportFrame(options)
 			editGroup.frame:Show()
 			editBox:SetFocus()
 
-			close:SetCallback("OnClick", function() AltManager:ImportOptions(editBox:GetText()) end)
+			close:SetCallback("OnClick", function() PermoksAccountManager:ImportOptions(editBox:GetText()) end)
 			close:SetText("Import")
 			close.frame:Show()
 
@@ -500,7 +504,7 @@ local function createImportExportFrame(options)
 	function editGroup.Close(self)
 		editBox:ClearFocus()
 		editGroup.frame:Hide()
-		AltManager.OpenOptions()
+		PermoksAccountManager.OpenOptions()
 	end
 
 	return editGroup
@@ -513,70 +517,75 @@ local function loadOptionsTemplate()
 	options.args.categoryToggles = {
 		order = 1,
 		type = "group",
-		name = "General",
+		name = L["General"],
 		args = {
 			general = {
 				order = 1,
 				type = "group",
-				name = "General",
+				name = L["General"],
 				inline = true,
-				set = function(info,value) AltManager.db.global.options[info[#info]] = value end,
-				get = function(info) return AltManager.db.global.options[info[#info]] end,
+				set = function(info,value) PermoksAccountManager.db.global.options[info[#info]] = value end,
+				get = function(info) return PermoksAccountManager.db.global.options[info[#info]] end,
 				args = {
 					showOptionsButton = {
 						order = 1,
 						type = "toggle",
-						name = "Show Options Button",
+						name = L["Show Options Button"],
+						set = function(info,value) 
+							PermoksAccountManager.db.global.options.showOptionsButton = value 
+							PermoksAccountManager.managerFrame.optionsButton:SetShown(value)
+						end,
 					},
 					showGuildAttunementButton = {
 						order = 1.5,
 						type = "toggle",
-						name = "Show Guild Attunement Button",
+						name = L["Show Guild Attunement Button"],
 						set = function(info,value) 
-							AltManager.db.global.options.showGuildAttunementButton = value 
-							AltManager.main_frame.guildAttunmentButton:SetShown(value)
+							PermoksAccountManager.db.global.options.showGuildAttunementButton = value 
+							PermoksAccountManager.managerFrame.guildAttunmentButton:SetShown(value)
 						end,
-						get = function(info) return AltManager.db.global.options.showGuildAttunementButton end,
+						get = function(info) return PermoksAccountManager.db.global.options.showGuildAttunementButton end,
 					},
 					showMinimapButton = {
 						order = 2,
 						type = "toggle",
-						name = "Show Minimap Button",
+						name = L["Show Minimap Button"],
 						set = function(info, value) 
-							AltManager.db.profile.minimap.hide = not value 
+							PermoksAccountManager.db.profile.minimap.hide = not value 
 							if not value then
-								LibIcon:Hide("MartinsAltManager")
+								LibIcon:Hide("PermoksAccountManager")
 							else
-								LibIcon:Show("MartinsAltManager")
+								LibIcon:Show("PermoksAccountManager")
 							end
 						end,
-						get = function(info) return not AltManager.db.profile.minimap.hide end,
+						get = function(info) return not PermoksAccountManager.db.profile.minimap.hide end,
 					},
 					useCustom = {
 						order = 3,
 						type = "toggle",
-						name = "Use Custom",
+						name = L["Use Custom"],
 						desc = "Toggle the use of custom categories.",
 						set = function(info, value)
-							AltManager.db.global.custom = value
+							PermoksAccountManager.db.global.custom = value
 							C_UI.Reload()
 						end,
 						get = function(info)
-							return AltManager.db.global.custom
+							return PermoksAccountManager.db.global.custom
 						end,
 						confirm = true,
 						confirmText = "Requires a reload!",
 					},
-					unrollOnHide = {
+					hideCategory = {
 						order = 4,
 						type = "toggle",
-						name = "Unroll On Hide",
+						name = L["Hide Category"],
+						desc = L["Hide Category when closing the manager."],
 						set = function(info, value)
 							if value then
-								AltManager:RollUpAll()
+								PermoksAccountManager:HideAllCategories()
 							end
 
-							AltManager.db.global.options[info[#info]] = value
+							PermoksAccountManager.db.global.options[info[#info]] = value
 						end,
 					}
 				}
@@ -584,25 +593,26 @@ local function loadOptionsTemplate()
 			default_categories_toggles = {
 				order = 2,
 				type = "group",
-				name = "Categories",
+				name = L["Categories"],
 				inline = true,
 				set = function(info, value)
 					local key = info[#info]
-					AltManager.db.global.options.defaultCategories[key].enabled = value
+					PermoksAccountManager.db.global.options.defaultCategories[key].enabled = value
 
-					if not AltManager.db.global.custom then
+					if not PermoksAccountManager.db.global.custom then
 						if not value then
-							AltManager.numCategories = AltManager.numCategories - 1
+							PermoksAccountManager.numCategories = PermoksAccountManager.numCategories - 1
 						else
-							AltManager.numCategories = AltManager.numCategories + 1
+							PermoksAccountManager.numCategories = PermoksAccountManager.numCategories + 1
 						end
 					end
+					PermoksAccountManager:UpdateMenu()
 				end,
 				get = function(info)
 					local key = info[#info]
-					return AltManager.db.global.options.defaultCategories[key].enabled
+					return PermoksAccountManager.db.global.options.defaultCategories[key].enabled
 				end,
-				hidden = function() return AltManager.db.global.custom end,
+				hidden = function() return PermoksAccountManager.db.global.custom end,
 				args = {
 
 				}
@@ -610,24 +620,25 @@ local function loadOptionsTemplate()
 			custom_categories_toggles = {
 				order = 4,
 				type = "group",
-				name = "Categories",
+				name = L["Categories"],
 				inline = true,
-				hidden = function() return not AltManager.db.global.custom end,
+				hidden = function() return not PermoksAccountManager.db.global.custom end,
 				set = function(info, value)
 					local key = info[#info]
-					AltManager.db.global.options.customCategories[key].enabled = value
+					PermoksAccountManager.db.global.options.customCategories[key].enabled = value
 
-					if AltManager.db.global.custom then
+					if PermoksAccountManager.db.global.custom then
 						if not value then
-							AltManager.numCategories = AltManager.numCategories - 1
+							PermoksAccountManager.numCategories = PermoksAccountManager.numCategories - 1
 						else
-							AltManager.numCategories = AltManager.numCategories + 1
+							PermoksAccountManager.numCategories = PermoksAccountManager.numCategories + 1
 						end
 					end
+					PermoksAccountManager:UpdateMenu()
 				end,
 				get = function(info)
 					local key = info[#info]
-					return AltManager.db.global.options.customCategories[key].enabled
+					return PermoksAccountManager.db.global.options.customCategories[key].enabled
 				end,
 				args = {
 
@@ -636,13 +647,13 @@ local function loadOptionsTemplate()
 			commands = {
 				order = 5,
 				type = "group",
-				name = "Commands",
+				name = L["Commands"],
 				inline = true,
 				args = {
 					export = {
 						order = 0,
 						type = "execute",
-						name = "Export",
+						name = L["Export"],
 						func = function()
 							imexport:OpenBox("export")
 						end,
@@ -650,7 +661,7 @@ local function loadOptionsTemplate()
 					import = {
 						order = 1,
 						type = "execute",
-						name = "Import",
+						name = L["Import"],
 						func = function() 
 							imexport:OpenBox("import")
 						end,
@@ -658,70 +669,90 @@ local function loadOptionsTemplate()
 					purge = {
 						order = 2,
 						type = "execute",
-						name = "Purge",
-						func = function() AltManager:Purge() C_UI.Reload() end,
+						name = L["Purge"],
+						func = function() PermoksAccountManager:Purge() C_UI.Reload() end,
 						confirm = true,
 						confirmText = "Are you sure?",
 					},
 
 				}
-			},
-			testOptions = {
-				order = 7,
-				type = "group",
-				name = "Test Options",
-				inline = true,
-				args = {
-					currencyIcons = {
-						order = 1,
-						type = "toggle",
-						name = "Currency Icons",
-						set = function(info, value) AltManager.db.global.options.currencyIcons = value end,
-						get = function(info) return AltManager.db.global.options.currencyIcons end,
-					},
-					itemIcons = {
-						order = 2,
-						type = "toggle",
-						name = "Item Icons",
-						set = function(info, value) AltManager.db.global.options.itemIcons = value end,
-						get = function(info) return AltManager.db.global.options.itemIcons end,
-					}
-				}
-			}
+			},	
 		},
 	}
 
-		options.args.frame = {
+	options.args.frame = {
 		order = 1.5,
 		type = "group",
-		name = "Frame Config",
+		name = L["Frame Config"],
 		get = function(info) 
 			local key = info[#info]
 			local parentKey = info[#info-1]
-			return AltManager.db.global.options[parentKey][key]
+			return PermoksAccountManager.db.global.options[parentKey][key]
+		end,
+		set = function(info, value)
+			local key = info[#info]
+			local parentKey = info[#info-1]
+			PermoksAccountManager.db.global.options[parentKey][key] = value
 		end,
 		args = {
-			buttons = {
+			characters = {
 				order = 1,
 				type = "group",
-				name = "Button",
+				name = L["Characters"],
 				inline = true,
 				set = function(info, value)
 					local key = info[#info]
 					local parentKey = info[#info-1]
-					AltManager.db.global.options[parentKey][key] = value					
+					PermoksAccountManager.db.global.options[parentKey][key] = value
 
-					if key == "buttonWidth" and AltManager.db.global.options[parentKey].buttonTextWidth > value then
-						AltManager.db.global.options[parentKey].buttonTextWidth = value
+					if key == "charactersPerPage" then
+						PermoksAccountManager.db.global.currentPage = 1
+						PermoksAccountManager:SortPages()
+						PermoksAccountManager:UpdatePageButtons()
+						PermoksAccountManager:UpdateAnchorsAndSize("general", true)
+					end
+				end,
+				args = {
+					minLevel = {
+						order = 1,
+						type = "range",
+						name = L["Minimum Level"],
+						desc = L["Changing this won't remove characters that are below this threshold."],
+						min = 1,
+						max = GetMaxLevelForExpansionLevel(GetExpansionLevel()),
+						bigStep = 1,
+					},
+					charactersPerPage = {
+						order = 2,
+						type = "range",
+						name = L["Characters Per Page"],
+						min = 3,
+						max = 10,
+						bigStep = 1,
+					},
+				}
+			},
+			buttons = {
+				order = 2,
+				type = "group",
+				name = L["Button"],
+				inline = true,
+				set = function(info, value)
+					local key = info[#info]
+					local parentKey = info[#info-1]
+					PermoksAccountManager.db.global.options[parentKey][key] = value					
+
+					if key == "buttonWidth" and PermoksAccountManager.db.global.options[parentKey].buttonTextWidth > value then
+						PermoksAccountManager.db.global.options[parentKey].buttonTextWidth = value
 					end
 
-					AltManager:UpdateAnchorsAndSize("general", true)
+					PermoksAccountManager:UpdateAnchorsAndSize("general", true)
 				end,
 				args = {
 					buttonWidth = {
 						order = 1,
 						type = "range",
-						name = "Button Width",
+						name = L["Button Width"],
 						min = 60,
 						max = 250,
 						bigStep = 1,
@@ -729,39 +760,63 @@ local function loadOptionsTemplate()
 					buttonTextWidth =  {
 						order = 2,
 						type = "range",
-						name = "Text Width",
+						name = L["Text Width"],
 						min = 60,
 						max = 250,
 					},
 					justifyH = {
 						order = 3,
 						type = "select",
-						name = "Justify Horizontal",
+						name = L["Justify Horizontal"],
 						values = {["LEFT"] = "Left", ["CENTER"] = "Center", ["RIGHT"] = "Right"},
 						sorting = {"LEFT", "CENTER", "RIGHT"},
 						style = "dropdown",
 					}
 				}
 			},
-			other = {
-				order = 2,
+			border = {
+				order = 3,
 				type = "group",
-				name = "Other",
+				name = L["Border"],
+				inline = true,
+				args = {
+					color = {
+						order = 2,
+						type = "color",
+						name = L["Border Color"],
+						hasAlpha = true,
+						get = function(info) return unpack(PermoksAccountManager.db.global.options.border.color) end,
+						set = function(info, ...) PermoksAccountManager.db.global.options.border.color = {...} PermoksAccountManager:UpdateBorderColor() end,
+					},
+					bgColor = {
+						order = 2,
+						type = "color",
+						name = L["Background Color"],
+						hasAlpha = true,
+						get = function(info) return unpack(PermoksAccountManager.db.global.options.border.bgColor) end,
+						set = function(info, ...) PermoksAccountManager.db.global.options.border.bgColor = {...} PermoksAccountManager:UpdateBorderColor() end,
+					}
+				},
+			},
+			other = {
+				order = 3,
+				type = "group",
+				name = L["Other"],
 				inline = true,
 				set = function(info, value)
 					local key = info[#info]
 					local parentKey = info[#info-1]
-					local options = AltManager.db.global.options
+					local options = PermoksAccountManager.db.global.options
 					options[parentKey].updated = options[parentKey].updated or options[parentKey][key]
 					options[parentKey][key] = value
 
-					AltManager:UpdateAnchorsAndSize("general", true)
+					PermoksAccountManager:UpdateAnchorsAndSize("general", true)
 				end,
 				args = {
 					labelOffset = {
 						order = 1,
 						type = "range",
-						name = "Label Offset",
+						name = L["Label Offset"],
 						min = 0,
 						max = 40,
 						bigStep = 1,
@@ -769,7 +824,7 @@ local function loadOptionsTemplate()
 					widthPerAlt = {
 						order = 2,
 						type = "range",
-						name = "Width per Alt",
+						name = L["Width per Alt"],
 						min = 60,
 						max = 250,
 						bigStep = 1,
@@ -777,18 +832,18 @@ local function loadOptionsTemplate()
 					frameStrata = {
 						order = 3,
 						type = "select",
-						name = "Frame Strata",
+						name = L["Frame Strata"],
 						values = {BACKGROUND = "BACKGROUND", LOW = "LOW", MEDIUM = "MEDIUM", HIGH = "HIGH", DIALOG = "DIALOG", TOOLTIP = "TOOLTIP"},
 						sorting = {"BACKGROUND", "LOW", "MEDIUM", "HIGH", "DIALOG", "TOOLTIP"},
 						set = function(info, value)
 							local key = info[#info]
 							local parentKey = info[#info-1]
 
-							AltManager.main_frame:SetFrameStrata(value)
-							AltManager.db.global.options[parentKey][key] = value
+							PermoksAccountManager.managerFrame:SetFrameStrata(value)
+							PermoksAccountManager.db.global.options[parentKey][key] = value
 						end,
 					}
-				}
+				},
 			},
 		}
 	}
@@ -801,7 +856,7 @@ local function loadOptionsTemplate()
 			defaultCategories = {
 				order = 1,
 				type = "group",
-				name = "Default",
+				name = L["Default"],
 				childGroups = "tab",
 				set = setDefaultOption,
 				get = getDefaultOption,
@@ -812,7 +867,7 @@ local function loadOptionsTemplate()
 			customCategories = {
 				order = 2,
 				type = "group",
-				name = "Custom",
+				name = L["Custom"],
 				childGroups = "tab",
 				set = setCustomOption,
 				get = getCustomOption,
@@ -820,24 +875,24 @@ local function loadOptionsTemplate()
 					create = {
 						order = 100,
 						type = "group",
-						name = "Add New",
+						name = L["Add New"],
 						args = {
 							create_group = {
 								order = 1,
 								type = "group",
-								name = "General",
+								name = L["General"],
 								inline = true,
 								args = {
 									name = {
 										order = 1,
-										name = "Name",
+										name = L["Name"],
 										type = "input",
 										validate = function(info, value)
 											if value:match("[^%w:]") then
 												return "You can only use letters, numbers, and colons (for now)."
 											elseif string.len(value)==0 then
 												return "Can't create an empty category."
-											elseif AltManager.db.global.options.customCategories[value:lower()].name then
+											elseif PermoksAccountManager.db.global.options.customCategories[value:lower()].name then
 												return "This category already exists."
 											end
 
@@ -848,7 +903,7 @@ local function loadOptionsTemplate()
 									},
 									create = {
 										order = 2,
-										name = "Create",
+										name = L["Create"],
 										type = "execute",
 										func = function(info) 
 											if categoryData.create then
@@ -866,8 +921,8 @@ local function loadOptionsTemplate()
 					general = {
 						order = 0,
 						type = "group",
-						name = "General",
-						args = customCategoryDefault,
+						name = L["General"],
+						args = {},
 					}
 				}
 			}
@@ -877,12 +932,12 @@ local function loadOptionsTemplate()
 	options.args.order = {
 		order = 4,
 		type = "group",
-		name = "Category Order",
+		name = L["Category Order"],
 		args = {
 			defaultCategories = {
 				order = 1,
 				type = "group",
-				name = "Default",
+				name = L["Default"],
 				childGroups = "tab",
 				args = {
 				}
@@ -890,7 +945,7 @@ local function loadOptionsTemplate()
 			defaultCategoriesOrder = {
 				order = 2,
 				type = "group",
-				name = "Default",
+				name = L["Default"],
 				inline = true,
 				args = {
 				}
@@ -898,7 +953,7 @@ local function loadOptionsTemplate()
 			customCategories = {
 				order = 3,
 				type = "group",
-				name = "Custom",
+				name = L["Custom"],
 				childGroups = "tab",
 				args = {
 				},
@@ -906,7 +961,7 @@ local function loadOptionsTemplate()
 			customCategoriesOrder = {
 				order = 4,
 				type = "group",
-				name = "Custom",
+				name = L["Custom"],
 				inline = true,
 				args = {
 				}
@@ -917,17 +972,22 @@ local function loadOptionsTemplate()
 	options.args.sync = {
 		order = 5,
 		type = "group",
-		name = "Account Syncing",
+		name = L["Account Syncing"],
 		childGroups = "tab",
 		args = {
 			syncOptions = {
 				order = 1,
 				type = "group",
-				name = "Sync Accounts",
+				name = L["Sync Accounts"],
 				args =  {
-					name = {
+					explanation = {
 						order = 1,
-						name = "Character Name",
+						type = "description",
+						name = function() return GetAccountSyncDescription() end,
+					},
+					name = {
+						order = 2,
+						name = L["Name"],
 						type = "input",
 						validate = function(info, value)
 							if value:match("[^%a]") then
@@ -940,10 +1000,10 @@ local function loadOptionsTemplate()
 						get = function(info) return syncData.name or "" end,
 					},
 					realm = {
-						order = 2,
-						name = "Realm",
+						order = 3,
+						name = L["Realm (if different from current)"],
 						type = "input",
-						hidden = function() local connectedRealms = GetAutoCompleteRealms() return AltManager:IsBCCClient() or #connectedRealms == 0 end,
+						hidden = function() local connectedRealms = GetAutoCompleteRealms() return PermoksAccountManager:IsBCCClient() or #connectedRealms == 0 end,
 						validate = function(info, value)
 							if value:match("[^%a]") then
 								return "Realm names can only consist of letters."
@@ -955,23 +1015,23 @@ local function loadOptionsTemplate()
 						get = function(info) return syncData.realm or "" end,
 					},
 					sync = {
-						order = 3,
-						name = "sync",
+						order = 4,
+						name = L["Sync (Beta)"],
 						type = "execute",
 						func = function(info) 
 							if syncData.name then
-								AltManager:RequestAccountSync(syncData.name, syncData.realm)
+								PermoksAccountManager:RequestAccountSync(syncData.name, syncData.realm)
 							end
 						end,
 					},
 					forceUpdate = {
-						order = 4,
-						name = "Send Update",
+						order = 5,
+						name = L["Send Update"],
 						type = "execute",
 						desc = "To update the character list. Make sure to click this button on a character that existed in the manager at the time of syncing.",
-						disabled = function() return AltManager:GetNumAccounts() == 1 end,
+						disabled = function() return PermoksAccountManager:GetNumAccounts() == 1 end,
 						func = function(info)
-							AltManager:SendAccountUpdates()
+							PermoksAccountManager:SendAccountUpdates()
 						end,
 					}
 				}
@@ -979,19 +1039,91 @@ local function loadOptionsTemplate()
 			syncedAccounts = {
 				order = 2,
 				type = "group",
-				name = "Synced Accounts",
+				name = L["Synced Accounts"],
 				args = {
 				}
 			}
 		},
 	}
 
+	options.args.experimental = {
+		order = 6,
+		type = "group",
+		name = L["Experimental"],
+		set = function(info, value) 
+			PermoksAccountManager.db.global.options[info[#info]] = value 
+			PermoksAccountManager:UpdateAnchorsAndSize("general", nil, nil, true)
+		end,
+		get = function(info) return PermoksAccountManager.db.global.options[info[#info]] end,
+		args = {
+			testOptions = {
+				order = 7,
+				type = "group",
+				name = L["Test Options"],
+				inline = true,
+				args = {
+					currencyIcons = {
+						order = 1,
+						type = "toggle",
+						name = L["Currency Icons"],
+					},
+					itemIcons = {
+						order = 2,
+						type = "toggle",
+						name = L["Item Icons"],
+					},
+					showCurrentSpecIcon = {
+						order = 3,
+						type = "toggle",
+						name = L["Show Current Spec"],
+					},
+					useScoreColor = {
+						order = 4,
+						type = "toggle",
+						name = L["Color Mythic+ Score"]
+					},
+					useScoreOutline = {
+						order = 5,
+						type = "toggle",
+						name = L["Outline Score"],
+					},
+					questCompletionString = {
+						order = 6,
+						type = "input",
+						name = L["Quest Completion String"],
+					},
+					font = {
+						order = 7,
+						type = "select",
+						name = "Font",
+						values = LSM:HashTable("font"),
+						set = function(info, value) 
+							PermoksAccountManager.db.global.options[info[#info]] = value 
+							PermoksAccountManager.db.global.updateFont = true
+							PermoksAccountManager:UpdateAllFonts()
+						end,
+						dialogControl = "LSM30_Font",
+					}
+				}
+			}
+		}
+	}
+
 end
 
+function PermoksAccountManager.UpdateCustomLabelOptions(newDefault)
+	newDefault = newDefault or PermoksAccountManager:GetCustomLabelTable(true)
 
-function AltManager.OpenOptions()
-	AceConfigDialog:Open(addonName, AltManager.optionsFrame)
-	--if ViragDevTool_AddData then ViragDevTool_AddData(AltManager.optionsFrame) end
+	for category, args in pairs(options.args.categories.args.customCategories.args) do
+		if category ~= "create" then
+			args.args = newDefault
+		end
+	end
+	AceConfigRegistry:NotifyChange(addonName)
+end
+
+function PermoksAccountManager.OpenOptions()
+	AceConfigDialog:Open(addonName, PermoksAccountManager.optionsFrame)
 end
 
 local function copyTable(obj)
@@ -1001,14 +1133,44 @@ local function copyTable(obj)
     return res
 end
 
+do
+	local labelTable = {}
+	local function UpdateLabelTable()
+		for key, info in pairs(PermoksAccountManager.labelRows) do
+			if not info.hideOption then
+				local group = info.group or "other"
+				local groupInfo = PermoksAccountManager.groups[group]
 
-function AltManager:LoadOptions()
-	AltManager.numCategories = 0
-	if type(AltManager.db.global.options.defaultCategories.general.childs) == "nil" then
-		AltManager.db.global.options.defaultCategories = copyTable(default_categories)
+				labelTable[group] = labelTable[group] or {
+					order = groupInfo.order,
+					type = "group",
+					name = groupInfo.label,
+					inline = true,
+					args = {}
+				}
+
+				labelTable[group].args[key] = labelTable[group].args[key] or {
+					type = "toggle",
+					name = info.label,
+				}
+			end
+		end
 	end
 
-	custom_categories = AltManager.db.global.options.customCategories
+	function PermoksAccountManager:GetCustomLabelTable(update)
+		if update then UpdateLabelTable() end
+
+		return labelTable
+	end
+end
+
+function PermoksAccountManager:LoadOptions()
+	PermoksAccountManager.numCategories = 0
+	if type(PermoksAccountManager.db.global.options.defaultCategories.general.childs) == "nil" then
+		PermoksAccountManager.db.global.options.defaultCategories = copyTable(default_categories)
+	end
+
+	custom_categories = PermoksAccountManager.db.global.options.customCategories
 
 	options = {
 		type = "group",
@@ -1020,28 +1182,31 @@ function AltManager:LoadOptions()
 	local numDefaultCategories = createDefaultOptions()
 	local numCustomCategories = createCustomOptions()
 
-	if AltManager.db.global.custom then
-		AltManager.numCategories = numCustomCategories
+	local db = PermoksAccountManager.db.global
+	if db.custom then
+		PermoksAccountManager.numCategories = numCustomCategories
+		db.currentCategories = db.options.customCategories
 	else
-		AltManager.numCategories = numDefaultCategories
+		PermoksAccountManager.numCategories = numDefaultCategories
+		db.currentCategories = db.options.defaultCategories
 	end
 
-	AltManager.optionsFrame = AceGUI:Create("Frame")
-	AltManager.optionsFrame:EnableResize(false)
-	AltManager.optionsFrame:Hide()
+	PermoksAccountManager.optionsFrame = AceGUI:Create("Frame")
+	PermoksAccountManager.optionsFrame:EnableResize(false)
+	PermoksAccountManager.optionsFrame:Hide()
 
 	AddAccounts()
 	createConfirmPopup()
-	imexport = imexport or createImportExportFrame(AltManager.optionsFrame)
+	imexport = imexport or createImportExportFrame(PermoksAccountManager.optionsFrame)
 
 	AceConfigRegistry:RegisterOptionsTable(addonName, options, true)
 end
 
-function AltManager:UpdateDefaultCategories(key)
-	AltManager.db.global.options.defaultCategories[key] = copyTable(default_categories[key])
+function PermoksAccountManager:UpdateDefaultCategories(key)
+	PermoksAccountManager.db.global.options.defaultCategories[key] = copyTable(default_categories[key])
 end
 
-function AltManager:OptionsToString()
+function PermoksAccountManager:OptionsToString()
 	local export = {internalVersion = self.db.global.internalVersion, custom = self.db.global.custom, options = self.db.global.options}
 
 	local serialized = LibSerialize:Serialize(export)
@@ -1051,7 +1216,7 @@ function AltManager:OptionsToString()
 	return encode or "HMM"
 end
 
-function AltManager:ImportOptions(optionsString)
+function PermoksAccountManager:ImportOptions(optionsString)
 	local decoded = LibDeflate:DecodeForPrint(optionsString)
 	if not decoded then return end
 	local decompressed = LibDeflate:DecompressDeflate(decoded)
@@ -1062,48 +1227,21 @@ function AltManager:ImportOptions(optionsString)
 	local categories = data.options.customCategories
 	for category, info in pairs(categories) do
 		for identifier, index in pairs(info.childOrder) do
-			if not AltManager.columns[identifier] then
+			if not PermoksAccountManager.labelRows[identifier] then
 				info.childOrder[identifier] = nil
 				tDeleteItem(info.childs, identifier)
 			end
 		end
 	end
 
-	AltManager.confirm.accept:SetCallback("OnClick", function()
-		AltManager.db.global.custom = data.custom
-		AltManager.db.global.options = data.options
-		AltManager.db.global.internalVersion = data.internalVersion
+	PermoksAccountManager.confirm.accept:SetCallback("OnClick", function()
+		PermoksAccountManager.db.global.custom = data.custom
+		PermoksAccountManager.db.global.options = data.options
+		PermoksAccountManager.db.global.internalVersion = data.internalVersion
 
 		C_UI.Reload()
 	end)
 
-	AltManager.confirm:Show()
+	PermoksAccountManager.confirm:Show()
 end
 
-do
-	for key, info in pairs(AltManager.columns) do
-		if info.group then
-			default_category_childs[info.group] = default_category_childs[info.group] or {}
-			tinsert(default_category_childs[info.group], key)
-		end
-	end
-
-	for i, group in ipairs(AltManager.groupOrder) do
-		customCategoryDefault[group] = {
-			order = i,
-			type = "group",
-			name = AltManager.groups[group].label,
-			inline = true,
-			args = {}
-		}
-
-		if default_category_childs[group] then
-			for j, child in ipairs(default_category_childs[group]) do
-				customCategoryDefault[group].args[child] = {
-					type = "toggle",
-					name = AltManager.columns[child].label or AltManager.columns[child].fakeLabel,
-				}
-			end
-		end
-	end
-end

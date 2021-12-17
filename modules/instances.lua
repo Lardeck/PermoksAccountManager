@@ -1,13 +1,42 @@
-local addonName, AltManager = ...
+local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
+local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 
-function AltManager:UpdateInstanceInfo()
-	local char_table = self.char_table
-	if not char_table then return end
+local module = "instances"
+local labelRows = {
+	mythics_done = {
+		label = L["Mythic+0"],
+		tooltip = true,
+		customTooltip = function(button, alt_data) PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data) end,
+		data = function(alt_data) return alt_data.instanceInfo and PermoksAccountManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or "-" end,
+		group = "dungeons",
+	},
+	nathria = {
+		label = function() return PermoksAccountManager.raids[2296].name or L["Nathria"] end,
+		id = 2296,
+		type = "raid",
+		key = "nathria",
+		tooltip = true,
+		isComplete = function(alt_data) return alt_data.instanceInfo and alt_data.instanceInfo.raids.nathria and alt_data.instanceInfo.raids.nathria.defeatedEncounters == 10 end,
+		group = "raids",
+	},
+	sanctum_of_domination = {
+		label = function() return PermoksAccountManager.raids[2450].name or L["SoD"] end,
+		id = 2450,
+		type = "raid",
+		key = "sanctum_of_domination",
+		tooltip = true,
+		isComplete = function(alt_data) return alt_data.instanceInfo and alt_data.instanceInfo.raids.sanctum_of_domination and alt_data.instanceInfo.raids.sanctum_of_domination.defeatedEncounters == 10 end,
+		group = "raids",
+	},
+}
 
-	local instanceInfo = {raids = {}, dungeons = {}}
+local function UpdateInstanceInfo(charInfo)
+	charInfo.instanceInfo = charInfo.instanceInfo or {raids = {}, dungeons = {}}
+
+	local self = PermoksAccountManager
+	local instanceInfo = charInfo.instanceInfo
 	local name, difficulty, locked, isRaid, difficultyName, numEncounters, encounterProgress, _
-
 	for i=1, GetNumSavedInstances() do
 		local link = GetSavedInstanceChatLink(i)
 		local instanceID, instanceName = link:match(":(%d+):%d+:%d+\124h%[(.+)%]\124h")
@@ -29,11 +58,28 @@ function AltManager:UpdateInstanceInfo()
 			end
 		end
 	end
-
-	char_table.instanceInfo = instanceInfo
 end
 
-function AltManager:CreateDungeonString(savedInfo)
+local function Update(charInfo)
+	UpdateInstanceInfo(charInfo)
+end
+
+do
+	local payload = {
+		update = Update,
+		labels = labelRows,
+		events = {
+			["UPDATE_INSTANCE_INFO"] = UpdateInstanceInfo,
+		},
+		share = {
+			[UpdateInstanceInfo] = "instanceInfo",
+		},
+	}
+	PermoksAccountManager:AddModule(module, payload)
+end
+
+
+function PermoksAccountManager:CreateDungeonString(savedInfo)
 	if not savedInfo then return "-" end
 	local numCompletedDungeons = 0
 
@@ -50,8 +96,7 @@ function AltManager:CreateDungeonString(savedInfo)
 	end
 end
 
-function AltManager:CreateRaidString(savedInfo, hideDifficulty)
-	if not savedInfo then return "-" end
+function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
 	local raidString = ""
 	local maxDifficultyId = self.isBC and 175 or 16
 
@@ -69,7 +114,7 @@ function AltManager:CreateRaidString(savedInfo, hideDifficulty)
 	end
 end
 
-function AltManager:DungeonTooltip_OnEnter(button, alt_data)
+function PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data)
 	if not alt_data or not alt_data.instanceInfo then return end
 	local dungeonInfo = alt_data.instanceInfo.dungeons
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 3, "LEFT", "CENTER", "RIGHT")
@@ -90,38 +135,22 @@ function AltManager:DungeonTooltip_OnEnter(button, alt_data)
 	tooltip:Show()
 end
 
-function AltManager:RaidTooltip_OnEnter(button, alt_data, id)
-	if not alt_data or not alt_data.instanceInfo or not self.raids[id] then return end
-	local raidInfo = alt_data.instanceInfo.raids[self.raids[id].englishName]
+function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
+	local self = PermoksAccountManager
+	if not altData.instanceInfo or not self.raids[labelRow.id] then return end
+	local raidInfo = altData.instanceInfo.raids[self.raids[labelRow.id].englishName]
 	if not raidInfo then return end
 
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "LEFT", "RIGHT")
 	button.tooltip = tooltip
 
-	tooltip:AddHeader(self.raids[id].name)
+	tooltip:AddHeader(self.raids[labelRow.id].name)
 	tooltip:AddLine("")
 
-	for difficulty, info in AltManager.spairs(raidInfo, function(t, a, b) if a == 17 then return b < a else return a < b end end) do
+	for difficulty, info in self.spairs(raidInfo, function(t, a, b) if a == 17 then return b < a else return a < b end end) do
 		tooltip:AddLine(info.difficulty..":", self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 	end
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
-end
-
-do
-	local istanceEvents = {
-		"UPDATE_INSTANCE_INFO",
-	}
-
-	local instanceFrame = CreateFrame("Frame")
-	FrameUtil.RegisterFrameForEvents(instanceFrame, istanceEvents)
-
-	instanceFrame:SetScript("OnEvent", function(self, e, ...)
-		if AltManager.addon_loaded then
-			AltManager:UpdateInstanceInfo()
-			AltManager:UpdateCompletionDataForCharacter()
-			AltManager:SendCharacterUpdate("instanceInfo")
-		end
-	end)
 end

@@ -1,10 +1,23 @@
 local addonName, PermoksAccountManager = ...
-local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
-local default = {numCallings = 0}
 
-local module = "callings"
+local customCovenantColors = {
+	[1] = CreateColorFromHexString("ff29e2ff"),
+	[2] = COVENANT_COLORS[2],
+	[3] = COVENANT_COLORS[3],
+	[4] = COVENANT_COLORS[4],
+}
+
+local module = "covenant"
 local labelRows = {
+	covenant = {
+		label = L["Covenant"],
+		data = function(alt_data) return PermoksAccountManager:CreateCovenantString(alt_data) end,
+	},
+	renown = {
+		label = L["Renown"],
+		data = function(alt_data) return PermoksAccountManager:CreateRenownString(alt_data) end,
+	},
 	callings = {
 		label = L["Callings"],
 		customTooltip = function(button, alt_data) PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data) end,
@@ -107,21 +120,43 @@ local function UpdateSanctumBuildings(charInfo)
 	end
 end
 
+local function UpdateRenown(charInfo, newRenown)
+	if type(charInfo.renown) ~= "table" then
+		charInfo.renown = {}
+	end
+
+	charInfo.renown = charInfo.renown or {}
+
+	C_Timer.After(0.5, function()
+		charInfo.renown[charInfo.covenant] = newRenown or C_CovenantSanctumUI.GetRenownLevel()
+	end)
+end
+
+local function UpdateCovenant(charInfo, covenant)
+	covenant = covenant or C_Covenants.GetActiveCovenantID()
+	charInfo.covenant = covenant
+end
 
 local function Update(charInfo)
 	UpdateSanctumBuildings(charInfo)
 	UpdateCallings(charInfo)
+	UpdateCovenant(charInfo)
+	UpdateRenown(charInfo)
 end
 
 local payload = {
 	update = Update,
 	events = {
 		["COVENANT_CALLINGS_UPDATED"] = UpdateCallings,
-		["COVENANT_SANCTUM_INTERACTION_ENDED"] = UpdateSanctumBuildings
+		["COVENANT_SANCTUM_INTERACTION_ENDED"] = UpdateSanctumBuildings,
+		["COVENANT_CHOSEN"] = UpdateCovenant,
+		["COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED"] = UpdateRenown,
 	},
 	share = {
 		[UpdateCallings] = "callingInfo",
 		[UpdateSanctumBuildings] = "sanctumInfo",
+		[UpdateCovenant] = "covenantInfo",
+		[UpdateRenown] = "covenantInfo",
 	},
 	labels = labelRows
 }
@@ -154,6 +189,26 @@ function PermoksAccountManager:CreateSanctumString(sanctumInfo, featureType, num
 	return string.format("%s - %s", shortenedName, self:CreateQuestString(numQuestCompleted, numRequiredQuests))
 end
 
+function PermoksAccountManager:CreateRenownString(altData)
+	if not altData or not altData.renown then return end
+	
+	local renown
+	local renownString = ""
+	if type(altData.renown) == "table" then
+		for covenant=4, 1, -1 do
+			renown = altData.renown[covenant]
+			if renown then
+				renownString = string.format("%s %s", customCovenantColors[covenant]:WrapTextInColorCode(renown), renownString)
+			end
+		end
+	elseif customCovenantColors[altData.covenant] then
+		renownString = string.format("%s", customCovenantColors[altData.covenant]:WrapTextInColorCode(altData.renown))
+	end
+
+	return renownString
+end
+
+
 function PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data)
 	if not alt_data or not alt_data.callingInfo then return end
 	local currentCallings = self.db.global.currentCallings[alt_data.covenant]
@@ -174,4 +229,3 @@ function PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data)
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
 end
-

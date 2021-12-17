@@ -1,6 +1,28 @@
-local addonName, AltManager = ...
+local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
+
+do
+	local module = "classic_professions"
+	local function functionOnLoad()
+		local professionEvents = {
+			"TRADE_SKILL_UPDATE",
+			"BAG_UPDATE_DELAYED"
+		}
+
+		local professionFrame = CreateFrame("Frame")
+		FrameUtil.RegisterFrameForEvents(professionFrame, professionEvents)
+
+		professionFrame:SetScript("OnEvent", function(self, event, ...)
+			if event == "TRADE_SKILL_UPDATE" then
+				PermoksAccountManager:UpdateProfessions(...)
+			elseif event == "BAG_UPDATE_DELAYED" then
+				PermoksAccountManager:UpdateProfessionCDs()
+			end
+		end)
+	end
+	PermoksAccountManager:AddModule(module, functionOnLoad)
+end
 
 -- https://github.com/Stanzilla/WoWUIBugs/issues/47
 local function GetCooldownLeft(start, duration)
@@ -26,13 +48,10 @@ end
 
 
 -- Need to rewrite most of this stuff. I hate the classic API
-
-
-
-function AltManager:UpdateProfessions()
-	local char_table = self.validateData()
-	if not char_table then return end
-	char_table.professions = char_table.professions or {}
+function PermoksAccountManager:UpdateProfessions()
+	local charInfo = self.charInfo
+	if not charInfo then return end
+	charInfo.professions = charInfo.professions or {}
 
 	local professions = {}
 	local updated = false
@@ -44,24 +63,24 @@ function AltManager:UpdateProfessions()
 		end
 	end
 
-	char_table.professions = professions
+	charInfo.professions = professions
 	
 	if updated then
-		AltManager:SendCharacterUpdate("professions")
+		PermoksAccountManager:SendCharacterUpdate("professions")
 	end
 end
 
 
-function AltManager:UpdateProfessionCDs()
-	local char_table = self.validateData()
-	if not char_table then return end
-	if not char_table.professions then self:UpdateProfessions() end
-	char_table.professionCDs = char_table.professionCDs or {}
+function PermoksAccountManager:UpdateProfessionCDs()
+	local charInfo = self.charInfo
+	if not charInfo then return end
+	if not charInfo.professions then self:UpdateProfessions() end
+	charInfo.professionCDs = charInfo.professionCDs or {}
 
-	local professionCDs = char_table.professionCDs
+	local professionCDs = charInfo.professionCDs
 	local updated = false
-	if char_table.professions then
-		for _, professionInfo in ipairs(char_table.professions) do
+	if charInfo.professions then
+		for _, professionInfo in ipairs(charInfo.professions) do
 			local professionName = professionInfo.name
 			if self.professionCDs[professionName] and self.professionCDs[professionName].cds then
 				for spellId, cdName in pairs(self.professionCDs[professionName].cds) do
@@ -74,15 +93,15 @@ function AltManager:UpdateProfessionCDs()
 		end
 	end
 
-	char_table.professionCDs = professionCDs
+	charInfo.professionCDs = professionCDs
 
 	if updated then
-		AltManager:SendCharacterUpdate("professionCDs")
+		PermoksAccountManager:SendCharacterUpdate("professionCDs")
 	end
 end
 
 
-function AltManager:CreateProfessionString(professionInfo, professionCDs)
+function PermoksAccountManager:CreateProfessionString(professionInfo, professionCDs)
 	if not professionInfo or not professionCDs then return end
 
 	local cdInfo = self.professionCDs[professionInfo.name]
@@ -102,7 +121,7 @@ function AltManager:CreateProfessionString(professionInfo, professionCDs)
 	return professionCDString and string.format("%s %s", professionString, professionCDString) or professionString
 end
 
-function AltManager:ProfessionTooltip_OnEnter(button, alt_data, professionInfo)
+function PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, professionInfo)
 	if not alt_data or not alt_data.professionCDs or not professionInfo or not self.professionCDs[professionInfo.name].cds then return end
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "RIGHT", "LEFT")
 	button.tooltip = tooltip
@@ -110,7 +129,7 @@ function AltManager:ProfessionTooltip_OnEnter(button, alt_data, professionInfo)
 	for spellId, cdName in pairs(self.professionCDs[professionInfo.name].cds) do
 		local expirationTime = alt_data.professionCDs[spellId]
 		if expirationTime and expirationTime > 0 and expirationTime > time() then
-			local days, hours, minutes = self:timeToDaysHoursMinutes(expirationTime)
+			local days, hours, minutes = self:TimeToDaysHoursMinutes(expirationTime)
 			tooltip:AddLine(cdName, self:CreateTimeString(days, hours, minutes))
 		else
 			tooltip:AddLine(cdName, L["|cff00ff00READY|r"])
@@ -119,24 +138,4 @@ function AltManager:ProfessionTooltip_OnEnter(button, alt_data, professionInfo)
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
-end
-
-do
-	local professionEvents = {
-		"TRADE_SKILL_UPDATE",
-		"BAG_UPDATE_DELAYED"
-	}
-
-	local professionFrame = CreateFrame("Frame")
-	FrameUtil.RegisterFrameForEvents(professionFrame, professionEvents)
-
-	professionFrame:SetScript("OnEvent", function(self, event, ...)
-		if AltManager.addon_loaded then
-			if event == "TRADE_SKILL_UPDATE" then
-				AltManager:UpdateProfessions(...)
-			elseif event == "BAG_UPDATE_DELAYED" then
-				AltManager:UpdateProfessionCDs()
-			end
-		end
-	end)
 end

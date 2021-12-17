@@ -1,4 +1,4 @@
-local addonName, AltManager = ...
+local addonName, PermoksAccountManager = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 
 local default_categories = {
@@ -67,7 +67,7 @@ local default_categories = {
 	}
 }
 
-AltManager.groups = {
+PermoksAccountManager.groups = {
 	attunement = {
 		label = "Attunements"
 	},
@@ -106,9 +106,9 @@ AltManager.groups = {
 	}
 }
 
-AltManager.groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "dungeons", "raids", "reputation", "buff", "item", "extra", "profession"}
+PermoksAccountManager.groupOrder = {"separator", "currency", "resetDaily", "resetWeekly", "dungeons", "raids", "reputation", "buff", "item", "extra", "profession"}
 
-AltManager.columns = {
+PermoksAccountManager.labelRows = {
 	characterName = {
 		order = 0.1,
 		fakeLabel = "Name",
@@ -130,195 +130,195 @@ AltManager.columns = {
 	},
 	location = {
 		label = "Location",
-		data = function(alt_data) return (alt_data.location and AltManager:CreateLocationString(alt_data.location)) or "-" end,
+		data = function(alt_data) return (alt_data.location and PermoksAccountManager:CreateLocationString(alt_data.location)) or "-" end,
 		group = "extra",
 	},
 	profession1CDs = {
 		label = "Profession 1",
-		tooltip = function(button, alt_data) AltManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[1]) end,
-		data = function(alt_data) return alt_data.professions and alt_data.professionCDs and AltManager:CreateProfessionString(alt_data.professions[1], alt_data.professionCDs) or "-" end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[1]) end,
+		data = function(alt_data) return alt_data.professions and alt_data.professionCDs and PermoksAccountManager:CreateProfessionString(alt_data.professions[1], alt_data.professionCDs) or "-" end,
 		group = "profession",
 	},
 	profession2CDs = {
 		label = "Profession 2",
-		tooltip = function(button, alt_data) AltManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[2]) end,
-		data = function(alt_data) return alt_data.professions and alt_data.professionCDs and AltManager:CreateProfessionString(alt_data.professions[2], alt_data.professionCDs) or "-" end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[2]) end,
+		data = function(alt_data) return alt_data.professions and alt_data.professionCDs and PermoksAccountManager:CreateProfessionString(alt_data.professions[2], alt_data.professionCDs) or "-" end,
 		group = "profession",
 	},
 	dailyQuestCounter = {
 		label = "Daily Quests",
-		data = function(alt_data) return alt_data.completedDailies and alt_data.completedDailies.num and AltManager:CreateFractionString(alt_data.completedDailies.num, 30) or "Login" end,
+		data = function(alt_data) return alt_data.completedDailies and alt_data.completedDailies.num and PermoksAccountManager:CreateFractionString(alt_data.completedDailies.num, 30) or "Login" end,
 		group = "resetDaily",
 	},
 	theAldor = {
-		label = function() return AltManager.factions.faction[932].localName or AltManager.factions.faction[932].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[932])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[932].localName or PermoksAccountManager.factions.faction[932].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[932])) or "-" end,
 		group = "reputation",
 	},
 	theScryers = {
-		label = function() return AltManager.factions.faction[934].localName or AltManager.factions.faction[934].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[934])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[934].localName or PermoksAccountManager.factions.faction[934].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[934])) or "-" end,
 		group = "reputation",
 	},
 	silvermoonCity = {
-		label = function() return AltManager.factions.faction[911].localName or AltManager.factions.faction[911].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[911])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[911].localName or PermoksAccountManager.factions.faction[911].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[911])) or "-" end,
 		group = "reputation",
 	},
 	exodar = {
-		label = function() return AltManager.factions.faction[930].localName or AltManager.factions.faction[930].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[930])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[930].localName or PermoksAccountManager.factions.faction[930].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[930])) or "-" end,
 		group = "reputation",
 	},
 	theShatar = {
-		label = function() return AltManager.factions.faction[935].localName or AltManager.factions.faction[935].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[935])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[935].localName or PermoksAccountManager.factions.faction[935].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[935])) or "-" end,
 		group = "reputation",
 	},
 	cenarionExpedition = {
-		label = function() return AltManager.factions.faction[942].localName or AltManager.factions.faction[942].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[942])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[942].localName or PermoksAccountManager.factions.faction[942].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[942])) or "-" end,
 		group = "reputation",
 	},
 	honorHold = {
-		label = function() return AltManager.factions.faction[946].localName or AltManager.factions.faction[946].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[946])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[946].localName or PermoksAccountManager.factions.faction[946].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[946])) or "-" end,
 		group = "reputation",
 	},
 	thrallmar = {
-		label = function() return AltManager.factions.faction[947].localName or AltManager.factions.faction[947].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[947])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[947].localName or PermoksAccountManager.factions.faction[947].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[947])) or "-" end,
 		group = "reputation",
 	},
 	keepersOfTime = {
-		label = function() return AltManager.factions.faction[989].localName or AltManager.factions.faction[989].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[989])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[989].localName or PermoksAccountManager.factions.faction[989].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[989])) or "-" end,
 		group = "reputation",
 	},
 	lowerCity = {
-		label = function() return AltManager.factions.faction[1011].localName or AltManager.factions.faction[1011].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[1011])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[1011].localName or PermoksAccountManager.factions.faction[1011].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[1011])) or "-" end,
 		group = "reputation",
 	},
 	theConsortium = {
-		label = function() return AltManager.factions.faction[933].localName or AltManager.factions.faction[933].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[933])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[933].localName or PermoksAccountManager.factions.faction[933].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[933])) or "-" end,
 		group = "reputation",
 	},
 	theVioletEye = {
-		label = function() return AltManager.factions.faction[967].localName or AltManager.factions.faction[967].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[967])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[967].localName or PermoksAccountManager.factions.faction[967].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[967])) or "-" end,
 		group = "reputation",
 	},
 	sporeggar = {
-		label = function() return AltManager.factions.faction[970].localName or AltManager.factions.faction[970].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[970])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[970].localName or PermoksAccountManager.factions.faction[970].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[970])) or "-" end,
 		group = "reputation",
 	},
 	theScaleOfTheSands = {
-		label = function() return AltManager.factions.faction[990].localName or AltManager.factions.faction[990].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[990])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[990].localName or PermoksAccountManager.factions.faction[990].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[990])) or "-" end,
 		group = "reputation",
 	},
 	netherwing = {
-		label = function() return AltManager.factions.faction[1015].localName or AltManager.factions.faction[1015].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[1015])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[1015].localName or PermoksAccountManager.factions.faction[1015].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[1015])) or "-" end,
 		group = "reputation",
 	},
 	ogrila = {
-		label = function() return AltManager.factions.faction[1038].localName or AltManager.factions.faction[1038].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[1038])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[1038].localName or PermoksAccountManager.factions.faction[1038].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[1038])) or "-" end,
 		group = "reputation",
 	},
 	shatteredSunOffensive = {
-		label = function() return AltManager.factions.faction[1077].localName or AltManager.factions.faction[1077].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[1077])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[1077].localName or PermoksAccountManager.factions.faction[1077].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[1077])) or "-" end,
 		group = "reputation",
 	},
 	theMaghar = {
-		label = function() return AltManager.factions.faction[941].localName or AltManager.factions.faction[941].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[941])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[941].localName or PermoksAccountManager.factions.faction[941].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[941])) or "-" end,
 		group = "reputation",
 	},
 	kurenai = {
-		label = function() return AltManager.factions.faction[978].localName or AltManager.factions.faction[978].name end,
-		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[978])) or "-" end,
+		label = function() return PermoksAccountManager.factions.faction[978].localName or PermoksAccountManager.factions.faction[978].name end,
+		data = function(alt_data) return (alt_data.factions and PermoksAccountManager:CreateFactionString(alt_data.factions[978])) or "-" end,
 		group = "reputation",
 	},
 	karazhanAttunement = {
 		label = "Karazhan",
-		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.mastersKey and AltManager:CreateQuestString(alt_data.itemCounts.mastersKey.total, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.mastersKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.mastersKey.total, 1, true)) or "-" end,
 		group = "attunement",
 	},
 	serpentshrineAttunement = {
 		label = "Serpentshrine",
-		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.attunements.serpentshrine, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.serpentshrine, 1, true)) or "-" end,
 		group = "attunement",
 	},
 	theEyeAttunement = {
 		label = "Tempest Keep",
-		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.tempestKey and AltManager:CreateQuestString(alt_data.itemCounts.tempestKey.total, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.tempestKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.tempestKey.total, 1, true)) or "-" end,
 		group = "attunement",
 	},
 	hyjalSummitAttunement = {
 		label = "Hyjal Summit",
-		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.attunements.hyjal, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.hyjal, 1, true)) or "-" end,
 		group = "attunement",
 	},
 	hillsbradAttunement = {
 		label = "Hillsbrad",
-		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.attunements.hillsbrad, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.hillsbrad, 1, true)) or "-" end,
 		group = "attunement",
 	},
 	blackmorassAttunement = {
 		label = "Black Morass",
-		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.attunements.blackmorass, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.blackmorass, 1, true)) or "-" end,
 		group = "attunement",
 	},
 	heroicsDone = {
 		label = "Heroic Dungeons",
-		tooltip = function(button, alt_data) AltManager:DungeonTooltip_OnEnter(button, alt_data) end,
-		data = function(alt_data) return alt_data.instanceInfo and AltManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or "-" end,
+		tooltip = function(button, alt_data) PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data) end,
+		data = function(alt_data) return alt_data.instanceInfo and PermoksAccountManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or "-" end,
 		group = "dungeons",
 	},
 	karazhan = {
 		label = "Karazhan",
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.karazhan, true)) or "-" end,
+		data = function(alt_data) return (alt_data.instanceInfo and PermoksAccountManager:CreateRaidString(alt_data.instanceInfo.raids.karazhan, true)) or "-" end,
 		group = "raids",
 	},
 	hyjal = {
 		label = "Hyjal Summit",
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.hyjal, true)) or "-" end,
+		data = function(alt_data) return (alt_data.instanceInfo and PermoksAccountManager:CreateRaidString(alt_data.instanceInfo.raids.hyjal, true)) or "-" end,
 		group = "raids",
 	},
 	magtheridon = {
 		label = "Magtheridon",
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.magtheridon, true)) or "-" end,
+		data = function(alt_data) return (alt_data.instanceInfo and PermoksAccountManager:CreateRaidString(alt_data.instanceInfo.raids.magtheridon, true)) or "-" end,
 		group = "raids",
 	},
 	serpentshrine = {
 		label = "Serpentshrine",
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.serpentshrine, true)) or "-" end,
+		data = function(alt_data) return (alt_data.instanceInfo and PermoksAccountManager:CreateRaidString(alt_data.instanceInfo.raids.serpentshrine, true)) or "-" end,
 		group = "raids",
 	},
 	tempestkeep = {
 		label = "Tempest Keep",
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.tempestkeep, true)) or "-" end,
+		data = function(alt_data) return (alt_data.instanceInfo and PermoksAccountManager:CreateRaidString(alt_data.instanceInfo.raids.tempestkeep, true)) or "-" end,
 		group = "raids",
 	},
 	blacktemple = {
 		label = "Black Temple",
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.blacktemple, true)) or "-" end,
+		data = function(alt_data) return (alt_data.instanceInfo and PermoksAccountManager:CreateRaidString(alt_data.instanceInfo.raids.blacktemple, true)) or "-" end,
 		group = "raids",
 	},
 	gruul = {
 		label = "Gruul",
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.gruul, true)) or "-" end,
+		data = function(alt_data) return (alt_data.instanceInfo and PermoksAccountManager:CreateRaidString(alt_data.instanceInfo.raids.gruul, true)) or "-" end,
 		group = "raids",
 	},
 	sunwell = {
 		label = "Sunwell Plateau",
-		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.sunwell, true)) or "-" end,
+		data = function(alt_data) return (alt_data.instanceInfo and PermoksAccountManager:CreateRaidString(alt_data.instanceInfo.raids.sunwell, true)) or "-" end,
 		group = "raids",
 	},
 	separator1 = {
@@ -355,254 +355,254 @@ AltManager.columns = {
 	-- Items
 	shatteredHallsKey = {
 		label = "Shattered Halls",
-		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.shatteredHallsKey and AltManager:CreateQuestString(alt_data.itemCounts.shatteredHallsKey.total, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.shatteredHallsKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.shatteredHallsKey.total, 1, true)) or "-" end,
 		group = "item",
 	},
 	citadelKey = {
 		label = "Hellfire Citadel",
-		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.citadelKey and AltManager:CreateQuestString(alt_data.itemCounts.citadelKey.total, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.citadelKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.citadelKey.total, 1, true)) or "-" end,
 		group = "item",
 	},
 	reservoirKey = {
 		label = "Coilfang Reservoir",
-		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.reservoirKey and AltManager:CreateQuestString(alt_data.itemCounts.reservoirKey.total, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.reservoirKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.reservoirKey.total, 1, true)) or "-" end,
 		group = "item",
 	},
 	auchenaiKey = {
 		label = "Auchindoun",
-		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.auchenaiKey and AltManager:CreateQuestString(alt_data.itemCounts.auchenaiKey.total, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.auchenaiKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.auchenaiKey.total, 1, true)) or "-" end,
 		group = "item",
 	},
 	warpforgedKey = {
 		label = "TP Dungeons",
-		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.warpforgedKey and AltManager:CreateQuestString(alt_data.itemCounts.warpforgedKey.total, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.warpforgedKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.warpforgedKey.total, 1, true)) or "-" end,
 		group = "item",
 	},
 	keyOfTime = {
 		label = "Caverns of Time",
-		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.keyOfTime and AltManager:CreateQuestString(alt_data.itemCounts.keyOfTime.total, 1, true)) or "-" end,
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.keyOfTime and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.keyOfTime.total, 1, true)) or "-" end,
 		group = "item",
 	},
 	elixirDemonslaying = {
 		label = "Elixir of Demonslaying",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirDemonslaying, 9224) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirDemonslaying") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirDemonslaying, 9224) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirDemonslaying") end,
 		group = "item",
 	},
 	brilliantWizardOil = {
 		label = "Brilliant Wizard Oil",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.brilliantWizardOil, 20749) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "brilliantWizardOil") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.brilliantWizardOil, 20749) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "brilliantWizardOil") end,
 		group = "item",
 	},
 	adamantiteSharpeningStone = {
 		label = "Adamantite Sharpening Stone",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.adamantiteSharpeningStone, 23529) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "adamantiteSharpeningStone") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.adamantiteSharpeningStone, 23529) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "adamantiteSharpeningStone") end,
 		group = "item",
 	},
 	flaskBlindingLight = {
 		label = "Flask of Blinding Light",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flaskBlindingLight, 22861) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flaskBlindingLight") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskBlindingLight, 22861) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "flaskBlindingLight") end,
 		group = "item",
 	},
 	elixirAdept = {
 		label = "Adept's Elixir",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirAdept, 28103) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirAdept") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirAdept, 28103) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirAdept") end,
 		group = "item",
 	},
 	elixirDraenicWisdom = {
 		label = "Elixir of Draenic Wisdom",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirDraenicWisdom, 32067) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirDraenicWisdom") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirDraenicWisdom, 32067) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirDraenicWisdom") end,
 		group = "item",
 	},
 	flaskSupremePower = {
 		label = "Flask of Supreme Power",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flaskSupremePower, 13512) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flaskSupremePower") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskSupremePower, 13512) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "flaskSupremePower") end,
 		group = "item",
 	},
 	potionSuperMana = {
 		label = "Super Mana Potion",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potionSuperMana, 22832) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potionSuperMana") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionSuperMana, 22832) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "potionSuperMana") end,
 		group = "item",
 	},
 	flaskChromaticWonder = {
 		label = "Flask of Chromatic Wonder",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flaskChromaticWonder, 33208) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flaskChromaticWonder") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskChromaticWonder, 33208) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "flaskChromaticWonder") end,
 		group = "item",
 	},
 	elixirMajorAgility = {
 		label = "Elixir of Major Agility",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirMajorAgility, 22831) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirMajorAgility") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirMajorAgility, 22831) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirMajorAgility") end,
 		group = "item",
 	},
 	giftOfArthas = {
 		label = "Gift of Arthas",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.giftOfArthas, 9088) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "giftOfArthas") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.giftOfArthas, 9088) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "giftOfArthas") end,
 		group = "item",
 	},
 	spiritOfZanza = {
 		label = "Spirit of Zanza",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.spiritOfZanza, 20079) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "spiritOfZanza") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.spiritOfZanza, 20079) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "spiritOfZanza") end,
 		group = "item",
 	},
 	potionIronshield = {
 		label = "Ironshield Potion",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potionIronshield, 22849) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potionIronshield") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionIronshield, 22849) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "potionIronshield") end,
 		group = "item",
 	},
 	potionHaste = {
 		label = "Haste Potion",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potionHaste, 22838) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potionHaste") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionHaste, 22838) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "potionHaste") end,
 		group = "item",
 	},
 	potionFreeAction = {
 		label = "Free Action Potion",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potionFreeAction, 5634
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionFreeAction, 5634
 			) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potionFreeAction") end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "potionFreeAction") end,
 		group = "item",
 	},
 	adamantiteWeightstone = {
 		label = "Adamantite Weightstone",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.adamantiteWeightstone, 28421) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "adamantiteWeightstone") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.adamantiteWeightstone, 28421) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "adamantiteWeightstone") end,
 		group = "item",
 	},
 	elixirHealingPower = {
 		label = "Elixir of Healing Power",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirHealingPower, 22825) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirHealingPower") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirHealingPower, 22825) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirHealingPower") end,
 		group = "item",
 	},
 	superiorWizardOil = {
 		label = "Superior Wizard Oil",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.superiorWizardOil, 22522) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "superiorWizardOil") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.superiorWizardOil, 22522) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "superiorWizardOil") end,
 		group = "item",
 	},
 	elixirMajorMageblood = {
 		label = "Elixir of Major Mageblood",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirMajorMageblood, 22840) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirMajorMageblood") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirMajorMageblood, 22840) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirMajorMageblood") end,
 		group = "item",
 	},
 	flaskRelentlessAssault = {
 		label = "Flask of Relentless Assault",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flaskRelentlessAssault, 22854) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flaskRelentlessAssault") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskRelentlessAssault, 22854) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "flaskRelentlessAssault") end,
 		group = "item",
 	},
 	flaskPureDeath = {
 		label = "Flask of Pure Death",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flaskPureDeath, 22866) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flaskPureDeath") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskPureDeath, 22866) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "flaskPureDeath") end,
 		group = "item",
 	},
 	drumsBattle = {
 		label = "Drums of Battle",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.drumsBattle, 29529) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "drumsBattle") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.drumsBattle, 29529) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "drumsBattle") end,
 		group = "item",
 	},
 	potionDestruction = {
 		label = "Destruction Potion",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.potionDestruction, 22839) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "potionDestruction") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionDestruction, 22839) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "potionDestruction") end,
 		group = "item",
 	},
 	flaskFortification = {
 		label = "Flask of Fortification",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flaskFortification, 22851) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flaskFortification") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskFortification, 22851) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "flaskFortification") end,
 		group = "item",
 	},
 	elixirMajorDefense = {
 		label = "Elixir of Major Defense",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirMajorDefense, 22834) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirMajorDefense") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirMajorDefense, 22834) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirMajorDefense") end,
 		group = "item",
 	},
 	elixirMajorShadowPower = {
 		label = "Elixir of Major Defense",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirMajorShadowPower, 22835) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirMajorShadowPower") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirMajorShadowPower, 22835) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirMajorShadowPower") end,
 		group = "item",
 	},
 	elixirEmpowerment = {
 		label = "Elixir of Empowerment",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.elixirEmpowerment, 22848) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "elixirEmpowerment") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirEmpowerment, 22848) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "elixirEmpowerment") end,
 		group = "item",
 	},
 	swiftnessOfZanza = {
 		label = "Swiftness of Zanza",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.swiftnessOfZanza, 20081) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "swiftnessOfZanza") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.swiftnessOfZanza, 20081) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "swiftnessOfZanza") end,
 		group = "item",
 	},
 	thistleTea = {
 		label = "Thistle Tea",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.thistleTea, 7676) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "thistleTea") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.thistleTea, 7676) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "thistleTea") end,
 		group = "item",
 	},
 	flameCap = {
 		label = "Flame Cap",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.flameCap, 22788) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "flameCap") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flameCap, 22788) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "flameCap") end,
 		group = "item",
 	},
 	superSapperCharge = {
 		label = "Super Sapper Charge",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.superSapperCharge, 23827) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "superSapperCharge") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.superSapperCharge, 23827) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "superSapperCharge") end,
 		group = "item",
 	},
 	runeDark = {
 		label = "Dark Rune",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.runeDark, 20520) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "runeDark") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.runeDark, 20520) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "runeDark") end,
 		group = "item",
 	},
 	runeDemonic = {
 		label = "Demonic Rune",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.runeDemonic, 12662) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "runeDemonic") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.runeDemonic, 12662) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "runeDemonic") end,
 		group = "item",
 	},
 	runeDark = {
 		label = "Dark Rune",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.runeDark, 20520) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "runeDark") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.runeDark, 20520) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "runeDark") end,
 		group = "item",
 	},
 	runeDark = {
 		label = "Dark Rune",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.runeDark, 20520) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "runeDark") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.runeDark, 20520) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "runeDark") end,
 		group = "item",
 	},
 	runeDark = {
 		label = "Dark Rune",
-		data = function(alt_data) return AltManager:CreateItemString(alt_data.itemCounts.runeDark, 20520) end,
-		tooltip = function(button, alt_data) AltManager:ItemTooltip_OnEnter(button, alt_data, "runeDark") end,
+		data = function(alt_data) return PermoksAccountManager:CreateItemString(alt_data.itemCounts.runeDark, 20520) end,
+		tooltip = function(button, alt_data) PermoksAccountManager:ItemTooltip_OnEnter(button, alt_data, "runeDark") end,
 		group = "item",
 	},
 }
 
-AltManager.raids = {
+PermoksAccountManager.raids = {
 	[GetRealZoneText(532)] = {instanceID = 532, englishName = "karazhan"},
 	[GetRealZoneText(534)] = {instanceID = 534, englishName = "hyjal"},
 	[GetRealZoneText(544)] = {instanceID = 544, englishName = "magtheridon"},
@@ -613,8 +613,8 @@ AltManager.raids = {
 	[GetRealZoneText(580)] = {instanceID = 580, englishName = "sunwell"},
 }
 
-AltManager.numDungeons = 16
-AltManager.dungeons = {
+PermoksAccountManager.numDungeons = 16
+PermoksAccountManager.dungeons = {
 	[GetRealZoneText(269)] = 269, -- Opening of the Dark Portal
 	[GetRealZoneText(540)] = 540, -- The Shattered Halls
 	[GetRealZoneText(542)] = 542, -- The Blood Furnace
@@ -633,7 +633,7 @@ AltManager.dungeons = {
 	[GetRealZoneText(585)] = 585, -- Magister's Terrace
 }
 
-AltManager.items = {
+PermoksAccountManager.items = {
 	[24490] = {key = "mastersKey"}, -- Karazhan Key
 	[28395] = {key = "shatteredHallsKey"}, -- Shattered Halls Key
 	[30622] = {key = "citadelKey"}, -- Hellfire Citadel Key
@@ -678,7 +678,7 @@ AltManager.items = {
 	[33208] = {key = "flaskChromaticWonder"}, -- Flask of Chromatic Wonder
 }
 
-AltManager.factions = {
+PermoksAccountManager.factions = {
 	[911] = {name = "Silvermoon City", faction = "Horde"},
 	[930] = {name = "Exodar", faction = "Alliance"},
 	[932] = {name = "The Aldor"},
@@ -700,10 +700,10 @@ AltManager.factions = {
 	[1077] = {name = "Shattered Sun Offensive"},
 }
 
-AltManager.currencies = {
+PermoksAccountManager.currencies = {
 }
 
-AltManager.professionCDs = {
+PermoksAccountManager.professionCDs = {
 	[L["Tailoring"]] = {
 		cds = {
 			[26751] = L["Primal Mooncloth"], -- Primal Mooncloth
@@ -782,7 +782,7 @@ AltManager.professionCDs = {
 
 
 
-AltManager.quests = {
+PermoksAccountManager.quests = {
 	daily = {
 		[10110] = {key = "thrallmar", faction = "Horde"}, -- Hellfire Fortifications
 		[10106] = {key = "honor_hold", faction = "Alliance"}, -- Hellfire Fortifications
@@ -868,6 +868,6 @@ AltManager.quests = {
 	}
 }
 
-function AltManager:getDefaultCategories(key)
+function PermoksAccountManager:getDefaultCategories(key)
 	return key and default_categories[key] or default_categories
 end

@@ -1,12 +1,10 @@
 ## Interface: 90100
-## Title: Martins Alt Manager
-## Version: 9.0.19.9
-## Notes: Hi
-## SavedVariables: MartinsAltManagerDB
+## Title: Permoks Account Manager
+## Version: 1.0
+## SavedVariables: PermoksAccountManagerDB
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
-#@no-lib-strip@
 libs\AceAddon-3.0\AceAddon-3.0.xml
 libs\AceConsole-3.0\AceConsole-3.0.xml
 libs\AceEvent-3.0\AceEvent-3.0.xml
@@ -20,24 +18,28 @@ libs\LibDBIcon-1.0\lib.xml
 libs\LibQTip-1.0\lib.xml
 libs\LibDeflate\LibDeflate.lua
 libs\LibSerialize\LibSerialize.lua
-#@end-no-lib-strip@
+libs\LibSharedMedia-3.0\lib.xml
+libs\AceGUI-3.0-SharedMediaWidgets\widget.xml
 
+modules.lua
 locales\locales.xml
-modules\commands.lua
-modules\communication.lua
+commands.lua
+communication.lua
+
+db\db.lua
+
 modules\accounts.lua
-modules\callings.lua
+modules\character.lua
+modules\covenant.lua
 modules\currencies.lua
 modules\factions.lua
 modules\instances.lua
-modules\jailer.lua
 modules\quests.lua
 modules\torghast.lua
 modules\vault.lua
 modules\items.lua
 modules\pvp.lua
 
-db\db.lua
-
-MartinsAltManager.lua
+PermoksAccountManager.lua
 options.lua
+api.lua

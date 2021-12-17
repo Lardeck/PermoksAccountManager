@@ -1,5 +1,32 @@
-local addonName, AltManager = ...
+local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
+local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
+local options
+
+local module = "vault"
+local labelRows = {
+	great_vault_mplus = {
+		label = L["Vault M+"],
+		type = "vault",
+		key = "MythicPlus",
+		tooltip = true,
+		group = "vault",
+	},
+	great_vault_raid = {
+		label = L["Vault Raid"],
+		type = "vault",
+		key = "Raid",
+		tooltip = true,
+		group = "vault",
+	},
+	great_vault_pvp = {
+		label = L["Vault PVP"],
+		type = "vault",
+		key = "RankedPvP",
+		tooltip = true,
+		group = "vault",
+	},
+}
 
 local function valueChanged(oldTable, newTable, key, checkUneven)
 	if not oldTable or not newTable or not key then return false end
@@ -12,12 +39,11 @@ local function valueChanged(oldTable, newTable, key, checkUneven)
 	end
 end
 
+local function UpdateVaultInfo(charInfo)
+	local self = PermoksAccountManager
 
-function AltManager:UpdateVaultInfo()
-	local char_table = self.validateData()
-	if not char_table then return end
-
-	local vaultInfo = char_table.vaultInfo or {}
+	charInfo.vaultInfo = charInfo.vaultInfo or {}
+	local vaultInfo = charInfo.vaultInfo
 	local activities = C_WeeklyRewards.GetActivities();
 	for i, activityInfo in ipairs(activities) do
 		if activityInfo.type == Enum.WeeklyRewardChestThresholdType.Raid then
@@ -46,51 +72,73 @@ function AltManager:UpdateVaultInfo()
 			end
 		end
 	end
-
-	char_table.vaultInfo = vaultInfo
-	char_table.raidActivityInfo = C_WeeklyRewards.GetActivityEncounterInfo(Enum.WeeklyRewardChestThresholdType.Raid, 1)
 end
 
-
-function AltManager:UpdateMythicPlusHistory()
-	local char_table = self.char_table
-	if not char_table then return end
-
-	char_table.mythicPlusHistory = C_MythicPlus.GetRunHistory()
+local function UpdateRaidActivity(charInfo)
+	charInfo.raidActivityInfo = C_WeeklyRewards.GetActivityEncounterInfo(Enum.WeeklyRewardChestThresholdType.Raid, 1)
 end
 
-function AltManager:CreateWeeklyString(vaultInfo)
-	if not vaultInfo then return end
-	local activityInfo = vaultInfo[1]
-	if not activityInfo or activityInfo.level == 0 then return end
-
-	return string.format("+%d", activityInfo.level)
+local function Update(charInfo)
+	UpdateVaultInfo(charInfo)
+	UpdateRaidActivity(charInfo)
 end
 
-function AltManager:CreateVaultString(vaultInfo)
-	if not vaultInfo then return end
+local payload = {
+	update = Update,
+	events = {
+		["UPDATE_INSTANCE_INFO"] = {UpdateVaultInfo, UpdateRaidActivity},
+		["WEEKLY_REWARDS_UPDATE"] = {UpdateVaultInfo, UpdateRaidActivity},
+		["CHALLENGE_MODE_COMPLETED"] = {UpdateVaultInfo, UpdateRaidActivity},
+	},
+	share = {
+		[UpdateVaultInfo] = "vaultInfo",
+	},
+	labels = labelRows
+}
+PermoksAccountManager:AddModule(module, payload)
 
+
+local function GetDifficultyString(type, level)
+	if type == Enum.WeeklyRewardChestThresholdType.Raid then
+		return DifficultyUtil.GetDifficultyName(level):sub(1,1)
+	elseif type == Enum.WeeklyRewardChestThresholdType.MythicPlus then
+		return level
+	elseif type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
+		return PVPUtil.GetTierName(level):sub(1,2)
+	end
+end
+
+function PermoksAccountManager:CreateVaultString(vaultInfo)
 	local vaultString
+	local difficulties = {}
 
 	for i, activityInfo in ipairs(vaultInfo) do
 		if not vaultString then
-			if activityInfo.threshold > activityInfo.progress then
-				vaultString = self:CreateQuestString(activityInfo.progress, activityInfo.threshold)
-			elseif i == 3 then
-				vaultString = self:CreateQuestString(activityInfo.progress, activityInfo.threshold)
+			if activityInfo.level > 0 then
+				tinsert(difficulties, GetDifficultyString(activityInfo.type, activityInfo.level))
+			end
+
+			if activityInfo.threshold > activityInfo.progress or i == 3 then
+				if #difficulties > 0 then
+					vaultString = string.format("%s (%s)", self:CreateFractionString(activityInfo.progress, activityInfo.threshold), table.concat(difficulties, "|"))
+				else
+					vaultString = self:CreateFractionString(activityInfo.progress, activityInfo.threshold)
+				end
 			end
 		end
 	end
+
 	return vaultString
 end
 
-function AltManager:VaultTooltip_OnEnter(button, alt_data, name)
-	if not alt_data or not alt_data.vaultInfo or not alt_data.vaultInfo[name] then return end
-	local vaultInfo = alt_data.vaultInfo[name]
+function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
+	if not altData or not altData.vaultInfo or not altData.vaultInfo[labelRow.key] then return end
+	local self = PermoksAccountManager
+	local vaultInfo = altData.vaultInfo[labelRow.key]
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 4, "LEFT", "CENTER", "CENTER", "RIGHT")
 	button.tooltip = tooltip
 
-	tooltip:AddHeader(name, '', '')
+	tooltip:AddHeader(labelRow.label, '', '')
 	tooltip:AddLine("")
 	
 	for i, activityInfo in pairs(vaultInfo) do
@@ -130,7 +178,7 @@ function AltManager:VaultTooltip_OnEnter(button, alt_data, name)
 	tooltip:Show()
 end
 
-function AltManager:HighestKeyTooltip_OnEnter(button, alt_data)
+function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 	if not alt_data or not alt_data.mythicPlusHistory then return end
 
 	local runs = {}
@@ -155,24 +203,4 @@ function AltManager:HighestKeyTooltip_OnEnter(button, alt_data)
 	tooltip:AddLine(table.concat(runs, ", "))
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
-end
-
-do
-	local vaultEvents = {
-		"UPDATE_INSTANCE_INFO",
-		"WEEKLY_REWARDS_UPDATE",
-		"CHALLENGE_MODE_COMPLETED",
-	}
-
-	local questFrame = CreateFrame("Frame")
-	FrameUtil.RegisterFrameForEvents(questFrame, vaultEvents)
-
-	questFrame:SetScript("OnEvent", function(self, e, ...)
-		if AltManager.addon_loaded then
-			AltManager:UpdateVaultInfo()
-			AltManager:UpdateCompletionDataForCharacter()
-			AltManager:UpdateMythicPlusHistory()
-			AltManager:SendCharacterUpdate("vaultInfo")
-		end
-	end)
 end

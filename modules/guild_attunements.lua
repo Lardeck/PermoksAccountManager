@@ -1,4 +1,4 @@
-local addonName, AltManager = ...
+local addonName, PermoksAccountManager = ...
 
 
 local LibQTip = LibStub("LibQTip-1.0")
@@ -13,10 +13,10 @@ local defaultCategories
 local function GetAttunementInfoForData(altData)
 	if not altData then return end
 
-	local attunementKeys = AltManager:getDefaultCategories("attunements").childs
+	local attunementKeys = PermoksAccountManager:getDefaultCategories("attunements").childs
 	local attunements = {}
 	for i, attunement in ipairs(attunementKeys) do
-		attunements[attunement] = AltManager.columns[attunement].data(altData)
+		attunements[attunement] = PermoksAccountManager.labelRows[attunement].data(altData)
 	end
 
 	return attunements
@@ -24,9 +24,9 @@ end
 
 
 local function UpdateOwnAttunementInfo()
-	local guildInfo = AltManager.db.global.guildInfo[AltManager.currentGuild]
+	local guildInfo = PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild]
 
-	for altGUID, altData in pairs(AltManager.account.data) do
+	for altGUID, altData in pairs(PermoksAccountManager.account.data) do
 		if altData.guildRank and guildInfo[altData.guildRank] and guildInfo[altData.guildRank].player[altGUID] then
 			guildInfo[altData.guildRank].player[altGUID].attunements = GetAttunementInfoForData(altData)
 		end
@@ -37,8 +37,8 @@ end
 local function GetRankTree()
 	local tree = {}
 
-	for rankIndex = 0, #AltManager.db.global.guildInfo[AltManager.currentGuild] do
-		local rankInfo = AltManager.db.global.guildInfo[AltManager.currentGuild][rankIndex]
+	for rankIndex = 0, #PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild] do
+		local rankInfo = PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild][rankIndex]
 		if rankInfo then
 			tinsert(tree, {value = rankIndex, text = rankInfo.rankName, children = {}})
 			for guid, playerInfo in pairs(rankInfo.player) do
@@ -54,7 +54,7 @@ end
 
 local function CreateAttunementFrame()
 	local attunementFrame = AceGUI:Create("SimpleGroup")
-	AltManager.guildAttunementFrame = attunementFrame
+	PermoksAccountManager.guildAttunementFrame = attunementFrame
 	attunementFrame.frame:EnableMouse(true)
 	attunementFrame.frame:SetMovable(true)
 	attunementFrame:SetWidth(450)
@@ -97,7 +97,7 @@ local function CreateAttunementFrame()
 
 		local rankIndex, guid = strsplit("\001", selected)
 		if guid then
-			AltManager:DrawPlayerGroup(container, rankIndex, guid)
+			PermoksAccountManager:DrawPlayerGroup(container, rankIndex, guid)
 		end
 	end)
 
@@ -105,17 +105,17 @@ local function CreateAttunementFrame()
 	updateGuildButton:SetPoint("BOTTOMLEFT", rankTree.content, "BOTTOMLEFT", 5, 5)
 	updateGuildButton:SetSize(140, 25)
 	updateGuildButton:SetText("Update Guild")
-	updateGuildButton:SetScript("OnClick", function() AltManager:UpdateGuildRoster() end)
+	updateGuildButton:SetScript("OnClick", function() PermoksAccountManager:UpdateGuildRoster() end)
 
 	local requestGuildButton = CreateFrame("Button", nil, rankTree.content, "UIPanelButtonTemplate")
 	requestGuildButton:SetPoint("BOTTOMRIGHT", rankTree.content, "BOTTOMRIGHT", -5, 5)
 	requestGuildButton:SetSize(140, 25)
 	requestGuildButton:SetText("Update Attunements")
-	requestGuildButton:SetScript("OnClick", function() AltManager:RequestData(prefix, "GUILD") end)
+	requestGuildButton:SetScript("OnClick", function() PermoksAccountManager:RequestData(prefix, "GUILD") end)
 end
 
 
-function AltManager:DrawPlayerGroup(group, rankIndex, guid)
+function PermoksAccountManager:DrawPlayerGroup(group, rankIndex, guid)
 	local playerInfo = self.db.global.guildInfo[self.currentGuild][tonumber(rankIndex)].player[guid]
 	if not playerInfo then return end
 
@@ -132,9 +132,9 @@ function AltManager:DrawPlayerGroup(group, rankIndex, guid)
 
     local index = 0
     for attunement, completion in self.spairs(playerInfo.attunements, function(t, a, b) return defaultCategories.attunements.childOrder[a] < defaultCategories.attunements.childOrder[b] end) do
-    	if self.columns[attunement].label then
+    	if self.labelRows[attunement].label then
 	    	local button = AceGUI:Create("TwoTextButton")
-	    	button:SetLeftText(self.columns[attunement].label)
+	    	button:SetLeftText(self.labelRows[attunement].label)
 	    	button:SetRightText(completion)
 	    	button:SetWidth(groupScrollFrame.frame:GetWidth())
 
@@ -148,18 +148,18 @@ function AltManager:DrawPlayerGroup(group, rankIndex, guid)
 end
 
 
-function AltManager:ShowGuildAttunements()
-	if not AltManager.guildAttunementFrame then
+function PermoksAccountManager:ShowGuildAttunements()
+	if not PermoksAccountManager.guildAttunementFrame then
 		CreateAttunementFrame()
-	elseif not AltManager.guildAttunementFrame.frame:IsShown() then
-		AltManager.guildAttunementFrame.frame:Show()
-		AltManager.guildAttunementFrame.tree:SetTree(GetRankTree())
+	elseif not PermoksAccountManager.guildAttunementFrame.frame:IsShown() then
+		PermoksAccountManager.guildAttunementFrame.frame:Show()
+		PermoksAccountManager.guildAttunementFrame.tree:SetTree(GetRankTree())
 	end
 
 end
 
 
-function AltManager:ProcessAttunementMessage(msg)
+function PermoksAccountManager:ProcessAttunementMessage(msg)
 	if msg == "request" then
 		local guid = self:getGUID()
 		local altData = self.account.data[guid]
@@ -186,7 +186,7 @@ function AltManager:ProcessAttunementMessage(msg)
 end
 
 
-function AltManager:UpdateGuildRoster(firstUpdate)
+function PermoksAccountManager:UpdateGuildRoster(firstUpdate)
 	if not firstUpdate and GetTime() - lastTimeUpdate < 10 then return end
 
 	local guildName = GetGuildInfo("player")
@@ -213,7 +213,7 @@ function AltManager:UpdateGuildRoster(firstUpdate)
 	end
 
 	if #guildInfo == 0 then
-		C_Timer.After(1, function() AltManager:UpdateGuildRoster() end)
+		C_Timer.After(1, function() PermoksAccountManager:UpdateGuildRoster() end)
 		return
 	end
 
@@ -241,15 +241,15 @@ do
 	C_ChatInfo.RegisterAddonMessagePrefix("MAM_ATTUNEMENTS")
 
 	guildFrame:SetScript("OnEvent", function(self, event, ...)
-		if AltManager.addon_loaded then
+		if PermoksAccountManager.addon_loaded then
 			if event == "GUILD_ROSTER_UPDATE" and self.update then
 				self.update = false
-				AltManager:UpdateGuildRoster(true)
-				defaultCategories = AltManager:getDefaultCategories()
+				PermoksAccountManager:UpdateGuildRoster(true)
+				defaultCategories = PermoksAccountManager:getDefaultCategories()
 			elseif event == "CHAT_MSG_ADDON" then
 				local prefix = ...
 				if prefix == "MAM_ATTUNEMENTS" then
-					AltManager:ProcessAttunementMessage(select(2, ...))
+					PermoksAccountManager:ProcessAttunementMessage(select(2, ...))
 				end
 			end
 		end
