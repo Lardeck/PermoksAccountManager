@@ -168,6 +168,14 @@ function AltManager:OnInitialize()
   	AltManager:RegisterChatCommand('alts', 'HandleChatCommand')
   	LibIcon:Register("MartinsAltManager", AltManagerLDB, self.db.profile.minimap)
 
+    -- check for tbc
+	self.isBC = AltManager.IsBCCClient();
+
+    -- add support for m+ event if not tbc
+    if not self.isBC then
+        tinsert(altManagerEvents, "CHALLENGE_MODE_COMPLETED")
+    end
+
 	local main_frame = AltManager:CreateMainFrame()
 	main_frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	main_frame:SetScript("OnEvent", function(self, event, ...)
@@ -206,9 +214,6 @@ end
 
 function AltManager:OnEnable()
 	self.addon_loaded = true
-	if not self.isBC then
-		tinsert(altManagerEvents, "CHALLENGE_MODE_COMPLETED")
-	end
 end
 
 function AltManager:OnDisable()
@@ -412,7 +417,6 @@ function AltManager:OnLogin()
 	local min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel())
 	local min_test_level = 0
 
-	self.isBC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 	self:SaveBattleTag(db)
 	self:CheckForModernize()
 	self.account = db.accounts.main

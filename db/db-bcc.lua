@@ -37,18 +37,16 @@ local default_categories = {
 		order = 4,
 		name = "Lockouts",
 		childs = {"heroicsDone", "separator1", "karazhan", "magtheridon", "gruul", "separator2", "serpentshrine", "tempestkeep",
-		"separator3", "hyjal", "blacktemple", "separator4", "sunwell"},
+		"separator3", "hyjal", "blacktemple", "separator4", "zulaman", "separator5", "sunwell"},
 		childOrder = {heroicsDone = 1, separator1 = 2, karazhan = 3, magtheridon = 4, gruul = 5, separator2 = 6, serpentshrine = 7, tempestkeep = 8,
-		separator3 = 9, hyjal = 10, blacktemple = 11, separator4 = 12, sunwell = 13},
+		separator3 = 9, hyjal = 10, blacktemple = 11, separator4 = 12, zulaman = 13, separator5 = 14, sunwell = 15},
 		enabled = true,
 	},
 	attunements = {
 		order = 5,
 		name = "Attunements",
-		childs = {"shatteredHallsKey", "citadelKey", "reservoirKey", "auchenaiKey", "warpforgedKey", "keyOfTime", "hillsbradAttunement", "blackmorassAttunement", "separator1", "karazhanAttunement", "serpentshrineAttunement",
-		"theEyeAttunement", "hyjalSummitAttunement"},
-		childOrder = {shatteredHallsKey = 1, citadelKey = 2, reservoirKey = 3, auchenaiKey = 4, warpforgedKey = 5, keyOfTime = 6, hillsbradAttunement = 6.1, blackmorassAttunement = 6.2, separator1 = 7, karazhanAttunement = 8, serpentshrineAttunement = 9,
-		theEyeAttunement = 10, hyjalSummitAttunement = 11},
+		childs = {"hillsbradAttunement", "blackmorassAttunement", "shatteredHallsKey", "arcatrazKey", "separator1", "citadelKey", "reservoirKey", "auchenaiKey", "warpforgedKey", "keyOfTime", "separator2", "karazhanAttunement", "serpentshrineAttunement", "theEyeAttunement", "hyjalSummitAttunement" , "blackTempleAttunement"},
+		childOrder = {hillsbradAttunement = 1, blackmorassAttunement = 2, shatteredHallsKey = 3, arcatrazKey = 4, separator1 = 5, citadelKey = 6, reservoirKey = 7, auchenaiKey = 8, warpforgedKey = 9, keyOfTime = 10, separator2 = 11, karazhanAttunement = 12, serpentshrineAttunement = 13, theEyeAttunement = 14, hyjalSummitAttunement = 15, blackTempleAttunement = 16},
 		enabled = true,
 	},
 	consumables = {
@@ -151,97 +149,97 @@ AltManager.columns = {
 		group = "resetDaily",
 	},
 	theAldor = {
-		label = function() return AltManager.factions.faction[932].localName or AltManager.factions.faction[932].name end,
+		label = function() return AltManager.factions[932].localName or AltManager.factions[932].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[932])) or "-" end,
 		group = "reputation",
 	},
 	theScryers = {
-		label = function() return AltManager.factions.faction[934].localName or AltManager.factions.faction[934].name end,
+		label = function() return AltManager.factions[934].localName or AltManager.factions[934].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[934])) or "-" end,
 		group = "reputation",
 	},
 	silvermoonCity = {
-		label = function() return AltManager.factions.faction[911].localName or AltManager.factions.faction[911].name end,
+		label = function() return AltManager.factions[911].localName or AltManager.factions[911].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[911])) or "-" end,
 		group = "reputation",
 	},
 	exodar = {
-		label = function() return AltManager.factions.faction[930].localName or AltManager.factions.faction[930].name end,
+		label = function() return AltManager.factions[930].localName or AltManager.factions[930].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[930])) or "-" end,
 		group = "reputation",
 	},
 	theShatar = {
-		label = function() return AltManager.factions.faction[935].localName or AltManager.factions.faction[935].name end,
+		label = function() return AltManager.factions[935].localName or AltManager.factions[935].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[935])) or "-" end,
 		group = "reputation",
 	},
 	cenarionExpedition = {
-		label = function() return AltManager.factions.faction[942].localName or AltManager.factions.faction[942].name end,
+		label = function() return AltManager.factions[942].localName or AltManager.factions[942].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[942])) or "-" end,
 		group = "reputation",
 	},
 	honorHold = {
-		label = function() return AltManager.factions.faction[946].localName or AltManager.factions.faction[946].name end,
+		label = function() return AltManager.factions[946].localName or AltManager.factions[946].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[946])) or "-" end,
 		group = "reputation",
 	},
 	thrallmar = {
-		label = function() return AltManager.factions.faction[947].localName or AltManager.factions.faction[947].name end,
+		label = function() return AltManager.factions[947].localName or AltManager.factions[947].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[947])) or "-" end,
 		group = "reputation",
 	},
 	keepersOfTime = {
-		label = function() return AltManager.factions.faction[989].localName or AltManager.factions.faction[989].name end,
+		label = function() return AltManager.factions[989].localName or AltManager.factions[989].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[989])) or "-" end,
 		group = "reputation",
 	},
 	lowerCity = {
-		label = function() return AltManager.factions.faction[1011].localName or AltManager.factions.faction[1011].name end,
+		label = function() return AltManager.factions[1011].localName or AltManager.factions[1011].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[1011])) or "-" end,
 		group = "reputation",
 	},
 	theConsortium = {
-		label = function() return AltManager.factions.faction[933].localName or AltManager.factions.faction[933].name end,
+		label = function() return AltManager.factions[933].localName or AltManager.factions[933].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[933])) or "-" end,
 		group = "reputation",
 	},
 	theVioletEye = {
-		label = function() return AltManager.factions.faction[967].localName or AltManager.factions.faction[967].name end,
+		label = function() return AltManager.factions[967].localName or AltManager.factions[967].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[967])) or "-" end,
 		group = "reputation",
 	},
 	sporeggar = {
-		label = function() return AltManager.factions.faction[970].localName or AltManager.factions.faction[970].name end,
+		label = function() return AltManager.factions[970].localName or AltManager.factions[970].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[970])) or "-" end,
 		group = "reputation",
 	},
 	theScaleOfTheSands = {
-		label = function() return AltManager.factions.faction[990].localName or AltManager.factions.faction[990].name end,
+		label = function() return AltManager.factions[990].localName or AltManager.factions[990].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[990])) or "-" end,
 		group = "reputation",
 	},
 	netherwing = {
-		label = function() return AltManager.factions.faction[1015].localName or AltManager.factions.faction[1015].name end,
+		label = function() return AltManager.factions[1015].localName or AltManager.factions[1015].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[1015])) or "-" end,
 		group = "reputation",
 	},
 	ogrila = {
-		label = function() return AltManager.factions.faction[1038].localName or AltManager.factions.faction[1038].name end,
+		label = function() return AltManager.factions[1038].localName or AltManager.factions[1038].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[1038])) or "-" end,
 		group = "reputation",
 	},
 	shatteredSunOffensive = {
-		label = function() return AltManager.factions.faction[1077].localName or AltManager.factions.faction[1077].name end,
+		label = function() return AltManager.factions[1077].localName or AltManager.factions[1077].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[1077])) or "-" end,
 		group = "reputation",
 	},
 	theMaghar = {
-		label = function() return AltManager.factions.faction[941].localName or AltManager.factions.faction[941].name end,
+		label = function() return AltManager.factions[941].localName or AltManager.factions[941].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[941])) or "-" end,
 		group = "reputation",
 	},
 	kurenai = {
-		label = function() return AltManager.factions.faction[978].localName or AltManager.factions.faction[978].name end,
+		label = function() return AltManager.factions[978].localName or AltManager.factions[978].name end,
 		data = function(alt_data) return (alt_data.factions and AltManager:CreateFactionString(alt_data.factions[978])) or "-" end,
 		group = "reputation",
 	},
@@ -263,6 +261,11 @@ AltManager.columns = {
 	hyjalSummitAttunement = {
 		label = "Hyjal Summit",
 		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.attunements.hyjal, 1, true)) or "-" end,
+		group = "attunement",
+	},
+    blackTempleAttunement = {
+		label = "Black Temple",
+		data = function(alt_data) return (alt_data.questInfo and AltManager:CreateQuestString(alt_data.questInfo.attunements.blacktemple, 1, true)) or "-" end,
 		group = "attunement",
 	},
 	hillsbradAttunement = {
@@ -316,6 +319,11 @@ AltManager.columns = {
 		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.gruul, true)) or "-" end,
 		group = "raids",
 	},
+    zulaman = {
+		label = "Zul'Aman",
+		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.zulaman, true)) or "-" end,
+		group = "raids",
+	},
 	sunwell = {
 		label = "Sunwell Plateau",
 		data = function(alt_data) return (alt_data.instanceInfo and AltManager:CreateRaidString(alt_data.instanceInfo.raids.sunwell, true)) or "-" end,
@@ -358,6 +366,11 @@ AltManager.columns = {
 		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.shatteredHallsKey and AltManager:CreateQuestString(alt_data.itemCounts.shatteredHallsKey.total, 1, true)) or "-" end,
 		group = "item",
 	},
+    arcatrazKey = {
+		label = "Arcatraz",
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.arcatrazKey and AltManager:CreateQuestString(alt_data.itemCounts.arcatrazKey.total, 1, true)) or "-" end,
+		group = "item",
+	},
 	citadelKey = {
 		label = "Hellfire Citadel",
 		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.citadelKey and AltManager:CreateQuestString(alt_data.itemCounts.citadelKey.total, 1, true)) or "-" end,
@@ -374,7 +387,7 @@ AltManager.columns = {
 		group = "item",
 	},
 	warpforgedKey = {
-		label = "TP Dungeons",
+		label = "Tempest Keep",
 		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.warpforgedKey and AltManager:CreateQuestString(alt_data.itemCounts.warpforgedKey.total, 1, true)) or "-" end,
 		group = "item",
 	},
@@ -610,6 +623,7 @@ AltManager.raids = {
 	[GetRealZoneText(550)] = {instanceID = 550, englishName = "tempestkeep"},
 	[GetRealZoneText(564)] = {instanceID = 564, englishName = "blacktemple"},
 	[GetRealZoneText(565)] = {instanceID = 565, englishName = "gruul"},
+	[GetRealZoneText(568)] = {instanceID = 580, englishName = "zulaman"},
 	[GetRealZoneText(580)] = {instanceID = 580, englishName = "sunwell"},
 }
 
@@ -636,6 +650,7 @@ AltManager.dungeons = {
 AltManager.items = {
 	[24490] = {key = "mastersKey"}, -- Karazhan Key
 	[28395] = {key = "shatteredHallsKey"}, -- Shattered Halls Key
+	[31084] = {key = "arcatrazKey"}, -- Shattered Halls Key
 	[30622] = {key = "citadelKey"}, -- Hellfire Citadel Key
 	[30623] = {key = "reservoirKey"}, -- Reservoir Key
 	[30633] = {key = "auchenaiKey"}, -- Auchenai Key
@@ -863,6 +878,7 @@ AltManager.quests = {
 	attunements = {
 		[13431] = {key = "serpentshrine"},
 		[10445] = {key = "hyjal"},
+        [10985] = {key = "blacktemple"},
 		[10277] = {key = "hillsbrad"},
 		[10285] = {key = "blackmorass"},
 	}
