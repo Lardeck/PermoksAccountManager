@@ -1,6 +1,8 @@
 local addonName, PermoksAccountManager = ...
 
 PermoksAccountManager = LibStub("AceAddon-3.0"):NewAddon(PermoksAccountManager, "PermoksAccountManager", "AceConsole-3.0", "AceEvent-3.0")
+
+-- Create minimap icon with LibDataBroker.
 local PermoksAccountManagerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("PermoksAccountManager", {
 	type = "data source",
 	text = "Permoks Account Manager",
@@ -112,6 +114,10 @@ local defaultDB = {
 	},
 }
 
+--- Create an iterator for a hash table.
+-- @param t:table The table to create the iterator for.
+-- @param order:function A sort function for the keys.
+-- @return function The iterator usable in a loop.
 local function spairs(t, order)
     local keys = {}
     for k in pairs(t) do keys[#keys+1] = k end
@@ -131,6 +137,7 @@ local function spairs(t, order)
     end
 end
 
+--- This function will be called when the user leaves the button the tooltip belonged to.
 local function Tooltip_OnLeave(self)
 	if self.tooltip then
 		LibQTip:Release(self.tooltip)
@@ -141,6 +148,8 @@ end
 local CreateFontFrame, LoadFonts, UpdateFonts
 do
 	local normalFont, smallFont, bigFont
+
+	--- Initialize the fonts
 	function LoadFonts()
 		local font = LSM:Fetch("font", PermoksAccountManager.db.global.options.font)
 
@@ -157,6 +166,7 @@ do
 		bigFont:SetTextColor(1, 1, 1, 1)
 	end
 
+	--- Update the font path of all previously created fonts.
 	function UpdateFonts()
 		local font = LSM:Fetch("font", PermoksAccountManager.db.global.options.font)
 		normalFont:SetFont(font, 11)
@@ -164,6 +174,13 @@ do
 		bigFont:SetFont(font, 17)
 	end
 
+	--- Create the text for a normal button.
+	-- @param button:Button The button to create the font object for.
+	-- @param column:table The information table for the current column.
+	-- @param alt_data:table A table with information about a character.
+	-- @param text:string Text that can be used instead of generating a new one with alt_data.
+	-- @param buttonOptions:table
+	-- TODO
 	local function createColumnFont(button, column, alt_data, text, buttonOptions)
 		text = text or column.data(alt_data)
 		button:SetNormalFontObject((column.big and bigFont) or (column.small and smallFont) or normalFont)
@@ -184,6 +201,12 @@ do
 		end
 	end
 
+	--- Create the text for a label button.
+	-- @param button:Button The button to create the font object for.
+	-- @param column:table The information table for the current column.
+	-- @param text:string Text for the current row.
+	-- @param buttonOptions:table
+	-- TODO
 	local function createLabelFont(button, column, text, buttonOptions)
 		button:SetNormalFontObject(normalFont)
 		button:SetText(column.hideLabel and " " or text .. ":")
@@ -194,6 +217,14 @@ do
 		fontString:SetJustifyH("RIGHT")
 	end
 
+	--- Create a button with a text.
+	-- @param type:string The type of button to create.
+	-- @param parent:Frame The parent frame for the button.
+	-- @param column:table The column data for the current column.
+	-- @param alt_data:table
+	-- @param text:string Pre-defined text to use for the button.
+	-- @param index:int If the index is given then create a texture.
+	-- @param width:float Possible custom width.
 	function CreateFontFrame(type, parent, column, alt_data, text, index, width)
 		local buttonOptions = PermoksAccountManager.db.global.options.buttons
 		local button = CreateFrame("Button", nil, parent)
@@ -230,6 +261,7 @@ do
 		"CHAT_MSG_GUILD",
 	}
 
+	--- Initialization called on ADDON_LOADED
 	function PermoksAccountManager:OnInitialize()
 		self.spairs = spairs
 		self.isBC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
@@ -255,11 +287,12 @@ do
 		end)
 	end
 
+	--- Not used right now.
 	function PermoksAccountManager:OnEnable()
 		return
 	end
 
-
+	--- Not used right now.
 	function PermoksAccountManager:OnDisable()
 		return
 	end
@@ -274,7 +307,6 @@ end
 function PermoksAccountManager:CreateFrames()
 	local options = self.db.global.options
 
-	-- Main Frame
 	local mainFrame = CreateFrame("Frame", "PermoksAccountManagerFrame", UIParent)
 	self.managerFrame = mainFrame
 	mainFrame:SetFrameStrata(options.other.frameStrata)
