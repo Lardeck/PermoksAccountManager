@@ -272,6 +272,40 @@ local labelRows = {
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hunt) == 1 end,
 		group = "resetWeekly",
 	},
+
+	--- 9.2
+	sandworn_chest = {
+		label = "Sandworn Chest",
+		type = "quest",
+		questType = "daily",
+		visibility = "hidden",
+		key = "sandworn_chest",
+		group = "resetDaily",
+	},
+	zereth_mortis_dailies = {
+		label = "ZM Dailies",
+		type = "quest",
+		questType = "daily",
+		visibility = "visible",
+		key = "zereth_mortis_dailies",
+		group = "resetDaily",
+	},
+	zereth_mortis_weekly = {
+		label = "ZM Weekly",
+		type = "quest",
+		questType = "weekly",
+		visibility = "visible",
+		key = "zereth_mortis_weekly",
+		group = "resetWeekly",
+	},
+	zereth_mortis_wb = {
+		label = "ZM WB",
+		type = "quest",
+		questType  = "weekly",
+		visibility = "hidden",
+		key = "zereth_mortis_wb",
+		group = "resetWeekly",
+	}
 }
 
 local function GetQuestInfo(questLogIndex)

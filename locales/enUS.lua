@@ -175,3 +175,6 @@ L["Covenant"] = true
 L["Renown"] = true
 L["The Enlightened"] = true
 L["Automaton"] = true
+L["9.0"] = true
+L["9.1 Daily"] = true
+L["9.1 (Bi)Weekly"] = true

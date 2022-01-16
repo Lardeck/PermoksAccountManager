@@ -35,15 +35,6 @@ local default_categories = {
 		childOrder = {great_vault_mplus = 1, great_vault_raid = 2, great_vault_pvp = 3},
 		enabled = true,
 	},
-	old =  {
-		order = 5,
-		name = L["Old"],
-		childs = {"callings", "maw_dailies", "sanctum_quests", "separator1", "mythics_done", "dungeon_quests", "pvp_quests", "weekend_event", 
-		"separator2", "maw_souls", "wrath", "hunt"},
-		childOrder = {callings = 1, maw_dailies = 2, sanctum_quests = 3, separator1 = 10, mythics_done = 11, dungeon_quests = 12, pvp_quests = 13, weekend_event = 14,
-		separator2 = 20, maw_souls = 21, wrath = 22, hunt = 23},
-		enabled = true,
-	},
 	reputation = {
 		order = 6,
 		name = L["Reputation"],
@@ -78,7 +69,32 @@ local default_categories = {
 		childs = {"flask", "foodHaste", "augmentRune", "armorKit", "oilHeal", "oilDPS", "potHP", "drum", "potManaInstant", "potManaChannel", "tome", "korthiteCrystal"},
 		childOrder = {flask = 1, foodHaste = 2, augmentRune = 3, armorKit = 4, oilHeal = 5, oilDPS = 6, potHP = 7, drum = 8, potManaInstant = 9, potManaChannel = 10, tome = 11, korthiteCrystal = 12},
 		enabled = false
-	}
+	},
+	daily_nine_one = {
+		order = 7,
+		name = L["9.1 Daily"],
+		childs = {"korthia_dailies", "relic_creatures", "relic_gorger", "riftbound_cache", "helsworn_chest"},
+		childOrder = {korthia_dailies = 1, relic_creatures = 2, relic_gorger = 3, riftbound_cache = 4, helsworn_chest = 5},
+		enabled = false,
+	},
+	weekly_nine_one = {
+		order = 3,
+		name = L["9.1 (Bi)Weekly"],
+		childs = {"korthia_weekly", "anima_weekly", "maw_assault", "assault_vessels", "rift_vessels", "separator1", "battle_plans", "korthia_supplies", "containing_the_helsworn", "tormentors_weekly", "tormentors_locations",	
+		"separator2", "adamant_vault_conduit", "torghast_layer", "world_boss", "contract"},
+		childOrder = {korthia_weekly = 1, anima_weekly = 2, maw_assault = 3, assault_vessels = 4, rift_vessels = 5, separator1 = 10, battle_plans = 11, korthia_supplies = 12, containing_the_helsworn = 13, tormentors_weekly = 14, tormentors_locations = 15, 
+		separator2 = 20, adamant_vault_conduit = 21, torghast_layer = 22, world_boss = 23, contract = 24},
+		enabled = false,
+	},
+	none_zero =  {
+		order = 5,
+		name = L["9.0"],
+		childs = {"callings", "maw_dailies", "sanctum_quests", "separator1", "mythics_done", "dungeon_quests", "pvp_quests", "weekend_event", 
+		"separator2", "maw_souls", "wrath", "hunt"},
+		childOrder = {callings = 1, maw_dailies = 2, sanctum_quests = 3, separator1 = 10, mythics_done = 11, dungeon_quests = 12, pvp_quests = 13, weekend_event = 14,
+		separator2 = 20, maw_souls = 21, wrath = 22, hunt = 23},
+		enabled = false,
+	},
 }
 
 PermoksAccountManager.groups = {

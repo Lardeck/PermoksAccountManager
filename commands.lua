@@ -1,6 +1,10 @@
 local addonName, PermoksAccountManager = ...
 local LibIcon = LibStub("LibDBIcon-1.0")
 
+function PermoksAccountManager:isBlacklisted(guid)
+	return PermoksAccountManager.db.global.blacklist[guid]
+end
+
 local commandInfo = {
 	commands = {
 		"/pam", 
@@ -40,19 +44,97 @@ local function PrintCommandList()
 	end
 end
 
-function PermoksAccountManager:ToggleMinimap()
-	self.db.profile.minimap.hide = not self.db.profile.minimap.hide
-	if (self.db.profile.minimap.hide) then
-		LibIcon:Hide("PermoksAccountManager")
+local function PrintFilter(tbl, listName)
+	local list = {}
+	for _, info in pairs(tbl) do
+		local color = info.class and CreateColor(GetClassColor(info.class))
+		local coloredName = color and ((info.realm and color:WrapTextInColorCode(info.name .."-"..info.realm)) or color:WrapTextInColorCode(info.name)) or info.name
+		tinsert(list, coloredName)
+	end
+
+	PermoksAccountManager:Print(listName .. "\n" .. table.concat(list, ", "))
+end
+
+local function ToggleMinimap()
+	PermoksAccountManager.db.profile.minimap.hide = not PermoksAccountManager.db.profile.minimap.hide
+	if (PermoksAccountManager.db.profile.minimap.hide) then
+		LibIcon:Hide(addonName)
 	else
-		LibIcon:Show("PermoksAccountManager")
+		LibIcon:Show(addonName)
 	end
 end
 
-function PermoksAccountManager:isBlacklisted(guid)
-	return PermoksAccountManager.db.global.blacklist[guid]
+local function FindCharactersByName(name, isFilter, realm)
+	local numCharacters = 0
+	local characters = {}
+	local data = isFilter and PermoksAccountManager.db.global.accounts.main.data or PermoksAccountManager.db.global.blacklist
+	for alt_guid, alt_data in pairs(data) do
+		if alt_data.name == name and (not realm or (realm == alt_data.realm)) then
+			characters.guids[alt_guid] = {name = alt_data.name, realm = alt_data.realm, class = alt_data.class}
+			numCharacters = numCharacters + 1
+		end
+	end
+
+	if numCharacters > 1 and not realm then
+		PermoksAccountManager:Print("Found more than one character, please specify the realm.")
+		PrintFilter(characters, "Characters")
+		return
+	end
+
+	return characters
 end
 
+local function RemoveCharacterFromDB(guid)
+	PermoksAccountManager.db.global.accounts.main.data[guid] = nil
+	PermoksAccountManager.db.global.alts = PermoksAccountManager.db.global.alts - 1
+end
+
+local function RemoveCharacterFromPage(guid)
+	local page = PermoksAccountManager.db.global.accounts.main.data[guid].page
+
+	tDeleteItem(PermoksAccountManager.db.global.accounts.main.pages[page], guid)
+	if page == PermoksAccountManager.db.global.currentPage then
+		PermoksAccountManager:SortPages()
+		PermoksAccountManager:UpdatePageButtons()
+		PermoksAccountManager:UpdateAnchorsAndSize("general")
+	end
+end
+
+local function RemoveCharacter(guid)
+	RemoveCharacterFromDB(guid)
+	RemoveCharacterFromPage(guid)
+end
+
+local function RemoveCharacterByName(name, realm)
+	local characters = FindCharactersByName(name, true, realm)
+	if characters then
+		local guid, _ = next(characters)
+		if guid then
+			RemoveCharacter(guid)
+			return
+		end
+	end
+end
+
+local function HandleFilterAction(guid, isAddToFilter, info)
+	if isAddToFilter then
+		PermoksAccountManager.db.global.blacklist[guid] = info
+		RemoveCharacterFromDB(guid)
+	else
+		PermoksAccountManager.db.global.blacklist[guid] = nil
+	end
+end
+
+local function UpdateCharacterFilter(characterName, realm, isAdd)
+	local characters = FindCharactersByName(characterName, isAdd, realm)
+	if characters then
+		local guid, info = next(characters.guids)
+		if guid then
+			HandleFilterAction(guid, isAdd, info)
+			return
+		end
+	end
+end
 
 local commands = {}
 function commands:PURGE()
@@ -60,18 +142,18 @@ function commands:PURGE()
 end
 
 function commands:REMOVE(characterName, realm)
-	PermoksAccountManager:RemoveCharacterFromDBByName(characterName, realm)
+	RemoveCharacterByName(characterName, realm)
 end
 
 function commands:MINIMAP()
-	PermoksAccountManager:ToggleMinimap()
+	ToggleMinimap()
 end
 
 function commands:FILTER(subCommand, characterName, realm)
 	if subCommand == "p" then
-		PermoksAccountManager:PrintFilter(PermoksAccountManager.db.global.blacklist, "Filter")
+		PrintFilter(PermoksAccountManager.db.global.blacklist, "Filter")
 	else
-		PermoksAccountManager:UpdateCharacterFilter(characterName, realm, (subCommand == "a" or subCommand == "add"))
+		UpdateCharacterFilter(characterName, realm, (subCommand == "a" or subCommand == "add"))
 	end
 end
 
@@ -91,10 +173,6 @@ function commands:ACCEPT(characterName)
 	PermoksAccountManager:AcceptSync(characterName)
 end
 
-function commands:BLOCK(characterName)
-	PermoksAccountManager:BlockAccount(characterName)
-end
-
 function commands:DEBUG()
 	PermoksAccountManager.db.global.options.debug = not PermoksAccountManager.db.global.options.debug
 end
@@ -105,108 +183,14 @@ end
 
 function PermoksAccountManager:HandleChatCommand(chatString)
 	local command, nextposition = PermoksAccountManager:GetArgs(chatString, 1)
+
 	if command then
-		commands[string.upper(command)](PermoksAccountManager:GetArgs(chatString, 3, nextposition))
+		command = string.upper(command)
+		if not commands[command] then return end
+
+		commands[command](PermoksAccountManager:GetArgs(chatString, 3, nextposition))
 	else
-		if PermoksAccountManagerFrame:IsShown() then
-			PermoksAccountManager:HideInterface()
-		else
-			PermoksAccountManager:ShowInterface()
-		end
-	end
-end
-
-function PermoksAccountManager:RemoveCharacterFromDBByName(name, realm)
-	local characters = self:FindCharacterInDBByName(name, true, realm)
-	if characters then
-		if realm then
-			for alt_guid, info in pairs(characters.guids) do
-				if info.realm == realm then
-					self:RemoveCharacterFromDB(alt_guid)
-					return
-				end
-			end
-		else
-			local guid, info = next(characters.guids)
-			if guid then
-				self:RemoveCharacterFromDB(guid)
-				return
-			end
-		end
-	end
-end
-
-function PermoksAccountManager:PrintFilter(tbl, listName)
-	local list = {}
-	for guid, info in pairs(tbl) do
-		local color = info.class and CreateColor(GetClassColor(info.class))
-		local coloredName = color and ((info.realm and color:WrapTextInColorCode(info.name .."-"..info.realm)) or color:WrapTextInColorCode(info.name)) or info.name
-		tinsert(list, coloredName)
-	end
-
-	self:Print(listName)
-	print(table.concat(list, ", "))
-end
-
-function PermoksAccountManager:FindCharacterInDBByName(name, filter, realm)
-	local characters = {num = 0, guids = {}}
-	local data = filter and self.db.global.accounts.main.data or self.db.global.blacklist
-	for alt_guid, alt_data in pairs(data) do
-		if alt_data.name == name then
-			characters.guids[alt_guid] = filter and {name = alt_data.name, realm = alt_data.realm, class = alt_data.class} or alt_data
-			characters.num = characters.num + 1
-		end
-	end
-
-	if characters.num > 1 and not realm then
-		self:Print("Found more than one character with that name. please specify a realm.")
-		self:PrintFilter(characters, "Characters")
-		return
-	end
-
-	return characters
-end
-
-function PermoksAccountManager:RemoveCharacterFromDB(guid)
-	local page = self.db.global.accounts.main.data[guid].page
-
-	self.db.global.accounts.main.data[guid] = nil
-	self.db.global.alts = self.db.global.alts - 1
-
-	tDeleteItem(self.db.global.accounts.main.pages[page], guid)
-	if page == self.db.global.currentPage then
-		self:SortPages()
-		self:UpdatePageButtons()
-		self:UpdateAnchorsAndSize("general")
-	end
-end
-
-function PermoksAccountManager:HandleFilterAction(guid, filter, info)
-	if filter then
-		self.db.global.blacklist[guid] = info
-		self:RemoveCharacterFromDB(guid)
-	else
-		self.db.global.blacklist[guid] = nil
-	end
-end
-
-function PermoksAccountManager:UpdateCharacterFilter(characterName, realm, filter)
-	local characters = self:FindCharacterInDBByName(characterName, filter)
-	if characters then
-		if realm then
-			for alt_guid, info in pairs(characters.guids) do
-				if info.realm == realm then
-					self:HandleFilterAction(alt_guid, filter, info)
-					return
-				end
-			end
-		else
-			local guid, info = next(characters.guids)
-			if guid then
-				self:HandleFilterAction(guid, filter, info)
-				return
-			end
-		end
+		PermoksAccountManagerFrame:SetShown(not PermoksAccountManagerFrame:IsShown())
 	end
 end
 
