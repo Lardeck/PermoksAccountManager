@@ -70,7 +70,7 @@ local function FindCharactersByName(name, isFilter, realm)
 	local data = isFilter and PermoksAccountManager.db.global.accounts.main.data or PermoksAccountManager.db.global.blacklist
 	for alt_guid, alt_data in pairs(data) do
 		if alt_data.name == name and (not realm or (realm == alt_data.realm)) then
-			characters.guids[alt_guid] = {name = alt_data.name, realm = alt_data.realm, class = alt_data.class}
+			characters[alt_guid] = {name = alt_data.name, realm = alt_data.realm, class = alt_data.class}
 			numCharacters = numCharacters + 1
 		end
 	end
@@ -93,16 +93,19 @@ local function RemoveCharacterFromPage(guid)
 	local page = PermoksAccountManager.db.global.accounts.main.data[guid].page
 
 	tDeleteItem(PermoksAccountManager.db.global.accounts.main.pages[page], guid)
-	if page == PermoksAccountManager.db.global.currentPage then
-		PermoksAccountManager:SortPages()
-		PermoksAccountManager:UpdatePageButtons()
-		PermoksAccountManager:UpdateAnchorsAndSize("general")
-	end
+	return page
+end
+
+local function UpdateMainFrame(page)
+	PermoksAccountManager:SortPages()
+	PermoksAccountManager:UpdatePageButtons()
+	PermoksAccountManager:UpdateAnchorsAndSize("general")
 end
 
 local function RemoveCharacter(guid)
+	local page = RemoveCharacterFromPage(guid)
 	RemoveCharacterFromDB(guid)
-	RemoveCharacterFromPage(guid)
+	UpdateMainFrame(page)
 end
 
 local function RemoveCharacterByName(name, realm)
@@ -137,19 +140,19 @@ local function UpdateCharacterFilter(characterName, realm, isAdd)
 end
 
 local commands = {}
-function commands:PURGE()
+function commands.PURGE()
 	PermoksAccountManager:Purge()
 end
 
-function commands:REMOVE(characterName, realm)
+function commands.REMOVE(characterName, realm)
 	RemoveCharacterByName(characterName, realm)
 end
 
-function commands:MINIMAP()
+function commands.MINIMAP()
 	ToggleMinimap()
 end
 
-function commands:FILTER(subCommand, characterName, realm)
+function commands.FILTER(subCommand, characterName, realm)
 	if subCommand == "p" then
 		PrintFilter(PermoksAccountManager.db.global.blacklist, "Filter")
 	else
@@ -157,27 +160,27 @@ function commands:FILTER(subCommand, characterName, realm)
 	end
 end
 
-function commands:HELP()
+function commands.HELP()
 	PrintCommandList()
 end
 
-function commands:VERSION()
+function commands.VERSION()
 	PermoksAccountManager:Print("|cfff49b42Version:|r", PermoksAccountManager.db.global.version)
 end
 
-function commands:KEYS(channel)
+function commands.KEYS(channel)
 	PermoksAccountManager:PostKeysIntoChat(channel)
 end
 
-function commands:ACCEPT(characterName)
+function commands.ACCEPT(characterName)
 	PermoksAccountManager:AcceptSync(characterName)
 end
 
-function commands:DEBUG()
+function commands.DEBUG()
 	PermoksAccountManager.db.global.options.debug = not PermoksAccountManager.db.global.options.debug
 end
 
-function commands:OPTIONS()
+function commands.OPTIONS()
 	PermoksAccountManager:OpenOptions()
 end
 
@@ -187,7 +190,6 @@ function PermoksAccountManager:HandleChatCommand(chatString)
 	if command then
 		command = string.upper(command)
 		if not commands[command] then return end
-
 		commands[command](PermoksAccountManager:GetArgs(chatString, 3, nextposition))
 	else
 		PermoksAccountManagerFrame:SetShown(not PermoksAccountManagerFrame:IsShown())
