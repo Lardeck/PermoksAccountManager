@@ -192,7 +192,11 @@ function PermoksAccountManager:HandleChatCommand(chatString)
 		if not commands[command] then return end
 		commands[command](PermoksAccountManager:GetArgs(chatString, 3, nextposition))
 	else
-		PermoksAccountManagerFrame:SetShown(not PermoksAccountManagerFrame:IsShown())
+		if PermoksAccountManagerFrame:IsShown() then
+			self:HideInterface()
+		else
+			self:ShowInterface()
+		end
 	end
 end
 
