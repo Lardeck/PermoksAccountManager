@@ -424,7 +424,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 	local db = self.db
 	local data = db.global.data
 
-	if oldInternalVersion < 2 then
+	if (oldInternalVersion or 0) < 2 then
 		self:UpdateDefaultCategories("general")
 		oldInternalVersion = 2
 	end

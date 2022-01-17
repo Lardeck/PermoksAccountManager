@@ -391,6 +391,12 @@ PermoksAccountManager.quest = {
 		[64432] = {questType = "daily", log = true},
 	},
 
+	zereth_mortis_dailies = {
+		[64717] = {questType = "daily", log	= true},
+		[64977] = {questType = "daily", log	= true},
+		[65363] = {questType = "daily", log = true},
+	},
+
 	conductor = {
 		[61691] = {covenant = 3, sanctum = 1, minSanctumTier = 1, addToMax = 1, questType = "daily"}, -- Large Lunarlight Pod
 		[61633] = {covenant = 3, sanctum = 1, minSanctumTier = 1, addToMax = 1, questType = "daily"}, -- Dreamsong Fenn
