@@ -2,9 +2,9 @@ local addonName, PermoksAccountManager = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 
 local customCovenantColors = {
-	[1] = CreateColorFromHexString("ff29e2ff"),
+	[1] = CreateColorFromHexString("ffb1e6f5"),
 	[2] = COVENANT_COLORS[2],
-	[3] = COVENANT_COLORS[3],
+	[3] = CreateColorFromHexString("ff4257ff"),
 	[4] = COVENANT_COLORS[4],
 }
 
