@@ -241,7 +241,7 @@ PermoksAccountManager.item = {
 	[33208] = {key = "flaskChromaticWonder"}, -- Flask of Chromatic Wonder
 }
 
-PermoksAccountManager.faction = {
+PermoksAccountManager.factions = {
 	[911] = {name = "Silvermoon City", faction = "Horde"},
 	[930] = {name = "Exodar", faction = "Alliance"},
 	[932] = {name = "The Aldor"},
