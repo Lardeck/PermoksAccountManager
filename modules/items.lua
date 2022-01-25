@@ -154,12 +154,22 @@ local payload = {
 PermoksAccountManager:AddModule(module, payload)
 
 function PermoksAccountManager:CreateItemString(itemCounts, itemIcon, name)
-	local icon = self.db.global.options.itemIcons and itemIcon or ""
-	
+	local options = self.db.global.options
+	local icon = options.itemIcons and itemIcon or ""
+	local iconPosition = options.itemIconPosition
+
 	if itemCounts.bank > 0 then
-		return string.format(self.currentString.itemWithBank, itemCounts.bags, itemCounts.bank, icon)
+		local iconString = self.ICONBANKSTRINGS[iconPosition]
+		if iconPosition == "left" then
+			return string.format(iconString, icon, itemCounts.bags, itemCounts.bank)
+		end
+		return string.format(iconString, itemCounts.bags, itemCounts.bank, icon)
 	else
-		return string.format(self.currentString.item, itemCounts.bags, icon)
+		local iconString = self.ICONSTRINGS[iconPosition]
+		if iconPosition == "left" then
+			return string.format(iconString, icon, itemCounts.bags)
+		end
+		return string.format(iconString, itemCounts.bags, icon)
 	end
 end
 

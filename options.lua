@@ -307,8 +307,6 @@ local function addCategoryOptions(optionsTable, args, category, name, order)
 	}
 end
 
-
-
 local function createOrderOptionsForCategory(categoryOptions, optionsTable, category)
 	if not categoryOptions.hideToggle then
 		options.args.order.args[optionsTable .. "Order"].args[category] = {
@@ -753,7 +751,16 @@ local function loadOptionsTemplate()
 						order = 1,
 						type = "range",
 						name = L["Button Width"],
-						min = 60,
+						set = function(info, value)
+							local key = info[#info]
+							local parentKey = info[#info-1]
+							local options = PermoksAccountManager.db.global.options
+
+							options[parentKey][key] = value
+							options.other.widthPerAlt = max(value, options.other.widthPerAlt)
+							PermoksAccountManager:UpdateAnchorsAndSize("general", true)
+						end,
+						min = 80,
 						max = 250,
 						bigStep = 1,
 					},
@@ -761,7 +768,17 @@ local function loadOptionsTemplate()
 						order = 2,
 						type = "range",
 						name = L["Text Width"],
-						min = 60,
+						set = function(info, value)
+							local key = info[#info]
+							local parentKey = info[#info-1]
+							local options = PermoksAccountManager.db.global.options
+
+							options[parentKey][key] = value
+							options[parentKey].buttonWidth = max(value, options[parentKey].buttonWidth)
+							options.other.widthPerAlt = max(options[parentKey].buttonWidth, options.other.widthPerAlt)
+							PermoksAccountManager:UpdateAnchorsAndSize("general", true)
+						end,
+						min = 80,
 						max = 250,
 					},
 					justifyH = {
@@ -825,7 +842,7 @@ local function loadOptionsTemplate()
 						order = 2,
 						type = "range",
 						name = L["Width per Alt"],
-						min = 60,
+						min = 80,
 						max = 250,
 						bigStep = 1,
 					},
@@ -1103,7 +1120,19 @@ local function loadOptionsTemplate()
 							PermoksAccountManager:UpdateAllFonts()
 						end,
 						dialogControl = "LSM30_Font",
-					}
+					},
+					itemIconPosition = {
+						order = 8,
+						type = "select",
+						name = "Item Icon Position",
+						values = {left = "Left", right = "Right"},
+					},
+					currencyIconPosition = {
+						order = 9,
+						type = "select",
+						name = "Currency Icon Position",
+						values = {left = "Left", right = "Right"},
+					},
 				}
 			}
 		}

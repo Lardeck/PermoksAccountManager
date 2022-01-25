@@ -11,6 +11,7 @@ local labelRows = {
 		key = 1,
 		tooltip = true,
 		group = "pvp",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	arenaRating3v3 = {
 		label = L["3v3 Rating"],
@@ -18,6 +19,7 @@ local labelRows = {
 		key = 2,
 		tooltip = true,
 		group = "pvp",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	rbgRating = {
 		label = L["RBG Rating"],
@@ -25,6 +27,7 @@ local labelRows = {
 		key = 3,
 		tooltip = true,
 		group = "pvp",
+		version = WOW_PROJECT_MAINLINE,
 	},
 }
 

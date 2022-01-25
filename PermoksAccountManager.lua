@@ -88,6 +88,8 @@ local defaultDB = {
 			showCurrentSpecIcon = true,
 			questCompletionString = "+",
 			useScoreOutline = true,
+			itemIconPosition = "right",
+			currencyIconPosition = "right",
 			customCategories = {
 				general = {
 					childOrder = {characterName = 1, ilevel = 2}, 
@@ -978,6 +980,10 @@ local InternalTooltipFunctions = {
 	pvp = PermoksAccountManager.PVPTooltip_OnEnter,
 }
 
+function PermoksAccountManager:GetLabelFunction(labelRow)
+	return InternalLabelFunctions[labelRow.type] or (type(labelRow.data) == "function" and labelRow.data)
+end
+
 function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, category)
 	local db = self.db.global
 	local buttonOptions = db.options.buttons
@@ -992,7 +998,8 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
 	for index, row_identifier in pairs(childs) do
 		local labelRow = self.labelRows[row_identifier]
 		if labelRow and enabledChilds[row_identifier] then
-			local text = (labelRow.type and InternalLabelFunctions[labelRow.type](altData, labelRow)) or (labelRow.data and labelRow.data(altData)) or "-"
+			local labelFunction = self:GetLabelFunction(labelRow)
+			local text = labelFunction and labelFunction(altData, labelRow)
 			local row = rows[row_identifier] or CreateFontFrame("row", anchorFrame, labelRow, altData, text, enabledRows)
 			if not rows[row_identifier] then
 				rows[row_identifier] = row
@@ -1007,7 +1014,7 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
 					end
 
 					row:SetScript("OnEnter", function(self)
-						tooltipFunction(self, altData, labelRow, font)
+						tooltipFunction(self, altData, labelRow)
 					end)
 					row:SetScript("OnLeave", Tooltip_OnLeave)
 				end

@@ -49,6 +49,7 @@ local labelRows = {
 		end,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.visible.korthia_dailies) >= 3 end,	
 		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	riftbound_cache = {
 		label = L["Riftbound Caches"],
@@ -59,6 +60,7 @@ local labelRows = {
 		required = 4,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.riftbound_cache)>=4 end,
 		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	relic_creatures = {
 		label = L["Relic Creatures"],
@@ -69,7 +71,8 @@ local labelRows = {
 		required = 15,
 		plus = true,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.relic_creatures) >= 15 end,
-		group = "resetDaily"
+		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	relic_gorger = {
 		label = L["Relic Gorger"],
@@ -81,6 +84,7 @@ local labelRows = {
 		plus = true,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.relic_gorger) >= 4 end,
 		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	helsworn_chest = {
 		label = L["Helsworn Chest"],
@@ -90,7 +94,8 @@ local labelRows = {
 		key = "helsworn_chest",
 		plus = true,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.helsworn_chest) >= 1 end,
-		group = "resetDaily"
+		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	assault_vessels = {
 		label = L["Assault Vessels"],
@@ -101,7 +106,8 @@ local labelRows = {
 		required = 4,
 		tooltip = function(button, alt_data, column) PermoksAccountManager:QuestTooltip_OnEnter(button, alt_data, column) end,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.assault_vessels) >= 2 end,
-		group = "resetWeekly"
+		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	rift_vessels = {
 		label = L["Rift Vessels"],
@@ -111,7 +117,8 @@ local labelRows = {
 		key = "rift_vessels",
 		required = 3,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.rift_vessels) >= 3 end,
-		group = "resetWeekly"
+		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	adamant_vault_conduit = {
 		label = L["AV Conduit"],
@@ -121,6 +128,7 @@ local labelRows = {
 		key = "adamant_vault_conduit",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.adamant_vault_conduit) == 1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	maw_dailies = {
 		label = L["Maw Dailies"],
@@ -131,6 +139,7 @@ local labelRows = {
 		required = 2,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) >= 2 end,
 		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	dungeon_quests = {
 		label = L["Dungeon Quests"],
@@ -141,6 +150,7 @@ local labelRows = {
 		required = 2,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekl and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 2 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	pvp_quests = {
 		label = L["PVP Quests"],
@@ -151,6 +161,7 @@ local labelRows = {
 		required = 2,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 2 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	weekend_event = {
 		label = L["Weekend Event"],
@@ -160,17 +171,27 @@ local labelRows = {
 		key = "weekend_event",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.weekend_event) == 1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	world_boss = {
-		label = L["World Bosses"],
+		label = L["World Boss"],
 		type = "quest",
 		questType = "weekly",
 		visibility = "hidden",
 		key = "world_boss",
-		required = 2,
 		isCompleteTest = true,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.world_boss) == 2 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	korthia_world_boss = {
+		label = L["World Boss"],
+		type = "quest",
+		questType = "weekly",
+		visibility = "hidden",
+		key = "korthia_world_boss",
+		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	anima_weekly = {
 		label = L["1k Anima"],
@@ -180,6 +201,7 @@ local labelRows = {
 		key = "anima_weekly",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.anima_weekly) == 1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	maw_souls = {
 		label = L["Return Souls"],
@@ -189,6 +211,7 @@ local labelRows = {
 		key = "maw_souls",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.maw_souls) == 1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	korthia_weekly = {
 		label = L["Korthia Weekly"],
@@ -198,6 +221,7 @@ local labelRows = {
 		key = "korthia_weekly",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.korthia_weekly)==1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	tormentors_weekly = {
 		label = L["Tormentors"],
@@ -207,6 +231,7 @@ local labelRows = {
 		key = "tormentors_weekly",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.tormentors_weekly)>=1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	tormentors_locations = {
 		label = L["Tormentors Rep"],
@@ -216,7 +241,8 @@ local labelRows = {
 		key = "tormentors_locations",
 		required = 6,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.tormentors_locations)>=1 end,
-		group = "resetWeekly"
+		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	maw_assault = {
 		label = L["Maw Assault"],
@@ -227,6 +253,7 @@ local labelRows = {
 		required = 2,
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.assault) >= 2 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	battle_plans = {
 		label = L["Maw Battle Plans"],
@@ -236,6 +263,7 @@ local labelRows = {
 		key = "battle_plans",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.battle_plans) == 1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	korthia_supplies = {
 		label = L["Korthia Supplies"],
@@ -245,6 +273,7 @@ local labelRows = {
 		key = "korthia_supplies",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.korthia_supplies) == 1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	containing_the_helsworn = {
 		label = L["Maw WQ"],
@@ -253,6 +282,7 @@ local labelRows = {
 		visibility = "hidden",
 		key = "containing_the_helsworn",
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	wrath = {
 		label = L["Wrath of the Jailer"],
@@ -261,7 +291,8 @@ local labelRows = {
 		visibility = "hidden",
 		key = "wrath",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.wrath) == 1 end,
-		group = "resetWeekly"
+		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	hunt = {
 		label = L["The Hunt"],
@@ -271,6 +302,7 @@ local labelRows = {
 		key = "hunt",
 		isComplete = function(alt_data) return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hunt) == 1 end,
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
 
 	--- 9.2
@@ -281,31 +313,46 @@ local labelRows = {
 		visibility = "hidden",
 		key = "sandworn_chest",
 		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	zereth_mortis_dailies = {
-		label = "ZM Dailies",
+		label = "Dailies",
 		type = "quest",
 		questType = "daily",
 		visibility = "visible",
 		key = "zereth_mortis_dailies",
 		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	zereth_mortis_weekly = {
-		label = "ZM Weekly",
+		label = "Weekly",
 		type = "quest",
 		questType = "weekly",
 		visibility = "visible",
 		key = "zereth_mortis_weekly",
 		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
 	},
-	zereth_mortis_wb = {
-		label = "ZM WB",
+	zereth_mortis_wqs = {
+		label = "ZM World Quests",
+		type = "quest",
+		questType = "weekly",
+		key = "zereth_mortis_wqs",
+		required = 3,
+		unlock = true,
+		unlockKey = "zereth_mortis_three_dailies",
+		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	zereth_mortis_world_boss = {
+		label = "World Boss",
 		type = "quest",
 		questType  = "weekly",
 		visibility = "hidden",
-		key = "zereth_mortis_wb",
+		key = "zereth_mortis_world_boss",
 		group = "resetWeekly",
-	}
+		version = WOW_PROJECT_MAINLINE,
+	},
 }
 
 local function GetQuestInfo(questLogIndex)
@@ -323,7 +370,7 @@ local function UpdateAllRetailQuests(charInfo)
 
 	local covenant = charInfo.covenant or C_Covenants.GetActiveCovenantID()
 	local questInfo = charInfo.questInfo
-	for key, quests in pairs(self.quest) do
+	for key, quests in pairs(self.quests) do
 		for questID, info in pairs(quests) do
 			local visibleType = info.log and "visible" or "hidden"
 
@@ -396,7 +443,7 @@ local function UpdateAllHiddenQuests(charInfo)
 	for questType, keys in pairs(charInfo.questInfo) do
 		if type(keys) == "table" and keys.hidden then
 			for key, quests in pairs(keys.hidden) do
-				for questID, _ in pairs(self.quest[key]) do
+				for questID, _ in pairs(self.quests[key]) do
 					local isComplete = charInfo.questInfo[questType].hidden[key][questID] or C_QuestLog.IsQuestFlaggedCompleted(questID)
 					charInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
 				end

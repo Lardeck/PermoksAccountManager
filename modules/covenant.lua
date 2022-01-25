@@ -8,46 +8,54 @@ local customCovenantColors = {
 	[4] = COVENANT_COLORS[4],
 }
 
-local module = "covenant"
+
 local labelRows = {
 	covenant = {
 		label = L["Covenant"],
+		type = "covenant",
 		data = function(alt_data) return PermoksAccountManager:CreateCovenantString(alt_data) end,
+		version = WOW_PROJECT_MAINLINE,
 	},
 	renown = {
 		label = L["Renown"],
 		data = function(alt_data) return PermoksAccountManager:CreateRenownString(alt_data) end,
+		version = WOW_PROJECT_MAINLINE,
 	},
 	callings = {
 		label = L["Callings"],
 		customTooltip = function(button, alt_data) PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data) end,
 		tooltip = true,
 		data = function(alt_data) return PermoksAccountManager:CreateCallingString(alt_data.callingInfo) end,
-		group = "resetDaily"
+		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	transport_network = {
 		label = L["Transport Network"],
 		type = "sanctum",
 		key = 2,
 		group = "sanctum",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	anima_conductor = {
 		label = L["Anima Conductor"],
 		type = "sanctum",
 		key = 1,
 		group = "sanctum",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	command_table = {
 		label = L["Command Table"],
 		type = "sanctum",
 		key = 3,
 		group = "sanctum",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	sanctum_unique = {
 		label = L["Unique"],
 		type = "sanctum",
 		key = 5,
 		group = "sanctum",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	sanctum_quests = {
 		label = L["Covenant Specific"],
@@ -61,6 +69,7 @@ local labelRows = {
 			end
 		end,
 		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 }
 
@@ -144,6 +153,31 @@ local function Update(charInfo)
 	UpdateRenown(charInfo)
 end
 
+
+local function CreateCallingString(callingInfo)
+	if not callingInfo then return "-" end
+
+	local leastTimeLeft
+	for questID, timeLeft in pairs(callingInfo) do
+		if type(questID) == "number" then
+			if timeLeft > time() and (not leastTimeLeft or timeLeft < leastTimeLeft) then
+				leastTimeLeft = timeLeft
+			end
+		end
+	end
+
+	if leastTimeLeft then
+		local days, hours, minutes = self:TimeToDaysHoursMinutes(leastTimeLeft)
+		return string.format("%s - %s", self:CreateQuestString(3 - callingInfo.numCallings, 3), self:CreateTimeString(days, hours, minutes))
+	else
+		return string.format("%s", self:CreateQuestString(3 - callingInfo.numCallings, 3))
+	end
+end
+
+local function CreateCovenantString(charInfo)
+end
+
+local moduleName = "covenant"
 local payload = {
 	update = Update,
 	events = {
@@ -158,9 +192,22 @@ local payload = {
 		[UpdateCovenant] = "covenantInfo",
 		[UpdateRenown] = "covenantInfo",
 	},
+	functionInfo = {
+		[UpdateCallings] = {
+			share = true,
+			infoKey = "callingInfo",
+		},
+		[UpdateSanctumBuildings] = {
+			share = true,
+			infoKey = "sanctumInfo",
+		},
+	},
 	labels = labelRows
 }
-PermoksAccountManager:AddModule(module, payload)
+local module = PermoksAccountManager:AddModule(moduleName, payload)
+module:AddCustomLabelType("calling", CreateCallingString, "callingInfo")
+module:AddCustomLabelType("covenant", CreateCovenantString, "covenant")
+module:AddCustomLabelType("renown", CreateRenownString, "renwon")
 
 function PermoksAccountManager:CreateCallingString(callingInfo)
 	if not callingInfo then return "-" end
@@ -193,19 +240,16 @@ function PermoksAccountManager:CreateRenownString(altData)
 	if not altData or not altData.renown then return end
 	
 	local renown
-	local renownString = ""
+	local renownTbl = {}
 	if type(altData.renown) == "table" then
 		for covenant=4, 1, -1 do
 			renown = altData.renown[covenant]
-			if renown then
-				renownString = string.format("%s %s", customCovenantColors[covenant]:WrapTextInColorCode(renown), renownString)
-			end
+			renownTbl[covenant] = customCovenantColors[covenant]:WrapTextInColorCode(renown or "X")
 		end
+		return table.concat(renownTbl, " ")
 	elseif customCovenantColors[altData.covenant] then
-		renownString = string.format("%s", customCovenantColors[altData.covenant]:WrapTextInColorCode(altData.renown))
+		return string.format("%s", customCovenantColors[altData.covenant]:WrapTextInColorCode(altData.renown))
 	end
-
-	return renownString
 end
 
 

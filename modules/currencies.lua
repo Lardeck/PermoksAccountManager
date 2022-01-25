@@ -138,14 +138,15 @@ local payload = {
 }
 PermoksAccountManager:AddModule(module, payload)
 
-
+-- TODO Create a CreateIconString function instead of two functions for items and currencies
 function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum)
 	if not currencyInfo then return end
 
-	local iconString
+	local iconString = ""
+	local options = self.db.global.options
 	local globalCurrencyInfo = self.db.global.currencyInfo[currencyInfo.currencyType]
 	local currencyIcon = globalCurrencyInfo.icon
-	if currencyIcon and self.db.global.options.currencyIcons then
+	if currencyIcon and options.currencyIcons then
 		iconString = string.format("\124T%d:18:18\124t", currencyIcon)
 	end
 
@@ -156,7 +157,11 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
 		currencyString = abbreviateCurrent and AbbreviateNumbers(currencyInfo.quantity) or AbbreviateLargeNumbers(currencyInfo.quantity)
 	end
 
-	return string.format("%s %s", currencyString, iconString or "")
+	local iconPosition = options.currencyIconPosition
+	if iconPosition == "left" then
+		return string.format("%s %s", iconString, currencyString)
+	end
+	return string.format("%s %s", currencyString, iconString)
 end
 
 function PermoksAccountManager.CurrencyTooltip_OnEnter(button, altData, labelRow)

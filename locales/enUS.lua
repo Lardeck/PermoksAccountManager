@@ -178,3 +178,4 @@ L["Automaton"] = true
 L["9.0"] = true
 L["9.1 Daily"] = true
 L["9.1 (Bi)Weekly"] = true
+L["World Boss"] = true

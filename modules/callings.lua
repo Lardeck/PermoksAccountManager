@@ -1,7 +1,6 @@
 local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
-local default = {numCallings = 0}
 
 local module = "callings"
 local labelRows = {
@@ -9,32 +8,38 @@ local labelRows = {
 		label = L["Callings"],
 		customTooltip = function(button, alt_data) PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data) end,
 		tooltip = true,
+		type = "calling",
 		data = function(alt_data) return PermoksAccountManager:CreateCallingString(alt_data.callingInfo) end,
-		group = "resetDaily"
+		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	transport_network = {
 		label = L["Transport Network"],
 		type = "sanctum",
 		key = 2,
 		group = "sanctum",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	anima_conductor = {
 		label = L["Anima Conductor"],
 		type = "sanctum",
 		key = 1,
 		group = "sanctum",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	command_table = {
 		label = L["Command Table"],
 		type = "sanctum",
 		key = 3,
 		group = "sanctum",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	sanctum_unique = {
 		label = L["Unique"],
 		type = "sanctum",
 		key = 5,
 		group = "sanctum",
+		version = WOW_PROJECT_MAINLINE,
 	},
 	sanctum_quests = {
 		label = L["Covenant Specific"],
@@ -48,6 +53,7 @@ local labelRows = {
 			end
 		end,
 		group = "resetDaily",
+		version = WOW_PROJECT_MAINLINE,
 	},
 }
 

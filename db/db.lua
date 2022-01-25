@@ -251,7 +251,7 @@ PermoksAccountManager.item = {
 	[186017] = {key = "korthiteCrystal"}, -- Korthite Crystal
 }
 
-PermoksAccountManager.faction = {
+PermoksAccountManager.factions = {
 	[2432] = {name = "Ve'nari", paragon = true, type = "friend"},
 	[2472] = {name = "The Archivists' Codex", paragon = true, type = "friend"},
 	[2407] = {name = "The Ascended", paragon = true},
@@ -278,7 +278,7 @@ PermoksAccountManager.currency = {
 	[1822] = 1,
 }
 
-PermoksAccountManager.quest = {
+PermoksAccountManager.quests = {
 	maw_dailies = {
 		[60732] = {questType = "daily", log = true},
 		[61334] = {questType = "daily", log = true},
@@ -393,8 +393,17 @@ PermoksAccountManager.quest = {
 
 	zereth_mortis_dailies = {
 		[64717] = {questType = "daily", log	= true},
+		[64785] = {questType = "daily", log = true},
 		[64977] = {questType = "daily", log	= true},
+		[65265] = {questType = "daily", log = true},
+		[65325] = {questType = "daily", log = true},
 		[65363] = {questType = "daily", log = true},
+	},
+
+	zereth_mortis_wqs = {
+		[64974] = {questType = "daily"},
+		[65081] = {questType = "daily"},
+		[65406] = {questType = "daily"},
 	},
 
 	conductor = {
@@ -546,6 +555,15 @@ PermoksAccountManager.quest = {
 	 	[64531] = {questType = "weekly"}, -- Mor'geth, Tormentor of the Damned
 	},
 
+	korthia_world_boss = {
+		[64531] = {questType = "weekly"}, -- Mor'geth, Tormentor of the Damned
+	},
+
+	zereth_mortis_world_boss = {
+		[65143] = {questType = "weekly"}, -- Antros
+
+	},
+
 	tormentors_weekly = {
  		[63854] = {questType = "weekly"}, -- Tormentors of Torghast
  		[64122] = {questType = "weekly"}, -- Tormentors of Torghast
@@ -611,6 +629,10 @@ PermoksAccountManager.quest = {
 
 	korthia_five_dailies = {
 		[63727] = {questType = "unlocks", log = true},
+	},
+
+	zereth_mortis_three_dailies = {
+
 	},
 }
 
@@ -712,6 +734,9 @@ PermoksAccountManager.vault_rewards = {
 PermoksAccountManager.ICONSTRINGS = {
 	left = "\124T%d:18:18\124t %s",
 	right = "%s \124T%d:18:18\124t",
-	leftBank = "\124T%d:18:18\124t %s (%s)",
-	rightBank = "%s (%s) \124T%d:18:18\124t",
+}
+
+PermoksAccountManager.ICONBANKSTRINGS = {
+	left = "\124T%d:18:18\124t %s (%s)",
+	right = "%s (%s) \124T%d:18:18\124t",
 }

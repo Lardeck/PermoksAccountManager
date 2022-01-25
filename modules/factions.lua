@@ -22,49 +22,49 @@ local labelRows = {
 		group = "reputation",
 	},
 	deaths_advance = {
-		label = function() return PermoksAccountManager.faction[2470].localName or L["Death's Advance"] end,
+		label = function() return PermoksAccountManager.factions[2470].localName or L["Death's Advance"] end,
 		type = "faction",
 		id = 2470,
 		group = "reputation",
 	},
 	venari = {
-		label = function() return PermoksAccountManager.faction[2432].localName or L["Ve'nari"] end,
+		label = function() return PermoksAccountManager.factions[2432].localName or L["Ve'nari"] end,
 		type = "faction",
 		id = 2432,
 		group = "reputation",
 	},
 	ascended = {
-		label = function() return PermoksAccountManager.faction[2407].localName or L["Ascended"] end,
+		label = function() return PermoksAccountManager.factions[2407].localName or L["Ascended"] end,
 		type = "faction",
 		id = 2407,
 		group = "reputation",
 	},
 	wild_hunt = {
-		label = function() return PermoksAccountManager.faction[2465].localName or L["Wild Hunt"] end,
+		label = function() return PermoksAccountManager.factions[2465].localName or L["Wild Hunt"] end,
 		type = "faction",
 		id = 2465,
 		group = "reputation",
 	},
 	undying_army = {
-		label = function() return PermoksAccountManager.faction[2410].localName or L["Undying Army"] end,
+		label = function() return PermoksAccountManager.factions[2410].localName or L["Undying Army"] end,
 		type = "faction",
 		id = 2410,
 		group = "reputation",
 	},
 	court_of_harvesters = {
-		label = function() return PermoksAccountManager.faction[2413].localName or L["Court of Harvesters"] end,
+		label = function() return PermoksAccountManager.factions[2413].localName or L["Court of Harvesters"] end,
 		type = "faction",
 		id = 2413,
 		group = "reputation",
 	},
 	the_enlightened = {
-		label = function() return PermoksAccountManager.faction[2478].localName or L["The Enlightened"] end,
+		label = function() return PermoksAccountManager.factions[2478].localName or L["The Enlightened"] end,
 		type = "faction",
 		id = 2478,
 		group = "reputation",
 	},
 	automaton = {
-		label = function() return PermoksAccountManager.faction[2480].localName or L["Automaton"] end,
+		label = function() return PermoksAccountManager.factions[2480].localName or L["Automaton"] end,
 		type = "faction",
 		id = 2480,
 		group = "reputation",
@@ -93,7 +93,7 @@ local function UpdateFactions(charInfo)
 	charInfo.factions = charInfo.factions or {}
 	local factions = charInfo.factions
 
-	for factionId, info in pairs(self.faction) do
+	for factionId, info in pairs(self.factions) do
 		local current, maximum, standing, name, hasReward = GetFactionOrFriendshipInfo(factionId, info.type)
 
 		factions[factionId] = factions[factionId] or {}
