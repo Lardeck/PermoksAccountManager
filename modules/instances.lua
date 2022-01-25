@@ -29,6 +29,128 @@ local labelRows = {
 		isComplete = function(alt_data) return alt_data.instanceInfo and alt_data.instanceInfo.raids.sanctum_of_domination and alt_data.instanceInfo.raids.sanctum_of_domination.defeatedEncounters == 10 end,
 		group = "raids",
 	},
+  -- tbc
+  karazhanAttunement = {
+		label = "Karazhan",
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.mastersKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.mastersKey.total, 1, true)) or "-" end,
+		group = "attunement",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	serpentshrineAttunement = {
+		label = "Serpentshrine",
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.serpentshrine, 1, true)) or "-" end,
+		group = "attunement",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	theEyeAttunement = {
+		label = "Tempest Keep",
+		data = function(alt_data) return (alt_data.itemCounts and alt_data.itemCounts.tempestKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.tempestKey.total, 1, true)) or "-" end,
+		group = "attunement",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	hyjalSummitAttunement = {
+		label = "Hyjal Summit",
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.hyjal, 1, true)) or "-" end,
+		group = "attunement",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+  blackTempleAttunement = {
+		label = "Black Temple",
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.blacktemple, 1, true)) or "-" end,
+		group = "attunement",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	hillsbradAttunement = {
+		label = "Hillsbrad",
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.hillsbrad, 1, true)) or "-" end,
+		group = "attunement",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	blackmorassAttunement = {
+		label = "Black Morass",
+		data = function(alt_data) return (alt_data.questInfo and PermoksAccountManager:CreateQuestString(alt_data.questInfo.attunements.blackmorass, 1, true)) or "-" end,
+		group = "attunement",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	heroicsDone = {
+		label = "Heroic Dungeons",
+		tooltip = function(button, alt_data) PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data) end,
+		data = function(alt_data) return alt_data.instanceInfo and PermoksAccountManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or "-" end,
+		group = "dungeons",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	karazhan = {
+    key = "karazhan",
+		label = "Karazhan",
+		type = "raid",
+		id = 532,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	hyjal = {
+    key = "hyjal",
+		label = "Hyjal Summit",
+		type = "raid",
+		id = 534,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	magtheridon = {
+    key = "magtheridon",
+		label = "Magtheridon",
+		type = "raid",
+		id = 544,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	serpentshrine = {
+    key = "serpentshrine",
+		label = "Serpentshrine",
+		type = "raid",
+		id = 548,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	tempestkeep = {
+    key = "tempestkeep",
+		label = "Tempest Keep",
+		type = "raid",
+		id = 550,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	blacktemple = {
+    key = "blacktemple",
+		label = "Black Temple",
+		type = "raid",
+		id = 564,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	gruul = {
+    key = "gruul",
+		label = "Gruul",
+		type = "raid",
+		id = 565,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+  zulaman = {
+    key = "zulaman",
+		label = "Zul'Aman",
+		type = "raid",
+		id = 568,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	sunwell = {
+    key = "sunwell",
+		label = "Sunwell Plateau",
+		type = "raid",
+		id = 580,
+		group = "raids",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
 }
 
 local function UpdateInstanceInfo(charInfo)
@@ -108,8 +230,10 @@ function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
 	end
 
 	local raidInfo = savedInfo[highestDifficulty]
+  local raidDifficulty = self.isBC and "" or raidInfo.difficulty:sub(1,1)
+
 	if raidInfo then
-		raidString = string.format("%s%s", self:CreateQuestString(raidInfo.defeatedEncounters, raidInfo.numEncounters), hideDifficulty and "" or raidInfo.difficulty:sub(1,1))
+		raidString = string.format("%s%s", self:CreateQuestString(raidInfo.defeatedEncounters, raidInfo.numEncounters), hideDifficulty and "" or raidDifficulty)
 		return raidString
 	end
 end

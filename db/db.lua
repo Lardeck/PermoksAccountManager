@@ -218,7 +218,6 @@ PermoksAccountManager.keys = {
 	[392] = "T:SG", -- Tazavesh: So'lesh Gambit
 }
 
-
 PermoksAccountManager.raids = {
 	[2296] = {name = GetRealZoneText(2296), englishName = "nathria"},
 	[2450] = {name = GetRealZoneText(2450), englishName = "sanctum_of_domination"},

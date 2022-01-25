@@ -1,7 +1,7 @@
 local addonName, PermoksAccountManager = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
-local FACTION_BAR_COLORS_CUSTOM, FACTION_STANDING_LABEL_CUSTOM = {}, {}
 
+local FACTION_BAR_COLORS_CUSTOM, FACTION_STANDING_LABEL_CUSTOM = {}, {}
 do
 	for standingID, color in pairs(FACTION_BAR_COLORS) do
 		FACTION_BAR_COLORS_CUSTOM[standingID] = {r = color.r*256, g = color.g*256, b = color.b*256}
@@ -22,53 +22,187 @@ local labelRows = {
 		group = "reputation",
 	},
 	deaths_advance = {
-		label = function() return PermoksAccountManager.faction[2470].localName or L["Death's Advance"] end,
+		label = function() return PermoksAccountManager.factions[2470].localName or L["Death's Advance"] end,
 		type = "faction",
 		id = 2470,
 		group = "reputation",
 	},
 	venari = {
-		label = function() return PermoksAccountManager.faction[2432].localName or L["Ve'nari"] end,
+		label = function() return PermoksAccountManager.factions[2432].localName or L["Ve'nari"] end,
 		type = "faction",
 		id = 2432,
 		group = "reputation",
 	},
 	ascended = {
-		label = function() return PermoksAccountManager.faction[2407].localName or L["Ascended"] end,
+		label = function() return PermoksAccountManager.factions[2407].localName or L["Ascended"] end,
 		type = "faction",
 		id = 2407,
 		group = "reputation",
 	},
 	wild_hunt = {
-		label = function() return PermoksAccountManager.faction[2465].localName or L["Wild Hunt"] end,
+		label = function() return PermoksAccountManager.factions[2465].localName or L["Wild Hunt"] end,
 		type = "faction",
 		id = 2465,
 		group = "reputation",
 	},
 	undying_army = {
-		label = function() return PermoksAccountManager.faction[2410].localName or L["Undying Army"] end,
+		label = function() return PermoksAccountManager.factions[2410].localName or L["Undying Army"] end,
 		type = "faction",
 		id = 2410,
 		group = "reputation",
 	},
 	court_of_harvesters = {
-		label = function() return PermoksAccountManager.faction[2413].localName or L["Court of Harvesters"] end,
+		label = function() return PermoksAccountManager.factions[2413].localName or L["Court of Harvesters"] end,
 		type = "faction",
 		id = 2413,
 		group = "reputation",
 	},
 	the_enlightened = {
-		label = function() return PermoksAccountManager.faction[2478].localName or L["The Enlightened"] end,
+		label = function() return PermoksAccountManager.factions[2478].localName or L["The Enlightened"] end,
 		type = "faction",
 		id = 2478,
 		group = "reputation",
 	},
 	automaton = {
-		label = function() return PermoksAccountManager.faction[2480].localName or L["Automaton"] end,
+		label = function() return PermoksAccountManager.factions[2480].localName or L["Automaton"] end,
 		type = "faction",
 		id = 2480,
 		group = "reputation",
-	}
+	},
+  	-- tbc
+ 	 theAldor = {
+		label = function() local factionInfo = PermoksAccountManager.factions[932] return factionInfo.localName or factionInfo.name end,
+		id = 932,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theScryers = {
+		label = function() local factionInfo = PermoksAccountManager.factions[934] return factionInfo.localName or factionInfo.name end,
+		id = 934,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	silvermoonCity = {
+		label = function() local factionInfo = PermoksAccountManager.factions[911] return factionInfo.localName or factionInfo.name end,
+		id = 911,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	exodar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[930] return factionInfo.localName or factionInfo.name end,
+		id = 930,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theShatar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[935] return factionInfo.localName or factionInfo.name end,
+		id = 935,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	cenarionExpedition = {
+		label = function() local factionInfo = PermoksAccountManager.factions[942] return factionInfo.localName or factionInfo.name end,
+		id = 942,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	honorHold = {
+		label = function() local factionInfo = PermoksAccountManager.factions[946] return factionInfo.localName or factionInfo.name end,
+		id = 946,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	thrallmar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[947] return factionInfo.localName or factionInfo.name end,
+		id = 947,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	keepersOfTime = {
+		label = function() local factionInfo = PermoksAccountManager.factions[989] return factionInfo.localName or factionInfo.name end,
+		id = 989,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	lowerCity = {
+		label = function() local factionInfo = PermoksAccountManager.factions[1011] return factionInfo.localName or factionInfo.name end,
+		id = 1011,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theConsortium = {
+		label = function() local factionInfo = PermoksAccountManager.factions[933] return factionInfo.localName or factionInfo.name end,
+		id = 933,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theVioletEye = {
+		label = function() local factionInfo = PermoksAccountManager.factions[967] return factionInfo.localName or factionInfo.name end,
+		id = 967,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	sporeggar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[970] return factionInfo.localName or factionInfo.name end,
+		id = 970,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theScaleOfTheSands = {
+		label = function() local factionInfo = PermoksAccountManager.factions[990] return factionInfo.localName or factionInfo.name end,
+		id = 990,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	netherwing = {
+		label = function() local factionInfo = PermoksAccountManager.factions[1015] return factionInfo.localName or factionInfo.name end,
+		id = 1015,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	ogrila = {
+		label = function() local factionInfo = PermoksAccountManager.factions[1038] return factionInfo.localName or factionInfo.name end,
+		id = 1038,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	shatteredSunOffensive = {
+		label = function() local factionInfo = PermoksAccountManager.factions[1077] return factionInfo.localName or factionInfo.name end,
+		id = 1077,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theMaghar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[941] return factionInfo.localName or factionInfo.name end,
+		id = 941,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	kurenai = {
+		label = function() local factionInfo = PermoksAccountManager.factions[978] return factionInfo.localName or factionInfo.name end,
+		id = 978,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
 }
 
 local function GetFactionOrFriendshipInfo(factionId, factionType)
@@ -80,7 +214,7 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
 		barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)
 		barMin, standing, barValue = 0, 9, barValue % barMax
 	elseif factionType == "friend" then
-		_, barValue, _,  _, _, _, standing, barMin, barMax = GetFriendshipReputation(factionId)
+		barValue, _,  _, _, _, standing, barMin, barMax = select(2, GetFriendshipReputation(factionId))
 	end
 
 	if not barMax or not barMin then return end
@@ -93,7 +227,7 @@ local function UpdateFactions(charInfo)
 	charInfo.factions = charInfo.factions or {}
 	local factions = charInfo.factions
 
-	for factionId, info in pairs(self.faction) do
+	for factionId, info in pairs(self.factions) do
 		local current, maximum, standing, name, hasReward = GetFactionOrFriendshipInfo(factionId, info.type)
 
 		factions[factionId] = factions[factionId] or {}

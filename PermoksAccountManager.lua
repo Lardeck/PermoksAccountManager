@@ -396,15 +396,15 @@ function PermoksAccountManager:CreateMenuButtons()
 	closeButton:SetScript("OnMouseUp", function() closeButtonTexture:AdjustPointsOffset(-1, 1) end)
 
 	-------------------
-	-- Guild Attunment Button
+	-- Guild Attunement Button
 	if self.isBC then
-		local guildAttunmentButton = CreateFrame("Button", nil, mainFrame, "UIPanelButtonTemplate")
-		mainFrame.guildAttunmentButton = guildAttunmentButton
-		guildAttunmentButton:SetSize(80, 20)
-		guildAttunmentButton:ClearAllPoints()
-		guildAttunmentButton:SetPoint("RIGHT", mainFrame.optionsButton, "LEFT", -3, 0)
-		guildAttunmentButton:SetText("Attunement")
-		guildAttunmentButton:SetScript("OnClick", PermoksAccountManager.ShowGuildAttunements)
+		local guildAttunementButton = CreateFrame("Button", nil, mainFrame, "UIPanelButtonTemplate")
+		mainFrame.guildAttunementButton = guildAttunementButton
+		guildAttunementButton:SetSize(80, 20)
+		guildAttunementButton:ClearAllPoints()
+		guildAttunementButton:SetPoint("BOTTOMLEFT", mainFrame, "BOTTOMLEFT", -85, -5)
+		guildAttunementButton:SetText("Attunement")
+		guildAttunementButton:SetScript("OnClick", PermoksAccountManager.ShowGuildAttunements)
 	end
 end
 
@@ -1006,12 +1006,17 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
 						tooltipFunction = labelRow.tooltip
 					end
 
-					row:SetScript("OnEnter", function(self)
-						tooltipFunction(self, altData, labelRow, font)
-					end)
 					row:SetScript("OnLeave", Tooltip_OnLeave)
+
+          row.tooltipFunction = tooltipFunction
 				end
 			end
+      
+      if row.tooltipFunction then
+        row:SetScript("OnEnter", function(self)
+          self.tooltipFunction(self, altData, labelRow, font)
+        end)
+      end
 
 			row:SetPoint("TOPLEFT", anchorFrame, "TOPLEFT", 0, -yOffset * 20)
 			row:SetText(text)
@@ -1213,7 +1218,7 @@ function PermoksAccountManager:UpdateMenu(widthOnly, heightOnly)
 	self.managerFrame.categoryButtons = self.managerFrame.categoryButtons or {}
 
 	if self.isBC then
-		self.managerFrame.guildAttunmentButton:SetShown(self.db.global.options.showGuildAttunementButton)
+		self.managerFrame.guildAttunementButton:SetShown(self.db.global.options.showGuildAttunementButton)
 	end
 
 	local numRows = UpdateOrCreateMenu("general", self.managerFrame.label_column)

@@ -1,28 +1,25 @@
 local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
+local options
 
-do
-	local module = "classic_professions"
-	local function functionOnLoad()
-		local professionEvents = {
-			"TRADE_SKILL_UPDATE",
-			"BAG_UPDATE_DELAYED"
-		}
-
-		local professionFrame = CreateFrame("Frame")
-		FrameUtil.RegisterFrameForEvents(professionFrame, professionEvents)
-
-		professionFrame:SetScript("OnEvent", function(self, event, ...)
-			if event == "TRADE_SKILL_UPDATE" then
-				PermoksAccountManager:UpdateProfessions(...)
-			elseif event == "BAG_UPDATE_DELAYED" then
-				PermoksAccountManager:UpdateProfessionCDs()
-			end
-		end)
-	end
-	PermoksAccountManager:AddModule(module, functionOnLoad)
-end
+local module = "classic_professions"
+local labelRows = {
+	profession1CDs = {
+		label = "Profession 1",
+		tooltip = function(button, alt_data) PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[1]) end,
+		data = function(alt_data) return alt_data.professions and alt_data.professionCDs and PermoksAccountManager:CreateProfessionString(alt_data.professions[1], alt_data.professionCDs) or "-" end,
+		group = "profession",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+	profession2CDs = {
+		label = "Profession 2",
+		tooltip = function(button, alt_data) PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[2]) end,
+		data = function(alt_data) return alt_data.professions and alt_data.professionCDs and PermoksAccountManager:CreateProfessionString(alt_data.professions[2], alt_data.professionCDs) or "-" end,
+		group = "profession",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+}
 
 -- https://github.com/Stanzilla/WoWUIBugs/issues/47
 local function GetCooldownLeft(start, duration)
@@ -46,11 +43,8 @@ local function GetCooldownLeft(start, duration)
     return cdLeftDuration
 end
 
-
 -- Need to rewrite most of this stuff. I hate the classic API
-function PermoksAccountManager:UpdateProfessions()
-	local charInfo = self.charInfo
-	if not charInfo then return end
+local function UpdateProfessions(charInfo)
 	charInfo.professions = charInfo.professions or {}
 
 	local professions = {}
@@ -64,17 +58,16 @@ function PermoksAccountManager:UpdateProfessions()
 	end
 
 	charInfo.professions = professions
-	
+
 	if updated then
 		PermoksAccountManager:SendCharacterUpdate("professions")
 	end
 end
 
+local function UpdateProfessionCDs(charInfo)
+	local self = PermoksAccountManager
 
-function PermoksAccountManager:UpdateProfessionCDs()
-	local charInfo = self.charInfo
-	if not charInfo then return end
-	if not charInfo.professions then self:UpdateProfessions() end
+	if not charInfo.professions then UpdateProfessions() end
 	charInfo.professionCDs = charInfo.professionCDs or {}
 
 	local professionCDs = charInfo.professionCDs
@@ -100,9 +93,9 @@ function PermoksAccountManager:UpdateProfessionCDs()
 	end
 end
 
-
 function PermoksAccountManager:CreateProfessionString(professionInfo, professionCDs)
-	if not professionInfo or not professionCDs then return end
+  if not professionInfo or not professionCDs then return end
+	local self = PermoksAccountManager
 
 	local cdInfo = self.professionCDs[professionInfo.name]
 	local professionString = string.format("\124T%d:18:18\124t %s", cdInfo.icon, professionInfo.skillRank)
@@ -124,6 +117,8 @@ end
 function PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, professionInfo)
 	if not alt_data or not alt_data.professionCDs or not professionInfo or not self.professionCDs[professionInfo.name].cds then return end
 	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "RIGHT", "LEFT")
+	local self = PermoksAccountManager
+
 	button.tooltip = tooltip
 
 	for spellId, cdName in pairs(self.professionCDs[professionInfo.name].cds) do
@@ -139,3 +134,18 @@ function PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, profe
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
 end
+
+local function Update(charInfo)
+  UpdateProfessions(charInfo)
+  UpdateProfessionCDs(charInfo)
+end
+
+local payload = {
+	update = Update,
+	events = {
+		["TRADE_SKILL_UPDATE"] = UpdateProfessions,
+		["BAG_UPDATE_DELAYED"] = UpdateProfessionCDs,
+	},
+	labels = labelRows
+}
+PermoksAccountManager:AddModule(module, payload)

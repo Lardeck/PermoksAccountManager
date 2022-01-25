@@ -61,7 +61,7 @@ function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sende
 			if db.blockedCharacters[sender] then return end
 
 			requestedAccepts[sender] = true
-			self:Print(sender, "requests a sync. Type |cff00ff00/mam accept name|r to accept it or |cff00ff00/mam block name|r to block it. Don't forget the realm if it's in the name.")
+			self:Print(sender, "requests a sync. Type |cff00ff00/pam accept name|r to accept it or |cff00ff00/pam block name|r to block it. Don't forget the realm if it's in the name.")
 		elseif deserializedMsg.type == "syncaccepted" then
 			if requestedSync and sender == requestedSync then
 				self:Print(sender, "accepted the sync request.")
