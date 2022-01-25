@@ -28,6 +28,7 @@ L["Main"] = true
 -- 		Row Labels 		--
 --------------------------
 L["Name"] = true
+L["Location"] = true
 L["Ilvl"] = true
 L["Gold"] = true
 L["Highest Key"] = "Höchster Schlüssel"

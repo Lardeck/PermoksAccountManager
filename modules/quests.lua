@@ -74,6 +74,12 @@ local labelRows = {
 		group = "resetDaily",
 		version = WOW_PROJECT_MAINLINE,
 	},
+  dailyQuestCounter = {
+		label = "Daily Quests",
+		data = function(alt_data) return alt_data.completedDailies and alt_data.completedDailies.num and PermoksAccountManager:CreateFractionString(alt_data.completedDailies.num, 30) or "Login" end,
+		group = "resetDaily",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
 	relic_gorger = {
 		label = L["Relic Gorger"],
 		type = "quest",

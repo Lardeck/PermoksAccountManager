@@ -1,7 +1,7 @@
 local addonName, PermoksAccountManager = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
-local FACTION_BAR_COLORS_CUSTOM, FACTION_STANDING_LABEL_CUSTOM = {}, {}
 
+local FACTION_BAR_COLORS_CUSTOM, FACTION_STANDING_LABEL_CUSTOM = {}, {}
 do
 	for standingID, color in pairs(FACTION_BAR_COLORS) do
 		FACTION_BAR_COLORS_CUSTOM[standingID] = {r = color.r*256, g = color.g*256, b = color.b*256}
@@ -68,7 +68,141 @@ local labelRows = {
 		type = "faction",
 		id = 2480,
 		group = "reputation",
-	}
+	},
+  	-- tbc
+ 	 theAldor = {
+		label = function() local factionInfo = PermoksAccountManager.factions[932] return factionInfo.localName or factionInfo.name end,
+		id = 932,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theScryers = {
+		label = function() local factionInfo = PermoksAccountManager.factions[934] return factionInfo.localName or factionInfo.name end,
+		id = 934,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	silvermoonCity = {
+		label = function() local factionInfo = PermoksAccountManager.factions[911] return factionInfo.localName or factionInfo.name end,
+		id = 911,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	exodar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[930] return factionInfo.localName or factionInfo.name end,
+		id = 930,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theShatar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[935] return factionInfo.localName or factionInfo.name end,
+		id = 935,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	cenarionExpedition = {
+		label = function() local factionInfo = PermoksAccountManager.factions[942] return factionInfo.localName or factionInfo.name end,
+		id = 942,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	honorHold = {
+		label = function() local factionInfo = PermoksAccountManager.factions[946] return factionInfo.localName or factionInfo.name end,
+		id = 946,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	thrallmar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[947] return factionInfo.localName or factionInfo.name end,
+		id = 947,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	keepersOfTime = {
+		label = function() local factionInfo = PermoksAccountManager.factions[989] return factionInfo.localName or factionInfo.name end,
+		id = 989,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	lowerCity = {
+		label = function() local factionInfo = PermoksAccountManager.factions[1011] return factionInfo.localName or factionInfo.name end,
+		id = 1011,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theConsortium = {
+		label = function() local factionInfo = PermoksAccountManager.factions[933] return factionInfo.localName or factionInfo.name end,
+		id = 933,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theVioletEye = {
+		label = function() local factionInfo = PermoksAccountManager.factions[967] return factionInfo.localName or factionInfo.name end,
+		id = 967,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	sporeggar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[970] return factionInfo.localName or factionInfo.name end,
+		id = 970,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theScaleOfTheSands = {
+		label = function() local factionInfo = PermoksAccountManager.factions[990] return factionInfo.localName or factionInfo.name end,
+		id = 990,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	netherwing = {
+		label = function() local factionInfo = PermoksAccountManager.factions[1015] return factionInfo.localName or factionInfo.name end,
+		id = 1015,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	ogrila = {
+		label = function() local factionInfo = PermoksAccountManager.factions[1038] return factionInfo.localName or factionInfo.name end,
+		id = 1038,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	shatteredSunOffensive = {
+		label = function() local factionInfo = PermoksAccountManager.factions[1077] return factionInfo.localName or factionInfo.name end,
+		id = 1077,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	theMaghar = {
+		label = function() local factionInfo = PermoksAccountManager.factions[941] return factionInfo.localName or factionInfo.name end,
+		id = 941,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
+	kurenai = {
+		label = function() local factionInfo = PermoksAccountManager.factions[978] return factionInfo.localName or factionInfo.name end,
+		id = 978,
+		type = "faction",
+    		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+		group = "reputation",
+	},
 }
 
 local function GetFactionOrFriendshipInfo(factionId, factionType)
@@ -80,7 +214,7 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
 		barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)
 		barMin, standing, barValue = 0, 9, barValue % barMax
 	elseif factionType == "friend" then
-		_, barValue, _,  _, _, _, standing, barMin, barMax = GetFriendshipReputation(factionId)
+		barValue, _,  _, _, _, standing, barMin, barMax = select(2, GetFriendshipReputation(factionId))
 	end
 
 	if not barMax or not barMin then return end

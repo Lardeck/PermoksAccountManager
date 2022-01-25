@@ -9,19 +9,19 @@ local lastTimeUpdate = GetTime()
 local prefix = "MAM_ATTUNEMENTS"
 local defaultCategories
 
-
 local function GetAttunementInfoForData(altData)
 	if not altData then return end
 
 	local attunementKeys = PermoksAccountManager:getDefaultCategories("attunements").childs
 	local attunements = {}
 	for i, attunement in ipairs(attunementKeys) do
-		attunements[attunement] = PermoksAccountManager.labelRows[attunement].data(altData)
+    if not attunement:find('separator') then
+      attunements[attunement] = PermoksAccountManager.labelRows[attunement].data(altData)
+    end
 	end
 
 	return attunements
 end
-
 
 local function UpdateOwnAttunementInfo()
 	local guildInfo = PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild]
@@ -121,7 +121,7 @@ function PermoksAccountManager:DrawPlayerGroup(group, rankIndex, guid)
 
     local groupScrollContainer = AceGUI:Create("SimpleGroup")
     groupScrollContainer:SetFullWidth(true)
-    groupScrollContainer:SetFullHeight(true)
+    groupScrollContainer:SetHeight(280)
     groupScrollContainer:SetLayout("Fill")
     group:AddChild(groupScrollContainer)
  
@@ -136,11 +136,10 @@ function PermoksAccountManager:DrawPlayerGroup(group, rankIndex, guid)
 	    	local button = AceGUI:Create("TwoTextButton")
 	    	button:SetLeftText(self.labelRows[attunement].label)
 	    	button:SetRightText(completion)
-	    	button:SetWidth(groupScrollFrame.frame:GetWidth())
-
+	    	button:SetWidth(groupScrollFrame.frame:GetWidth() - 17)
 
 	    	local color = (0.25 * (index % 2)) + 0.25
-			button.texture:SetColorTexture(color, color, color, 0.65)
+			  button.texture:SetColorTexture(color, color, color, 0.65)
 	    	groupScrollFrame:AddChild(button)
 	    	index = index + 1
 	    end
@@ -227,7 +226,6 @@ function PermoksAccountManager:UpdateGuildRoster(firstUpdate)
 	end
 end
 
-
 do
 	local guildEvents = {
 		"PLAYER_ENTERING_WORLD",
@@ -241,17 +239,15 @@ do
 	C_ChatInfo.RegisterAddonMessagePrefix("MAM_ATTUNEMENTS")
 
 	guildFrame:SetScript("OnEvent", function(self, event, ...)
-		if PermoksAccountManager.addon_loaded then
-			if event == "GUILD_ROSTER_UPDATE" and self.update then
-				self.update = false
-				PermoksAccountManager:UpdateGuildRoster(true)
-				defaultCategories = PermoksAccountManager:getDefaultCategories()
-			elseif event == "CHAT_MSG_ADDON" then
-				local prefix = ...
-				if prefix == "MAM_ATTUNEMENTS" then
-					PermoksAccountManager:ProcessAttunementMessage(select(2, ...))
-				end
-			end
-		end
+    if event == "GUILD_ROSTER_UPDATE" and self.update then
+      self.update = false
+      PermoksAccountManager:UpdateGuildRoster(true)
+      defaultCategories = PermoksAccountManager:getDefaultCategories()
+    elseif event == "CHAT_MSG_ADDON" then
+      local prefix = ...
+      if prefix == "MAM_ATTUNEMENTS" then
+        PermoksAccountManager:ProcessAttunementMessage(select(2, ...))
+      end
+    end
 	end)
 end
