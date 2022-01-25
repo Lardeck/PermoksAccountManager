@@ -5,8 +5,8 @@ local default_categories = {
 	general = {
 		order = 0,
 		name = "General",
-		childs = {"characterName", "characterLevel", "gold", "location", "profession1CDs", "profession2CDs", "dailyQuestCounter"},
-		childOrder = {characterName = 1, characterLevel = 2, gold = 3, location = 4, profession1CDs = 5, profession2CDs = 6, dailyQuestCounter = 7},
+		childs = {"characterName", "characterLevel", "gold", "location", "profession1CDs", "profession2CDs", "honorBCC", "arenaPoints", "dailyQuestCounter"},
+		childOrder = {characterName = 1, characterLevel = 2, gold = 3, location = 4, profession1CDs = 5, profession2CDs = 6, honorBCC = 7, arenaPoints = 8, dailyQuestCounter = 9},
 		hideToggle = true,
 		enabled = true,
 	},
