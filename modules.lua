@@ -28,17 +28,19 @@ do
 		if not rows then return end
 
 		for row_identifier, row in pairs(rows) do
-			PermoksAccountManager.labelRows[row_identifier] = row
+      if row.version == false or row.version == WOW_PROJECT_ID then
+        PermoksAccountManager.labelRows[row_identifier] = row
 
-			if enums[row_identifier] then 
-				PermoksAccountManager:Print("Please use another identifier for", module, row_identifier, ". Module", enums[row_identifier], "already uses it.")
-			else
-				enums[row_identifier] = module
-			end
+        if enums[row_identifier] then 
+          PermoksAccountManager:Print("Please use another identifier for", module, row_identifier, ". Module", enums[row_identifier], "already uses it.")
+        else
+          enums[row_identifier] = module
+        end
 
-			if PermoksAccountManager[row.type] then
-				
-			end	
+        if PermoksAccountManager[row.type] then
+          
+        end	
+      end
 		end
 	end
 
@@ -66,11 +68,10 @@ do
 						end
 					end
 				end
-				modulesEventFrame:RegisterEvent(event)
+        pcall(function() modulesEventFrame:RegisterEvent(event) end)
 			end
 		end
 	end
-
 
 	function PermoksAccountManager:AddModule(module, payload, load)
 		if type(payload) ~= "table" then self:Print(module, " - Payload is not a table") return end

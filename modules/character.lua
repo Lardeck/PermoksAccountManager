@@ -12,21 +12,37 @@ local labelRows = {
 		offset = 1.5,
 		data = function(alt_data) return PermoksAccountManager:CreateCharacterString(alt_data.name, alt_data.specInfo) end,
 		color = function(alt_data) return RAID_CLASS_COLORS[alt_data.class] end,
+    version = false,
+	},
+  characterLevel = {
+		label = L["Level"],
+		data = function(alt_data) return alt_data.charLevel or "-" end,
+		group = "character",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+	},
+  location = {
+		label = L["Location"],
+		data = function(alt_data) return (alt_data.location and PermoksAccountManager:CreateLocationString(alt_data.location)) or "-" end,
+		group = "character",
+    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
 	},
 	ilevel = {
 		label = L["Item Level"],
 		data = function(alt_data) return string.format("%.2f", alt_data.ilevel or 0) end,
+    version = WOW_PROJECT_MAINLINE,
 	},
 	gold = {
 		label = L["Gold"],
 		option = "gold",
 		data = function(alt_data) return alt_data.gold and tonumber(alt_data.gold) and GetMoneyString(alt_data.gold, true) or "-" end,
 		group = "currency",
+    version = false,
 	},	
 	keystone = {
 		label = L["Keystone"],
 		data = function(alt_data) return PermoksAccountManager:CreateKeystoneString(alt_data.keyDungeon, alt_data.keyLevel) end,
 		group = "dungeons",
+    version = WOW_PROJECT_MAINLINE,
 	},
 	weekly_key = {
 		label = L["Highest Key"],
@@ -34,18 +50,21 @@ local labelRows = {
 		tooltip = true,
 		customTooltip = function(button, alt_data) PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data) end,
 		isComplete = function(alt_data) return alt_data.vaultInfo and alt_data.vaultInfo.MythicPlus and alt_data.vaultInfo.MythicPlus[1].level >= 15 end,
-		group = "character"
+		group = "character",
+    version = WOW_PROJECT_MAINLINE,
 	},
 	mplus_score = {
 		label = L["Mythic+ Score"],
 		--outline = "OUTLINE",
 		data = function(alt_data) return PermoksAccountManager:CreateScoreString(alt_data.mythicScore) or "-" end,
 		group = "character",
+    version = WOW_PROJECT_MAINLINE,
 	},	
 	contract = {
 		label = L["Contract"],
 		data = function(alt_data) return alt_data.contract and PermoksAccountManager:CreateContractString(alt_data.contract) or "-" end,
 		group = "character",
+    version = WOW_PROJECT_MAINLINE,
 	},
 }
 
@@ -103,14 +122,29 @@ local function UpdatePlayerLevel(charInfo, level)
 	charInfo.charLevel = level or UnitLevel("player")
 end
 
+local function UpdateLocation(charInfo)	
+	charInfo.location = C_Map.GetBestMapForUnit("player")
+end
+
 local function Update(charInfo)
 	UpdateGeneralData(charInfo)
 	UpdateGold(charInfo)
-	UpdateILevel(charInfo)
-	UpdatePlayerSpecialization(charInfo)
-	UpdateMythicScore(charInfo)
-	UpdateMythicPlusHistory(charInfo)
-	UpdatePlayerLevel(charInfo)
+
+  if PermoksAccountManager.isBC then
+    UpdatePlayerLevel(charInfo)
+    UpdateLocation(charInfo)
+  else
+    UpdateILevel(charInfo)
+    UpdatePlayerSpecialization(charInfo)
+    UpdateMythicScore(charInfo)
+    UpdateMythicPlusHistory(charInfo)
+  end
+end
+
+function PermoksAccountManager:CreateLocationString(mapId)
+	if not mapId then return end
+	local mapInfo = C_Map.GetMapInfo(mapId)
+	return mapInfo and mapInfo.name
 end
 
 local payload = {
@@ -123,6 +157,9 @@ local payload = {
 		["BAG_UPDATE_DELAYED"] = UpdateGeneralData,
 		["WEEKLY_REWARDS_UPDATE"] = UpdateMythicScore,
 		["PLAYER_LEVEL_UP"] = UpdatePlayerLevel,
+    ["ZONE_CHANGED"] = UpdateLocation,
+    ["ZONE_CHANGED_NEW_AREA"] = UpdateLocation,
+    ["ZONE_CHANGED_INDOORS"] = UpdateLocation,
 	},
 	share = {
 		[UpdateGold] = "gold",

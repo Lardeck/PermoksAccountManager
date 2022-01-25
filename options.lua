@@ -542,7 +542,7 @@ local function loadOptionsTemplate()
 						name = L["Show Guild Attunement Button"],
 						set = function(info,value) 
 							PermoksAccountManager.db.global.options.showGuildAttunementButton = value 
-							PermoksAccountManager.managerFrame.guildAttunmentButton:SetShown(value)
+							PermoksAccountManager.managerFrame.guildAttunementButton:SetShown(value)
 						end,
 						get = function(info) return PermoksAccountManager.db.global.options.showGuildAttunementButton end,
 					},
@@ -1046,6 +1046,7 @@ local function loadOptionsTemplate()
 		},
 	}
 
+  -- TODO: Retail differentiation
 	options.args.experimental = {
 		order = 6,
 		type = "group",
@@ -1066,31 +1067,37 @@ local function loadOptionsTemplate()
 						order = 1,
 						type = "toggle",
 						name = L["Currency Icons"],
+            retailOnly = false
 					},
 					itemIcons = {
 						order = 2,
 						type = "toggle",
 						name = L["Item Icons"],
+            retailOnly = false
 					},
 					showCurrentSpecIcon = {
 						order = 3,
 						type = "toggle",
 						name = L["Show Current Spec"],
+            retailOnly = true
 					},
 					useScoreColor = {
 						order = 4,
 						type = "toggle",
-						name = L["Color Mythic+ Score"]
+						name = L["Color Mythic+ Score"],
+            retailOnly = true
 					},
 					useScoreOutline = {
 						order = 5,
 						type = "toggle",
 						name = L["Outline Score"],
+            retailOnly = true
 					},
 					questCompletionString = {
 						order = 6,
 						type = "input",
 						name = L["Quest Completion String"],
+            retailOnly = false
 					},
 					font = {
 						order = 7,
@@ -1103,6 +1110,7 @@ local function loadOptionsTemplate()
 							PermoksAccountManager:UpdateAllFonts()
 						end,
 						dialogControl = "LSM30_Font",
+            retailOnly = false
 					}
 				}
 			}

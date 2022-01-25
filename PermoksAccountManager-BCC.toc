@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20503
 ## Title: Permoks Account Manager
 ## Author: Permok
 ## Version: 1.0
@@ -21,6 +21,7 @@ libs\LibDeflate\LibDeflate.lua
 libs\LibSerialize\LibSerialize.lua
 libs\LibSharedMedia-3.0\lib.xml
 libs\AceGUI-3.0-SharedMediaWidgets\widget.xml
+libs\AceGUIWidget-TwoTextButton.lua
 
 modules.lua
 locales\locales.xml
@@ -30,12 +31,12 @@ communication.lua
 db\db-bcc.lua
 
 modules\accounts.lua
+modules\character.lua
 modules\currencies.lua
 modules\factions.lua
 modules\instances.lua
 modules\quests.lua
 modules\items.lua
-modules\zone.lua
 modules\classic_professions.lua
 modules\guild_attunements.lua
 

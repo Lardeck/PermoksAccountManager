@@ -22,13 +22,16 @@ L["Void Sphere"] = true
 L["Salt Shaker"] = true
 L["|cff00ff00READY|r"] = true
 L["Main"] = true
-
-
+L["Attunements"] = true
+L["Extra"] = true
+L["Professions"] = true
 
 --------------------------
 -- 		Row Labels 		--
 --------------------------
 L["Name"] = true
+L["Location"] = true
+L["Level"] = true
 L["Item Level"] = true
 L["Gold"] = true
 L["Highest Key"] = true
