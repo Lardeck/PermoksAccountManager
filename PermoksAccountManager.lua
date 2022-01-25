@@ -1012,24 +1012,16 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
 					elseif type(labelRow.tooltip) == "function" then
 						tooltipFunction = labelRow.tooltip
 					end
-
-<<<<<<< HEAD
-					row:SetScript("OnEnter", function(self)
-						tooltipFunction(self, altData, labelRow)
-					end)
-=======
->>>>>>> 6a3047d6f7bc18ed77d789f6a2fbbe3d4fd45bd8
 					row:SetScript("OnLeave", Tooltip_OnLeave)
-
-          row.tooltipFunction = tooltipFunction
+         			row.tooltipFunction = tooltipFunction
 				end
 			end
       
-      if row.tooltipFunction then
-        row:SetScript("OnEnter", function(self)
-          self.tooltipFunction(self, altData, labelRow, font)
-        end)
-      end
+			if row.tooltipFunction then
+				row:SetScript("OnEnter", function(self)
+				self.tooltipFunction(self, altData, labelRow)
+				end)
+			end
 
 			row:SetPoint("TOPLEFT", anchorFrame, "TOPLEFT", 0, -yOffset * 20)
 			row:SetText(text)

@@ -1084,37 +1084,37 @@ local function loadOptionsTemplate()
 						order = 1,
 						type = "toggle",
 						name = L["Currency Icons"],
-            retailOnly = false
+            			retailOnly = false
 					},
 					itemIcons = {
 						order = 2,
 						type = "toggle",
 						name = L["Item Icons"],
-            retailOnly = false
+            			retailOnly = false
 					},
 					showCurrentSpecIcon = {
 						order = 3,
 						type = "toggle",
 						name = L["Show Current Spec"],
-            retailOnly = true
+            			retailOnly = true
 					},
 					useScoreColor = {
 						order = 4,
 						type = "toggle",
 						name = L["Color Mythic+ Score"],
-            retailOnly = true
+            			retailOnly = true
 					},
 					useScoreOutline = {
 						order = 5,
 						type = "toggle",
 						name = L["Outline Score"],
-            retailOnly = true
+            			retailOnly = true,
 					},
 					questCompletionString = {
 						order = 6,
 						type = "input",
 						name = L["Quest Completion String"],
-            retailOnly = false
+            			retailOnly = false,
 					},
 					font = {
 						order = 7,
@@ -1127,7 +1127,6 @@ local function loadOptionsTemplate()
 							PermoksAccountManager:UpdateAllFonts()
 						end,
 						dialogControl = "LSM30_Font",
-<<<<<<< HEAD
 					},
 					itemIconPosition = {
 						order = 8,
@@ -1141,10 +1140,6 @@ local function loadOptionsTemplate()
 						name = "Currency Icon Position",
 						values = {left = "Left", right = "Right"},
 					},
-=======
-            retailOnly = false
-					}
->>>>>>> 6a3047d6f7bc18ed77d789f6a2fbbe3d4fd45bd8
 				}
 			}
 		}
