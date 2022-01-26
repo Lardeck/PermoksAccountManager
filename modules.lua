@@ -61,7 +61,7 @@ local function RegisterModuleEvent(event)
 			end
 		end
 	end
-	modulesEventFrame:RegisterEvent(event)
+	pcall(function() modulesEventFrame:RegisterEvent(event) end)
 end
 
 local function AddEvents(moduleEvents, share)
