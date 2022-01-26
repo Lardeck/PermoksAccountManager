@@ -12,37 +12,37 @@ local labelRows = {
 		offset = 1.5,
 		data = function(alt_data) return PermoksAccountManager:CreateCharacterString(alt_data.name, alt_data.specInfo) end,
 		color = function(alt_data) return RAID_CLASS_COLORS[alt_data.class] end,
-    version = false,
+    	version = false,
 	},
-  characterLevel = {
+  	characterLevel = {
 		label = L["Level"],
 		data = function(alt_data) return alt_data.charLevel or "-" end,
 		group = "character",
-    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+    	version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
 	},
-  location = {
+  	location = {
 		label = L["Location"],
 		data = function(alt_data) return (alt_data.location and PermoksAccountManager:CreateLocationString(alt_data.location)) or "-" end,
 		group = "character",
-    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+    	version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
 	},
 	ilevel = {
 		label = L["Item Level"],
 		data = function(alt_data) return string.format("%.2f", alt_data.ilevel or 0) end,
-    version = WOW_PROJECT_MAINLINE,
+    	version = WOW_PROJECT_MAINLINE,
 	},
 	gold = {
 		label = L["Gold"],
 		option = "gold",
 		data = function(alt_data) return alt_data.gold and tonumber(alt_data.gold) and GetMoneyString(alt_data.gold, true) or "-" end,
 		group = "currency",
-    version = false,
+    	version = false,
 	},	
 	keystone = {
 		label = L["Keystone"],
 		data = function(alt_data) return PermoksAccountManager:CreateKeystoneString(alt_data.keyDungeon, alt_data.keyLevel) end,
 		group = "dungeons",
-    version = WOW_PROJECT_MAINLINE,
+    	version = WOW_PROJECT_MAINLINE,
 	},
 	weekly_key = {
 		label = L["Highest Key"],
@@ -157,9 +157,9 @@ local payload = {
 		["BAG_UPDATE_DELAYED"] = UpdateGeneralData,
 		["WEEKLY_REWARDS_UPDATE"] = UpdateMythicScore,
 		["PLAYER_LEVEL_UP"] = UpdatePlayerLevel,
-    ["ZONE_CHANGED"] = UpdateLocation,
-    ["ZONE_CHANGED_NEW_AREA"] = UpdateLocation,
-    ["ZONE_CHANGED_INDOORS"] = UpdateLocation,
+    	["ZONE_CHANGED"] = UpdateLocation,
+    	["ZONE_CHANGED_NEW_AREA"] = UpdateLocation,
+    	["ZONE_CHANGED_INDOORS"] = UpdateLocation,
 	},
 	share = {
 		[UpdateGold] = "gold",

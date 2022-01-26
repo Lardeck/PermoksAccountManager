@@ -291,12 +291,10 @@ do
 
 	--- Not used right now.
 	function PermoksAccountManager:OnEnable()
-		return
 	end
 
 	--- Not used right now.
 	function PermoksAccountManager:OnDisable()
-		return
 	end
 end
 
@@ -325,7 +323,7 @@ function PermoksAccountManager:CreateFrames()
 	end
 
 	local mainFrameBackdrop = CreateFrame("Frame", nil, mainFrame, "BackdropTemplate")
-	mainFrame.backdrop = backdrop
+	mainFrame.backdrop = mainFrameBackdrop
 	self:UpdateBorder(mainFrameBackdrop, mainFrame, true)
 
 	mainFrame.label_column = CreateFrame("Button", nil, mainFrame)
@@ -526,7 +524,7 @@ function PermoksAccountManager:OnLogin()
 		end
 	end
 
-	self:SortPages(self.account)
+	self:SortPages()
 	self.LoadOptions()
 	self.UpdateCustomLabelOptions()
 
@@ -673,7 +671,6 @@ function PermoksAccountManager:UpdateCompletionData()
 end
 
 function PermoksAccountManager:UpdateCompletionDataForCharacter(charInfo)
-	charInfo = charInfo or self.charInfo
 	if not charInfo then return end
 
 	for key, info in pairs(self.labelRows) do
@@ -1366,7 +1363,7 @@ function PermoksAccountManager:ShowInterface()
 	self:RequestCharacterInfo()
 
 	self.managerFrame:Show()
-	self:UpdateCompletionDataForCharacter(charInfo)
+	self:UpdateCompletionDataForCharacter(self.charInfo)
 	self:UpdateMenu()
 	self:UpdateStrings(self.db.global.currentPage, "general")
 	if self.categoryFrame.openCategory then
