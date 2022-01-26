@@ -6,6 +6,7 @@ function ModuleMixin:Init(moduleName, payload)
 	self.name = moduleName
 	self.events = payload.events
 	self.share = payload.share
+	self.update = payload.update
 	self.payload = payload
 	self.labelFunctions = {}
 end
@@ -103,21 +104,20 @@ function PermoksAccountManager:AddModule(moduleName, payload, load)
 end
 
 function PermoksAccountManager:LoadAllModules(charInfo)
-	for module, info in pairs(modules) do
-		self:LoadModule(module)
+	for moduleName, module in pairs(modules) do
+		self:LoadModule(moduleName, module)
 	end
 
 	SetEventScript(charInfo)
 end
 
-function PermoksAccountManager:LoadModule(module)
-	if not modules[module.name] then return end
+function PermoksAccountManager:LoadModule(moduleName, module)
+	if not modules[moduleName] then return end
 
-	local info = modules[module.name]
-	AddEvents(info.events, info.share)
+	AddEvents(module.events, module.share)
 
 	if self.charInfo then
-		info.update(self.charInfo)
+		module.update(self.charInfo)
 	end
 end
 

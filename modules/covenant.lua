@@ -1,4 +1,5 @@
 local addonName, PermoksAccountManager = ...
+local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 
 local customCovenantColors = {
@@ -167,10 +168,26 @@ local function CreateCallingString(callingInfo)
 	end
 
 	if leastTimeLeft then
-		local days, hours, minutes = self:TimeToDaysHoursMinutes(leastTimeLeft)
-		return string.format("%s - %s", self:CreateQuestString(3 - callingInfo.numCallings, 3), self:CreateTimeString(days, hours, minutes))
+		local days, hours, minutes = PermoksAccountManager:TimeToDaysHoursMinutes(leastTimeLeft)
+		return string.format("%s - %s", PermoksAccountManager:CreateQuestString(3 - callingInfo.numCallings, 3), PermoksAccountManager:CreateTimeString(days, hours, minutes))
 	else
-		return string.format("%s", self:CreateQuestString(3 - callingInfo.numCallings, 3))
+		return string.format("%s", PermoksAccountManager:CreateQuestString(3 - callingInfo.numCallings, 3))
+	end
+end
+
+local function CreateRenownString(altData)
+	if not altData or not altData.renown then return end
+	
+	local renown
+	local renownTbl = {}
+	if type(altData.renown) == "table" then
+		for covenant=4, 1, -1 do
+			renown = altData.renown[covenant]
+			renownTbl[covenant] = customCovenantColors[covenant]:WrapTextInColorCode(renown or "X")
+		end
+		return table.concat(renownTbl, " ")
+	elseif customCovenantColors[altData.covenant] then
+		return string.format("%s", customCovenantColors[altData.covenant]:WrapTextInColorCode(altData.renown))
 	end
 end
 

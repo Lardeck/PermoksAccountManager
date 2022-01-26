@@ -395,13 +395,17 @@ PermoksAccountManager.quests = {
 		[64785] = {questType = "daily", log = true},
 		[64977] = {questType = "daily", log	= true},
 		[65265] = {questType = "daily", log = true},
+		[65268] = {questType = "daily", log = true},
 		[65325] = {questType = "daily", log = true},
 		[65363] = {questType = "daily", log = true},
+		[65445] = {questType = "daily", log = true},
 	},
 
 	zereth_mortis_wqs = {
 		[64974] = {questType = "daily"},
 		[65081] = {questType = "daily"},
+		[65089] = {questType = "daily"},
+		[65119] = {questType = "daily"},
 		[65406] = {questType = "daily"},
 	},
 
