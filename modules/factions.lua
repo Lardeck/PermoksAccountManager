@@ -277,6 +277,4 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
 	if factionInfo.max then
 		return string.format("|cff%s%s/%s|r |cff%02X%02X%02X%s|r", color, AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, standing)
 	end
-
-	return 
 end

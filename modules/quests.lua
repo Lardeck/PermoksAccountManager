@@ -411,7 +411,7 @@ local function UpdateAllBCCQuests(charInfo)
 	charInfo.completedDailies.num = 0
 
 	local questInfo = charInfo.questInfo
-	for reset, quests in pairs(self.quest) do
+	for reset, quests in pairs(self.quests) do
 		questInfo[reset] = questInfo[reset] or {}
 		for questID, info in pairs(quests) do
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
@@ -499,7 +499,7 @@ local function UpdateBCCQuest(charInfo, questID)
 	if resetKey and key and charInfo.questInfo[resetKey][key] then
 		charInfo.questInfo[resetKey][key][questID] = true
 		if resetKey == "daily" then
-			if self.quest[resetKey][questID].unique then
+			if self.quests[resetKey][questID].unique then
 				if not charInfo.completedDailies[key] then
 					charInfo.completedDailies[key] = true
 					charInfo.completedDailies.num = charInfo.completedDailies.num + 1
@@ -520,7 +520,7 @@ local function UpdateRetailQuest(charInfo, questID)
 	local key = self:FindQuestKeyByQuestID(questID)
 	if not key then return end
 
-	local questInfo = self.quest[key][questID]
+	local questInfo = self.quests[key][questID]
 	local questType, visibility = questInfo.questType, questInfo.log and "visible" or "hidden"
 	self:Debug("Update", questType, visibility, key, questID)
 	if questType and visibility and key and charInfo.questInfo[questType][visibility][key] then
@@ -560,7 +560,7 @@ local payload = {
 PermoksAccountManager:AddModule(module, payload)
 
 function PermoksAccountManager:FindQuestKeyByQuestID(questID)
-	for key, quests in pairs(self.quest) do
+	for key, quests in pairs(self.quests) do
 		if quests[questID] then
 			return key
 		end
@@ -572,11 +572,11 @@ function PermoksAccountManager:FindQuestByQuestID(questID)
 	if self.db.global.quests[questID] then
 		local questInfo = self.db.global.quests[questID]
 		resetKey = frequencyNames[questInfo.frequency]
-		if self.quest[resetKey] then
-			key = self.quest[resetKey][questID]
+		if self.quests[resetKey] then
+			key = self.quests[resetKey][questID]
 		end
 	else
-		for reset, quests in pairs(self.quest) do
+		for reset, quests in pairs(self.quests) do
 			if quests[questID] then
 				return reset, quests[questID].key
 			end
@@ -623,10 +623,10 @@ end
 
 function PermoksAccountManager:QuestTooltip_OnEnter(button, alt_data, column)
 	if not alt_data or not alt_data.questInfo or not alt_data.questInfo[column.reset] or not alt_data.questInfo[column.reset][column.visibility] then return end
-	local info = alt_data.questInfo[columnreset][column.visibility][column.key]
+	local info = alt_data.questInfo[column.questType][column.visibility][column.key]
 	if not info then return end
 
-	local quests = self.quest[column.key]
+	local quests = self.quests[column.key]
 	local completedByName = {}
 	for questId, isComplete in pairs(info) do
 		if isComplete and quests[questId] and quests[questId].name then

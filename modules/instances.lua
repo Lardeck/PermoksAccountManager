@@ -158,12 +158,12 @@ local function UpdateInstanceInfo(charInfo)
 
 	local self = PermoksAccountManager
 	local instanceInfo = charInfo.instanceInfo
-	local name, difficulty, locked, isRaid, difficultyName, numEncounters, encounterProgress, _
+	local name, difficulty, locked, extended, difficultyName, numEncounters, encounterProgress, _
 	for i=1, GetNumSavedInstances() do
 		local link = GetSavedInstanceChatLink(i)
 		local instanceID, instanceName = link:match(":(%d+):%d+:%d+\124h%[(.+)%]\124h")
 		instanceID = tonumber(instanceID)
-		name, _, _, difficulty, locked, extended, _, isRaid, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
+		name, _, _, difficulty, locked, extended, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
 
 		if locked or (extended and encounterProgress>0) then
 			if self.raids[instanceID] or (self.isBC and self.raids[name]) then

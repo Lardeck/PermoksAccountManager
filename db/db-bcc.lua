@@ -345,91 +345,114 @@ PermoksAccountManager.professionCDs = {
 	}
 }
 -- TODO: change structure
-PermoksAccountManager.quest = {
-	daily = {
-		[10110] = {key = "thrallmar", faction = "Horde"}, -- Hellfire Fortifications
-		[10106] = {key = "honor_hold", faction = "Alliance"}, -- Hellfire Fortifications
-		
-		[11502] = {key = "halaa", faction = "Alliance"}, -- In Defense of Halaa
-		[11503] = {key = "halaa", faction = "Horde"}, -- Enemies, Old and New
-
-		[11505] = {key = "auchindoun", faction = "Alliance"}, -- Spirits of Auchindoun
-		[11506] = {key = "auchindoun", faction = "Horde"}, -- Spirits of Auchindoun
-
-		[11335] = {key = "call_to_arms", faction = "Alliance"}, -- Arathi Basin
-		[11336] = {key = "call_to_arms", faction = "Alliance"}, -- Alterac Valley
-		[11337] = {key = "call_to_arms", faction = "Alliance"}, -- Eye of the Storm
-		[11338] = {key = "call_to_arms", faction = "Alliance"}, -- Warsong Gulch
-		[11339] = {key = "call_to_arms", faction = "Horde"}, -- Arathi Basin
-		[11340] = {key = "call_to_arms", faction = "Horde"}, -- Alterac Valley
-		[11341] = {key = "call_to_arms", faction = "Horde"}, -- Eye of the Storm
-		[11342] = {key = "call_to_arms", faction = "Horde"}, -- Warsong Gulch
-
-		[11364] = {key = "dungeon_normal", unique = true}, -- The Shattered Halls
-		[11371] = {key = "dungeon_normal", unique = true}, -- The Steamvault
-		[11376] = {key = "dungeon_normal", unique = true}, -- Shadow Labyrinth
-		[11383] = {key = "dungeon_normal", unique = true}, -- The Black Morass
-		[11385] = {key = "dungeon_normal", unique = true}, -- The Botanica
-		[11387] = {key = "dungeon_normal", unique = true}, -- The Mechanar
-		[11389] = {key = "dungeon_normal", unique = true}, -- The Arcatraz
-		[11500] = {key = "dungeon_normal", unique = true}, -- Magister's Terrace
-
-		[11354] = {key = "dungeon_heroic", unique = true}, -- Hellfire Ramparts
-		[11362] = {key = "dungeon_heroic", unique = true}, -- The Blood Furnace
-		[11363] = {key = "dungeon_heroic", unique = true}, -- The Shattered Halls
-		[11368] = {key = "dungeon_heroic", unique = true}, -- The Slave Pens
-		[11369] = {key = "dungeon_heroic", unique = true}, -- The Underbog
-		[11370] = {key = "dungeon_heroic", unique = true}, -- The Steamvault
-		[11372] = {key = "dungeon_heroic", unique = true}, -- Sethekk Halls
-		[11373] = {key = "dungeon_heroic", unique = true}, -- Mana-Tombs
-		[11374] = {key = "dungeon_heroic", unique = true}, -- Auchenai Crypts
-		[11375] = {key = "dungeon_heroic", unique = true}, -- Shadow Labyrinth
-		[11378] = {key = "dungeon_heroic", unique = true}, -- The Escape From Durnholde
-		[11382] = {key = "dungeon_heroic", unique = true}, -- The Black Morass
-		[11384] = {key = "dungeon_heroic", unique = true}, -- The Botanica
-		[11386] = {key = "dungeon_heroic", unique = true}, -- The Mechanar
-		[11388] = {key = "dungeon_heroic", unique = true}, -- The Arcatraz
-
-		[11377] = {key = "cooking"}, -- Revenge is Tasty
-		[11379] = {key = "cooking"}, -- Super Hot Stew
-		[11380] = {key = "cooking"}, -- Manalicious
-		[11381] = {key = "cooking"}, -- Soup for the Soul
-
-		[11665] = {key = "fishing"}, -- Crocolisks in the City
-		[11666] = {key = "fishing"}, -- Bait Bandits
-		[11667] = {key = "fishing"}, -- The One That Got Away
-		[11668] = {key = "fishing"}, -- Shrimpin' Ain't Easy
-		[11669] = {key = "fishing"}, -- Felblood Fillet
-
-		[11015] = {key = "netherwing"}, -- Netherwing Crystals
-		[11016] = {key = "netherwing"}, -- Nethermine Flayer Hide
-		[11017] = {key = "netherwing"}, -- Netherdust Pollen
-		[11018] = {key = "netherwing"}, -- Nethercite Ore
-		[11020] = {key = "netherwing"}, -- A Slow Death
-		[11035] = {key = "netherwing"}, -- The Not-So-Friendly Skies...
-		[11055] = {key = "netherwing"}, -- The Booterang: A Cure For The Common Worthless Peon
-		[11076] = {key = "netherwing"}, -- Picking Up The Pieces...
-		[11077] = {key = "netherwing"}, -- Dragons are the Least of Our Problems
-		[11086] = {key = "netherwing"}, -- Disrupting the Twilight Portal
-		[11097] = {key = "netherwing"}, -- The Deadliest Trap Ever Laid (Scryer)
-		[11101] = {key = "netherwing"}, -- The Deadliest Trap Ever Laid (Aldor)
-
-		[11008] = {key = "shatari"}, -- Fires Over Skettis
-		[11085] = {key = "shatari"}, -- Escape from Skettis
-
-		[11051] = {key = "ogrila"}, -- Banish More Demons
-		[11080] = {key = "ogrila"}, -- The Relic's Emanation
-
-		[11023] = {key = "shatariogrila"}, -- Bomb Them Again
-		[11066] = {key = "shatariogrila"}, -- Wrangle More 
+PermoksAccountManager.quests = {
+	thrallmar = {
+		[10110] = {questType = "daily", log = true, faction = "Horde"} -- Hellfire Fortifications
 	},
-	attunements = {
-		[10901] = {key = "serpentshrine"},
-		[10445] = {key = "hyjal"},
-    [10985] = {key = "blacktemple"},
-		[10277] = {key = "hillsbrad"},
-		[10285] = {key = "blackmorass"},
-	}
+	honor_hold = {
+		[10106] = {questType = "daily", log = true, faction = "Alliance"}, -- Hellfire Fortifications
+	},
+	halaa = {
+		[11502] = {questType = "daily", log = true, faction = "Alliance"}, -- In Defense of Halaa
+		[11503] = {questType = "daily", log = true, faction = "Horde"}, -- Enemies, Old and New
+
+	},
+	auchindoun = {
+		[11505] = {questType = "daily", log = true, faction = "Alliance"}, -- Spirits of Auchindoun
+		[11506] = {questType = "daily", log = true, faction = "Horde"}, -- Spirits of Auchindoun
+	},
+	call_to_arms = {
+		[11335] = {questType = "daily", log = true, faction = "Alliance"}, -- Arathi Basin
+		[11336] = {questType = "daily", log = true, faction = "Alliance"}, -- Alterac Valley
+		[11337] = {questType = "daily", log = true, faction = "Alliance"}, -- Eye of the Storm
+		[11338] = {questType = "daily", log = true, faction = "Alliance"}, -- Warsong Gulch
+		[11339] = {questType = "daily", log = true, faction = "Horde"}, -- Arathi Basin
+		[11340] = {questType = "daily", log = true, faction = "Horde"}, -- Alterac Valley
+		[11341] = {questType = "daily", log = true, faction = "Horde"}, -- Eye of the Storm
+		[11342] = {questType = "daily", log = true, faction = "Horde"}, -- Warsong Gulch
+	},
+	dungeon_normal = {
+		[11364] = {questType = "daily", log = true, unique = true}, -- The Shattered Halls
+		[11371] = {questType = "daily", log = true, unique = true}, -- The Steamvault
+		[11376] = {questType = "daily", log = true, unique = true}, -- Shadow Labyrinth
+		[11383] = {questType = "daily", log = true, unique = true}, -- The Black Morass
+		[11385] = {questType = "daily", log = true, unique = true}, -- The Botanica
+		[11387] = {questType = "daily", log = true, unique = true}, -- The Mechanar
+		[11389] = {questType = "daily", log = true, unique = true}, -- The Arcatraz
+		[11500] = {questType = "daily", log = true, unique = true}, -- Magister's Terrace
+
+	},
+	dungeon_heroic = {
+		[11354] = {questType = "daily", log = true, unique = true}, -- Hellfire Ramparts
+		[11362] = {questType = "daily", log = true, unique = true}, -- The Blood Furnace
+		[11363] = {questType = "daily", log = true, unique = true}, -- The Shattered Halls
+		[11368] = {questType = "daily", log = true, unique = true}, -- The Slave Pens
+		[11369] = {questType = "daily", log = true, unique = true}, -- The Underbog
+		[11370] = {questType = "daily", log = true, unique = true}, -- The Steamvault
+		[11372] = {questType = "daily", log = true, unique = true}, -- Sethekk Halls
+		[11373] = {questType = "daily", log = true, unique = true}, -- Mana-Tombs
+		[11374] = {questType = "daily", log = true, unique = true}, -- Auchenai Crypts
+		[11375] = {questType = "daily", log = true, unique = true}, -- Shadow Labyrinth
+		[11378] = {questType = "daily", log = true, unique = true}, -- The Escape From Durnholde
+		[11382] = {questType = "daily", log = true, unique = true}, -- The Black Morass
+		[11384] = {questType = "daily", log = true, unique = true}, -- The Botanica
+		[11386] = {questType = "daily", log = true, unique = true}, -- The Mechanar
+		[11388] = {questType = "daily", log = true, unique = true}, -- The Arcatraz
+	},
+	cooking = {
+		[11377] = {questType = "daily", log = true}, -- Revenge is Tasty
+		[11379] = {questType = "daily", log = true}, -- Super Hot Stew
+		[11380] = {questType = "daily", log = true}, -- Manalicious
+		[11381] = {questType = "daily", log = true}, -- Soup for the Soul
+	},
+	fishing = {
+		[11665] = {questType = "daily", log = true}, -- Crocolisks in the City
+		[11666] = {questType = "daily", log = true}, -- Bait Bandits
+		[11667] = {questType = "daily", log = true}, -- The One That Got Away
+		[11668] = {questType = "daily", log = true}, -- Shrimpin' Ain't Easy
+		[11669] = {questType = "daily", log = true}, -- Felblood Fillet
+	},
+	netherwing = {
+		[11015] = {questType = "daily", log = true}, -- Netherwing Crystals
+		[11016] = {questType = "daily", log = true}, -- Nethermine Flayer Hide
+		[11017] = {questType = "daily", log = true}, -- Netherdust Pollen
+		[11018] = {questType = "daily", log = true}, -- Nethercite Ore
+		[11020] = {questType = "daily", log = true}, -- A Slow Death
+		[11035] = {questType = "daily", log = true}, -- The Not-So-Friendly Skies...
+		[11055] = {questType = "daily", log = true}, -- The Booterang: A Cure For The Common Worthless Peon
+		[11076] = {questType = "daily", log = true}, -- Picking Up The Pieces...
+		[11077] = {questType = "daily", log = true}, -- Dragons are the Least of Our Problems
+		[11086] = {questType = "daily", log = true}, -- Disrupting the Twilight Portal
+		[11097] = {questType = "daily", log = true}, -- The Deadliest Trap Ever Laid (Scryer)
+		[11101] = {questType = "daily", log = true}, -- The Deadliest Trap Ever Laid (Aldor)
+	},
+	shatari = {
+		[11008] = {questType = "daily", log = true}, -- Fires Over Skettis
+		[11085] = {questType = "daily", log = true}, -- Escape from Skettis
+	},
+	ogrila = {
+		[11051] = {questType = "daily", log = true}, -- Banish More Demons
+		[11080] = {questType = "daily", log = true}, -- The Relic's Emanation
+	},
+	shatariogrila = {
+		[11023] = {questType = "daily", log = true}, -- Bomb Them Again
+		[11066] = {questType = "daily", log = true}, -- Wrangle More
+	},
+	serpentshrine = {
+		[10901] = {questType = "attunement", log = true},
+	},
+	hyjal = {
+		[10445] = {questType = "attunement", log = true},
+	},
+	blacktemple = {
+    	[10985] = {questType = "attunement", log = true},
+	},
+	hillsbrad = {
+		[10277] = {questType = "attunement", log = true},
+	},
+	blackmorass = {
+		[10285] = {questType = "attunement", log = true},
+	},
 }
 
 function PermoksAccountManager:getDefaultCategories(key)
