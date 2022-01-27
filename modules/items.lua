@@ -103,364 +103,265 @@ local labelRows = {
     -- tbc
     elixirDemonslaying = {
         label = 'Elixir of Demonslaying',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirDemonslaying, 9224)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirDemonslaying')
-        end,
+		type = 'item',
+		key = "elixirDemonslaying",
+		id = 9224,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     brilliantWizardOil = {
         label = 'Brilliant Wizard Oil',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.brilliantWizardOil, 20749)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'brilliantWizardOil')
-        end,
+		type = 'item',
+		key = "elixirDemonslaying",
+		id = 20749,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     adamantiteSharpeningStone = {
         label = 'Adamantite Sharpening Stone',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.adamantiteSharpeningStone, 23529)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'adamantiteSharpeningStone')
-        end,
+		type = 'item',
+		key = "adamantiteSharpeningStone",
+		id = 23529,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     flaskBlindingLight = {
         label = 'Flask of Blinding Light',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskBlindingLight, 22861)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'flaskBlindingLight')
-        end,
+		type = 'item',
+		key = "flaskBlindingLight",
+		id = 22861,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     elixirAdept = {
         label = "Adept's Elixir",
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirAdept, 28103)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirAdept')
-        end,
+		type = 'item',
+		key = "elixirAdept",
+		id = 28103,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     elixirDraenicWisdom = {
         label = 'Elixir of Draenic Wisdom',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirDraenicWisdom, 32067)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirDraenicWisdom')
-        end,
+		type = 'item',
+		key = "elixirDraenicWisdom",
+		id = 32067,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     flaskSupremePower = {
         label = 'Flask of Supreme Power',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskSupremePower, 13512)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'flaskSupremePower')
-        end,
+		type = 'item',
+		key = "flaskSupremePower",
+		id = 13512,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     potionSuperMana = {
         label = 'Super Mana Potion',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionSuperMana, 22832)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'potionSuperMana')
-        end,
+		type = 'item',
+		key = "potionSuperMana",
+		id = 22832,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     flaskChromaticWonder = {
         label = 'Flask of Chromatic Wonder',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskChromaticWonder, 33208)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'flaskChromaticWonder')
-        end,
+		type = 'item',
+		key = "flaskChromaticWonder",
+		id = 33208,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     elixirMajorAgility = {
         label = 'Elixir of Major Agility',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirMajorAgility, 22831)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirMajorAgility')
-        end,
+		type = 'item',
+		key = "elixirMajorAgility",
+		id = 22831,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     giftOfArthas = {
         label = 'Gift of Arthas',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.giftOfArthas, 9088)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'giftOfArthas')
-        end,
+		type = 'item',
+		key = "giftOfArthas",
+		id = 9088,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     spiritOfZanza = {
         label = 'Spirit of Zanza',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.spiritOfZanza, 20079)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'spiritOfZanza')
-        end,
+		type = 'item',
+		key = "spiritOfZanza",
+		id = 20079,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     potionIronshield = {
         label = 'Ironshield Potion',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionIronshield, 22849)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'potionIronshield')
-        end,
+		type = 'item',
+		key = "potionIronshield",
+		id = 22849,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     potionHaste = {
         label = 'Haste Potion',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionHaste, 22838)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'potionHaste')
-        end,
+		type = 'item',
+		key = "potionHaste",
+		id = 22838,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     potionFreeAction = {
         label = 'Free Action Potion',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionFreeAction, 5634)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'potionFreeAction')
-        end,
+		type = 'item',
+		key = "potionFreeAction",
+		id = 5634,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     adamantiteWeightstone = {
         label = 'Adamantite Weightstone',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.adamantiteWeightstone, 28421)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'adamantiteWeightstone')
-        end,
+		type = 'item',
+		key = "adamantiteWeightstone",
+		id = 28421,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     elixirHealingPower = {
         label = 'Elixir of Healing Power',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirHealingPower, 22825)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirHealingPower')
-        end,
+		type = 'item',
+		key = "elixirHealingPower",
+		id = 22825,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     superiorWizardOil = {
         label = 'Superior Wizard Oil',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.superiorWizardOil, 22522)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'superiorWizardOil')
-        end,
+		type = 'item',
+		key = "superiorWizardOil",
+		id = 22522,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     elixirMajorMageblood = {
         label = 'Elixir of Major Mageblood',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirMajorMageblood, 22840)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirMajorMageblood')
-        end,
+		type = 'item',
+		key = "elixirMajorMageblood",
+		id = 22840,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     flaskRelentlessAssault = {
         label = 'Flask of Relentless Assault',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskRelentlessAssault, 22854)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'flaskRelentlessAssault')
-        end,
+		type = 'item',
+		key = "flaskRelentlessAssault",
+		id = 22854,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     flaskPureDeath = {
         label = 'Flask of Pure Death',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskPureDeath, 22866)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'flaskPureDeath')
-        end,
+		type = 'item',
+		key = "flaskPureDeath",
+		id = 22866,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     drumsBattle = {
         label = 'Drums of Battle',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.drumsBattle, 29529)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'drumsBattle')
-        end,
+		type = 'item',
+		key = "drumsBattle",
+		id = 29529,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     potionDestruction = {
         label = 'Destruction Potion',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.potionDestruction, 22839)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'potionDestruction')
-        end,
+		type = 'item',
+		key = "potionDestruction",
+		id = 22839,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     flaskFortification = {
         label = 'Flask of Fortification',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flaskFortification, 22851)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'flaskFortification')
-        end,
+		type = 'item',
+		key = "flaskFortification",
+		id = 22851,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     elixirMajorDefense = {
         label = 'Elixir of Major Defense',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirMajorDefense, 22834)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirMajorDefense')
-        end,
+		type = 'item',
+		key = "elixirMajorDefense",
+		id = 22834,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     elixirMajorShadowPower = {
         label = 'Elixir of Major Defense',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirMajorShadowPower, 22835)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirMajorShadowPower')
-        end,
+		type = 'item',
+		key = "elixirMajorShadowPower",
+		id = 22835,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     elixirEmpowerment = {
         label = 'Elixir of Empowerment',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.elixirEmpowerment, 22848)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'elixirEmpowerment')
-        end,
+		type = 'item',
+		key = "elixirEmpowerment",
+		id = 22848,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     swiftnessOfZanza = {
         label = 'Swiftness of Zanza',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.swiftnessOfZanza, 20081)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'swiftnessOfZanza')
-        end,
+		type = 'item',
+		key = "swiftnessOfZanza",
+		id = 20081,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     thistleTea = {
         label = 'Thistle Tea',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.thistleTea, 7676)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'thistleTea')
-        end,
+		type = 'item',
+		key = "thistleTea",
+		id = 7676,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     flameCap = {
         label = 'Flame Cap',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.flameCap, 22788)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'flameCap')
-        end,
+		type = 'item',
+		key = "flameCap",
+		id = 22788,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     superSapperCharge = {
         label = 'Super Sapper Charge',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.superSapperCharge, 23827)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'superSapperCharge')
-        end,
+		type = 'item',
+		key = "superSapperCharge",
+		id = 23827,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     runeDemonic = {
         label = 'Demonic Rune',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.runeDemonic, 12662)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'runeDemonic')
-        end,
+		type = 'item',
+		key = "runeDemonic",
+		id = 12662,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
     runeDark = {
         label = 'Dark Rune',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateItemString(alt_data.itemCounts.runeDark, 20520)
-        end,
-        tooltip = function(button, alt_data)
-            PermoksAccountManager.ItemTooltip_OnEnter(button, alt_data, 'runeDark')
-        end,
+		type = 'item',
+		key = "runeDark",
+		id = 20520,
         group = 'item',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     }
