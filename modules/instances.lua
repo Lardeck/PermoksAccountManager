@@ -42,7 +42,7 @@ local labelRows = {
         group = 'raids'
     },
     -- tbc
-    karazhanAttunement = {
+    karazhan_attunement = {
         label = 'Karazhan',
         data = function(alt_data)
             return (alt_data.itemCounts and alt_data.itemCounts.mastersKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.mastersKey.total, 1, true)) or '-'
@@ -59,7 +59,7 @@ local labelRows = {
         group = 'attunement',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
-    theEyeAttunement = {
+    the_eye_attunement = {
         label = 'Tempest Keep',
         data = function(alt_data)
             return (alt_data.itemCounts and alt_data.itemCounts.tempestKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.tempestKey.total, 1, true)) or '-'

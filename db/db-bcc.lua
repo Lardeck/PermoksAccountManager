@@ -142,8 +142,8 @@ local default_categories = {
         order = 5,
         name = 'Attunements',
         childs = {
-            'hillsbradAttunement',
-            'blackmorassAttunement',
+            'hillsbrad_attunement',
+            'blackmorass_attunement',
             'shatteredHallsKey',
             'arcatrazKey',
             'separator1',
@@ -153,15 +153,15 @@ local default_categories = {
             'warpforgedKey',
             'keyOfTime',
             'separator2',
-            'karazhanAttunement',
-            'serpentshrineAttunement',
-            'theEyeAttunement',
-            'hyjalSummitAttunement',
-            'blackTempleAttunement'
+            'karazhan_attunement',
+            'serpentshrine_attunement',
+            'the_eye_attunement',
+            'hyjal_summit_attunement',
+            'black_temple_attunement'
         },
         childOrder = {
-            hillsbradAttunement = 1,
-            blackmorassAttunement = 2,
+            hillsbrad_attunement = 1,
+            blackmorass_attunement = 2,
             shatteredHallsKey = 3,
             arcatrazKey = 4,
             separator1 = 5,
@@ -171,11 +171,11 @@ local default_categories = {
             warpforgedKey = 9,
             keyOfTime = 10,
             separator2 = 11,
-            karazhanAttunement = 12,
-            serpentshrineAttunement = 13,
-            theEyeAttunement = 14,
-            hyjalSummitAttunement = 15,
-            blackTempleAttunement = 16
+            karazhan_attunement = 12,
+            serpentshrine_attunement = 13,
+            the_eye_attunement = 14,
+            hyjal_summit_attunement = 15,
+            black_temple_attunement = 16
         },
         enabled = true
     },
