@@ -37,7 +37,7 @@ local labelRows = {
 		data = function(alt_data) return alt_data.gold and tonumber(alt_data.gold) and GetMoneyString(alt_data.gold, true) or "-" end,
 		group = "currency",
     	version = false,
-	},	
+	},
 	keystone = {
 		label = L["Keystone"],
 		data = function(alt_data) return PermoksAccountManager:CreateKeystoneString(alt_data.keyDungeon, alt_data.keyLevel) end,
@@ -59,7 +59,7 @@ local labelRows = {
 		data = function(alt_data) return PermoksAccountManager:CreateScoreString(alt_data.mythicScore) or "-" end,
 		group = "character",
     version = WOW_PROJECT_MAINLINE,
-	},	
+	},
 	contract = {
 		label = L["Contract"],
 		data = function(alt_data) return alt_data.contract and PermoksAccountManager:CreateContractString(alt_data.contract) or "-" end,
@@ -103,7 +103,9 @@ local function UpdateGold(charInfo)
 end
 
 local function UpdateILevel(charInfo)
-	charInfo.ilevel = select(2, GetAverageItemLevel())
+	if not PermoksAccountManager.isBC then
+		charInfo.ilevel = select(2, GetAverageItemLevel())
+	end
 end
 
 local function UpdateMythicScore(charInfo)
@@ -122,7 +124,7 @@ local function UpdatePlayerLevel(charInfo, level)
 	charInfo.charLevel = level or UnitLevel("player")
 end
 
-local function UpdateLocation(charInfo)	
+local function UpdateLocation(charInfo)
 	charInfo.location = C_Map.GetBestMapForUnit("player")
 end
 

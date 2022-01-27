@@ -491,13 +491,13 @@ local HiddenQuestTimer
 do
     local timer
     function HiddenQuestTimer(charInfo)
-		if not timer then
-			local function HiddenQuestTimerCallback()
-				UpdateAllHiddenQuests(charInfo)
-				timer = nil
-			end
-			timer = C_Timer.NewTimer(1, HiddenQuestTimerCallback)
-		end
+        if not timer then
+            local function HiddenQuestTimerCallback()
+                UpdateAllHiddenQuests(charInfo)
+                timer = nil
+            end
+            timer = C_Timer.NewTimer(1, HiddenQuestTimerCallback)
+        end
     end
 end
 
