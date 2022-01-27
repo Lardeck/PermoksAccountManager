@@ -13,10 +13,13 @@ local function GetAttunementInfoForData(altData)
     end
 
     local attunementKeys = PermoksAccountManager:getDefaultCategories('attunements').childs
+	local labelRows = PermoksAccountManager.labelRows
     local attunements = {}
-    for i, attunement in ipairs(attunementKeys) do
+    for _, attunement in ipairs(attunementKeys) do
         if not attunement:find('separator') then
-            attunements[attunement] = PermoksAccountManager.labelRows[attunement].data(altData)
+			local labelRow = labelRows[attunement]
+			local labelFunction = PermoksAccountManager:GetInternalLabelFunction(labelRow)
+            attunements[attunement] = labelFunction and labelFunction(altData, labelRow)
         end
     end
 

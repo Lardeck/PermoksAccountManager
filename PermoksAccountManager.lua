@@ -977,7 +977,7 @@ local InternalTooltipFunctions = {
 	pvp = PermoksAccountManager.PVPTooltip_OnEnter,
 }
 
-function PermoksAccountManager:GetLabelFunction(labelRow)
+function PermoksAccountManager:GetInternalLabelFunction(labelRow)
 	return InternalLabelFunctions[labelRow.type] or (type(labelRow.data) == "function" and labelRow.data)
 end
 
@@ -995,7 +995,7 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
 	for index, row_identifier in pairs(childs) do
 		local labelRow = self.labelRows[row_identifier]
 		if labelRow and enabledChilds[row_identifier] then
-			local labelFunction = self:GetLabelFunction(labelRow)
+			local labelFunction = self:GetInternalLabelFunction(labelRow)
 			local text = labelFunction and labelFunction(altData, labelRow)
 			local row = rows[row_identifier] or CreateFontFrame("row", anchorFrame, labelRow, altData, text, enabledRows)
 			if not rows[row_identifier] then
