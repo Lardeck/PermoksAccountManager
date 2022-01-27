@@ -344,7 +344,7 @@ PermoksAccountManager.professionCDs = {
 		num = 1,
 	}
 }
--- TODO: change structure
+
 PermoksAccountManager.quests = {
 	thrallmar = {
 		[10110] = {questType = "daily", log = true, faction = "Horde"} -- Hellfire Fortifications
