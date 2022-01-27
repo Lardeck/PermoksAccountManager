@@ -6,26 +6,27 @@ local default_categories = {
         order = 0,
         name = 'General',
         childs = {
-			'characterName',
-			'characterLevel',
-			'gold', 'location',
-			'profession1CDs',
-			'profession2CDs',
-			'honorBCC',
-			'arenaPoints',
-			'dailyQuestCounter'
-		},
+            'characterName',
+            'characterLevel',
+            'gold',
+            'location',
+            'profession1CDs',
+            'profession2CDs',
+            'honorBCC',
+            'arenaPoints',
+            'dailyQuestCounter'
+        },
         childOrder = {
-			characterName = 1,
-			characterLevel = 2,
-			gold = 3,
-			location = 4,
-			profession1CDs = 5,
-			profession2CDs = 6,
-			honorBCC = 7,
-			arenaPoints = 8,
-			dailyQuestCounter = 9
-		},
+            characterName = 1,
+            characterLevel = 2,
+            gold = 3,
+            location = 4,
+            profession1CDs = 5,
+            profession2CDs = 6,
+            honorBCC = 7,
+            arenaPoints = 8,
+            dailyQuestCounter = 9
+        },
         hideToggle = true,
         enabled = true
     },
@@ -72,30 +73,30 @@ local default_categories = {
         order = 3.2,
         name = 'Alliance Rep',
         childs = {
-			'exodar',
-			'honorHold',
-			'kurenai'
-		},
+            'exodar',
+            'honorHold',
+            'kurenai'
+        },
         childOrder = {
-			exodar = 1,
-			honorHold = 2,
-			kurenai = 3
-		},
+            exodar = 1,
+            honorHold = 2,
+            kurenai = 3
+        },
         enabled = true
     },
     hordeFactions = {
         order = 3.3,
         name = 'Horde Rep',
         childs = {
-			'silvermoonCity',
-			'theMaghar',
-			'thrallmar'
-		},
+            'silvermoonCity',
+            'theMaghar',
+            'thrallmar'
+        },
         childOrder = {
-			silvermoonCity = 1,
-			theMaghar = 2,
-			thrallmar = 3
-		},
+            silvermoonCity = 1,
+            theMaghar = 2,
+            thrallmar = 3
+        },
         enabled = true
     },
     lockouts = {
@@ -140,8 +141,42 @@ local default_categories = {
     attunements = {
         order = 5,
         name = 'Attunements',
-        childs = {'hillsbradAttunement', 'blackmorassAttunement', 'shatteredHallsKey', 'arcatrazKey', 'separator1', 'citadelKey', 'reservoirKey', 'auchenaiKey', 'warpforgedKey', 'keyOfTime', 'separator2', 'karazhanAttunement', 'serpentshrineAttunement', 'theEyeAttunement', 'hyjalSummitAttunement', 'blackTempleAttunement'},
-        childOrder = {hillsbradAttunement = 1, blackmorassAttunement = 2, shatteredHallsKey = 3, arcatrazKey = 4, separator1 = 5, citadelKey = 6, reservoirKey = 7, auchenaiKey = 8, warpforgedKey = 9, keyOfTime = 10, separator2 = 11, karazhanAttunement = 12, serpentshrineAttunement = 13, theEyeAttunement = 14, hyjalSummitAttunement = 15, blackTempleAttunement = 16},
+        childs = {
+            'hillsbradAttunement',
+            'blackmorassAttunement',
+            'shatteredHallsKey',
+            'arcatrazKey',
+            'separator1',
+            'citadelKey',
+            'reservoirKey',
+            'auchenaiKey',
+            'warpforgedKey',
+            'keyOfTime',
+            'separator2',
+            'karazhanAttunement',
+            'serpentshrineAttunement',
+            'theEyeAttunement',
+            'hyjalSummitAttunement',
+            'blackTempleAttunement'
+        },
+        childOrder = {
+            hillsbradAttunement = 1,
+            blackmorassAttunement = 2,
+            shatteredHallsKey = 3,
+            arcatrazKey = 4,
+            separator1 = 5,
+            citadelKey = 6,
+            reservoirKey = 7,
+            auchenaiKey = 8,
+            warpforgedKey = 9,
+            keyOfTime = 10,
+            separator2 = 11,
+            karazhanAttunement = 12,
+            serpentshrineAttunement = 13,
+            theEyeAttunement = 14,
+            hyjalSummitAttunement = 15,
+            blackTempleAttunement = 16
+        },
         enabled = true
     },
     consumables = {
