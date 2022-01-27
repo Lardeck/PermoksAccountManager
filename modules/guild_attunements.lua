@@ -163,7 +163,7 @@ function PermoksAccountManager:DrawPlayerGroup(group, rankIndex, guid)
     local index = 0
     for attunement, completion in self.spairs(
         playerInfo.attunements,
-        function(t, a, b)
+        function(_, a, b)
             return defaultCategories.attunements.childOrder[a] < defaultCategories.attunements.childOrder[b]
         end
     ) do
@@ -237,11 +237,13 @@ function PermoksAccountManager:UpdateGuildRoster(firstUpdate)
     self.db.global.guildInfo[guildName] = self.db.global.guildInfo[guildName] or {}
     local guildInfo = self.db.global.guildInfo[guildName]
 
+	for rankIndex=1, GuildControlGetNumRanks() do
+		guildInfo[rankIndex-1] = guildInfo[rankIndex-1] or {rankName = GuildControlGetRankName(rankIndex), player = {}, numPlayers = 0}
+	end
+
     for index = 1, GetNumGuildMembers() do
         local name, rankName, rankIndex, level, classDisplayName, _, _, _, _, _, class, _, _, _, _, _, GUID = GetGuildRosterInfo(index)
         if level == 70 then
-            guildInfo[rankIndex] = guildInfo[rankIndex] or {rankName = rankName, player = {}, numPlayers = 0}
-
             if not guildInfo[rankIndex].player[GUID] then
                 guildInfo[rankIndex].numPlayers = guildInfo[rankIndex].numPlayers + 1
                 guildInfo[rankIndex].player[GUID] = {class = class, name = Ambiguate(name, 'guild'), guid = GUID, attunements = {}}
@@ -275,7 +277,6 @@ end
 
 do
     local guildEvents = {
-        'PLAYER_ENTERING_WORLD',
         'GUILD_ROSTER_UPDATE',
         'CHAT_MSG_ADDON'
     }

@@ -103,6 +103,62 @@ local labelRows = {
         group = 'attunement',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
+    shatteredHallsKey = {
+        label = 'Shattered Halls',
+        data = function(alt_data)
+            return (alt_data.itemCounts and alt_data.itemCounts.shatteredHallsKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.shatteredHallsKey.total, 1, true)) or '-'
+        end,
+        group = 'attunement',
+        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+    },
+    arcatrazKey = {
+        label = 'Arcatraz',
+        data = function(alt_data)
+            return (alt_data.itemCounts and alt_data.itemCounts.arcatrazKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.arcatrazKey.total, 1, true)) or '-'
+        end,
+        group = 'attunement',
+        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+    },
+    citadelKey = {
+        label = 'Hellfire Citadel',
+        data = function(alt_data)
+            return (alt_data.itemCounts and alt_data.itemCounts.citadelKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.citadelKey.total, 1, true)) or '-'
+        end,
+        group = 'attunement',
+        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+    },
+    reservoirKey = {
+        label = 'Coilfang Reservoir',
+        data = function(alt_data)
+            return (alt_data.itemCounts and alt_data.itemCounts.reservoirKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.reservoirKey.total, 1, true)) or '-'
+        end,
+        group = 'attunement',
+        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+    },
+    auchenaiKey = {
+        label = 'Auchindoun',
+        data = function(alt_data)
+            return (alt_data.itemCounts and alt_data.itemCounts.auchenaiKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.auchenaiKey.total, 1, true)) or '-'
+        end,
+        group = 'attunement',
+        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+    },
+    warpforgedKey = {
+        label = 'Tempest Keep',
+        data = function(alt_data)
+            return (alt_data.itemCounts and alt_data.itemCounts.warpforgedKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.warpforgedKey.total, 1, true)) or '-'
+        end,
+        group = 'attunement',
+        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+    },
+    keyOfTime = {
+        label = 'Caverns of Time',
+        data = function(alt_data)
+            return (alt_data.itemCounts and alt_data.itemCounts.keyOfTime and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.keyOfTime.total, 1, true)) or '-'
+        end,
+        group = 'attunement',
+        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+    },
     heroicsDone = {
         label = 'Heroic Dungeons',
         tooltip = function(button, alt_data)

@@ -439,7 +439,7 @@ function PermoksAccountManager:SortPages()
 	local account = self.db.global.accounts.main
 	local data = account.data
 	local sortKey = self.isBC and "charLevel" or "ilevel"
-	wipe(account.pages)
+	account.pages = {{}}
 
 	local enabledAlts = 1
 	for alt_guid, alt_data in self.spairs(data, function(t, a, b) if t[a] and t[b] then return t[a][sortKey] > t[b][sortKey] end end) do
@@ -748,6 +748,7 @@ function PermoksAccountManager:UpdatePageButtons()
 		pageDropdown:SetPoint("BOTTOMLEFT", mainFrame.topDragBar, "BOTTOMLEFT", 125, 5)
 		pageDropdown:SetWidth(100)
 		pageDropdown:SetCallback("OnValueChanged", function(self, _, pageNumber)
+			print(pageNumber)
 			PermoksAccountManager.db.global.currentPage = pageNumber
 			PermoksAccountManager:UpdateAltAnchors("general", mainFrame, mainFrame.label_column)
 			PermoksAccountManager:UpdateStrings(pageNumber, "general")
@@ -916,7 +917,7 @@ local InternalLabelFunctions = {
 		local currencyInfo = alt_data.currencyInfo[column.id]
 		if not currencyInfo then return "-" end
 
-		return PermoksAccountManager:CreateCurrencyString(currencyInfo, column.abbCurrent, column.abbMax, column.hideMax) or "-"
+		return PermoksAccountManager:CreateCurrencyString(currencyInfo, column.abbCurrent, column.abbMax, column.hideMax, column.customIcon) or "-"
 	end,
 	faction = function(alt_data, column)
 		if not alt_data.factions then return "-" end
