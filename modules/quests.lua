@@ -74,11 +74,11 @@ local labelRows = {
 		group = "resetDaily",
 		version = WOW_PROJECT_MAINLINE,
 	},
-  dailyQuestCounter = {
+  	dailyQuestCounter = {
 		label = "Daily Quests",
 		data = function(alt_data) return alt_data.completedDailies and alt_data.completedDailies.num and PermoksAccountManager:CreateFractionString(alt_data.completedDailies.num, 30) or "Login" end,
 		group = "resetDaily",
-    version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+    	version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
 	},
 	relic_gorger = {
 		label = L["Relic Gorger"],
@@ -374,7 +374,7 @@ local function UpdateAllRetailQuests(charInfo)
 	local self = PermoksAccountManager
 	charInfo.questInfo = charInfo.questInfo or default
 
-	local covenant = charInfo.covenant or C_Covenants.GetActiveCovenantID()
+	local covenant = not self.isBC and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
 	local questInfo = charInfo.questInfo
 	for key, quests in pairs(self.quests) do
 		for questID, info in pairs(quests) do
@@ -411,14 +411,17 @@ local function UpdateAllBCCQuests(charInfo)
 	charInfo.completedDailies.num = 0
 
 	local questInfo = charInfo.questInfo
-	for reset, quests in pairs(self.quests) do
-		questInfo[reset] = questInfo[reset] or {}
+	for key, quests in pairs(self.quests) do
 		for questID, info in pairs(quests) do
+			local visibleType = info.log and "visible" or "hidden"
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
-			questInfo[reset][info.key] = questInfo[reset][info.key] or {}
-			questInfo[reset][info.key][questID] = isComplete
 
-			if reset == "daily" and isComplete then
+			questInfo[info.questType] = questInfo[info.questType] or {}
+			questInfo[info.questType][visibleType] = questInfo[info.questType][visibleType] or {}
+			questInfo[info.questType][visibleType][key] = questInfo[info.questType][visibleType][key] or {}
+			local currentQuestInfo = questInfo[info.questType][visibleType][key]
+
+			if info.questType == "daily" and isComplete then
 				if info.unique then
 					if not charInfo.completedDailies[info.key] then
 						charInfo.completedDailies.num = charInfo.completedDailies.num + 1
@@ -429,6 +432,8 @@ local function UpdateAllBCCQuests(charInfo)
 					charInfo.completedDailies.num = charInfo.completedDailies.num + 1
 				end
 			end
+
+			currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
 		end
 	end
 end
