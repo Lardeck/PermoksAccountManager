@@ -488,16 +488,14 @@ local function UpdateAllHiddenQuests(charInfo)
 end
 
 local timer
+
+local function HiddenQuestTimerCallback(charInfo)
+    UpdateAllHiddenQuests(charInfo)
+    timer = nil
+end
+
 local function HiddenQuestTimer(charInfo)
-    timer =
-        timer or
-        C_Timer.NewTimer(
-            1,
-            function()
-                UpdateAllHiddenQuests(charInfo)
-                timer = nil
-            end
-        )
+    timer = timer or C_Timer.NewTimer(1, HiddenQuestTimerCallback(charInfo))
 end
 
 local function AddQuest(charInfo, questID, questLogIndex, questInfo)
