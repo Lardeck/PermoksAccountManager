@@ -22,7 +22,7 @@ local PermoksAccountManagerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("Per
 		tt:AddLine("|cfff49b42Permoks Account Manager|r")
 		tt:AddLine("|cffffffffLeft-click|r to open the Manager")
 		tt:AddLine("|cffffffffRight-click|r to open options")
-		tt:AddLine("Type '/acc minimap' to hide the Minimap Button!")
+		tt:AddLine("Type '/pam minimap' to hide the Minimap Button!")
 	end
 })
 
@@ -92,11 +92,11 @@ local defaultDB = {
 			currencyIconPosition = "right",
 			customCategories = {
 				general = {
-					childOrder = {characterName = 1, ilevel = 2}, 
-					childs = {"characterName", "ilevel"}, 
-					order = 0, 
-					hideToggle = true, 
-					name = "General", 
+					childOrder = {characterName = 1, ilevel = 2},
+					childs = {"characterName", "ilevel"},
+					order = 0,
+					hideToggle = true,
+					name = "General",
 					enabled = true,
 				},
 				['**'] = {childOrder = {}, childs = {}, enabled = true}
@@ -458,7 +458,7 @@ function PermoksAccountManager:SortPages()
 	end
 
 	for i=1, #account.pages do
-		table.sort(account.pages[i], function(a, b) if data[a] and data[b] then return data[a][sortKey] > data[b][sortKey] end end) 
+		table.sort(account.pages[i], function(a, b) if data[a] and data[b] then return data[a][sortKey] > data[b][sortKey] end end)
 	end
 end
 
@@ -616,7 +616,7 @@ end
 
 function PermoksAccountManager:ResetDailyActivities(db, altData)
 	local currentTime = time()
-	
+
 	if altData.completedDailies then
 		wipe(altData.completedDailies)
 	end
@@ -738,7 +738,7 @@ function PermoksAccountManager:UpdatePageButtons()
 	local mainFrame = self.managerFrame
 	local categoryFrame= self.categoryFrame
 
-	--if #pages == 1 and mainFrame.pageDropdown then mainFrame.pageDropdown.frame:Hide() return end 
+	--if #pages == 1 and mainFrame.pageDropdown then mainFrame.pageDropdown.frame:Hide() return end
 	local pageDropdown = mainFrame.pageDropdown or AceGUI:Create("Dropdown")
 
 	if not mainFrame.pageDropdown then
@@ -771,7 +771,7 @@ function PermoksAccountManager:UpdatePageButtons()
 	table.sort(pageOrder)
 
 	pageDropdown.frame:Show()
-	pageDropdown:SetList(pageList, pageOrder)	
+	pageDropdown:SetList(pageList, pageOrder)
 	pageDropdown:SetValue(1)
 end
 
@@ -1013,7 +1013,7 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
          			row.tooltipFunction = tooltipFunction
 				end
 			end
-      
+
 			if row.tooltipFunction then
 				row:SetScript("OnEnter", function(self)
 				self.tooltipFunction(self, altData, labelRow)
@@ -1023,7 +1023,7 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
 			row:SetPoint("TOPLEFT", anchorFrame, "TOPLEFT", 0, -yOffset * 20)
 			row:SetText(text)
 			row:Show()
-						
+
 			updateButtonTexture(row, enabledRows, row_identifier, alt_guid)
 			self:UpdateRowButton(row, buttonOptions, row_identifier)
 
@@ -1074,7 +1074,7 @@ function PermoksAccountManager:UpdateCategory(button, defaultState, name, catego
 		self:UpdateStrings(nil, category, self.categoryFrame)
 		categoryLabelColumn:SetSize(120, (numRows * 20))
 		categoryLabelColumn:Show()
-					
+
 		if numRows > 0 then
 			categoryLabelColumn.state = "open"
 			self.categoryFrame.openCategory = category
@@ -1085,7 +1085,7 @@ function PermoksAccountManager:UpdateCategory(button, defaultState, name, catego
 			self.categoryFrame:Show()
 		end
 	else
-		self:HideCategory(button, category)	
+		self:HideCategory(button, category)
 	end
 end
 
@@ -1128,7 +1128,7 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
 			categoryButton:SetPoint("TOPRIGHT", PermoksAccountManager.managerFrame.topDragBar, "TOPLEFT", 0, -(buttonrows*26) - 5)
 			if not PermoksAccountManager.managerFrame.categoryButtons[category] then
 				categoryButton:SetSize(100, 25)
-				categoryButton.name = row.name	
+				categoryButton.name = row.name
 
 				local normalTexture = categoryButton:CreateTexture()
 				categoryButton.normalTexture = normalTexture
@@ -1162,10 +1162,10 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
 			if row.disable_drawLayer then
 				categoryButton:DisableDrawLayer("BACKGROUND")
 			end
-			
+
 			categoryButton:SetScript("OnClick", function()
 				PermoksAccountManager:HideAllCategories(category)
-				PermoksAccountManager:UpdateCategory(categoryButton, nil, row.name, category) 
+				PermoksAccountManager:UpdateCategory(categoryButton, nil, row.name, category)
 			end)
 
 			PermoksAccountManager.managerFrame.categoryButtons[category] = categoryButton
