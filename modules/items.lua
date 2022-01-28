@@ -10,7 +10,8 @@ local labelRows = {
         key = 'flask',
         id = 171276,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     foodHaste = {
         label = L['Haste Food'],
@@ -18,7 +19,8 @@ local labelRows = {
         key = 'foodHaste',
         id = 172045,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     augmentRune = {
         label = L['Augment Runes'],
@@ -26,7 +28,8 @@ local labelRows = {
         key = 'augmentRune',
         id = 181468,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     armorKit = {
         label = L['Armor Kits'],
@@ -34,7 +37,8 @@ local labelRows = {
         key = 'armorKit',
         id = 172347,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     oilHeal = {
         label = L['Heal Oils'],
@@ -42,7 +46,8 @@ local labelRows = {
         key = 'oilHeal',
         id = 171286,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     oilDPS = {
         label = L['DPS Oils'],
@@ -50,7 +55,8 @@ local labelRows = {
         key = 'oilDPS',
         id = 171285,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     potHP = {
         label = L['HP Pots'],
@@ -58,7 +64,8 @@ local labelRows = {
         key = 'potHP',
         id = 171267,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     drum = {
         label = L['Drums'],
@@ -66,7 +73,8 @@ local labelRows = {
         key = 'drum',
         id = 172233,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     potManaInstant = {
         label = L['Instant Mana'],
@@ -74,7 +82,8 @@ local labelRows = {
         key = 'potManaInstant',
         id = 171272,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     potManaChannel = {
         label = L['Channal Mana'],
@@ -82,7 +91,8 @@ local labelRows = {
         key = 'potManaChannel',
         id = 171268,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     tome = {
         label = L['Tomes'],
@@ -90,7 +100,8 @@ local labelRows = {
         key = 'tome',
         id = 173049,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     korthiteCrystal = {
         label = L['Korthite Crystals'],
@@ -98,7 +109,8 @@ local labelRows = {
         key = 'korthiteCrystal',
         id = 186017,
         tooltip = true,
-        group = 'item'
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
     },
     -- tbc
     elixirDemonslaying = {
