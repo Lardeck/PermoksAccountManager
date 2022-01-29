@@ -632,9 +632,12 @@ PermoksAccountManager.quests = {
         [64432] = {questType = 'daily', log = true}
     },
     zereth_mortis_dailies = {
+        [64592] = {questType = 'daily', log = true},
         [64717] = {questType = 'daily', log = true},
         [64785] = {questType = 'daily', log = true},
         [64977] = {questType = 'daily', log = true},
+        [65072] = {questType = 'daily', log = true},
+        [65255] = {questType = 'daily', log = true},
         [65256] = {questType = 'daily', log = true},
         [65265] = {questType = 'daily', log = true},
         [65268] = {questType = 'daily', log = true},
@@ -647,9 +650,11 @@ PermoksAccountManager.quests = {
         [64974] = {questType = 'daily'},
         [65081] = {questType = 'daily'},
         [65089] = {questType = 'daily'},
+        [65102] = {questType = 'daily'},
         [65117] = {questType = 'daily'},
         [65119] = {questType = 'daily'},
         [65406] = {questType = 'daily'},
+        [65412] = {questType = 'daily'},
         [65414] = {questType = 'daily'}
     },
     conductor = {
