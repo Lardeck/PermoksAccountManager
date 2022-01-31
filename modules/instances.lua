@@ -13,7 +13,8 @@ local labelRows = {
         data = function(alt_data)
             return alt_data.instanceInfo and PermoksAccountManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or '-'
         end,
-        group = 'dungeons'
+        group = 'dungeons',
+        version = WOW_PROJECT_MAINLINE
     },
     nathria = {
         label = function()
@@ -26,7 +27,8 @@ local labelRows = {
         isComplete = function(alt_data)
             return alt_data.instanceInfo and alt_data.instanceInfo.raids.nathria and alt_data.instanceInfo.raids.nathria.defeatedEncounters == 10
         end,
-        group = 'raids'
+        group = 'raids',
+        version = WOW_PROJECT_MAINLINE
     },
     sanctum_of_domination = {
         label = function()
@@ -39,7 +41,8 @@ local labelRows = {
         isComplete = function(alt_data)
             return alt_data.instanceInfo and alt_data.instanceInfo.raids.sanctum_of_domination and alt_data.instanceInfo.raids.sanctum_of_domination.defeatedEncounters == 10
         end,
-        group = 'raids'
+        group = 'raids',
+        version = WOW_PROJECT_MAINLINE
     },
     -- tbc
     karazhan_attunement = {
