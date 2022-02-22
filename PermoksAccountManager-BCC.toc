@@ -1,8 +1,10 @@
 ## Interface: 20503
 ## Title: Permoks Account Manager
 ## Author: Permok
-## Version: 1.0
+## Version: @project-version@
 ## SavedVariables: PermoksAccountManagerDB
+## X-Curse-Project-ID:
+## X-Wago-ID:
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua

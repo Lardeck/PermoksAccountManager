@@ -24,9 +24,6 @@ local labelRows = {
         type = 'raid',
         key = 'nathria',
         tooltip = true,
-        isComplete = function(alt_data)
-            return alt_data.instanceInfo and alt_data.instanceInfo.raids.nathria and alt_data.instanceInfo.raids.nathria.defeatedEncounters == 10
-        end,
         group = 'raids',
         version = WOW_PROJECT_MAINLINE
     },
@@ -38,12 +35,20 @@ local labelRows = {
         type = 'raid',
         key = 'sanctum_of_domination',
         tooltip = true,
-        isComplete = function(alt_data)
-            return alt_data.instanceInfo and alt_data.instanceInfo.raids.sanctum_of_domination and alt_data.instanceInfo.raids.sanctum_of_domination.defeatedEncounters == 10
-        end,
         group = 'raids',
         version = WOW_PROJECT_MAINLINE
     },
+	sepulcher_of_the_first_ones = {
+		label = function()
+            return PermoksAccountManager.raids[2481].name or L['SotFO']
+        end,
+		id = 2481,
+		type = 'raid',
+		key = 'sepulcher_of_the_first_ones',
+		tooltip = true,
+		group = 'raids',
+		version = WOW_PROJECT_MAINLINE
+	},
     -- tbc
     karazhan_attunement = {
         label = 'Karazhan',

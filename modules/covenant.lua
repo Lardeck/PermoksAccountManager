@@ -20,9 +20,8 @@ local labelRows = {
     },
     renown = {
         label = L['Renown'],
-        data = function(alt_data)
-            return PermoksAccountManager:CreateRenownString(alt_data)
-        end,
+		outline = 'OUTLINE',
+		type = "renown",
         version = WOW_PROJECT_MAINLINE
     },
     callings = {
@@ -93,8 +92,11 @@ end
 
 local function UpdateCallings(charInfo, callings)
     local self = PermoksAccountManager
-    if not callings and not IsAddOnLoaded('Blizzard_CovenantCallings') then
-        UIParentLoadAddOn('Blizzard_CovenantCallings')
+
+    if not callings then
+		if not IsAddOnLoaded('Blizzard_CovenantCallings') then
+        	UIParentLoadAddOn('Blizzard_CovenantCallings')
+		end
         self:RequestCharacterInfo()
         return
     end
@@ -184,28 +186,27 @@ local function CreateCallingString(callingInfo)
     end
 
     if leastTimeLeft then
-        local days, hours, minutes = PermoksAccountManager:TimeToDaysHoursMinutes(leastTimeLeft)
-        return string.format('%s - %s', PermoksAccountManager:CreateQuestString(3 - callingInfo.numCallings, 3), PermoksAccountManager:CreateTimeString(days, hours, minutes))
+		local seconds = PermoksAccountManager:GetSecondsRemaining(leastTimeLeft)
+		local timeString = SecondsToTime(seconds)
+        return string.format('%s - %s', PermoksAccountManager:CreateQuestString(3 - callingInfo.numCallings, 3), PermoksAccountManager:FormatTimeString(seconds, timeString))
     else
         return string.format('%s', PermoksAccountManager:CreateQuestString(3 - callingInfo.numCallings, 3))
     end
 end
 
-local function CreateRenownString(altData)
-    if not altData or not altData.renown then
+local function CreateRenownString(altDataRenown)
+    if not altDataRenown then
         return
     end
 
     local renown
     local renownTbl = {}
-    if type(altData.renown) == 'table' then
+    if type(altDataRenown) == 'table' then
         for covenant = 4, 1, -1 do
-            renown = altData.renown[covenant]
+            renown = altDataRenown[covenant]
             renownTbl[covenant] = customCovenantColors[covenant]:WrapTextInColorCode(renown or 'X')
         end
         return table.concat(renownTbl, ' ')
-    elseif customCovenantColors[altData.covenant] then
-        return string.format('%s', customCovenantColors[altData.covenant]:WrapTextInColorCode(altData.renown))
     end
 end
 
@@ -240,9 +241,9 @@ local payload = {
     labels = labelRows
 }
 local module = PermoksAccountManager:AddModule(moduleName, payload)
-module:AddCustomLabelType('calling', CreateCallingString, 'callingInfo')
-module:AddCustomLabelType('covenant', CreateCovenantString, 'covenant')
-module:AddCustomLabelType('renown', CreateRenownString, 'renwon')
+module:AddCustomLabelType('calling', CreateCallingString, nil, 'callingInfo')
+module:AddCustomLabelType('covenant', CreateCovenantString, true, 'covenant')
+module:AddCustomLabelType('renown', CreateRenownString, nil, 'renown')
 
 function PermoksAccountManager:CreateCallingString(callingInfo)
     if not callingInfo then
@@ -259,8 +260,9 @@ function PermoksAccountManager:CreateCallingString(callingInfo)
     end
 
     if leastTimeLeft then
-        local days, hours, minutes = self:TimeToDaysHoursMinutes(leastTimeLeft)
-        return string.format('%s - %s', self:CreateQuestString(3 - callingInfo.numCallings, 3), self:CreateTimeString(days, hours, minutes))
+		local seconds = PermoksAccountManager:GetSecondsRemaining(leastTimeLeft)
+		local timeString = SecondsToTime(seconds)
+        return string.format('%s - %s', self:CreateQuestString(3 - callingInfo.numCallings, 3), self:FormatTimeString(seconds, timeString))
     else
         return string.format('%s', self:CreateQuestString(3 - callingInfo.numCallings, 3))
     end
@@ -299,6 +301,10 @@ function PermoksAccountManager:CreateRenownString(altData)
     end
 end
 
+function PermoksAccountManager:CreateCovenantString(charInfo)
+    return CreateAtlasMarkup(GetFinalNameFromTextureKit('CovenantChoice-Celebration-%sSigil', C_Covenants.GetCovenantData(charInfo.covenant).textureKit), 18, 18)
+end
+
 function PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data)
     if not alt_data or not alt_data.callingInfo then
         return
@@ -321,7 +327,9 @@ function PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data)
         end
     ) do
         if alt_data.callingInfo[questID] and (covenantCallingInfo.timeRemaining or 0) > time() then
-            tooltip:AddLine(covenantCallingInfo.name, '', self:CreateTimeString(self:TimeToDaysHoursMinutes(covenantCallingInfo.timeRemaining)) or '')
+			local seconds = PermoksAccountManager:GetSecondsRemaining(covenantCallingInfo.timeRemaining)
+			local timeString = SecondsToTime(seconds)
+            tooltip:AddLine(covenantCallingInfo.name, '', self:FormatTimeString(seconds, timeString) or '')
         end
     end
 

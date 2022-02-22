@@ -7,11 +7,11 @@ end
 
 local commandInfo = {
 	commands = {
-		"/pam", 
-		"/pam help", 
-		"/pam minimap", 
-		"/pam options", 
-		"/pam version", 
+		"/pam",
+		"/pam help",
+		"/pam minimap",
+		"/pam options",
+		"/pam version",
 		"/pam keys [party | raid | guild]",
 		"/pam remove name",
 		"/pam filter (a | add) name",
@@ -19,9 +19,9 @@ local commandInfo = {
 		"/pam filter (p | print)"
 	},
 	helpText = {
-		"Show/Hide PermoksAccountManager.", 
+		"Show/Hide PermoksAccountManager.",
 		"Print this help text.",
-		"Show/Hide the minimap button.", 
+		"Show/Hide the minimap button.",
 		"Show the options.",
 		"Print the current version.",
 		"Print keys of all characters in party > guild chat (or specified channel)",
@@ -96,16 +96,10 @@ local function RemoveCharacterFromPage(guid)
 	return page
 end
 
-local function UpdateMainFrame(page)
-	PermoksAccountManager:SortPages()
-	PermoksAccountManager:UpdatePageButtons()
-	PermoksAccountManager:UpdateAnchorsAndSize("general")
-end
-
 local function RemoveCharacter(guid)
 	local page = RemoveCharacterFromPage(guid)
 	RemoveCharacterFromDB(guid)
-	UpdateMainFrame(page)
+	PermoksAccountManager:UpdateManagerFrame(page)
 end
 
 local function RemoveCharacterByName(name, realm)

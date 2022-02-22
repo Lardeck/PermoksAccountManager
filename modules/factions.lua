@@ -18,7 +18,7 @@ local labelRows = {
     archivists = {
         label = L['Archivists'],
         type = 'faction',
-        id = 2472,
+        key = 2472,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
@@ -27,7 +27,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2470].localName or L["Death's Advance"]
         end,
         type = 'faction',
-        id = 2470,
+        key = 2470,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
@@ -36,7 +36,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2432].localName or L["Ve'nari"]
         end,
         type = 'faction',
-        id = 2432,
+        key = 2432,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
@@ -45,7 +45,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2407].localName or L['Ascended']
         end,
         type = 'faction',
-        id = 2407,
+        key = 2407,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
@@ -54,7 +54,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2465].localName or L['Wild Hunt']
         end,
         type = 'faction',
-        id = 2465,
+        key = 2465,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
@@ -63,7 +63,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2410].localName or L['Undying Army']
         end,
         type = 'faction',
-        id = 2410,
+        key = 2410,
         group = 'reputation'
     },
     court_of_harvesters = {
@@ -71,7 +71,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2413].localName or L['Court of Harvesters']
         end,
         type = 'faction',
-        id = 2413,
+        key = 2413,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
@@ -80,7 +80,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2478].localName or L['The Enlightened']
         end,
         type = 'faction',
-        id = 2478,
+        key = 2478,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
@@ -89,7 +89,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2480].localName or L['Automaton']
         end,
         type = 'faction',
-        id = 2480,
+        key = 2480,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
@@ -99,7 +99,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[932]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 932,
+        key = 932,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -109,7 +109,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[934]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 934,
+        key = 934,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -119,7 +119,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[911]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 911,
+        key = 911,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -129,7 +129,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[930]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 930,
+        key = 930,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -139,7 +139,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[935]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 935,
+        key = 935,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -149,7 +149,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[942]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 942,
+        key = 942,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -159,7 +159,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[946]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 946,
+        key = 946,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -169,7 +169,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[947]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 947,
+        key = 947,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -179,7 +179,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[989]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 989,
+        key = 989,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -189,7 +189,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[1011]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 1011,
+        key = 1011,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -199,7 +199,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[933]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 933,
+        key = 933,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -209,7 +209,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[967]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 967,
+        key = 967,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -219,7 +219,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[970]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 970,
+        key = 970,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -229,7 +229,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[990]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 990,
+        key = 990,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -239,7 +239,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[1015]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 1015,
+        key = 1015,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -249,7 +249,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[1038]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 1038,
+        key = 1038,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -259,7 +259,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[1077]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 1077,
+        key = 1077,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -269,7 +269,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[941]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 941,
+        key = 941,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'
@@ -279,7 +279,7 @@ local labelRows = {
             local factionInfo = PermoksAccountManager.factions[978]
             return factionInfo.localName or factionInfo.name
         end,
-        id = 978,
+        key = 978,
         type = 'faction',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
         group = 'reputation'

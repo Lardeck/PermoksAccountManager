@@ -10,6 +10,7 @@ local labelRows = {
         hideOption = true,
         big = true,
         offset = 1.5,
+		type = 'characterName',
         data = function(alt_data)
             return PermoksAccountManager:CreateCharacterString(alt_data.name, alt_data.specInfo)
         end,
@@ -20,6 +21,7 @@ local labelRows = {
     },
     characterLevel = {
         label = L['Level'],
+		type = 'charLevel',
         data = function(alt_data)
             return alt_data.charLevel or '-'
         end,
@@ -43,26 +45,19 @@ local labelRows = {
     },
     gold = {
         label = L['Gold'],
-        option = 'gold',
-        data = function(alt_data)
-            return alt_data.gold and tonumber(alt_data.gold) and GetMoneyString(alt_data.gold, true) or '-'
-        end,
+		type = 'gold',
         group = 'currency',
         version = false
     },
     keystone = {
         label = L['Keystone'],
-        data = function(alt_data)
-            return PermoksAccountManager:CreateKeystoneString(alt_data.keyDungeon, alt_data.keyLevel)
-        end,
+		type = 'keystone',
         group = 'dungeons',
         version = WOW_PROJECT_MAINLINE
     },
     weekly_key = {
         label = L['Highest Key'],
-        data = function(alt_data)
-            return alt_data.vaultInfo and PermoksAccountManager:CreateWeeklyString(alt_data.vaultInfo.MythicPlus) or '-'
-        end,
+		type = 'weeklyKey',
         tooltip = true,
         customTooltip = function(button, alt_data)
             PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
@@ -75,18 +70,14 @@ local labelRows = {
     },
     mplus_score = {
         label = L['Mythic+ Score'],
-        --outline = "OUTLINE",
-        data = function(alt_data)
-            return PermoksAccountManager:CreateScoreString(alt_data.mythicScore) or '-'
-        end,
+        outline = "OUTLINE",
+		type = 'dungeonScore',
         group = 'character',
         version = WOW_PROJECT_MAINLINE
     },
     contract = {
         label = L['Contract'],
-        data = function(alt_data)
-            return alt_data.contract and PermoksAccountManager:CreateContractString(alt_data.contract) or '-'
-        end,
+		type = 'contract',
         group = 'character',
         version = WOW_PROJECT_MAINLINE
     }
@@ -100,8 +91,10 @@ local function UpdateGeneralData(charInfo)
 
         -- Keystone
         local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
-        charInfo.keyDungeon = ownedKeystone and self.keys[ownedKeystone] or L['No Key']
-        charInfo.keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
+		charInfo.keyInfo = {
+			keyDungeon = ownedKeystone and self.keys[ownedKeystone] or L['No Key'],
+			keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
+		}
 
         -- Contracts
         local contract = nil
@@ -167,12 +160,68 @@ local function Update(charInfo)
     end
 end
 
-function PermoksAccountManager:CreateLocationString(mapId)
-    if not mapId then
-        return
+local function CreateGoldString(gold)
+	return gold and tonumber(gold) and GetMoneyString(gold, true) or '-'
+end
+
+local function CreateCharacterString(name, specInfo)
+    if not name then
+        return '-'
     end
-    local mapInfo = C_Map.GetMapInfo(mapId)
-    return mapInfo and mapInfo.name
+
+    local specString
+    if specInfo and PermoksAccountManager.db.global.options.showCurrentSpecIcon then
+        specString = string.format('\124T%d:0\124t', specInfo[4])
+    end
+
+    return string.format('%s %s', name, specString or '')
+end
+
+local function CreateKeystoneString(keyInfo)
+    if not keyInfo then
+        return '-'
+    end
+
+	if keyInfo.keyLevel == 0 then
+		return string.format('%s', keyInfo.keyDungeon)
+	end
+    return string.format('%s+%d', keyInfo.keyDungeon, keyInfo.keyLevel)
+end
+
+local function CreateDungeonScoreString(score)
+    if not score then
+        return '-'
+    end
+
+    if PermoksAccountManager.db.global.options.useScoreColor then
+        local color = C_ChallengeMode.GetDungeonScoreRarityColor(score)
+        return color:WrapTextInColorCode(AbbreviateLargeNumbers(score))
+    else
+        return AbbreviateLargeNumbers(score)
+    end
+end
+
+local function CreateWeeklyString(vaultInfo)
+    if not vaultInfo or not vaultInfo.MythicPlus then
+        return '-'
+    end
+
+    local activityInfo = vaultInfo.MythicPlus[1]
+    if not activityInfo or activityInfo.level == 0 then
+        return '-'
+    end
+
+    return string.format('+%d', activityInfo.level)
+end
+
+local function CreateContractString(contractInfo)
+    if not contractInfo then
+        return '-'
+    end
+
+	local seconds = PermoksAccountManager:GetSecondsRemaining(contractInfo.expirationTime)
+	local timeString = SecondsToTime(seconds)
+    return string.format('%s - %s', contractInfo.faction, PermoksAccountManager:FormatTimeString(seconds, timeString))
 end
 
 local payload = {
@@ -199,63 +248,18 @@ local payload = {
     },
     labels = labelRows
 }
-PermoksAccountManager:AddModule(module, payload)
+local module = PermoksAccountManager:AddModule(module, payload)
+module:AddCustomLabelType('gold', CreateGoldString, true, 'gold')
+module:AddCustomLabelType('characterName', CreateCharacterString, nil, 'name', 'specInfo')
+module:AddCustomLabelType('keystone', CreateKeystoneString, nil, 'keyInfo')
+module:AddCustomLabelType('dungeonScore', CreateDungeonScoreString, true, 'mythicScore')
+module:AddCustomLabelType('weeklyKey', CreateWeeklyString, nil, 'vaultInfo')
+module:AddCustomLabelType('contract', CreateContractString, nil, 'contractInfo')
 
-function PermoksAccountManager:CreateCharacterString(name, specInfo)
-    if not name then
-        return '-'
-    end
-
-    local specString
-    if specInfo and self.db.global.options.showCurrentSpecIcon then
-        specString = string.format('\124T%d:0\124t', specInfo[4])
-    end
-
-    return string.format('%s %s', name, specString or '')
-end
-
-function PermoksAccountManager:CreateKeystoneString(dungeon, level)
-    if not dungeon or not level then
-        return '-'
-    end
-
-    if level == 0 then
-        return dungeon
-    else
-        return string.format('%s+%d', dungeon, level)
-    end
-end
-
-function PermoksAccountManager:CreateScoreString(score)
-    if not score then
+function PermoksAccountManager:CreateLocationString(mapId)
+    if not mapId then
         return
     end
-
-    if self.db.global.options.useScoreColor then
-        local color = C_ChallengeMode.GetDungeonScoreRarityColor(score)
-        return color:WrapTextInColorCode(AbbreviateLargeNumbers(score))
-    else
-        return AbbreviateLargeNumbers(score)
-    end
-end
-
-function PermoksAccountManager:CreateWeeklyString(vaultInfo)
-    if not vaultInfo then
-        return
-    end
-    local activityInfo = vaultInfo[1]
-    if not activityInfo or activityInfo.level == 0 then
-        return
-    end
-
-    return string.format('+%d', activityInfo.level)
-end
-
-function PermoksAccountManager:CreateContractString(contractInfo)
-    if not contractInfo then
-        return
-    end
-    local days, hours, minutes = self:TimeToDaysHoursMinutes(contractInfo.expirationTime)
-
-    return string.format('%s - %s', contractInfo.faction, self:CreateTimeString(days, hours, minutes))
+    local mapInfo = C_Map.GetMapInfo(mapId)
+    return mapInfo and mapInfo.name
 end

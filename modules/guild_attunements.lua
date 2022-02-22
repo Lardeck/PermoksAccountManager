@@ -4,7 +4,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local AceGUI = LibStub('AceGUI-3.0')
 
 local lastTimeUpdate = GetTime()
-local prefix = 'MAM_ATTUNEMENTS'
+local prefix = 'PAM_ATTUNEMENTS'
 local defaultCategories
 
 local function GetAttunementInfoForData(altData)
@@ -192,7 +192,7 @@ end
 
 function PermoksAccountManager:ProcessAttunementMessage(msg)
     if msg == 'request' then
-        local guid = self:getGUID()
+        local guid = self:GetGUID()
         local altData = self.account.data[guid]
         local attunements = GetAttunementInfoForData(altData)
 
@@ -284,7 +284,7 @@ do
     local guildFrame = CreateFrame('Frame')
     guildFrame.update = true
     FrameUtil.RegisterFrameForEvents(guildFrame, guildEvents)
-    C_ChatInfo.RegisterAddonMessagePrefix('MAM_ATTUNEMENTS')
+    C_ChatInfo.RegisterAddonMessagePrefix('PAM_ATTUNEMENTS')
 
     guildFrame:SetScript(
         'OnEvent',
@@ -295,7 +295,7 @@ do
                 defaultCategories = PermoksAccountManager:getDefaultCategories()
             elseif event == 'CHAT_MSG_ADDON' then
                 local prefix = ...
-                if prefix == 'MAM_ATTUNEMENTS' then
+                if prefix == 'PAM_ATTUNEMENTS' then
                     PermoksAccountManager:ProcessAttunementMessage(select(2, ...))
                 end
             end

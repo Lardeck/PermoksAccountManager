@@ -9,11 +9,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1906].name or 'Soul Cinders'
         end,
         type = 'currency',
-        id = 1906,
-        customTooltip = function(button, alt_data)
-            PermoksAccountManager:SoulCindersTooltip_OnEnter(button, alt_data)
-        end,
-        tooltip = true,
+        key = 1906,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -22,7 +18,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1828].name or 'Soul Ash'
         end,
         type = 'currency',
-        id = 1828,
+        key = 1828,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -31,7 +27,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1767].name or 'Stygia'
         end,
         type = 'currency',
-        id = 1767,
+        key = 1767,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -40,7 +36,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1602].name or 'Conquest'
         end,
         type = 'currency',
-        id = 1602,
+        key = 1602,
         hideMax = true,
         tooltip = true,
         group = 'currency',
@@ -51,7 +47,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1792].name or 'Honor'
         end,
         type = 'currency',
-        id = 1792,
+        key = 1792,
         abbCurrent = true,
         abbMax = true,
         tooltip = true,
@@ -63,7 +59,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
         end,
         type = 'currency',
-        id = 1901,
+        key = 1901,
         customIcon = {
             height = 32,
             width = 32,
@@ -78,7 +74,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
         end,
         type = 'currency',
-        id = 1900,
+        key = 1900,
         group = 'currency',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     },
@@ -87,7 +83,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1191].name or 'Valor'
         end,
         type = 'currency',
-        id = 1191,
+        key = 1191,
         hideMax = true,
         tooltip = true,
         group = 'currency',
@@ -98,7 +94,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1904].name or 'Tower Knowledge'
         end,
         type = 'currency',
-        id = 1904,
+        key = 1904,
         hideMax = true,
         tooltip = true,
         group = 'currency',
@@ -109,7 +105,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1977].name or 'Stygian Ember'
         end,
         type = 'currency',
-        id = 1977,
+        key = 1977,
         customTooltip = function(button, alt_data)
             PermoksAccountManager:StygianEmbersTooltip_OnEnter(button, alt_data)
         end,
@@ -122,7 +118,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1931].name or 'Cataloged Research'
         end,
         type = 'currency',
-        id = 1931,
+        key = 1931,
         abbMax = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -132,7 +128,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1813].name or 'Reservoir Anima'
         end,
         type = 'currency',
-        id = 1813,
+        key = 1813,
         hideMax = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -142,10 +138,28 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1810].name or 'Redeemed Soul'
         end,
         type = 'currency',
-        id = 1810,
+        key = 1810,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
-    }
+    },
+
+	-- 9.2
+	cosmic_flux = {
+		label = function()
+            return PermoksAccountManager.db.global.currencyInfo[2009] and PermoksAccountManager.db.global.currencyInfo[2009].name or 'Cosmic Flux'
+        end,
+		type = 'currency',
+		key = 2009,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+	},
+	cyphers = {
+		label = L['Cyphers'],
+		type = 'currency',
+		key = 1979,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+	}
 }
 
 local function UpdateAllCurrencies(charInfo)

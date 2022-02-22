@@ -12,13 +12,11 @@ local default_categories = {
             'weekly_key',
             'keystone',
             'mplus_score',
+            'cyphers',
+            'cosmic_flux',
             'soul_cinders',
             'soul_ash',
             'valor',
-            'stygian_ember',
-            'stygia',
-            'cataloged_research',
-            'tower_knowledge',
             'the_enlightened',
             'automaton'
         },
@@ -29,81 +27,45 @@ local default_categories = {
             weekly_key = 4,
             keystone = 5,
             mplus_score = 6,
-            soul_cinders = 7,
-            soul_ash = 8,
-            valor = 9,
-            stygian_ember = 10,
-            stygia = 11,
-            cataloged_research = 12,
-            tower_knowledge = 13,
-            the_enlightened = 14,
-            automaton = 15
+            cyphers = 7,
+            cosmic_flux = 8,
+            soul_cinders = 9,
+            soul_ash = 10,
+            valor = 11,
+            the_enlightened = 12,
+            automaton = 13
         },
         hideToggle = true,
         enabled = true
     },
     currentdaily = {
-        order = 2,
+        order = 1,
         name = L['Daily'],
         childs = {
-            'korthia_dailies',
-            'relic_creatures',
-            'relic_gorger',
-            'riftbound_cache',
-            'helsworn_chest'
+            'zereth_mortis_dailies',
+            'zereth_mortis_wqs'
         },
         childOrder = {
-            korthia_dailies = 1,
-            relic_creatures = 2,
-            relic_gorger = 3,
-            riftbound_cache = 4,
-            helsworn_chest = 5
+            zereth_mortis_dailies = 1,
+            zereth_mortis_wqs = 2
         },
         enabled = true
     },
     currentweekly = {
-        order = 3,
+        order = 2,
         name = L['(Bi)Weekly'],
         childs = {
-            'korthia_weekly',
-            'anima_weekly',
-            'maw_assault',
-            'assault_vessels',
-            'rift_vessels',
-            'separator1',
-            'battle_plans',
-            'korthia_supplies',
-            'containing_the_helsworn',
-            'tormentors_weekly',
-            'tormentors_locations',
-            'separator2',
-            'adamant_vault_conduit',
-            'torghast_layer',
-            'world_boss',
-            'contract'
+            'zereth_mortis_weekly',
+            'zereth_mortis_world_boss'
         },
         childOrder = {
-            korthia_weekly = 1,
-            anima_weekly = 2,
-            maw_assault = 3,
-            assault_vessels = 4,
-            rift_vessels = 5,
-            separator1 = 10,
-            battle_plans = 11,
-            korthia_supplies = 12,
-            containing_the_helsworn = 13,
-            tormentors_weekly = 14,
-            tormentors_locations = 15,
-            separator2 = 20,
-            adamant_vault_conduit = 21,
-            torghast_layer = 22,
-            world_boss = 23,
-            contract = 24
+            zereth_mortis_weekly = 1,
+            zereth_mortis_world_boss = 2
         },
         enabled = true
     },
     vault = {
-        order = 4,
+        order = 3,
         name = L['Vault'],
         childs = {
             'great_vault_mplus',
@@ -118,7 +80,7 @@ local default_categories = {
         enabled = true
     },
     reputation = {
-        order = 6,
+        order = 4,
         name = L['Reputation'],
         childs = {
             'archivists',
@@ -145,20 +107,22 @@ local default_categories = {
         enabled = true
     },
     raid = {
-        order = 7,
+        order = 5,
         name = L['Raid'],
         childs = {
             'nathria',
-            'sanctum_of_domination'
+            'sanctum_of_domination',
+            'sepulcher_of_the_first_ones'
         },
         childOrder = {
             nathria = 1,
-            sanctum_of_domination = 2
+            sanctum_of_domination = 2,
+            sepulcher_of_the_first_ones = 3
         },
         enabled = true
     },
     sanctum = {
-        order = 8,
+        order = 6,
         name = L['Sanctum'],
         childs = {
             'reservoir_anima',
@@ -183,7 +147,7 @@ local default_categories = {
         enabled = true
     },
     pvp = {
-        order = 9,
+        order = 7,
         name = L['PVP'],
         childs = {
             'conquest',
@@ -202,7 +166,7 @@ local default_categories = {
         enabled = true
     },
     items = {
-        order = 10,
+        order = 8,
         name = L['Items'],
         childs = {
             'flask',
@@ -235,7 +199,7 @@ local default_categories = {
         enabled = false
     },
     daily_nine_one = {
-        order = 7,
+        order = 9,
         name = L['9.1 Daily'],
         childs = {
             'korthia_dailies',
@@ -254,7 +218,7 @@ local default_categories = {
         enabled = false
     },
     weekly_nine_one = {
-        order = 3,
+        order = 10,
         name = L['9.1 (Bi)Weekly'],
         childs = {
             'korthia_weekly',
@@ -294,9 +258,9 @@ local default_categories = {
         },
         enabled = false
     },
-    none_zero = {
-        order = 5,
-        name = L['9.0'],
+    shadowlands = {
+        order = 11,
+        name = L['Shadowlands'],
         childs = {
             'callings',
             'maw_dailies',
@@ -464,7 +428,8 @@ PermoksAccountManager.keys = {
 
 PermoksAccountManager.raids = {
     [2296] = {name = GetRealZoneText(2296), englishName = 'nathria'},
-    [2450] = {name = GetRealZoneText(2450), englishName = 'sanctum_of_domination'}
+    [2450] = {name = GetRealZoneText(2450), englishName = 'sanctum_of_domination'},
+    [2481] = {name = GetRealZoneText(2481), englishName = 'sepulcher_of_the_first_ones'}
 }
 
 PermoksAccountManager.dungeons = {
@@ -518,7 +483,14 @@ PermoksAccountManager.currency = {
     [1904] = 0,
     [1906] = 0,
     [1977] = 0,
-    [1822] = 1
+    [1822] = 1,
+    [1979] = 0,
+    [2009] = 0
+}
+
+PermoksAccountManager.research = {
+	[1902] = 'zereth_mortis_three_dailies',
+    [1972] = 'zereth_mortis_three_wqs'
 }
 
 PermoksAccountManager.quests = {
@@ -632,20 +604,30 @@ PermoksAccountManager.quests = {
         [64432] = {questType = 'daily', log = true}
     },
     zereth_mortis_dailies = {
+        [64579] = {questType = 'daily', log = true},
         [64592] = {questType = 'daily', log = true},
         [64717] = {questType = 'daily', log = true},
         [64785] = {questType = 'daily', log = true},
         [64854] = {questType = 'daily', log = true},
+        [64964] = {questType = 'daily', log = true},
         [64977] = {questType = 'daily', log = true},
+        [65033] = {questType = 'daily', log = true},
         [65072] = {questType = 'daily', log = true},
+        [65096] = {questType = 'daily', log = true},
+        [65142] = {questType = 'daily', log = true},
+        [65177] = {questType = 'daily', log = true},
+        [65226] = {questType = 'daily', log = true},
         [65255] = {questType = 'daily', log = true},
         [65256] = {questType = 'daily', log = true},
+        [65264] = {questType = 'daily', log = true},
         [65265] = {questType = 'daily', log = true},
         [65268] = {questType = 'daily', log = true},
         [65269] = {questType = 'daily', log = true},
         [65325] = {questType = 'daily', log = true},
         [65326] = {questType = 'daily', log = true},
+        [65362] = {questType = 'daily', log = true},
         [65363] = {questType = 'daily', log = true},
+        [65364] = {questType = 'daily', log = true},
         [65445] = {questType = 'daily', log = true}
     },
     zereth_mortis_wqs = {
@@ -654,15 +636,30 @@ PermoksAccountManager.quests = {
         [65081] = {questType = 'daily'},
         [65089] = {questType = 'daily'},
         [65102] = {questType = 'daily'},
+        [65115] = {questType = 'daily'},
         [65117] = {questType = 'daily'},
         [65119] = {questType = 'daily'},
+        [65232] = {questType = 'daily'},
+        [65234] = {questType = 'daily'},
+        [65230] = {questType = 'daily'},
+        [65244] = {questType = 'daily'},
         [65252] = {questType = 'daily'},
         [65262] = {questType = 'daily'},
+        [65402] = {questType = 'daily'},
+        [65403] = {questType = 'daily'},
+        [65405] = {questType = 'daily'},
         [65406] = {questType = 'daily'},
+        [65407] = {questType = 'daily'},
+        [65408] = {questType = 'daily'},
+        [65409] = {questType = 'daily'},
         [65410] = {questType = 'daily'},
         [65411] = {questType = 'daily'},
         [65412] = {questType = 'daily'},
-        [65414] = {questType = 'daily'}
+        [65413] = {questType = 'daily'},
+        [65414] = {questType = 'daily'},
+        [65415] = {questType = 'daily'},
+        [65416] = {questType = 'daily'},
+        [65417] = {questType = 'daily'}
     },
     conductor = {
         [61691] = {covenant = 3, sanctum = 1, minSanctumTier = 1, addToMax = 1, questType = 'daily'}, -- Large Lunarlight Pod
@@ -776,6 +773,9 @@ PermoksAccountManager.quests = {
     korthia_weekly = {
         [63949] = {questType = 'weekly', log = true} -- Shaping Fate
     },
+    zereth_mortis_weekly = {
+        [65324] = {questType = 'biweekly', log = true}
+    },
     -- Maw Warth of the Jailer
     wrath = {
         [63414] = {questType = 'weekly'} -- Wrath of the Jailer
@@ -822,7 +822,7 @@ PermoksAccountManager.quests = {
         [64269] = {questType = 'weekly'},
         [64270] = {questType = 'weekly'}
     },
-    assault = {
+    maw_assault = {
         [63824] = {questType = 'weekly'}, -- Kyrian
         [63543] = {questType = 'weekly'}, -- Necrolord
         [63822] = {questType = 'weekly'}, -- Venthyr
@@ -858,7 +858,9 @@ PermoksAccountManager.quests = {
     korthia_five_dailies = {
         [63727] = {questType = 'unlocks', log = true}
     },
-    zereth_mortis_three_dailies = {}
+    zereth_mortis_three_dailies = {
+		[65219] = {questType = 'unlocks', log = true}
+	}
 }
 
 PermoksAccountManager.locale = {

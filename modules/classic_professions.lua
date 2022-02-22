@@ -142,8 +142,9 @@ function PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, profe
     for spellId, cdName in pairs(self.professionCDs[professionInfo.name].cds) do
         local expirationTime = alt_data.professionCDs[spellId]
         if expirationTime and expirationTime > 0 and expirationTime > time() then
-            local days, hours, minutes = self:TimeToDaysHoursMinutes(expirationTime)
-            tooltip:AddLine(cdName, self:CreateTimeString(days, hours, minutes))
+			local seconds = PermoksAccountManager:GetSecondsRemaining(expirationTime)
+			local timeString = SecondsToTime(seconds)
+            tooltip:AddLine(cdName, self:FormatTimeString(seconds, timeString))
         else
             tooltip:AddLine(cdName, L['|cff00ff00READY|r'])
         end

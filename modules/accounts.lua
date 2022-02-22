@@ -1,7 +1,7 @@
 local addonName, PermoksAccountManager = ...
 PermoksAccountManager.modules = {}
 local AceComm = LibStub('AceComm-3.0')
-local accountsPrefix = 'MAM_ACCOUNTS'
+local accountsPrefix = 'PAM_ACCOUNTS'
 local requestedAccepts = {}
 local requestedSync
 
@@ -57,7 +57,7 @@ do
     )
 end
 
-function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sender, x, y)
+function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sender)
     local db = self.db.global
     local deserializedMsg = self:Deserialze(msg)
     if deserializedMsg and deserializedMsg.type then
@@ -262,7 +262,7 @@ function PermoksAccountManager:SendCharacterUpdate(key)
 
     if #onlineFriends > 0 then
         --self:Print("Send Update", key)
-        local guid = self:getGUID()
+        local guid = self:GetGUID()
 
         local info = charInfo[key]
         local message = {type = 'updatecharacter', guid = guid, key = key, info = info}

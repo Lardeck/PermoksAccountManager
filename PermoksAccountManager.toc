@@ -1,7 +1,9 @@
-## Interface: 90100
+## Interface: 90200
 ## Title: Permoks Account Manager
-## Version: 1.0
+## Version: @project-version@
 ## SavedVariables: PermoksAccountManagerDB
+## X-Curse-Project-ID:
+## X-Wago-ID:
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
@@ -39,6 +41,7 @@ modules\torghast.lua
 modules\vault.lua
 modules\items.lua
 modules\pvp.lua
+modules\research.lua
 
 PermoksAccountManager.lua
 options.lua

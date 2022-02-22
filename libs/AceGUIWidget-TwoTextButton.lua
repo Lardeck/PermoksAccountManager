@@ -14,7 +14,7 @@ local _G = _G
 local PlaySound, CreateFrame, UIParent = PlaySound, CreateFrame, UIParent
 
 
-local normalFont = CreateFont("MAM_TwoTextButtonFont")
+local normalFont = CreateFont("PAM_TwoTextButtonFont")
 normalFont:SetFont("Fonts\\FRIZQT__.TTF", 12)
 normalFont:SetTextColor(1, 1, 1, 1)
 --[[-----------------------------------------------------------------------------

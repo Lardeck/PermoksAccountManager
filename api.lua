@@ -13,7 +13,7 @@ function api.AddModule(...)
 end
 
 function api.GetCharacterInfo(key)
-	if PermoksAccountManager.charInfo then
+	if key and PermoksAccountManager.charInfo then
 		return PermoksAccountManager.charInfo[key]
 	end
 end
