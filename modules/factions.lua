@@ -84,15 +84,6 @@ local labelRows = {
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
-    automaton = {
-        label = function()
-            return PermoksAccountManager.factions[2480].localName or L['Automaton']
-        end,
-        type = 'faction',
-        key = 2480,
-        group = 'reputation',
-        version = WOW_PROJECT_MAINLINE
-    },
     -- tbc
     theAldor = {
         label = function()

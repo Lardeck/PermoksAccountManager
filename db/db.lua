@@ -18,7 +18,6 @@ local default_categories = {
             'soul_ash',
             'valor',
             'the_enlightened',
-            'automaton'
         },
         childOrder = {
             characterName = 1,
@@ -33,7 +32,6 @@ local default_categories = {
             soul_ash = 10,
             valor = 11,
             the_enlightened = 12,
-            automaton = 13
         },
         hideToggle = true,
         enabled = true
@@ -43,11 +41,13 @@ local default_categories = {
         name = L['Daily'],
         childs = {
             'zereth_mortis_dailies',
-            'zereth_mortis_wqs'
+            'zereth_mortis_wqs',
+			'jiro_cyphers'
         },
         childOrder = {
             zereth_mortis_dailies = 1,
-            zereth_mortis_wqs = 2
+            zereth_mortis_wqs = 2,
+			jiro_cyphers = 3
         },
         enabled = true
     },
@@ -91,7 +91,6 @@ local default_categories = {
             'undying_army',
             'court_of_harvesters',
             'the_enlightened',
-            'automaton'
         },
         childOrder = {
             archivists = 1,
@@ -102,7 +101,6 @@ local default_categories = {
             undying_army = 6,
             court_of_harvesters = 7,
             the_enlightened = 8,
-            automaton = 9
         },
         enabled = true
     },
@@ -700,6 +698,11 @@ PermoksAccountManager.quests = {
         [64435] = {questType = 'daily'},
         [64436] = {questType = 'daily'}
     },
+	jiro_cyphers = {
+		[65144] = {questType = 'daily'}, -- Creatii
+		[65166] = {questType = 'daily'}, -- Genesii
+		[65167] = {questType = 'daily'}, -- Nascii
+	},
     maw_souls = {
         [61332] = {covenant = 1, questType = 'weekly', log = true}, -- kyrian 5 souls
         [62861] = {covenant = 1, questType = 'weekly', log = true}, -- kyrian 10 souls

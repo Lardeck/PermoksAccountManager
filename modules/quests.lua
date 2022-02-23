@@ -387,7 +387,16 @@ local labelRows = {
         visibility = 'hidden',
         group = 'resetWeekly',
         version = WOW_PROJECT_MAINLINE
-    }
+    },
+	jiro_cyphers = {
+		label = 'Jiro Cyphers',
+		type = 'quest',
+		questType = 'daily',
+		visibility = 'hidden',
+		required = 3,
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	}
 }
 
 local function AddBCDaily(charInfo, questID, key, unique)
