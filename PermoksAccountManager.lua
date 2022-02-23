@@ -36,7 +36,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.0'
-local INTERNALVERSION = 2
+local INTERNALVERSION = 1
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -1542,8 +1542,9 @@ function PermoksAccountManager:PostKeysIntoChat(channel)
 
     local keys = {}
     for _, alt_data in pairs(self.db.global.accounts.main.data) do
-        if alt_data.keyLevel and alt_data.keyLevel > 0 then
-            local key = string.format('[%s: %s+%d]', alt_data.name, alt_data.keyDungeon, alt_data.keyLevel)
+		local keyInfo = alt_data.keyInfo
+        if keyInfo and keyInfo.keyLevel > 0 then
+            local key = string.format('[%s: %s+%d]', alt_data.name, keyInfo.keyDungeon, keyInfo.keyLevel)
             tinsert(keys, key)
         end
     end
