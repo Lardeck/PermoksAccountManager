@@ -2,8 +2,7 @@
 ## Title: Permoks Account Manager
 ## Version: @project-version@
 ## SavedVariables: PermoksAccountManagerDB
-## X-Curse-Project-ID:
-## X-Wago-ID:
+## X-Curse-Project-ID: 582886
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
