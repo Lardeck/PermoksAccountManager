@@ -39,16 +39,18 @@ end
 local function GetRankTree()
     local tree = {}
 
-    for rankIndex = 0, #PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild] do
-        local rankInfo = PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild][rankIndex]
-        if rankInfo then
-            tinsert(tree, {value = rankIndex, text = rankInfo.rankName, children = {}})
-            for guid, playerInfo in pairs(rankInfo.player) do
-                local text = WrapTextInColorCode(playerInfo.name, playerInfo.completed and 'ff00ff00' or 'ffff0000')
-                tinsert(tree[#tree].children, {value = guid, text = text})
-            end
-        end
-    end
+	if PermoksAccountManager.db.global.guildInfo and PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild] then
+		for rankIndex = 0, #PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild] do
+			local rankInfo = PermoksAccountManager.db.global.guildInfo[PermoksAccountManager.currentGuild][rankIndex]
+			if rankInfo then
+				tinsert(tree, {value = rankIndex, text = rankInfo.rankName, children = {}})
+				for guid, playerInfo in pairs(rankInfo.player) do
+					local text = WrapTextInColorCode(playerInfo.name, playerInfo.completed and 'ff00ff00' or 'ffff0000')
+					tinsert(tree[#tree].children, {value = guid, text = text})
+				end
+			end
+		end
+	end
 
     return tree
 end

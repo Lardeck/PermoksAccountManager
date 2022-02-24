@@ -17,7 +17,7 @@ local default_categories = {
             'soul_cinders',
             'soul_ash',
             'valor',
-            'the_enlightened',
+            'the_enlightened'
         },
         childOrder = {
             characterName = 1,
@@ -31,29 +31,33 @@ local default_categories = {
             soul_cinders = 9,
             soul_ash = 10,
             valor = 11,
-            the_enlightened = 12,
+            the_enlightened = 12
         },
         hideToggle = true,
         enabled = true
     },
     currentdaily = {
         order = 1,
-        name = L['Daily'],
+        name = L['9.2 Daily'],
         childs = {
             'zereth_mortis_dailies',
             'zereth_mortis_wqs',
-			'jiro_cyphers'
+            'jiro_cyphers',
+            'sandworn_chest',
+            'puzzle_caches'
         },
         childOrder = {
             zereth_mortis_dailies = 1,
             zereth_mortis_wqs = 2,
-			jiro_cyphers = 3
+            jiro_cyphers = 3,
+            sandworn_chest = 4,
+            puzzle_caches = 5
         },
         enabled = true
     },
     currentweekly = {
         order = 2,
-        name = L['(Bi)Weekly'],
+        name = L['9.2 (Bi)Weekly'],
         childs = {
             'zereth_mortis_weekly',
             'zereth_mortis_world_boss'
@@ -90,7 +94,7 @@ local default_categories = {
             'wild_hunt',
             'undying_army',
             'court_of_harvesters',
-            'the_enlightened',
+            'the_enlightened'
         },
         childOrder = {
             archivists = 1,
@@ -100,7 +104,7 @@ local default_categories = {
             wild_hunt = 5,
             undying_army = 6,
             court_of_harvesters = 7,
-            the_enlightened = 8,
+            the_enlightened = 8
         },
         enabled = true
     },
@@ -487,7 +491,7 @@ PermoksAccountManager.currency = {
 }
 
 PermoksAccountManager.research = {
-	[1902] = 'zereth_mortis_three_dailies',
+    [1902] = 'zereth_mortis_three_dailies',
     [1972] = 'zereth_mortis_three_wqs'
 }
 
@@ -698,11 +702,11 @@ PermoksAccountManager.quests = {
         [64435] = {questType = 'daily'},
         [64436] = {questType = 'daily'}
     },
-	jiro_cyphers = {
-		[65144] = {questType = 'daily'}, -- Creatii
-		[65166] = {questType = 'daily'}, -- Genesii
-		[65167] = {questType = 'daily'}, -- Nascii
-	},
+    jiro_cyphers = {
+        [65144] = {questType = 'daily'}, -- Creatii
+        [65166] = {questType = 'daily'}, -- Genesii
+        [65167] = {questType = 'daily'} -- Nascii
+    },
     maw_souls = {
         [61332] = {covenant = 1, questType = 'weekly', log = true}, -- kyrian 5 souls
         [62861] = {covenant = 1, questType = 'weekly', log = true}, -- kyrian 10 souls
@@ -858,12 +862,32 @@ PermoksAccountManager.quests = {
         [64620] = {questType = 'weekly'},
         [64623] = {questType = 'weekly'}
     },
+    sandworn_chest = {
+        [65611] = {questType = 'daily'}
+    },
+    puzzle_caches = {
+        [64972] = {questType = 'daily'}, -- Toccatian Cache
+        [65314] = {questType = 'daily'},
+        [65319] = {questType = 'daily'},
+        [65323] = {questType = 'daily'}, -- Cantaric Cache
+        [65094] = {questType = 'daily'},
+        [65318] = {questType = 'daily'},
+        [65091] = {questType = 'daily'}, -- Mezzonic Cache
+        [65315] = {questType = 'daily'},
+        [65320] = {questType = 'daily'},
+        [65316] = {questType = 'daily'}, -- Glissandian Cache
+        [65321] = {questType = 'daily'},
+        [65092] = {questType = 'daily'},
+        [65317] = {questType = 'daily'}, -- Fuguel Cache
+        [65322] = {questType = 'daily'},
+        [65093] = {questType = 'daily'}
+    },
     korthia_five_dailies = {
         [63727] = {questType = 'unlocks', log = true}
     },
     zereth_mortis_three_dailies = {
-		[65219] = {questType = 'unlocks', log = true}
-	}
+        [65219] = {questType = 'unlocks', log = true}
+    }
 }
 
 PermoksAccountManager.locale = {

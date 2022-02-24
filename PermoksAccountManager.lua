@@ -378,6 +378,7 @@ do
         -- init databroker
         self.db = LibStub('AceDB-3.0'):New('PermoksAccountManagerDB', defaultDB, true)
         PermoksAccountManager:RegisterChatCommand('pam', 'HandleChatCommand')
+		PermoksAccountManager:HandleSecretPsst()
         LibIcon:Register('PermoksAccountManager', PermoksAccountManagerLDB, self.db.profile.minimap)
 
         PermoksAccountManager:CreateFrames()
@@ -1338,6 +1339,10 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
     local db = PermoksAccountManager.db.global
     local buttonrows = 0
     local categories = db.currentCategories
+	local nameTbl
+	if not db.custom then
+		nameTbl = self:getDefaultCategories()
+	end
     for category, row in PermoksAccountManager.spairs(
         categories,
         function(t, a, b)
@@ -1347,7 +1352,7 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
         end
     ) do
         if category ~= 'general' and db.currentCategories[category].enabled then
-            local categoryButton = PermoksAccountManager.managerFrame.categoryButtons[category] or CreateManagerButton(100, 25, row.name)
+            local categoryButton = PermoksAccountManager.managerFrame.categoryButtons[category] or CreateManagerButton(100, 25, nameTbl and nameTbl[category] and nameTbl[category].name or row.name)
             categoryButton:Show()
             categoryButton:SetPoint('TOPRIGHT', PermoksAccountManager.managerFrame.topDragBar, 'TOPLEFT', 0, -(buttonrows * 26) - 5)
             if not PermoksAccountManager.managerFrame.categoryButtons[category] then

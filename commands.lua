@@ -178,6 +178,13 @@ function commands.OPTIONS()
 	PermoksAccountManager:OpenOptions()
 end
 
+function commands.SECRET()
+	if not PermoksAccountManager.db.global.secret then
+		PermoksAccountManager.db.global.secret = true
+		PermoksAccountManager:RegisterChatCommand('mam', 'HandleChatCommand')
+	end
+end
+
 function PermoksAccountManager:HandleChatCommand(chatString)
 	local command, nextposition = PermoksAccountManager:GetArgs(chatString, 1)
 
@@ -205,4 +212,10 @@ function PermoksAccountManager:Purge()
 	self:OnLogin()
 
 	self:Print("Please reload your interface to update the displayed info.")
+end
+
+function PermoksAccountManager:HandleSecretPsst()
+	if self.db.global.secret then
+		PermoksAccountManager:RegisterChatCommand('mam', 'HandleChatCommand')
+	end
 end
