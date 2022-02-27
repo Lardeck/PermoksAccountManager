@@ -12,7 +12,7 @@ local function UpdateCypherResearch(charInfo)
 	charInfo.researchInfo = charInfo.researchInfo or {}
 
 	for talentID, key in pairs(self.research) do
-		charInfo.researchInfo[key] = C_Garrison.GetTalentInfo(talentID).researched
+		charInfo.researchInfo[key] = charInfo.researchInfo[key] or C_Garrison.GetTalentInfo(talentID).researched
 	end
 end
 
@@ -24,7 +24,8 @@ local payload = {
 	update = Update,
 	labels = labelRows,
 	events = {
-		['GARRISON_TALENT_UPDATE'] = UpdateCypherResearch,
+		['GARRISON_TALENT_COMPLETE'] = UpdateCypherResearch,
+		['GARRISON_UPDATE'] = UpdateCypherResearch,
 	},
 	share = {
 		[UpdateCypherResearch] = 'researchInfo'

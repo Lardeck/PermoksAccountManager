@@ -402,7 +402,7 @@ local labelRows = {
 		type = 'quest',
 		questType = 'daily',
 		visibility = 'hidden',
-		required = 5,
+		required = 15,
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	}

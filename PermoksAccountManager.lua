@@ -696,9 +696,9 @@ end
 function PermoksAccountManager:CheckForReset()
     local db = self.db.global
     local currentTime = time()
-    local resetDaily = currentTime > (db.dailyReset or 0)
-    local resetWeekly = currentTime > (db.weeklyReset or 0)
-    local resetBiweekly = currentTime > (db.biweeklyReset or 0)
+    local resetDaily = currentTime >= (db.dailyReset or 0)
+    local resetWeekly = currentTime >= (db.weeklyReset or 0)
+    local resetBiweekly = currentTime >= (db.biweeklyReset or 0)
     wipe(db.completionData)
 
     for account, accountData in pairs(db.accounts) do
@@ -752,7 +752,7 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
     -- Weekly Quests
     if altData.questInfo and altData.questInfo.weekly then
         for visibility, quests in pairs(altData.questInfo.weekly) do
-            wipe(altData.questInfo.weekly[visibility])
+            altData.questInfo.weekly[visibility] = {}
         end
     end
 end
@@ -761,7 +761,7 @@ function PermoksAccountManager:ResetDailyActivities(db, altData)
     local currentTime = time()
 
     if altData.completedDailies then
-        wipe(altData.completedDailies)
+        altData.completedDailies = {}
     end
 
     -- Callings
@@ -781,7 +781,7 @@ function PermoksAccountManager:ResetDailyActivities(db, altData)
     -- Daily Quests
     if altData.questInfo and altData.questInfo.daily then
         for visibility, quests in pairs(altData.questInfo.daily) do
-            wipe(altData.questInfo.daily[visibility])
+            altData.questInfo.daily[visibility] = {}
         end
     end
 end
@@ -789,7 +789,7 @@ end
 function PermoksAccountManager:ResetBiweeklyActivities(altData)
     if altData.questInfo and altData.questInfo.biweekly then
         for visibility, quests in pairs(altData.questInfo.biweekly) do
-            wipe(altData.questInfo.biweekly[visibility])
+            altData.questInfo.biweekly[visibility] = {}
         end
     end
 end
@@ -1532,9 +1532,8 @@ end
 
 function PermoksAccountManager:GetNextBiWeeklyResetTime()
     local weeklyReset = C_DateAndTime.GetSecondsUntilWeeklyReset()
-    if weeklyReset then
-        return (weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset)
-    end
+    print((weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset))
+    return (weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset)
 end
 
 function PermoksAccountManager:PostKeysIntoChat(channel)
