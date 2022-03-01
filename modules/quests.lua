@@ -361,7 +361,7 @@ local labelRows = {
     zereth_mortis_weekly = {
         label = 'Patterns',
         type = 'quest',
-        questType = 'biweekly',
+        questType = 'weekly',
         visibility = 'visible',
         group = 'resetWeekly',
         version = WOW_PROJECT_MAINLINE
@@ -402,7 +402,7 @@ local labelRows = {
 		type = 'quest',
 		questType = 'daily',
 		visibility = 'hidden',
-		required = 15,
+		required = 5,
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	}

@@ -185,38 +185,3 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
     tooltip:SmartAnchorTo(button)
     tooltip:Show()
 end
-
-function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
-    if not alt_data or not alt_data.mythicPlusHistory then
-        return
-    end
-
-    local runs = {}
-    for run, info in ipairs(alt_data.mythicPlusHistory) do
-        if info.completed and info.thisWeek then
-            tinsert(runs, info.level)
-        end
-    end
-    if #runs < 2 then
-        return
-    end
-    table.sort(
-        runs,
-        function(a, b)
-            return a > b
-        end
-    )
-
-    for i in ipairs(runs) do
-        if i == 1 or i == 4 or i == 10 then
-            runs[i] = string.format('|cff00f7ff%d|r', runs[i])
-        end
-    end
-
-    local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 1, 'LEFT')
-    button.tooltip = tooltip
-
-    tooltip:AddLine(table.concat(runs, ', '))
-    tooltip:SmartAnchorTo(button)
-    tooltip:Show()
-end

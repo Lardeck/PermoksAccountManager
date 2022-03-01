@@ -914,11 +914,13 @@ function PermoksAccountManager:UpdatePageButtons()
 				pageButton.selected:Show()
 			end
 
-            pageButton:SetPoint('LEFT', managerFrame.topDragBar, 'LEFT', 130, 0)
+			local index = pageNumber - 1
+            pageButton:SetPoint('LEFT', managerFrame.topDragBar, 'LEFT', (index * 35) + (index > 0 and 135 or 130), 0)
 			pageButton:SetID(pageNumber)
             pageButton:SetScript(
                 'OnClick',
                 function(self, button, down)
+					local currentPage = db.currentPage
                     if currentPage == pageNumber then
                         return
                     end
@@ -1532,7 +1534,6 @@ end
 
 function PermoksAccountManager:GetNextBiWeeklyResetTime()
     local weeklyReset = C_DateAndTime.GetSecondsUntilWeeklyReset()
-    print((weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset))
     return (weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset)
 end
 
