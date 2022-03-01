@@ -36,7 +36,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.0'
-local INTERNALVERSION = 1
+local INTERNALVERSION = 2
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -556,6 +556,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if (oldInternalVersion or 0) < 2 then
         oldInternalVersion = 2
+		self:UpdateDefaultCategories('currentdaily')
     end
 end
 

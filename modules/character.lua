@@ -1,5 +1,6 @@
 local addonName, PermoksAccountManager = ...
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
+local LibQTip = LibStub('LibQTip-1.0')
 local options
 
 local module = 'character'
