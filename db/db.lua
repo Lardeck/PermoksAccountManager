@@ -781,7 +781,7 @@ PermoksAccountManager.quests = {
         [63949] = {questType = 'weekly', log = true} -- Shaping Fate
     },
     zereth_mortis_weekly = {
-        [65324] = {questType = 'biweekly', log = true}
+        [65324] = {questType = 'weekly', log = true}
     },
     -- Maw Warth of the Jailer
     wrath = {
