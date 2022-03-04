@@ -154,8 +154,8 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
         if activityInfo.progress >= activityInfo.threshold then
             exampleRewardItem = C_WeeklyRewards.GetExampleRewardItemHyperlinks(activityInfo.id)
 
-            if activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level >= 15 then
-                rewardItemLevel = 252
+            if not exampleRewardItem and activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level > 15 then
+                rewardItemLevel = self.vault_rewards[activityInfo.type][15]
             else
                 rewardItemLevel = self.vault_rewards[activityInfo.type][activityInfo.level] or (exampleRewardItem and GetDetailedItemLevelInfo(exampleRewardItem)) or nil
             end
