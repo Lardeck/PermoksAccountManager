@@ -10,9 +10,7 @@ local labelRows = {
         customTooltip = function(button, alt_data)
             PermoksAccountManager:TorghastTooltip_OnEnter(button, alt_data)
         end,
-        data = function(alt_data)
-            return alt_data.torghastInfo and PermoksAccountManager:CreateTorghastString(alt_data.torghastInfo) or '-'
-        end,
+        type = 'torghast',
         isComplete = function(alt_data)
             return alt_data.torghastInfo and PermoksAccountManager:CompletedTorghastLayers(alt_data.torghastInfo)
         end,
@@ -48,37 +46,41 @@ local function UpdateTorghast(charInfo)
         end
     end
 end
-local function Update(charInfo)
-    UpdateTorghast(charInfo)
-end
 
-do
-    local payload = {
-        update = Update,
-        labels = labelRows,
-        events = {
-            ['CURRENCY_DISPLAY_UPDATE'] = UpdateTorghast
-        },
-        share = {
-            [UpdateTorghast] = 'torghastInfo'
-        }
-    }
-    PermoksAccountManager:AddModule(module, payload)
-end
 
-function PermoksAccountManager:CreateTorghastString(torghastInfo)
+
+local function CreateTorghastString(torghastInfo)
     if not torghastInfo then
         return
     end
 
     local torghastString
-    for wingName, completedLayer in pairs(torghastInfo) do
-        local color = completedLayer and completedLayer == 12 and '00ff00' or 'ff0000'
+    for _, completedLayer in pairs(torghastInfo) do
+        local color = completedLayer and completedLayer == 16 and '00ff00' or 'ff0000'
         torghastString = string.format('%s|cff%s%d|r', torghastString and (torghastString .. ' - ') or '', color, completedLayer)
     end
 
     return torghastString
 end
+
+
+
+local function Update(charInfo)
+    UpdateTorghast(charInfo)
+end
+
+local payload = {
+    update = Update,
+    labels = labelRows,
+    events = {
+        ['CURRENCY_DISPLAY_UPDATE'] = UpdateTorghast
+    },
+    share = {
+        [UpdateTorghast] = 'torghastInfo'
+    }
+}
+local module = PermoksAccountManager:AddModule(module, payload)
+module:AddCustomLabelType('torghast', CreateTorghastString, nil, 'torghastInfo')
 
 function PermoksAccountManager:CompletedTorghastLayers(torghastInfo)
     if not torghastInfo then
@@ -86,11 +88,11 @@ function PermoksAccountManager:CompletedTorghastLayers(torghastInfo)
     end
 
     local completedLayerTotal = 0
-    for wingName, completedLayer in pairs(torghastInfo) do
+    for _, completedLayer in pairs(torghastInfo) do
         completedLayerTotal = completedLayerTotal + completedLayer
     end
 
-    return completedLayerTotal == 24
+    return completedLayerTotal == 32
 end
 
 function PermoksAccountManager:TorghastTooltip_OnEnter(button, alt_data)
