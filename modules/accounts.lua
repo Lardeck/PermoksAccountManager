@@ -273,7 +273,6 @@ function PermoksAccountManager:SendCharacterUpdate(key)
 end
 
 function PermoksAccountManager:UpdateAccounts()
-    self:UpdateAccountButtons()
     if self.db.global.numAccounts > 1 then
         self:Print('Initiating Account Update.')
         C_Timer.After(

@@ -1505,6 +1505,7 @@ function PermoksAccountManager:ShowInterface()
         self:CreateMenuButtons()
         self:UpdateAltAnchors('general', self.managerFrame, self.managerFrame.labelColumn)
         self:UpdatePageButtons()
+		self:UpdateAccountButtons()
         self:UpdateAccounts()
 
         self.loaded = true
