@@ -126,7 +126,7 @@ function PermoksAccountManager:CreateVaultString(vaultInfo)
 
             if activityInfo.threshold > activityInfo.progress or i == 3 then
                 if #difficulties > 0 then
-                    vaultString = string.format('%s (%s)', self:CreateFractionString(activityInfo.progress, activityInfo.threshold), table.concat(difficulties, '\124'))
+                    vaultString = string.format('%s (%s)', self:CreateFractionString(activityInfo.progress, activityInfo.threshold), table.concat(difficulties, '\124\124'))
                 else
                     vaultString = self:CreateFractionString(activityInfo.progress, activityInfo.threshold)
                 end
