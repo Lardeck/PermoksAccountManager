@@ -36,7 +36,7 @@ local function UpdatePVPRating(charInfo)
 
     local pvp = charInfo.pvp
     for i = 1, 3 do
-        local rating, seasonBest, weeklyBest, seasonPlayed, seasonWon, weeklyPlayed, weeklyWon, lastWeeksBest, hasWon, pvpTier = GetPersonalRatedInfo(CONQUEST_BRACKET_INDEXES[i])
+        local rating, seasonBest, _, seasonPlayed, seasonWon, _, _, _, _, pvpTier = GetPersonalRatedInfo(CONQUEST_BRACKET_INDEXES[i])
         pvp[i] = {rating = rating, seasonBest = seasonBest, seasonPlayed = seasonPlayed, seasonWon = seasonWon, pvpTier = pvpTier}
     end
 end
@@ -82,7 +82,7 @@ function PermoksAccountManager.PVPTooltip_OnEnter(button, altData, labelRow)
     local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
     button.tooltip = tooltip
 
-    for i, infoKey in ipairs(pvpInfoTbl) do
+    for _, infoKey in ipairs(pvpInfoTbl) do
         tooltip:AddLine(infoKey:gsub('^%l', string.upper), info[infoKey])
     end
 

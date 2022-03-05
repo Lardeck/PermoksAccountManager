@@ -338,30 +338,38 @@ local function GetAllItemCounts(itemID)
     return GetItemCount(itemID), GetItemCount(itemID, true)
 end
 
+local SaveItemCounts
+do
+	local cachedItemInfo = {}
+	function SaveItemCounts(charInfo, itemID)
+		if not cachedItemInfo[itemID] then
+			local item = Item:CreateFromItemID(itemID)
+			if not item:IsItemEmpty() then
+				item:ContinueOnItemLoad(
+					function()
+						cachedItemInfo[itemID] = true
+						local bagCount, totalCount = GetAllItemCounts(itemID)
+						local name = item:GetItemName()
+						local icon = item:GetItemIcon()
+						charInfo.itemCounts[itemID] = {name = name, bank = (totalCount - bagCount), total = totalCount, bags = bagCount, itemID = itemID, icon = icon}
+					end
+				)
+			end
+		else
+			local bagCount, totalCount = GetAllItemCounts(itemID)
+			charInfo.itemCounts[itemID].bank = (totalCount - bagCount)
+			charInfo.itemCounts[itemID].bags = bagCount
+			charInfo.itemCounts[itemID].total = totalCount
+		end
+	end
+end
+
 local function UpdateItemCounts(charInfo)
-    charInfo.itemCounts = charInfo.itemCounts or {}
-    local self = PermoksAccountManager
-    local count, bank
-    for itemID, info in pairs(self.item) do
-        if not charInfo.itemCounts[itemID] then
-            local item = Item:CreateFromItemID(itemID)
-            if not item:IsItemEmpty() then
-                item:ContinueOnItemLoad(
-                    function()
-                        local bagCount, totalCount = GetAllItemCounts(itemID)
-                        local name = item:GetItemName()
-                        local icon = item:GetItemIcon()
-                        charInfo.itemCounts[itemID] = {name = name, bank = (totalCount - bagCount), total = totalCount, bags = bagCount, itemID = itemID, icon = icon}
-                    end
-                )
-            end
-        else
-            local bagCount, totalCount = GetAllItemCounts(itemID)
-            charInfo.itemCounts[itemID].bank = (totalCount - bagCount)
-            charInfo.itemCounts[itemID].bags = bagCount
-            charInfo.itemCounts[itemID].total = totalCount
-        end
-    end
+	charInfo.itemCounts = charInfo.itemCounts or {}
+	local self = PermoksAccountManager
+	for itemID, _ in pairs(self.item) do
+		SaveItemCounts(charInfo, itemID)
+	end
 end
 
 local function Update(charInfo)

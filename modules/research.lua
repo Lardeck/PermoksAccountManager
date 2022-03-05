@@ -6,7 +6,6 @@ local module = 'research'
 local labelRows = {
 }
 
-
 local function UpdateCypherResearch(charInfo)
 	local self = PermoksAccountManager
 	charInfo.researchInfo = charInfo.researchInfo or {}
