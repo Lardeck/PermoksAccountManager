@@ -35,7 +35,7 @@ local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
-local VERSION = '1.0.2'
+local VERSION = '1.0.3'
 local INTERNALVERSION = 2
 local INTERNALBCVERSION = 1
 local defaultDB = {
@@ -164,8 +164,8 @@ do
 
     --- Initialize the fonts
     function LoadFonts()
-		local options = PermoksAccountManager.db.global.options
-		local outline = options.useOutline and 'OUTLINE' or nil
+        local options = PermoksAccountManager.db.global.options
+        local outline = options.useOutline and 'OUTLINE' or nil
         local font = LSM:Fetch('font', options.font)
 
         normalFont = CreateFont('PAM_NormalFont')
@@ -187,8 +187,8 @@ do
 
     --- Update the font path of all previously created fonts.
     function UpdateFonts()
-		local options = PermoksAccountManager.db.global.options
-		local outline = options.useOutline and 'OUTLINE' or nil
+        local options = PermoksAccountManager.db.global.options
+        local outline = options.useOutline and 'OUTLINE' or nil
         local font = LSM:Fetch('font', options.font)
         normalFont:SetFont(font, 11, outline)
         smallFont:SetFont(font, 9, outline)
@@ -267,50 +267,50 @@ do
         return button
     end
 
-	function CreateManagerButton(width, height, text)
-		local button = CreateFrame('Button', nil, PermoksAccountManager.managerFrame)
-		button:SetSize(width, height)
+    function CreateManagerButton(width, height, text)
+        local button = CreateFrame('Button', nil, PermoksAccountManager.managerFrame)
+        button:SetSize(width, height)
 
-		local normalTexture = button:CreateTexture()
-		button.normalTexture = normalTexture
-		normalTexture:SetSize(width + 4, height + 11)
-		normalTexture:ClearAllPoints()
-		normalTexture:SetPoint('TOPLEFT', -2, 0)
-		normalTexture:SetAtlas('auctionhouse-nav-button', false)
+        local normalTexture = button:CreateTexture()
+        button.normalTexture = normalTexture
+        normalTexture:SetSize(width + 4, height + 11)
+        normalTexture:ClearAllPoints()
+        normalTexture:SetPoint('TOPLEFT', -2, 0)
+        normalTexture:SetAtlas('auctionhouse-nav-button', false)
 
-		button:SetHighlightAtlas('auctionhouse-nav-button-highlight', false)
-		PermoksAccountManager:SkinButtonElvUI(button)
+        button:SetHighlightAtlas('auctionhouse-nav-button-highlight', false)
+        PermoksAccountManager:SkinButtonElvUI(button)
 
-		local fontString = button:CreateFontString(nil, 'OVERLAY', 'PAM_MediumLargeFont')
-		button.Text = fontString
-		fontString:ClearAllPoints()
-		fontString:SetAllPoints()
-		fontString:SetText(text)
-		fontString:SetTextColor(1, 1, 1, 1)
+        local fontString = button:CreateFontString(nil, 'OVERLAY', 'PAM_MediumLargeFont')
+        button.Text = fontString
+        fontString:ClearAllPoints()
+        fontString:SetAllPoints()
+        fontString:SetText(text)
+        fontString:SetTextColor(1, 1, 1, 1)
 
-		local selected = button:CreateTexture()
-		button.selected = selected
-		selected:SetSize(button:GetSize())
-		selected:ClearAllPoints()
-		selected:SetPoint('CENTER', 0, -1)
-		selected:SetAtlas('auctionhouse-nav-button-select', false)
-		selected:Hide()
+        local selected = button:CreateTexture()
+        button.selected = selected
+        selected:SetSize(button:GetSize())
+        selected:ClearAllPoints()
+        selected:SetPoint('CENTER', 0, -1)
+        selected:SetAtlas('auctionhouse-nav-button-select', false)
+        selected:Hide()
 
-		button:SetScript(
-			'OnMouseDown',
-			function()
-				fontString:AdjustPointsOffset(1, -1)
-			end
-		)
-		button:SetScript(
-			'OnMouseUp',
-			function()
-				fontString:AdjustPointsOffset(-1, 1)
-			end
-		)
+        button:SetScript(
+            'OnMouseDown',
+            function()
+                fontString:AdjustPointsOffset(1, -1)
+            end
+        )
+        button:SetScript(
+            'OnMouseUp',
+            function()
+                fontString:AdjustPointsOffset(-1, 1)
+            end
+        )
 
-		return button
-	end
+        return button
+    end
 end
 
 do
@@ -378,7 +378,7 @@ do
         -- init databroker
         self.db = LibStub('AceDB-3.0'):New('PermoksAccountManagerDB', defaultDB, true)
         PermoksAccountManager:RegisterChatCommand('pam', 'HandleChatCommand')
-		PermoksAccountManager:HandleSecretPsst()
+        PermoksAccountManager:HandleSecretPsst()
         LibIcon:Register('PermoksAccountManager', PermoksAccountManagerLDB, self.db.profile.minimap)
 
         PermoksAccountManager:CreateFrames()
@@ -515,7 +515,7 @@ function PermoksAccountManager:CreateMenuButtons()
     closeButton.x = closeButtonTexture
     closeButtonTexture:SetAllPoints()
     closeButtonTexture:SetTexture('Interface/Addons/PermoksAccountManager/textures/testbuttonx.tga')
-	closeButtonTexture:SetVertexColor(2, 2, 2, 1)
+    closeButtonTexture:SetVertexColor(2, 2, 2, 1)
     closeButton:SetScript(
         'OnMouseDown',
         function()
@@ -556,7 +556,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if (oldInternalVersion or 0) < 2 then
         oldInternalVersion = 2
-		self:UpdateDefaultCategories('currentdaily')
+        self:UpdateDefaultCategories('currentdaily')
     end
 end
 
@@ -664,7 +664,7 @@ function PermoksAccountManager:OnLogin()
         self:UpdateCompletionData()
     end
 
-	db.currentPage = 1
+    db.currentPage = 1
     self:SortPages()
     self:LoadOptionsTemplate()
     self.UpdateCustomLabelOptions()
@@ -894,14 +894,14 @@ function PermoksAccountManager:UpdatePageButtons()
     local managerFrame = self.managerFrame
     managerFrame.pageButtons = managerFrame.pageButtons or {}
     local categoryFrame = self.categoryFrame
-	local currentPage = db.currentPage
+    local currentPage = db.currentPage
 
     if #pages == 1 then
         if managerFrame.pageButtons then
             for _, button in pairs(managerFrame.pageButtons) do
                 button:Hide()
             end
-			return
+            return
         end
     end
 
@@ -910,27 +910,27 @@ function PermoksAccountManager:UpdatePageButtons()
 
         if not managerFrame.pageButtons[pageNumber] then
             managerFrame.pageButtons[pageNumber] = pageButton
-			if pageNumber == currentPage then
-				pageButton.Text:SetTextColor(0, 1, 0, 1)
-				pageButton.selected:Show()
-			end
+            if pageNumber == currentPage then
+                pageButton.Text:SetTextColor(0, 1, 0, 1)
+                pageButton.selected:Show()
+            end
 
-			local index = pageNumber - 1
+            local index = pageNumber - 1
             pageButton:SetPoint('LEFT', managerFrame.topDragBar, 'LEFT', (index * 35) + (index > 0 and 135 or 130), 0)
-			pageButton:SetID(pageNumber)
+            pageButton:SetID(pageNumber)
             pageButton:SetScript(
                 'OnClick',
                 function(self, button, down)
-					local currentPage = db.currentPage
+                    local currentPage = db.currentPage
                     if currentPage == pageNumber then
                         return
                     end
 
-					managerFrame.pageButtons[currentPage].selected:Hide()
-					managerFrame.pageButtons[currentPage].Text:SetTextColor(1, 1, 1, 1)
-					self.selected:Show()
-					self.Text:SetTextColor(0, 1, 0, 1)
-					PermoksAccountManager.db.global.currentPage = pageNumber
+                    managerFrame.pageButtons[currentPage].selected:Hide()
+                    managerFrame.pageButtons[currentPage].Text:SetTextColor(1, 1, 1, 1)
+                    self.selected:Show()
+                    self.Text:SetTextColor(0, 1, 0, 1)
+                    PermoksAccountManager.db.global.currentPage = pageNumber
                     PermoksAccountManager:UpdateAltAnchors('general', managerFrame, managerFrame.labelColumn)
                     PermoksAccountManager:UpdateStrings(pageNumber, 'general')
                     PermoksAccountManager:UpdateManagerFrameSize(true)
@@ -1064,15 +1064,15 @@ local InternalLabelFunctions = {
             return '-'
         end
 
-		-- TODO Somehow save it per character so we don't have to check it everytime we change the text.
-		local required
-		if column.unlock then
-			local unlockInfo = column.unlock
-			local unlocked = alt_data[unlockInfo.charKey] and alt_data[unlockInfo.charKey][unlockInfo.key]
-			if unlocked then
-				required = unlockInfo.required
-			end
-		end
+        -- TODO Somehow save it per character so we don't have to check it everytime we change the text.
+        local required
+        if column.unlock then
+            local unlockInfo = column.unlock
+            local unlocked = alt_data[unlockInfo.charKey] and alt_data[unlockInfo.charKey][unlockInfo.key]
+            if unlocked then
+                required = unlockInfo.required
+            end
+        end
 
         required = required or column.required or 1
         if type(column.required) == 'function' then
@@ -1236,12 +1236,12 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
                 )
             end
 
-			if row.module then
-            	row:SetText(row.labelFunction(unpack(row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update))))
-			else
-				row:SetText(row.labelFunction(altData, labelRow, row_identifier))
-			end
-			row:SetPoint('TOPLEFT', anchorFrame, 'TOPLEFT', 0, -yOffset * 20)
+            if row.module then
+                row:SetText(row.labelFunction(unpack(row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update))))
+            else
+                row:SetText(row.labelFunction(altData, labelRow, row_identifier))
+            end
+            row:SetPoint('TOPLEFT', anchorFrame, 'TOPLEFT', 0, -yOffset * 20)
             row:Show()
 
             UpdateButtonTexture(row, enabledRows, row_identifier, alt_guid)
@@ -1344,10 +1344,10 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
     local db = PermoksAccountManager.db.global
     local buttonrows = 0
     local categories = db.currentCategories
-	local nameTbl
-	if not db.custom then
-		nameTbl = self:getDefaultCategories()
-	end
+    local nameTbl
+    if not db.custom then
+        nameTbl = self:getDefaultCategories()
+    end
     for category, row in PermoksAccountManager.spairs(
         categories,
         function(t, a, b)
@@ -1507,7 +1507,7 @@ function PermoksAccountManager:ShowInterface()
         self:CreateMenuButtons()
         self:UpdateAltAnchors('general', self.managerFrame, self.managerFrame.labelColumn)
         self:UpdatePageButtons()
-		self:UpdateAccountButtons()
+        self:UpdateAccountButtons()
         self:UpdateAccounts()
 
         self.loaded = true
@@ -1551,7 +1551,7 @@ function PermoksAccountManager:PostKeysIntoChat(channel)
 
     local keys = {}
     for _, alt_data in pairs(self.db.global.accounts.main.data) do
-		local keyInfo = alt_data.keyInfo
+        local keyInfo = alt_data.keyInfo
         if keyInfo and keyInfo.keyLevel > 0 then
             local key = string.format('[%s: %s+%d]', alt_data.name, keyInfo.keyDungeon, keyInfo.keyLevel)
             tinsert(keys, key)

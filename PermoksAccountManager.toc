@@ -3,6 +3,7 @@
 ## Version: @project-version@
 ## SavedVariables: PermoksAccountManagerDB
 ## X-Curse-Project-ID: 582886
+## X-Wago-ID: 25NRoe63
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
