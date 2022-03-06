@@ -26,10 +26,11 @@ function ModuleMixin:AddCustomLabelType(customType, callback, alwaysForceUpdate,
 	self.labelArgs[customType] = {}
 end
 
-function ModuleMixin:GenerateLabelArgs(labelType, altData, update)
+function ModuleMixin:GenerateLabelArgs(altData, labelType, update)
 	if not labelType or not altData then
         return
     end
+
 
 	if self.labelArgs[labelType][altData.guid] and not self.alwaysForceUpdate and not update then
 		return self.labelArgs[labelType][altData.guid]

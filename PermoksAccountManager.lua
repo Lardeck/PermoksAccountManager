@@ -1005,7 +1005,7 @@ local function UpdateButtonTexture(button, index, row_identifier, alt_guid)
     end
 end
 
-function PermoksAccountManager:UpdateRowButton(button, buttonOptions, _)
+local function UpdateRowButton(button, buttonOptions, _)
     button:SetWidth(buttonOptions.buttonWidth)
 
     local fontString = button:GetFontString()
@@ -1196,8 +1196,7 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
     local enabledChilds = db.currentCategories[category].childOrder
 
     local rows = anchorFrame.rows
-    local enabledRows = 0
-    local yOffset = 0
+    local enabledRows, yOffset = 0, 0
     for _, row_identifier in pairs(childs) do
         local labelRow = self.labelRows[row_identifier]
         if labelRow and enabledChilds[row_identifier] then
@@ -1211,7 +1210,6 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
                     row.module = module
                     row.labelFunction = moduleLabelFunction.callback
                 else
-                    row.labelArgs = {altData, labelRow, row_identifier}
                     row.labelFunction = self:GetInternalLabelFunction(labelRow)
                 end
 
@@ -1238,12 +1236,16 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
                 )
             end
 
-            row:SetPoint('TOPLEFT', anchorFrame, 'TOPLEFT', 0, -yOffset * 20)
-            row:SetText(row.labelFunction(unpack(row.labelArgs or row.module:GenerateLabelArgs(labelRow.type, altData, labelRow.update))))
+			if row.module then
+            	row:SetText(row.labelFunction(unpack(row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update))))
+			else
+				row:SetText(row.labelFunction(altData, labelRow, row_identifier))
+			end
+			row:SetPoint('TOPLEFT', anchorFrame, 'TOPLEFT', 0, -yOffset * 20)
             row:Show()
 
             UpdateButtonTexture(row, enabledRows, row_identifier, alt_guid)
-            self:UpdateRowButton(row, buttonOptions, row_identifier)
+            UpdateRowButton(row, buttonOptions, row_identifier)
 
             if labelRow.color and row.fontString then
                 row.fontString:SetTextColor(labelRow.color(altData):GetRGBA())
