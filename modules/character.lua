@@ -90,13 +90,6 @@ local function UpdateGeneralData(charInfo)
     if not self.isBC then
         charInfo.ilevel = select(2, GetAverageItemLevel())
 
-        -- Keystone
-        local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
-		charInfo.keyInfo = {
-			keyDungeon = ownedKeystone and self.keys[ownedKeystone] or L['No Key'],
-			keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
-		}
-
         -- Contracts
         local contract = nil
         local contracts = {[311457] = 'CoH', [311458] = 'Ascended', [311460] = 'UA', [311459] = 'WH', [353999] = 'DA'}
@@ -114,6 +107,14 @@ local function UpdateGeneralData(charInfo)
         charInfo.covenant = covenant > 0 and covenant or nil
         charInfo.callingsUnlocked = C_CovenantCallings.AreCallingsUnlocked()
     end
+end
+
+local function UpdateKeystones(charInfo)
+    local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
+    charInfo.keyInfo = {
+        keyDungeon = ownedKeystone and PermoksAccountManager.keys[ownedKeystone] or L['No Key'],
+        keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
+    }
 end
 
 local function UpdateGold(charInfo)
@@ -232,8 +233,8 @@ local payload = {
         ['PLAYER_MONEY'] = UpdateGold,
         ['PLAYER_AVG_ITEM_LEVEL_UPDATE'] = UpdateILevel,
         ['PLAYER_SPECIALIZATION_CHANGED'] = UpdatePlayerSpecialization,
-        ['CHALLENGE_MODE_MAPS_UPDATE'] = {UpdateMythicScore, UpdateMythicPlusHistory},
-        ['BAG_UPDATE_DELAYED'] = UpdateGeneralData,
+        ['CHALLENGE_MODE_MAPS_UPDATE'] = {UpdateMythicScore, UpdateMythicPlusHistory, UpdateKeystones},
+        ['BAG_UPDATE_DELAYED'] = {UpdateGeneralData, UpdateKeystones},
         ['WEEKLY_REWARDS_UPDATE'] = UpdateMythicScore,
         ['PLAYER_LEVEL_UP'] = UpdatePlayerLevel,
         ['ZONE_CHANGED'] = UpdateLocation,

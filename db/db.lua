@@ -971,13 +971,13 @@ PermoksAccountManager.vault_rewards = {
     [Enum.WeeklyRewardChestThresholdType.RankedPvP] = {
         [0] = 249,
         [1] = 252,
-        [2] = 255,
-        [3] = 259,
-        [4] = 262,
-        [5] = 265,
-		[6] = 268,
-		[7] = 272,
-		[8] = 275
+        [2] = 259,
+        [3] = 265,
+        [4] = 272,
+        [5] = 275,
+		[6] = 255,
+		[7] = 262,
+		[8] = 268
     },
     -- Raid
     [Enum.WeeklyRewardChestThresholdType.Raid] = {

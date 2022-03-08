@@ -80,7 +80,7 @@ local labelRows = {
     dailyQuestCounter = {
         label = 'Daily Quests',
         data = function(alt_data)
-            return alt_data.completedDailies and alt_data.completedDailies.num and PermoksAccountManager:CreateFractionString(alt_data.completedDailies.num, 30) or 'Login'
+            return alt_data.completedDailies and PermoksAccountManager:CreateFractionString((alt_data.completedDailies.num or 0), 30)
         end,
         group = 'resetDaily',
         version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
@@ -460,7 +460,7 @@ local function UpdateAllQuests(charInfo)
                     currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
                 end
             else
-                charInfo.completedDailies = charInfo.completedDailies or {}
+                charInfo.completedDailies = charInfo.completedDailies or {num = 0}
                 currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
 
                 if info.questType == 'daily' and isComplete then
