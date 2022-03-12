@@ -8,6 +8,7 @@ function ModuleMixin:Init(moduleName, payload)
     self.share = payload.share
     self.update = payload.update
     self.payload = payload
+	self.forceLabelUpdate = {}
     self.labelFunctions = {}
 	self.labelArgs = {}
 end
@@ -22,7 +23,9 @@ function ModuleMixin:AddCustomLabelType(customType, callback, alwaysForceUpdate,
         PermoksAccountManager:Print(string.format('[%s] - Custom Type [%s] already exists.', self.name, customType))
         return
     end
-    self.labelFunctions[customType] = {callback = callback, args = {...}, alwaysForceUpdate = alwaysForceUpdate}
+
+	self.forceLabelUpdate[customType] = alwaysForceUpdate
+    self.labelFunctions[customType] = {callback = callback, args = {...}}
 	self.labelArgs[customType] = {}
 end
 
@@ -31,8 +34,7 @@ function ModuleMixin:GenerateLabelArgs(altData, labelType, update)
         return
     end
 
-
-	if self.labelArgs[labelType][altData.guid] and not self.alwaysForceUpdate and not update then
+	if self.labelArgs[labelType][altData.guid] and not self.forceLabelUpdate[labelType] and not update then
 		return self.labelArgs[labelType][altData.guid]
 	end
 

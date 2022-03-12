@@ -110,11 +110,14 @@ local function UpdateGeneralData(charInfo)
 end
 
 local function UpdateKeystones(charInfo)
+    if PermoksAccountManager.isBC then return end
+
     local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
-    charInfo.keyInfo = {
-        keyDungeon = ownedKeystone and PermoksAccountManager.keys[ownedKeystone] or L['No Key'],
-        keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
-    }
+    charInfo.keyInfo = charInfo.keyInfo or {}
+
+    local keyInfo = charInfo.keyInfo
+    keyInfo.keyDungeon = ownedKeystone and PermoksAccountManager.keys[ownedKeystone] or L['No Key']
+    keyInfo.keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
 end
 
 local function UpdateGold(charInfo)
@@ -128,12 +131,15 @@ local function UpdateILevel(charInfo)
 end
 
 local function UpdateMythicScore(charInfo)
-    charInfo.mythicScore = C_ChallengeMode.GetOverallDungeonScore and C_ChallengeMode.GetOverallDungeonScore()
-	C_MythicPlus.RequestMapInfo()
+   if PermoksAccountManager.isBC then return end
+
+    C_MythicPlus.RequestMapInfo()
+    charInfo.mythicScore = C_ChallengeMode.GetOverallDungeonScore()
+
 end
 
 local function UpdateMythicPlusHistory(charInfo)
-    charInfo.mythicPlusHistory = C_MythicPlus.GetRunHistory()
+    charInfo.mythicPlusHistory = C_MythicPlus.GetRunHistory(nil, true)
 end
 
 local function UpdatePlayerSpecialization(charInfo)
@@ -233,7 +239,7 @@ local payload = {
         ['PLAYER_MONEY'] = UpdateGold,
         ['PLAYER_AVG_ITEM_LEVEL_UPDATE'] = UpdateILevel,
         ['PLAYER_SPECIALIZATION_CHANGED'] = UpdatePlayerSpecialization,
-        ['CHALLENGE_MODE_MAPS_UPDATE'] = {UpdateMythicScore, UpdateMythicPlusHistory, UpdateKeystones},
+        ['CHALLENGE_MODE_MAPS_UPDATE'] = {UpdateMythicScore, UpdateMythicPlusHistory},
         ['BAG_UPDATE_DELAYED'] = {UpdateGeneralData, UpdateKeystones},
         ['WEEKLY_REWARDS_UPDATE'] = UpdateMythicScore,
         ['PLAYER_LEVEL_UP'] = UpdatePlayerLevel,
@@ -274,13 +280,13 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 
     local runs = {}
     for run, info in ipairs(alt_data.mythicPlusHistory) do
-        if info.completed and info.thisWeek then
-            tinsert(runs, info.level)
-        end
+        tinsert(runs, info.level)
     end
+
     if #runs < 2 then
         return
     end
+
     table.sort(
         runs,
         function(a, b)
