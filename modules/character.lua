@@ -188,7 +188,7 @@ end
 
 local function CreateKeystoneString(keyInfo)
     if not keyInfo then
-        return '-'
+        return 'Unknown'
     end
 
 	if keyInfo.keyLevel == 0 then

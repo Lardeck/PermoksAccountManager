@@ -747,8 +747,7 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
     altData.raidActivityInfo = {}
 
     -- M+
-    altData.keyDungeon = L['No Key']
-    altData.keyLevel = 0
+    altData.keyInfo = nil
 
     -- Weekly Quests
     if altData.questInfo and altData.questInfo.weekly then
