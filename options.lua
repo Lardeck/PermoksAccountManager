@@ -1093,7 +1093,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
 
     -- TODO: Retail differentiation
     options.args.experimental = {
-        order = 6,
+        order = 7,
         type = 'group',
         name = L['Experimental'],
         set = function(info, value)

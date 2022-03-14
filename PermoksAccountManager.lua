@@ -36,7 +36,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.0.5'
-local INTERNALVERSION = 2
+local INTERNALVERSION = 3
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -547,17 +547,23 @@ function PermoksAccountManager:CheckForModernize()
     if not internalVersion or internalVersion < INTERNALVERSION then
         self:Modernize(internalVersion)
     end
-    self.db.global.internalVersion = INTERNALVERSION
+    --self.db.global.internalVersion = INTERNALVERSION
 end
 
 function PermoksAccountManager:Modernize(oldInternalVersion)
     local db = self.db
-    local data = db.global.data
 
     if (oldInternalVersion or 0) < 2 then
-        oldInternalVersion = 2
         self:UpdateDefaultCategories('currentdaily')
     end
+
+	if oldInternalVersion < 3 then
+		for _, accountInfo in pairs(db.global.accounts) do
+			for _, altData in pairs(accountInfo.data) do
+				altData.sanctumInfo = nil
+			end
+		end
+	end
 end
 
 function PermoksAccountManager:GetGUID()
@@ -1126,12 +1132,12 @@ local InternalLabelFunctions = {
             return '-'
         end
 
-        local sanctumInfo = alt_data.sanctumInfo[column.key or key]
+        local sanctumInfo = alt_data.sanctumInfo
         if not sanctumInfo then
             return '-'
         end
 
-        return 'Tier ' .. sanctumInfo.tier
+        return PermoksAccountManager:CreateSanctumTierString(sanctumInfo, column.key or key)
     end,
     raid = function(alt_data, column)
         if not alt_data.instanceInfo or not alt_data.instanceInfo.raids then

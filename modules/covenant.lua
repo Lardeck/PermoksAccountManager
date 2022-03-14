@@ -132,8 +132,9 @@ local function UpdateSanctumBuildings(charInfo)
         return
     end
     charInfo.sanctumInfo = charInfo.sanctumInfo or {}
+	charInfo.sanctumInfo[covenant] = charInfo.sanctumInfo[covenant] or {}
 
-    local sanctumInfo = charInfo.sanctumInfo
+    local sanctumInfo = charInfo.sanctumInfo[covenant]
     for featureType, talentTreeID in pairs(self.sanctum[covenant]) do
         local talentTree = C_Garrison.GetTalentTreeInfo(talentTreeID)
         if talentTree then
@@ -152,7 +153,7 @@ local function UpdateRenown(charInfo, newRenown)
     charInfo.renown = charInfo.renown or {}
 
     C_Timer.After(
-        0.5,
+        1,
         function()
             charInfo.renown[charInfo.covenant] = newRenown or C_CovenantSanctumUI.GetRenownLevel()
         end
@@ -219,8 +220,9 @@ local payload = {
     events = {
         ['COVENANT_CALLINGS_UPDATED'] = UpdateCallings,
         ['COVENANT_SANCTUM_INTERACTION_ENDED'] = UpdateSanctumBuildings,
-        ['COVENANT_CHOSEN'] = UpdateCovenant,
-        ['COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED'] = UpdateRenown
+        ['COVENANT_CHOSEN'] = {UpdateCovenant, UpdateSanctumBuildings},
+        ['COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED'] = UpdateRenown,
+		['GARRISON_UPDATE'] = UpdateSanctumBuildings
     },
     share = {
         [UpdateCallings] = 'callingInfo',
@@ -304,6 +306,17 @@ end
 function PermoksAccountManager:CreateCovenantString(charInfo)
     return CreateAtlasMarkup(GetFinalNameFromTextureKit('CovenantChoice-Celebration-%sSigil', C_Covenants.GetCovenantData(charInfo.covenant).textureKit), 18, 18)
 end
+
+function PermoksAccountManager:CreateSanctumTierString(sanctumInfo, id)
+	local tier
+	local tierTbl = {}
+	for covenant =4, 1, -1 do
+		tier = sanctumInfo[covenant] and sanctumInfo[covenant][id].tier
+		tierTbl[covenant] = customCovenantColors[covenant]:WrapTextInColorCode(tier or 'X')
+	end
+	return table.concat(tierTbl, '  ')
+end
+
 
 function PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data)
     if not alt_data or not alt_data.callingInfo then
