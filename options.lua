@@ -1091,6 +1091,106 @@ function PermoksAccountManager:LoadOptionsTemplate()
         }
     }
 
+	local labelData = {}
+	options.args.add = {
+		order = 6,
+		type = 'group',
+		name = L['Add'],
+		childGroups = 'tab',
+		args = {
+			addTab = {
+				order = 1,
+				type = 'group',
+				name = L['Add/Edit'],
+				inline = true,
+				args = {
+					name = {
+						order = 1,
+						name = L['Name'],
+						type = 'input',
+						validate = function(info, value)
+							if value:match('[^%w:]') then
+								return 'You can only use letters, numbers, and colons (for now).'
+							elseif string.len(value) == 0 then
+								return "Can't create an empty category."
+							elseif PermoksAccountManager.db.global.options.customLabels[value].name then
+								return 'This category already exists.'
+							end
+
+							return true
+						end,
+						set = function(info, value)
+							labelData.name = value
+						end,
+						get = function(info)
+							return labelData.name or ''
+						end
+					},
+					id = {
+						order = 2,
+						name = L['ID'],
+						type = 'input',
+						validate = function(info, value)
+							if value:match('[^%d]') then
+								return 'IDs only contain digits.'
+							end
+
+							return true
+						end,
+						set = function(info, value)
+							labelData.id = value
+						end,
+						get = function()
+							return labelData.id
+						end
+					},
+					labelType = {
+						order = 3,
+						name = L['Type'],
+						type = 'select',
+						values = {quest = L['Quest'], item = L['Item'], currency = L['Currency']},
+						sorting = {'quest', 'item', 'currency'},
+						set = function(info, value)
+							labelData.type = value
+						end,
+						get = function(info)
+							return labelData.type or 'quest'
+						end,
+					},
+					create = {
+						order = 4,
+						name = L['Create/Edit'],
+						type = 'execute',
+						func = function(info)
+							if labelData.name and labelData.id and labelData.type then
+							end
+
+							labelData = {}
+						end
+					}
+				}
+			},
+			quest = {
+				order = 2,
+				type = 'group',
+				name = L['Quests'],
+				args = {}
+			},
+			item = {
+				order = 3,
+				type = 'group',
+				name = L['Items'],
+				args = {}
+			},
+			currency = {
+				order = 4,
+				type = 'group',
+				name = L['Currencies'],
+				args = {}
+			}
+		}
+	}
+
     -- TODO: Retail differentiation
     options.args.experimental = {
         order = 7,
