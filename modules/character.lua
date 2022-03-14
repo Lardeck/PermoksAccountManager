@@ -298,7 +298,7 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
     )
 
     for i in ipairs(runs) do
-        if i == 1 or i == 4 or i == 10 then
+        if i == 1 or i == 4 or i == 8 then
             runs[i] = string.format('|cff00f7ff%d|r', runs[i])
         end
     end
