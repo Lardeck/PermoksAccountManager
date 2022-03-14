@@ -112,12 +112,14 @@ end
 local function UpdateKeystones(charInfo)
     if PermoksAccountManager.isBC then return end
 
-    local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
-    charInfo.keyInfo = charInfo.keyInfo or {}
 
-    local keyInfo = charInfo.keyInfo
-    keyInfo.keyDungeon = ownedKeystone and PermoksAccountManager.keys[ownedKeystone] or L['No Key']
-    keyInfo.keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
+    charInfo.keyInfo = charInfo.keyInfo or {}
+	C_Timer.After(0.5, function()
+		local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
+		local keyInfo = charInfo.keyInfo
+		keyInfo.keyDungeon = ownedKeystone and PermoksAccountManager.keys[ownedKeystone] or L['No Key']
+		keyInfo.keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
+	end)
 end
 
 local function UpdateGold(charInfo)
@@ -241,6 +243,7 @@ local payload = {
         ['PLAYER_SPECIALIZATION_CHANGED'] = UpdatePlayerSpecialization,
         ['CHALLENGE_MODE_MAPS_UPDATE'] = {UpdateMythicScore, UpdateMythicPlusHistory},
         ['BAG_UPDATE_DELAYED'] = {UpdateGeneralData, UpdateKeystones},
+		['ITEM_CHANGED'] = UpdateKeystones,
         ['WEEKLY_REWARDS_UPDATE'] = UpdateMythicScore,
         ['PLAYER_LEVEL_UP'] = UpdatePlayerLevel,
         ['ZONE_CHANGED'] = UpdateLocation,
