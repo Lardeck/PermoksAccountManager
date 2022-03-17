@@ -557,6 +557,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:UpdateDefaultCategories('currentdaily')
     end
 
+	if true then return end
 	if oldInternalVersion < 3 then
 		for _, accountInfo in pairs(db.global.accounts) do
 			for _, altData in pairs(accountInfo.data) do
@@ -807,6 +808,7 @@ function PermoksAccountManager:RequestCharacterInfo()
     end
 end
 
+-- TODO: Rework Completion Data
 function PermoksAccountManager:UpdateCompletionData()
     local db = self.db.global
     local accountData = db.accounts.main
@@ -1242,7 +1244,14 @@ function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, categor
             end
 
             if row.module then
-                row:SetText(row.labelFunction(unpack(row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update))))
+				local args = row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update)
+				local text
+				if labelRow.passKey then
+					text = row.labelFunction(labelRow.key or row_identifier, unpack(args))
+				else
+					text = row.labelFunction(unpack(args))
+				end
+                row:SetText(text)
             else
                 row:SetText(row.labelFunction(altData, labelRow, row_identifier))
             end

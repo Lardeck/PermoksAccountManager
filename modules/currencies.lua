@@ -123,23 +123,33 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    reservoir_anima = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1813].name or 'Reservoir Anima'
-        end,
-        type = 'currency',
-        key = 1813,
-        hideMax = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    redeemed_soul = {
+	redeemed_soul = {
         label = function()
             return PermoksAccountManager.db.global.currencyInfo[1810].name or 'Redeemed Soul'
         end,
         type = 'currency',
+		customTooltip = function(button, altData, labelRow)
+			PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
+		end,
+		tooltip = true,
+		tooltipKeyPath = {'covenantInfo', 'souls'},
         key = 1810,
-        group = 'currency',
+        group = 'sanctum',
+        version = WOW_PROJECT_MAINLINE
+    },
+    reservoir_anima = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[1813].name or 'Reservoir Anima'
+        end,
+		type = 'currency',
+		customTooltip = function(button, altData, labelRow)
+			PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
+		end,
+		tooltip = true,
+		tooltipKeyPath = {'covenantInfo', 'anima'},
+        key = 1813,
+        hideMax = true,
+        group = 'sanctum',
         version = WOW_PROJECT_MAINLINE
     },
 

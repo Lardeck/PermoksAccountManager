@@ -189,7 +189,7 @@ local function CreateCharacterString(name, specInfo)
 end
 
 local function CreateKeystoneString(keyInfo)
-    if not keyInfo then
+    if not keyInfo or not type(keyInfo) == "table" then
         return 'Unknown'
     end
 
@@ -277,17 +277,13 @@ function PermoksAccountManager:CreateLocationString(mapId)
 end
 
 function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
-    if not alt_data or not alt_data.mythicPlusHistory then
+    if not alt_data or not alt_data.mythicPlusHistory or #alt_data.mythicPlusHistory < 2 then
         return
     end
 
     local runs = {}
     for run, info in ipairs(alt_data.mythicPlusHistory) do
         tinsert(runs, info.level)
-    end
-
-    if #runs < 2 then
-        return
     end
 
     table.sort(

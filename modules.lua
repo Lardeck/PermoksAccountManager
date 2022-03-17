@@ -29,7 +29,7 @@ function ModuleMixin:AddCustomLabelType(customType, callback, alwaysForceUpdate,
 	self.labelArgs[customType] = {}
 end
 
-function ModuleMixin:GenerateLabelArgs(altData, labelType, update)
+function ModuleMixin:GenerateLabelArgs(altData, labelType, update, key)
 	if not labelType or not altData then
         return
     end

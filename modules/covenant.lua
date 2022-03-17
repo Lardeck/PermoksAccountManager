@@ -9,19 +9,24 @@ local customCovenantColors = {
     [4] = COVENANT_COLORS[4]
 }
 
+local covenantNames
+if not PermoksAccountManager.isBC then
+	covenantNames = {}
+	for covenant = 1, 4 do
+		covenantNames[covenant] = C_Covenants.GetCovenantData(covenant).name
+	end
+end
+
 local labelRows = {
     covenant = {
         label = L['Covenant'],
         type = 'covenant',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateCovenantString(alt_data)
-        end,
         version = WOW_PROJECT_MAINLINE
     },
     renown = {
         label = L['Renown'],
-		outline = 'OUTLINE',
-		type = "renown",
+        outline = 'OUTLINE',
+        type = 'renown',
         version = WOW_PROJECT_MAINLINE
     },
     callings = {
@@ -77,7 +82,7 @@ local labelRows = {
         end,
         group = 'resetDaily',
         version = WOW_PROJECT_MAINLINE
-    }
+    },
 }
 
 local function GetCurrentTier(talents)
@@ -94,9 +99,9 @@ local function UpdateCallings(charInfo, callings)
     local self = PermoksAccountManager
 
     if not callings then
-		if not IsAddOnLoaded('Blizzard_CovenantCallings') then
-        	UIParentLoadAddOn('Blizzard_CovenantCallings')
-		end
+        if not IsAddOnLoaded('Blizzard_CovenantCallings') then
+            UIParentLoadAddOn('Blizzard_CovenantCallings')
+        end
         self:RequestCharacterInfo()
         return
     end
@@ -132,7 +137,7 @@ local function UpdateSanctumBuildings(charInfo)
         return
     end
     charInfo.sanctumInfo = charInfo.sanctumInfo or {}
-	charInfo.sanctumInfo[covenant] = charInfo.sanctumInfo[covenant] or {}
+    charInfo.sanctumInfo[covenant] = charInfo.sanctumInfo[covenant] or {}
 
     local sanctumInfo = charInfo.sanctumInfo[covenant]
     for featureType, talentTreeID in pairs(self.sanctum[covenant]) do
@@ -165,6 +170,24 @@ local function UpdateCovenant(charInfo, covenant)
     charInfo.covenant = covenant
 end
 
+local function UpdateCovenantCurrencies(charInfo)
+    if not charInfo.covenant then
+        return
+    end
+
+	C_Timer.After(1, function()
+		charInfo.covenantInfo = charInfo.covenantInfo or {}
+
+		local info = C_CurrencyInfo.GetCurrencyInfo(1813)
+		charInfo.covenantInfo.anima = charInfo.covenantInfo.anima or {icon = info.iconFileID}
+		charInfo.covenantInfo.anima[charInfo.covenant] = info.quantity
+
+		info = C_CurrencyInfo.GetCurrencyInfo(1810)
+		charInfo.covenantInfo.souls = charInfo.covenantInfo.souls or {icon = info.iconFileID}
+		charInfo.covenantInfo.souls[charInfo.covenant] = info.quantity
+	end)
+end
+
 local function Update(charInfo)
     UpdateSanctumBuildings(charInfo)
     UpdateCallings(charInfo)
@@ -187,8 +210,8 @@ local function CreateCallingString(callingInfo)
     end
 
     if leastTimeLeft then
-		local seconds = PermoksAccountManager:GetSecondsRemaining(leastTimeLeft)
-		local timeString = SecondsToTime(seconds)
+        local seconds = PermoksAccountManager:GetSecondsRemaining(leastTimeLeft)
+        local timeString = SecondsToTime(seconds)
         return string.format('%s - %s', PermoksAccountManager:CreateQuestString(3 - callingInfo.numCallings, 3), PermoksAccountManager:FormatTimeString(seconds, timeString))
     else
         return string.format('%s', PermoksAccountManager:CreateQuestString(3 - callingInfo.numCallings, 3))
@@ -211,7 +234,8 @@ local function CreateRenownString(altDataRenown)
     end
 end
 
-local function CreateCovenantString(charInfo)
+local function CreateCovenantString(covenant)
+    return CreateAtlasMarkup(GetFinalNameFromTextureKit('CovenantChoice-Celebration-%sSigil', C_Covenants.GetCovenantData(covenant).textureKit), 18, 18)
 end
 
 local moduleName = 'covenant'
@@ -220,9 +244,10 @@ local payload = {
     events = {
         ['COVENANT_CALLINGS_UPDATED'] = UpdateCallings,
         ['COVENANT_SANCTUM_INTERACTION_ENDED'] = UpdateSanctumBuildings,
-        ['COVENANT_CHOSEN'] = {UpdateCovenant, UpdateSanctumBuildings},
+        ['COVENANT_CHOSEN'] = {UpdateCovenant, UpdateSanctumBuildings, UpdateCovenantCurrencies},
         ['COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED'] = UpdateRenown,
-		['GARRISON_UPDATE'] = UpdateSanctumBuildings
+        ['GARRISON_UPDATE'] = UpdateSanctumBuildings,
+        ['CURRENCY_DISPLAY_UPDATE'] = UpdateCovenantCurrencies
     },
     share = {
         [UpdateCallings] = 'callingInfo',
@@ -262,8 +287,8 @@ function PermoksAccountManager:CreateCallingString(callingInfo)
     end
 
     if leastTimeLeft then
-		local seconds = PermoksAccountManager:GetSecondsRemaining(leastTimeLeft)
-		local timeString = SecondsToTime(seconds)
+        local seconds = PermoksAccountManager:GetSecondsRemaining(leastTimeLeft)
+        local timeString = SecondsToTime(seconds)
         return string.format('%s - %s', self:CreateQuestString(3 - callingInfo.numCallings, 3), self:FormatTimeString(seconds, timeString))
     else
         return string.format('%s', self:CreateQuestString(3 - callingInfo.numCallings, 3))
@@ -290,33 +315,28 @@ function PermoksAccountManager:CreateRenownString(altData)
         return
     end
 
+	if type(altData.renown) ~= 'table' then
+		return 'Login'
+	end
+
     local renown
     local renownTbl = {}
-    if type(altData.renown) == 'table' then
-        for covenant = 4, 1, -1 do
-            renown = altData.renown[covenant]
-            renownTbl[covenant] = customCovenantColors[covenant]:WrapTextInColorCode(renown or 'X')
-        end
-        return table.concat(renownTbl, ' ')
-    elseif customCovenantColors[altData.covenant] then
-        return string.format('%s', customCovenantColors[altData.covenant]:WrapTextInColorCode(altData.renown))
-    end
-end
-
-function PermoksAccountManager:CreateCovenantString(charInfo)
-    return CreateAtlasMarkup(GetFinalNameFromTextureKit('CovenantChoice-Celebration-%sSigil', C_Covenants.GetCovenantData(charInfo.covenant).textureKit), 18, 18)
+	for covenant = 4, 1, -1 do
+		renown = altData.renown[covenant]
+		renownTbl[covenant] = customCovenantColors[covenant]:WrapTextInColorCode(renown or 'X')
+	end
+	return table.concat(renownTbl, ' ')
 end
 
 function PermoksAccountManager:CreateSanctumTierString(sanctumInfo, id)
-	local tier
-	local tierTbl = {}
-	for covenant =4, 1, -1 do
-		tier = sanctumInfo[covenant] and sanctumInfo[covenant][id].tier
-		tierTbl[covenant] = customCovenantColors[covenant]:WrapTextInColorCode(tier or 'X')
-	end
-	return table.concat(tierTbl, '  ')
+    local tier
+    local tierTbl = {}
+    for covenant = 4, 1, -1 do
+        tier = sanctumInfo[covenant] and sanctumInfo[covenant][id].tier
+        tierTbl[covenant] = customCovenantColors[covenant]:WrapTextInColorCode(tier or 'X')
+    end
+    return table.concat(tierTbl, '  ')
 end
-
 
 function PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data)
     if not alt_data or not alt_data.callingInfo then
@@ -340,11 +360,44 @@ function PermoksAccountManager:CallingTooltip_OnEnter(button, alt_data)
         end
     ) do
         if alt_data.callingInfo[questID] and (covenantCallingInfo.timeRemaining or 0) > time() then
-			local seconds = PermoksAccountManager:GetSecondsRemaining(covenantCallingInfo.timeRemaining)
-			local timeString = SecondsToTime(seconds)
+            local seconds = PermoksAccountManager:GetSecondsRemaining(covenantCallingInfo.timeRemaining)
+            local timeString = SecondsToTime(seconds)
             tooltip:AddLine(covenantCallingInfo.name, '', self:FormatTimeString(seconds, timeString) or '')
         end
     end
+
+    tooltip:SmartAnchorTo(button)
+    tooltip:Show()
+end
+
+function PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
+    if not altData then
+        return
+    end
+
+	local info
+	for _, path in ipairs(labelRow.tooltipKeyPath) do
+		info = info and info[path] or altData[path]
+	end
+
+
+    local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
+    button.tooltip = tooltip
+	tooltip:AddHeader(self.db.global.currencyInfo[labelRow.key].name or 'Reservoir Anima')
+
+	if info then
+		for covenant=1, 4 do
+			local icon = self.db.global.currencyInfo[labelRow.key] and self.db.global.currencyInfo[labelRow.key].icon
+			local amount = info and info[covenant] and AbbreviateLargeNumbers(info[covenant]) or '-'
+			if icon then
+				tooltip:AddLine(customCovenantColors[covenant]:WrapTextInColorCode(covenantNames[covenant]), string.format("%s \124T%d:0:0\124t", amount, icon))
+			else
+				tooltip:AddLine(customCovenantColors[covenant]:WrapTextInColorCode(covenantNames[covenant]), amount)
+			end
+		end
+	else
+		tooltip:AddLine('Login')
+	end
 
     tooltip:SmartAnchorTo(button)
     tooltip:Show()
