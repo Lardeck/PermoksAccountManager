@@ -150,15 +150,13 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
     tooltip:AddLine('')
 
     for i, activityInfo in pairs(vaultInfo) do
-        local exampleRewardItem, rewardItemLevel
+        local rewardItemLevel
 
         if activityInfo.progress >= activityInfo.threshold then
-            exampleRewardItem = C_WeeklyRewards.GetExampleRewardItemHyperlinks(activityInfo.id)
-
-            if (not exampleRewardItem or exampleRewardItem == '') and activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level > 15 then
+            if activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level > 15 then
                 rewardItemLevel = self.vault_rewards[activityInfo.type][15]
             else
-                rewardItemLevel = (exampleRewardItem and GetDetailedItemLevelInfo(exampleRewardItem)) or self.vault_rewards[activityInfo.type][activityInfo.level] or nil
+                rewardItemLevel = self.vault_rewards[activityInfo.type][activityInfo.level] or nil
             end
         end
 
@@ -176,7 +174,7 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))
         end
 
-        if not exampleRewardItem then
+        if not rewardItemLevel then
             tooltip:SetCellTextColor(tooltip:GetLineCount(), 1, 1, 0, 0)
         else
             tooltip:SetCellTextColor(tooltip:GetLineCount(), 1, 0, 1, 0)
