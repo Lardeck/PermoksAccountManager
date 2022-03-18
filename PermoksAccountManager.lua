@@ -557,7 +557,6 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:UpdateDefaultCategories('currentdaily')
     end
 
-	if true then return end
 	if oldInternalVersion < 3 then
 		for _, accountInfo in pairs(db.global.accounts) do
 			for _, altData in pairs(accountInfo.data) do

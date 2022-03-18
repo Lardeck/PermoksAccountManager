@@ -260,16 +260,20 @@ local function UpdateInstanceInfo(charInfo)
     local name, difficulty, locked, extended, difficultyName, numEncounters, encounterProgress, _
     for i = 1, GetNumSavedInstances() do
         local link = GetSavedInstanceChatLink(i)
-        local instanceID, instanceName = link:match(':(%d+):%d+:%d+\124h%[(.+)%]\124h')
+        local instanceID, _ = link:match(':(%d+):%d+:%d+\124h%[(.+)%]\124h')
         instanceID = tonumber(instanceID)
         name, _, _, difficulty, locked, extended, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
 
+		local raidInfo
         if locked or (extended and encounterProgress > 0) then
             if self.raids[instanceID] or (self.isBC and self.raids[name]) then
                 local info = self.raids[instanceID] or self.raids[name]
 
                 instanceInfo.raids[info.englishName] = instanceInfo.raids[info.englishName] or {}
-                instanceInfo.raids[info.englishName][difficulty] = {difficulty = difficultyName, numEncounters = numEncounters, defeatedEncounters = encounterProgress}
+				instanceInfo.raids[info.englishName][difficulty] =  instanceInfo.raids[info.englishName][difficulty] or {difficulty = difficultyName, numEncounters = numEncounters}
+                instanceInfo.raids[info.englishName][difficulty].defeatedEncounters = encounterProgress
+
+				raidInfo = instanceInfo.raids[info.englishName][difficulty]
             elseif (self.dungeons[instanceID] and difficulty == 23) or (self.isBC and self.dungeons[name] and difficulty == 174) then
                 instanceInfo.dungeons[instanceID or self.dungeons[name]] = {
                     numEncounters = numEncounters,
@@ -278,6 +282,14 @@ local function UpdateInstanceInfo(charInfo)
                 }
             end
         end
+
+		if raidInfo then
+			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
+			for boss = 1, numEncounters do
+				local bossName, _, isKilled = GetSavedInstanceEncounterInfo(i, boss)
+				raidInfo.defeatedEncountersInfo[boss] = {bossName, isKilled}
+			end
+		end
     end
 end
 
@@ -305,7 +317,7 @@ function PermoksAccountManager:CreateDungeonString(savedInfo)
     end
     local numCompletedDungeons = 0
 
-    for instanceID, info in pairs(savedInfo) do
+    for _, info in pairs(savedInfo) do
         if info.numEncounters == info.defeatedEncounters then
             numCompletedDungeons = numCompletedDungeons + 1
         end
@@ -320,16 +332,18 @@ end
 
 function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
     local raidString = ''
-    local maxDifficultyId = self.isBC and 175 or 16
+    local maxDifficultyId = self.isBC and 175 or 17
 
     local highestDifficulty = 0
     for difficulty in pairs(savedInfo) do
-        if difficulty <= maxDifficultyId and difficulty > highestDifficulty then
+        if difficulty <= maxDifficultyId and (difficulty > highestDifficulty or highestDifficulty == 17) then
             highestDifficulty = difficulty
         end
     end
 
+
     local raidInfo = savedInfo[highestDifficulty]
+	if not raidInfo then return end
     local raidDifficulty = self.isBC and '' or raidInfo.difficulty:sub(1, 1)
 
     if raidInfo then
@@ -371,6 +385,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     if not altData.instanceInfo or not self.raids[labelRow.id] then
         return
     end
+
     local raidInfo = altData.instanceInfo.raids[self.raids[labelRow.id].englishName]
     if not raidInfo then
         return
@@ -382,9 +397,9 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     tooltip:AddHeader(self.raids[labelRow.id].name)
     tooltip:AddLine('')
 
-    for difficulty, info in self.spairs(
+    for _, info in self.spairs(
         raidInfo,
-        function(t, a, b)
+        function(_, a, b)
             if a == 17 then
                 return b < a
             else
@@ -393,6 +408,17 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
         end
     ) do
         tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
+
+		if info.defeatedEncountersInfo then
+			for bossIndex, bossInfo in pairs(info.defeatedEncountersInfo) do
+				if bossInfo[2] then
+					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cffff0000%s|r", L['Saved']))
+				else
+					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cff00ff00%s|r", L['Unsaved']))
+				end
+			end
+		end
+		tooltip:AddSeparator(2, 1, 1, 1)
     end
 
     tooltip:SmartAnchorTo(button)
