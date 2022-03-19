@@ -171,7 +171,7 @@ end
 local function setCategoryChildOption(info, value)
     local key = info[#info]
     local category = info[3]
-	local categoryType = info[2]
+    local categoryType = info[2]
     local categoryOptionsTbl = PermoksAccountManager.db.global.options[categoryType]
 
     local childs = categoryOptionsTbl[category].childs
@@ -197,10 +197,10 @@ local function setCategoryChildOption(info, value)
             order = order,
             type = 'input',
             name = PermoksAccountManager.labelRows[key].label,
-            width = 'half',
+            width = 'half'
         }
-	elseif categoryType == "customCategories" then
-		categoryOptionsTbl[category].childOrder[key] = value
+    elseif categoryType == 'customCategories' then
+        categoryOptionsTbl[category].childOrder[key] = value
         optionsOrderConfig[category].args[key] = nil
     end
 
@@ -209,10 +209,10 @@ end
 
 local function getCategoryChildOption(info)
     local key = info[#info]
-	local categoryType = info[2]
+    local categoryType = info[2]
     local category = info[3]
 
-	local value = PermoksAccountManager.db.global.options[categoryType][category].childOrder[key]
+    local value = PermoksAccountManager.db.global.options[categoryType][category].childOrder[key]
     return type(value) == 'number' or (type(value) == 'boolean' and value)
 end
 
@@ -252,7 +252,7 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
             order = categoryOptions.order,
             type = 'input',
             name = categoryOptions.name,
-            width = 'half',
+            width = 'half'
         }
     end
 
@@ -272,7 +272,7 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
                 order = i,
                 type = 'input',
                 name = name,
-                width = 'half',
+                width = 'half'
             }
         end
     end
@@ -309,19 +309,19 @@ local function createDefaultOptions()
         end
 
         local args = {}
-		if category == "general" then
-			args = nil
-		else
-			for i, child in pairs(info.childs) do
-				if PermoksAccountManager.labelRows[child] and not PermoksAccountManager.labelRows[child].hideOption then
-					args[child] = {
-						order = i,
-						type = 'toggle',
-						name = PermoksAccountManager.labelRows[child].label
-					}
-				end
-			end
-		end
+        if category == 'general' then
+            args = nil
+        else
+            for i, child in pairs(info.childs) do
+                if PermoksAccountManager.labelRows[child] and not PermoksAccountManager.labelRows[child].hideOption then
+                    args[child] = {
+                        order = i,
+                        type = 'toggle',
+                        name = PermoksAccountManager.labelRows[child].label
+                    }
+                end
+            end
+        end
 
         if not PermoksAccountManager.db.global.options.defaultCategories[category].childs then
             PermoksAccountManager:UpdateDefaultCategories(category)
@@ -348,6 +348,91 @@ local function createCustomOptions()
     end
 
     return numCategories
+end
+
+local labelData = {}
+local function EditCustomLabel(labelInfo, labelOptionsInfo)
+    labelData = labelInfo
+    labelData.oldId = labelOptionsInfo[#labelOptionsInfo]
+    AceConfigRegistry:NotifyChange(addonName)
+end
+
+local function CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labelIdentifier)
+    local labelIdentifier = labelIdentifier or string.format('custom_%s', labelInfo.name:lower())
+    if PermoksAccountManager.labelRows[labelIdentifier] then
+        PermoksAccountManager:Print(labelInfo.name .. ' already exists as a custom label.')
+        return
+    end
+
+    labelOptionsTbl.args[labelInfo.id] = {
+        type = 'execute',
+        name = labelInfo.name,
+        labelIdentifier = labelIdentifier,
+        func = function(info)
+            EditCustomLabel(labelInfo, info)
+        end
+    }
+
+    options[labelInfo.id] = labelInfo
+    PermoksAccountManager.labelRows[labelIdentifier] = {
+        label = labelInfo.name,
+        type = labelInfo.type,
+        customId = labelInfo.id,
+        key = labelInfo.type ~= 'quests' and labelInfo.id or nil,
+        group = labelInfo.type ~= 'quests' and labelInfo.type or nil,
+        tooltip = labelInfo.type == 'item',
+        version = WOW_PROJECT_ID
+    }
+
+    if labelInfo.type == 'item' then
+        PermoksAccountManager.item[labelInfo.id] = {key = labelIdentifier}
+    elseif labelInfo.type == 'currency' then
+        PermoksAccountManager.currency[labelInfo.id] = 0
+    end
+end
+
+local function DelecteCustomLabelButton(labelInfo)
+    local labelOptionsTbl = options.args.add.args[labelInfo.type]
+    local options = PermoksAccountManager.db.global.options.customLabels[labelInfo.type]
+    if labelOptionsTbl and options and labelOptionsTbl.args[labelInfo.id] then
+        local oldLabelOptions = labelOptionsTbl.args[labelInfo.id]
+        local oldLabeRowInfo = PermoksAccountManager.labelRows[oldLabelOptions.labelIdentifier]
+
+        PermoksAccountManager.labelRows[oldLabelOptions.labelIdentifier] = nil
+        labelOptionsTbl.args[labelInfo.id] = nil
+        options[labelInfo.id] = nil
+        labelData = {}
+
+        PermoksAccountManager:DeleteUnusedLabels(oldLabelOptions.labelIdentifier)
+        PermoksAccountManager:RemoveIdentifierFromLabelTable(oldLabeRowInfo.type, oldLabelOptions.labelIdentifier)
+    end
+end
+
+local function UpdateCustomLabelButton(labelInfo, options, labelOptionsTbl)
+    local oldId = labelInfo.oldId
+    if oldId and labelOptionsTbl.args[oldId] then
+        local oldlabelOptionsTbl = labelOptionsTbl.args[oldId]
+        local labelIdentifier = string.format('custom_%s', labelInfo.name:lower())
+        if PermoksAccountManager.labelRows[labelIdentifier] then
+            PermoksAccountManager:Print(labelInfo.name .. ' already exists as a custom label.')
+            return
+        end
+
+        DelecteCustomLabelButton({name = oldlabelOptionsTbl.name, id = oldId, type = labelInfo.type})
+        CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labelIdentifier)
+    end
+end
+
+function PermoksAccountManager:AddCustomLabelButton(labelInfo)
+    local labelOptionsTbl = options.args.add.args[labelInfo.type]
+    local options = self.db.global.options.customLabels[labelInfo.type]
+    if labelOptionsTbl and options then
+        if not labelOptionsTbl.args[labelInfo.id] and not labelOptionsTbl.args[labelInfo.oldId] then
+            CreateCustomLabelButton(labelInfo, options, labelOptionsTbl)
+        else
+            UpdateCustomLabelButton(labelInfo, options, labelOptionsTbl)
+        end
+    end
 end
 
 local function createConfirmPopup()
@@ -518,7 +603,9 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         order = 1,
                         type = 'toggle',
                         name = L['Show Guild Attunement Button'],
-						hidden = function() return not PermoksAccountManager.isBC end,
+                        hidden = function()
+                            return not PermoksAccountManager.isBC
+                        end,
                         set = function(info, value)
                             PermoksAccountManager.db.global.options.showGuildAttunementButton = value
                             PermoksAccountManager.managerFrame.guildAttunementButton:SetShown(value)
@@ -812,10 +899,10 @@ function PermoksAccountManager:LoadOptionsTemplate()
         order = 2,
         type = 'group',
         name = 'Category Config',
-		set = setCategoryChildOption,
-		get = getCategoryChildOption,
+        set = setCategoryChildOption,
+        get = getCategoryChildOption,
         args = {
-			default_categories_toggles = {
+            default_categories_toggles = {
                 order = 1,
                 type = 'group',
                 name = L['Categories'],
@@ -952,11 +1039,11 @@ function PermoksAccountManager:LoadOptionsTemplate()
                 type = 'group',
                 name = L['Default'],
                 childGroups = 'tab',
-				set = setOrder,
+                set = setOrder,
                 get = getOrder,
-				validate = function(_, value)
-					return tonumber(value) or 'Please insert a number.'
-				end,
+                validate = function(_, value)
+                    return tonumber(value) or 'Please insert a number.'
+                end,
                 args = {}
             },
             defaultCategoriesOrder = {
@@ -964,12 +1051,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                 type = 'group',
                 name = L['Default'],
                 inline = true,
-				set = setCategoryOrder,
-				get = getCategoryOrder,
-				validate = function(info, value)
-					local newOrder = tonumber(value)
-					return (not newOrder and 'Please insert a number.') or (newOrder <= 0 and 'Please insert a number greater than 0') or true
-				end,
+                set = setCategoryOrder,
+                get = getCategoryOrder,
+                validate = function(info, value)
+                    local newOrder = tonumber(value)
+                    return (not newOrder and 'Please insert a number.') or (newOrder <= 0 and 'Please insert a number greater than 0') or true
+                end,
                 args = {}
             },
             customCategories = {
@@ -977,11 +1064,11 @@ function PermoksAccountManager:LoadOptionsTemplate()
                 type = 'group',
                 name = L['Custom'],
                 childGroups = 'tab',
-				set = setOrder,
+                set = setOrder,
                 get = getOrder,
-				validate = function(_, value)
-					return tonumber(value) or 'Please insert a number.'
-				end,
+                validate = function(_, value)
+                    return tonumber(value) or 'Please insert a number.'
+                end,
                 args = {}
             },
             customCategoriesOrder = {
@@ -989,12 +1076,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                 type = 'group',
                 name = L['Custom'],
                 inline = true,
-				set = setCategoryOrder,
-				get = getCategoryOrder,
-				validate = function(info, value)
-					local newOrder = tonumber(value)
-					return (not newOrder and 'Please insert a number.') or (newOrder <= 0 and 'Please insert a number greater than 0') or true
-				end,
+                set = setCategoryOrder,
+                get = getCategoryOrder,
+                validate = function(info, value)
+                    local newOrder = tonumber(value)
+                    return (not newOrder and 'Please insert a number.') or (newOrder <= 0 and 'Please insert a number greater than 0') or true
+                end,
                 args = {}
             }
         }
@@ -1091,105 +1178,114 @@ function PermoksAccountManager:LoadOptionsTemplate()
         }
     }
 
-	local labelData = {}
-	options.args.add = {
-		order = 6,
-		type = 'group',
-		name = L['Add'],
-		childGroups = 'tab',
-		args = {
-			addTab = {
-				order = 1,
-				type = 'group',
-				name = L['Add/Edit'],
-				inline = true,
-				args = {
-					name = {
-						order = 1,
-						name = L['Name'],
-						type = 'input',
-						validate = function(info, value)
-							if value:match('[^%w:]') then
-								return 'You can only use letters, numbers, and colons (for now).'
-							elseif string.len(value) == 0 then
-								return "Can't create an empty category."
-							elseif PermoksAccountManager.db.global.options.customLabels[value].name then
-								return 'This category already exists.'
-							end
+    options.args.add = {
+        order = 6,
+        type = 'group',
+        name = L['Custom Labels'],
+        childGroups = 'tab',
+		hidden = true,
+        args = {
+            addTab = {
+                order = 1,
+                type = 'group',
+                name = L['Add/Edit'],
+                inline = true,
+                args = {
+                    name = {
+                        order = 1,
+                        name = L['Name'],
+                        type = 'input',
+                        validate = function(info, value)
+                            if value:match('[^%a%s:]') then
+                                return 'You can only use letters (for now).'
+                            elseif string.len(value) == 0 then
+                                return "Can't create an empty category."
+                            end
 
-							return true
-						end,
-						set = function(info, value)
-							labelData.name = value
-						end,
-						get = function(info)
-							return labelData.name or ''
-						end
-					},
-					id = {
-						order = 2,
-						name = L['ID'],
-						type = 'input',
-						validate = function(info, value)
-							if value:match('[^%d]') then
-								return 'IDs only contain digits.'
-							end
+                            return true
+                        end,
+                        set = function(info, value)
+                            labelData.name = value
+                        end,
+                        get = function(info)
+                            return labelData.name or ''
+                        end
+                    },
+                    id = {
+                        order = 2,
+                        name = L['ID'],
+                        type = 'input',
+                        width = 'half',
+                        validate = function(info, value)
+                            if not tonumber(value) then
+                                return 'IDs only contain digits.'
+                            end
 
-							return true
-						end,
-						set = function(info, value)
-							labelData.id = value
-						end,
-						get = function()
-							return labelData.id
-						end
-					},
-					labelType = {
-						order = 3,
-						name = L['Type'],
-						type = 'select',
-						values = {quest = L['Quest'], item = L['Item'], currency = L['Currency']},
-						sorting = {'quest', 'item', 'currency'},
-						set = function(info, value)
-							labelData.type = value
-						end,
-						get = function(info)
-							return labelData.type or 'quest'
-						end,
-					},
-					create = {
-						order = 4,
-						name = L['Create/Edit'],
-						type = 'execute',
-						func = function(info)
-							if labelData.name and labelData.id and labelData.type then
-							end
+                            return true
+                        end,
+                        set = function(info, value)
+                            labelData.id = tonumber(value)
+                        end,
+                        get = function()
+                            return labelData.id and tostring(labelData.id) or ''
+                        end
+                    },
+                    labelType = {
+                        order = 3,
+                        name = L['Type'],
+                        type = 'select',
+                        values = {item = L['Item'], currency = L['Currency']},
+                        sorting = {'item', 'currency'},
+                        width = 'half',
+                        disabled = function()
+                            return labelData.oldId and true or false
+                        end,
+                        set = function(info, value)
+                            labelData.type = value
+                        end,
+                        get = function(info)
+                            return labelData.type or 'quest'
+                        end
+                    },
+                    create = {
+                        order = 4,
+                        name = L['Create/Edit'],
+                        type = 'execute',
+                        func = function(info)
+                            if labelData.name and labelData.id and labelData.type then
+                                PermoksAccountManager:AddCustomLabelButton(labelData)
+                                PermoksAccountManager.UpdateCustomLabelOptions()
+                            end
 
-							labelData = {}
-						end
-					}
-				}
-			},
-			quest = {
-				order = 2,
-				type = 'group',
-				name = L['Quests'],
-				args = {}
-			},
-			item = {
-				order = 3,
-				type = 'group',
-				name = L['Items'],
-				args = {}
-			},
-			currency = {
-				order = 4,
-				type = 'group',
-				name = L['Currencies'],
-				args = {}
-			}
-		}
-	}
+                            labelData = {}
+                        end
+                    },
+                    delete = {
+                        order = 5,
+                        name = L['Delete'],
+                        type = 'execute',
+                        func = function(info)
+                            if labelData.name and labelData.id and labelData.type then
+                                DelecteCustomLabelButton(labelData)
+                            end
+                        end
+                    }
+                }
+            },
+            item = {
+                order = 2,
+                type = 'group',
+                name = L['Items'],
+                args = {}
+            },
+            currency = {
+                order = 3,
+                type = 'group',
+                name = L['Currencies'],
+                args = {}
+            }
+        }
+    }
 
     -- TODO: Retail differentiation
     options.args.experimental = {
@@ -1238,10 +1334,10 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         order = 5,
                         type = 'toggle',
                         name = L['Outline'],
-						set = function(info, value)
-							PermoksAccountManager.db.global.options[info[#info]] = value
-							PermoksAccountManager:UpdateAllFonts()
-						end,
+                        set = function(info, value)
+                            PermoksAccountManager.db.global.options[info[#info]] = value
+                            PermoksAccountManager:UpdateAllFonts()
+                        end,
                         retailOnly = true
                     },
                     questCompletionString = {
@@ -1279,6 +1375,14 @@ function PermoksAccountManager:LoadOptionsTemplate()
     }
 end
 
+function PermoksAccountManager:LoadCustomLabelButtons()
+    for _, customLabels in pairs(self.db.global.options.customLabels) do
+        for _, labelInfo in pairs(customLabels) do
+            self:AddCustomLabelButton(labelInfo)
+        end
+    end
+end
+
 function PermoksAccountManager.UpdateCustomLabelOptions(newDefault)
     newDefault = newDefault or PermoksAccountManager:GetCustomLabelTable(true)
 
@@ -1287,6 +1391,8 @@ function PermoksAccountManager.UpdateCustomLabelOptions(newDefault)
             args.args = newDefault
         end
     end
+
+    options.args.categories.args.defaultCategories.args.general.args = newDefault
     AceConfigRegistry:NotifyChange(addonName)
 end
 
@@ -1349,12 +1455,23 @@ do
         end
     end
 
+    function PermoksAccountManager:RemoveIdentifierFromLabelTable(group, labelIdentifier)
+        if labelTable[group] then
+            labelTable[group].args[labelIdentifier] = nil
+            AceConfigRegistry:NotifyChange(addonName)
+        end
+    end
+
     function PermoksAccountManager:GetCustomLabelTable(update)
         if update then
             UpdateLabelTable()
         end
 
         return labelTable
+    end
+
+    function PermoksAccountManager:LoadCustomLabelTable()
+        UpdateLabelTable()
     end
 end
 

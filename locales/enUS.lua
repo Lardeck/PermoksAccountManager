@@ -197,3 +197,4 @@ L['Items'] = true
 L['Currencies'] = true
 L['Saved'] = true
 L['Unsaved'] = true
+L['Custom Labels'] = true

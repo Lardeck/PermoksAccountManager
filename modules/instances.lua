@@ -397,7 +397,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     tooltip:AddHeader(self.raids[labelRow.id].name)
     tooltip:AddLine('')
 
-    for _, info in self.spairs(
+    for difficulty, info in self.spairs(
         raidInfo,
         function(_, a, b)
             if a == 17 then
@@ -409,7 +409,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     ) do
         tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 
-		if info.defeatedEncountersInfo then
+		if info.defeatedEncountersInfo and difficulty < 17 then
 			for bossIndex, bossInfo in pairs(info.defeatedEncountersInfo) do
 				if bossInfo[2] then
 					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cffff0000%s|r", L['Saved']))
@@ -417,8 +417,8 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
 					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cff00ff00%s|r", L['Unsaved']))
 				end
 			end
+			tooltip:AddSeparator(2, 1, 1, 1)
 		end
-		tooltip:AddSeparator(2, 1, 1, 1)
     end
 
     tooltip:SmartAnchorTo(button)

@@ -109,7 +109,12 @@ local defaultDB = {
                 ['**'] = {
                     enabled = true
                 }
-            }
+            },
+			customLabels = {
+				quests = {},
+				item = {},
+				currency = {},
+			}
         },
         currentCallings = {},
         quests = {},
@@ -218,11 +223,9 @@ do
 
     --- Create the text for a label button.
     -- @param button:Button The button to create the font object for.
-    -- @param column:table The information table for the current column.
-    -- @param text:string Text for the current row.
     -- @param buttonOptions:table
     -- TODO
-    local function CreateMenuButton(button, column, buttonOptions)
+    local function CreateMenuButton(button)
         button:SetNormalFontObject(mediumLargeFont)
         button:SetText(' ')
 
@@ -261,7 +264,7 @@ do
             end
             CreateInfoButton(button, column, buttonOptions)
         elseif type == 'label' then
-            CreateMenuButton(button, column, buttonOptions)
+            CreateMenuButton(button)
         end
 
         return button
@@ -673,7 +676,8 @@ function PermoksAccountManager:OnLogin()
     db.currentPage = 1
     self:SortPages()
     self:LoadOptionsTemplate()
-    self.UpdateCustomLabelOptions()
+	self:LoadCustomLabelButtons()
+	self:LoadCustomLabelTable()
     self.LoadOptions()
 
     C_Timer.After(
@@ -1188,6 +1192,26 @@ local InternalTooltipFunctions = {
 
 function PermoksAccountManager:GetInternalLabelFunction(labelRow)
     return InternalLabelFunctions[labelRow.type] or (type(labelRow.data) == 'function' and labelRow.data)
+end
+
+local function DeleteUnusedLabel(category, categoryInfo, labelIdentifier)
+	tDeleteItem(categoryInfo.childs, labelIdentifier)
+	categoryInfo.childOrder[labelIdentifier] = nil
+	PermoksAccountManager:UpdateAnchorsAndSize(category, nil, true, true)
+end
+
+function PermoksAccountManager:DeleteUnusedLabels(labelIdentifier)
+	for category, categoryInfo in pairs(self.db.global.options.defaultCategories) do
+		if categoryInfo.childOrder[labelIdentifier] then
+			DeleteUnusedLabel(category, categoryInfo, labelIdentifier)
+		end
+	end
+
+	for category, categoryInfo in pairs(self.db.global.options.customCategories) do
+		if categoryInfo.childOrder[labelIdentifier] then
+			DeleteUnusedLabel(category, categoryInfo, labelIdentifier)
+		end
+	end
 end
 
 function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, category)
