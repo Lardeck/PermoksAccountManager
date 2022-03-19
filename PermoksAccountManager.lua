@@ -35,7 +35,7 @@ local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
-local VERSION = '1.0.5'
+local VERSION = '1.0.6'
 local INTERNALVERSION = 3
 local INTERNALBCVERSION = 1
 local defaultDB = {
@@ -550,7 +550,7 @@ function PermoksAccountManager:CheckForModernize()
     if not internalVersion or internalVersion < INTERNALVERSION then
         self:Modernize(internalVersion)
     end
-    --self.db.global.internalVersion = INTERNALVERSION
+    self.db.global.internalVersion = INTERNALVERSION
 end
 
 function PermoksAccountManager:Modernize(oldInternalVersion)
