@@ -558,6 +558,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if (oldInternalVersion or 0) < 2 then
         self:UpdateDefaultCategories('currentdaily')
+		oldInternalVersion = 2
     end
 
 	if oldInternalVersion < 3 then

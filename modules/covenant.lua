@@ -193,6 +193,7 @@ local function Update(charInfo)
     UpdateCallings(charInfo)
     UpdateCovenant(charInfo)
     UpdateRenown(charInfo)
+	UpdateCovenantCurrencies(charInfo)
 end
 
 local function CreateCallingString(callingInfo)
