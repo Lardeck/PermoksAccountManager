@@ -916,6 +916,12 @@ function PermoksAccountManager:UpdatePageButtons()
         end
     end
 
+	if #pages < #managerFrame.pageButtons then
+		for page = #pages + 1, #managerFrame.pageButtons do
+			managerFrame.pageButtons[page]:Hide()
+		end
+	end
+
     for pageNumber = 1, #pages do
         local pageButton = managerFrame.pageButtons[pageNumber] or CreateManagerButton(35, 20, pageNumber)
 
@@ -927,7 +933,7 @@ function PermoksAccountManager:UpdatePageButtons()
             end
 
             local index = pageNumber - 1
-            pageButton:SetPoint('LEFT', managerFrame.topDragBar, 'LEFT', (index * 35) + (index > 0 and 135 or 130), 0)
+            pageButton:SetPoint('LEFT', managerFrame.topDragBar, 'LEFT', 130 + (index * 40), 0)
             pageButton:SetID(pageNumber)
             pageButton:SetScript(
                 'OnClick',
@@ -954,8 +960,8 @@ function PermoksAccountManager:UpdatePageButtons()
                 end
             )
             pageButton:SetParent(managerFrame.topDragBar)
-            pageButton:Show()
         end
+		pageButton:Show()
     end
 end
 
