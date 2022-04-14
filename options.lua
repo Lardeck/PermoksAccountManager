@@ -774,7 +774,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
             buttons = {
                 order = 2,
                 type = 'group',
-                name = L['Button'],
+                name = L['Column'],
                 inline = true,
                 set = function(info, value)
                     local key = info[#info]
@@ -798,7 +798,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
                             local options = PermoksAccountManager.db.global.options
 
                             options[parentKey][key] = value
-                            options.other.widthPerAlt = max(value, options.other.widthPerAlt)
+                            options.buttons.widthPerAlt = max(value, options.buttons.widthPerAlt)
                             PermoksAccountManager:UpdateAnchorsAndSize('general', true)
                         end,
                         min = 80,
@@ -816,7 +816,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
 
                             options[parentKey][key] = value
                             options[parentKey].buttonWidth = max(value, options[parentKey].buttonWidth)
-                            options.other.widthPerAlt = max(options[parentKey].buttonWidth, options.other.widthPerAlt)
+                            options.buttons.widthPerAlt = max(options[parentKey].buttonWidth, options.buttons.widthPerAlt)
                             PermoksAccountManager:UpdateAnchorsAndSize('general', true)
                         end,
                         min = 80,
@@ -829,7 +829,15 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         values = {['LEFT'] = 'Left', ['CENTER'] = 'Center', ['RIGHT'] = 'Right'},
                         sorting = {'LEFT', 'CENTER', 'RIGHT'},
                         style = 'dropdown'
-                    }
+                    },
+					widthPerAlt = {
+                        order = 4,
+                        type = 'range',
+                        name = L['Column Width'],
+                        min = 80,
+                        max = 250,
+                        bigStep = 1
+                    },
                 }
             },
             border = {
@@ -887,14 +895,6 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         name = L['Label Offset'],
                         min = 0,
                         max = 40,
-                        bigStep = 1
-                    },
-                    widthPerAlt = {
-                        order = 2,
-                        type = 'range',
-                        name = L['Width per Alt'],
-                        min = 80,
-                        max = 250,
                         bigStep = 1
                     },
                     frameStrata = {
