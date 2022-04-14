@@ -549,6 +549,27 @@ function PermoksAccountManager:CreateMenuButtons()
     end
 end
 
+function PermoksAccountManager:CreateResetTimers()
+    local weeklyResetTime = self:GetNextWeeklyResetTime()
+    local dailyResetTime = self:GetNextDailyResetTime()
+
+    C_Timer.After(
+        weeklyResetTime,
+        function()
+            self:CheckForReset()
+        end
+    )
+
+    if dailyResetTime < weeklyResetTime then
+        C_Timer.After(
+            dailyResetTime,
+            function()
+                self:CheckForReset()
+            end
+        )
+    end
+end
+
 function PermoksAccountManager:CheckForModernize()
     local internalVersion = self.db.global.internalVersion
     if not internalVersion or internalVersion < INTERNALVERSION then
