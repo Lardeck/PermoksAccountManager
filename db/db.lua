@@ -180,11 +180,13 @@ local default_categories = {
             'oilHeal',
             'oilDPS',
             'potHP',
+			'potCosmicHP',
             'drum',
             'potManaInstant',
             'potManaChannel',
             'tome',
-            'korthiteCrystal'
+            'korthiteCrystal',
+			'progenitorEssentia'
         },
         childOrder = {
             flask = 1,
@@ -194,11 +196,13 @@ local default_categories = {
             oilHeal = 5,
             oilDPS = 6,
             potHP = 7,
-            drum = 8,
-            potManaInstant = 9,
-            potManaChannel = 10,
-            tome = 11,
-            korthiteCrystal = 12
+			potCosmicHP = 8,
+            drum = 9,
+            potManaInstant = 10,
+            potManaChannel = 11,
+            tome = 12,
+            korthiteCrystal = 13,
+			progenitorEssentia = 14,
         },
         enabled = false
     },
@@ -417,7 +421,6 @@ PermoksAccountManager.labelRows = {
 
 PermoksAccountManager.numDungeons = 9
 PermoksAccountManager.keys = {
-    [210] = 'COS', -- Court of Stars
     [375] = 'MISTS', -- Mists of Tirna Scithe
     [376] = 'NW', -- The Necrotic Wage
     [377] = 'DOS', -- De Other Side
@@ -427,7 +430,36 @@ PermoksAccountManager.keys = {
     [381] = 'SOA', -- Spires of Ascension
     [382] = 'TOP', -- Theater of Pain
     [391] = 'T:SOW', -- Tazavesh: Streets of Wonder
-    [392] = 'T:SG' -- Tazavesh: So'lesh Gambit
+    [392] = 'T:SG', -- Tazavesh: So'lesh Gambit
+	[197] = 'EOA', -- Eye of Azshara
+	[198] = 'DHT', -- Darkheart Thicket
+	[199] = 'BRH', -- Blackrook Hold
+	[200] = 'HOV', -- Halls of Valor
+	[206] = 'NL', -- Neltharion's Lair
+	[207] = 'VOTW', -- Vault of the Wardens
+	[208] = 'MOS', -- Maw of Souls
+	[209] = 'ARC', -- The Arcway
+	[210] = 'COS', -- Court of Stars
+	[227] = 'LOWR', -- Return to Karazhan: Lower
+	[233] = 'COEN', -- Cathedral of Eternal Night
+	[234] = 'UPPR', -- Return to Karathan: Upper
+	[239] = 'SEAT', -- Seat of the Triumvirate
+}
+
+PermoksAccountManager.activityIDToKeys = {
+	[459] = 197, -- EOA
+	[460] = 198, -- DHT
+	[461] = 200, -- HOV
+	[462] = 206, -- NL
+	[463] = 199, -- BRH
+	[464] = 207, -- VOTW
+	[465] = 208, -- MOS
+	[466] = 210, -- COS
+	[467] = 209, -- ARC
+	[471] = 227, -- LOWR
+	[473] = 234, -- UPPR
+	[476] = 233, -- COEN
+	[486] = 239, -- SEAT
 }
 
 PermoksAccountManager.raids = {
@@ -460,7 +492,10 @@ PermoksAccountManager.item = {
     [171272] = {key = 'potManaInstant'}, -- Mana Pot Instant
     [171268] = {key = 'potManaChannel'}, -- Mana Pot Channel
     [173049] = {key = 'tome'}, -- Tome
-    [186017] = {key = 'korthiteCrystal'} -- Korthite Crystal
+    [186017] = {key = 'korthiteCrystal'}, -- Korthite Crystal
+	[187707] = {key = 'progenitorEssentia'}, -- Progenitor Essentia
+	[187802] = {key = 'potCosmicHP'}, -- Cosmic HP Pot
+
 }
 
 PermoksAccountManager.factions = {
