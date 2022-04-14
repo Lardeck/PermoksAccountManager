@@ -259,9 +259,10 @@ function PermoksAccountManager.CurrencyTooltip_OnEnter(button, altData, labelRow
     if not altData.currencyInfo then
         return
     end
+
     local self = PermoksAccountManager
-    local currencyInfo = altData.currencyInfo[labelRow.id]
-    local globalCurrencyInfo = self.db.global.currencyInfo[labelRow.id]
+    local currencyInfo = altData.currencyInfo[labelRow.key]
+    local globalCurrencyInfo = self.db.global.currencyInfo[labelRow.key]
     if not currencyInfo or not currencyInfo.name then
         return
     end
