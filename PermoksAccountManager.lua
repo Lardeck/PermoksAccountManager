@@ -110,11 +110,11 @@ local defaultDB = {
                     enabled = true
                 }
             },
-			customLabels = {
-				quests = {},
-				item = {},
-				currency = {},
-			}
+            customLabels = {
+                quests = {},
+                item = {},
+                currency = {}
+            }
         },
         currentCallings = {},
         quests = {},
