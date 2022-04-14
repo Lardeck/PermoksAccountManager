@@ -100,6 +100,23 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
+	progenitorEssentia = {
+		label = L['Progenitor Essentia'],
+		type = 'item',
+		key = 187707,
+		tooltip = true,
+		group = 'item',
+		version = WOW_PROJECT_MAINLINE
+	},
+	potCosmicHP = {
+		label = L['Cosmic HP Pots'],
+		type = 'item',
+		key = 187802,
+		tooltip = true,
+		group = 'item',
+		version = WOW_PROJECT_MAINLINE
+	},
+
     -- tbc
     elixirDemonslaying = {
         label = 'Elixir of Demonslaying',

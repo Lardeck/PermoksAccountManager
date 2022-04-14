@@ -56,6 +56,12 @@ local labelRows = {
         group = 'dungeons',
         version = WOW_PROJECT_MAINLINE
     },
+	tw_keystone = {
+		label = L['TW Keystone'],
+		type = 'twkeystone',
+		group = 'dungeons',
+		version = WOW_PROJECT_MAINLINE
+	},
     weekly_key = {
         label = L['Highest Key'],
 		type = 'weeklyKey',
@@ -112,13 +118,17 @@ end
 local function UpdateKeystones(charInfo)
     if PermoksAccountManager.isBC then return end
 
-
     charInfo.keyInfo = charInfo.keyInfo or {}
 	C_Timer.After(0.5, function()
 		local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
 		local keyInfo = charInfo.keyInfo
 		keyInfo.keyDungeon = ownedKeystone and PermoksAccountManager.keys[ownedKeystone] or L['No Key']
 		keyInfo.keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
+
+		local activityID, _, keyLevel = C_LFGList.GetOwnedKeystoneActivityAndGroupAndLevel(true)
+		local keyDungeonID = PermoksAccountManager.activityIDToKeys[activityID]
+		keyInfo.twKeyDungeon = keyDungeonID and PermoksAccountManager.keys[keyDungeonID] or L['No Key']
+		keyInfo.twKeyLevel = keyDungeonID and keyLevel or 0
 	end)
 end
 
@@ -196,7 +206,20 @@ local function CreateKeystoneString(keyInfo)
 	if keyInfo.keyLevel == 0 then
 		return string.format('%s', keyInfo.keyDungeon)
 	end
+
     return string.format('%s+%d', keyInfo.keyDungeon, keyInfo.keyLevel)
+end
+
+local function CreateTWKeystoneString(keyInfo)
+    if not keyInfo or not type(keyInfo) == "table" then
+        return 'Unknown'
+    end
+
+	if keyInfo.twKeyLevel == 0 then
+		return string.format('%s', keyInfo.twKeyDungeon)
+	end
+
+    return string.format('%s+%d', keyInfo.twKeyDungeon, keyInfo.twKeyLevel)
 end
 
 local function CreateDungeonScoreString(score)
@@ -264,6 +287,7 @@ local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('gold', CreateGoldString, true, 'gold')
 module:AddCustomLabelType('characterName', CreateCharacterString, nil, 'name', 'specInfo')
 module:AddCustomLabelType('keystone', CreateKeystoneString, nil, 'keyInfo')
+module:AddCustomLabelType('twkeystone', CreateTWKeystoneString, nil, 'keyInfo')
 module:AddCustomLabelType('dungeonScore', CreateDungeonScoreString, true, 'mythicScore')
 module:AddCustomLabelType('weeklyKey', CreateWeeklyString, nil, 'vaultInfo')
 module:AddCustomLabelType('contract', CreateContractString, nil, 'contractInfo')

@@ -108,6 +108,9 @@ L['World Boss'] = true
 L['Shadowlands'] = true
 L['SotFO'] = true
 L['Cyphers'] = true
+L['Progenitor Essentia'] = true
+L['Cosmic HP Pots'] = true
+L['TW Keystone'] = true
 
 --------------------------
 -- 		Options 		--
