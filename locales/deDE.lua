@@ -198,3 +198,10 @@ L['Currencies'] = true
 L['Saved'] = true
 L['Unsaved'] = true
 L['Custom Labels'] = true
+L['Column Width'] = true
+L['Column'] = true
+L['Character Options'] = true
+L['Combine Accounts'] = true
+L['Combine Main and Alt Account Characters'] = true
+L['Character Order'] = true
+
