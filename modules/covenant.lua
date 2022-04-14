@@ -154,7 +154,7 @@ local function UpdateRenown(charInfo, newRenown)
     if type(charInfo.renown) ~= 'table' then
         charInfo.renown = {}
     end
-
+	if not charInfo.covenant or charInfo.covenant == 0 then return end
     charInfo.renown = charInfo.renown or {}
 
     C_Timer.After(
@@ -171,7 +171,7 @@ local function UpdateCovenant(charInfo, covenant)
 end
 
 local function UpdateCovenantCurrencies(charInfo)
-    if not charInfo.covenant then
+    if not charInfo.covenant or charInfo.covenant == 0 then
         return
     end
 
