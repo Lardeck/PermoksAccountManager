@@ -747,7 +747,7 @@ function PermoksAccountManager:OnLogin()
     local data = self.account.data
     if guid and not data[guid] and not self:isBlacklisted(guid) and not (level < min_level) then
         db.alts = db.alts + 1
-        self:AddNewCharacter(self.account, guid, db.alts)
+        self:AddNewCharacter(self.account, guid)
     end
 
     self.charInfo = data[guid]
@@ -758,18 +758,14 @@ function PermoksAccountManager:OnLogin()
     end
 
     db.currentPage = 1
-    self:SortPages()
     self:LoadOptionsTemplate()
-	self:LoadCustomLabelButtons()
-	self:LoadCustomLabelTable()
+    self:SortPages()
+    self:LoadCustomLabelButtons()
+    self:LoadCustomLabelTable()
     self.LoadOptions()
+    self:CreateResetTimers()
 
-    C_Timer.After(
-        self:GetNextWeeklyResetTime(),
-        function()
-            self:CheckForReset()
-        end
-    )
+    self:UpdateAccounts()
 end
 
 function PermoksAccountManager:SkinButtonElvUI(button)
@@ -1365,13 +1361,13 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
             end
 
             if row.module then
-				local args = row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update)
-				local text
-				if labelRow.passKey then
-					text = row.labelFunction(labelRow.key or row_identifier, unpack(args))
-				else
-					text = row.labelFunction(unpack(args))
-				end
+                local args = row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update)
+                local text
+                if labelRow.passKey then
+                    text = row.labelFunction(labelRow.key or row_identifier, unpack(args))
+                else
+                    text = row.labelFunction(unpack(args))
+                end
                 row:SetText(text)
             else
                 row:SetText(row.labelFunction(altData, labelRow, row_identifier))
@@ -1638,18 +1634,17 @@ function PermoksAccountManager:HideInterface()
 end
 
 function PermoksAccountManager:ShowInterface()
+    self:UpdateAccountButtons()
+    self.myGUID = self.myGUID or UnitGUID('player')
+    self:RequestCharacterInfo()
+
     if not self.loaded then
         self:CreateMenuButtons()
         self:UpdateAltAnchors('general', self.managerFrame, self.managerFrame.labelColumn)
         self:UpdatePageButtons()
-        self:UpdateAccountButtons()
-        self:UpdateAccounts()
 
         self.loaded = true
     end
-
-    self.myGUID = self.myGUID or UnitGUID('player')
-    self:RequestCharacterInfo()
 
     self.managerFrame:Show()
     self:UpdateCompletionDataForCharacter(self.charInfo)

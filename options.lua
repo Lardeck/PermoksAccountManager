@@ -1593,6 +1593,16 @@ function PermoksAccountManager:UpdateDefaultCategories(key)
     PermoksAccountManager.db.global.options.defaultCategories[key] = copyTable(default_categories[key])
 end
 
+function PermoksAccountManager:AddLabelToDefaultCategory(category, label, customOrder)
+	local categoryTbl = self.db.global.options.defaultCategories[category]
+
+	if not categoryTbl.childOrder[label] then
+		local numChildren = #categoryTbl.childs
+		categoryTbl.childOrder[label] = customOrder or numChildren + 1
+		tinsert(categoryTbl.childs, ceil(customOrder) or numChildren + 1, label)
+	end
+end
+
 function PermoksAccountManager:OptionsToString()
     local export = {internalVersion = self.db.global.internalVersion, custom = self.db.global.custom, options = self.db.global.options}
 
