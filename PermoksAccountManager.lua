@@ -50,7 +50,9 @@ local defaultDB = {
         accounts = {
             main = {
                 name = L['Main'],
-                data = {},
+                data = {
+
+				},
                 pages = {}
             }
         },
@@ -1694,12 +1696,21 @@ function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
     local keys = {}
     for _, alt_data in pairs(self.db.global.accounts.main.data) do
         local keyInfo = alt_data.keyInfo
-        if keyInfo and keyInfo.keyLevel > 0 and (dungeon == '' or keyInfo.keyDungeon == dungeon) then
-            local key = string.format('[%s: %s+%d]', alt_data.name, keyInfo.keyDungeon, keyInfo.keyLevel)
-            tinsert(keys, key)
+        if keyInfo then
+			local keyString = {}
+			if keyInfo.keyLevel and keyInfo.keyLevel > 0 and (dungeon == '' or keyInfo.keyDungeon == dungeon) then
+            	tinsert(keyString, keyInfo.keyDungeon .. '+' .. keyInfo.keyLevel)
+			end
+
+			if keyInfo.twKeyLevel and keyInfo.twKeyLevel > 0 and (dungeon == '' or keyInfo.twKeyDungeon == dungeon) then
+				tinsert(keyString, keyInfo.twKeyDungeon .. '+' .. keyInfo.twKeyLevel)
+			end
+
+			if #keyString > 0 then
+				tinsert(keys, string.format('[%s: %s]', alt_data.name, table.concat(keyString, ', ')))
+			end
         end
     end
-
     local msg = table.concat(keys, ' ')
     SendChatMessage(msg:sub(1, 255), chatChannel)
 end

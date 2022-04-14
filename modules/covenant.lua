@@ -167,7 +167,7 @@ end
 
 local function UpdateCovenant(charInfo, covenant)
     covenant = covenant or C_Covenants.GetActiveCovenantID()
-    charInfo.covenant = covenant
+    charInfo.covenant = covenant > 0 and covenant or nil
 end
 
 local function UpdateCovenantCurrencies(charInfo)

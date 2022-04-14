@@ -199,7 +199,7 @@ local function CreateCharacterString(name, specInfo)
 end
 
 local function CreateKeystoneString(keyInfo)
-    if not keyInfo or not type(keyInfo) == "table" then
+    if not keyInfo or not type(keyInfo) == "table" or not keyInfo.keyDungeon then
         return 'Unknown'
     end
 
@@ -211,7 +211,7 @@ local function CreateKeystoneString(keyInfo)
 end
 
 local function CreateTWKeystoneString(keyInfo)
-    if not keyInfo or not type(keyInfo) == "table" then
+    if not keyInfo or not type(keyInfo) == "table" or not keyInfo.twKeyDungeon then
         return 'Unknown'
     end
 
