@@ -1,5 +1,4 @@
 local addonName, PermoksAccountManager = ...
-
 local LibQTip = LibStub('LibQTip-1.0')
 local AceGUI = LibStub('AceGUI-3.0')
 

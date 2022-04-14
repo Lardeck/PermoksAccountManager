@@ -46,6 +46,7 @@ local defaultDB = {
     },
     global = {
         blacklist = {},
+        pages = {},
         accounts = {
             main = {
                 name = L['Main'],
@@ -65,17 +66,18 @@ local defaultDB = {
                 updated = false,
                 buttonWidth = 120,
                 buttonTextWidth = 110,
+                widthPerAlt = 120,
                 justifyH = 'LEFT'
             },
             other = {
                 updated = false,
                 labelOffset = 5,
-                widthPerAlt = 120,
                 frameStrata = 'MEDIUM'
             },
             characters = {
                 charactersPerPage = 6,
-                minLevel = GetMaxLevelForExpansionLevel(GetExpansionLevel())
+                minLevel = GetMaxLevelForExpansionLevel(GetExpansionLevel()),
+                combine = false
             },
             border = {
                 edgeSize = 5,
@@ -730,18 +732,6 @@ function PermoksAccountManager:AddNewCharacter(account, guid)
     charInfo.realm = realm
 
     charInfo.charLevel = UnitLevel('player')
-end
-
-function PermoksAccountManager:AddNewCharacter(account, guid, alts)
-    local data = account.data
-    data[guid] = {guid = guid}
-
-    AddBasicCharacterInfo(data[guid])
-    local page = ceil(alts / self.db.global.options.characters.charactersPerPage)
-    account.pages[page] = account.pages[page] or {}
-    tinsert(account.pages[page], guid)
-
-    data[guid].page = page
 end
 
 function PermoksAccountManager:SaveBattleTag(db)
@@ -1562,8 +1552,8 @@ function PermoksAccountManager:UpdateManagerFrame()
 end
 
 function PermoksAccountManager:UpdateManagerFrameSize(widthOnly, heightOnly)
-    local alts = #self.account.pages[self.db.global.currentPage]
-    local width = ((alts * self.db.global.options.other.widthPerAlt) + 140) - min((self.db.global.options.other.widthPerAlt - self.db.global.options.buttons.buttonWidth), 20) + 4
+    local alts = #self.pages[self.db.global.currentPage]
+    local width = ((alts * self.db.global.options.buttons.widthPerAlt) + 140) - min((self.db.global.options.buttons.widthPerAlt - self.db.global.options.buttons.buttonWidth), 20) + 4
     local height = self.managerFrame.height
 
     if widthOnly then

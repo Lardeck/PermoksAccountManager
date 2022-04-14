@@ -254,17 +254,8 @@ local payload = {
         [UpdateCallings] = 'callingInfo',
         [UpdateSanctumBuildings] = 'sanctumInfo',
         [UpdateCovenant] = 'covenantInfo',
-        [UpdateRenown] = 'covenantInfo'
-    },
-    functionInfo = {
-        [UpdateCallings] = {
-            share = true,
-            infoKey = 'callingInfo'
-        },
-        [UpdateSanctumBuildings] = {
-            share = true,
-            infoKey = 'sanctumInfo'
-        }
+        [UpdateRenown] = 'covenantInfo',
+		[UpdateCovenantCurrencies] = 'covenantInfo'
     },
     labels = labelRows
 }
