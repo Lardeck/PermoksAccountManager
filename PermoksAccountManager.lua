@@ -558,16 +558,48 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if (oldInternalVersion or 0) < 2 then
         self:UpdateDefaultCategories('currentdaily')
-		oldInternalVersion = 2
+        oldInternalVersion = 2
     end
 
-	if oldInternalVersion < 3 then
-		for _, accountInfo in pairs(db.global.accounts) do
-			for _, altData in pairs(accountInfo.data) do
-				altData.sanctumInfo = nil
-			end
-		end
-	end
+    if oldInternalVersion < 3 then
+        for _, accountInfo in pairs(db.global.accounts) do
+            for _, altData in pairs(accountInfo.data) do
+                altData.sanctumInfo = nil
+            end
+        end
+        oldInternalVersion = 3
+    end
+
+    if oldInternalVersion < 4 then
+        db.global.options.buttons.widthPerAlt = db.global.options.other.widthPerAlt or 120
+        oldInternalVersion = 4
+    end
+
+    if oldInternalVersion < 5 then
+        self:AddLabelToDefaultCategory('general', 'tw_keystone', 5.1)
+
+        local sortKey = self.isBC and 'charLevel' or 'ilevel'
+        if true then
+            return
+        end
+        for _, accountInfo in pairs(db.global.accounts) do
+            local order = 1
+            for _, altData in self.spairs(
+                accountInfo.data,
+                function(t, a, b)
+                    if t[a] and t[b] then
+                        if t[a].order and t[b].order then
+                            return t[a].order < t[b].order
+                        end
+                        return t[a][sortKey] > t[b][sortKey]
+                    end
+                end
+            ) do
+                altData.order = order
+                order = order + 1
+            end
+        end
+    end
 end
 
 function PermoksAccountManager:GetGUID()
@@ -575,48 +607,95 @@ function PermoksAccountManager:GetGUID()
     return self.myGUID
 end
 
-function PermoksAccountManager:SortPages()
-    local account = self.db.global.accounts.main
-    local data = account.data
-    local sortKey = self.isBC and 'charLevel' or 'ilevel'
-    account.pages = {{}}
+local function SortPages(pages)
+    local perPage = PermoksAccountManager.db.global.options.characters.charactersPerPage
+    local finalPages = {{}}
 
-    local enabledAlts = 1
-    for alt_guid, alt_data in self.spairs(
+    table.sort(
+        pages,
+        function(a, b)
+            return a.order < b.order
+        end
+    )
+
+    for i, altData in ipairs(pages) do
+        local page = ceil(i / perPage)
+        finalPages[page] = finalPages[page] or {}
+
+        tinsert(finalPages[page], altData)
+        altData.page = page
+    end
+    return finalPages
+end
+
+local function GetCharacterOrders(pages, data, perPage, accountName, enabledAlts)
+    local customSortKey = 'order'
+    local sortKey = PermoksAccountManager.isBC and 'charLevel' or 'ilevel'
+
+    local enabledAlts = enabledAlts or 1
+    for alt_guid, alt_data in PermoksAccountManager.spairs(
         data,
         function(t, a, b)
             if t[a] and t[b] then
+                if t[a][customSortKey] and t[b][customSortKey] then
+                    return t[a][customSortKey] < t[b][customSortKey]
+                end
                 return t[a][sortKey] > t[b][sortKey]
             end
         end
     ) do
-        if not self.db.global.blacklist[alt_guid] then
-            local page = ceil(enabledAlts / self.db.global.options.characters.charactersPerPage)
-            account.pages[page] = account.pages[page] or {}
-            tinsert(account.pages[page], alt_guid)
+        if not PermoksAccountManager.db.global.blacklist[alt_guid] then
+            alt_data.order = alt_data.order or enabledAlts
+            tinsert(pages, alt_data)
+            PermoksAccountManager:AddCharacterToOrderOptions(alt_guid, alt_data.name, alt_data.class, alt_data.order)
             enabledAlts = enabledAlts + 1
-
-            alt_data.page = page
         end
     end
+    return enabledAlts
+end
 
-    if self.db.global.currentPage > #account.pages then
-        self.db.global.currentPage = #account.pages
-    end
+function PermoksAccountManager:SortPages()
+    local db = self.db.global
+    local perPage = db.options.characters.charactersPerPage
 
-    for i = 1, #account.pages do
-        table.sort(
-            account.pages[i],
-            function(a, b)
-                if data[a] and data[b] then
-                    return data[a][sortKey] > data[b][sortKey]
+    if db.options.characters.combine then
+        local dummyPages = {}
+        local enabledAlts
+        for accountName, accountInfo in PermoksAccountManager.spairs(
+            db.accounts,
+            function(_, a, b)
+                if a == 'main' or b == 'main' then
+                    return a > b
+                else
+                    return a < b
                 end
             end
-        )
+        ) do
+            enabledAlts = GetCharacterOrders(dummyPages, accountInfo.data, perPage, accountName, enabledAlts)
+
+            if accountName == 'main' then
+                db.accounts.main.pages = SortPages(dummyPages)
+            end
+        end
+        self.pages = SortPages(dummyPages)
+    else
+        local dummyPages = {}
+        GetCharacterOrders(dummyPages, db.accounts.main.data, perPage, 'main')
+
+        db.accounts.main.pages = SortPages(dummyPages)
+        self.pages = db.accounts.main.pages
+    end
+
+    if self.db.global.currentPage > #self.pages then
+        self.db.global.currentPage = #self.pages
     end
 end
 
-local function AddBasicCharacterInfo(charInfo)
+function PermoksAccountManager:AddNewCharacter(account, guid)
+    local data = account.data
+    data[guid] = {guid = guid}
+
+    local charInfo = data[guid]
     local _, class = UnitClass('player')
     charInfo.class = class
     charInfo.faction = UnitFactionGroup('player')
@@ -857,6 +936,11 @@ function PermoksAccountManager:UpdateAccountButtons()
 
     local managerFrame = self.managerFrame
     local accountDropdown = managerFrame.accountDropdown or AceGUI:Create('Dropdown')
+    if db.options.characters.combine then
+        accountDropdown.frame:Hide()
+        return
+    end
+
     if not managerFrame.accountDropdown then
         managerFrame.accountDropdown = accountDropdown
         --accountDropdown:SetLabel('Account')
@@ -872,6 +956,7 @@ function PermoksAccountManager:UpdateAccountButtons()
                     PermoksAccountManager.managerFrame.pageDropdown:SetValue(1)
                 end
                 PermoksAccountManager.account = PermoksAccountManager.db.global.accounts[accountKey]
+                PermoksAccountManager.pages = PermoksAccountManager.account.pages
                 PermoksAccountManager:HideAllCategories()
                 PermoksAccountManager:UpdateAltAnchors('general', managerFrame, managerFrame.labelColumn)
                 PermoksAccountManager:UpdateStrings(1, 'general')
@@ -901,7 +986,7 @@ end
 
 function PermoksAccountManager:UpdatePageButtons()
     local db = self.db.global
-    local pages = self.account.pages
+    local pages = self.pages
     local managerFrame = self.managerFrame
     managerFrame.pageButtons = managerFrame.pageButtons or {}
     local categoryFrame = self.categoryFrame
@@ -916,15 +1001,15 @@ function PermoksAccountManager:UpdatePageButtons()
         end
     end
 
-	if #pages < #managerFrame.pageButtons then
-		for page = #pages + 1, #managerFrame.pageButtons do
-			managerFrame.pageButtons[page]:Hide()
-		end
-	end
+    if #pages < #managerFrame.pageButtons then
+        for page = #pages + 1, #managerFrame.pageButtons do
+            managerFrame.pageButtons[page]:Hide()
+        end
+    end
 
+    local offset = managerFrame.accountDropdown and managerFrame.accountDropdown:IsShown() and 130 or 10
     for pageNumber = 1, #pages do
         local pageButton = managerFrame.pageButtons[pageNumber] or CreateManagerButton(35, 20, pageNumber)
-
         if not managerFrame.pageButtons[pageNumber] then
             managerFrame.pageButtons[pageNumber] = pageButton
             if pageNumber == currentPage then
@@ -932,8 +1017,7 @@ function PermoksAccountManager:UpdatePageButtons()
                 pageButton.selected:Show()
             end
 
-            local index = pageNumber - 1
-            pageButton:SetPoint('LEFT', managerFrame.topDragBar, 'LEFT', 130 + (index * 40), 0)
+            pageButton:SetPoint('LEFT', managerFrame.topDragBar, 'LEFT', offset + ((pageNumber - 1) * 40), 0)
             pageButton:SetID(pageNumber)
             pageButton:SetScript(
                 'OnClick',
@@ -961,7 +1045,7 @@ function PermoksAccountManager:UpdatePageButtons()
             )
             pageButton:SetParent(managerFrame.topDragBar)
         end
-		pageButton:Show()
+        pageButton:Show()
     end
 end
 
@@ -977,7 +1061,6 @@ local function UpdateOrCreateMenu(category, anchorFrame, parent)
     PermoksAccountManager.managerFrame.labels = PermoksAccountManager.managerFrame.labels or {}
     PermoksAccountManager.managerFrame.labels[category] = PermoksAccountManager.managerFrame.labels[category] or {}
     local labels = PermoksAccountManager.managerFrame.labels[category]
-    local alts = #PermoksAccountManager.account.pages[PermoksAccountManager.db.global.currentPage]
 
     local enabledRows = 0
     for j, row_iden in pairs(childs) do
@@ -1044,12 +1127,12 @@ function PermoksAccountManager:UpdateAltAnchors(category, columnFrame, customAnc
     columnFrame.altColumns[category] = columnFrame.altColumns[category] or {}
 
     local db = self.db.global
-    local altDataForPage = self.account.pages[db.currentPage or 1]
+    local altDataForPage = self.pages[db.currentPage or 1]
     if not altDataForPage then
         return
     end
 
-    local widthPerAlt = db.options.other.widthPerAlt
+    local widthPerAlt = db.options.buttons.widthPerAlt
     local labelOffset = db.options.other.labelOffset
     local altColumns = columnFrame.altColumns[category]
 
@@ -1061,6 +1144,7 @@ function PermoksAccountManager:UpdateAltAnchors(category, columnFrame, customAnc
 
     for index, alt_guid in ipairs(altDataForPage) do
         local anchorFrame = altColumns[index] or CreateFrame('Button', nil, customAnchorFrame)
+        anchorFrame:ClearAllPoints()
         anchorFrame:SetPoint('TOPLEFT', customAnchorFrame, 'TOPRIGHT', (widthPerAlt * (index - 1)) + labelOffset, 0)
         anchorFrame:SetPoint('BOTTOMRIGHT', customAnchorFrame, 'BOTTOMLEFT', (widthPerAlt * index) + widthPerAlt + labelOffset, 0)
         anchorFrame.GUID = alt_guid
@@ -1202,27 +1286,30 @@ function PermoksAccountManager:GetInternalLabelFunction(labelRow)
 end
 
 local function DeleteUnusedLabel(category, categoryInfo, labelIdentifier)
-	tDeleteItem(categoryInfo.childs, labelIdentifier)
-	categoryInfo.childOrder[labelIdentifier] = nil
-	PermoksAccountManager:UpdateAnchorsAndSize(category, nil, true, true)
+    tDeleteItem(categoryInfo.childs, labelIdentifier)
+    categoryInfo.childOrder[labelIdentifier] = nil
+    PermoksAccountManager:UpdateAnchorsAndSize(category, nil, true, true)
 end
 
 function PermoksAccountManager:DeleteUnusedLabels(labelIdentifier)
-	for category, categoryInfo in pairs(self.db.global.options.defaultCategories) do
-		if categoryInfo.childOrder[labelIdentifier] then
-			DeleteUnusedLabel(category, categoryInfo, labelIdentifier)
-		end
-	end
+    for category, categoryInfo in pairs(self.db.global.options.defaultCategories) do
+        if categoryInfo.childOrder[labelIdentifier] then
+            DeleteUnusedLabel(category, categoryInfo, labelIdentifier)
+        end
+    end
 
-	for category, categoryInfo in pairs(self.db.global.options.customCategories) do
-		if categoryInfo.childOrder[labelIdentifier] then
-			DeleteUnusedLabel(category, categoryInfo, labelIdentifier)
-		end
-	end
+    for category, categoryInfo in pairs(self.db.global.options.customCategories) do
+        if categoryInfo.childOrder[labelIdentifier] then
+            DeleteUnusedLabel(category, categoryInfo, labelIdentifier)
+        end
+    end
 end
 
-function PermoksAccountManager:UpdateColumnForAlt(alt_guid, anchorFrame, category)
-    local altData = self.account.data[alt_guid]
+function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category)
+    -- Fix synced Account using old format
+    if type(altData) == 'string' then
+        altData = self.account.data[altData] or nil
+    end
     if not altData then
         return
     end
@@ -1309,18 +1396,18 @@ end
 
 function PermoksAccountManager:UpdateStrings(page, category, columnFrame)
     local db = self.db.global
-    local page = self.account.pages[page or self.db.global.currentPage]
+    local page = self.pages[page or self.db.global.currentPage]
     if not page then
         return
     end
 
     local enabledAlts = 1
     columnFrame = columnFrame or self.managerFrame
-    for _, alt_guid in ipairs(page) do
-        if not db.blacklist[alt_guid] then
+    for _, altData in pairs(page) do
+        if not db.blacklist[altData.guid] then
             local anchorFrame = columnFrame.altColumns[category][enabledAlts]
 
-            self:UpdateColumnForAlt(alt_guid, anchorFrame, category)
+            self:UpdateColumnForAlt(altData, anchorFrame, category)
             enabledAlts = enabledAlts + 1
         end
     end

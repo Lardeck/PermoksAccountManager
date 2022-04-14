@@ -85,6 +85,20 @@ local function GetAccountSyncDescription()
     return string.format('|cffff0000%s|r\nSteps:\n1 - %s\n2 - %s\n3 - %s', comment, first, second, third)
 end
 
+---comment
+---@param altGUID string
+---@param name string
+---@param class string
+---@param order number
+function PermoksAccountManager:AddCharacterToOrderOptions(altGUID, name, class, order)
+	options.args.characters.args.customCharacterOrder.args[altGUID] = {
+		order = order,
+		type = 'input',
+		width = 'half',
+		name = RAID_CLASS_COLORS[class]:WrapTextInColorCode(name),
+	}
+end
+
 -- credit to the author of Shadowed Unit Frames
 local function selectDifferentTab(group, key)
     AceConfigDialog.Status[addonName].children.categories.children[group].status.groups.selected = key
@@ -154,7 +168,9 @@ local function setOrder(info, value)
     categoryOptions.childOrder[key] = newOrder
     sortCategoryChilds(optionsTable, category)
     for i, child in pairs(categoryOptions.childs) do
-        options.args.order.args[optionsTable].args[category].args[child].order = i
+		if options.args.order.args[optionsTable].args[category].args[child] then
+        	options.args.order.args[optionsTable].args[category].args[child].order = i
+		end
     end
 
     AceConfigRegistry:NotifyChange(addonName)
@@ -731,6 +747,11 @@ function PermoksAccountManager:LoadOptionsTemplate()
                     end
                 end,
                 args = {
+					warning = {
+						order = 0,
+						type = 'description',
+						name = 'Will be moved to the Characters options in an upcoming update.'
+					},
                     minLevel = {
                         order = 1,
                         type = 'range',
@@ -894,6 +915,68 @@ function PermoksAccountManager:LoadOptionsTemplate()
             }
         }
     }
+
+	options.args.characters = {
+		order = 1.6,
+		type = 'group',
+		name = L['Characters'],
+		childGroups = 'tab',
+		args = {
+			test = {
+				order = 1,
+				type = 'group',
+				name = L['Character Options'],
+				inline = true,
+				args = {
+					combine = {
+						order = 1,
+						type = 'toggle',
+						name = L['Combine Accounts'],
+						desc = L['Combine Main and Alt Account Characters'],
+						set = function(_, value)
+                            PermoksAccountManager.db.global.options.characters.combine = value
+                            C_UI.Reload()
+                        end,
+                        get = function(_)
+                            return PermoksAccountManager.db.global.options.characters.combine
+                        end,
+                        confirm = true,
+                        confirmText = 'Requires a reload!'
+					},
+				}
+			},
+			customCharacterOrder = {
+				order = 2,
+				type = 'group',
+				inline = 'true',
+				name = L['Character Order'],
+				get = function(info)
+					for _, accountInfo in pairs(PermoksAccountManager.db.global.accounts) do
+						local data = accountInfo.data[info[#info]]
+						if data then
+							return tostring(data.order)
+						end
+					end
+				end,
+				set = function(info, value)
+					local order = tonumber(value)
+					for _, accountInfo in pairs(PermoksAccountManager.db.global.accounts) do
+						local data = accountInfo.data[info[#info]]
+						if data then
+							data.order = order
+							options.args.characters.args.customCharacterOrder.args[info[#info]].order = order
+							break
+						end
+					end
+
+					AceConfigRegistry:NotifyChange(addonName)
+					PermoksAccountManager:SortPages()
+					PermoksAccountManager:UpdateAnchorsAndSize('general')
+				end,
+				args = {}
+			},
+		}
+	}
 
     options.args.categories = {
         order = 2,
