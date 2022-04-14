@@ -397,8 +397,12 @@ do
                         end
                     end
                 else
-                    if arg1 and arg1:lower() == '!allkeys' then
-                        PermoksAccountManager:PostKeysIntoChat(event == 'CHAT_MSG_GUILD' and 'guild' or 'party')
+                    if arg1 then
+                        arg1 = arg1:lower()
+                        local start, ending = arg1:find('^!allkeys')
+                        if start then
+                            PermoksAccountManager:PostKeysIntoChat(event == 'CHAT_MSG_GUILD' and 'guild' or 'party', arg1, ending)
+                        end
                     end
                 end
             end
@@ -1672,7 +1676,7 @@ function PermoksAccountManager:GetNextBiWeeklyResetTime()
     return (weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset)
 end
 
-function PermoksAccountManager:PostKeysIntoChat(channel)
+function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
     local chatChannel
     if channel and (channel == 'raid' or channel == 'guild' or channel == 'party') then
         chatChannel = channel:upper()
@@ -1680,10 +1684,11 @@ function PermoksAccountManager:PostKeysIntoChat(channel)
         chatChannel = UnitInParty('player') and 'PARTY' or 'GUILD'
     end
 
+    local dungeon = msg:sub(ending + 2):upper()
     local keys = {}
     for _, alt_data in pairs(self.db.global.accounts.main.data) do
         local keyInfo = alt_data.keyInfo
-        if keyInfo and keyInfo.keyLevel > 0 then
+        if keyInfo and keyInfo.keyLevel > 0 and (dungeon == '' or keyInfo.keyDungeon == dungeon) then
             local key = string.format('[%s: %s+%d]', alt_data.name, keyInfo.keyDungeon, keyInfo.keyLevel)
             tinsert(keys, key)
         end
