@@ -265,10 +265,9 @@ local function UpdateInstanceInfo(charInfo)
         name, _, _, difficulty, locked, extended, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
 
 		local raidInfo
-        if locked or (extended and encounterProgress > 0) then
+        if locked or extended then
             if self.raids[instanceID] or (self.isBC and self.raids[name]) then
                 local info = self.raids[instanceID] or self.raids[name]
-
                 instanceInfo.raids[info.englishName] = instanceInfo.raids[info.englishName] or {}
 				instanceInfo.raids[info.englishName][difficulty] =  instanceInfo.raids[info.englishName][difficulty] or {difficulty = difficultyName, numEncounters = numEncounters}
                 instanceInfo.raids[info.englishName][difficulty].defeatedEncounters = encounterProgress
@@ -330,17 +329,22 @@ function PermoksAccountManager:CreateDungeonString(savedInfo)
     end
 end
 
+local retailDifficultyOrder = {
+	[17] = 1,
+	[14] = 2,
+	[15] = 3,
+	[16] = 4,
+}
+
 function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
     local raidString = ''
-    local maxDifficultyId = self.isBC and 175 or 17
 
     local highestDifficulty = 0
     for difficulty in pairs(savedInfo) do
-        if difficulty <= maxDifficultyId and (difficulty > highestDifficulty or highestDifficulty == 17) then
+        if (not self.isBC and retailDifficultyOrder[difficulty] > (retailDifficultyOrder[highestDifficulty] or highestDifficulty)) or (self.isBC and difficulty > highestDifficulty) then
             highestDifficulty = difficulty
         end
     end
-
 
     local raidInfo = savedInfo[highestDifficulty]
 	if not raidInfo then return end
@@ -400,7 +404,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     for difficulty, info in self.spairs(
         raidInfo,
         function(_, a, b)
-            if a == 17 then
+            if a == 17 or b == 17 then
                 return b < a
             else
                 return a < b
@@ -417,8 +421,8 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
 					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cff00ff00%s|r", L['Unsaved']))
 				end
 			end
-			tooltip:AddSeparator(2, 1, 1, 1)
 		end
+		tooltip:AddSeparator(2, 1, 1, 1)
     end
 
     tooltip:SmartAnchorTo(button)
