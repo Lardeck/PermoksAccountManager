@@ -301,7 +301,8 @@ do
         update = Update,
         labels = labelRows,
         events = {
-            ['UPDATE_INSTANCE_INFO'] = UpdateInstanceInfo
+            ['UPDATE_INSTANCE_INFO'] = UpdateInstanceInfo,
+			['WEEKLY_REWARDS_UPDATE']  = UpdateInstanceInfo,
         },
         share = {
             [UpdateInstanceInfo] = 'instanceInfo'

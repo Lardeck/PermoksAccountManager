@@ -575,8 +575,8 @@ function PermoksAccountManager:CreateResetTimers()
 end
 
 function PermoksAccountManager:CheckForModernize()
-    local internalVersion = self.db.global.internalVersion
-    if not internalVersion or internalVersion < INTERNALVERSION then
+    local internalVersion = self.db.global.internalVersion or INTERNALVERSION
+    if internalVersion < INTERNALVERSION then
         self:Modernize(internalVersion)
     end
     self.db.global.internalVersion = INTERNALVERSION
@@ -657,7 +657,7 @@ local function SortPages(pages)
     return finalPages
 end
 
-local function GetCharacterOrders(pages, data, perPage, accountName, enabledAlts)
+local function GetCharacterOrders(pages, data, enabledAlts)
     local customSortKey = 'order'
     local sortKey = PermoksAccountManager.isBC and 'charLevel' or 'ilevel'
 
@@ -700,7 +700,7 @@ function PermoksAccountManager:SortPages()
                 end
             end
         ) do
-            enabledAlts = GetCharacterOrders(dummyPages, accountInfo.data, perPage, accountName, enabledAlts)
+            enabledAlts = GetCharacterOrders(dummyPages, accountInfo.data, enabledAlts)
 
             if accountName == 'main' then
                 db.accounts.main.pages = SortPages(dummyPages)
@@ -709,7 +709,7 @@ function PermoksAccountManager:SortPages()
         self.pages = SortPages(dummyPages)
     else
         local dummyPages = {}
-        GetCharacterOrders(dummyPages, db.accounts.main.data, perPage, 'main')
+        GetCharacterOrders(dummyPages, db.accounts.main.data, perPage)
 
         db.accounts.main.pages = SortPages(dummyPages)
         self.pages = db.accounts.main.pages
@@ -1064,7 +1064,6 @@ end
 
 local function UpdateOrCreateMenu(category, anchorFrame, parent)
     local db = PermoksAccountManager.db.global
-    local completionData = db.completionData
     local childs = db.currentCategories[category].childs
     local options = db.currentCategories[category].childOrder
     if not options then
