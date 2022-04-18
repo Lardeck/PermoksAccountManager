@@ -709,7 +709,7 @@ function PermoksAccountManager:SortPages()
         self.pages = SortPages(dummyPages)
     else
         local dummyPages = {}
-        GetCharacterOrders(dummyPages, db.accounts.main.data, perPage)
+        GetCharacterOrders(dummyPages, db.accounts.main.data)
 
         db.accounts.main.pages = SortPages(dummyPages)
         self.pages = db.accounts.main.pages
