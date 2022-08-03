@@ -673,7 +673,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
 
                             PermoksAccountManager.db.global.options[info[#info]] = value
                         end
-                    }
+                    },
+					savePosition = {
+						order = 5,
+						type = 'toggle',
+						name = L['Save Position'],
+					}
                 }
             },
             commands = {

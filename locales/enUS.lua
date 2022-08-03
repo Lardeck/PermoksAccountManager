@@ -111,6 +111,9 @@ L['Cyphers'] = true
 L['Progenitor Essentia'] = true
 L['Cosmic HP Pots'] = true
 L['TW Keystone'] = true
+L['Killed'] = true
+L['Catalyst Charges'] = true
+L['Fly near the Creation Catalyst.'] = true
 
 --------------------------
 -- 		Options 		--
@@ -207,3 +210,4 @@ L['Character Options'] = true
 L['Combine Accounts'] = true
 L['Combine Main and Alt Account Characters'] = true
 L['Character Order'] = true
+L['Save Position'] = true

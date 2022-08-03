@@ -35,8 +35,8 @@ local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
-local VERSION = '1.0.8'
-local INTERNALVERSION = 5
+local VERSION = '1.0.9'
+local INTERNALVERSION = 6
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -579,7 +579,7 @@ function PermoksAccountManager:CheckForModernize()
     if internalVersion < INTERNALVERSION then
         self:Modernize(internalVersion)
     end
-    self.db.global.internalVersion = INTERNALVERSION
+    --	self.db.global.internalVersion = INTERNALVERSION
 end
 
 function PermoksAccountManager:Modernize(oldInternalVersion)
@@ -628,7 +628,12 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
                 order = order + 1
             end
         end
+		oldInternalVersion = 5
     end
+
+	if oldInternalVersion < 6 then
+		self:AddLabelToDefaultCategory('general', 'catalyst_charges', 13)
+	end
 end
 
 function PermoksAccountManager:GetGUID()
@@ -858,6 +863,12 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
             altData.questInfo.weekly[visibility] = {}
         end
     end
+
+	-- Catalyst Charges
+	if altData.currencyInfo and altData.currencyInfo[2000] then
+		altData.currencyInfo[2000].hiddenCharges = (altData.currencyInfo[2000].hiddenCharges or 0) + 1
+		altData.currencyInfo[2000].updated = nil
+	end
 end
 
 function PermoksAccountManager:ResetDailyActivities(db, altData)
@@ -1209,7 +1220,7 @@ local InternalLabelFunctions = {
             return '-'
         end
 
-        return PermoksAccountManager:CreateCurrencyString(currencyInfo, column.abbCurrent, column.abbMax, column.hideMax, column.customIcon) or '-'
+        return PermoksAccountManager:CreateCurrencyString(currencyInfo, column.abbCurrent, column.abbMax, column.hideMax, column.customIcon, column.hideIcon) or '-'
     end,
     faction = function(alt_data, column, key)
         if not alt_data.factions then
@@ -1683,6 +1694,9 @@ function PermoksAccountManager:GetNextBiWeeklyResetTime()
     return (weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset)
 end
 
+local function GetAllkeysArguments()
+end
+
 function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
     local chatChannel
     if channel and (channel == 'raid' or channel == 'guild' or channel == 'party') then
@@ -1691,7 +1705,7 @@ function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
         chatChannel = UnitInParty('player') and 'PARTY' or 'GUILD'
     end
 
-    local dungeon = msg:sub(ending + 2):upper()
+    local dungeon = msg and msg:sub(ending + 2):upper() or ''
     local keys = {}
     for _, alt_data in pairs(self.db.global.accounts.main.data) do
         local keyInfo = alt_data.keyInfo

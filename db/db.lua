@@ -18,6 +18,7 @@ local default_categories = {
             'soul_cinders',
             'soul_ash',
             'valor',
+            'catalyst_charges',
             'the_enlightened'
         },
         childOrder = {
@@ -33,7 +34,8 @@ local default_categories = {
             soul_cinders = 10,
             soul_ash = 11,
             valor = 12,
-            the_enlightened = 13
+			catalyst_charges = 13,
+            the_enlightened = 14
         },
         hideToggle = true,
         enabled = true
@@ -421,7 +423,9 @@ PermoksAccountManager.labelRows = {
 
 PermoksAccountManager.numDungeons = 9
 PermoksAccountManager.keys = {
-    [375] = 'MISTS', -- Mists of Tirna Scithe
+    [369] = 'YARD', -- Operation: Mechagon - Junkyard
+	[370] = 'WORK', -- Operation: Mechagon - Workshop
+	[375] = 'MISTS', -- Mists of Tirna Scithe
     [376] = 'NW', -- The Necrotic Wage
     [377] = 'DOS', -- De Other Side
     [378] = 'HOA', -- Halls of Atonement
@@ -431,6 +435,8 @@ PermoksAccountManager.keys = {
     [382] = 'TOP', -- Theater of Pain
     [391] = 'STRT', -- Tazavesh: Streets of Wonder
     [392] = 'GMBT', -- Tazavesh: So'lesh Gambit
+	[166] = 'GD', -- Grimrail Depot
+	[169] = 'ID', -- Iron Docks
 	[197] = 'EOA', -- Eye of Azshara
 	[198] = 'DHT', -- Darkheart Thicket
 	[199] = 'BRH', -- Blackrook Hold
@@ -524,7 +530,8 @@ PermoksAccountManager.currency = {
     [1977] = 0,
     [1822] = 1,
     [1979] = 0,
-    [2009] = 0
+    [2000] = 0,
+    [2009] = 0,
 }
 
 PermoksAccountManager.research = {

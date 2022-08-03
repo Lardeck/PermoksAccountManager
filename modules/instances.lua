@@ -303,6 +303,7 @@ do
         events = {
             ['UPDATE_INSTANCE_INFO'] = UpdateInstanceInfo,
 			['WEEKLY_REWARDS_UPDATE']  = UpdateInstanceInfo,
+            ['INSTANCE_LOCK_STOP'] = UpdateInstanceInfo,
         },
         share = {
             [UpdateInstanceInfo] = 'instanceInfo'
@@ -402,6 +403,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     tooltip:AddHeader(self.raids[labelRow.id].name)
     tooltip:AddLine('')
 
+
     for difficulty, info in self.spairs(
         raidInfo,
         function(_, a, b)
@@ -413,11 +415,13 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
         end
     ) do
         tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
-
+		local raidActivityInfo = difficulty==16 and labelRow.id == 2481 and altData.raidActivityInfo
 		if info.defeatedEncountersInfo and difficulty < 17 then
 			for bossIndex, bossInfo in pairs(info.defeatedEncountersInfo) do
-				if bossInfo[2] then
-					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cffff0000%s|r", L['Saved']))
+				if raidActivityInfo and raidActivityInfo[bossIndex] and raidActivityInfo[bossIndex].bestDifficulty == difficulty then
+					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cffff0000%s|r",  L['Saved']))
+				elseif bossInfo[2] then
+					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cffff9933%s|r",  L['Saved']))
 				else
 					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cff00ff00%s|r", L['Unsaved']))
 				end

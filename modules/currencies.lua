@@ -169,6 +169,18 @@ local labelRows = {
 		key = 1979,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
+	},
+	catalyst_charges = {
+		label = L['Catalyst Charges'],
+		type = 'catalystcharges',
+        tooltip = true,
+        customTooltip = function(button, altData, labelRow)
+			return PermoksAccountManager:CatalystCharges_OnEnter(button, altData, labelRow)
+        end,
+		key = 2000,
+		hideIcon = true,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
 	}
 }
 
@@ -211,20 +223,45 @@ local function UpdateCurrency(charInfo, currencyType, quantity)
     charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
 end
 
+local function UpdateCatalystCharges(charInfo)
+    local catalystCharges = charInfo.currencyInfo and charInfo.currencyInfo[2000]
+    if catalystCharges then
+        catalystCharges.updated = true
+		catalystCharges.hiddenCharges = nil
+    end
+end
+
+local function CreateCatalystChargeString(currencyInfo)
+	local catalystCharges = currencyInfo and currencyInfo[2000]
+	if not catalystCharges then return '-' end
+
+	local chargeString = catalystCharges.quantity
+	if catalystCharges.hiddenCharges then
+		chargeString = string.format('%d (+%d)', chargeString, catalystCharges.hiddenCharges)
+	end
+
+	if catalystCharges.updated then
+		return chargeString
+	end
+	return RED_FONT_COLOR:WrapTextInColorCode(chargeString)
+end
+
 local payload = {
     update = Update,
     labels = labelRows,
     events = {
-        ['CURRENCY_DISPLAY_UPDATE'] = UpdateCurrency
+        ['CURRENCY_DISPLAY_UPDATE'] = UpdateCurrency,
+        ['ITEM_INTERACTION_CHARGE_INFO_UPDATED'] = UpdateCatalystCharges,
     },
     share = {
         [UpdateCurrency] = 'currencyInfo'
     }
 }
-PermoksAccountManager:AddModule(module, payload)
+local module = PermoksAccountManager:AddModule(module, payload)
+module:AddCustomLabelType('catalystcharges', CreateCatalystChargeString, nil, 'currencyInfo')
 
 -- TODO Create a CreateIconString function instead of two functions for items and currencies
-function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum, customIcon)
+function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum, customIcon, hideIcon)
     if not currencyInfo then
         return
     end
@@ -233,7 +270,7 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     local options = self.db.global.options
     local globalCurrencyInfo = self.db.global.currencyInfo[currencyInfo.currencyType]
     local currencyIcon = globalCurrencyInfo.icon
-    if currencyIcon and options.currencyIcons then
+    if not hideIcon and currencyIcon and options.currencyIcons then
         if customIcon then
             iconString = string.format('\124T%s:%d:%d:%d:%d\124t', customIcon.path or currencyIcon, customIcon.height or 18, customIcon.width or 18, customIcon.xOffset or 0, customIcon.yOffset or 0)
         else
@@ -391,4 +428,21 @@ do
         tooltip:SmartAnchorTo(button)
         tooltip:Show()
     end
+end
+
+function PermoksAccountManager:CatalystCharges_OnEnter(button, altData, labelRow)
+    if not altData then
+        return
+    end
+
+    local catalystCharges = altData.currencyInfo and altData.currencyInfo[2000]
+    if not catalystCharges or catalystCharges.updated then return end
+
+    local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 1, 'LEFT')
+    button.tooltip = tooltip
+
+    tooltip:AddLine(L['Fly near the Creation Catalyst.'])
+
+    tooltip:SmartAnchorTo(button)
+    tooltip:Show()
 end
