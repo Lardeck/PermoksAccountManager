@@ -579,7 +579,7 @@ function PermoksAccountManager:CheckForModernize()
     if internalVersion < INTERNALVERSION then
         self:Modernize(internalVersion)
     end
-    --	self.db.global.internalVersion = INTERNALVERSION
+    self.db.global.internalVersion = INTERNALVERSION
 end
 
 function PermoksAccountManager:Modernize(oldInternalVersion)
