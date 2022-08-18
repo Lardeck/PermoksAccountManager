@@ -662,7 +662,7 @@ local function SortPages(pages)
     return finalPages
 end
 
-local function GetCharacterOrders(pages, data, enabledAlts)
+local function GetCharacterOrders(pages, data, enabledAlts, accountName)
     local customSortKey = 'order'
     local sortKey = PermoksAccountManager.isBC and 'charLevel' or 'ilevel'
 
@@ -681,7 +681,7 @@ local function GetCharacterOrders(pages, data, enabledAlts)
         if not PermoksAccountManager.db.global.blacklist[alt_guid] then
             alt_data.order = alt_data.order or enabledAlts
             tinsert(pages, alt_data)
-            PermoksAccountManager:AddCharacterToOrderOptions(alt_guid, alt_data.name, alt_data.class, alt_data.order)
+            PermoksAccountManager:AddCharacterToOrderOptions(alt_guid, alt_data, accountName)
             enabledAlts = enabledAlts + 1
         end
     end
@@ -705,7 +705,7 @@ function PermoksAccountManager:SortPages()
                 end
             end
         ) do
-            enabledAlts = GetCharacterOrders(dummyPages, accountInfo.data, enabledAlts)
+            enabledAlts = GetCharacterOrders(dummyPages, accountInfo.data, enabledAlts, accountName)
 
             if accountName == 'main' then
                 db.accounts.main.pages = SortPages(dummyPages)
@@ -714,15 +714,13 @@ function PermoksAccountManager:SortPages()
         self.pages = SortPages(dummyPages)
     else
         local dummyPages = {}
-        GetCharacterOrders(dummyPages, db.accounts.main.data)
+        GetCharacterOrders(dummyPages, db.accounts.main.data, nil, 'main')
 
         db.accounts.main.pages = SortPages(dummyPages)
         self.pages = db.accounts.main.pages
     end
 
-    if self.db.global.currentPage > #self.pages then
-        self.db.global.currentPage = #self.pages
-    end
+    self.db.global.currentPage = min(self.db.global.currentPage, #self.pages)
 end
 
 function PermoksAccountManager:AddNewCharacter(account, guid)

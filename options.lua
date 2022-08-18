@@ -85,18 +85,53 @@ local function GetAccountSyncDescription()
     return string.format('|cffff0000%s|r\nSteps:\n1 - %s\n2 - %s\n3 - %s', comment, first, second, third)
 end
 
+
+local function RemoveCharacterFromOptions(altGUID)
+	options.args.characters.args.customCharacterOrder.args[altGUID] = nil
+end
+
 ---comment
 ---@param altGUID string
----@param name string
----@param class string
----@param order number
-function PermoksAccountManager:AddCharacterToOrderOptions(altGUID, name, class, order)
+function PermoksAccountManager:AddCharacterToOrderOptions(altGUID, altData, accountName)
 	options.args.characters.args.customCharacterOrder.args[altGUID] = {
-		order = order,
-		type = 'input',
-		width = 'half',
-		name = RAID_CLASS_COLORS[class]:WrapTextInColorCode(name),
-	}
+		order = altData.order,
+		type = "group",
+		inline = true,
+		name = RAID_CLASS_COLORS[altData.class]:WrapTextInColorCode(altData.name),
+		x = altData,
+		args = {
+			order = {
+				order = 1,
+				type = 'input',
+				name = 'Order',
+				width = 'half',
+			},
+			remove = {
+				order = 2,
+				type = 'execute',
+				name = 'Remove',
+				width = 0.9,
+				func = function(info)
+					PermoksAccountManager:RemoveCharacter(info[#info-1])
+					RemoveCharacterFromOptions(info[#info-1])
+				end,
+				confirm = true,
+				confirmText = 'Are you sure you want to remove this character?',
+			},
+			[accountName] = {
+                order = 3,
+                type = 'execute',
+                name = 'Filter',
+				width = 0.9,
+				func = function(info)
+					PermoksAccountManager:AddChracterToFilterFromOptions(info[#info-1], info[#info])
+					RemoveCharacterFromOptions(info[#info-1])
+				end,
+				confirm = true,
+				confirmText = 'Do you really want to remove this character and add him to the filter?'
+		    },
+		}
+    }
 end
 
 -- credit to the author of Shadowed Unit Frames
@@ -953,11 +988,11 @@ function PermoksAccountManager:LoadOptionsTemplate()
 			customCharacterOrder = {
 				order = 2,
 				type = 'group',
-				inline = 'true',
-				name = L['Character Order'],
+				inline = true,
+				name = L['Character Info'],
 				get = function(info)
 					for _, accountInfo in pairs(PermoksAccountManager.db.global.accounts) do
-						local data = accountInfo.data[info[#info]]
+						local data = accountInfo.data[info[#info-1]]
 						if data then
 							return tostring(data.order)
 						end
@@ -966,10 +1001,10 @@ function PermoksAccountManager:LoadOptionsTemplate()
 				set = function(info, value)
 					local order = tonumber(value)
 					for _, accountInfo in pairs(PermoksAccountManager.db.global.accounts) do
-						local data = accountInfo.data[info[#info]]
+						local data = accountInfo.data[info[#info-1]]
 						if data then
 							data.order = order
-							options.args.characters.args.customCharacterOrder.args[info[#info]].order = order
+							options.args.characters.args.customCharacterOrder.args[info[#info-1]].args.order = order
 							break
 						end
 					end

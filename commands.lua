@@ -68,9 +68,9 @@ local function FindCharactersByName(name, isFilter, realm)
 	local numCharacters = 0
 	local characters = {}
 	local data = isFilter and PermoksAccountManager.db.global.accounts.main.data or PermoksAccountManager.db.global.blacklist
-	for alt_guid, alt_data in pairs(data) do
-		if alt_data.name == name and (not realm or (realm == alt_data.realm)) then
-			characters[alt_guid] = {name = alt_data.name, realm = alt_data.realm, class = alt_data.class}
+	for alt_guid, altData in pairs(data) do
+		if altData.name == name and (not realm or (realm == altData.realm)) then
+			characters[alt_guid] = {name = altData.name, realm = altData.realm, class = altData.class}
 			numCharacters = numCharacters + 1
 		end
 	end
@@ -96,18 +96,14 @@ local function RemoveCharacterFromPage(guid)
 	return page
 end
 
-local function RemoveCharacter(guid)
-	local page = RemoveCharacterFromPage(guid)
-	RemoveCharacterFromDB(guid)
-	PermoksAccountManager:UpdateManagerFrame(page)
-end
+
 
 local function RemoveCharacterByName(name, realm)
 	local characters = FindCharactersByName(name, true, realm)
 	if characters then
 		local guid, _ = next(characters)
 		if guid then
-			RemoveCharacter(guid)
+			PermoksAccountManager:RemoveCharacter(guid)
 			return
 		end
 	end
@@ -116,7 +112,7 @@ end
 local function HandleFilterAction(guid, isAddToFilter, info)
 	if isAddToFilter then
 		PermoksAccountManager.db.global.blacklist[guid] = info
-		RemoveCharacterFromDB(guid)
+		PermoksAccountManager:RemoveCharacter(guid)
 	else
 		PermoksAccountManager.db.global.blacklist[guid] = nil
 	end
@@ -131,6 +127,18 @@ local function UpdateCharacterFilter(characterName, realm, isAdd)
 			return
 		end
 	end
+end
+
+function PermoksAccountManager:RemoveCharacter(guid)
+	local page = RemoveCharacterFromPage(guid)
+	RemoveCharacterFromDB(guid)
+	PermoksAccountManager:UpdateManagerFrame(page)
+end
+
+function PermoksAccountManager:AddChracterToFilterFromOptions(guid, accountName)
+	local altData = PermoksAccountManager.db.global.accounts[accountName].data[guid]
+	PermoksAccountManager.db.global.blacklist[guid] = {name = altData.name, realm = altData.realm, class = altData.class}
+	self:RemoveCharacter(guid)
 end
 
 local commands = {}
