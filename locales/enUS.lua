@@ -209,5 +209,5 @@ L['Column'] = true
 L['Character Options'] = true
 L['Combine Accounts'] = true
 L['Combine Main and Alt Account Characters'] = true
-L['Character Order'] = true
+L['Character Info'] = true
 L['Save Position'] = true
