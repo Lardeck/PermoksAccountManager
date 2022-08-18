@@ -256,25 +256,34 @@ local function UpdateInstanceInfo(charInfo)
     charInfo.instanceInfo = charInfo.instanceInfo or {raids = {}, dungeons = {}}
 
     local self = PermoksAccountManager
+	self.raidEncounterNames = self.raidEncounterNames or {}
+
     local instanceInfo = charInfo.instanceInfo
     local name, difficulty, locked, extended, difficultyName, numEncounters, encounterProgress, _
     for i = 1, GetNumSavedInstances() do
         local link = GetSavedInstanceChatLink(i)
-        local instanceID, _ = link:match(':(%d+):%d+:%d+\124h%[(.+)%]\124h')
-        instanceID = tonumber(instanceID)
+        local mapID, _ = link:match(':(%d+):%d+:%d+\124h%[(.+)%]\124h')
+        mapID = tonumber(mapID)
         name, _, _, difficulty, locked, extended, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
 
 		local raidInfo
         if locked or extended then
-            if self.raids[instanceID] or (self.isBC and self.raids[name]) then
-                local info = self.raids[instanceID] or self.raids[name]
+            if self.raids[mapID] or (self.isBC and self.raids[name]) then
+                local info = self.raids[mapID] or self.raids[name]
                 instanceInfo.raids[info.englishName] = instanceInfo.raids[info.englishName] or {}
-				instanceInfo.raids[info.englishName][difficulty] =  instanceInfo.raids[info.englishName][difficulty] or {difficulty = difficultyName, numEncounters = numEncounters}
-                instanceInfo.raids[info.englishName][difficulty].defeatedEncounters = encounterProgress
+				instanceInfo.raids[info.englishName][difficulty] =  instanceInfo.raids[info.englishName][difficulty] or {
+					difficulty = difficultyName,
+					numEncounters = numEncounters
+				}
 
-				raidInfo = instanceInfo.raids[info.englishName][difficulty]
-            elseif (self.dungeons[instanceID] and difficulty == 23) or (self.isBC and self.dungeons[name] and difficulty == 174) then
-                instanceInfo.dungeons[instanceID or self.dungeons[name]] = {
+                local oldInstanceInfo = instanceInfo.raids[info.englishName][difficulty]
+                if not oldInstanceInfo.defeatedEncounters or oldInstanceInfo.defeatedEncounters < encounterProgress then
+                    instanceInfo.raids[info.englishName][difficulty].defeatedEncounters = encounterProgress
+                end
+
+				raidInfo = oldInstanceInfo
+            elseif (self.dungeons[mapID] and difficulty == 23) or (self.isBC and self.dungeons[name] and difficulty == 174) then
+                instanceInfo.dungeons[mapID or self.dungeons[name]] = {
                     numEncounters = numEncounters,
                     defeatedEncounters = encounterProgress,
                     completed = numEncounters == encounterProgress
@@ -283,10 +292,13 @@ local function UpdateInstanceInfo(charInfo)
         end
 
 		if raidInfo then
-			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
+			local index = self.raids[mapID].startIndex - 1
+			raidInfo.defeatedEncountersInfo = {}
+			self.raidEncounterNames[mapID] = self.raidEncounterNames[mapID] or {}
 			for boss = 1, numEncounters do
-				local bossName, _, isKilled = GetSavedInstanceEncounterInfo(i, boss)
-				raidInfo.defeatedEncountersInfo[boss] = {bossName, isKilled}
+				local encounterName, _, isKilled = GetSavedInstanceEncounterInfo(i, boss)
+				raidInfo.defeatedEncountersInfo[index + boss] = isKilled
+				self.raidEncounterNames[mapID][boss] = encounterName
 			end
 		end
     end
@@ -388,11 +400,13 @@ end
 
 function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     local self = PermoksAccountManager
-    if not altData.instanceInfo or not self.raids[labelRow.id] then
+    if not altData.instanceInfo or not self.raids[labelRow.id] or not self.raidEncounterNames[labelRow.id] then
         return
     end
 
-    local raidInfo = altData.instanceInfo.raids[self.raids[labelRow.id].englishName]
+	local dbInfo = self.raids[labelRow.id]
+    local raidInfo = altData.instanceInfo.raids[dbInfo.englishName]
+	local raidEncounterNames = self.raidEncounterNames[labelRow.id]
     if not raidInfo then
         return
     end
@@ -400,7 +414,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
     button.tooltip = tooltip
 
-    tooltip:AddHeader(self.raids[labelRow.id].name)
+    tooltip:AddHeader(dbInfo.name)
     tooltip:AddLine('')
 
 
