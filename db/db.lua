@@ -469,9 +469,9 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2296] = {name = GetRealZoneText(2296), englishName = 'nathria'},
-    [2450] = {name = GetRealZoneText(2450), englishName = 'sanctum_of_domination'},
-    [2481] = {name = GetRealZoneText(2481), englishName = 'sepulcher_of_the_first_ones'}
+    [2296] = {name = GetRealZoneText(2296), englishName = 'nathria', instanceID = 1190, startIndex = 1, endIndex = 10},
+    [2450] = {name = GetRealZoneText(2450), englishName = 'sanctum_of_domination', instanceID = 1193, startIndex = 11, endIndex = 20},
+    [2481] = {name = GetRealZoneText(2481), englishName = 'sepulcher_of_the_first_ones', instanceID = 1195, startIndex = 21, endIndex = 31}
 }
 
 PermoksAccountManager.dungeons = {
@@ -1040,4 +1040,10 @@ PermoksAccountManager.ICONSTRINGS = {
 PermoksAccountManager.ICONBANKSTRINGS = {
     left = '\124T%d:18:18\124t %s (%s)',
     right = '%s (%s) \124T%d:18:18\124t'
+}
+
+PermoksAccountManager.encounterOrder = {
+	[2393] = 1, [2429] = 2, [2422] = 3, [2428] = 4, [2418] = 5, [2420] = 6, [2426] = 7, [2394] = 8, [2425] = 9, [2424] = 10,
+	[2435] = 11, [2442] = 12, [2439] = 13, [2445] = 14, [2444] = 15, [2443] = 16, [2446] = 17, [2447] = 18, [2440] = 19, [2441] = 20,
+	[2458] = 21, [2459] = 22, [2470] = 23, [2460] = 24, [2465] = 25, [2463] = 26, [2461] = 27, [2469] = 28, [2457] = 29, [2467] = 30, [2464] = 31,
 }

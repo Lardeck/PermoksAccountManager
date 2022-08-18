@@ -83,6 +83,15 @@ end
 
 local function UpdateRaidActivity(charInfo)
     charInfo.raidActivityInfo = C_WeeklyRewards.GetActivityEncounterInfo(Enum.WeeklyRewardChestThresholdType.Raid, 1)
+
+	if charInfo.raidActivityInfo then
+		local prio = PermoksAccountManager.encounterOrder
+		table.sort(charInfo.raidActivityInfo, function(a, b)
+			local encounterA = a.encounterID
+			local encounterB = b.encounterID
+			return prio[encounterA] < prio[encounterB]
+		end)
+	end
 end
 
 local function Update(charInfo)

@@ -415,16 +415,24 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
         end
     ) do
         tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
-		local raidActivityInfo = difficulty==16 and labelRow.id == 2481 and altData.raidActivityInfo
+		local raidActivityInfo = difficulty==16 and altData.raidActivityInfo
 		if info.defeatedEncountersInfo and difficulty < 17 then
-			for bossIndex, bossInfo in pairs(info.defeatedEncountersInfo) do
-				if raidActivityInfo and raidActivityInfo[bossIndex] and raidActivityInfo[bossIndex].bestDifficulty == difficulty then
-					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cffff0000%s|r",  L['Saved']))
-				elseif bossInfo[2] then
-					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cffff9933%s|r",  L['Saved']))
-				else
-					tooltip:AddLine(bossIndex .. " " .. bossInfo[1], string.format("|cff00ff00%s|r", L['Unsaved']))
+			local bossIndex = 1
+			for index = dbInfo.startIndex, dbInfo.endIndex do
+				local bossInfo = info.defeatedEncountersInfo[index]
+				local text = L['Unsaved']
+				local color = "00ff00"
+
+				if raidActivityInfo and raidActivityInfo[index] and raidActivityInfo[index].bestDifficulty == difficulty then
+					color = "ff0000"
+					text = L['Saved']
+				elseif bossInfo then
+					color = "ff9933"
+					text = L['Saved']
 				end
+
+				tooltip:AddLine(bossIndex .. " " .. raidEncounterNames[bossIndex], string.format("|cff%s%s|r", color, text))
+				bossIndex = bossIndex + 1
 			end
 		end
 		tooltip:AddSeparator(2, 1, 1, 1)
