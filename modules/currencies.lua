@@ -214,21 +214,25 @@ local function Update(charInfo)
     UpdateAllCurrencies(charInfo)
 end
 
-local function UpdateCurrency(charInfo, currencyType, quantity)
-    local self = PermoksAccountManager
-    if not currencyType or not self.currency[currencyType] then
-        return
-    end
-
-    charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
-end
-
 local function UpdateCatalystCharges(charInfo)
     local catalystCharges = charInfo.currencyInfo and charInfo.currencyInfo[2000]
     if catalystCharges then
         catalystCharges.updated = true
 		catalystCharges.hiddenCharges = nil
     end
+end
+
+local function UpdateCurrency(charInfo, currencyType, quantity)
+    local self = PermoksAccountManager
+    if not currencyType or not self.currency[currencyType] then
+        return
+    end
+
+    if currencyType == 2000 then
+        UpdateCatalystCharges(charInfo)
+    end
+
+    charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
 end
 
 local function CreateCatalystChargeString(currencyInfo)
