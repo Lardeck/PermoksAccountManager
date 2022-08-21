@@ -256,7 +256,6 @@ local function UpdateInstanceInfo(charInfo)
     charInfo.instanceInfo = charInfo.instanceInfo or {raids = {}, dungeons = {}}
 
     local self = PermoksAccountManager
-	self.raidEncounterNames = self.raidEncounterNames or {}
 
     local instanceInfo = charInfo.instanceInfo
     local name, difficulty, locked, extended, difficultyName, numEncounters, encounterProgress, _
@@ -293,12 +292,10 @@ local function UpdateInstanceInfo(charInfo)
 
 		if raidInfo then
 			local index = self.raids[mapID].startIndex - 1
-			raidInfo.defeatedEncountersInfo = {}
-			self.raidEncounterNames[mapID] = self.raidEncounterNames[mapID] or {}
+			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
 			for boss = 1, numEncounters do
-				local encounterName, _, isKilled = GetSavedInstanceEncounterInfo(i, boss)
+				local isKilled = select(3, GetSavedInstanceEncounterInfo(i, boss))
 				raidInfo.defeatedEncountersInfo[index + boss] = isKilled
-				self.raidEncounterNames[mapID][boss] = encounterName
 			end
 		end
     end
@@ -400,13 +397,12 @@ end
 
 function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     local self = PermoksAccountManager
-    if not altData.instanceInfo or not self.raids[labelRow.id] or not self.raidEncounterNames[labelRow.id] then
+    if not altData.instanceInfo or not self.raids[labelRow.id] then
         return
     end
 
 	local dbInfo = self.raids[labelRow.id]
     local raidInfo = altData.instanceInfo.raids[dbInfo.englishName]
-	local raidEncounterNames = self.raidEncounterNames[labelRow.id]
     if not raidInfo then
         return
     end
@@ -429,7 +425,8 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
         end
     ) do
         tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
-		local raidActivityInfo = difficulty==16 and altData.raidActivityInfo
+
+		local raidActivityInfo = altData.raidActivityInfo
 		if info.defeatedEncountersInfo and difficulty < 17 then
 			local bossIndex = 1
 			for index = dbInfo.startIndex, dbInfo.endIndex do
@@ -437,7 +434,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
 				local text = L['Unsaved']
 				local color = "00ff00"
 
-				if raidActivityInfo and raidActivityInfo[index] and raidActivityInfo[index].bestDifficulty == difficulty then
+				if difficulty == 16 and raidActivityInfo[index] and raidActivityInfo[index].bestDifficulty == difficulty then
 					color = "ff0000"
 					text = L['Saved']
 				elseif bossInfo then
@@ -445,7 +442,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
 					text = L['Saved']
 				end
 
-				tooltip:AddLine(bossIndex .. " " .. raidEncounterNames[bossIndex], string.format("|cff%s%s|r", color, text))
+				tooltip:AddLine(bossIndex .. " " .. EJ_GetEncounterInfo(raidActivityInfo[index].encounterID), string.format("|cff%s%s|r", color, text))
 				bossIndex = bossIndex + 1
 			end
 		end
