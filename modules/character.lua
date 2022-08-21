@@ -5,120 +5,120 @@ local options
 
 local module = 'character'
 local labelRows = {
-    characterName = {
-        hideLabel = true,
-        label = L['Name'],
-        hideOption = true,
-        big = true,
-        offset = 1.5,
+	characterName = {
+		hideLabel = true,
+		label = L['Name'],
+		hideOption = true,
+		big = true,
+		offset = 1.5,
 		type = 'characterName',
-        data = function(alt_data)
-            return PermoksAccountManager:CreateCharacterString(alt_data.name, alt_data.specInfo)
-        end,
-        color = function(alt_data)
-            return RAID_CLASS_COLORS[alt_data.class]
-        end,
-        version = false
-    },
-    characterLevel = {
-        label = L['Level'],
+		data = function(alt_data)
+			return PermoksAccountManager:CreateCharacterString(alt_data.name, alt_data.specInfo)
+		end,
+		color = function(alt_data)
+			return RAID_CLASS_COLORS[alt_data.class]
+		end,
+		version = false
+	},
+	characterLevel = {
+		label = L['Level'],
 		type = 'charLevel',
-        data = function(alt_data)
-            return alt_data.charLevel or '-'
-        end,
-        group = 'character',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    location = {
-        label = L['Location'],
-        data = function(alt_data)
-            return (alt_data.location and PermoksAccountManager:CreateLocationString(alt_data.location)) or '-'
-        end,
-        group = 'character',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    ilevel = {
-        label = L['Item Level'],
-        data = function(alt_data)
-            return string.format('%.2f', alt_data.ilevel or 0)
-        end,
-        version = WOW_PROJECT_MAINLINE
-    },
-    gold = {
-        label = L['Gold'],
+		data = function(alt_data)
+			return alt_data.charLevel or '-'
+		end,
+		group = 'character',
+		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+	},
+	location = {
+		label = L['Location'],
+		data = function(alt_data)
+			return (alt_data.location and PermoksAccountManager:CreateLocationString(alt_data.location)) or '-'
+		end,
+		group = 'character',
+		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+	},
+	ilevel = {
+		label = L['Item Level'],
+		data = function(alt_data)
+			return string.format('%.2f', alt_data.ilevel or 0)
+		end,
+		version = WOW_PROJECT_MAINLINE
+	},
+	gold = {
+		label = L['Gold'],
 		type = 'gold',
-        group = 'currency',
-        version = false
-    },
-    keystone = {
-        label = L['Keystone'],
+		group = 'currency',
+		version = false
+	},
+	keystone = {
+		label = L['Keystone'],
 		type = 'keystone',
-        group = 'dungeons',
-        version = WOW_PROJECT_MAINLINE
-    },
+		group = 'dungeons',
+		version = WOW_PROJECT_MAINLINE
+	},
 	tw_keystone = {
 		label = L['TW Keystone'],
 		type = 'twkeystone',
 		group = 'dungeons',
 		version = WOW_PROJECT_MAINLINE
 	},
-    weekly_key = {
-        label = L['Highest Key'],
+	weekly_key = {
+		label = L['Highest Key'],
 		type = 'weeklyKey',
-        tooltip = true,
-        customTooltip = function(button, alt_data)
-            PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
-        end,
-        isComplete = function(alt_data)
-            return alt_data.vaultInfo and alt_data.vaultInfo.MythicPlus and alt_data.vaultInfo.MythicPlus[1].level >= 15
-        end,
-        group = 'character',
-        version = WOW_PROJECT_MAINLINE
-    },
-    mplus_score = {
-        label = L['Mythic+ Score'],
-        outline = "OUTLINE",
+		tooltip = true,
+		customTooltip = function(button, alt_data)
+			PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
+		end,
+		isComplete = function(alt_data)
+			return alt_data.vaultInfo and alt_data.vaultInfo.MythicPlus and alt_data.vaultInfo.MythicPlus[1].level >= 15
+		end,
+		group = 'character',
+		version = WOW_PROJECT_MAINLINE
+	},
+	mplus_score = {
+		label = L['Mythic+ Score'],
+		outline = "OUTLINE",
 		type = 'dungeonScore',
-        group = 'character',
-        version = WOW_PROJECT_MAINLINE
-    },
-    contract = {
-        label = L['Contract'],
+		group = 'character',
+		version = WOW_PROJECT_MAINLINE
+	},
+	contract = {
+		label = L['Contract'],
 		type = 'contract',
-        group = 'character',
-        version = WOW_PROJECT_MAINLINE
-    }
+		group = 'character',
+		version = WOW_PROJECT_MAINLINE
+	}
 }
 
 local function UpdateGeneralData(charInfo)
-    local self = PermoksAccountManager
+	local self = PermoksAccountManager
 
-    if not self.isBC then
-        charInfo.ilevel = select(2, GetAverageItemLevel())
+	if not self.isBC then
+		charInfo.ilevel = select(2, GetAverageItemLevel())
 
-        -- Contracts
-        local contract = nil
-        local contracts = {[311457] = 'CoH', [311458] = 'Ascended', [311460] = 'UA', [311459] = 'WH', [353999] = 'DA'}
-        for spellId, faction in pairs(contracts) do
-            local info = {GetPlayerAuraBySpellID(spellId)}
-            if info[1] then
-                contract = {faction = faction, duration = info[5], expirationTime = time() + (info[6] - GetTime())}
-                break
-            end
-        end
-        charInfo.contract = contract
+		-- Contracts
+		local contract = nil
+		local contracts = { [311457] = 'CoH', [311458] = 'Ascended', [311460] = 'UA', [311459] = 'WH', [353999] = 'DA' }
+		for spellId, faction in pairs(contracts) do
+			local info = { GetPlayerAuraBySpellID(spellId) }
+			if info[1] then
+				contract = { faction = faction, duration = info[5], expirationTime = time() + (info[6] - GetTime()) }
+				break
+			end
+		end
+		charInfo.contract = contract
 
-        -- Covenant
-        local covenant = C_Covenants.GetActiveCovenantID()
-        charInfo.covenant = covenant > 0 and covenant or nil
-        charInfo.callingsUnlocked = C_CovenantCallings.AreCallingsUnlocked()
-    end
+		-- Covenant
+		local covenant = C_Covenants.GetActiveCovenantID()
+		charInfo.covenant = covenant > 0 and covenant or nil
+		charInfo.callingsUnlocked = C_CovenantCallings.AreCallingsUnlocked()
+	end
 end
 
 local function UpdateKeystones(charInfo)
-    if PermoksAccountManager.isBC then return end
+	if PermoksAccountManager.isBC then return end
 
-    charInfo.keyInfo = charInfo.keyInfo or {}
+	charInfo.keyInfo = charInfo.keyInfo or {}
 	C_Timer.After(0.5, function()
 		local ownedKeystone = C_MythicPlus.GetOwnedKeystoneChallengeMapID()
 		local keyInfo = charInfo.keyInfo
@@ -133,52 +133,52 @@ local function UpdateKeystones(charInfo)
 end
 
 local function UpdateGold(charInfo)
-    charInfo.gold = floor(GetMoney() / (COPPER_PER_SILVER * SILVER_PER_GOLD)) * 10000
+	charInfo.gold = floor(GetMoney() / (COPPER_PER_SILVER * SILVER_PER_GOLD)) * 10000
 end
 
 local function UpdateILevel(charInfo)
-    if not PermoksAccountManager.isBC then
-        charInfo.ilevel = select(2, GetAverageItemLevel())
-    end
+	if not PermoksAccountManager.isBC then
+		charInfo.ilevel = select(2, GetAverageItemLevel())
+	end
 end
 
 local function UpdateMythicScore(charInfo)
-   if PermoksAccountManager.isBC then return end
+	if PermoksAccountManager.isBC then return end
 
-    C_MythicPlus.RequestMapInfo()
-    charInfo.mythicScore = C_ChallengeMode.GetOverallDungeonScore()
+	C_MythicPlus.RequestMapInfo()
+	charInfo.mythicScore = C_ChallengeMode.GetOverallDungeonScore()
 
 end
 
 local function UpdateMythicPlusHistory(charInfo)
-    charInfo.mythicPlusHistory = C_MythicPlus.GetRunHistory(nil, true)
+	charInfo.mythicPlusHistory = C_MythicPlus.GetRunHistory(nil, true)
 end
 
 local function UpdatePlayerSpecialization(charInfo)
-    charInfo.specInfo = {GetSpecializationInfo(GetSpecialization())}
+	charInfo.specInfo = { GetSpecializationInfo(GetSpecialization()) }
 end
 
 local function UpdatePlayerLevel(charInfo, level)
-    charInfo.charLevel = level or UnitLevel('player')
+	charInfo.charLevel = level or UnitLevel('player')
 end
 
 local function UpdateLocation(charInfo)
-    charInfo.location = C_Map.GetBestMapForUnit('player')
+	charInfo.location = C_Map.GetBestMapForUnit('player')
 end
 
 local function Update(charInfo)
-    UpdateGeneralData(charInfo)
-    UpdateGold(charInfo)
+	UpdateGeneralData(charInfo)
+	UpdateGold(charInfo)
 
-    if PermoksAccountManager.isBC then
-        UpdatePlayerLevel(charInfo)
-        UpdateLocation(charInfo)
-    else
-        UpdateILevel(charInfo)
-        UpdatePlayerSpecialization(charInfo)
-        UpdateMythicScore(charInfo)
-        UpdateMythicPlusHistory(charInfo)
-    end
+	if PermoksAccountManager.isBC then
+		UpdatePlayerLevel(charInfo)
+		UpdateLocation(charInfo)
+	else
+		UpdateILevel(charInfo)
+		UpdatePlayerSpecialization(charInfo)
+		UpdateMythicScore(charInfo)
+		UpdateMythicPlusHistory(charInfo)
+	end
 end
 
 local function CreateGoldString(gold)
@@ -186,102 +186,102 @@ local function CreateGoldString(gold)
 end
 
 local function CreateCharacterString(name, specInfo)
-    if not name then
-        return '-'
-    end
+	if not name then
+		return '-'
+	end
 
-    local specString
-    if specInfo and PermoksAccountManager.db.global.options.showCurrentSpecIcon then
-        specString = string.format('\124T%d:0\124t', specInfo[4])
-    end
+	local specString
+	if specInfo and PermoksAccountManager.db.global.options.showCurrentSpecIcon then
+		specString = string.format('\124T%d:0\124t', specInfo[4])
+	end
 
-    return string.format('%s %s', name, specString or '')
+	return string.format('%s %s', name, specString or '')
 end
 
 local function CreateKeystoneString(keyInfo)
-    if not keyInfo or not type(keyInfo) == "table" or not keyInfo.keyDungeon then
-        return 'Unknown'
-    end
+	if not keyInfo or not type(keyInfo) == "table" or not keyInfo.keyDungeon then
+		return 'Unknown'
+	end
 
 	if keyInfo.keyLevel == 0 then
 		return string.format('%s', keyInfo.keyDungeon)
 	end
 
-    return string.format('%s+%d', keyInfo.keyDungeon, keyInfo.keyLevel)
+	return string.format('%s+%d', keyInfo.keyDungeon, keyInfo.keyLevel)
 end
 
 local function CreateTWKeystoneString(keyInfo)
-    if not keyInfo or not type(keyInfo) == "table" or not keyInfo.twKeyDungeon then
-        return 'Unknown'
-    end
+	if not keyInfo or not type(keyInfo) == "table" or not keyInfo.twKeyDungeon then
+		return 'Unknown'
+	end
 
 	if keyInfo.twKeyLevel == 0 then
 		return string.format('%s', keyInfo.twKeyDungeon)
 	end
 
-    return string.format('%s+%d', keyInfo.twKeyDungeon, keyInfo.twKeyLevel)
+	return string.format('%s+%d', keyInfo.twKeyDungeon, keyInfo.twKeyLevel)
 end
 
 local function CreateDungeonScoreString(score)
-    if not score then
-        return '-'
-    end
+	if not score then
+		return '-'
+	end
 
-    if PermoksAccountManager.db.global.options.useScoreColor then
-        local color = C_ChallengeMode.GetDungeonScoreRarityColor(score)
-        return color:WrapTextInColorCode(AbbreviateLargeNumbers(score))
-    else
-        return AbbreviateLargeNumbers(score)
-    end
+	if PermoksAccountManager.db.global.options.useScoreColor then
+		local color = C_ChallengeMode.GetDungeonScoreRarityColor(score)
+		return color:WrapTextInColorCode(AbbreviateLargeNumbers(score))
+	else
+		return AbbreviateLargeNumbers(score)
+	end
 end
 
 local function CreateWeeklyString(vaultInfo)
-    if not vaultInfo or not vaultInfo.MythicPlus then
-        return '-'
-    end
+	if not vaultInfo or not vaultInfo.MythicPlus then
+		return '-'
+	end
 
-    local activityInfo = vaultInfo.MythicPlus[1]
-    if not activityInfo or activityInfo.level == 0 then
-        return '-'
-    end
+	local activityInfo = vaultInfo.MythicPlus[1]
+	if not activityInfo or activityInfo.level == 0 then
+		return '-'
+	end
 
-    return string.format('+%d', activityInfo.level)
+	return string.format('+%d', activityInfo.level)
 end
 
 local function CreateContractString(contractInfo)
-    if not contractInfo then
-        return '-'
-    end
+	if not contractInfo then
+		return '-'
+	end
 
 	local seconds = PermoksAccountManager:GetSecondsRemaining(contractInfo.expirationTime)
 	local timeString = SecondsToTime(seconds)
-    return string.format('%s - %s', contractInfo.faction, PermoksAccountManager:FormatTimeString(seconds, timeString))
+	return string.format('%s - %s', contractInfo.faction, PermoksAccountManager:FormatTimeString(seconds, timeString))
 end
 
 local payload = {
-    update = Update,
-    events = {
-        ['PLAYER_MONEY'] = UpdateGold,
-        ['PLAYER_AVG_ITEM_LEVEL_UPDATE'] = UpdateILevel,
-        ['PLAYER_SPECIALIZATION_CHANGED'] = UpdatePlayerSpecialization,
-        ['CHALLENGE_MODE_MAPS_UPDATE'] = {UpdateMythicScore, UpdateMythicPlusHistory},
-        ['BAG_UPDATE_DELAYED'] = {UpdateGeneralData, UpdateKeystones},
+	update = Update,
+	events = {
+		['PLAYER_MONEY'] = UpdateGold,
+		['PLAYER_AVG_ITEM_LEVEL_UPDATE'] = UpdateILevel,
+		['PLAYER_SPECIALIZATION_CHANGED'] = UpdatePlayerSpecialization,
+		['CHALLENGE_MODE_MAPS_UPDATE'] = { UpdateMythicScore, UpdateMythicPlusHistory },
+		['BAG_UPDATE_DELAYED'] = { UpdateGeneralData, UpdateKeystones },
 		['ITEM_CHANGED'] = UpdateKeystones,
-        ['WEEKLY_REWARDS_UPDATE'] = UpdateMythicScore,
-        ['PLAYER_LEVEL_UP'] = UpdatePlayerLevel,
-        ['ZONE_CHANGED'] = UpdateLocation,
-        ['ZONE_CHANGED_NEW_AREA'] = UpdateLocation,
-        ['ZONE_CHANGED_INDOORS'] = UpdateLocation
-    },
-    share = {
-        [UpdateGold] = 'gold',
-        [UpdateILevel] = 'ilevel',
-        [UpdatePlayerSpecialization] = 'specInfo',
-        [UpdateMythicPlusHistory] = 'mythicPlusHistory',
-        [UpdateMythicScore] = 'mythicScore',
-        [UpdatePlayerLevel] = 'charLevel'
-    },
-    labels = labelRows
+		['WEEKLY_REWARDS_UPDATE'] = UpdateMythicScore,
+		['PLAYER_LEVEL_UP'] = UpdatePlayerLevel,
+		['ZONE_CHANGED'] = UpdateLocation,
+		['ZONE_CHANGED_NEW_AREA'] = UpdateLocation,
+		['ZONE_CHANGED_INDOORS'] = UpdateLocation
+	},
+	share = {
+		[UpdateGold] = 'gold',
+		[UpdateILevel] = 'ilevel',
+		[UpdatePlayerSpecialization] = 'specInfo',
+		[UpdateMythicPlusHistory] = 'mythicPlusHistory',
+		[UpdateMythicScore] = 'mythicScore',
+		[UpdatePlayerLevel] = 'charLevel'
+	},
+	labels = labelRows
 }
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('gold', CreateGoldString, true, 'gold')
@@ -293,40 +293,55 @@ module:AddCustomLabelType('weeklyKey', CreateWeeklyString, nil, 'vaultInfo')
 module:AddCustomLabelType('contract', CreateContractString, nil, 'contractInfo')
 
 function PermoksAccountManager:CreateLocationString(mapId)
-    if not mapId then
-        return
-    end
-    local mapInfo = C_Map.GetMapInfo(mapId)
-    return mapInfo and mapInfo.name
+	if not mapId then
+		return
+	end
+	local mapInfo = C_Map.GetMapInfo(mapId)
+	return mapInfo and mapInfo.name
+end
+
+local function reverseSort(a, b)
+	return a > b
 end
 
 function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
-    if not alt_data or not alt_data.mythicPlusHistory or #alt_data.mythicPlusHistory < 2 then
-        return
-    end
+	if not alt_data or not alt_data.mythicPlusHistory or #alt_data.mythicPlusHistory == 0 then
+		return
+	end
 
-    local runs = {}
-    for run, info in ipairs(alt_data.mythicPlusHistory) do
-        tinsert(runs, info.level)
-    end
+	local runs = {}
+	local runPerDungeon = {}
+	for _, info in ipairs(alt_data.mythicPlusHistory) do
+		runPerDungeon[info.mapChallengeModeID] = runPerDungeon[info.mapChallengeModeID] or {}
+		runPerDungeon[info.mapChallengeModeID][info.level] = (runPerDungeon[info.mapChallengeModeID][info.level] or 0) + 1
 
-    table.sort(
-        runs,
-        function(a, b)
-            return a > b
-        end
-    )
+		tinsert(runs, info.level)
+	end
 
-    for i in ipairs(runs) do
-        if i == 1 or i == 4 or i == 8 then
-            runs[i] = string.format('|cff00f7ff%d|r', runs[i])
-        end
-    end
+	table.sort(runs, reverseSort)
 
-    local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 1, 'LEFT')
-    button.tooltip = tooltip
+	for i in ipairs(runs) do
+		if i == 1 or i == 4 or i == 8 then
+			runs[i] = string.format('|cff00f7ff+%d|r', runs[i])
+		else
+			runs[i] = "+"..runs[i]
+		end
+	end
 
-    tooltip:AddLine(table.concat(runs, ', '))
-    tooltip:SmartAnchorTo(button)
-    tooltip:Show()
+	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'LEFT')
+	button.tooltip = tooltip
+	tooltip:AddLine('Vault Keys:',table.concat(runs, ', ', 1, (min(#runs, 8))))
+	tooltip:AddLine('')
+	tooltip:AddSeparator(2, 1, 1, 1)
+	for mapChallengeModeID, levels in pairs(runPerDungeon) do
+		local keys = {}
+		for level, count in self.spairs(levels, function(_, a, b) return a > b end) do
+			tinsert(keys, string.format('+%d (%d)', level, count))
+		end
+		tooltip:AddLine(PermoksAccountManager.keys[mapChallengeModeID], table.concat(keys, ', '))
+	end
+	tooltip:AddSeparator(2, 1, 1, 1)
+
+	tooltip:SmartAnchorTo(button)
+	tooltip:Show()
 end
