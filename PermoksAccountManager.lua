@@ -35,8 +35,8 @@ local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
-local VERSION = '1.0.9'
-local INTERNALVERSION = 6
+local VERSION = '1.0.10'
+local INTERNALVERSION = 7
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -633,6 +633,16 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
 	if oldInternalVersion < 6 then
 		self:AddLabelToDefaultCategory('general', 'catalyst_charges', 13)
+		oldInternalVersion = 6
+	end
+
+	if oldInternalVersion < 7 then
+		for _, accountInfo in pairs(db.global.accounts) do
+            for _, altData in pairs(accountInfo.data) do
+				altData.instanceInfo = nil
+            end
+        end
+		self:Print("Reset instance info for every character.")
 	end
 end
 
