@@ -49,125 +49,73 @@ local labelRows = {
 		group = 'raids',
 		version = WOW_PROJECT_MAINLINE
 	},
-    -- tbc
-    karazhan_attunement = {
-        label = 'Karazhan',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.mastersKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.mastersKey.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    serpentshrine_attunement = {
-        label = 'Serpentshrine',
-        type = 'quest',
-        visibility = 'visible',
-        questType = 'attunement',
-        key = 'serpentshrine_attunement',
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    the_eye_attunement = {
-        label = 'Tempest Keep',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.tempestKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.tempestKey.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    hyjal_summit_attunement = {
-        label = 'Hyjal Summit',
-        type = 'quest',
-        visibility = 'visible',
-        questType = 'attunement',
-        key = 'hyjal_summit_attunement',
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    black_temple_attunement = {
-        label = 'Black Temple',
-        type = 'quest',
-        visibility = 'visible',
-        questType = 'attunement',
-        key = 'black_temple_attunement',
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    hillsbrad_attunement = {
-        label = 'Hillsbrad',
-        type = 'quest',
-        visibility = 'visible',
-        questType = 'attunement',
-        key = 'hillsbrad_attunement',
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    blackmorass_attunement = {
-        label = 'Black Morass',
-        type = 'quest',
-        visibility = 'visible',
-        questType = 'attunement',
-        key = 'blackmorass_attunement',
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    shatteredHallsKey = {
-        label = 'Shattered Halls',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.shatteredHallsKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.shatteredHallsKey.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    arcatrazKey = {
-        label = 'Arcatraz',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.arcatrazKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.arcatrazKey.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    citadelKey = {
-        label = 'Hellfire Citadel',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.citadelKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.citadelKey.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    reservoirKey = {
-        label = 'Coilfang Reservoir',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.reservoirKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.reservoirKey.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    auchenaiKey = {
-        label = 'Auchindoun',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.auchenaiKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.auchenaiKey.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    warpforgedKey = {
-        label = 'Tempest Keep',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.warpforgedKey and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.warpforgedKey.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    keyOfTime = {
-        label = 'Caverns of Time',
-        data = function(alt_data)
-            return (alt_data.itemCounts and alt_data.itemCounts.keyOfTime and PermoksAccountManager:CreateQuestString(alt_data.itemCounts.keyOfTime.total, 1, true)) or '-'
-        end,
-        group = 'attunement',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    heroicsDone = {
+    -- wotlk
+	-- TOOD: Change db structure so you can get the locale name without calling the function again
+	naxxramas = {
+		label = GetRealZoneText(533),
+		id = 533,
+		type = 'raid',
+		key = 'naxxramas',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+	ulduar = {
+		label = GetRealZoneText(603),
+		id = 603,
+		type = 'raid',
+		key = 'ulduar',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+	obsidian_sanctum = {
+		label = GetRealZoneText(615),
+		id = 615,
+		type = 'raid',
+		key = 'obsidian_sanctum',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+	eye_of_eternity = {
+		label = GetRealZoneText(616),
+		id = 616,
+		type = 'raid',
+		key = 'eye_of_eternity',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+	vault_of_archavon = {
+		label = GetRealZoneText(624),
+		id = 624,
+		type = 'raid',
+		key = 'vault_of_archavon',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+	icecrown_citadel = {
+		label = GetRealZoneText(631),
+		id = 631,
+		type = 'raid',
+		key = 'icecrown_citadel',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+	trial_of_the_crusader = {
+		label = GetRealZoneText(649),
+		id = 649,
+		type = 'raid',
+		key = 'trial_of_the_crusader',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+	ruby_sanctum = {
+		label = GetRealZoneText(724),
+		id = 724,
+		type = 'raid',
+		key = 'ruby_sanctum',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+    heroics_done = {
         label = 'Heroic Dungeons',
         tooltip = function(button, alt_data)
             PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data)
@@ -176,80 +124,8 @@ local labelRows = {
             return alt_data.instanceInfo and PermoksAccountManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or '-'
         end,
         group = 'dungeons',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
-    karazhan = {
-        key = 'karazhan',
-        label = 'Karazhan',
-        type = 'raid',
-        id = 532,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    hyjal = {
-        key = 'hyjal',
-        label = 'Hyjal Summit',
-        type = 'raid',
-        id = 534,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    magtheridon = {
-        key = 'magtheridon',
-        label = 'Magtheridon',
-        type = 'raid',
-        id = 544,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    serpentshrine = {
-        key = 'serpentshrine',
-        label = 'Serpentshrine',
-        type = 'raid',
-        id = 548,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    tempestkeep = {
-        key = 'tempestkeep',
-        label = 'Tempest Keep',
-        type = 'raid',
-        id = 550,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    blacktemple = {
-        key = 'blacktemple',
-        label = 'Black Temple',
-        type = 'raid',
-        id = 564,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    gruul = {
-        key = 'gruul',
-        label = 'Gruul',
-        type = 'raid',
-        id = 565,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    zulaman = {
-        key = 'zulaman',
-        label = "Zul'Aman",
-        type = 'raid',
-        id = 568,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    },
-    sunwell = {
-        key = 'sunwell',
-        label = 'Sunwell Plateau',
-        type = 'raid',
-        id = 580,
-        group = 'raids',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    }
 }
 
 local function UpdateInstanceInfo(charInfo)
