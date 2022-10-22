@@ -340,7 +340,6 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 		end
 		tooltip:AddLine(PermoksAccountManager.keys[mapChallengeModeID], table.concat(keys, ', '))
 	end
-	tooltip:AddSeparator(2, 1, 1, 1)
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()

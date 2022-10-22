@@ -150,6 +150,7 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
     if not altData or not altData.vaultInfo or not altData.vaultInfo[labelRow.key] then
         return
     end
+
     local self = PermoksAccountManager
     local vaultInfo = altData.vaultInfo[labelRow.key]
     local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 4, 'LEFT', 'CENTER', 'CENTER', 'RIGHT')
