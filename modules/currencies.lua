@@ -218,7 +218,10 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     end
 
     charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
-    charInfo.currencyInfo[currencyType].totalEarned = quantityChanged + charInfo.currencyInfo[currencyType].totalEarned
+
+	if not self.isBC then
+    	charInfo.currencyInfo[currencyType].totalEarned = quantityChanged + charInfo.currencyInfo[currencyType].totalEarned
+	end
 end
 
 local function CreateCatalystChargeString(currencyInfo)
