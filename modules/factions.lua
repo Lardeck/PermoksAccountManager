@@ -84,195 +84,196 @@ local labelRows = {
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
-    -- tbc
-    theAldor = {
+
+    -- wotlk
+    alliance_vanguard = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[932]
+            local factionInfo = PermoksAccountManager.factions[1037]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 932,
+        key = 1037,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    theScryers = {
+    valiance_expedition = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[934]
+            local factionInfo = PermoksAccountManager.factions[1050]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 934,
+        key = 1050,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    silvermoonCity = {
+    horde_expedition = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[911]
+            local factionInfo = PermoksAccountManager.factions[1052]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 911,
+        key = 1052,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    exodar = {
+    the_taunka = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[930]
+            local factionInfo = PermoksAccountManager.factions[1064]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 930,
+        key = 1064,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    theShatar = {
+    the_hand_of_vengeance = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[935]
+            local factionInfo = PermoksAccountManager.factions[1067]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 935,
+        key = 1067,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    cenarionExpedition = {
+    explorers_league = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[942]
+            local factionInfo = PermoksAccountManager.factions[1068]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 942,
+        key = 1068,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    honorHold = {
+    the_kaluak = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[946]
+            local factionInfo = PermoksAccountManager.factions[1073]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 946,
+        key = 1073,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    thrallmar = {
+    warsong_offensive = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[947]
+            local factionInfo = PermoksAccountManager.factions[1085]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 947,
+        key = 1085,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    keepersOfTime = {
+    kirin_tor = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[989]
+            local factionInfo = PermoksAccountManager.factions[1090]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 989,
+        key = 1090,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    lowerCity = {
+    the_wyrmrest_accord = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[1011]
+            local factionInfo = PermoksAccountManager.factions[1091]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 1011,
+        key = 1091,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    theConsortium = {
+    the_silver_covenant = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[933]
+            local factionInfo = PermoksAccountManager.factions[1094]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 933,
+        key = 1094,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    theVioletEye = {
+    knights_of_the_ebon_blade = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[967]
+            local factionInfo = PermoksAccountManager.factions[1098]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 967,
+        key = 1098,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    sporeggar = {
+    frenzyheart_tribe = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[970]
+            local factionInfo = PermoksAccountManager.factions[1104]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 970,
+        key = 1104,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    theScaleOfTheSands = {
+    the_oracles = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[990]
+            local factionInfo = PermoksAccountManager.factions[1105]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 990,
+        key = 1105,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    netherwing = {
+    argent_crusade = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[1015]
+            local factionInfo = PermoksAccountManager.factions[1106]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 1015,
+        key = 1106,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    ogrila = {
+    the_sons_of_hodir = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[1038]
+            local factionInfo = PermoksAccountManager.factions[1119]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 1038,
+        key = 1119,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    shatteredSunOffensive = {
+    the_sunreavers = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[1077]
+            local factionInfo = PermoksAccountManager.factions[1124]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 1077,
+        key = 1124,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    theMaghar = {
+    the_frostborn = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[941]
+            local factionInfo = PermoksAccountManager.factions[1126]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 941,
+        key = 1126,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     },
-    kurenai = {
+	the_ashen_verdict = {
         label = function()
-            local factionInfo = PermoksAccountManager.factions[978]
+            local factionInfo = PermoksAccountManager.factions[1156]
             return factionInfo.localName or factionInfo.name
         end,
-        key = 978,
+        key = 1156,
         type = 'faction',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC,
+        version = WOW_PROJECT_WRATH_CLASSIC,
         group = 'reputation'
     }
 }
