@@ -90,6 +90,7 @@ local labelRows = {
 	}
 }
 
+local GetPlayerAuraBySpellID = C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID or GetPlayerAuraBySpellID
 local function UpdateGeneralData(charInfo)
 	local self = PermoksAccountManager
 
