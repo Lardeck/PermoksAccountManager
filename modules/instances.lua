@@ -209,11 +209,7 @@ function PermoksAccountManager:CreateDungeonString(savedInfo)
         end
     end
 
-    if numCompletedDungeons == self.numDungeons then
-        return '|cff00ff00+|r'
-    else
-        return numCompletedDungeons .. '/' .. self.numDungeons
-    end
+	return self:CreateFractionString(numCompletedDungeons, self.numDungeons)
 end
 
 local retailDifficultyOrder = {
