@@ -78,7 +78,7 @@ local defaultDB = {
             },
             characters = {
                 charactersPerPage = 6,
-                minLevel = GetMaxLevelForExpansionLevel(GetExpansionLevel()),
+                minLevel = GetMaxLevelForExpansionLevel(GetExpansionLevel())-10,
                 combine = false
             },
             border = {
