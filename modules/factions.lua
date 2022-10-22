@@ -278,6 +278,7 @@ local labelRows = {
     }
 }
 
+local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReputation or GetFriendshipReputation
 local function GetFactionOrFriendshipInfo(factionId, factionType)
     local hasReward
     local name, _, standing, barMin, barMax, barValue = GetFactionInfoByID(factionId)
