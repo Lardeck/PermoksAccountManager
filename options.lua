@@ -314,7 +314,7 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
         categoryOptions.childs,
         function(a, b)
             if a and b then
-                return categoryOptions.childOrder[a] < categoryOptions.childOrder[b]
+                return (categoryOptions.childOrder[a] or 0) < (categoryOptions.childOrder[b] or 0)
             end
         end
     )
