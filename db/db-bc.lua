@@ -306,15 +306,15 @@ PermoksAccountManager.labelRows = {
 }
 
 PermoksAccountManager.raids = {
-    [GetRealZoneText(532)] = {instanceID = 532, englishName = 'karazhan'},
-    [GetRealZoneText(534)] = {instanceID = 534, englishName = 'hyjal'},
-    [GetRealZoneText(544)] = {instanceID = 544, englishName = 'magtheridon'},
-    [GetRealZoneText(548)] = {instanceID = 548, englishName = 'serpentshrine'},
-    [GetRealZoneText(550)] = {instanceID = 550, englishName = 'tempestkeep'},
-    [GetRealZoneText(564)] = {instanceID = 564, englishName = 'blacktemple'},
-    [GetRealZoneText(565)] = {instanceID = 565, englishName = 'gruul'},
-    [GetRealZoneText(568)] = {instanceID = 580, englishName = 'zulaman'},
-    [GetRealZoneText(580)] = {instanceID = 580, englishName = 'sunwell'}
+    [GetRealZoneText(532)] = {instanceID = 532, englishID = 'karazhan'},
+    [GetRealZoneText(534)] = {instanceID = 534, englishID = 'hyjal'},
+    [GetRealZoneText(544)] = {instanceID = 544, englishID = 'magtheridon'},
+    [GetRealZoneText(548)] = {instanceID = 548, englishID = 'serpentshrine'},
+    [GetRealZoneText(550)] = {instanceID = 550, englishID = 'tempestkeep'},
+    [GetRealZoneText(564)] = {instanceID = 564, englishID = 'blacktemple'},
+    [GetRealZoneText(565)] = {instanceID = 565, englishID = 'gruul'},
+    [GetRealZoneText(568)] = {instanceID = 580, englishID = 'zulaman'},
+    [GetRealZoneText(580)] = {instanceID = 580, englishID = 'sunwell'}
 }
 
 PermoksAccountManager.numDungeons = 16
