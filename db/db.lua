@@ -469,9 +469,9 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2296] = {name = GetRealZoneText(2296), englishName = 'nathria', instanceID = 1190, startIndex = 1, endIndex = 10},
-    [2450] = {name = GetRealZoneText(2450), englishName = 'sanctum_of_domination', instanceID = 1193, startIndex = 11, endIndex = 20},
-    [2481] = {name = GetRealZoneText(2481), englishName = 'sepulcher_of_the_first_ones', instanceID = 1195, startIndex = 21, endIndex = 31}
+    [2296] = {name = GetRealZoneText(2296), englishID = 'nathria', instanceID = 1190, startIndex = 1, endIndex = 10},
+    [2450] = {name = GetRealZoneText(2450), englishID = 'sanctum_of_domination', instanceID = 1193, startIndex = 11, endIndex = 20},
+    [2481] = {name = GetRealZoneText(2481), englishID = 'sepulcher_of_the_first_ones', instanceID = 1195, startIndex = 21, endIndex = 31}
 }
 
 PermoksAccountManager.dungeons = {

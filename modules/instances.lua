@@ -145,19 +145,19 @@ local function UpdateInstanceInfo(charInfo)
         if locked or extended then
             if self.raids[mapID] or (self.isBC and self.raids[name]) then
                 local info = self.raids[mapID] or self.raids[name]
-                instanceInfo.raids[info.englishName] = instanceInfo.raids[info.englishName] or {}
-				instanceInfo.raids[info.englishName][difficulty] =  instanceInfo.raids[info.englishName][difficulty] or {
+                instanceInfo.raids[info.englishID] = instanceInfo.raids[info.englishID] or {}
+				instanceInfo.raids[info.englishID][difficulty] =  instanceInfo.raids[info.englishID][difficulty] or {
 					difficulty = difficultyName,
 					numEncounters = numEncounters
 				}
 
-                local oldInstanceInfo = instanceInfo.raids[info.englishName][difficulty]
+                local oldInstanceInfo = instanceInfo.raids[info.englishID][difficulty]
                 if not oldInstanceInfo.defeatedEncounters or oldInstanceInfo.defeatedEncounters < encounterProgress then
-                    instanceInfo.raids[info.englishName][difficulty].defeatedEncounters = encounterProgress
+                    instanceInfo.raids[info.englishID][difficulty].defeatedEncounters = encounterProgress
                 end
 
 				raidInfo = oldInstanceInfo
-            elseif (self.dungeons[mapID] and difficulty == 23) or (self.isBC and self.dungeons[name] and difficulty == 174) then
+            elseif (self.dungeons[mapID] and difficulty == 23) or (self.isBC and self.dungeons[name] and difficulty == 2) then
                 instanceInfo.dungeons[mapID or self.dungeons[name]] = {
                     numEncounters = numEncounters,
                     defeatedEncounters = encounterProgress,
@@ -166,7 +166,7 @@ local function UpdateInstanceInfo(charInfo)
             end
         end
 
-		if raidInfo then
+		if not self.isBC and raidInfo then
 			local index = self.raids[mapID].startIndex - 1
 			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
 			for boss = 1, numEncounters do
@@ -278,7 +278,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     end
 
 	local dbInfo = self.raids[labelRow.id]
-    local raidInfo = altData.instanceInfo.raids[dbInfo.englishName]
+    local raidInfo = altData.instanceInfo.raids[dbInfo.englishID]
     if not raidInfo then
         return
     end
