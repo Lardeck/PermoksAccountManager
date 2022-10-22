@@ -374,6 +374,7 @@ do
 			end
 		else
 			local bagCount, totalCount = GetAllItemCounts(itemID)
+			charInfo.itemCounts[itemID] = charInfo.itemCounts[itemID] or {}
 			charInfo.itemCounts[itemID].bank = (totalCount - bagCount)
 			charInfo.itemCounts[itemID].bags = bagCount
 			charInfo.itemCounts[itemID].total = totalCount
