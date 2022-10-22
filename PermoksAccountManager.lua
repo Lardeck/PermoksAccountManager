@@ -1386,7 +1386,7 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
                 row:SetScript(
                     'OnEnter',
                     function(self)
-                        self.tooltipFunction(self, altData, labelRow)
+                        self.tooltipFunction(self, altData, labelRow, row_identifier)
                     end
                 )
             end
