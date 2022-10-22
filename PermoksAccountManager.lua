@@ -380,7 +380,7 @@ do
     --- Initialization called on ADDON_LOADED
     function PermoksAccountManager:OnInitialize()
         self.spairs = spairs
-        self.isBC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        self.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 
         -- init databroker
         self.db = LibStub('AceDB-3.0'):New('PermoksAccountManagerDB', defaultDB, true)

@@ -1,5 +1,5 @@
 local addonName, PermoksAccountManager = ...
-PermoksAccountManager.isBC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+PermoksAccountManager.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 
 local ModuleMixin = {}
 function ModuleMixin:Init(moduleName, payload)
