@@ -285,7 +285,7 @@ do
         normalTexture:SetPoint('TOPLEFT', -2, 0)
         normalTexture:SetAtlas('auctionhouse-nav-button', false)
 
-        button:SetHighlightAtlas('auctionhouse-nav-button-highlight', false)
+        button:SetHighlightAtlas('auctionhouse-nav-button-highlight')
         PermoksAccountManager:SkinButtonElvUI(button)
 
         local fontString = button:CreateFontString(nil, 'OVERLAY', 'PAM_MediumLargeFont')
@@ -520,7 +520,7 @@ function PermoksAccountManager:CreateMenuButtons()
         end
     )
     closeButton:SetNormalTexture('Interface/Addons/PermoksAccountManager/textures/testbutton.tga')
-    closeButton:SetHighlightAtlas('auctionhouse-nav-button-highlight', false)
+    closeButton:SetHighlightAtlas('auctionhouse-nav-button-highlight')
 
     local closeButtonTexture = closeButton:CreateTexture(nil, 'OVERLAY')
     closeButton.x = closeButtonTexture
