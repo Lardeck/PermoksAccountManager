@@ -121,7 +121,7 @@ end
 local function UpdateCharacterFilter(characterName, realm, isAdd)
 	local characters = FindCharactersByName(characterName, isAdd, realm)
 	if characters then
-		local guid, info = next(characters.guids)
+		local guid, info = next(characters)
 		if guid then
 			HandleFilterAction(guid, isAdd, info)
 			return
