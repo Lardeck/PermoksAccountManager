@@ -56,10 +56,11 @@ local labelRows = {
     },
     honorBCC = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
+            return PermoksAccountManager.db.global.currencyInfo[1901] and PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
         end,
         type = 'currency',
         key = 1901,
+		abbMax = true,
         customIcon = {
             height = 32,
             width = 32,
@@ -67,16 +68,16 @@ local labelRows = {
             yOffset = -5
         },
         group = 'currency',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     arenaPoints = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
+            return PermoksAccountManager.db.global.currencyInfo[1900] and PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
         end,
         type = 'currency',
         key = 1900,
         group = 'currency',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     valor = {
         label = function()
