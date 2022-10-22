@@ -14,7 +14,7 @@ local labelRows = {
             return alt_data.professions and alt_data.professionCDs and PermoksAccountManager:CreateProfessionString(alt_data.professions[1], alt_data.professionCDs) or '-'
         end,
         group = 'profession',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     profession2CDs = {
         label = 'Profession 2',
@@ -25,7 +25,7 @@ local labelRows = {
             return alt_data.professions and alt_data.professionCDs and PermoksAccountManager:CreateProfessionString(alt_data.professions[2], alt_data.professionCDs) or '-'
         end,
         group = 'profession',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     }
 }
 

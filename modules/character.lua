@@ -27,7 +27,7 @@ local labelRows = {
 			return alt_data.charLevel or '-'
 		end,
 		group = 'character',
-		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+		version = WOW_PROJECT_WRATH_CLASSIC
 	},
 	location = {
 		label = L['Location'],
@@ -35,7 +35,7 @@ local labelRows = {
 			return (alt_data.location and PermoksAccountManager:CreateLocationString(alt_data.location)) or '-'
 		end,
 		group = 'character',
-		version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+		version = WOW_PROJECT_WRATH_CLASSIC
 	},
 	ilevel = {
 		label = L['Item Level'],

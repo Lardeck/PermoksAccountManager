@@ -123,231 +123,231 @@ local labelRows = {
         type = 'item',
         key = 9224,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     brilliantWizardOil = {
         label = 'Brilliant Wizard Oil',
         type = 'item',
         key = 20749,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     adamantiteSharpeningStone = {
         label = 'Adamantite Sharpening Stone',
         type = 'item',
         key = 23529,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     flaskBlindingLight = {
         label = 'Flask of Blinding Light',
         type = 'item',
         key = 22861,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     elixirAdept = {
         label = "Adept's Elixir",
         type = 'item',
         key = 28103,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     elixirDraenicWisdom = {
         label = 'Elixir of Draenic Wisdom',
         type = 'item',
         key = 32067,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     flaskSupremePower = {
         label = 'Flask of Supreme Power',
         type = 'item',
         key = 13512,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     potionSuperMana = {
         label = 'Super Mana Potion',
         type = 'item',
         key = 22832,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     flaskChromaticWonder = {
         label = 'Flask of Chromatic Wonder',
         type = 'item',
         key = 33208,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     elixirMajorAgility = {
         label = 'Elixir of Major Agility',
         type = 'item',
         key = 22831,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     giftOfArthas = {
         label = 'Gift of Arthas',
         type = 'item',
         key = 9088,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     spiritOfZanza = {
         label = 'Spirit of Zanza',
         type = 'item',
         key = 20079,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     potionIronshield = {
         label = 'Ironshield Potion',
         type = 'item',
         key = 22849,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     potionHaste = {
         label = 'Haste Potion',
         type = 'item',
         key = 22838,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     potionFreeAction = {
         label = 'Free Action Potion',
         type = 'item',
         key = 5634,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     adamantiteWeightstone = {
         label = 'Adamantite Weightstone',
         type = 'item',
         key = 28421,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     elixirHealingPower = {
         label = 'Elixir of Healing Power',
         type = 'item',
         key = 22825,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     superiorWizardOil = {
         label = 'Superior Wizard Oil',
         type = 'item',
         key = 22522,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     elixirMajorMageblood = {
         label = 'Elixir of Major Mageblood',
         type = 'item',
         key = 22840,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     flaskRelentlessAssault = {
         label = 'Flask of Relentless Assault',
         type = 'item',
         key = 22854,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     flaskPureDeath = {
         label = 'Flask of Pure Death',
         type = 'item',
         key = 22866,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     drumsBattle = {
         label = 'Drums of Battle',
         type = 'item',
         key = 29529,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     potionDestruction = {
         label = 'Destruction Potion',
         type = 'item',
         key = 22839,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     flaskFortification = {
         label = 'Flask of Fortification',
         type = 'item',
         key = 22851,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     elixirMajorDefense = {
         label = 'Elixir of Major Defense',
         type = 'item',
         key = 22834,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     elixirMajorShadowPower = {
         label = 'Elixir of Major Defense',
         type = 'item',
         key = 22835,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     elixirEmpowerment = {
         label = 'Elixir of Empowerment',
         type = 'item',
         key = 22848,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     swiftnessOfZanza = {
         label = 'Swiftness of Zanza',
         type = 'item',
         key = 20081,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     thistleTea = {
         label = 'Thistle Tea',
         type = 'item',
         key = 7676,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     flameCap = {
         label = 'Flame Cap',
         type = 'item',
         key = 22788,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     superSapperCharge = {
         label = 'Super Sapper Charge',
         type = 'item',
         key = 23827,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     runeDemonic = {
         label = 'Demonic Rune',
         type = 'item',
         key = 12662,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     },
     runeDark = {
         label = 'Dark Rune',
         type = 'item',
         key = 20520,
         group = 'item',
-        version = WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+        version = WOW_PROJECT_WRATH_CLASSIC
     }
 }
 
