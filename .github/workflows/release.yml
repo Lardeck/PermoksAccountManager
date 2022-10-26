@@ -38,4 +38,5 @@ jobs:
       - name: Package and release
         uses: BigWigsMods/packager@v2
         with:
+          #probably not needed but whatever
           args: -p 582886 -a 25NRoe63
