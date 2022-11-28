@@ -84,6 +84,79 @@ local labelRows = {
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
+    dragonscale_expedition = {
+        label = function()
+            return PermoksAccountManager.factions[2507].localName or 'Expedition'
+        end,
+        type = 'faction',
+        key = 2507,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    iskaara_tuskar = {
+        label = function()
+            return PermoksAccountManager.factions[2511].localName or 'Iskaara Tuskar'
+        end,
+        type = 'faction',
+        key = 2511,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    maruuk_centaur = {
+        label = function()
+            return PermoksAccountManager.factions[2503].localName or 'Maruuk Centaur'
+        end,
+        type = 'faction',
+        key = 2503,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    valdrakken_akkord = {
+        label = function()
+            return PermoksAccountManager.factions[2510].localName or 'Valdrakken Akkord'
+        end,
+        type = 'faction',
+        key = 2510,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    winterpelt_furbolg = {
+        label = function()
+            return PermoksAccountManager.factions[2526].localName or 'Winterpelt Furbolg'
+        end,
+        type = 'faction',
+        key = 2526,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    artisan_consortium = {
+        label = function()
+            return PermoksAccountManager.factions[2544].localName or "Artisan's Consortium"
+        end,
+        type = 'faction',
+        key = 2544,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    sabellian = {
+        label = function()
+            return PermoksAccountManager.factions[2518].localName or 'Sabellian'
+        end,
+        type = 'faction',
+        key = 2518,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    wrathion = {
+        label = function()
+            return PermoksAccountManager.factions[2517].localName or 'Wrathion'
+        end,
+        type = 'faction',
+        key = 2517,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+
 
     -- wotlk
     alliance_vanguard = {
@@ -279,14 +352,24 @@ local labelRows = {
 }
 
 local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReputation or GetFriendshipReputation
+--TODO: Rework after DF launch
 local function GetFactionOrFriendshipInfo(factionId, factionType)
-    local hasReward
+    local hasReward, renown
     local name, _, standing, barMin, barMax, barValue = GetFactionInfoByID(factionId)
     local isParagon = C_Reputation.IsFactionParagon(factionId)
-
+    
     if isParagon then
         barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)
         barMin, standing, barValue = 0, 9, barValue % barMax
+    elseif factionType == 'renown' then
+        print(name)
+        renown = C_MajorFactions.GetCurrentRenownLevel(factionId)
+        local majorFactionInfo = C_MajorFactions.GetMajorFactionData(factionId)
+        if majorFactionInfo then
+            barMin = 0
+            barValue = majorFactionInfo.renownReputationEarned
+            barMax = majorFactionInfo.renownLevelThreshold
+        end
     elseif factionType == 'friend' then
         barValue, _, _, _, _, standing, barMin, barMax = select(2, GetFriendshipReputation(factionId))
     end
@@ -294,7 +377,7 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
     if not barMax or not barMin then
         return
     end
-    return barValue - barMin, (barMax - barMin), standing, name, hasReward
+    return barValue - barMin, (barMax - barMin), standing, name, hasReward, renown
 end
 
 local function UpdateFactions(charInfo)
@@ -304,7 +387,7 @@ local function UpdateFactions(charInfo)
     local factions = charInfo.factions
 
     for factionId, info in pairs(self.factions) do
-        local current, maximum, standing, name, hasReward = GetFactionOrFriendshipInfo(factionId, info.type)
+        local current, maximum, standing, name, hasReward, renown = GetFactionOrFriendshipInfo(factionId, info.type)
 
         factions[factionId] = factions[factionId] or {}
         factions[factionId].standing = standing
@@ -312,6 +395,7 @@ local function UpdateFactions(charInfo)
         factions[factionId].max = maximum
         factions[factionId].type = info.type
         factions[factionId].hasReward = hasReward
+        factions[factionId].renown = renown
         factions[factionId].exalted = not info.paragon and standing == 8
 
         if not info.localName then
@@ -356,7 +440,9 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
         standing = factionInfo.standing
     end
 
-    if factionInfo.max then
+    if factionInfo.renown then
+        return string.format('%s - %s/%s', BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown), AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0))
+    elseif factionInfo.max then
         return string.format('|cff%s%s/%s|r |cff%02X%02X%02X%s|r', color, AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, standing)
     end
 end

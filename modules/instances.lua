@@ -5,7 +5,7 @@ local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local module = 'instances'
 local labelRows = {
     mythics_done = {
-        label = L['Mythic+0'],
+        label = 'Mythic Dungeons',
         tooltip = true,
         customTooltip = function(button, alt_data)
             PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data)
@@ -16,39 +16,18 @@ local labelRows = {
         group = 'dungeons',
         version = WOW_PROJECT_MAINLINE
     },
-    nathria = {
-        label = function()
-            return PermoksAccountManager.raids[2296].name or L['Nathria']
-        end,
-        id = 2296,
-        type = 'raid',
-        key = 'nathria',
-        tooltip = true,
-        group = 'raids',
-        version = WOW_PROJECT_MAINLINE
-    },
-    sanctum_of_domination = {
-        label = function()
-            return PermoksAccountManager.raids[2450].name or L['SoD']
-        end,
-        id = 2450,
-        type = 'raid',
-        key = 'sanctum_of_domination',
-        tooltip = true,
-        group = 'raids',
-        version = WOW_PROJECT_MAINLINE
-    },
-	sepulcher_of_the_first_ones = {
+    vault_of_the_incarnates = {
 		label = function()
-            return PermoksAccountManager.raids[2481].name or L['SotFO']
+            return PermoksAccountManager.raids[2522].name or 'VotI'
         end,
-		id = 2481,
+		id = 2522,
 		type = 'raid',
-		key = 'sepulcher_of_the_first_ones',
+		key = 'vault_of_the_incarnates',
 		tooltip = true,
 		group = 'raids',
 		version = WOW_PROJECT_MAINLINE
-	},
+    },
+
     -- wotlk
 	-- TOOD: Change db structure so you can get the locale name without calling the function again
 	naxxramas = {

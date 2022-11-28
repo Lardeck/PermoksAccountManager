@@ -11,15 +11,9 @@ local default_categories = {
             'gold',
             'weekly_key',
             'keystone',
-			'tw_keystone',
             'mplus_score',
-            'cyphers',
-            'cosmic_flux',
-            'soul_cinders',
-            'soul_ash',
             'valor',
-            'catalyst_charges',
-            'the_enlightened'
+            'mythics_done'
         },
         childOrder = {
             characterName = 1,
@@ -27,48 +21,32 @@ local default_categories = {
             gold = 3,
             weekly_key = 4,
             keystone = 5,
-			tw_keystone = 6,
-            mplus_score = 7,
-            cyphers = 8,
-            cosmic_flux = 9,
-            soul_cinders = 10,
-            soul_ash = 11,
-            valor = 12,
-			catalyst_charges = 13,
-            the_enlightened = 14
+            mplus_score = 6,
+            valor = 7,
+            mythics_done = 8
         },
         hideToggle = true,
         enabled = true
     },
     currentdaily = {
         order = 1,
-        name = L['9.2 Daily'],
+        name = 'Daily (NYI)',
         childs = {
-            'zereth_mortis_dailies',
-            'zereth_mortis_wqs',
-            'jiro_cyphers',
-            'sandworn_chest',
-            'puzzle_caches'
         },
         childOrder = {
-            zereth_mortis_dailies = 1,
-            zereth_mortis_wqs = 2,
-            jiro_cyphers = 3,
-            sandworn_chest = 4,
-            puzzle_caches = 5
         },
         enabled = true
     },
     currentweekly = {
         order = 2,
-        name = L['9.2 (Bi)Weekly'],
+        name = '(Bi)Weekly',
         childs = {
-            'zereth_mortis_weekly',
-            'zereth_mortis_world_boss'
+            'aiding_the_accord',
+            'dragonflight_world_boss'
         },
         childOrder = {
-            zereth_mortis_weekly = 1,
-            zereth_mortis_world_boss = 2
+            aiding_the_accord = 1,
+            dragonflight_world_boss = 2,
         },
         enabled = true
     },
@@ -87,28 +65,30 @@ local default_categories = {
         },
         enabled = true
     },
-    reputation = {
+    renown = {
         order = 4,
         name = L['Reputation'],
         childs = {
-            'archivists',
-            'deaths_advance',
-            'venari',
-            'ascended',
-            'wild_hunt',
-            'undying_army',
-            'court_of_harvesters',
-            'the_enlightened'
+            'dragonscale_expedition',
+            'iskaara_tuskar',
+            'maruuk_centaur',
+            'valdrakken_akkord',
+            'separator1',
+            'winterpelt_furbolg',
+            'artisan_consortium',
+            'sabellian',
+            'wrathion',
         },
         childOrder = {
-            archivists = 1,
-            deaths_advance = 2,
-            venari = 3,
-            ascended = 4,
-            wild_hunt = 5,
-            undying_army = 6,
-            court_of_harvesters = 7,
-            the_enlightened = 8
+            dragonscale_expedition = 1,
+            iskaara_tuskar = 2,
+            maruuk_centaur = 3,
+            valdrakken_akkord = 4,
+            separator1 = 5,
+            winterpelt_furbolg = 6,
+            artisan_consortium = 7,
+            sabellian = 8,
+            wrathion = 9,
         },
         enabled = true
     },
@@ -116,39 +96,10 @@ local default_categories = {
         order = 5,
         name = L['Raid'],
         childs = {
-            'nathria',
-            'sanctum_of_domination',
-            'sepulcher_of_the_first_ones'
+            'vault_of_the_incarnates',
         },
         childOrder = {
-            nathria = 1,
-            sanctum_of_domination = 2,
-            sepulcher_of_the_first_ones = 3
-        },
-        enabled = true
-    },
-    sanctum = {
-        order = 6,
-        name = L['Sanctum'],
-        childs = {
-            'reservoir_anima',
-            'renown',
-            'redeemed_soul',
-            'separator1',
-            'transport_network',
-            'anima_conductor',
-            'command_table',
-            'sanctum_unique'
-        },
-        childOrder = {
-            reservoir_anima = 1,
-            renown = 2,
-            redeemed_soul = 3,
-            separator1 = 4,
-            transport_network = 5,
-            anima_conductor = 6,
-            command_table = 7,
-            sanctum_unique = 8
+            vault_of_the_incarnates = 1,
         },
         enabled = true
     },
@@ -171,136 +122,6 @@ local default_categories = {
         },
         enabled = true
     },
-    items = {
-        order = 8,
-        name = L['Items'],
-        childs = {
-            'flask',
-            'foodHaste',
-            'augmentRune',
-            'armorKit',
-            'oilHeal',
-            'oilDPS',
-            'potHP',
-			'potCosmicHP',
-            'drum',
-            'potManaInstant',
-            'potManaChannel',
-            'tome',
-            'korthiteCrystal',
-			'progenitorEssentia'
-        },
-        childOrder = {
-            flask = 1,
-            foodHaste = 2,
-            augmentRune = 3,
-            armorKit = 4,
-            oilHeal = 5,
-            oilDPS = 6,
-            potHP = 7,
-			potCosmicHP = 8,
-            drum = 9,
-            potManaInstant = 10,
-            potManaChannel = 11,
-            tome = 12,
-            korthiteCrystal = 13,
-			progenitorEssentia = 14,
-        },
-        enabled = false
-    },
-    daily_nine_one = {
-        order = 9,
-        name = L['9.1 Daily'],
-        childs = {
-            'korthia_dailies',
-            'relic_creatures',
-            'relic_gorger',
-            'riftbound_cache',
-            'helsworn_chest'
-        },
-        childOrder = {
-            korthia_dailies = 1,
-            relic_creatures = 2,
-            relic_gorger = 3,
-            riftbound_cache = 4,
-            helsworn_chest = 5
-        },
-        enabled = false
-    },
-    weekly_nine_one = {
-        order = 10,
-        name = L['9.1 (Bi)Weekly'],
-        childs = {
-            'korthia_weekly',
-            'anima_weekly',
-            'maw_assault',
-            'assault_vessels',
-            'rift_vessels',
-            'separator1',
-            'battle_plans',
-            'korthia_supplies',
-            'containing_the_helsworn',
-            'tormentors_weekly',
-            'tormentors_locations',
-            'separator2',
-            'adamant_vault_conduit',
-            'torghast_layer',
-            'world_boss',
-            'contract'
-        },
-        childOrder = {
-            korthia_weekly = 1,
-            anima_weekly = 2,
-            maw_assault = 3,
-            assault_vessels = 4,
-            rift_vessels = 5,
-            separator1 = 10,
-            battle_plans = 11,
-            korthia_supplies = 12,
-            containing_the_helsworn = 13,
-            tormentors_weekly = 14,
-            tormentors_locations = 15,
-            separator2 = 20,
-            adamant_vault_conduit = 21,
-            torghast_layer = 22,
-            world_boss = 23,
-            contract = 24
-        },
-        enabled = false
-    },
-    shadowlands = {
-        order = 11,
-        name = L['Shadowlands'],
-        childs = {
-            'callings',
-            'maw_dailies',
-            'sanctum_quests',
-            'separator1',
-            'mythics_done',
-            'dungeon_quests',
-            'pvp_quests',
-            'weekend_event',
-            'separator2',
-            'maw_souls',
-            'wrath',
-            'hunt'
-        },
-        childOrder = {
-            callings = 1,
-            maw_dailies = 2,
-            sanctum_quests = 3,
-            separator1 = 10,
-            mythics_done = 11,
-            dungeon_quests = 12,
-            pvp_quests = 13,
-            weekend_event = 14,
-            separator2 = 20,
-            maw_souls = 21,
-            wrath = 22,
-            hunt = 23
-        },
-        enabled = false
-    }
 }
 
 PermoksAccountManager.groups = {
@@ -421,7 +242,7 @@ PermoksAccountManager.labelRows = {
     }
 }
 
-PermoksAccountManager.numDungeons = 9
+PermoksAccountManager.numDungeons = 8
 PermoksAccountManager.keys = {
     [369] = 'YARD', -- Operation: Mechagon - Junkyard
 	[370] = 'WORK', -- Operation: Mechagon - Workshop
@@ -450,6 +271,14 @@ PermoksAccountManager.keys = {
 	[233] = 'COEN', -- Cathedral of Eternal Night
 	[234] = 'UPPR', -- Return to Karathan: Upper
 	[239] = 'SEAT', -- Seat of the Triumvirate
+    [399] = 'RLP', -- Ruby Life Pools
+    [400] = 'NO', -- The Nokhud Offensive
+    [401] = 'TAV', -- The Azure Vault
+    [402] = 'AA', -- Algeth'ar Academy
+    [403] = 'U:LOT', -- Uldaman: Legacy of Tyr
+    [404] = 'NT', -- Neltharus
+    [405] = 'BHH', -- Brackenhide Hollow
+    [406] = 'HOI', -- Halls of Infusion
 }
 
 PermoksAccountManager.activityIDToKeys = {
@@ -469,21 +298,18 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2296] = {name = GetRealZoneText(2296), englishID = 'nathria', instanceID = 1190, startIndex = 1, endIndex = 10},
-    [2450] = {name = GetRealZoneText(2450), englishID = 'sanctum_of_domination', instanceID = 1193, startIndex = 11, endIndex = 20},
-    [2481] = {name = GetRealZoneText(2481), englishID = 'sepulcher_of_the_first_ones', instanceID = 1195, startIndex = 21, endIndex = 31}
+    [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1190, startIndex = 1, endIndex = 10},
 }
 
 PermoksAccountManager.dungeons = {
-    [2286] = GetRealZoneText(2286),
-    [2285] = GetRealZoneText(2285),
-    [2293] = GetRealZoneText(2293),
-    [2289] = GetRealZoneText(2289),
-    [2287] = GetRealZoneText(2287),
-    [2284] = GetRealZoneText(2284),
-    [2290] = GetRealZoneText(2290),
-    [2291] = GetRealZoneText(2291),
-    [2441] = GetRealZoneText(2441)
+    [2451] = GetRealZoneText(2451),
+    [2515] = GetRealZoneText(2515),
+    [2516] = GetRealZoneText(2516),
+    [2519] = GetRealZoneText(2519),
+    [2520] = GetRealZoneText(2520),
+    [2521] = GetRealZoneText(2521),
+    [2526] = GetRealZoneText(2526),
+    [2527] = GetRealZoneText(2527),
 }
 
 PermoksAccountManager.item = {
@@ -501,7 +327,7 @@ PermoksAccountManager.item = {
     [186017] = {key = 'korthiteCrystal'}, -- Korthite Crystal
 	[187707] = {key = 'progenitorEssentia'}, -- Progenitor Essentia
 	[187802] = {key = 'potCosmicHP'}, -- Cosmic HP Pot
-
+	[199211] = {key = 'primevalEssence'}, --Primeval Essence
 }
 
 PermoksAccountManager.factions = {
@@ -513,7 +339,15 @@ PermoksAccountManager.factions = {
     [2413] = {name = 'Court of Harvesters', paragon = true},
     [2470] = {name = "Death's Advance", paragon = true},
     [2478] = {name = 'The Enlightened', paragon = true},
-    [2480] = {name = 'Automa', paragon = true}
+    [2480] = {name = 'Automa', paragon = true},
+    [2507] = {name = 'Dragonscale Expedition', paragon = true, type = 'renown'},
+    [2511] = {name = 'Iskaara Tuskar', paragon = true, type = 'renown'},
+    [2510] = {name = 'Valdrakken Akkord', paragon = true, type = 'renown'},
+    [2503] = {name = 'Maruuk Centaur', paragon = true, type = 'renown'},
+    [2526] = {name = 'Winterpelt Furbolg', paragon = true},
+    [2544] = {name = 'Artisan\'s Consortium', paragon = true},
+    [2518] = {name = 'Sabellian', paragon = true},
+    [2517] = {name = 'Wrathion', paragon = true},
 }
 
 PermoksAccountManager.currency = {
@@ -931,6 +765,15 @@ PermoksAccountManager.quests = {
     },
     zereth_mortis_three_dailies = {
         [65219] = {questType = 'unlocks', log = true}
+    },
+    dragonflight_world_boss = {
+        [69927] =  {questType = 'weekly'},
+        [69928] =  {questType = 'weekly'},
+        [69929] =  {questType = 'weekly'},
+        [69930] =  {questType = 'weekly'},
+    },
+    aiding_the_accord = {
+        [70750] = {questType = 'weekly', log = true}
     }
 }
 
@@ -996,20 +839,25 @@ end
 PermoksAccountManager.vault_rewards = {
     -- MythicPlus
     [Enum.WeeklyRewardChestThresholdType.MythicPlus] = {
-        [2] = 278,
-        [3] = 278,
-        [4] = 278,
-        [5] = 281,
-        [6] = 281,
-        [7] = 285,
-        [8] = 288,
-        [9] = 288,
-        [10] = 294,
-        [11] = 294,
-        [12] = 298,
-        [13] = 298,
-        [14] = 301,
-        [15] = 304
+        [2] = 382,
+        [3] = 385,
+        [4] = 385,
+        [5] = 389,
+        [6] = 389,
+        [7] = 392,
+        [8] = 395,
+        [9] = 398,
+        [10] = 402,
+        [11] = 405,
+        [12] = 408,
+        [13] = 408,
+        [14] = 411,
+        [15] = 411,
+        [16] = 415,
+        [17] = 415,
+        [18] = 418,
+        [19] = 418,
+        [20] = 421
     },
     -- RankedPvP
     [Enum.WeeklyRewardChestThresholdType.RankedPvP] = {

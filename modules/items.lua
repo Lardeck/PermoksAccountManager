@@ -116,6 +116,13 @@ local labelRows = {
 		group = 'item',
 		version = WOW_PROJECT_MAINLINE
 	},
+	primevalEssence = {
+		label = 'Primeval Essence',
+		type = 'item',
+		key = 199211,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+	},
 
     -- tbc
     elixirDemonslaying = {
@@ -348,7 +355,7 @@ local labelRows = {
         key = 20520,
         group = 'item',
         version = WOW_PROJECT_WRATH_CLASSIC
-    }
+    },
 }
 
 local function GetAllItemCounts(itemID)

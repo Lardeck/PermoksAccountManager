@@ -35,8 +35,8 @@ local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
-local VERSION = '1.0.10'
-local INTERNALVERSION = 7
+local VERSION = '1.1.2'
+local INTERNALVERSION = 8
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -643,7 +643,14 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
             end
         end
 		self:Print("Reset instance info for every character.")
+		oldInternalVersion = 7
 	end
+
+    if oldInternalVersion < 8 then
+        local defaultCategories = PermoksAccountManager:getDefaultCategories()
+        PermoksAccountManager.db.global.options.defaultCategories = defaultCategories
+		oldInternalVersion = 8
+    end
 end
 
 function PermoksAccountManager:GetGUID()
