@@ -88,8 +88,9 @@ local default_categories = {
             separator1 = 5,
             winterpelt_furbolg = 6,
             artisan_consortium = 7,
-            sabellian = 8,
-            wrathion = 9,
+            cobalt_assembly = 8,
+            sabellian = 9,
+            wrathion = 10,
         },
         enabled = true
     },
