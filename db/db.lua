@@ -76,6 +76,7 @@ local default_categories = {
             'separator1',
             'winterpelt_furbolg',
             'artisan_consortium',
+            'cobalt_assembly',
             'sabellian',
             'wrathion',
         },
@@ -345,9 +346,10 @@ PermoksAccountManager.factions = {
     [2510] = {name = 'Valdrakken Akkord', paragon = true, type = 'renown'},
     [2503] = {name = 'Maruuk Centaur', paragon = true, type = 'renown'},
     [2526] = {name = 'Winterpelt Furbolg', paragon = true},
-    [2544] = {name = 'Artisan\'s Consortium', paragon = true},
+    [2544] = {name = 'Artisan\'s Consortium', paragon = true, type = 'friend'},
     [2518] = {name = 'Sabellian', paragon = true},
     [2517] = {name = 'Wrathion', paragon = true},
+    [2550] = {name = 'Cobalt Assembly', paragon = true, type = 'friend'}
 }
 
 PermoksAccountManager.currency = {

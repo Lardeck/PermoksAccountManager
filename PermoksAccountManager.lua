@@ -651,6 +651,11 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         PermoksAccountManager.db.global.options.defaultCategories = defaultCategories
 		oldInternalVersion = 8
     end
+
+    if oldInternalVersion < 9 then
+		self:AddLabelToDefaultCategory('renown', 'cobalt_assembly', 8)
+        oldInternalVersion = 9
+    end
 end
 
 function PermoksAccountManager:GetGUID()

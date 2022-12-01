@@ -138,6 +138,15 @@ local labelRows = {
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
+    cobalt_assembly = {
+        label = function()
+            return PermoksAccountManager.factions[2550].localName or "Cobalt Assembly"
+        end,
+        type = 'faction',
+        key = 2550,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
     sabellian = {
         label = function()
             return PermoksAccountManager.factions[2518].localName or 'Sabellian'
