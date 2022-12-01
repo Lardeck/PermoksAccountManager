@@ -371,7 +371,6 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
         barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)
         barMin, standing, barValue = 0, 9, barValue % barMax
     elseif factionType == 'renown' then
-        print(name)
         renown = C_MajorFactions.GetCurrentRenownLevel(factionId)
         local majorFactionInfo = C_MajorFactions.GetMajorFactionData(factionId)
         if majorFactionInfo then
@@ -380,12 +379,22 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
             barMax = majorFactionInfo.renownLevelThreshold
         end
     elseif factionType == 'friend' then
-        barValue, _, _, _, _, standing, barMin, barMax = select(2, GetFriendshipReputation(factionId))
+        local friendshipInfo = C_GossipInfo.GetFriendshipReputation(factionId)
+        if friendshipInfo then
+            barMin = friendshipInfo.reactionThreshold
+            barValue = friendshipInfo.standing
+            barMax = friendshipInfo.nextThreshold or friendshipInfo.reactionThreshold
+
+            if barMin == barMax then
+                standing = friendshipInfo.reaction
+            end
+        end
     end
 
     if not barMax or not barMin then
         return
     end
+
     return barValue - barMin, (barMax - barMin), standing, name, hasReward, renown
 end
 
@@ -406,6 +415,7 @@ local function UpdateFactions(charInfo)
         factions[factionId].hasReward = hasReward
         factions[factionId].renown = renown
         factions[factionId].exalted = not info.paragon and standing == 8
+        factions[factionId].maximum = info.type == "friend" and current >= maximum
 
         if not info.localName then
             info.localName = name
@@ -439,6 +449,8 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
     end
     if factionInfo.exalted then
         return string.format('|cff00ff00%s|r', L['Exalted'])
+    elseif factionInfo.maximum then
+        return string.format('|cff00ff00%s|r', 'Maximum')
     end
 
     local standingColor, standing = FACTION_BAR_COLORS_CUSTOM[5], FACTION_STANDING_LABEL_CUSTOM[factionInfo.standing]
