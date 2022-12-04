@@ -446,6 +446,110 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	grand_hunts = {
+		label = 'Grand Hunts',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		required = 3,
+		version = WOW_PROJECT_MAINLINE
+	},
+	marrukai_camp = {
+		label = 'Marrukai Camp',
+		type = 'quest',
+		questType = 'biweekly',
+		visibility = 'visible',
+		group = 'resetDaily',
+		required = 4,
+		version = WOW_PROJECT_MAINLINE
+	},
+	brackenhide_hollow_rares = {
+		label = 'Brackenhide Rares',
+		type = 'quest',
+		questType = 'daily',
+		visibility = 'hidden',
+		group = 'resetDaily',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 4,
+		version = WOW_PROJECT_MAINLINE
+	},
+	trial_of_flood = {
+		label = 'Trial of Flood',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	trial_of_elements = {
+		label = 'Trial of Elements',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	knowledge_mobs = {
+		label = 'Mob Knowledge',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		required = 2,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	knowledge_scout_packs = {
+		label = 'Scout Pack Knowledge',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		required = 2,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	community_feast = {
+		label = 'Community Feast',
+		type = 'quest',
+		questType = 'daily',
+		visibility = 'hidden',
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
+	iskaara_story = {
+		label = 'Iskaara Story Scroll',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	obsidian_citadel_rares = {
+		label = 'Obsidian Citadel Rares',
+		type = 'quest',
+		questType = 'daily',
+		visibility = 'hidden',
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 7,
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
+	tyrhold_rares = {
+		label = 'Tyrhold Rare',
+		type = 'quest',
+		questType = 'daily',
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		visibility = 'hidden',
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
 
 	--wotlk
 	general_dailies = {
@@ -837,6 +941,30 @@ function PermoksAccountManager:QuestTooltip_OnEnter(button, alt_data, column)
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
+end
+
+function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, column, key)
+	if not altData or not altData.questInfo or not altData.questInfo[column.questType] or
+		not altData.questInfo[column.questType][column.visibility] then
+		return
+	end
+	local info = altData.questInfo[column.questType][column.visibility][column.key or key]
+	if not info then
+		return
+	end
+
+	if next(info) then
+		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
+		button.tooltip = tooltip
+
+		for questID, isComplete in pairs(info) do
+			local name = (self.quests[key] and self.quests[key][questID].name) or QuestUtils_GetQuestName(questID)
+			tooltip:AddLine(name, isComplete and string.format('|cff00ff00%s|r',self.db.global.options.questCompletionString) or '|cffff0000False|r')
+		end
+
+		tooltip:SmartAnchorTo(button)
+		tooltip:Show()
+	end
 end
 
 function PermoksAccountManager:WOTLKDailyQuest_OnEnter(button, altData, labelRow, labelIdentifier)
