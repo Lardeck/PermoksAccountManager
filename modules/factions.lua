@@ -384,10 +384,7 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
             barMin = friendshipInfo.reactionThreshold
             barValue = friendshipInfo.standing
             barMax = friendshipInfo.nextThreshold or friendshipInfo.reactionThreshold
-
-            if barMin == barMax then
-                standing = friendshipInfo.reaction
-            end
+            standing = friendshipInfo.reaction
         end
     end
 
