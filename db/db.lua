@@ -30,10 +30,20 @@ local default_categories = {
     },
     currentdaily = {
         order = 1,
-        name = 'Daily (NYI)',
+        name = 'Daily',
         childs = {
+            'community_feast',
+            'separator1',
+            'brackenhide_hollow_rares',
+            'obsidian_citadel_rares',
+            'tyrhold_rares'
         },
         childOrder = {
+            community_feast = 1,
+            separator1 = 2,
+            brackenhide_hollow_rares = 3,
+            obsidian_citadel_rares = 4,
+            tyrhold_rares = 5,
         },
         enabled = true
     },
@@ -42,11 +52,25 @@ local default_categories = {
         name = '(Bi)Weekly',
         childs = {
             'aiding_the_accord',
-            'dragonflight_world_boss'
+            'dragonflight_world_boss',
+            'grand_hunts',
+            'marrukai_camp',
+            'trial_of_flud',
+            'trial_of_elements',
+            'separator1',
+            'knowledge_mobs',
+            'knowledge_scout_packs'
         },
         childOrder = {
             aiding_the_accord = 1,
             dragonflight_world_boss = 2,
+            grand_hunts = 3,
+            marrukai_camp = 4,
+            trial_of_flud = 5,
+            trial_of_elements = 6,
+            separator1 = 7,
+            knowledge_mobs = 8,
+            knowledge_scout_packs = 9
         },
         enabled = true
     },
@@ -348,8 +372,8 @@ PermoksAccountManager.factions = {
     [2503] = {name = 'Maruuk Centaur', paragon = true, type = 'renown'},
     [2526] = {name = 'Winterpelt Furbolg', paragon = true},
     [2544] = {name = 'Artisan\'s Consortium', paragon = true, type = 'friend'},
-    [2518] = {name = 'Sabellian', paragon = true},
-    [2517] = {name = 'Wrathion', paragon = true},
+    [2518] = {name = 'Sabellian', paragon = true, type = 'friend'},
+    [2517] = {name = 'Wrathion', paragon = true, type = 'friend'},
     [2550] = {name = 'Cobalt Assembly', paragon = true, type = 'friend'}
 }
 
@@ -777,6 +801,63 @@ PermoksAccountManager.quests = {
     },
     aiding_the_accord = {
         [70750] = {questType = 'weekly', log = true}
+    },
+    grand_hunts = {
+        [70906] = {questType = 'weekly'},
+        [71136] = {questType = 'weekly'},
+        [71137] = {questType = 'weekly'}
+    },
+    marrukai_camp = {
+        [66698] = {questType = 'biweekly', log = true},
+        [65792] = {questType = 'biweekly', log = true},
+        [65796] = {questType = 'biweekly', log = true},
+        [65789] = {questType = 'biweekly', log = true},
+    },
+    trial_of_flood = {
+        [71033] = {questType = 'weekly'}
+    },
+    trial_of_elements = {
+        [71995] = {questType = 'weekly'}
+    },
+    brackenhide_hollow_rares = {
+        [74032] = {questType = 'daily', name = 'Snarglebone'},
+        [73985] = {questType = 'daily', name = 'Blisterhide'},
+        [73996] = {questType = 'daily', name = 'Gnarls'},
+        [74004] = {questType = 'daily', name = 'High Shaman Rotknuckle'},
+    },
+    knowledge_mobs = {
+        [70522] = {questType = 'weekly'}, --Leatherworking 1
+        [70523] = {questType = 'weekly'}, --Leatherworking 2
+        [70514] = {questType = 'weekly'}, --Enchanting 1
+        [70515] = {questType = 'weekly'}, --Enchanting 2
+        [70516] = {questType = 'weekly'}, --Engineering 1
+        [70517] = {questType = 'weekly'}, --Engineering 2
+        [70519] = {questType = 'weekly'}, --Inscription 1
+        [70520] = {questType = 'weekly'}, --Inscription 2
+    },
+    knowledge_scout_packs = {
+        [66375] = {questType = 'weekly'}, --Inscription 1
+        [66376] = {questType = 'weekly'}, --Inscription 2
+        [66384] = {questType = 'weekly'}, --Leatherworking 1
+        [66385] = {questType = 'weekly'}, --Leatherworking 2
+    },
+    community_feast = {
+        [74097] = {questType = 'daily'},
+    },
+    iskaara_story = {
+        [72291] = {questType = 'weekly', log = true},
+    },
+    obsidian_citadel_rares = {
+        [72127] = {questType = 'daily', name = 'Captain Lancer'},
+        [74067] = {questType = 'daily', name = 'Morchok'},
+        [74054] = {questType = 'daily', name = 'Turboris'},
+        [74043] = {questType = 'daily', name = 'Char'},
+        [74040] = {questType = 'daily', name = 'Battlehorn Pyrhus'},
+        [74042] = {questType = 'daily', name = 'Cauldronbreaker Blakor'},
+        [74052] = {questType = 'daily', name = 'Rohzor Forgesmash'},
+    },
+    tyrhold_rares = {
+        [74055] = {questType = 'daily', name = 'Ancient Protector'},
     }
 }
 
