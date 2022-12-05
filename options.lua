@@ -1642,7 +1642,7 @@ function PermoksAccountManager:AddLabelToDefaultCategory(category, label, custom
 	if categoryTbl and categoryTbl.childOrder and not categoryTbl.childOrder[label] then
 		local numChildren = #categoryTbl.childs
 		categoryTbl.childOrder[label] = customOrder or numChildren + 1
-		tinsert(categoryTbl.childs, ceil(customOrder) or numChildren + 1, label)
+		tinsert(categoryTbl.childs, customOrder and ceil(customOrder) or numChildren + 1, label)
 	end
 end
 
