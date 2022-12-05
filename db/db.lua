@@ -13,7 +13,11 @@ local default_categories = {
             'keystone',
             'mplus_score',
             'valor',
-            'mythics_done'
+            'mythics_done',
+            'dragon_isles_supplies',
+            'elemental_overflow',
+            'bloody_tokens',
+            'storm_sigil'
         },
         childOrder = {
             characterName = 1,
@@ -23,7 +27,11 @@ local default_categories = {
             keystone = 5,
             mplus_score = 6,
             valor = 7,
-            mythics_done = 8
+            mythics_done = 8,
+            dragon_isles_supplies = 9,
+            elemental_overflow = 10,
+            bloody_tokens = 11,
+            storm_sigil = 12
         },
         hideToggle = true,
         enabled = true
@@ -392,7 +400,11 @@ PermoksAccountManager.currency = {
     [1822] = 1,
     [1979] = 0,
     [2000] = 0,
+    [2003] = 0,
     [2009] = 0,
+    [2118] = 0,
+    [2122] = 0,
+    [2123] = 0,
 }
 
 PermoksAccountManager.research = {

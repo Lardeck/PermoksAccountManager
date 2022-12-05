@@ -674,6 +674,14 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('currentweekly', 'iskaara_story', 10)
         oldInternalVersion = 10
     end
+
+    if oldInternalVersion < 11 then
+        self:AddLabelToDefaultCategory('general', 'dragon_isles_supplies')
+        self:AddLabelToDefaultCategory('general', 'elemental_overflow')
+        self:AddLabelToDefaultCategory('general', 'bloody_tokens')
+        self:AddLabelToDefaultCategory('general', 'storm_sigil')
+        oldInternalVersion = 11
+    end
 end
 
 function PermoksAccountManager:GetGUID()

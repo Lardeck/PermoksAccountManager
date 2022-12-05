@@ -178,7 +178,37 @@ local labelRows = {
 		hideIcon = true,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
-	}
+	},
+
+    --10.0
+    dragon_isles_supplies = {
+		label = 'Dragon Isles Supplies',
+		type = 'currency',
+		key = 2003,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+	},
+    elemental_overflow = {
+		label = 'Elemental Overflow',
+		type = 'currency',
+		key = 2118,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+	},
+    bloody_tokens = {
+		label = 'Bloody Tokens',
+		type = 'currency',
+		key = 2123,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+	},
+    storm_sigil = {
+		label = 'Storm Sigil',
+		type = 'currency',
+		key = 2122,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+	},
 }
 
 local function UpdateAllCurrencies(charInfo)
