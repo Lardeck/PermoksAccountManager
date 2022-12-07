@@ -682,6 +682,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('general', 'storm_sigil')
         oldInternalVersion = 11
     end
+
+    if oldInternalVersion < 12 then
+        self:UpdateDefaultCategories('currentweekly')
+    end
 end
 
 function PermoksAccountManager:GetGUID()
