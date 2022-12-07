@@ -830,7 +830,11 @@ PermoksAccountManager.quests = {
         [69930] =  {questType = 'weekly'},
     },
     aiding_the_accord = {
-        [70750] = {questType = 'weekly', log = true}
+        [70750] = {questType = 'weekly', log = true},
+        [72068] = {questType = 'weekly', log = true},
+        [72373] = {questType = 'weekly', log = true},
+        [72374] = {questType = 'weekly', log = true},
+        [72375] = {questType = 'weekly', log = true},
     },
     grand_hunts = {
         [70906] = {questType = 'weekly'},
