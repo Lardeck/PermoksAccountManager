@@ -494,19 +494,81 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	knowledge_mobs = {
-		label = 'Mob Knowledge',
+		label = 'Gather Knowledge',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
-		required = 2,
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
+		end,
+		required = 4,
+		professionOffset = {
+			[182] = 3,
+			[186] = 3,
+			[393] = 3,
+		},
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
 	knowledge_scout_packs = {
-		label = 'Scout Pack Knowledge',
+		label = 'Treasure Knowledge',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
+		end,
+		required = 4,
+		professionOffset = {
+			[182] = -2,
+			[186] = -2,
+			[393] = -2,
+		},
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	knowledge_treatise = {
+		label = 'Treatise Knowledge',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
+		end,
+		required = 2,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	knowledge_weeklies_craft = {
+		label = 'Crafting Quests',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 2,
+		professionOffset = {
+			[182] = -1,
+			[186] = -1,
+			[393] = -1,
+		},
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	knowledge_weeklies_loot = {
+		label = 'Loot Quests',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
 		required = 2,
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
