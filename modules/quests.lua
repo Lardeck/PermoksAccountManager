@@ -664,6 +664,14 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	show_your_mettle = {
+		label = 'Show Your Mettle',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 
 	--wotlk
 	general_dailies = {
