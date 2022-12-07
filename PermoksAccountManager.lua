@@ -35,8 +35,8 @@ local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
-local VERSION = '1.1.7'
-local INTERNALVERSION = 12
+local VERSION = '1.1.8'
+local INTERNALVERSION = 13
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -663,15 +663,6 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('currentdaily', 'brackenhide_hollow_rares', 3)
         self:AddLabelToDefaultCategory('currentdaily', 'obsidian_citadel_rares', 4)
         self:AddLabelToDefaultCategory('currentdaily', 'tyrhold_rares', 5)
-
-        self:AddLabelToDefaultCategory('currentweekly', 'grand_hunts', 3)
-        self:AddLabelToDefaultCategory('currentweekly', 'marrukai_camp', 4)
-        self:AddLabelToDefaultCategory('currentweekly', 'trial_of_flood', 5)
-        self:AddLabelToDefaultCategory('currentweekly', 'trial_of_elements', 6)
-        self:AddLabelToDefaultCategory('currentweekly', 'separator1', 7)
-        self:AddLabelToDefaultCategory('currentweekly', 'knowledge_mobs', 8)
-        self:AddLabelToDefaultCategory('currentweekly', 'knowledge_scout_packs', 9)
-        self:AddLabelToDefaultCategory('currentweekly', 'iskaara_story', 10)
         oldInternalVersion = 10
     end
 
@@ -685,6 +676,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 12 then
         self:UpdateDefaultCategories('currentweekly')
+    end
+
+    if oldInternalVersion < 13 then
+        self:AddLabelToDefaultCategory('currentweekly', 'show_your_mettle', 36)
     end
 end
 
