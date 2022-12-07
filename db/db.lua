@@ -1055,6 +1055,9 @@ PermoksAccountManager.quests = {
         [67099] = {questType = 'weekly', log = true},
         [70848] = {questType = 'weekly', log = true},
         [72447] = {questType = 'weekly', log = true},
+    },
+    show_your_mettle = {
+        [70221] = {questType = 'weekly', log = true},
     }
 }
 
