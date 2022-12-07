@@ -856,20 +856,155 @@ PermoksAccountManager.quests = {
         [74004] = {questType = 'daily', name = 'High Shaman Rotknuckle'},
     },
     knowledge_mobs = {
-        [70522] = {questType = 'weekly'}, --Leatherworking 1
-        [70523] = {questType = 'weekly'}, --Leatherworking 2
-        [70514] = {questType = 'weekly'}, --Enchanting 1
-        [70515] = {questType = 'weekly'}, --Enchanting 2
-        [70516] = {questType = 'weekly'}, --Engineering 1
-        [70517] = {questType = 'weekly'}, --Engineering 2
-        [70519] = {questType = 'weekly'}, --Inscription 1
-        [70520] = {questType = 'weekly'}, --Inscription 2
+        [70522] = {questType = 'weekly', profession = 'Leatherworking'}, --Leatherworking 1
+        [70523] = {questType = 'weekly', profession = 'Leatherworking'}, --Leatherworking 2
+        [70514] = {questType = 'weekly', profession = 'Enchanting'}, --Enchanting 1
+        [70515] = {questType = 'weekly', profession = 'Enchanting'}, --Enchanting 2
+        [70516] = {questType = 'weekly', profession = 'Engineering'}, --Engineering 1
+        [70517] = {questType = 'weekly', profession = 'Engineering'}, --Engineering 2
+        [70518] = {questType = 'weekly', profession = 'Inscription'}, --Inscription 1
+        [70519] = {questType = 'weekly', profession = 'Inscription'}, --Inscription 2
+        [70524] = {questType = 'weekly', profession = 'Tailoring'}, --Tailoring 1
+        [70525] = {questType = 'weekly', profession = 'Tailoring'}, --Tailoring 2
+        [70512] = {questType = 'weekly', profession = 'Blacksmithing'}, --Blacksmithing 1
+        [70513] = {questType = 'weekly', profession = 'Blacksmithing'}, --Blacksmithing 2
+        [70520] = {questType = 'weekly', profession = 'Jewelcrafting'}, --Jewelcrafting 1
+        [70521] = {questType = 'weekly', profession = 'Jewelcrafting'}, --Jewelcrafting 2
+        [70504] = {questType = 'weekly', profession = 'Alchemy'}, --Alchemy 1
+        [70511] = {questType = 'weekly', profession = 'Alchemy'}, --Alchemy 2
+        [71857] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 1
+        [71858] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 2
+        [71859] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 3
+        [71860] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 4
+        [71861] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 5
+        [70381] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 1
+        [70382] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 2
+        [70383] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 3
+        [70384] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 4
+        [70385] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 5
+        [72160] = {questType = 'weekly', profession = 'Mining'}, --Mining 1
+        [72161] = {questType = 'weekly', profession = 'Mining'}, --Mining 2
+        [72162] = {questType = 'weekly', profession = 'Mining'}, --Mining 3
+        [72163] = {questType = 'weekly', profession = 'Mining'}, --Mining 4
+        [72165] = {questType = 'weekly', profession = 'Mining'}, --Mining 5
     },
     knowledge_scout_packs = {
-        [66375] = {questType = 'weekly'}, --Inscription 1
-        [66376] = {questType = 'weekly'}, --Inscription 2
-        [66384] = {questType = 'weekly'}, --Leatherworking 1
-        [66385] = {questType = 'weekly'}, --Leatherworking 2
+        [66375] = {questType = 'weekly', profession = 'Inscription'}, --Inscription 1
+        [66376] = {questType = 'weekly', profession = 'Inscription'}, --Inscription 2
+        [66384] = {questType = 'weekly', profession = 'Leatherworking'}, --Leatherworking 1
+        [66385] = {questType = 'weekly', profession = 'Leatherworking'}, --Leatherworking 2
+        [66386] = {questType = 'weekly', profession = 'Tailoring'}, --Tailoring 1
+        [66387] = {questType = 'weekly', profession = 'Tailoring'}, --Tailoring 2
+        [66377] = {questType = 'weekly', profession = 'Enchanting'}, --Enchanting 1
+        [66378] = {questType = 'weekly', profession = 'Enchanting'}, --Enchanting 2
+        [66381] = {questType = 'weekly', profession = 'Blacksmithing'}, --Blacksmithing 1
+        [66382] = {questType = 'weekly', profession = 'Blacksmithing'}, --Blacksmithing 2
+        [66379] = {questType = 'weekly', profession = 'Engineering'}, --Engineering 1
+        [66380] = {questType = 'weekly', profession = 'Engineering'}, --Engineering 2
+        [66388] = {questType = 'weekly', profession = 'Jewelcrafting'}, --Jewelcrafting 1
+        [66389] = {questType = 'weekly', profession = 'Jewelcrafting'}, --Jewelcrafting 2
+        [66373] = {questType = 'weekly', profession = 'Alchemy'}, --Alchemy 1
+        [66374] = {questType = 'weekly', profession = 'Alchemy'}, --Alchemy 2
+    },
+    knowledge_treatise = {
+        [74105] = {questType = 'weekly', profession = 'Inscription'}, -- Inscription
+        [74106] = {questType = 'weekly', profession = 'Mining'}, -- Mining
+        [74108] = {questType = 'weekly', profession = 'Alchemy'}, -- Alchemy
+        [74109] = {questType = 'weekly', profession = 'Blacksmithing'}, -- Blacksmithing
+        [74111] = {questType = 'weekly', profession = 'Engineering'}, -- Engineering
+        [74112] = {questType = 'weekly', profession = 'Jewelcrafting'}, -- Jewelcrafting
+        [74113] = {questType = 'weekly', profession = 'Leatherworking'}, -- Leatherworking
+        [74115] = {questType = 'weekly', profession = 'Tailoring'}, -- Tailoring
+        --[74115] = {questType = 'weekly'}, -- Skinning
+        --[74115] = {questType = 'weekly'}, -- Herbalism
+    },
+    knowledge_weeklies_craft = {
+        [70558] = {questType = 'weekly', log = true}, -- Inscription 1
+        [70559] = {questType = 'weekly', log = true}, -- Inscription 2
+        [70560] = {questType = 'weekly', log = true}, -- Inscription 3
+        [70561] = {questType = 'weekly', log = true}, -- Inscription 4
+        [70567] = {questType = 'weekly', log = true}, -- Leatherworking 1
+        [70568] = {questType = 'weekly', log = true}, -- Leatherworking 2
+        [70569] = {questType = 'weekly', log = true}, -- Leatherworking 3
+        [70571] = {questType = 'weekly', log = true}, -- Leatherworking 4
+        [70572] = {questType = 'weekly', log = true}, -- Tailoring 1
+        [70582] = {questType = 'weekly', log = true}, -- Tailoring 2
+        [70586] = {questType = 'weekly', log = true}, -- Tailoring 3
+        [70587] = {questType = 'weekly', log = true}, -- Tailoring 4
+        [72155] = {questType = 'weekly', log = true}, -- Enchanting 1
+        [72172] = {questType = 'weekly', log = true}, -- Enchanting 2
+        --[72172] = {questType = 'weekly', log = true}, -- Enchanting 3
+        --[72172] = {questType = 'weekly', log = true}, -- Enchanting 4
+        [70233] = {questType = 'weekly', log = true}, -- Blacksmithing 1
+        [70234] = {questType = 'weekly', log = true}, -- Blacksmithing 2
+        [70235] = {questType = 'weekly', log = true}, -- Blacksmithing 3
+        [70211] = {questType = 'weekly', log = true}, -- Blacksmithing 4
+        [70540] = {questType = 'weekly', log = true}, -- Engineering 1
+        [70545] = {questType = 'weekly', log = true}, -- Engineering 2
+        [70557] = {questType = 'weekly', log = true}, -- Engineering 3
+        [70539] = {questType = 'weekly', log = true}, -- Engineering 4
+        [70562] = {questType = 'weekly', log = true}, -- Jewelcrafting 1
+        [70563] = {questType = 'weekly', log = true}, -- Jewelcrafting 2
+        [70564] = {questType = 'weekly', log = true}, -- Jewelcrafting 3
+        [70565] = {questType = 'weekly', log = true}, -- Jewelcrafting 4
+        [70531] = {questType = 'weekly', log = true}, -- Alchemy 1
+        [70532] = {questType = 'weekly', log = true}, -- Alchemy 2
+        [70533] = {questType = 'weekly', log = true}, -- Alchemy 3
+        --[70534] = {questType = 'weekly', log = true}, -- Alchemy 4
+    },
+    knowledge_weeklies_loot = {
+        [66943] = {questType = 'weekly', log = true}, -- Inscription 5
+        [66944] = {questType = 'weekly', log = true}, -- Inscription 6
+        [66945] = {questType = 'weekly', log = true}, -- Inscription 7
+        --[72] = {questType = 'weekly', log = true}, -- Inscription 8
+        [66363] = {questType = 'weekly', log = true}, -- Leatherworking 5
+        [66364] = {questType = 'weekly', log = true}, -- Leatherworking 6
+        [66951] = {questType = 'weekly', log = true}, -- Leatherworking 7
+        --[72] = {questType = 'weekly', log = true}, -- Leatherworking 8
+        [66899] = {questType = 'weekly', log = true}, -- Tailoring 5
+        [66952] = {questType = 'weekly', log = true}, -- Tailoring 6
+        [66953] = {questType = 'weekly', log = true}, -- Tailoring 7
+        [72410] = {questType = 'weekly', log = true}, -- Tailoring 8
+        [66884] = {questType = 'weekly', log = true}, -- Enchanting 5
+        [66900] = {questType = 'weekly', log = true}, -- Enchanting 6
+        [66935] = {questType = 'weekly', log = true}, -- Enchanting 7
+        [72423] = {questType = 'weekly', log = true}, -- Enchanting 8
+        [66517] = {questType = 'weekly', log = true}, -- Blacksmithing 5
+        [66941] = {questType = 'weekly', log = true}, -- Blacksmithing 6
+        [72398] = {questType = 'weekly', log = true}, -- Blacksmithing 7
+        [66897] = {questType = 'weekly', log = true}, -- Blacksmithing 8
+        [66891] = {questType = 'weekly', log = true}, -- Engineering 5
+        [66890] = {questType = 'weekly', log = true}, -- Engineering 6
+        [66942] = {questType = 'weekly', log = true}, -- Engineering 7
+        [72396] = {questType = 'weekly', log = true}, -- Engineering 8
+        [66516] = {questType = 'weekly', log = true}, -- Jewelcrafting 5
+        [66950] = {questType = 'weekly', log = true}, -- Jewelcrafting 6
+        [70563] = {questType = 'weekly', log = true}, -- Jewelcrafting 7
+        [70593] = {questType = 'weekly', log = true}, -- Jewelcrafting 8
+        [66937] = {questType = 'weekly', log = true}, -- Alchemy 5
+        [66938] = {questType = 'weekly', log = true}, -- Alchemy 6
+        [66940] = {questType = 'weekly', log = true}, -- Alchemy 7
+        --[70593] = {questType = 'weekly', log = true}, -- Alchemy 8
+        [70613] = {questType = 'weekly', log = true}, -- Herbalism 5
+        [70614] = {questType = 'weekly', log = true}, -- Herbalism 6
+        [70615] = {questType = 'weekly', log = true}, -- Herbalism 7
+        [70616] = {questType = 'weekly', log = true}, -- Herbalism 8
+        [70620] = {questType = 'weekly', log = true}, -- Skinning 5
+        [72159] = {questType = 'weekly', log = true}, -- Skinning 6
+        [70619] = {questType = 'weekly', log = true}, -- Skinning 7
+        [72158] = {questType = 'weekly', log = true}, -- Skinning 8
+        [72157] = {questType = 'weekly', log = true}, -- Mining 5
+        [70617] = {questType = 'weekly', log = true}, -- Mining 6
+        [70618] = {questType = 'weekly', log = true}, -- Mining 7
+        [72156] = {questType = 'weekly', log = true}, -- Mining 8
+    },
+    knowledge_weeklies_order = {
+        [70589] = {questType = 'weekly', log = true}, -- Blacksmithing 0
+        [70591] = {questType = 'weekly', log = true}, -- Engineering 0
+        [70592] = {questType = 'weekly', log = true}, -- Inscription 0
+        [70593] = {questType = 'weekly', log = true}, -- Jewelcrafting 0
+        [70594] = {questType = 'weekly', log = true}, -- Leatherworking 0
+        [70595] = {questType = 'weekly', log = true}, -- Tailoring 0
     },
     community_feast = {
         [74097] = {questType = 'daily'},
