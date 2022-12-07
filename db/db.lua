@@ -872,21 +872,24 @@ PermoksAccountManager.quests = {
         [70521] = {questType = 'weekly', profession = 'Jewelcrafting'}, --Jewelcrafting 2
         [70504] = {questType = 'weekly', profession = 'Alchemy'}, --Alchemy 1
         [70511] = {questType = 'weekly', profession = 'Alchemy'}, --Alchemy 2
-        [71857] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 1
-        [71858] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 2
-        [71859] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 3
-        [71860] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 4
-        [71861] = {questType = 'weekly', profession = 'Herbalism'}, --Herbalism 5
-        [70381] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 1
-        [70382] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 2
-        [70383] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 3
-        [70384] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 4
-        [70385] = {questType = 'weekly', profession = 'Skinning'}, --Skinning 5
-        [72160] = {questType = 'weekly', profession = 'Mining'}, --Mining 1
-        [72161] = {questType = 'weekly', profession = 'Mining'}, --Mining 2
-        [72162] = {questType = 'weekly', profession = 'Mining'}, --Mining 3
-        [72163] = {questType = 'weekly', profession = 'Mining'}, --Mining 4
-        [72165] = {questType = 'weekly', profession = 'Mining'}, --Mining 5
+        [71857] = {questType = 'weekly', profession = 'Herbalism', skillLineID = 182}, --Herbalism 1
+        [71858] = {questType = 'weekly', profession = 'Herbalism', skillLineID = 182}, --Herbalism 2
+        [71859] = {questType = 'weekly', profession = 'Herbalism', skillLineID = 182}, --Herbalism 3
+        [71860] = {questType = 'weekly', profession = 'Herbalism', skillLineID = 182}, --Herbalism 4
+        [71861] = {questType = 'weekly', profession = 'Herbalism', skillLineID = 182}, --Herbalism 5
+        [71864] = {questType = 'weekly', profession = 'Herbalism', skillLineID = 182}, --Herbalism 6
+        [70381] = {questType = 'weekly', profession = 'Skinning', skillLineID = 393}, --Skinning 1
+        [70382] = {questType = 'weekly', profession = 'Skinning', skillLineID = 393}, --Skinning 2
+        [70383] = {questType = 'weekly', profession = 'Skinning', skillLineID = 393}, --Skinning 3
+        [70384] = {questType = 'weekly', profession = 'Skinning', skillLineID = 393}, --Skinning 4
+        [70385] = {questType = 'weekly', profession = 'Skinning', skillLineID = 393}, --Skinning 5
+        --[71864] = {questType = 'weekly', profession = 'Skinning', skillLineID = 393}, --Skinning 6
+        [72160] = {questType = 'weekly', profession = 'Mining', skillLineID = 186}, --Mining 1
+        [72161] = {questType = 'weekly', profession = 'Mining', skillLineID = 186}, --Mining 2
+        [72162] = {questType = 'weekly', profession = 'Mining', skillLineID = 186}, --Mining 3
+        [72163] = {questType = 'weekly', profession = 'Mining', skillLineID = 186}, --Mining 4
+        [72164] = {questType = 'weekly', profession = 'Mining', skillLineID = 186}, --Mining 5
+        [72165] = {questType = 'weekly', profession = 'Mining', skillLineID = 186}, --Mining 6
     },
     knowledge_scout_packs = {
         [66375] = {questType = 'weekly', profession = 'Inscription'}, --Inscription 1
@@ -909,14 +912,15 @@ PermoksAccountManager.quests = {
     knowledge_treatise = {
         [74105] = {questType = 'weekly', profession = 'Inscription'}, -- Inscription
         [74106] = {questType = 'weekly', profession = 'Mining'}, -- Mining
+        [74107] = {questType = 'weekly', profession = 'Herbalism'}, -- Herbalism
         [74108] = {questType = 'weekly', profession = 'Alchemy'}, -- Alchemy
         [74109] = {questType = 'weekly', profession = 'Blacksmithing'}, -- Blacksmithing
+        [74110] = {questType = 'weekly', profession = 'Enchanting'}, -- Enchanting
         [74111] = {questType = 'weekly', profession = 'Engineering'}, -- Engineering
         [74112] = {questType = 'weekly', profession = 'Jewelcrafting'}, -- Jewelcrafting
         [74113] = {questType = 'weekly', profession = 'Leatherworking'}, -- Leatherworking
+        [74114] = {questType = 'weekly', profession = 'Skinning'}, -- Skinning
         [74115] = {questType = 'weekly', profession = 'Tailoring'}, -- Tailoring
-        --[74115] = {questType = 'weekly'}, -- Skinning
-        --[74115] = {questType = 'weekly'}, -- Herbalism
     },
     knowledge_weeklies_craft = {
         [70558] = {questType = 'weekly', log = true}, -- Inscription 1
