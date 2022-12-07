@@ -1001,18 +1001,52 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 	end
 
 	if next(info) then
-		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
+		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 1, 'LEFT')
 		button.tooltip = tooltip
 
 		for questID, isComplete in pairs(info) do
-			local name = (self.quests[key] and self.quests[key][questID].name) or QuestUtils_GetQuestName(questID)
-			tooltip:AddLine(name, isComplete and string.format('|cff00ff00%s|r',self.db.global.options.questCompletionString) or '|cffff0000False|r')
+			if isComplete then
+				local name = (self.quests[key] and self.quests[key][questID].name) or QuestUtils_GetQuestName(questID)
+				tooltip:AddLine(name)
+			end
 		end
 
 		tooltip:SmartAnchorTo(button)
 		tooltip:Show()
 	end
 end
+
+function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column, key)
+	if not altData or not altData.questInfo or not altData.questInfo[column.questType] or
+		not altData.questInfo[column.questType][column.visibility] then
+		return
+	end
+	local info = altData.questInfo[column.questType][column.visibility][column.key or key]
+	if not info then
+		return
+	end
+
+	if next(info) then
+		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
+		button.tooltip = tooltip
+
+		local questInfo = self.quests[key]
+		local professionCounter = {}
+		for questID, isComplete in pairs(info) do
+			if isComplete then
+				professionCounter[questInfo[questID].profession] = (professionCounter[questInfo[questID].profession] or 0) + 1
+			end
+		end
+
+		for profession, counter in pairs(professionCounter) do
+			tooltip:AddLine(profession, counter)
+		end
+
+		tooltip:SmartAnchorTo(button)
+		tooltip:Show()
+	end
+end
+
 
 function PermoksAccountManager:WOTLKDailyQuest_OnEnter(button, altData, labelRow, labelIdentifier)
 	if (not altData or not altData.questInfo or not altData.questInfo[labelRow.questType]) or not labelRow or
