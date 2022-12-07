@@ -113,6 +113,12 @@ local function UpdateGeneralData(charInfo)
 		local covenant = C_Covenants.GetActiveCovenantID()
 		charInfo.covenant = covenant > 0 and covenant or nil
 		charInfo.callingsUnlocked = C_CovenantCallings.AreCallingsUnlocked()
+
+		local profession1, profession2 = GetProfessions()
+		charInfo.professions = {
+			profession1 and select(7, GetProfessionInfo(profession1)),
+			profession2 and select(7, GetProfessionInfo(profession2)),
+		}
 	end
 end
 
