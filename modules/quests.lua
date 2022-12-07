@@ -504,9 +504,14 @@ local labelRows = {
 		end,
 		required = 4,
 		professionOffset = {
-			[182] = 3,
-			[186] = 3,
-			[393] = 3,
+			[182] = 4,
+			[186] = 4,
+			[393] = 4,
+		},
+		professionRequired = {
+			[182] = 6,
+			[186] = 6,
+			[393] = 6,
 		},
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
@@ -1101,7 +1106,8 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 		end
 
 		for profession, counter in pairs(professionCounter) do
-			tooltip:AddLine(profession, counter)
+			local maximum = questInfo.skillLineID and column.professionRequired and column.professionRequired[questInfo.skillLineID] or 2
+			tooltip:AddLine(profession, self:CreateFractionString(counter, maximum))
 		end
 
 		tooltip:SmartAnchorTo(button)
