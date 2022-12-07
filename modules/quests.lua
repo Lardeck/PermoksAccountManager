@@ -543,11 +543,58 @@ local labelRows = {
 		label = 'Tyrhold Rare',
 		type = 'quest',
 		questType = 'daily',
+		tooltip = true,
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
 		visibility = 'hidden',
 		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
+	iskaara_fishing_dailies = {
+		label = 'Iskaara Dailies',
+		type = 'quest',
+		questType = 'daily',
+		visibility = 'visible',
+		required = 2,
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
+	community_feast_weekly = {
+		label = 'Community Feast',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	dragonbane_keep_siege = {
+		label = 'Siege',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	dragonbane_keep_key = {
+		label = 'Citadel WQ',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	dragonbane_keep_weeklies = {
+		label = 'Citadel Weeklies',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 7,
+		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
 

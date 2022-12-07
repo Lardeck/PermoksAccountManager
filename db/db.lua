@@ -1023,6 +1023,30 @@ PermoksAccountManager.quests = {
     },
     tyrhold_rares = {
         [74055] = {questType = 'daily', name = 'Ancient Protector'},
+    },
+    iskaara_fishing_dailies = {
+        [70438] = {questType = 'daily', log = true},
+        [71191] = {questType = 'daily', log = true},
+        [72069] = {questType = 'daily', log = true},
+    },
+    community_feast_weekly = {
+        [70893] = {questType = 'weekly', log = true},
+    },
+    dragonbane_keep_siege = {
+        [70866] = {questType = 'weekly'},
+    },
+    dragonbane_keep_key = {
+        [66805] = {questType = 'weekly', log = true},
+        [66133] = {questType = 'weekly', log = true},
+    },
+    dragonbane_keep_weeklies = {
+        [66103] = {questType = 'weekly', log = true},
+        [66326] = {questType = 'weekly', log = true},
+        [66445] = {questType = 'weekly', log = true},
+        [66633] = {questType = 'weekly', log = true},
+        [67099] = {questType = 'weekly', log = true},
+        [70848] = {questType = 'weekly', log = true},
+        [72447] = {questType = 'weekly', log = true},
     }
 }
 
