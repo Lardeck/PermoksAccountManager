@@ -1246,10 +1246,8 @@ local InternalLabelFunctions = {
             if unlocked then
                 required = unlockInfo.required
             end
-        elseif column.professionOffset then
-            local prof1, prof2 = GetProfessions()
-            local skillLine1 = prof1 and select(7, GetProfessionInfo(prof1))
-            local skillLine2 = prof2 and select(7, GetProfessionInfo(prof2))
+        elseif column.professionOffset and alt_data.professions then
+            local skillLine1, skillLine2 = unpack(alt_data.professions)
 
             if skillLine1 then
                 offset = offset + (column.professionOffset[skillLine1] or 0)
