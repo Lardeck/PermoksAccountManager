@@ -1239,16 +1239,28 @@ local InternalLabelFunctions = {
         end
 
         -- TODO Somehow save it per character so we don't have to check it everytime we change the text.
-        local required
+        local offset, required = 0
         if column.unlock then
             local unlockInfo = column.unlock
             local unlocked = alt_data[unlockInfo.charKey] and alt_data[unlockInfo.charKey][unlockInfo.key]
             if unlocked then
                 required = unlockInfo.required
             end
+        elseif column.professionOffset then
+            local prof1, prof2 = GetProfessions()
+            local skillLine1 = prof1 and select(7, GetProfessionInfo(prof1))
+            local skillLine2 = prof2 and select(7, GetProfessionInfo(prof2))
+
+            if skillLine1 then
+                offset = offset + (column.professionOffset[skillLine1] or 0)
+            end
+
+            if skillLine2 then
+                offset = offset + (column.professionOffset[skillLine2] or 0)
+            end
         end
 
-        required = required or column.required or 1
+        required = (required or column.required or 1) + offset
         if type(column.required) == 'function' then
             required = column.required(alt_data)
         end
