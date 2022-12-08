@@ -543,6 +543,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
 		end,
+		tooltipRequired = 1,
 		required = 2,
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
@@ -1114,7 +1115,7 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 		end
 
 		for profession, counter in pairs(professionCounter) do
-			local maximum = questInfo.skillLineID and column.professionRequired and column.professionRequired[questInfo.skillLineID] or 2
+			local maximum = questInfo.skillLineID and column.professionRequired and column.professionRequired[questInfo.skillLineID] or column.tooltipRequired or 2
 			tooltip:AddLine(profession, self:CreateFractionString(counter, maximum))
 		end
 
