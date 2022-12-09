@@ -41,6 +41,7 @@ local default_categories = {
         name = 'Daily',
         childs = {
             'community_feast',
+            'iskaara_fishing_dailies',
             'separator1',
             'brackenhide_hollow_rares',
             'obsidian_citadel_rares',
@@ -48,10 +49,11 @@ local default_categories = {
         },
         childOrder = {
             community_feast = 1,
-            separator1 = 2,
-            brackenhide_hollow_rares = 3,
-            obsidian_citadel_rares = 4,
-            tyrhold_rares = 5,
+            iskaara_fishing_dailies = 2,
+            separator1 = 10,
+            brackenhide_hollow_rares = 11,
+            obsidian_citadel_rares = 12,
+            tyrhold_rares = 13,
         },
         enabled = true
     },
@@ -1037,7 +1039,9 @@ PermoksAccountManager.quests = {
     iskaara_fishing_dailies = {
         [70438] = {questType = 'daily', log = true},
         [71191] = {questType = 'daily', log = true},
+        [71194] = {questType = 'daily', log = true},
         [72069] = {questType = 'daily', log = true},
+        [72075] = {questType = 'daily', log = true},
     },
     community_feast_weekly = {
         [70893] = {questType = 'weekly', log = true},

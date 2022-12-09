@@ -681,6 +681,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     if oldInternalVersion < 13 then
         self:AddLabelToDefaultCategory('currentweekly', 'show_your_mettle', 36)
     end
+
+    if oldInternalVersion < 14 then
+        self:AddLabelToDefaultCategory('currentdaily', 'iskaara_fishing_dailies', 1)
+    end
 end
 
 function PermoksAccountManager:GetGUID()
