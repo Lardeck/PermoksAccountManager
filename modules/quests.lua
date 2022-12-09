@@ -456,7 +456,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	marrukai_camp = {
-		label = 'Marrukai Camp',
+		label = 'Maruukai Camp',
 		type = 'quest',
 		questType = 'biweekly',
 		visibility = 'visible',
