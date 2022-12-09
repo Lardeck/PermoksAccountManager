@@ -600,10 +600,11 @@ local labelRows = {
 		type = 'quest',
 		questType = 'daily',
 		visibility = 'hidden',
+		tooltip = true,
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 7,
+		required = 8,
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	},
