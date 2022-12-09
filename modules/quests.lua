@@ -661,7 +661,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 7,
+		required = 6,
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
