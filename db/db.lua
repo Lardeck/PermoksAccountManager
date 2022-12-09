@@ -850,6 +850,10 @@ PermoksAccountManager.quests = {
         [65792] = {questType = 'biweekly', log = true},
         [65796] = {questType = 'biweekly', log = true},
         [65789] = {questType = 'biweekly', log = true},
+        [67605] = {questType = 'biweekly', log = true},
+        [71241] = {questType = 'biweekly', log = true},
+        [70210] = {questType = 'biweekly', log = true},
+        [65798] = {questType = 'biweekly', log = true},
     },
     trial_of_flood = {
         [71033] = {questType = 'weekly'}
