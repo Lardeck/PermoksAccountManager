@@ -1047,10 +1047,12 @@ PermoksAccountManager.quests = {
     },
     iskaara_fishing_dailies = {
         [70438] = {questType = 'daily', log = true},
+        [70450] = {questType = 'daily', log = true},
         [71191] = {questType = 'daily', log = true},
         [71194] = {questType = 'daily', log = true},
         [72069] = {questType = 'daily', log = true},
         [72075] = {questType = 'daily', log = true},
+
     },
     community_feast_weekly = {
         [70893] = {questType = 'weekly', log = true},
