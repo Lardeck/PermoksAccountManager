@@ -134,6 +134,7 @@ L['Items'] = true
 L['Currency'] = true
 L['Daily Reset'] = true
 L['Weekly Reset'] = true
+L['Biweekly Reset'] = true
 L['Torghast'] = true
 L['Dungeons'] = true
 L['Buff'] = true

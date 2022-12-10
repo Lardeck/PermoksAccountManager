@@ -460,7 +460,7 @@ local labelRows = {
 		type = 'quest',
 		questType = 'biweekly',
 		visibility = 'visible',
-		group = 'resetDaily',
+		group = 'resetBiweekly',
 		required = 4,
 		version = WOW_PROJECT_MAINLINE
 	},
