@@ -865,7 +865,7 @@ function PermoksAccountManager:CheckForReset()
 
     db.weeklyReset = resetWeekly and currentTime + self:GetNextWeeklyResetTime() or db.weeklyReset
     db.dailyReset = resetDaily and currentTime + self:GetNextDailyResetTime() or db.dailyReset
-    db.biweeklyReset = resetBiweekly and currentTime + self:GetNextBiWeeklyResetTime() or db.resetBiweekly
+    db.biweeklyReset = resetBiweekly and currentTime + self:GetNextBiWeeklyResetTime() or db.biweeklyReset
 end
 
 function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biweekly)

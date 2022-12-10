@@ -197,33 +197,37 @@ PermoksAccountManager.groups = {
         label = L['Weekly Reset'],
         order = 6
     },
+    resetBiweekly = {
+        label = L['Biweekly Reset'],
+        order = 8,
+    },
     vault = {
         label = L['Vault'],
-        order = 7
+        order = 9
     },
     torghast = {
         label = L['Torghast'],
-        order = 8
+        order = 10
     },
     dungeons = {
         label = L['Dungeons'],
-        order = 9
+        order = 11
     },
     raids = {
         label = L['Raids'],
-        order = 10
+        order = 12
     },
     reputation = {
         label = L['Reputation'],
-        order = 11
+        order = 13
     },
     buff = {
         label = L['Buff'],
-        order = 12
+        order = 14
     },
     sanctum = {
         label = L['Sanctum'],
-        order = 13
+        order = 15
     },
     separator = {
         label = L['Separator'],
@@ -231,19 +235,19 @@ PermoksAccountManager.groups = {
     },
     item = {
         label = L['Items'],
-        order = 14
+        order = 15
     },
     pvp = {
         label = L['PVP'],
-        order = 15
+        order = 16
     },
     onetime = {
         label = L['ETC'],
-        order = 16
+        order = 17
     },
     other = {
         label = L['Other'],
-        order = 17
+        order = 18
     }
 }
 
