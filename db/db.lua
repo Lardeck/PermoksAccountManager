@@ -1034,6 +1034,7 @@ PermoksAccountManager.quests = {
     },
     obsidian_citadel_rares = {
         [72127] = {questType = 'daily', name = 'Captain Lancer'},
+        [73072] = {questType = 'daily', name = 'Enkine the Voracious'},
         [74067] = {questType = 'daily', name = 'Morchok'},
         [74054] = {questType = 'daily', name = 'Turboris'},
         [74043] = {questType = 'daily', name = 'Char'},
