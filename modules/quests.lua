@@ -8,6 +8,11 @@ local frequencyNames = {
 	[2] = 'weekly'
 }
 
+local completedString = {
+	[1] = '|cff00ff00Completed|r',
+	[2] = '|cffff0000Not Completed|r'
+}
+
 local default = {
 	daily = {
 		visible = {},
@@ -1103,26 +1108,68 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 		return
 	end
 
-	if next(info) then
-		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
-		button.tooltip = tooltip
+	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 3, 'LEFT', 'RIGHT', 'RIGHT')
+	button.tooltip = tooltip
 
-		local questInfo = self.quests[key]
-		local professionCounter = {}
-		for questID, isComplete in pairs(info) do
-			if isComplete then
-				professionCounter[questInfo[questID].profession] = (professionCounter[questInfo[questID].profession] or 0) + 1
+	local questInfo = self.quests[key]
+	local professionCounter = {}
+	local professionItems = {}
+	local prof1, prof2 = unpack(altData.professions)
+
+	for questID, questInfoTbl in pairs(questInfo) do
+		local skillLineID = questInfoTbl.skillLineID
+		if skillLineID then
+			if info[questID] then
+				professionCounter[skillLineID] = (professionCounter[skillLineID] or 0) + 1
+			end
+
+			if (skillLineID == prof1 or skillLineID == prof2) then
+				professionItems[questInfoTbl.skillLineID] = professionItems[questInfoTbl.skillLineID] or {}
+
+				if questInfoTbl.item then
+					tinsert(professionItems[questInfoTbl.skillLineID], {questID, questInfoTbl.item, info[questID]})
+				end
+			end
+		end
+	end
+
+	local professioIndex = 1
+	for skillLineID, info in pairs(professionItems) do
+		if #info > 0 and professioIndex == 2 then
+			tooltip:AddLine(" ")
+		end
+
+		local counter = professionCounter[skillLineID] or 0
+		local professionName = C_TradeSkillUI.GetProfessionInfoBySkillLineID(skillLineID).professionName
+		local maximum = column.professionRequired and column.professionRequired[skillLineID] or column.tooltipRequired or 2
+		tooltip:AddLine(string.format('%s (%s)', professionName, self:CreateFractionString(counter, maximum)))
+
+		if #info > 0 then
+			tooltip:AddSeparator(1)
+			for _, itemInfo in ipairs(info) do
+				local questID, itemID, isComplete = unpack(itemInfo)
+				local item = Item:CreateFromItemID(itemID)
+
+				if item:IsItemDataCached() then
+					tooltip:AddLine(string.format('%s%s', CreateSimpleTextureMarkup(item:GetItemIcon()), item:GetItemLink()), string.format("(%d)", questID), isComplete and completedString[1] or completedString[2])
+				else
+					local y, x = tooltip:AddLine()
+					item:ContinueOnItemLoad(function()
+						if tooltip:IsAcquiredBy(addonName .. 'Tooltip') then
+							tooltip:SetCell(y, 1, string.format('%s%s', CreateSimpleTextureMarkup(item:GetItemIcon()), item:GetItemLink()))
+							tooltip:SetCell(y, 2, string.format("(%d)", questID))
+							tooltip:SetCell(y, 3, isComplete and completedString[1] or completedString[2])
+						end
+					end)
+				end
 			end
 		end
 
-		for profession, counter in pairs(professionCounter) do
-			local maximum = questInfo.skillLineID and column.professionRequired and column.professionRequired[questInfo.skillLineID] or column.tooltipRequired or 2
-			tooltip:AddLine(profession, self:CreateFractionString(counter, maximum))
-		end
-
-		tooltip:SmartAnchorTo(button)
-		tooltip:Show()
+		professioIndex = professioIndex + 1 
 	end
+
+	tooltip:SmartAnchorTo(button)
+	tooltip:Show()
 end
 
 
