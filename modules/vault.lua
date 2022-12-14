@@ -89,7 +89,7 @@ local function UpdateRaidActivity(charInfo)
 		table.sort(charInfo.raidActivityInfo, function(a, b)
 			local encounterA = a.encounterID
 			local encounterB = b.encounterID
-			return prio[encounterA] < prio[encounterB]
+			return (prio[encounterA] or a.uiOrder) < (prio[encounterB] or b.uiOrder)
 		end)
 	end
 end
