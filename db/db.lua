@@ -358,7 +358,7 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1190, startIndex = 1, endIndex = 10},
+    [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1190, startIndex = 1, endIndex = 8},
 }
 
 PermoksAccountManager.dungeons = {

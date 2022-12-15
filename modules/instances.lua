@@ -280,7 +280,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
 		local raidActivityInfo = altData.raidActivityInfo
 		if info.defeatedEncountersInfo and difficulty < 17 then
 			local bossIndex = 1
-			for index = dbInfo.startIndex, dbInfo.endIndex do
+			for index = dbInfo.startIndex, min(#raidActivityInfo, dbInfo.endIndex) do
 				local bossInfo = info.defeatedEncountersInfo[index]
 				local text = L['Unsaved']
 				local color = "00ff00"
