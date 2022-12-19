@@ -66,6 +66,7 @@ local default_categories = {
             'grand_hunts',
             'marrukai_camp',
             'community_feast_weekly',
+            'fish_turnins_df',
             'separator1',
             'trial_of_flood',
             'trial_of_elements',
@@ -87,6 +88,7 @@ local default_categories = {
             grand_hunts = 3,
             marrukai_camp = 4,
             community_feast_weekly = 7,
+            fish_turnins_df = 8,
             separator1 = 10,
             trial_of_flood = 11,
             trial_of_elements = 12,
@@ -1081,6 +1083,14 @@ PermoksAccountManager.quests = {
     },
     show_your_mettle = {
         [70221] = {questType = 'weekly', log = true},
+    },
+    fish_turnins_df = {
+        [72828] = {questType = 'weekly', name = '|T1387373:0|t[Scalebelly Mackerel]'},
+        [72823] = {questType = 'weekly', name = '|T4554376:0|t[Islefin Dorado]'},
+        [72827] = {questType = 'weekly', name = '|T4554372:0|t[Thousandbite Piranha]'},
+        [72826] = {questType = 'weekly', name = '|T4539689:0|t[Aileron Seamoth]'},
+        [72825] = {questType = 'weekly', name = '|T4539687:0|t[Cerulean Spinefish]'},
+        [72824] = {questType = 'weekly', name = '|T4554371:0|t[Temporal Dragonhead]'},
     }
 }
 

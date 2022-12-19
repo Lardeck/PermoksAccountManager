@@ -613,6 +613,19 @@ local labelRows = {
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	},
+	fish_turnins_df = {
+		label = 'Fish Turn Ins',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 6,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 	tyrhold_rares = {
 		label = 'Tyrhold Rare',
 		type = 'quest',
