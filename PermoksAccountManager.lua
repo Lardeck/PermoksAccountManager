@@ -35,8 +35,8 @@ local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
-local VERSION = '1.1.13'
-local INTERNALVERSION = 14
+local VERSION = '1.1.14'
+local INTERNALVERSION = 15
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -684,6 +684,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 14 then
         self:AddLabelToDefaultCategory('currentdaily', 'iskaara_fishing_dailies', 1)
+    end
+
+    if oldInternalVersion < 15 then
+        self:AddLabelToDefaultCategory('currentweekly', 'fish_turnins_df', 8)
     end
 end
 
