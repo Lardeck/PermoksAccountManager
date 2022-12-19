@@ -1099,10 +1099,20 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 1, 'LEFT')
 		button.tooltip = tooltip
 
+		local questInfo = self.quests[key]
+
 		for questID, isComplete in pairs(info) do
 			if isComplete then
-				local name = (self.quests[key] and self.quests[key][questID].name) or QuestUtils_GetQuestName(questID)
-				tooltip:AddLine(name)
+				local name
+				if questInfo then
+					name = questInfo[questID].name
+				else
+					name = QuestUtils_GetQuestName(questID)
+				end
+
+				if name then
+					tooltip:AddLine(name)
+				end
 			end
 		end
 
