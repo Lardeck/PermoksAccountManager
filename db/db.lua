@@ -306,6 +306,8 @@ PermoksAccountManager.labelRows = {
 
 PermoksAccountManager.numDungeons = 8
 PermoksAccountManager.keys = {
+    [2] = "TJS",
+    [165] = "SBG",
     [369] = 'YARD', -- Operation: Mechagon - Junkyard
 	[370] = 'WORK', -- Operation: Mechagon - Workshop
 	[375] = 'MISTS', -- Mists of Tirna Scithe
