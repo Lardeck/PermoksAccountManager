@@ -985,7 +985,7 @@ PermoksAccountManager.quests = {
         [66363] = {questType = 'weekly', log = true}, -- Leatherworking 5
         [66364] = {questType = 'weekly', log = true}, -- Leatherworking 6
         [66951] = {questType = 'weekly', log = true}, -- Leatherworking 7
-        --[72] = {questType = 'weekly', log = true}, -- Leatherworking 8
+        [72407] = {questType = 'weekly', log = true}, -- Leatherworking 8
         [66899] = {questType = 'weekly', log = true}, -- Tailoring 5
         [66952] = {questType = 'weekly', log = true}, -- Tailoring 6
         [66953] = {questType = 'weekly', log = true}, -- Tailoring 7
