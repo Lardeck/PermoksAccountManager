@@ -1104,7 +1104,7 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 		for questID, isComplete in pairs(info) do
 			if isComplete then
 				local name
-				if questInfo then
+				if questInfo and questInfo[questID].name then
 					name = questInfo[questID].name
 				else
 					name = QuestUtils_GetQuestName(questID)
