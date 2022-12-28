@@ -676,18 +676,26 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 12 then
         self:UpdateDefaultCategories('currentweekly')
+        oldInternalVersion = 12
     end
 
     if oldInternalVersion < 13 then
         self:AddLabelToDefaultCategory('currentweekly', 'show_your_mettle', 36)
+        oldInternalVersion = 13
     end
 
     if oldInternalVersion < 14 then
         self:AddLabelToDefaultCategory('currentdaily', 'iskaara_fishing_dailies', 1)
+        oldInternalVersion = 14
     end
 
     if oldInternalVersion < 15 then
         self:AddLabelToDefaultCategory('currentweekly', 'fish_turnins_df', 8)
+        oldInternalVersion = 15
+    end
+
+    if oldInternalVersion < 16 then
+        self:AddLabelToDefaultCategory('currentweekly', 'sparks_of_life', 5)
     end
 end
 

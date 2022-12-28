@@ -469,6 +469,14 @@ local labelRows = {
 		required = 4,
 		version = WOW_PROJECT_MAINLINE
 	},
+	sparks_of_life = {
+		label = 'Sparks of Life',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 	brackenhide_hollow_rares = {
 		label = 'Brackenhide Rares',
 		type = 'quest',

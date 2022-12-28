@@ -65,6 +65,7 @@ local default_categories = {
             'dragonflight_world_boss',
             'grand_hunts',
             'marrukai_camp',
+            'sparks_of_life',
             'community_feast_weekly',
             'fish_turnins_df',
             'separator1',
@@ -87,6 +88,7 @@ local default_categories = {
             dragonflight_world_boss = 2,
             grand_hunts = 3,
             marrukai_camp = 4,
+            sparks_of_life = 5,
             community_feast_weekly = 7,
             fish_turnins_df = 8,
             separator1 = 10,
@@ -1093,6 +1095,12 @@ PermoksAccountManager.quests = {
         [72826] = {questType = 'weekly', name = '|T4539689:0|t[Aileron Seamoth]'},
         [72825] = {questType = 'weekly', name = '|T4539687:0|t[Cerulean Spinefish]'},
         [72824] = {questType = 'weekly', name = '|T4554371:0|t[Temporal Dragonhead]'},
+    },
+    sparks_of_life = {
+        [72646] = {questType = 'weekly'},
+        [72647] = {questType = 'weekly'},
+        [72648] = {questType = 'weekly'},
+        [72649] = {questType = 'weekly'}
     }
 }
 
