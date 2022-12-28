@@ -961,7 +961,7 @@ PermoksAccountManager.quests = {
         [72155] = {questType = 'weekly', log = true}, -- Enchanting 1
         [72172] = {questType = 'weekly', log = true}, -- Enchanting 2
         [72175] = {questType = 'weekly', log = true}, -- Enchanting 3
-        --[72172] = {questType = 'weekly', log = true}, -- Enchanting 4
+        [72173] = {questType = 'weekly', log = true}, -- Enchanting 4
         [70233] = {questType = 'weekly', log = true}, -- Blacksmithing 1
         [70234] = {questType = 'weekly', log = true}, -- Blacksmithing 2
         [70235] = {questType = 'weekly', log = true}, -- Blacksmithing 3
