@@ -1040,7 +1040,6 @@ function PermoksAccountManager:GetNumCompletedQuests(questInfo)
 		return 0
 	end
 	local numCompleted = 0
-
 	for _, questCompleted in pairs(questInfo) do
 		numCompleted = questCompleted and numCompleted + 1 or numCompleted
 	end
@@ -1180,7 +1179,6 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 			for _, itemInfo in ipairs(info) do
 				local questID, itemID, isComplete = unpack(itemInfo)
 				local item = Item:CreateFromItemID(itemID)
-
 				if item:IsItemDataCached() then
 					tooltip:AddLine(string.format('%s%s', CreateSimpleTextureMarkup(item:GetItemIcon()), item:GetItemLink()), string.format("(%d)", questID), isComplete and completedString[1] or completedString[2])
 				else
