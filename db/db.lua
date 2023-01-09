@@ -1097,10 +1097,10 @@ PermoksAccountManager.quests = {
         [72824] = {questType = 'weekly', name = '|T4554371:0|t[Temporal Dragonhead]'},
     },
     sparks_of_life = {
-        [72646] = {questType = 'weekly'},
-        [72647] = {questType = 'weekly'},
-        [72648] = {questType = 'weekly'},
-        [72649] = {questType = 'weekly'}
+        [72646] = {questType = 'weekly', log = true},
+        [72647] = {questType = 'weekly', log = true},
+        [72648] = {questType = 'weekly', log = true},
+        [72649] = {questType = 'weekly', log = true}
     }
 }
 
