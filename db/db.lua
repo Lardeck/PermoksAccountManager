@@ -856,14 +856,22 @@ PermoksAccountManager.quests = {
         [71137] = {questType = 'weekly'}
     },
     marrukai_camp = {
+        [65784] = {questType = 'biweekly', log = true},
         [65789] = {questType = 'biweekly', log = true},
         [65792] = {questType = 'biweekly', log = true},
         [65796] = {questType = 'biweekly', log = true},
         [65798] = {questType = 'biweekly', log = true},
         [66698] = {questType = 'biweekly', log = true},
         [66711] = {questType = 'biweekly', log = true},
+        [67034] = {questType = 'biweekly', log = true},
+        [67039] = {questType = 'biweekly', log = true},
+        [67222] = {questType = 'biweekly', log = true},
         [67605] = {questType = 'biweekly', log = true},
         [70210] = {questType = 'biweekly', log = true},
+        [70299] = {questType = 'biweekly', log = true},
+        [70352] = {questType = 'biweekly', log = true},
+        [70701] = {questType = 'biweekly', log = true},
+        [70990] = {questType = 'biweekly', log = true},
         [71241] = {questType = 'biweekly', log = true},
     },
     trial_of_flood = {
