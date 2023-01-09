@@ -30,6 +30,8 @@ local PermoksAccountManagerLDB =
     }
 )
 
+BINDING_HEADER_PAM = addonName
+
 local AceGUI = LibStub('AceGUI-3.0')
 local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
@@ -1797,4 +1799,13 @@ function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
     end
     local msg = table.concat(keys, ' ')
     SendChatMessage(msg:sub(1, 255), chatChannel)
+end
+
+
+function TogglePAMFromKeybindings()
+    if PermoksAccountManagerFrame:IsShown() then
+        PermoksAccountManager:HideInterface()
+    else
+        PermoksAccountManager:ShowInterface()
+    end
 end

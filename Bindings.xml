@@ -1,0 +1,5 @@
+<Bindings>
+	<Binding name = "Toggle PAM" header = "PAM" Category="PermoksAddOns">
+		TogglePAMFromKeybindings()
+	</Binding>
+</Bindings>
