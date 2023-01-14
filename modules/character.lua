@@ -54,7 +54,12 @@ local labelRows = {
 		label = L['Keystone'],
 		type = 'keystone',
 		group = 'dungeons',
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
+		OnClick = function(button, altData)
+			if button == "LeftButton" and IsShiftKeyDown() then
+				PermoksAccountManager:PostKeyIntoChat(altData)
+			end
+		end,
 	},
 	tw_keystone = {
 		label = L['TW Keystone'],
@@ -131,6 +136,7 @@ local function UpdateKeystones(charInfo)
 		local keyInfo = charInfo.keyInfo
 		keyInfo.keyDungeon = ownedKeystone and PermoksAccountManager.keys[ownedKeystone] or L['No Key']
 		keyInfo.keyLevel = ownedKeystone and C_MythicPlus.GetOwnedKeystoneLevel() or 0
+		keyInfo.keyMapID = ownedKeystone
 
 		local activityID, _, keyLevel = C_LFGList.GetOwnedKeystoneActivityAndGroupAndLevel(true)
 		local keyDungeonID = PermoksAccountManager.activityIDToKeys[activityID]

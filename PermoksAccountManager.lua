@@ -1456,6 +1456,12 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
                 )
             end
 
+            if labelRow.OnClick then
+                row:SetScript("OnClick", function(self, button)
+                    labelRow.OnClick(button, altData)
+                end)
+            end
+
             if row.module then
                 local args = row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update)
                 local text
@@ -1801,6 +1807,36 @@ function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
     SendChatMessage(msg:sub(1, 255), chatChannel)
 end
 
+do
+    local keystoneString = "\124cffa335ee\124Hkeystone:180653:%d:%d:%s\124h[Keystone: %s (%d)]\124h\124r"
+    function PermoksAccountManager:PostKeyIntoChat(altData)
+        if not altData then return end
+
+        local keyInfo = altData.keyInfo
+        if keyInfo then
+            local channel = UnitInParty("player") and "PARTY" or "GUILD"
+            local affixes = C_MythicPlus.GetCurrentAffixes()
+            if keyInfo.keyMapID and affixes then
+                local keyLevel = keyInfo.keyLevel
+                local affixNum = (keyLevel >= 10 and 4) or (keyLevel >= 7 and 3) or (keyLevel >= 4 and 2) or 1
+                local affixIDs = {}
+                for i, affixInfo in ipairs(affixes) do
+                    tinsert(affixIDs, i<= affixNum and affixInfo.id or 0)
+                end
+
+                local keystone = keystoneString:format(keyInfo.keyMapID, keyInfo.keyLevel, table.concat(affixIDs, ":"), C_ChallengeMode.GetMapUIInfo(keyInfo.keyMapID), keyInfo.keyLevel)
+
+                if altData.guid == UnitGUID("player") then
+                    SendChatMessage(keystone, channel)
+                else
+                    SendChatMessage(string.format('[%s: %s]', altData.name, keystone), channel)
+                end
+            elseif keyInfo and keyInfo.keyLevel and keyInfo.keyLevel > 0 then
+                SendChatMessage(string.format('[%s: %s]', altData.name, keyInfo.keyDungeon .. '+' .. keyInfo.keyLevel), channel)
+            end
+        end
+    end
+end
 
 function TogglePAMFromKeybindings()
     if PermoksAccountManagerFrame:IsShown() then
