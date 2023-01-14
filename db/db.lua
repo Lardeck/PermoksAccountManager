@@ -986,7 +986,7 @@ PermoksAccountManager.quests = {
         [70531] = {questType = 'weekly', log = true}, -- Alchemy 1
         [70532] = {questType = 'weekly', log = true}, -- Alchemy 2
         [70533] = {questType = 'weekly', log = true}, -- Alchemy 3
-        [72427] = {questType = 'weekly', log = true}, -- Alchemy 4
+        [70530] = {questType = 'weekly', log = true}, -- Alchemy 4
     },
     knowledge_weeklies_loot = {
         [66943] = {questType = 'weekly', log = true}, -- Inscription 5
