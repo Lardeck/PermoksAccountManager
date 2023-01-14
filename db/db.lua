@@ -869,6 +869,7 @@ PermoksAccountManager.quests = {
         [67605] = {questType = 'biweekly', log = true},
         [70210] = {questType = 'biweekly', log = true},
         [70299] = {questType = 'biweekly', log = true},
+        [70279] = {questType = 'biweekly', log = true},
         [70352] = {questType = 'biweekly', log = true},
         [70701] = {questType = 'biweekly', log = true},
         [70990] = {questType = 'biweekly', log = true},
