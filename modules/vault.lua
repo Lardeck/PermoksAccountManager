@@ -154,8 +154,8 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
         local rewardItemLevel
 
         if activityInfo.progress >= activityInfo.threshold then
-            if activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level > 15 then
-                rewardItemLevel = self.vault_rewards[activityInfo.type][15]
+            if activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level > 20 then
+                rewardItemLevel = self.vault_rewards[activityInfo.type][20]
             else
                 rewardItemLevel = self.vault_rewards[activityInfo.type][activityInfo.level] or nil
             end
