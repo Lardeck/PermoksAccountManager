@@ -1420,6 +1420,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
         name = L['Experimental'],
         set = function(info, value)
             PermoksAccountManager.db.global.options[info[#info]] = value
+            PermoksAccountManager:SortPages()
             PermoksAccountManager:UpdateAnchorsAndSize('general', nil, nil, true)
         end,
         get = function(info)
@@ -1494,6 +1495,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         type = 'select',
                         name = 'Currency Icon Position',
                         values = {left = 'Left', right = 'Right'}
+                    },
+                    currentCharacterFirstPosition = {
+                        order = 10,
+                        type = 'toggle',
+                        name = 'Prioritise current char',
+                        desc = 'Always show the current character at the front'
                     }
                 }
             }

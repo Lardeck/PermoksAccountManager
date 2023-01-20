@@ -96,6 +96,7 @@ local defaultDB = {
             itemIcons = true,
             useScoreColor = true,
             showCurrentSpecIcon = true,
+            currentCharacterFirstPosition = false,
             questCompletionString = 'True',
             useOutline = true,
             itemIconPosition = 'right',
@@ -707,16 +708,26 @@ function PermoksAccountManager:GetGUID()
 end
 
 local function SortPages(pages)
-    local perPage = PermoksAccountManager.db.global.options.characters.charactersPerPage
-    local finalPages = {{}}
+    local options = PermoksAccountManager.db.global.options
+    local GUID = PermoksAccountManager:GetGUID()
 
     table.sort(
         pages,
         function(a, b)
+            if options.currentCharacterFirstPosition then
+                if a.guid == GUID then
+                    return true
+                elseif b.guid == GUID then
+                    return false
+                end
+            end
+
             return a.order < b.order
         end
     )
 
+    local perPage = options.characters.charactersPerPage
+    local finalPages = {{}}
     for i, altData in ipairs(pages) do
         local page = ceil(i / perPage)
         finalPages[page] = finalPages[page] or {}
