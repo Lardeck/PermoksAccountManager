@@ -922,6 +922,7 @@ PermoksAccountManager.quests = {
         [72163] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 4
         [72164] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 5
         [72165] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 6
+        --[66936] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 6
     },
     knowledge_scout_packs = {
         [66375] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193904}, --Inscription 1
@@ -992,7 +993,7 @@ PermoksAccountManager.quests = {
         [66943] = {questType = 'weekly', log = true}, -- Inscription 5
         [66944] = {questType = 'weekly', log = true}, -- Inscription 6
         [66945] = {questType = 'weekly', log = true}, -- Inscription 7
-        --[72] = {questType = 'weekly', log = true}, -- Inscription 8
+        [72438] = {questType = 'weekly', log = true}, -- Inscription 8
         [66363] = {questType = 'weekly', log = true}, -- Leatherworking 5
         [66364] = {questType = 'weekly', log = true}, -- Leatherworking 6
         [66951] = {questType = 'weekly', log = true}, -- Leatherworking 7
@@ -1020,11 +1021,13 @@ PermoksAccountManager.quests = {
         [66937] = {questType = 'weekly', log = true}, -- Alchemy 5
         [66938] = {questType = 'weekly', log = true}, -- Alchemy 6
         [66940] = {questType = 'weekly', log = true}, -- Alchemy 7
-        --[70593] = {questType = 'weekly', log = true}, -- Alchemy 8
+        [72427] = {questType = 'weekly', log = true}, -- Alchemy 8
         [70613] = {questType = 'weekly', log = true}, -- Herbalism 5
         [70614] = {questType = 'weekly', log = true}, -- Herbalism 6
         [70615] = {questType = 'weekly', log = true}, -- Herbalism 7
         [70616] = {questType = 'weekly', log = true}, -- Herbalism 8
+        --[71970] = {questType = 'weekly', log = true}, -- Herbalism 8
+        --[71857] = {questType = 'weekly', log = true}, -- Herbalism 8
         [70620] = {questType = 'weekly', log = true}, -- Skinning 5
         [72159] = {questType = 'weekly', log = true}, -- Skinning 6
         [70619] = {questType = 'weekly', log = true}, -- Skinning 7
@@ -1033,6 +1036,7 @@ PermoksAccountManager.quests = {
         [70617] = {questType = 'weekly', log = true}, -- Mining 6
         [70618] = {questType = 'weekly', log = true}, -- Mining 7
         [72156] = {questType = 'weekly', log = true}, -- Mining 8
+        --[66936] = {questType = 'weekly', log = true}, -- Mining 8
     },
     knowledge_weeklies_order = {
         [70589] = {questType = 'weekly', log = true}, -- Blacksmithing 0
