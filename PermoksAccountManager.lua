@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.20'
-local INTERNALVERSION = 16
+local INTERNALVERSION = 17
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -634,11 +634,6 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 		oldInternalVersion = 5
     end
 
-	if oldInternalVersion < 6 then
-		self:AddLabelToDefaultCategory('general', 'catalyst_charges', 13)
-		oldInternalVersion = 6
-	end
-
 	if oldInternalVersion < 7 then
 		for _, accountInfo in pairs(db.global.accounts) do
             for _, altData in pairs(accountInfo.data) do
@@ -700,6 +695,11 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     if oldInternalVersion < 16 then
         self:AddLabelToDefaultCategory('currentweekly', 'sparks_of_life', 5)
     end
+
+    if oldInternalVersion < 17 then
+		self:AddLabelToDefaultCategory('general', 'catalyst_charges', 13)
+		oldInternalVersion = 6
+	end
 end
 
 function PermoksAccountManager:GetGUID()

@@ -17,7 +17,8 @@ local default_categories = {
             'dragon_isles_supplies',
             'elemental_overflow',
             'bloody_tokens',
-            'storm_sigil'
+            'storm_sigil',
+            'catalyst_charges'
         },
         childOrder = {
             characterName = 1,
@@ -31,7 +32,8 @@ local default_categories = {
             dragon_isles_supplies = 9,
             elemental_overflow = 10,
             bloody_tokens = 11,
-            storm_sigil = 12
+            storm_sigil = 12,
+            catalyst_charges = 13,
         },
         hideToggle = true,
         enabled = true
@@ -437,6 +439,7 @@ PermoksAccountManager.currency = {
     [2118] = 0,
     [2122] = 0,
     [2123] = 0,
+    [2167] = 0,
 }
 
 PermoksAccountManager.research = {
