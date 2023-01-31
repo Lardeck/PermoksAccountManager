@@ -186,6 +186,13 @@ local default_categories = {
         },
         enabled = true
     },
+    unlocks = {
+        order = 8,
+        name = 'Unlocks',
+        childs = {},
+        childOrder = {},
+        enabled = true,
+    },
 }
 
 PermoksAccountManager.groups = {
