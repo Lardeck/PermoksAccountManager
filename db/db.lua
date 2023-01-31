@@ -83,6 +83,7 @@ local default_categories = {
             'knowledge_treatise',
             'knowledge_weeklies_loot',
             'knowledge_weeklies_craft',
+            'knowledge_weeklies_order',
             'show_your_mettle'
         },
         childOrder = {
@@ -106,7 +107,8 @@ local default_categories = {
             knowledge_treatise = 33,
             knowledge_weeklies_loot = 34,
             knowledge_weeklies_craft = 35,
-            show_your_mettle = 36,
+            knowledge_weeklies_order = 36,
+            show_your_mettle = 37,
         },
         enabled = true
     },

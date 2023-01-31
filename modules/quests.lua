@@ -592,6 +592,25 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	knowledge_weeklies_order  ={
+		label = 'Crafting Order Quests',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 2,
+		professionOffset = {
+			[171] = -1,
+			[182] = -1,
+			[186] = -1,
+			[393] = -1,
+		},
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 	community_feast = {
 		label = 'Community Feast',
 		type = 'quest',

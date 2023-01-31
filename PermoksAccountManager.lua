@@ -698,8 +698,13 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 17 then
 		self:AddLabelToDefaultCategory('general', 'catalyst_charges', 13)
-		oldInternalVersion = 6
+		oldInternalVersion = 16
 	end
+
+    if oldInternalVersion < 18 then
+        self:AddLabelToDefaultCategory('currentweekly', 'knowledge_weeklies_order', 36)
+        oldInternalVersion = 16
+    end
 end
 
 function PermoksAccountManager:GetGUID()
