@@ -57,7 +57,9 @@ do
     )
 end
 
-function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sender)
+function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sender, target)
+    if sender == target then return end
+
     local db = self.db.global
     local deserializedMsg = self:Deserialze(msg)
     if deserializedMsg and deserializedMsg.type then
@@ -217,6 +219,8 @@ function PermoksAccountManager:UnsyncAccount(accountKey)
 end
 
 function PermoksAccountManager:SendAccountUpdate(name)
+    if self.db.global.numAccounts == 1 or #onlineFriends == 0 then return end
+
     local message = {type = 'updateaccount', account = self.db.global.accounts.main}
     self:SendInfo('updateaccount', accountsPrefix, message, 'WHISPER', name)
 end
