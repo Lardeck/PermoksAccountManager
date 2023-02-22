@@ -191,7 +191,7 @@ local default_categories = {
         name = 'Unlocks',
         childs = {},
         childOrder = {},
-        enabled = true,
+        enabled = false,
     },
 }
 
