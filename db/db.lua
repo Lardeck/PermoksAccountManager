@@ -449,11 +449,44 @@ PermoksAccountManager.currency = {
     [2122] = 0,
     [2123] = 0,
     [2167] = 0,
+    [2166] = 0,
+}
+
+PermoksAccountManager.currencyCustomOptions = {
+    [2166] = {currencyUpdate = 2167},
+    [2167] = {forceUpdate = true}
 }
 
 PermoksAccountManager.research = {
     [1902] = 'zereth_mortis_three_dailies',
     [1972] = 'zereth_mortis_three_wqs'
+}
+
+PermoksAccountManager.professionCDs = {
+	[L['Tailoring']] = {
+		cds = {
+            [376556] = true, -- Azureweave Bolt
+			[376557] = true, -- Chronocloth Bolt
+		},
+	},
+	[L['Alchemy']] = {
+	},
+	[L['Leatherworking']] = {
+	},
+	[L['Enchanting']] = {
+	},
+	[L['Engineering']] = {
+	},
+	[L['Blacksmithing']] = {
+	},
+	[L['Herbalism']] = {
+	},
+	[L['Mining']] = {
+	},
+	[L['Skinning']] = {
+	},
+	[L['Jewelcrafting']] = {
+	}
 }
 
 PermoksAccountManager.quests = {

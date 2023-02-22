@@ -247,11 +247,32 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
         return
     end
 
-    charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
-
+    
 	if not self.isBC then
-    	charInfo.currencyInfo[currencyType].totalEarned = quantityChanged + charInfo.currencyInfo[currencyType].totalEarned
+    	charInfo.currencyInfo[currencyType].totalEarned = quantityChanged + (charInfo.currencyInfo[currencyType].totalEarned or 0)
 	end
+
+    local customOptions = self.currencyCustomOptions[currencyType]
+    if customOptions then
+        if customOptions.forceUpdate then
+            charInfo.currencyInfo[currencyType].quantity = C_CurrencyInfo.GetCurrencyInfo(currencyType).quantity
+        elseif customOptions.currencyUpdate and charInfo.currencyInfo[customOptions.currencyUpdate] then
+            charInfo.currencyInfo[customOptions.currencyUpdate].quantity = C_CurrencyInfo.GetCurrencyInfo(customOptions.currencyUpdate).quantity
+        end
+    end
+
+    if not customOptions then
+        charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
+    end
+
+end
+
+local function UpdateCatalystCharges(charInfo)
+    if not charInfo.currencyInfo or not charInfo.currencyInfo[2167] then
+        UpdateAllCurrencies(charInfo)
+    end
+
+    charInfo.currencyInfo[2167].quantity = C_CurrencyInfo.GetCurrencyInfo(2167).quantity
 end
 
 local function CreateCatalystChargeString(currencyInfo)
@@ -266,6 +287,7 @@ local payload = {
     labels = labelRows,
     events = {
         ['CURRENCY_DISPLAY_UPDATE'] = UpdateCurrency,
+        ['PERKS_ACTIVITIES_UDPATED'] = UpdateCatalystCharges,
     },
     share = {
         [UpdateCurrency] = 'currencyInfo'
