@@ -1163,6 +1163,40 @@ PermoksAccountManager.quests = {
         [72647] = {questType = 'weekly', log = true},
         [72648] = {questType = 'weekly', log = true},
         [72649] = {questType = 'weekly', log = true}
+    },
+    forbidden_reach_weeklies = {
+        [72952] = {questType = 'weekly', log = true},
+        [73089] = {questType = 'weekly', log = true},
+        [73140] = {questType = 'weekly', log = true},
+        [73141] = {questType = 'weekly', log = true},
+        [73142] = {questType = 'weekly', log = true},
+        [73179] = {questType = 'weekly', log = true},
+        [73190] = {questType = 'weekly', log = true},
+        [73191] = {questType = 'weekly', log = true},
+        [73194] = {questType = 'weekly', log = true},
+        [74282] = {questType = 'weekly', log = true},
+        [74284] = {questType = 'weekly', log = true},
+        [74293] = {questType = 'weekly', log = true},
+        [74359] = {questType = 'weekly', log = true},
+        [74379] = {questType = 'weekly', log = true},
+        [75024] = {questType = 'weekly', log = true},
+        [75025] = {questType = 'weekly', log = true},
+    },
+    forbidden_reach_task_picked = {
+        [74908] = {questType = 'daily', log = true}, -- Dragonscale Expedition
+        [74909] = {questType = 'daily', log = true}, -- Iskaara Tuskarr
+        [74910] = {questType = 'daily', log = true}, -- Maruuk Centaur
+        [74911] = {questType = 'daily', log = true}, -- Valdrakken Akkord
+    },
+    forbidden_reach_tasks = {
+        [74118] = {questType = 'daily', log = true}, -- Dragonscale Expedition
+        [74389] = {questType = 'daily', log = true}, -- Dragonscale Expedition
+        [74119] = {questType = 'daily', log = true}, -- Iskaara Tuskarr
+        [74391] = {questType = 'daily', log = true}, -- Iskaara Tuskarr
+        [74117] = {questType = 'daily', log = true}, -- Maruuk Centaur
+        [74390] = {questType = 'daily', log = true}, -- Maruuk Centaur
+        [75261] = {questType = 'daily', log = true}, -- Valdrakken Akkord
+        [75263] = {questType = 'daily', log = true}, -- Valdrakken Akkord
     }
 }
 
