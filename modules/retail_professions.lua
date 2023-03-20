@@ -3,7 +3,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local options
 
-local module = 'classic_professions'
+local module = 'retail_professions'
 local labelRows = {
     profession1CDs = {
         label = 'Profession 1',
@@ -81,7 +81,7 @@ local payload = {
     update = Update,
     events = {
         ['TRADE_SKILL_UPDATE'] = UpdateProfessions,
-        ['BAG_UPDATE_DELAYED'] = UpdateProfessionCDs
+        --['BAG_UPDATE_DELAYED'] = UpdateProfessionCDs
     },
     labels = labelRows
 }

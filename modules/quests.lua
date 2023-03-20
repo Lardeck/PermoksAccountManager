@@ -1163,20 +1163,22 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 	local questInfo = self.quests[key]
 	local professionCounter = {}
 	local professionItems = {}
-	local prof1, prof2 = unpack(altData.professions)
+	local prof1, prof2 = unpack(altData.professions or {})
 
-	for questID, questInfoTbl in pairs(questInfo) do
-		local skillLineID = questInfoTbl.skillLineID
-		if skillLineID then
-			if info[questID] then
-				professionCounter[skillLineID] = (professionCounter[skillLineID] or 0) + 1
-			end
+	if prof1 or prof2 then
+		for questID, questInfoTbl in pairs(questInfo) do
+			local skillLineID = questInfoTbl.skillLineID
+			if skillLineID then
+				if info[questID] then
+					professionCounter[skillLineID] = (professionCounter[skillLineID] or 0) + 1
+				end
 
-			if (skillLineID == prof1 or skillLineID == prof2) then
-				professionItems[questInfoTbl.skillLineID] = professionItems[questInfoTbl.skillLineID] or {}
+				if (skillLineID == prof1 or skillLineID == prof2) then
+					professionItems[questInfoTbl.skillLineID] = professionItems[questInfoTbl.skillLineID] or {}
 
-				if questInfoTbl.item then
-					tinsert(professionItems[questInfoTbl.skillLineID], {questID, questInfoTbl.item, info[questID]})
+					if questInfoTbl.item then
+						tinsert(professionItems[questInfoTbl.skillLineID], {questID, questInfoTbl.item, info[questID]})
+					end
 				end
 			end
 		end
