@@ -82,6 +82,7 @@ local default_categories = {
             'separator1',
             'trial_of_flood',
             'trial_of_elements',
+            'trial_of_storms',
             'separator2',
             'dragonbane_keep_siege',
             'dragonbane_keep_key',
@@ -107,6 +108,7 @@ local default_categories = {
             separator1 = 10,
             trial_of_flood = 11,
             trial_of_elements = 12,
+            trial_of_storms = 13,
             separator2 = 20,
             dragonbane_keep_siege = 21,
             dragonbane_keep_key = 22,
@@ -936,6 +938,9 @@ PermoksAccountManager.quests = {
     },
     trial_of_elements = {
         [71995] = {questType = 'weekly'}
+    },
+    trial_of_storms = {
+        [74567] = {questType = 'weekly'}
     },
     brackenhide_hollow_rares = {
         [74032] = {questType = 'daily', name = 'Snarglebone'},
