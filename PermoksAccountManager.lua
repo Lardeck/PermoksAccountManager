@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.22'
-local INTERNALVERSION = 18
+local INTERNALVERSION = 19
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -704,6 +704,15 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     if oldInternalVersion < 18 then
         self:AddLabelToDefaultCategory('currentweekly', 'knowledge_weeklies_order', 36)
         oldInternalVersion = 16
+    end
+
+    if oldInternalVersion < 19 then
+        self:AddLabelToDefaultCategory('currentweekly', 'forbidden_reach_weeklies', 3)
+        self:AddLabelToDefaultCategory('currentdaily', 'separator2', 20)
+        self:AddLabelToDefaultCategory('currentdaily', 'forbidden_reach_tasks', 21)
+        self:AddLabelToDefaultCategory('currentdaily', 'forbidden_reach_task_picked', 22)
+        self:AddLabelToDefaultCategory('general', 'vaultKey', 14)
+        self:AddLabelToDefaultCategory('general', 'forbidden_reach_weeklies', 15)
     end
 end
 

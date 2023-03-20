@@ -123,6 +123,13 @@ local labelRows = {
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
 	},
+    vaultKey = {
+        label = 'Zskera Vault Key',
+        type = 'item',
+        key = 202196,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
 
     -- tbc
     elixirDemonslaying = {

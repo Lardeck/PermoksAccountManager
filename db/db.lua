@@ -18,7 +18,8 @@ local default_categories = {
             'elemental_overflow',
             'bloody_tokens',
             'storm_sigil',
-            'catalyst_charges'
+            'catalyst_charges',
+            'vaultKey'
         },
         childOrder = {
             characterName = 1,
@@ -34,6 +35,7 @@ local default_categories = {
             bloody_tokens = 11,
             storm_sigil = 12,
             catalyst_charges = 13,
+            vaultKey = 14,
         },
         hideToggle = true,
         enabled = true
@@ -47,7 +49,10 @@ local default_categories = {
             'separator1',
             'brackenhide_hollow_rares',
             'obsidian_citadel_rares',
-            'tyrhold_rares'
+            'tyrhold_rares',
+            'separator2',
+            'forbidden_reach_tasks',
+            'forbidden_reach_task_picked'
         },
         childOrder = {
             community_feast = 1,
@@ -56,6 +61,9 @@ local default_categories = {
             brackenhide_hollow_rares = 11,
             obsidian_citadel_rares = 12,
             tyrhold_rares = 13,
+            separator2 = 20,
+            forbidden_reach_tasks = 21,
+            forbidden_reach_task_picked = 22,
         },
         enabled = true
     },
@@ -65,6 +73,7 @@ local default_categories = {
         childs = {
             'aiding_the_accord',
             'dragonflight_world_boss',
+            'forbidden_reach_weeklies',
             'grand_hunts',
             'marrukai_camp',
             'sparks_of_life',
@@ -89,9 +98,10 @@ local default_categories = {
         childOrder = {
             aiding_the_accord = 1,
             dragonflight_world_boss = 2,
-            grand_hunts = 3,
-            marrukai_camp = 4,
-            sparks_of_life = 5,
+            forbidden_reach_weeklies = 3,
+            grand_hunts = 4,
+            marrukai_camp = 5,
+            sparks_of_life = 6,
             community_feast_weekly = 7,
             fish_turnins_df = 8,
             separator1 = 10,
@@ -405,6 +415,7 @@ PermoksAccountManager.item = {
 	[187707] = {key = 'progenitorEssentia'}, -- Progenitor Essentia
 	[187802] = {key = 'potCosmicHP'}, -- Cosmic HP Pot
 	[199211] = {key = 'primevalEssence'}, --Primeval Essence
+    [202196] = {key = 'vaultKey'} -- Zskera Vault Key
 }
 
 PermoksAccountManager.factions = {
@@ -1166,7 +1177,6 @@ PermoksAccountManager.quests = {
     },
     forbidden_reach_weeklies = {
         [72952] = {questType = 'weekly', log = true},
-        [73089] = {questType = 'weekly', log = true},
         [73140] = {questType = 'weekly', log = true},
         [73141] = {questType = 'weekly', log = true},
         [73142] = {questType = 'weekly', log = true},

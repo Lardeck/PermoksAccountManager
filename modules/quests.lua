@@ -674,6 +674,32 @@ local labelRows = {
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	},
+	forbidden_reach_weeklies = {
+		label = 'FR Weeklies',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		required = 5,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	forbidden_reach_tasks = {
+		label = 'FR Dailies',
+		type = 'quest',
+		questType = 'daily',
+		visibility = 'visible',
+		required = 2,
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
+	forbidden_reach_task_picked = {
+		label = 'FR Faction Picked',
+		type = 'quest',
+		questType = 'daily',
+		visibility = 'visible',
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
 	community_feast_weekly = {
 		label = 'Community Feast',
 		type = 'quest',
