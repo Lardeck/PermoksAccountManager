@@ -708,6 +708,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 19 then
         self:AddLabelToDefaultCategory('currentweekly', 'forbidden_reach_weeklies', 3)
+        self:AddLabelToDefaultCategory('currentweekly', 'forbidden_reach_elite_wqs', 3)
         self:AddLabelToDefaultCategory('currentweekly', 'trial_of_storms', 13)
         self:AddLabelToDefaultCategory('currentdaily', 'separator2', 20)
         self:AddLabelToDefaultCategory('currentdaily', 'forbidden_reach_tasks', 21)

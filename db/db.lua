@@ -74,6 +74,7 @@ local default_categories = {
             'aiding_the_accord',
             'dragonflight_world_boss',
             'forbidden_reach_weeklies',
+            'forbidden_reach_elite_wqs',
             'grand_hunts',
             'marrukai_camp',
             'sparks_of_life',
@@ -100,11 +101,12 @@ local default_categories = {
             aiding_the_accord = 1,
             dragonflight_world_boss = 2,
             forbidden_reach_weeklies = 3,
-            grand_hunts = 4,
-            marrukai_camp = 5,
-            sparks_of_life = 6,
-            community_feast_weekly = 7,
-            fish_turnins_df = 8,
+            forbidden_reach_elite_wqs = 4,
+            grand_hunts = 5,
+            marrukai_camp = 6,
+            sparks_of_life = 7,
+            community_feast_weekly = 8,
+            fish_turnins_df = 9,
             separator1 = 10,
             trial_of_flood = 11,
             trial_of_elements = 12,
@@ -1192,8 +1194,6 @@ PermoksAccountManager.quests = {
         [74282] = {questType = 'weekly', log = true},
         [74284] = {questType = 'weekly', log = true},
         [74293] = {questType = 'weekly', log = true},
-        [74359] = {questType = 'weekly', log = true},
-        [74379] = {questType = 'weekly', log = true},
         [75024] = {questType = 'weekly', log = true},
         [75025] = {questType = 'weekly', log = true},
     },
@@ -1212,7 +1212,10 @@ PermoksAccountManager.quests = {
         [74390] = {questType = 'daily', log = true}, -- Maruuk Centaur
         [75261] = {questType = 'daily', log = true}, -- Valdrakken Akkord
         [75263] = {questType = 'daily', log = true}, -- Valdrakken Akkord
-    }
+    },
+    forbidden_reach_elite_wqs = {
+        [75257] = {questType = 'weekly', log = true}, -- The War Creche
+    },
 }
 
 PermoksAccountManager.locale = {

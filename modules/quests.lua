@@ -683,6 +683,14 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	forbidden_reach_elite_wqs = {
+		label = 'FR WQ',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 	forbidden_reach_tasks = {
 		label = 'FR Dailies',
 		type = 'quest',
