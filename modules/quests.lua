@@ -506,6 +506,14 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	trial_of_storms = {
+		label = 'Trial of Storms',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 	knowledge_mobs = {
 		label = 'Gather Knowledge',
 		type = 'quest',
