@@ -384,8 +384,8 @@ PermoksAccountManager.labelRows = {
 
 PermoksAccountManager.numDungeons = 8
 PermoksAccountManager.keys = {
-    [2] = "TJS",
-    [165] = "SBG",
+    [2] = "TJS", -- Temple of the Jade Serpent
+    [165] = "SBG", -- Shadowmoon Burial Grounds
     [369] = 'YARD', -- Operation: Mechagon - Junkyard
 	[370] = 'WORK', -- Operation: Mechagon - Workshop
 	[375] = 'MISTS', -- Mists of Tirna Scithe
@@ -413,14 +413,17 @@ PermoksAccountManager.keys = {
 	[233] = 'COEN', -- Cathedral of Eternal Night
 	[234] = 'UPPR', -- Return to Karathan: Upper
 	[239] = 'SEAT', -- Seat of the Triumvirate
+    [245] = 'FH', -- Freehold
+    [251] = 'UNDR', -- The Underrot
     [399] = 'RLP', -- Ruby Life Pools
     [400] = 'NO', -- The Nokhud Offensive
     [401] = 'AV', -- The Azure Vault
     [402] = 'AA', -- Algeth'ar Academy
-    [403] = 'U:LOT', -- Uldaman: Legacy of Tyr
-    [404] = 'NT', -- Neltharus
-    [405] = 'BHH', -- Brackenhide Hollow
+    [403] = 'ULD', -- Uldaman: Legacy of Tyr
+    [404] = 'NELT', -- Neltharus
+    [405] = 'BH', -- Brackenhide Hollow
     [406] = 'HOI', -- Halls of Infusion
+    [438] = 'VP', -- The Vortex Pinnacle
 }
 
 PermoksAccountManager.activityIDToKeys = {
