@@ -27,6 +27,17 @@ local labelRows = {
 		group = 'raids',
 		version = WOW_PROJECT_MAINLINE
     },
+    aberrus_the_shadowed_crucible = {
+		label = function()
+            return PermoksAccountManager.raids[2569].name or 'Aberrus'
+        end,
+		id = 2569,
+		type = 'raid',
+		key = 'aberrus_the_shadowed_crucible',
+		tooltip = true,
+		group = 'raids',
+		version = WOW_PROJECT_MAINLINE
+    },
 
     -- wotlk
 	-- TOOD: Change db structure so you can get the locale name without calling the function again
