@@ -165,6 +165,15 @@ local labelRows = {
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
+    loam_niffen = {
+        label = function()
+            return PermoksAccountManager.factions[2564].localName or 'Wrathion'
+        end,
+        type = 'faction',
+        key = 2564,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
 
 
     -- wotlk
