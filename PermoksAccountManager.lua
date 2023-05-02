@@ -1474,6 +1474,8 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
                 local text
                 if labelRow.passKey then
                     text = row.labelFunction(labelRow.key or row_identifier, unpack(args))
+                elseif labelRow.passRow then
+                    text = row.labelFunction(labelRow, unpack(args))
                 else
                     text = row.labelFunction(unpack(args))
                 end
