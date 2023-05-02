@@ -761,6 +761,72 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	loamm_niffen_weekly = {
+		label = 'A Worthy Ally',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	researchers_under_fire_weekly = {
+		label = 'Under Fire (NYI)',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	zc_wb_wq = {
+		label = 'Zaralek WB',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	dig_maps_weeklies = {
+		label = 'Sniffenseeking',
+		type = 'quest',
+		questType = 'weekly',
+		required = 3,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	dig_maps_received_weekly = {
+		label = 'Dig Maps',
+		type = 'quest',
+		questType = 'weekly',
+		required = 2,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	proven_weekly = {
+		label = 'PVP Weekly',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	fyrak_assault = {
+		label = 'Fyrak Assault (NYI)',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	glimerogg_racer_dailies = {
+		label = 'Glimerogg Dailies',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 
 	--wotlk
 	general_dailies = {
