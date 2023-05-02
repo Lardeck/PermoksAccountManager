@@ -443,7 +443,8 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1190, startIndex = 1, endIndex = 8},
+    [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1200, startIndex = 1, endIndex = 8},
+    [2569] = {name = GetRealZoneText(2569), englishID = 'aberrus_the_shadowed_crucible', instanceID = 1208, startIndex = 9, endIndex = 18},
 }
 
 PermoksAccountManager.dungeons = {
@@ -473,7 +474,20 @@ PermoksAccountManager.item = {
 	[187707] = {key = 'progenitorEssentia'}, -- Progenitor Essentia
 	[187802] = {key = 'potCosmicHP'}, -- Cosmic HP Pot
 	[199211] = {key = 'primevalEssence'}, --Primeval Essence
-    [202196] = {key = 'vaultKey'} -- Zskera Vault Key
+    [202196] = {key = 'vaultKey'}, -- Zskera Vault Key
+    [204193] = {key = 'whelpling_crest'}, -- Whelpling Crest
+    [204194] = {key = 'aspect_crest'}, -- Aspect Crest
+    [204195] = {key = 'drake_crest'}, -- Drake Crest
+    [204196] = {key = 'wyrm_crest'}, -- Wyrm Crest
+    [204075] = {key = 'whelpling_crest'}, -- Whelpling Fragments
+    [204076] = {key = 'drake_crest'}, -- Drake Fragments
+    [204077] = {key = 'wyrm_crest'}, -- Wyrm Fragments
+    [204078] = {key = 'aspect_crest'}, -- Aspect Fragments
+    [190453] = {key = 'spark_ingenuity'}, -- Spark of Ingenuity
+    [199197] = {key = 'spark_ingenuity'}, -- Bottled Essence
+    [204440] = {key = 'spark_shadowflame'}, -- Spark of Shadowflame
+    [204717] = {key = 'spark_shadowflame'}, -- Splintered Spark of Shadowflame
+    [204715] = {key = 'unearthed_fragrant_coin'}, -- Unearthed Fragrant Coin
 }
 
 PermoksAccountManager.factions = {
@@ -486,15 +500,16 @@ PermoksAccountManager.factions = {
     [2470] = {name = "Death's Advance", paragon = true},
     [2478] = {name = 'The Enlightened', paragon = true},
     [2480] = {name = 'Automa', paragon = true},
-    [2507] = {name = 'Dragonscale Expedition', paragon = true, type = 'renown'},
-    [2511] = {name = 'Iskaara Tuskar', paragon = true, type = 'renown'},
-    [2510] = {name = 'Valdrakken Akkord', paragon = true, type = 'renown'},
     [2503] = {name = 'Maruuk Centaur', paragon = true, type = 'renown'},
+    [2507] = {name = 'Dragonscale Expedition', paragon = true, type = 'renown'},
+    [2510] = {name = 'Valdrakken Akkord', paragon = true, type = 'renown'},
+    [2511] = {name = 'Iskaara Tuskar', paragon = true, type = 'renown'},
+    [2517] = {name = 'Wrathion', paragon = true, type = 'friend'},
+    [2518] = {name = 'Sabellian', paragon = true, type = 'friend'},
     [2526] = {name = 'Winterpelt Furbolg', paragon = true},
     [2544] = {name = 'Artisan\'s Consortium', paragon = true, type = 'friend'},
-    [2518] = {name = 'Sabellian', paragon = true, type = 'friend'},
-    [2517] = {name = 'Wrathion', paragon = true, type = 'friend'},
-    [2550] = {name = 'Cobalt Assembly', paragon = true, type = 'friend'}
+    [2550] = {name = 'Cobalt Assembly', paragon = true, type = 'friend'},
+    [2564] = {name = 'Loamm Niffen', paragon = true, type = 'renown'},
 }
 
 PermoksAccountManager.currency = {
@@ -519,6 +534,11 @@ PermoksAccountManager.currency = {
     [2123] = 0,
     [2167] = 0,
     [2166] = 0,
+    [2245] = 0,
+    [2409] = 0,
+    [2410] = 0,
+    [2411] = 0,
+    [2412] = 0,
 }
 
 PermoksAccountManager.currencyCustomOptions = {
@@ -1245,9 +1265,11 @@ PermoksAccountManager.quests = {
         [73190] = {questType = 'weekly', log = true},
         [73191] = {questType = 'weekly', log = true},
         [73194] = {questType = 'weekly', log = true},
+        [73715] = {questType = 'weekly', log = true},
         [74282] = {questType = 'weekly', log = true},
         [74284] = {questType = 'weekly', log = true},
         [74293] = {questType = 'weekly', log = true},
+        [74379] = {questType = 'weekly', log = true},
         [75024] = {questType = 'weekly', log = true},
         [75025] = {questType = 'weekly', log = true},
     },
@@ -1270,6 +1292,44 @@ PermoksAccountManager.quests = {
     forbidden_reach_elite_wqs = {
         [75257] = {questType = 'weekly', log = true}, -- The War Creche
     },
+    glimerogg_racer_dailies = {
+        [74514] = {questType = 'weekly', log = true}, -- The Slowest Fan Club
+        [74515] = {questType = 'weekly', log = true}, -- Snail Mail
+        [74516] = {questType = 'weekly', log = true}, -- A Snail's Pace
+        [74517] = {questType = 'weekly', log = true}, -- All Terrain Snail
+        [74518] = {questType = 'weekly', log = true}, -- Resistance Training
+        [74519] = {questType = 'weekly', log = true}, -- Good for Goo
+        [74520] = {questType = 'weekly', log = true}, -- Less Cargo
+    },
+    loamm_niffen_weekly = {
+        [75665] = {questType = 'weekly', log = true}, -- Zaqali Elders
+    },
+    researchers_under_fire_weekly = {
+
+    },
+    zc_wb_wq = {
+        [74892] = {questType = 'weekly', log = true}, -- Zaqali Elders
+    },
+    dig_maps_weeklies = {
+        [75747] = {questType = 'weekly'},
+        [75748] = {questType = 'weekly'},
+        [75749] = {questType = 'weekly'},
+    },
+    dig_maps_received_weekly = {
+        [76077] = {questType = 'weekly'},
+        [75665] = {questType = 'weekly'},
+    },
+    proven_weekly = {
+        [72166] = {questType = 'weekly', log = true},
+        [72167] = {questType = 'weekly', log = true},
+        [72168] = {questType = 'weekly', log = true},
+        [72169] = {questType = 'weekly', log = true},
+        [72170] = {questType = 'weekly', log = true},
+        [72171] = {questType = 'weekly', log = true},
+    },
+    fyrak_assault = {
+
+    }
 }
 
 PermoksAccountManager.locale = {
