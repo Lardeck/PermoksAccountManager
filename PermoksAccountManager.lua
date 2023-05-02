@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.23'
-local INTERNALVERSION = 19
+local INTERNALVERSION = 20
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -664,19 +664,6 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         oldInternalVersion = 10
     end
 
-    if oldInternalVersion < 11 then
-        self:AddLabelToDefaultCategory('general', 'dragon_isles_supplies')
-        self:AddLabelToDefaultCategory('general', 'elemental_overflow')
-        self:AddLabelToDefaultCategory('general', 'bloody_tokens')
-        self:AddLabelToDefaultCategory('general', 'storm_sigil')
-        oldInternalVersion = 11
-    end
-
-    if oldInternalVersion < 12 then
-        self:UpdateDefaultCategories('currentweekly')
-        oldInternalVersion = 12
-    end
-
     if oldInternalVersion < 13 then
         self:AddLabelToDefaultCategory('currentweekly', 'show_your_mettle', 36)
         oldInternalVersion = 13
@@ -685,15 +672,6 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     if oldInternalVersion < 14 then
         self:AddLabelToDefaultCategory('currentdaily', 'iskaara_fishing_dailies', 1)
         oldInternalVersion = 14
-    end
-
-    if oldInternalVersion < 15 then
-        self:AddLabelToDefaultCategory('currentweekly', 'fish_turnins_df', 8)
-        oldInternalVersion = 15
-    end
-
-    if oldInternalVersion < 16 then
-        self:AddLabelToDefaultCategory('currentweekly', 'sparks_of_life', 5)
     end
 
     if oldInternalVersion < 17 then
@@ -706,15 +684,14 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         oldInternalVersion = 16
     end
 
-    if oldInternalVersion < 19 then
-        self:AddLabelToDefaultCategory('currentweekly', 'forbidden_reach_weeklies')
-        self:AddLabelToDefaultCategory('currentweekly', 'forbidden_reach_elite_wqs')
-        self:AddLabelToDefaultCategory('currentweekly', 'trial_of_storms')
-        self:AddLabelToDefaultCategory('currentdaily', 'separator2', 20)
-        self:AddLabelToDefaultCategory('currentdaily', 'forbidden_reach_tasks', 21)
-        self:AddLabelToDefaultCategory('currentdaily', 'forbidden_reach_task_picked', 22)
-        self:AddLabelToDefaultCategory('general', 'vaultKey')
-        self:AddLabelToDefaultCategory('general', 'forbidden_reach_weeklies')
+    if oldInternalVersion < 20 then
+        self:UpdateDefaultCategories('currentweekly')
+        self:UpdateDefaultCategories('general')
+        self:UpdateDefaultCategories('renown')
+        self:AddLabelToDefaultCategory('raid', 'aberrus_the_shadowed_crucible')
+        self:AddLabelToDefaultCategory('currentdaily', 'separator3', 30)
+        self:AddLabelToDefaultCategory('currentdaily', 'glimerogg_racer_dailies', 31)
+        oldInternalVersion = 20
     end
 end
 
