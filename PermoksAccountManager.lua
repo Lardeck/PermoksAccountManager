@@ -686,11 +686,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 20 then
         self:UpdateDefaultCategories('currentweekly')
+        self:UpdateDefaultCategories('currentdaily')
         self:UpdateDefaultCategories('general')
         self:UpdateDefaultCategories('renown')
         self:AddLabelToDefaultCategory('raid', 'aberrus_the_shadowed_crucible')
-        self:AddLabelToDefaultCategory('currentdaily', 'separator3', 30)
-        self:AddLabelToDefaultCategory('currentdaily', 'glimerogg_racer_dailies', 31)
         oldInternalVersion = 20
     end
 end
