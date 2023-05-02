@@ -209,6 +209,44 @@ local labelRows = {
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
 	},
+
+    --10.1
+    whelpling_crest_earned = {
+        label = 'Whelpling earned',
+		type = 'currency',
+		key = 2409,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+    },
+    drake_crest_earned = {
+        label = 'Drake earned',
+		type = 'currency',
+		key = 2410,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+    },
+    wyrm_crest_earned = {
+        label = 'Wyrm earned',
+		type = 'currency',
+		key = 2411,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+    },
+    aspect_crest_earned = {
+        label = 'Aspect earned',
+		type = 'currency',
+		key = 2412,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+    },
+    flightstones = {
+        label = 'Flightstones',
+		type = 'currency',
+		key = 2245,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+    }
 }
 
 local function UpdateAllCurrencies(charInfo)
