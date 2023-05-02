@@ -931,11 +931,14 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
         end
     end
 
-	-- Catalyst Charges
-	if altData.currencyInfo and altData.currencyInfo[2000] then
-		altData.currencyInfo[2000].hiddenCharges = (altData.currencyInfo[2000].hiddenCharges or 0) + 1
-		altData.currencyInfo[2000].updated = nil
-	end
+	-- Crests Earned
+    if altData.currencyInfo then
+        for _, crestID in ipairs({2409, 2410, 2411, 2412}) do
+            if altData.currencyInfo[crestID] then
+                altData.currencyInfo[crestID].quantity = 0
+            end
+        end
+    end
 end
 
 function PermoksAccountManager:ResetDailyActivities(db, altData)
