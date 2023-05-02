@@ -100,29 +100,29 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
-	progenitorEssentia = {
-		label = L['Progenitor Essentia'],
-		type = 'item',
-		key = 187707,
-		tooltip = true,
-		group = 'item',
-		version = WOW_PROJECT_MAINLINE
-	},
-	potCosmicHP = {
-		label = L['Cosmic HP Pots'],
-		type = 'item',
-		key = 187802,
-		tooltip = true,
-		group = 'item',
-		version = WOW_PROJECT_MAINLINE
-	},
-	primevalEssence = {
-		label = 'Primeval Essence',
-		type = 'item',
-		key = 199211,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-	},
+    progenitorEssentia = {
+        label = L['Progenitor Essentia'],
+        type = 'item',
+        key = 187707,
+        tooltip = true,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    potCosmicHP = {
+        label = L['Cosmic HP Pots'],
+        type = 'item',
+        key = 187802,
+        tooltip = true,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    primevalEssence = {
+        label = 'Primeval Essence',
+        type = 'item',
+        key = 199211,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
     vaultKey = {
         label = 'Zskera Vault Key',
         type = 'item',
@@ -130,6 +130,70 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
+    whelpling_crest = {
+        label = 'Whelpling Crest',
+        type = 'crest',
+        fragment = 204075,
+        crest = 204193,
+        passRow = true,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    drake_crest = {
+        label = 'Drake Crest',
+        type = 'crest',
+        fragment = 204076,
+        crest = 204195,
+        passRow = true,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    wyrm_crest = {
+        label = 'Wyrm Crest',
+        type = 'crest',
+        fragment = 204077,
+        crest = 204196,
+        passRow = true,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    aspect_crest = {
+        label = 'Aspect Crest',
+        type = 'crest',
+        fragment = 204078,
+        crest = 204194,
+        passRow = true,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    spark_ingenuity = {
+        label = 'Spark of Ingenuity',
+        type = 'spark',
+        passRow = true,
+        key = 190453,
+        reagent = 199197,
+        reagentRequired = 1,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    spark_shadowflame = {
+        label = 'Spark of Shadowflame',
+        type = 'spark',
+        passRow = true,
+        key = 204440,
+        reagent = 204717,
+        reagentRequired = 2,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    unearthed_fragrant_coin = {
+        label = "Unearthed Coin",
+        type = 'item',
+        key = 204715,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+
 
     -- tbc
     elixirDemonslaying = {
@@ -371,41 +435,69 @@ end
 
 local SaveItemCounts
 do
-	local cachedItemInfo = {}
-	function SaveItemCounts(charInfo, itemID)
-		if not cachedItemInfo[itemID] then
-			local item = Item:CreateFromItemID(itemID)
-			if not item:IsItemEmpty() then
-				item:ContinueOnItemLoad(
-					function()
-						cachedItemInfo[itemID] = true
-						local bagCount, totalCount = GetAllItemCounts(itemID)
-						local name = item:GetItemName()
-						local icon = item:GetItemIcon()
-						charInfo.itemCounts[itemID] = {name = name, bank = (totalCount - bagCount), total = totalCount, bags = bagCount, itemID = itemID, icon = icon}
-					end
-				)
-			end
-		else
-			local bagCount, totalCount = GetAllItemCounts(itemID)
-			charInfo.itemCounts[itemID] = charInfo.itemCounts[itemID] or {}
-			charInfo.itemCounts[itemID].bank = (totalCount - bagCount)
-			charInfo.itemCounts[itemID].bags = bagCount
-			charInfo.itemCounts[itemID].total = totalCount
-		end
-	end
+    local cachedItemInfo = {}
+    function SaveItemCounts(charInfo, itemID)
+        if not cachedItemInfo[itemID] then
+            local item = Item:CreateFromItemID(itemID)
+            if not item:IsItemEmpty() then
+                item:ContinueOnItemLoad(
+                    function()
+                        cachedItemInfo[itemID] = true
+                        local bagCount, totalCount = GetAllItemCounts(itemID)
+                        local name = item:GetItemName()
+                        local icon = item:GetItemIcon()
+                        charInfo.itemCounts[itemID] = { name = name, bank = (totalCount - bagCount), total = totalCount,
+                            bags = bagCount, itemID = itemID, icon = icon }
+                    end
+                )
+            end
+        else
+            local bagCount, totalCount = GetAllItemCounts(itemID)
+            charInfo.itemCounts[itemID] = charInfo.itemCounts[itemID] or {}
+            charInfo.itemCounts[itemID].bank = (totalCount - bagCount)
+            charInfo.itemCounts[itemID].bags = bagCount
+            charInfo.itemCounts[itemID].total = totalCount
+        end
+    end
 end
 
 local function UpdateItemCounts(charInfo)
-	charInfo.itemCounts = charInfo.itemCounts or {}
-	local self = PermoksAccountManager
-	for itemID, _ in pairs(self.item) do
-		SaveItemCounts(charInfo, itemID)
-	end
+    charInfo.itemCounts = charInfo.itemCounts or {}
+    local self = PermoksAccountManager
+    for itemID, _ in pairs(self.item) do
+        SaveItemCounts(charInfo, itemID)
+    end
 end
 
 local function Update(charInfo)
     UpdateItemCounts(charInfo)
+end
+
+local function CreateCrestString(labelRow, itemCounts)
+    local fragmentInfo = itemCounts[labelRow.fragment]
+    local fragmentCount = fragmentInfo and itemCounts[labelRow.fragment].total
+    local crestInfo = itemCounts[labelRow.crest]
+    local crestCount = crestInfo and itemCounts[labelRow.crest].total
+
+    local crestString = PermoksAccountManager:CreateItemString(nil, (crestCount or 0), crestInfo and crestInfo.icon)
+    local fragmentString = PermoksAccountManager:CreateItemString(nil, (fragmentCount or 0), fragmentInfo and fragmentInfo.icon)
+    return string.format("%s - %s", crestString, fragmentString)
+end
+
+local function CreateSparkString(labelRow, itemCounts)
+    local sparkInfo = itemCounts[labelRow.key]
+    local reagentInfo = itemCounts[labelRow.reagent]
+
+    local total = 0
+    if sparkInfo then
+        total = total + sparkInfo.total
+    end
+
+    if reagentInfo then
+        total = total + (reagentInfo.total / labelRow.reagentRequired)
+    end
+
+    return PermoksAccountManager:CreateItemString(nil, total, (sparkInfo and sparkInfo.icon))
 end
 
 local payload = {
@@ -418,25 +510,33 @@ local payload = {
         [UpdateItemCounts] = 'itemCounts'
     }
 }
-PermoksAccountManager:AddModule(module, payload)
+local module = PermoksAccountManager:AddModule(module, payload)
+module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
+module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
+module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
 
-function PermoksAccountManager:CreateItemString(itemInfo)
+function PermoksAccountManager:CreateItemString(itemInfo, total, icon)
     local options = self.db.global.options
-    local icon = options.itemIcons and itemInfo.icon or ''
+    local icon = options.itemIcons and (itemInfo and itemInfo.icon or icon) or ''
     local iconPosition = options.itemIconPosition
 
-    if itemInfo.bank > 0 then
+    local bank, bags = 0, total
+    if itemInfo then
+        bank, bags = itemInfo.bank, itemInfo.bags
+    end
+
+    if bank > 0 then
         local iconString = self.ICONBANKSTRINGS[iconPosition]
         if iconPosition == 'left' then
-            return string.format(iconString, icon, itemInfo.bags, itemInfo.bank)
+            return string.format(iconString, icon, bags, bank)
         end
-        return string.format(iconString, itemInfo.bags, itemInfo.bank, icon)
+        return string.format(iconString, bags, bank, icon)
     else
         local iconString = self.ICONSTRINGS[iconPosition]
         if iconPosition == 'left' then
-            return string.format(iconString, icon, itemInfo.bags)
+            return string.format(iconString, icon, bags)
         end
-        return string.format(iconString, itemInfo.bags, icon)
+        return string.format(iconString, bags, icon)
     end
 end
 
