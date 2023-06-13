@@ -81,7 +81,8 @@ local default_categories = {
             'knowledge_weeklies_loot',
             'knowledge_weeklies_craft',
             'knowledge_weeklies_order',
-            'show_your_mettle'
+            'show_your_mettle',
+            'knowledge_weeklies_zaralek'
         },
         childOrder = {
             aiding_the_accord = 1,
@@ -105,6 +106,7 @@ local default_categories = {
             knowledge_weeklies_craft = 35,
             knowledge_weeklies_order = 36,
             show_your_mettle = 37,
+            knowledge_weeklies_zaralek = 38
         },
         enabled = true
     },
@@ -1186,6 +1188,24 @@ PermoksAccountManager.quests = {
         [70593] = {questType = 'weekly', log = true}, -- Jewelcrafting 0
         [70594] = {questType = 'weekly', log = true}, -- Leatherworking 0
         [70595] = {questType = 'weekly', log = true}, -- Tailoring 0
+    },
+    knowledge_weeklies_zaralek = {
+        [75354] = {questType = 'weekly', log = true}, -- Leatherworking
+        [75368] = {questType = 'weekly', log = true}, -- Leatherworking
+        [75150] = {questType = 'weekly', log = true}, -- Enchanting
+        [75865] = {questType = 'weekly', log = true}, -- Enchanting
+        [75148] = {questType = 'weekly', log = true}, -- Blacksmithing
+        [75569] = {questType = 'weekly', log = true}, -- Blacksmithing
+        [75575] = {questType = 'weekly', log = true}, -- Engineering
+        [75608] = {questType = 'weekly', log = true}, -- Engineering
+        [75149] = {questType = 'weekly', log = true}, -- Inscription
+        [75573] = {questType = 'weekly', log = true}, -- Inscription
+        [75407] = {questType = 'weekly', log = true}, -- Tailoring
+        [75600] = {questType = 'weekly', log = true}, -- Tailoring
+        [75362] = {questType = 'weekly', log = true}, -- Jewelcrafting
+        [75602] = {questType = 'weekly', log = true}, -- Jewelcrafting
+        [75636] = {questType = 'weekly', log = true}, -- Alchemy
+        [75371] = {questType = 'weekly', log = true}, -- Alchemy
     },
     community_feast = {
         [74097] = {questType = 'daily'},
