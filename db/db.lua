@@ -540,18 +540,18 @@ PermoksAccountManager.currency = {
     [2118] = 0,
     [2122] = 0,
     [2123] = 0,
-    [2167] = 0,
     [2166] = 0,
     [2245] = 0,
     [2409] = 0,
     [2410] = 0,
     [2411] = 0,
     [2412] = 0,
+    [2533] = 0,
 }
 
 PermoksAccountManager.currencyCustomOptions = {
     [2166] = {currencyUpdate = 2167},
-    [2167] = {forceUpdate = true}
+    [2533] = {forceUpdate = true},
 }
 
 PermoksAccountManager.research = {

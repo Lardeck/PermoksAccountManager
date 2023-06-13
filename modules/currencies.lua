@@ -174,7 +174,7 @@ local labelRows = {
 	catalyst_charges = {
 		label = L['Catalyst Charges'],
 		type = 'catalystcharges',
-		key = 2167,
+		key = 2533,
 		hideIcon = true,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -306,18 +306,18 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
 end
 
 local function UpdateCatalystCharges(charInfo)
-    if not charInfo.currencyInfo or not charInfo.currencyInfo[2167] then
+    if not charInfo.currencyInfo or not charInfo.currencyInfo[2533] then
         UpdateAllCurrencies(charInfo)
     end
 
-    charInfo.currencyInfo[2167].quantity = C_CurrencyInfo.GetCurrencyInfo(2167).quantity
+    charInfo.currencyInfo[2533].quantity = C_CurrencyInfo.GetCurrencyInfo(2533).quantity
 end
 
 local function CreateCatalystChargeString(currencyInfo)
-	local catalystCharges = currencyInfo and currencyInfo[2167]
+	local catalystCharges = currencyInfo and currencyInfo[2533]
 	if not catalystCharges then return '-' end
 
-	return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, 6)
+	return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, catalystCharges.maxQuantity)
 end
 
 local payload = {
