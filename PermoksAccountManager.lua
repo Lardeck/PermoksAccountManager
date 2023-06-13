@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.23'
-local INTERNALVERSION = 20
+local INTERNALVERSION = 22
 local INTERNALBCVERSION = 1
 local defaultDB = {
     profile = {
@@ -691,6 +691,16 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:UpdateDefaultCategories('renown')
         self:AddLabelToDefaultCategory('raid', 'aberrus_the_shadowed_crucible')
         oldInternalVersion = 20
+    end
+
+    if oldInternalVersion < 21 then
+        self:AddLabelToDefaultCategory('general', 'barter_brick')
+        self:AddLabelToDefaultCategory('general', 'obsidian_flightstone')
+        oldInternalVersion = 21
+    end
+
+    if oldInternalVersion < 22 then
+        self:AddLabelToDefaultCategory('currentweekly', 'knowledge_weeklies_zaralek')
     end
 end
 
