@@ -528,7 +528,6 @@ local payload = {
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
 module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
-module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
 
 function PermoksAccountManager:CreateItemString(itemInfo, total, icon)
     local options = self.db.global.options

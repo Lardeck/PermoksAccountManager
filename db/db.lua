@@ -1355,7 +1355,27 @@ PermoksAccountManager.quests = {
     },
     fyrak_assault = {
 
-    }
+    },
+    zyrak_cavern_zone_events = {
+        [75664] = {questType = 'weekly', forceUpdate = true},
+        [75156] = {questType = 'weekly', forceUpdate = true},
+        [75471] = {questType = 'weekly', forceUpdate = true},
+        [75222] = {questType = 'weekly', forceUpdate = true},
+        [75370] = {questType = 'weekly', forceUpdate = true},
+        [75441] = {questType = 'weekly', forceUpdate = true},
+        [75611] = {questType = 'weekly', forceUpdate = true},
+        [75624] = {questType = 'weekly', forceUpdate = true},
+        [75612] = {questType = 'weekly', forceUpdate = true},
+        [75454] = {questType = 'weekly', forceUpdate = true},
+        [75455] = {questType = 'weekly', forceUpdate = true},
+        [75450] = {questType = 'weekly', forceUpdate = true},
+        [75451] = {questType = 'weekly', forceUpdate = true},
+        [75461] = {questType = 'weekly', forceUpdate = true},
+        [74352] = {questType = 'weekly', forceUpdate = true},
+        [75478] = {questType = 'weekly', forceUpdate = true},
+        [75494] = {questType = 'weekly', forceUpdate = true},
+        [75705] = {questType = 'weekly', forceUpdate = true},
+    },
 }
 
 PermoksAccountManager.locale = {

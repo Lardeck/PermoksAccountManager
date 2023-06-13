@@ -1064,9 +1064,11 @@ local function UpdateAllHiddenQuests(charInfo)
 		if type(keys) == 'table' and keys.hidden then
 			for key, _ in pairs(keys.hidden) do
 				if self.quests[key] then
-					for questID, _ in pairs(self.quests[key]) do
-						local isComplete = charInfo.questInfo[questType].hidden[key][questID] or
-							C_QuestLog.IsQuestFlaggedCompleted(questID)
+					for questID, questData in pairs(self.quests[key]) do
+						local isComplete = charInfo.questInfo[questType].hidden[key][questID]
+						if not isComplete or questData.forceUpdate then
+							isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
+						end
 						charInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
 					end
 				end
@@ -1267,17 +1269,38 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 
 		local questInfo = self.quests[key]
 
-		for questID, isComplete in pairs(info) do
-			if isComplete then
+		if column.showAll then
+			for questID in pairs(questInfo) do
 				local name
+				local color = "FF0000"
 				if questInfo and questInfo[questID].name then
 					name = questInfo[questID].name
 				else
 					name = QuestUtils_GetQuestName(questID)
 				end
+				if info[questID] then
+					color = "00FF00"
+				end
 
 				if name then
-					tooltip:AddLine(name)
+					tooltip:AddLine(string.format("|cFF%s%s|r", color, name))
+				end
+			end
+		else
+			for questID, isComplete in pairs(info) do
+				local name
+				local color = "FF0000"
+				if questInfo and questInfo[questID].name then
+					name = questInfo[questID].name
+				else
+					name = QuestUtils_GetQuestName(questID)
+				end
+				if isComplete then
+					color = "00FF00"
+				end
+
+				if name then
+					tooltip:AddLine(string.format("|cFF%s%s|r", color, name))
 				end
 			end
 		end
