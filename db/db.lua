@@ -494,6 +494,8 @@ PermoksAccountManager.item = {
     [204440] = {key = 'spark_shadowflame'}, -- Spark of Shadowflame
     [204717] = {key = 'spark_shadowflame'}, -- Splintered Spark of Shadowflame
     [204715] = {key = 'unearthed_fragrant_coin'}, -- Unearthed Fragrant Coin
+    [204985] = {key = 'barter_brick'}, -- Barter Brick
+    [202171] = {key = 'obsidian_flightstone'}, -- Obsidian Flightstone
 }
 
 PermoksAccountManager.factions = {

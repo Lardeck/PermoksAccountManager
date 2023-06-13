@@ -193,6 +193,21 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
+    barter_brick = {
+        label = "Barter Brick",
+        type = 'item',
+        key = 204985,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    obsidian_flightstone = {
+        label = "Obsidian Flightstone",
+        type = 'item',
+        key = 202171,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+
 
 
     -- tbc
