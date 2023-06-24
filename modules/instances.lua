@@ -275,6 +275,14 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     tooltip:AddHeader(dbInfo.name)
     tooltip:AddLine('')
 
+    local raidActivityInfo = altData.raidActivityInfo
+    local localRaidActivityInfo = {}
+    for _, info in pairs(raidActivityInfo) do
+        if info.instanceID == dbInfo.instanceID then
+            localRaidActivityInfo[info.uiOrder] = info
+        end
+    end
+
 
     for difficulty, info in self.spairs(
         raidInfo,
@@ -288,24 +296,23 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     ) do
         tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 
-		local raidActivityInfo = altData.raidActivityInfo
 		if info.defeatedEncountersInfo and difficulty < 17 then
 			local bossIndex = 1
-			for index = dbInfo.startIndex, min(#raidActivityInfo, dbInfo.endIndex) do
-				local bossInfo = info.defeatedEncountersInfo[index]
-				local text = L['Unsaved']
-				local color = "00ff00"
+			for index = dbInfo.startIndex, dbInfo.endIndex do
+                local bossInfo = info.defeatedEncountersInfo[index]
+                local text = L['Unsaved']
+                local color = "00ff00"
 
-				if difficulty == 16 and raidActivityInfo[index] and raidActivityInfo[index].bestDifficulty == difficulty then
-					color = "ff0000"
-					text = L['Saved']
-				elseif bossInfo then
-					color = "ff9933"
-					text = L['Saved']
-				end
+                if difficulty == 16 and localRaidActivityInfo[bossIndex] and localRaidActivityInfo[bossIndex].bestDifficulty == difficulty then
+                    color = "ff0000"
+                    text = L['Saved']
+                elseif bossInfo then
+                    color = "ff9933"
+                    text = L['Saved']
+                end
 
-				tooltip:AddLine(bossIndex .. " " .. EJ_GetEncounterInfo(raidActivityInfo[index].encounterID), string.format("|cff%s%s|r", color, text))
-				bossIndex = bossIndex + 1
+                tooltip:AddLine(bossIndex .. " " .. EJ_GetEncounterInfo(localRaidActivityInfo[bossIndex].encounterID), string.format("|cff%s%s|r", color, text))
+                bossIndex = bossIndex + 1
 			end
 		end
 		tooltip:AddSeparator(2, 1, 1, 1)
