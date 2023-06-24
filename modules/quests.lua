@@ -587,24 +587,6 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_weeklies_zaralek = {
-		label = 'Knowledge Zaralek',
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'visible',
-		tooltip = true,
-		customTooltip = function(...)
-			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
-		end,
-		required = 2,
-		professionOffset = {
-			[182] = -1,
-			[186] = -1,
-			[393] = -1,
-		},
-		group = 'resetWeekly',
-		version = WOW_PROJECT_MAINLINE
-	},
 	knowledge_weeklies_loot = {
 		label = 'Loot Quests',
 		type = 'quest',

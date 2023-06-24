@@ -82,7 +82,6 @@ local default_categories = {
             'knowledge_weeklies_craft',
             'knowledge_weeklies_order',
             'show_your_mettle',
-            'knowledge_weeklies_zaralek'
         },
         childOrder = {
             aiding_the_accord = 1,
@@ -106,7 +105,6 @@ local default_categories = {
             knowledge_weeklies_craft = 35,
             knowledge_weeklies_order = 36,
             show_your_mettle = 37,
-            knowledge_weeklies_zaralek = 38
         },
         enabled = true
     },
@@ -1182,16 +1180,6 @@ PermoksAccountManager.quests = {
         [70618] = {questType = 'weekly', log = true}, -- Mining 7
         [72156] = {questType = 'weekly', log = true}, -- Mining 8
         --[66936] = {questType = 'weekly', log = true}, -- Mining 8
-    },
-    knowledge_weeklies_order = {
-        [70589] = {questType = 'weekly', log = true}, -- Blacksmithing 0
-        [70591] = {questType = 'weekly', log = true}, -- Engineering 0
-        [70592] = {questType = 'weekly', log = true}, -- Inscription 0
-        [70593] = {questType = 'weekly', log = true}, -- Jewelcrafting 0
-        [70594] = {questType = 'weekly', log = true}, -- Leatherworking 0
-        [70595] = {questType = 'weekly', log = true}, -- Tailoring 0
-    },
-    knowledge_weeklies_zaralek = {
         [75354] = {questType = 'weekly', log = true}, -- Leatherworking
         [75368] = {questType = 'weekly', log = true}, -- Leatherworking
         [75150] = {questType = 'weekly', log = true}, -- Enchanting
@@ -1208,6 +1196,14 @@ PermoksAccountManager.quests = {
         [75602] = {questType = 'weekly', log = true}, -- Jewelcrafting
         [75636] = {questType = 'weekly', log = true}, -- Alchemy
         [75371] = {questType = 'weekly', log = true}, -- Alchemy
+    },
+    knowledge_weeklies_order = {
+        [70589] = {questType = 'weekly', log = true}, -- Blacksmithing 0
+        [70591] = {questType = 'weekly', log = true}, -- Engineering 0
+        [70592] = {questType = 'weekly', log = true}, -- Inscription 0
+        [70593] = {questType = 'weekly', log = true}, -- Jewelcrafting 0
+        [70594] = {questType = 'weekly', log = true}, -- Leatherworking 0
+        [70595] = {questType = 'weekly', log = true}, -- Tailoring 0
     },
     community_feast = {
         [74097] = {questType = 'daily'},
