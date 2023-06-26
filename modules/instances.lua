@@ -305,7 +305,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
 
                 if difficulty == 16 and localRaidActivityInfo[bossIndex] and localRaidActivityInfo[bossIndex].bestDifficulty == difficulty then
                     color = "ff0000"
-                    text = L['Saved']
+                    text = L['Killed']
                 elseif bossInfo then
                     color = "ff9933"
                     text = L['Saved']
