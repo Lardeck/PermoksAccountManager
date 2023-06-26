@@ -12,9 +12,15 @@ local default_categories = {
 			'location',
 			'profession1CDs',
 			'profession2CDs',
+			'dailyQuestCounter',
 			'honorBCC',
 			'arenaPoints',
-			'dailyQuestCounter'
+			'emblem_of_heroism',
+			'emblem_of_valor',
+			'emblem_of_conquest',
+			'emblem_of_triumph',
+			'emblem_of_frost',
+			'stone_keepers_shard'
 		},
 		childOrder = {
 			characterName = 1,
@@ -23,9 +29,15 @@ local default_categories = {
 			location = 4,
 			profession1CDs = 5,
 			profession2CDs = 6,
-			honorBCC = 7,
-			arenaPoints = 8,
-			dailyQuestCounter = 9
+			dailyQuestCounter = 7,
+			honorBCC = 8,
+			arenaPoints = 9,
+			emblem_of_heroism = 10,
+			emblem_of_valor = 11,
+			emblem_of_conquest = 12,
+			emblem_of_triumph = 13,
+			emblem_of_frost = 14,
+			stone_keepers_shard = 15,
 		},
 		hideToggle = true,
 		enabled = true
