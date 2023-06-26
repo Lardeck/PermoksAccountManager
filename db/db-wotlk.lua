@@ -166,14 +166,20 @@ local default_categories = {
 			'eye_of_eternity',
 			'vault_of_archavon',
 			'naxxramas',
+			'separator2',
+			'ulduar',
+			'trial_of_the_crusader'
 		},
 		childOrder = {
 			heroics_done = 1,
-			separator1 = 2,
-			obsidian_sanctum = 3,
-			eye_of_eternity = 4,
-			vault_of_archavon = 5,
-			naxxramas = 6,
+			separator1 = 10,
+			obsidian_sanctum = 11,
+			eye_of_eternity = 12,
+			vault_of_archavon = 13,
+			naxxramas = 14,
+			separator2 = 20,
+			ulduar = 21,
+			trial_of_the_crusader = 22,
 		},
 		enabled = true
 	},
@@ -302,16 +308,16 @@ PermoksAccountManager.labelRows = {
 -- instanceID = mapID (retail uses instanceIDs)
 PermoksAccountManager.raids = {
 	[GetRealZoneText(533)] = { instanceID = 533, englishID = 'naxxramas' },
-	--[GetRealZoneText(603)] = {instanceID = 603, englishID = 'ulduar'},
+	[GetRealZoneText(603)] = {instanceID = 603, englishID = 'ulduar'},
 	[GetRealZoneText(615)] = { instanceID = 615, englishID = 'obsidian_sanctum' },
 	[GetRealZoneText(616)] = { instanceID = 616, englishID = 'eye_of_eternity' },
 	[GetRealZoneText(624)] = { instanceID = 624, englishID = 'vault_of_archavon' },
 	--[GetRealZoneText(631)] = {instanceID = 631, englishID = 'icecrown_citadel'},
-	--[GetRealZoneText(649)] = {instanceID = 649, englishID = 'trial_of_the_crusader'},
+	[GetRealZoneText(649)] = {instanceID = 649, englishID = 'trial_of_the_crusader'},
 	--[GetRealZoneText(724)] = {instanceID = 724, englishID = 'ruby_sanctum'},
 }
 
-PermoksAccountManager.numDungeons = 12
+PermoksAccountManager.numDungeons = 13
 
 -- Name = MapID
 PermoksAccountManager.dungeons = {
