@@ -246,7 +246,56 @@ local labelRows = {
         abbMax = true,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
-    }
+    },
+
+    emblem_of_heroism = {
+        label = 'Heroism Emblems',
+		type = 'currency',
+		key = 101,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    emblem_of_valor = {
+        label = 'Valor Emblems',
+		type = 'currency',
+		key = 102,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    emblem_of_conquest = {
+        label = 'Conq. Emblems',
+		type = 'currency',
+		key = 221,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    emblem_of_triumph = {
+        label = 'Triumph Emblems',
+		type = 'currency',
+		key = 301,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    emblem_of_frost = {
+        label = 'Frost Emblems',
+		type = 'currency',
+		key = 341,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    stone_keepers_shard = {
+        label = 'Stone Keeper\'s Shard',
+		type = 'currency',
+		key = 161,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_WRATH_CLASSIC
+    },
 }
 
 local function UpdateAllCurrencies(charInfo)
