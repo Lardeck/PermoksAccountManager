@@ -369,9 +369,15 @@ PermoksAccountManager.factions = {
 PermoksAccountManager.currency = {
 	[1900] = 0,
 	[1901] = 0,
+	[101] = 0,
+	[102] = 0,
+	[161] = 0,
+	[221] = 0,
+	[301] = 0,
+	[341] = 0,
 }
 
-PermoksAccountManager.professionCDs = {
+PermoksAccountManager.professionCDsTBC = {
 	[L['Tailoring']] = {
 		cds = {
 			[26751] = L['Primal Mooncloth'], -- Primal Mooncloth
