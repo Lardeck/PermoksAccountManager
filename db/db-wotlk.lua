@@ -334,7 +334,7 @@ PermoksAccountManager.dungeons = {
 	[GetRealZoneText(608)] = 608, -- Violet Hold
 	[GetRealZoneText(619)] = 619, -- Ahn'kahet: The Old Kingdom
 	--[GetRealZoneText(632)] = 632, -- The Forge of Souls
-	--[GetRealZoneText(650)] = 650, -- Trial of the Champion
+	[GetRealZoneText(650)] = 650, -- Trial of the Champion
 	--[GetRealZoneText(658)] = 658, -- Pit of Saron
 	--[GetRealZoneText(668)] = 668, -- Halls of Reflection
 }
