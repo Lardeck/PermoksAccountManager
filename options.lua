@@ -567,7 +567,6 @@ local function createImportExportFrame(options)
             editGroup.frame:Show()
 
             local optionsString = PermoksAccountManager:OptionsToString()
-            editBox.editBox:SetMaxBytes(nil)
             editBox.editBox:SetScript(
                 'OnChar',
                 function()
