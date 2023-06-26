@@ -339,7 +339,7 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     	charInfo.currencyInfo[currencyType].totalEarned = quantityChanged + (charInfo.currencyInfo[currencyType].totalEarned or 0)
 	end
 
-    local customOptions = self.currencyCustomOptions[currencyType]
+    local customOptions = self.currencyCustomOptions and self.currencyCustomOptions[currencyType]
     if customOptions then
         if customOptions.forceUpdate then
             charInfo.currencyInfo[currencyType].quantity = C_CurrencyInfo.GetCurrencyInfo(currencyType).quantity
