@@ -454,6 +454,77 @@ PermoksAccountManager.professionCDsTBC = {
 	}
 }
 
+PermoksAccountManager.professionCDs = {
+	[L['Tailoring']] = {
+		cds = {
+			[56001] = L['Moonshroud'], -- Moonshroud
+			[56002] = L['Ebonweave'], -- Ebonweave
+			[56003] = L['Spellweave'] -- Spellweave
+		},
+		items = {
+			[56001] = 41594,
+			[56002] = 41593,
+			[56003] = 41595
+		},
+		icon = 136249,
+		num = 3
+	},
+	[L['Alchemy']] = {
+		cds = {
+			[66658] = L['Transmute'] -- Transmute: Ametrine
+		},
+		items = {
+			[66658] = 36931
+		},
+		icon = 136240,
+		num = 1
+	},
+	[L['Leatherworking']] = {
+		icon = 133611,
+		num = 1
+	},
+	[L['Enchanting']] = {
+		icon = 136244,
+		num = 1
+	},
+	[L['Engineering']] = {
+		icon = 136243,
+		num = 0
+	},
+	[L['Blacksmithing']] = {
+		cds = {
+			[55208] = L['Titansteel'] -- Titansteel
+		},
+		items = {
+			[55208] = 37663,
+		},
+		icon = 136241,
+		num = 0
+	},
+	[L['Herbalism']] = {
+		icon = 136246,
+		num = 0
+	},
+	[L['Mining']] = {
+		icon = 136248,
+		num = 0
+	},
+	[L['Skinning']] = {
+		icon = 134366,
+		num = 0
+	},
+	[L['Jewelcrafting']] = {
+		cds = {
+			[62242] = L['Icy Prism'] -- Icy Prism
+		},
+		items = {
+			[62242] = 44943
+		},
+		icon = 134071,
+		num = 1
+	}
+}
+
 PermoksAccountManager.quests = {
 	general_dailies = {
 		-- Grizzly Hills
