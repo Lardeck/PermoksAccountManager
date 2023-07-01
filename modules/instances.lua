@@ -97,6 +97,14 @@ local labelRows = {
 		group = 'raids',
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
+    onyxias_lair = {
+		label = GetRealZoneText(249),
+		id = 249,
+		type = 'raid',
+		key = 'onyxias_lair',
+		group = 'raids',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},    
 	ruby_sanctum = {
 		label = GetRealZoneText(724),
 		id = 724,
@@ -224,7 +232,19 @@ function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
     local raidDifficulty = self.isBC and '' or raidInfo.difficulty:sub(1, 1)
 
     if raidInfo then
-        raidString = string.format('%s%s', self:CreateQuestString(raidInfo.defeatedEncounters, raidInfo.numEncounters), hideDifficulty and '' or raidDifficulty)
+        if self.isBC then
+            -- for wrath we want to show all difficulties
+            for difficulty in pairs(savedInfo) do
+                local info = savedInfo[difficulty]
+                local numEncounters = info.numEncounters
+                local defeatedEncounters = info.defeatedEncounters
+                local difficultyString = string.format('%s %s', PermoksAccountManager.raidDifficultyLabels[difficulty], self:CreateQuestString(defeatedEncounters, numEncounters))
+                raidString = string.format('%s%s%s', raidString, difficultyString, difficulty == highestDifficulty and '' or ' ')
+            end
+        else
+            -- for retail we only want to show the highest difficulty
+            raidString = string.format('%s%s', self:CreateQuestString(raidInfo.defeatedEncounters, raidInfo.numEncounters), hideDifficulty and '' or raidDifficulty)
+        end
         return raidString
     end
 end

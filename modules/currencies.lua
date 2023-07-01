@@ -288,6 +288,14 @@ local labelRows = {
 		group = 'currency',
 		version = WOW_PROJECT_WRATH_CLASSIC
     },
+    sidereal_essence = {
+        label = 'Sidereal Essence',
+		type = 'currency',
+		key = 2589,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_WRATH_CLASSIC
+    },
     stone_keepers_shard = {
         label = 'Stone Keeper\'s Shard',
 		type = 'currency',
