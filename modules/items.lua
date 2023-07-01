@@ -643,13 +643,6 @@ local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
 module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
 
--- print table
-local function PrintTable(t)
-    for k, v in pairs(t) do
-        print(k, v)
-    end
-end
-
 function PermoksAccountManager:CreateItemString(itemInfo, total, icon)
     local options = self.db.global.options
     local icon = options.itemIcons and (itemInfo and itemInfo.icon or icon) or ''
@@ -661,9 +654,6 @@ function PermoksAccountManager:CreateItemString(itemInfo, total, icon)
     end
 
     if bank > 0 then
-        PrintTable(itemInfo)
-        print(iconPosition)
-        print(self.ICONBANKSTRINGS)
         local iconString = self.ICONBANKSTRINGS[iconPosition]
         if iconPosition == 'left' then
             return string.format(iconString, icon, bags, bank)
