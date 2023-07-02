@@ -20,6 +20,7 @@ local default_categories = {
 			'emblem_of_conquest',
 			'emblem_of_triumph',
 			'emblem_of_frost',
+			'sidereal_essence',
 			'stone_keepers_shard'
 		},
 		childOrder = {
@@ -37,7 +38,8 @@ local default_categories = {
 			emblem_of_conquest = 12,
 			emblem_of_triumph = 13,
 			emblem_of_frost = 14,
-			stone_keepers_shard = 15,
+			sidereal_essence = 15,
+			stone_keepers_shard = 16,
 		},
 		hideToggle = true,
 		enabled = true
@@ -46,47 +48,21 @@ local default_categories = {
 		order = 1,
 		name = 'Dailies',
 		childs = {
-			'general_dailies',
-			'general_alliance_dailies',
-			'general_horde_dailies',
+			'normal_dungeon_dailies',
+			'heroic_dungeon_dailies',
 			'separator1',
 			'argent_crusade_dailies',
-			'the_oracles_dailies',
-			'frenzyheart_tribe_dailies',
-			'knights_of_the_ebon_blade_dailies',
-			'the_sons_of_hodir_dailies',
-			'the_wyrmrest_accord_dailies',
-			'the_kaluak_dailies',
 			'separator2',
-			'valiance_expedition_dailies',
-			'explorers_league_dailies',
-			'the_frostborn_dailies',
-			'separator3',
-			'warsong_offensive_dailies',
-			'separator4',
 			'wotlk_cooking_dailies',
 			'wotlk_fishing_dailies',
 			'wotlk_jewelcrafting_dailies'
 		},
 		childOrder = {
-			general_dailies = 1,
-			general_alliance_dailies = 2,
-			general_horde_dailies = 3,
+			normal_dungeon_dailies = 1,
+			heroic_dungeon_dailies = 2,
 			separator1 = 10,
 			argent_crusade_dailies = 11,
-			the_oracles_dailies = 12,
-			frenzyheart_tribe_dailies = 13,
-			knights_of_the_ebon_blade_dailies = 14,
-			the_sons_of_hodir_dailies = 15,
-			the_wyrmrest_accord_dailies = 16,
-			the_kaluak_dailies = 17,
 			separator2 = 20,
-			valiance_expedition_dailies = 21,
-			explorers_league_dailies = 22,
-			the_frostborn_dailies = 23,
-			separator3 = 30,
-			warsong_offensive_dailies = 31,
-			separator4 = 40,
 			wotlk_cooking_dailies = 41,
 			wotlk_fishing_dailies = 42,
 			wotlk_jewelcrafting_dailies = 43,
@@ -168,7 +144,9 @@ local default_categories = {
 			'naxxramas',
 			'separator2',
 			'ulduar',
-			'trial_of_the_crusader'
+			'separator3',
+			'trial_of_the_crusader',
+			'onyxias_lair'
 		},
 		childOrder = {
 			heroics_done = 1,
@@ -179,22 +157,66 @@ local default_categories = {
 			naxxramas = 14,
 			separator2 = 20,
 			ulduar = 21,
-			trial_of_the_crusader = 22,
+			separator3 = 22,
+			trial_of_the_crusader = 23,
+			onyxias_lair = 24,
 		},
 		enabled = true
 	},
 	consumables = {
 		order = 6,
 		name = 'Consumables',
-		childs = {},
-		childOrder = {},
+		childs = {
+			'flaskEndlessRage',
+			'flaskStoneblood',
+			'flaskFrostWyrm',
+			'flaskPureMojo',
+			'separator1',
+			'foodFishFeast',
+			'foodSpicedMammothTreats',
+			'foodDragonfinFilet',
+			'foodBlackenedDragonfin',
+			'foodFirecrackerSalmon',
+			'foodTenderShoveltuskSteak',
+			'separator2',
+			'potionOfSpeed',
+			'potionOfWildMagic',
+			'potionIndestructible',
+			'separator3',
+			'engiGlobalThermalSapperCharge',
+			'engiSaroniteBomb',
+		},
+		childOrder = {
+			flaskEndlessRage = 1,
+			flaskStoneblood = 2,
+			flaskFrostWyrm = 3,
+			flaskPureMojo = 4,
+			separator1 = 10,
+			foodFishFeast = 11,
+			foodSpicedMammothTreats = 12,
+			foodDragonfinFilet = 13,
+			foodBlackenedDragonfin = 14,
+			foodFirecrackerSalmon = 15,
+			foodTenderShoveltuskSteak = 16,
+			separator2 = 20,
+			potionOfSpeed = 21,
+			potionOfWildMagic = 22,
+			potionIndestructible = 23,
+			separator3 = 30,
+			engiGlobalThermalSapperCharge = 31,
+			engiSaroniteBomb = 32,
+		},
 		enabled = false
 	},
 	items = {
 		order = 7,
 		name = 'Items',
-		childs = {},
-		childOrder = {},
+		childs = {
+			'trophyOfTheCrusade'
+		},
+		childOrder = {
+			trophyOfTheCrusade = 1,
+		},
 		enabled = false
 	}
 }
@@ -314,7 +336,17 @@ PermoksAccountManager.raids = {
 	[GetRealZoneText(624)] = { instanceID = 624, englishID = 'vault_of_archavon' },
 	--[GetRealZoneText(631)] = {instanceID = 631, englishID = 'icecrown_citadel'},
 	[GetRealZoneText(649)] = {instanceID = 649, englishID = 'trial_of_the_crusader'},
+	[GetRealZoneText(249)] = {instanceID = 249, englishID = 'onyxias_lair'},
 	--[GetRealZoneText(724)] = {instanceID = 724, englishID = 'ruby_sanctum'},
+}
+
+PermoksAccountManager.raidDifficultyLabels = {
+	[1] = '5N',
+	[2] = '5H',
+	[3] = '10N',
+	[4] = '25N',
+	[5] = '10H',
+	[6] = '25H',
 }
 
 PermoksAccountManager.numDungeons = 13
@@ -340,7 +372,28 @@ PermoksAccountManager.dungeons = {
 }
 
 PermoksAccountManager.item = {
+	-- Flasks
+	[46377] = { key = 'flaskEndlessRage' }, -- Flask of Endless Rage
+	[46379] = { key = 'flaskStoneblood' }, -- Flask of Stoneblood
+	[46376] = { key = 'flaskFrostWyrm' }, -- Flask of Frost Wyrm
+	[46378] = { key = 'flaskPureMojo' }, -- Flask of Pure Mojo
+	-- Food buffs
+	[43015] = { key = 'foodFishFeast' }, -- Fish Feast
+	[43005] = { key = 'foodSpicedMammothTreats' }, -- Spiced Mammoth Treats
+	[42999] = { key = 'foodDragonfinFilet' }, -- Dragonfin Filet
+	[43000] = { key = 'foodBlackenedDragonfin' }, -- Blackened Dragonfin
+	[34767] = { key = 'foodFirecrackerSalmon' }, -- Firecracker Salmon
+	[34755] = { key = 'foodTenderShoveltuskSteak' }, -- Tender Shoveltusk Steak
+	-- Potions
+	[40211] = { key = 'potionOfSpeed' }, -- Potion of Speed
+	[40212] = { key = 'potionOfWildMagic' }, -- Potion of Wild Magic
+	[40093] = { key = 'potionIndestructible' }, -- Indestructible Potion
 	[5634] = { key = 'potionFreeAction' }, -- Free Action Potion
+	-- Engineering
+	[42641] = { key = 'engiGlobalThermalSapperCharge' }, -- Global Thermal Sapper Charge
+	[41119] = { key = 'engiSaroniteBomb' }, -- Saronite Bomb
+	-- Others
+	[47242] = { key = 'trophyOfTheCrusade' }, -- Trophy of the Crusade
 }
 
 PermoksAccountManager.factions = {
@@ -374,6 +427,7 @@ PermoksAccountManager.currency = {
 	[161] = 0,
 	[221] = 0,
 	[301] = 0,
+	[2589] = 0,
 	[341] = 0,
 }
 
@@ -568,6 +622,31 @@ PermoksAccountManager.quests = {
 		[13404] = { questType = 'daily', log = true, faction = 'Alliance' }, -- Static Shock Troops: the Bombardment
 	},
 
+	normal_dungeon_dailies = {
+		-- Timear Foresees
+		[13240] = { questType = 'daily', log = true }, -- Normal: Oculus
+		[13243] = { questType = 'daily', log = true }, -- Normal: Culling of Stratholme
+		[13244] = { questType = 'daily', log = true }, -- Normal: Halls of Lightning
+		[13241] = { questType = 'daily', log = true }, -- Normal: Utgarde Pinnacle
+	},
+
+	heroic_dungeon_dailies = {
+		-- Proof of Demise
+		[13250] = { questType = 'daily', log = true }, -- Heroic: Gundrak
+		[13252] = { questType = 'daily', log = true }, -- Heroic: Halls of Stone
+		[13253] = { questType = 'daily', log = true }, -- Heroic: Halls of Lightning
+		[13246] = { questType = 'daily', log = true }, -- Heroic: The Nexus
+		[13245] = { questType = 'daily', log = true }, -- Heroic: Utgarde Keep
+		[13254] = { questType = 'daily', log = true }, -- Heroic: Azjol-Nerub
+		[13255] = { questType = 'daily', log = true }, -- Heroic: Ahn'kahet: The Old Kingdom
+		[13249] = { questType = 'daily', log = true }, -- Heroic: Drak'Tharon Keep
+		[13256] = { questType = 'daily', log = true }, -- Heroic: The Violet Hold
+		[13251] = { questType = 'daily', log = true }, -- Heroic: Culling of Stratholme
+		[13247] = { questType = 'daily', log = true }, -- Heroic: The Oculus
+		[13248] = { questType = 'daily', log = true }, -- Heroic: Utgarde Pinnacle
+		[14199] = { questType = 'daily', log = true }, -- Heroic: Trial of the Champion
+	},
+
 	valiance_expedition_dailies = {
 		[11153] = { questType = 'daily', log = true, faction = 'Alliance' }, -- Break the Blockade
 		[12289] = { questType = 'daily', log = true, faction = 'Alliance' }, -- Kick 'Em While They're Down
@@ -720,4 +799,9 @@ PermoksAccountManager.ICONSTRINGS = {
 	right = '%s \124T%d:18:18\124t',
 	leftBank = '\124T%d:18:18\124t %s (%s)',
 	rightBank = '%s (%s) \124T%d:18:18\124t'
+}
+
+PermoksAccountManager.ICONBANKSTRINGS = {
+    left = '\124T%d:18:18\124t %s (%s)',
+    right = '%s (%s) \124T%d:18:18\124t'
 }
