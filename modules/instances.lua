@@ -344,7 +344,7 @@ local function RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
     end
 end
 
-local function WOTLKRaid_OnEnter(tooltip, dbInfo, raidInfo)
+local function WOTLKRaid_OnEnter(tooltip, raidInfo)
     local self = PermoksAccountManager
 
     for _, info in self.spairs(raidInfo, function(_, a, b) return a < b end) do
@@ -387,7 +387,7 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     tooltip:AddLine('')
         
     if self.isBC then
-        WOTLKRaid_OnEnter(tooltip, dbInfo, raidInfo)
+        WOTLKRaid_OnEnter(tooltip, raidInfo)
     elseif not self.isBC then
         RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
     end
