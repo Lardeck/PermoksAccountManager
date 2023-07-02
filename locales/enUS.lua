@@ -118,6 +118,7 @@ L['Progenitor Essentia'] = true
 L['Cosmic HP Pots'] = true
 L['TW Keystone'] = true
 L['Killed'] = true
+L['Unknown'] = true
 L['Catalyst Charges'] = true
 L['Fly near the Creation Catalyst.'] = true
 

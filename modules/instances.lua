@@ -298,124 +298,100 @@ function PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data)
     tooltip:Show()
 end
 
-function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
+local function RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
     local self = PermoksAccountManager
-    -- wotlk version
-    if self.isBC then
 
-        if not altData.instanceInfo or not self.raids[labelRow.label] then
-            return
+    local raidActivityInfo = altData.raidActivityInfo
+    local localRaidActivityInfo = {}
+    for _, info in pairs(raidActivityInfo) do
+        if info.instanceID == dbInfo.instanceID then
+            localRaidActivityInfo[info.uiOrder] = info
         end
-    
-        local dbInfo = self.raids[labelRow.label]
-        local raidInfo = altData.instanceInfo.raids[dbInfo.englishID]
-       
+    end
 
-        if not raidInfo then
-            return
-        end       
+    for difficulty, info in self.spairs(
+        raidInfo,
+        function(_, a, b)
+            if a == 17 or b == 17 then
+                return b < a
+            else
+                return a < b
+            end
+        end
+    ) do
+        tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 
-        local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
-        button.tooltip = tooltip
-    
-        tooltip:AddHeader(labelRow.label)
-        tooltip:AddLine('')
-        
-        for difficulty, info in self.spairs(
-            raidInfo,
-            function(_, a, b)
-                if a == 17 or b == 17 then
-                    return b < a
-                else
-                    return a < b
-                end
-            end
-        ) do
-            tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
-    
-            if info.defeatedEncountersInfo and difficulty < 17 then
-                for bossIndex = 1, info.numEncounters do
-                    local bossName = info.defeatedEncountersInfo[bossIndex].name
-                    local text = L['Alive']
-                    local color = "00ff00"
-    
-                    if info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].isKilled == true then
-                        color = "ff0000"
-                        text = L['Killed']
-                    end
-    
-                    tooltip:AddLine(bossName, string.format("|cff%s%s|r", color, text))
-                    bossIndex = bossIndex + 1
-                end
-            end
-            tooltip:AddSeparator(2, 1, 1, 1)
-        end
-    
-        tooltip:SmartAnchorTo(button)
-        tooltip:Show()
-    else
-        if not altData.instanceInfo or not self.raids[labelRow.id] then
-            return
-        end
-    
-        local dbInfo = self.raids[labelRow.id]
-        local raidInfo = altData.instanceInfo.raids[dbInfo.englishID]
-        if not raidInfo then
-            return
-        end
-    
-        local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
-        button.tooltip = tooltip
-    
-        tooltip:AddHeader(dbInfo.name)
-        tooltip:AddLine('')
-    
-        local raidActivityInfo = altData.raidActivityInfo
-        local localRaidActivityInfo = {}
-        for _, info in pairs(raidActivityInfo) do
-            if info.instanceID == dbInfo.instanceID then
-                localRaidActivityInfo[info.uiOrder] = info
-            end
-        end
-    
-    
-        for difficulty, info in self.spairs(
-            raidInfo,
-            function(_, a, b)
-                if a == 17 or b == 17 then
-                    return b < a
-                else
-                    return a < b
-                end
-            end
-        ) do
-            tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
-    
-            if info.defeatedEncountersInfo and difficulty < 17 then
-                local bossIndex = 1
+        if info.defeatedEncountersInfo and difficulty < 17 then
+            local bossIndex = 1
                 for index = dbInfo.startIndex, dbInfo.endIndex do
                     local bossInfo = info.defeatedEncountersInfo[index]
                     local text = L['Unsaved']
                     local color = "00ff00"
     
                     if difficulty == 16 and localRaidActivityInfo[bossIndex] and localRaidActivityInfo[bossIndex].bestDifficulty == difficulty then
-                        color = "ff0000"
                         text = L['Killed']
+                        color = "ff0000"
                     elseif bossInfo then
-                        color = "ff9933"
                         text = L['Saved']
+                        color = "ff9933"
                     end
     
                     tooltip:AddLine(bossIndex .. " " .. EJ_GetEncounterInfo(localRaidActivityInfo[bossIndex].encounterID), string.format("|cff%s%s|r", color, text))
                     bossIndex = bossIndex + 1
                 end
-            end
-            tooltip:AddSeparator(2, 1, 1, 1)
         end
-    
-        tooltip:SmartAnchorTo(button)
-        tooltip:Show()
-    end 
+        tooltip:AddSeparator(2, 1, 1, 1)
+    end
+end
 
+local function WOTLKRaid_OnEnter(tooltip, dbInfo, raidInfo)
+    local self = PermoksAccountManager
+
+    for _, info in self.spairs(raidInfo, function(_, a, b) return a < b end) do
+        tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
+
+        if info.defeatedEncountersInfo then
+            for bossIndex = 1, info.numEncounters do
+                local bossName = info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].name
+                local text = L['Alive']
+                local color = "00ff00"
+
+                if info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].isKilled == true then
+                    text = L['Killed']
+                    color = "ff0000"
+                end
+
+                tooltip:AddLine(bossName or L['Unknown'], string.format("|cff%s%s|r", color, text))
+                bossIndex = bossIndex + 1
+            end
+        end
+        tooltip:AddSeparator(2, 1, 1, 1)
+    end
+end
+
+function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
+    local self = PermoksAccountManager
+
+    if not altData.instanceInfo or (not self.raids[labelRow.id] and not self.raids[labelRow.label]) then
+        return
+    end
+
+    local dbInfo = self.raids[labelRow.id] or self.raids[labelRow.label]
+    local raidInfo = dbInfo and altData.instanceInfo.raids[dbInfo.englishID]
+    if not raidInfo then return end
+
+    local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
+    button.tooltip = tooltip
+
+    tooltip:AddHeader(dbInfo.name or labelRow.label)
+    tooltip:AddLine('')
+        
+    if self.isBC then
+        WOTLKRaid_OnEnter(tooltip, dbInfo, raidInfo)
+    elseif not self.isBC then
+        RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
+    end
     
+    tooltip:SmartAnchorTo(button)
+    tooltip:Show()
 end
