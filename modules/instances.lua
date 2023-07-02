@@ -222,31 +222,28 @@ function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
 
     local highestDifficulty = 0
     for difficulty in pairs(savedInfo) do
-        if (not self.isBC and retailDifficultyOrder[difficulty] > (retailDifficultyOrder[highestDifficulty] or highestDifficulty)) or (self.isBC and difficulty > highestDifficulty) then
+        if (not self.isBC and (retailDifficultyOrder[difficulty] > (retailDifficultyOrder[highestDifficulty] or highestDifficulty))) or (self.isBC and (difficulty > highestDifficulty)) then
             highestDifficulty = difficulty
         end
     end
 
-    local raidInfo = savedInfo[highestDifficulty]
-	if not raidInfo then return end
-    local raidDifficulty = self.isBC and '' or raidInfo.difficulty:sub(1, 1)
-
-    if raidInfo then
-        if self.isBC then
-            -- for wrath we want to show all difficulties
-            for difficulty in pairs(savedInfo) do
-                local info = savedInfo[difficulty]
-                local numEncounters = info.numEncounters
-                local defeatedEncounters = info.defeatedEncounters
-                local difficultyString = string.format('%s %s', PermoksAccountManager.raidDifficultyLabels[difficulty], self:CreateQuestString(defeatedEncounters, numEncounters))
-                raidString = string.format('%s%s%s', raidString, difficultyString, difficulty == highestDifficulty and '' or ' ')
-            end
-        else
-            -- for retail we only want to show the highest difficulty
-            raidString = string.format('%s%s', self:CreateQuestString(raidInfo.defeatedEncounters, raidInfo.numEncounters), hideDifficulty and '' or raidDifficulty)
+    if self.isBC then
+        -- for wrath we want to show all difficulties
+        for difficulty in PermoksAccountManager.spairs(savedInfo, function(_, a, b) return a < b end) do
+            local raidInfo = savedInfo[difficulty]
+            local difficultyString = string.format('%s %s', PermoksAccountManager.raidDifficultyLabels[difficulty], self:CreateFractionString(raidInfo.defeatedEncounters, raidInfo.numEncounters))
+            raidString = string.format('%s%s%s', raidString, difficultyString, difficulty == highestDifficulty and '' or ' ')
         end
-        return raidString
+    else
+        local raidInfo = savedInfo[highestDifficulty]
+        if not raidInfo then return end
+        local raidDifficulty = raidInfo.difficulty:sub(1, 1)
+
+        -- for retail we only want to show the highest difficulty
+        raidString = string.format('%s%s', self:CreateFractionString(raidInfo.defeatedEncounters, raidInfo.numEncounters), hideDifficulty and '' or raidDifficulty)
     end
+
+    return raidString
 end
 
 function PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data)
