@@ -581,7 +581,7 @@ local function createImportExportFrame(options)
             close:SetCallback(
                 'OnClick',
                 function()
-                    editGroup:Close()
+                    editGroup:Close(true)
                 end
             )
             close:SetText('Done')
@@ -616,10 +616,13 @@ local function createImportExportFrame(options)
         end
     end
 
-    function editGroup.Close(self)
+    function editGroup.Close(self, openOptions)
         editBox:ClearFocus()
         editGroup.frame:Hide()
-        PermoksAccountManager.OpenOptions()
+
+        if openOptions then
+            PermoksAccountManager.OpenOptions()
+        end
     end
 
     return editGroup
@@ -1528,7 +1531,11 @@ function PermoksAccountManager.UpdateCustomLabelOptions(newDefault)
     AceConfigRegistry:NotifyChange(addonName)
 end
 
-function PermoksAccountManager.OpenOptions()
+function PermoksAccountManager.OpenOptions(closeImexport)
+    if closeImexport then
+        PermoksAccountManager.CloseImexport()
+    end
+
     AceConfigDialog:Open(addonName, PermoksAccountManager.optionsFrame)
 end
 
@@ -1636,6 +1643,12 @@ function PermoksAccountManager:LoadOptions()
     imexport = imexport or createImportExportFrame(PermoksAccountManager.optionsFrame)
 
     AceConfigRegistry:RegisterOptionsTable(addonName, options, true)
+end
+
+function PermoksAccountManager:CloseImexport()
+    if imexport then
+        imexport.Close()
+    end
 end
 
 function PermoksAccountManager:UpdateDefaultCategories(key)

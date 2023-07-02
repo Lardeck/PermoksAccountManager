@@ -18,7 +18,7 @@ local PermoksAccountManagerLDB =
                     PermoksAccountManager:ShowInterface()
                 end
             elseif button == 'RightButton' then
-                PermoksAccountManager:OpenOptions()
+                PermoksAccountManager:OpenOptions(true)
             end
         end,
         OnTooltipShow = function(tt)
@@ -1775,6 +1775,7 @@ function PermoksAccountManager:HideInterface()
         local position = self.db.global.position
         position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset = frame:GetPointByName('TOPLEFT')
     end
+
     self.managerFrame:Hide()
 end
 

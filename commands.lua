@@ -183,7 +183,7 @@ function commands.DEBUG()
 end
 
 function commands.OPTIONS()
-	PermoksAccountManager:OpenOptions()
+	PermoksAccountManager:OpenOptions(true)
 end
 
 function commands.SECRET()
