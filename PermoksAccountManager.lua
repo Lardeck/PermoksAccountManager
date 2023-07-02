@@ -600,6 +600,8 @@ function PermoksAccountManager:ModernizeWOTLK(oldInternalVersion)
     if (oldInternalVersion or 0) < 2 then
         self:UpdateDefaultCategories('general')
         self:UpdateDefaultCategories('lockouts')
+        self:UpdateDefaultCategories('dailies')
+        self:UpdateDefaultCategories('consumables')
         oldInternalVersion = 2
     end
 end
