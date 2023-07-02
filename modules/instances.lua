@@ -122,6 +122,37 @@ local labelRows = {
 		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
+    -- old mount drop raids (optional)
+    zul_gurub = {
+		label = GetRealZoneText(309),
+		id = 309,
+		type = 'raid',
+		key = 'zul_gurub',
+		group = 'raids',
+		tooltip = true,
+        hasSingularLockout = true,
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+    karazhan = {
+		label = GetRealZoneText(532),
+		id = 532,
+		type = 'raid',
+		key = 'karazhan',
+		group = 'raids',
+		tooltip = true,
+        hasSingularLockout = true,
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
+    tempest_keep = {
+		label = GetRealZoneText(550),
+		id = 550,
+		type = 'raid',
+		key = 'tempest_keep',
+		group = 'raids',
+		tooltip = true,
+        hasSingularLockout = true,
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
     heroics_done = {
         label = 'Heroic Dungeons',
         tooltip = function(button, alt_data)
@@ -152,10 +183,15 @@ local function UpdateInstanceInfo(charInfo)
                 local info = self.raids[mapID] or self.raids[name]
                 instanceInfo.raids[info.englishID] = instanceInfo.raids[info.englishID] or {}
 				instanceInfo.raids[info.englishID][difficulty] =  instanceInfo.raids[info.englishID][difficulty] or {
+                    key = info.englishID,
 					difficulty = difficultyName,
 					numEncounters = numEncounters
 				}
 
+                if not instanceInfo.raids[info.englishID][difficulty].key then
+                    instanceInfo.raids[info.englishID][difficulty].key = info.englishID
+                end
+                
                 local oldInstanceInfo = instanceInfo.raids[info.englishID][difficulty]
                 if not oldInstanceInfo.defeatedEncounters or oldInstanceInfo.defeatedEncounters < encounterProgress then
                     instanceInfo.raids[info.englishID][difficulty].defeatedEncounters = encounterProgress
@@ -260,8 +296,21 @@ function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
     if self.isBC then
         -- for wrath we want to show all difficulties
         for difficulty in PermoksAccountManager.spairs(savedInfo, function(_, a, b) return a < b end) do
+            local difficultyString = ''
             local raidInfo = savedInfo[difficulty]
-            local difficultyString = string.format('%s %s', PermoksAccountManager.raidDifficultyLabels[difficulty], self:CreateFractionString(raidInfo.defeatedEncounters, raidInfo.numEncounters))
+
+            -- add failsafe if saved data is not updated with key
+            local hasSingularLockout = false
+            if labelRows[raidInfo.key] and labelRows[raidInfo.key].hasSingularLockout then
+                hasSingularLockout = labelRows[raidInfo.key].hasSingularLockout
+            end 
+
+            if hasSingularLockout then
+                difficultyString = self:CreateFractionString(raidInfo.defeatedEncounters, raidInfo.numEncounters)
+            else
+                difficultyString = string.format('%s %s', PermoksAccountManager.raidDifficultyLabels[difficulty], self:CreateFractionString(raidInfo.defeatedEncounters, raidInfo.numEncounters))
+            end
+
             raidString = string.format('%s%s%s', raidString, difficultyString, difficulty == highestDifficulty and '' or ' ')
         end
     else

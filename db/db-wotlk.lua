@@ -334,10 +334,14 @@ PermoksAccountManager.raids = {
 	[GetRealZoneText(615)] = { instanceID = 615, englishID = 'obsidian_sanctum' },
 	[GetRealZoneText(616)] = { instanceID = 616, englishID = 'eye_of_eternity' },
 	[GetRealZoneText(624)] = { instanceID = 624, englishID = 'vault_of_archavon' },
-	--[GetRealZoneText(631)] = {instanceID = 631, englishID = 'icecrown_citadel'},
 	[GetRealZoneText(649)] = {instanceID = 649, englishID = 'trial_of_the_crusader'},
 	[GetRealZoneText(249)] = {instanceID = 249, englishID = 'onyxias_lair'},
+	--[GetRealZoneText(631)] = {instanceID = 631, englishID = 'icecrown_citadel'},
 	--[GetRealZoneText(724)] = {instanceID = 724, englishID = 'ruby_sanctum'},
+    -- old mount drop raids (optional)
+	[GetRealZoneText(309)] = {instanceID = 309, englishID = 'zul_gurub'},
+	[GetRealZoneText(532)] = {instanceID = 532, englishID = 'karazhan'},
+	[GetRealZoneText(550)] = {instanceID = 550, englishID = 'tempest_keep'},
 }
 
 PermoksAccountManager.raidDifficultyLabels = {
