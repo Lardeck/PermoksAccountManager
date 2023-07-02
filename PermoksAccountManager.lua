@@ -39,7 +39,7 @@ local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.23'
 local INTERNALVERSION = 22
-local INTERNALBCVERSION = 1
+local INTERNALWOTLKVERSION = 2
 local defaultDB = {
     profile = {
         minimap = {
@@ -384,6 +384,7 @@ do
     function PermoksAccountManager:OnInitialize()
         self.spairs = spairs
         self.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
+        self.isWOTLK = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 
         -- init databroker
         self.db = LibStub('AceDB-3.0'):New('PermoksAccountManagerDB', defaultDB, true)
@@ -578,11 +579,29 @@ function PermoksAccountManager:CreateResetTimers()
 end
 
 function PermoksAccountManager:CheckForModernize()
-    local internalVersion = self.db.global.internalVersion or INTERNALVERSION
-    if internalVersion < INTERNALVERSION then
-        self:Modernize(internalVersion)
+    if self.isWOTLK then
+        local internalVersion = self.db.global.internalWOTLKVersion
+        if not internalVersion or internalVersion < INTERNALWOTLKVERSION then
+            self:ModernizeWOTLK(internalVersion)
+        end
+        self.db.global.internalWOTLKVersion = INTERNALWOTLKVERSION
+    else
+        local internalVersion = self.db.global.internalVersion or INTERNALVERSION
+        if internalVersion < INTERNALVERSION then
+            self:Modernize(internalVersion)
+        end
+        self.db.global.internalVersion = INTERNALVERSION
     end
-    self.db.global.internalVersion = INTERNALVERSION
+end
+
+function PermoksAccountManager:ModernizeWOTLK(oldInternalVersion)
+    local db = self.db
+
+    if (oldInternalVersion or 0) < 2 then
+        self:UpdateDefaultCategories('general')
+        self:UpdateDefaultCategories('lockouts')
+        oldInternalVersion = 2
+    end
 end
 
 function PermoksAccountManager:Modernize(oldInternalVersion)
@@ -976,6 +995,10 @@ function PermoksAccountManager:ResetDailyActivities(db, altData)
         for visibility, quests in pairs(altData.questInfo.daily) do
             altData.questInfo.daily[visibility] = {}
         end
+    end
+
+    if self.isWOTLK and altData.instanceInfo then
+        altData.instanceInfo.dungeons = {}
     end
 end
 
