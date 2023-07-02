@@ -347,6 +347,14 @@ PermoksAccountManager.raidDifficultyLabels = {
 	[4] = '25N',
 	[5] = '10H',
 	[6] = '25H',
+	[9] = '40',
+	[148] = '20',
+	[173] = 'N',
+	[174] = 'H',
+	[175] = '10',
+	[176] = '25',
+	[193] = '10H',
+	[194] = '25H',
 }
 
 PermoksAccountManager.numDungeons = 13
