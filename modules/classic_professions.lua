@@ -114,6 +114,8 @@ function PermoksAccountManager:CreateProfessionString(professionInfo, profession
     local self = PermoksAccountManager
 
     local cdInfo = self.professionCDs[professionInfo.name]
+    if not cdInfo then return end
+
     local professionString = string.format('\124T%d:18:18\124t %s', cdInfo.icon, professionInfo.skillRank)
 
     local professionCDString
