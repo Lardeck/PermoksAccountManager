@@ -553,7 +553,7 @@ PermoksAccountManager.professionCDs = {
 			[55208] = 37663,
 		},
 		icon = 136241,
-		num = 0
+		num = 1
 	},
 	[L['Herbalism']] = {
 		icon = 136246,
