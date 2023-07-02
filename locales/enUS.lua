@@ -11,6 +11,7 @@ L['Herbalism'] = true
 L['Mining'] = true
 L['Skinning'] = true
 L['Jewelcrafting'] = true
+L['Inscription'] = true
 L['Exalted'] = true
 L['Shadowcloth'] = true
 L['Spellcloth'] = true

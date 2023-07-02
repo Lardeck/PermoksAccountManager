@@ -576,6 +576,10 @@ PermoksAccountManager.professionCDs = {
 		},
 		icon = 134071,
 		num = 1
+	},
+	[L['Inscription']] = {
+		icon = 237171,
+		num = 0,
 	}
 }
 
