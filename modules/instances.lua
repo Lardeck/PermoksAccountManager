@@ -47,6 +47,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'naxxramas',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
 	ulduar = {
@@ -55,6 +56,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'ulduar',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
 	obsidian_sanctum = {
@@ -63,6 +65,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'obsidian_sanctum',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
 	eye_of_eternity = {
@@ -71,6 +74,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'eye_of_eternity',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
 	vault_of_archavon = {
@@ -79,6 +83,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'vault_of_archavon',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
 	icecrown_citadel = {
@@ -87,6 +92,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'icecrown_citadel',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
 	trial_of_the_crusader = {
@@ -95,6 +101,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'trial_of_the_crusader',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
     onyxias_lair = {
@@ -103,6 +110,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'onyxias_lair',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},    
 	ruby_sanctum = {
@@ -111,6 +119,7 @@ local labelRows = {
 		type = 'raid',
 		key = 'ruby_sanctum',
 		group = 'raids',
+		tooltip = true,
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
     heroics_done = {
@@ -130,7 +139,6 @@ local function UpdateInstanceInfo(charInfo)
     charInfo.instanceInfo = charInfo.instanceInfo or {raids = {}, dungeons = {}}
 
     local self = PermoksAccountManager
-
     local instanceInfo = charInfo.instanceInfo
     local name, difficulty, locked, extended, difficultyName, numEncounters, encounterProgress, _
     for i = 1, GetNumSavedInstances() do
@@ -138,7 +146,6 @@ local function UpdateInstanceInfo(charInfo)
         local mapID, _ = link:match(':(%d+):%d+:%d+\124h%[(.+)%]\124h')
         mapID = tonumber(mapID)
         name, _, _, difficulty, locked, extended, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
-
 		local raidInfo
         if locked or extended then
             if self.raids[mapID] or (self.isBC and self.raids[name]) then
@@ -156,10 +163,18 @@ local function UpdateInstanceInfo(charInfo)
 
 				raidInfo = oldInstanceInfo
             elseif (self.dungeons[mapID] and difficulty == 23) or (self.isBC and self.dungeons[name] and difficulty == 2) then
+                local completed = numEncounters == encounterProgress
+
+                -- find out if last boss is killed, since in wotlk the dungeon is completed if last boss is killed
+                if self.isBC then
+                    local _, _, isKilled = GetSavedInstanceEncounterInfo(i, numEncounters)
+                    completed = isKilled
+                end
+
                 instanceInfo.dungeons[mapID or self.dungeons[name]] = {
                     numEncounters = numEncounters,
                     defeatedEncounters = encounterProgress,
-                    completed = numEncounters == encounterProgress
+                    completed = completed
                 }
             end
         end
@@ -171,7 +186,16 @@ local function UpdateInstanceInfo(charInfo)
 				local isKilled = select(3, GetSavedInstanceEncounterInfo(i, boss))
 				raidInfo.defeatedEncountersInfo[index + boss] = isKilled
 			end
-		end
+        elseif self.isBC and raidInfo then
+            raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {} 
+            for bossIndex = 1, raidInfo.numEncounters do
+                local name, _, isKilled = GetSavedInstanceEncounterInfo(i, bossIndex)
+                raidInfo.defeatedEncountersInfo[bossIndex] = {
+                    name = name,
+                    isKilled = isKilled
+                }
+            end
+        end
     end
 end
 
@@ -202,7 +226,7 @@ function PermoksAccountManager:CreateDungeonString(savedInfo)
     local numCompletedDungeons = 0
 
     for _, info in pairs(savedInfo) do
-        if info.numEncounters == info.defeatedEncounters then
+        if info.completed then
             numCompletedDungeons = numCompletedDungeons + 1
         end
     end
@@ -276,65 +300,122 @@ end
 
 function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     local self = PermoksAccountManager
-    if not altData.instanceInfo or not self.raids[labelRow.id] then
-        return
-    end
+    -- wotlk version
+    if self.isBC then
 
-	local dbInfo = self.raids[labelRow.id]
-    local raidInfo = altData.instanceInfo.raids[dbInfo.englishID]
-    if not raidInfo then
-        return
-    end
-
-    local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
-    button.tooltip = tooltip
-
-    tooltip:AddHeader(dbInfo.name)
-    tooltip:AddLine('')
-
-    local raidActivityInfo = altData.raidActivityInfo
-    local localRaidActivityInfo = {}
-    for _, info in pairs(raidActivityInfo) do
-        if info.instanceID == dbInfo.instanceID then
-            localRaidActivityInfo[info.uiOrder] = info
+        if not altData.instanceInfo or not self.raids[labelRow.label] then
+            return
         end
-    end
+    
+        local dbInfo = self.raids[labelRow.label]
+        local raidInfo = altData.instanceInfo.raids[dbInfo.englishID]
+       
 
+        if not raidInfo then
+            return
+        end       
 
-    for difficulty, info in self.spairs(
-        raidInfo,
-        function(_, a, b)
-            if a == 17 or b == 17 then
-                return b < a
-            else
-                return a < b
+        local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
+        button.tooltip = tooltip
+    
+        tooltip:AddHeader(labelRow.label)
+        tooltip:AddLine('')
+        
+        for difficulty, info in self.spairs(
+            raidInfo,
+            function(_, a, b)
+                if a == 17 or b == 17 then
+                    return b < a
+                else
+                    return a < b
+                end
+            end
+        ) do
+            tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
+    
+            if info.defeatedEncountersInfo and difficulty < 17 then
+                for bossIndex = 1, info.numEncounters do
+                    local bossName = info.defeatedEncountersInfo[bossIndex].name
+                    local text = L['Alive']
+                    local color = "00ff00"
+    
+                    if info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].isKilled == true then
+                        color = "ff0000"
+                        text = L['Killed']
+                    end
+    
+                    tooltip:AddLine(bossName, string.format("|cff%s%s|r", color, text))
+                    bossIndex = bossIndex + 1
+                end
+            end
+            tooltip:AddSeparator(2, 1, 1, 1)
+        end
+    
+        tooltip:SmartAnchorTo(button)
+        tooltip:Show()
+    else
+        if not altData.instanceInfo or not self.raids[labelRow.id] then
+            return
+        end
+    
+        local dbInfo = self.raids[labelRow.id]
+        local raidInfo = altData.instanceInfo.raids[dbInfo.englishID]
+        if not raidInfo then
+            return
+        end
+    
+        local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
+        button.tooltip = tooltip
+    
+        tooltip:AddHeader(dbInfo.name)
+        tooltip:AddLine('')
+    
+        local raidActivityInfo = altData.raidActivityInfo
+        local localRaidActivityInfo = {}
+        for _, info in pairs(raidActivityInfo) do
+            if info.instanceID == dbInfo.instanceID then
+                localRaidActivityInfo[info.uiOrder] = info
             end
         end
-    ) do
-        tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
-
-		if info.defeatedEncountersInfo and difficulty < 17 then
-			local bossIndex = 1
-			for index = dbInfo.startIndex, dbInfo.endIndex do
-                local bossInfo = info.defeatedEncountersInfo[index]
-                local text = L['Unsaved']
-                local color = "00ff00"
-
-                if difficulty == 16 and localRaidActivityInfo[bossIndex] and localRaidActivityInfo[bossIndex].bestDifficulty == difficulty then
-                    color = "ff0000"
-                    text = L['Killed']
-                elseif bossInfo then
-                    color = "ff9933"
-                    text = L['Saved']
+    
+    
+        for difficulty, info in self.spairs(
+            raidInfo,
+            function(_, a, b)
+                if a == 17 or b == 17 then
+                    return b < a
+                else
+                    return a < b
                 end
+            end
+        ) do
+            tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
+    
+            if info.defeatedEncountersInfo and difficulty < 17 then
+                local bossIndex = 1
+                for index = dbInfo.startIndex, dbInfo.endIndex do
+                    local bossInfo = info.defeatedEncountersInfo[index]
+                    local text = L['Unsaved']
+                    local color = "00ff00"
+    
+                    if difficulty == 16 and localRaidActivityInfo[bossIndex] and localRaidActivityInfo[bossIndex].bestDifficulty == difficulty then
+                        color = "ff0000"
+                        text = L['Killed']
+                    elseif bossInfo then
+                        color = "ff9933"
+                        text = L['Saved']
+                    end
+    
+                    tooltip:AddLine(bossIndex .. " " .. EJ_GetEncounterInfo(localRaidActivityInfo[bossIndex].encounterID), string.format("|cff%s%s|r", color, text))
+                    bossIndex = bossIndex + 1
+                end
+            end
+            tooltip:AddSeparator(2, 1, 1, 1)
+        end
+    
+        tooltip:SmartAnchorTo(button)
+        tooltip:Show()
+    end 
 
-                tooltip:AddLine(bossIndex .. " " .. EJ_GetEncounterInfo(localRaidActivityInfo[bossIndex].encounterID), string.format("|cff%s%s|r", color, text))
-                bossIndex = bossIndex + 1
-			end
-		end
-		tooltip:AddSeparator(2, 1, 1, 1)
-    end
-
-    tooltip:SmartAnchorTo(button)
-    tooltip:Show()
+    
 end

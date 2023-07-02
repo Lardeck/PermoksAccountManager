@@ -208,6 +208,7 @@ L['Items'] = true
 L['Currencies'] = true
 L['Saved'] = true
 L['Unsaved'] = true
+L['Alive'] = true
 L['Custom Labels'] = true
 L['Column Width'] = true
 L['Column'] = true
