@@ -206,7 +206,7 @@ local default_categories = {
 			engiGlobalThermalSapperCharge = 31,
 			engiSaroniteBomb = 32,
 		},
-		enabled = false
+		enabled = true
 	},
 	items = {
 		order = 7,
@@ -217,7 +217,7 @@ local default_categories = {
 		childOrder = {
 			trophyOfTheCrusade = 1,
 		},
-		enabled = false
+		enabled = true
 	}
 }
 
