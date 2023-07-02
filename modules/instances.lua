@@ -167,7 +167,13 @@ local function UpdateInstanceInfo(charInfo)
 
                 -- find out if last boss is killed, since in wotlk the dungeon is completed if last boss is killed
                 if self.isBC then
-                    local _, _, isKilled = GetSavedInstanceEncounterInfo(i, numEncounters)
+                    -- for Ahn'kahet: The Old Kingdom we need to subtract 1 from numEncounters, since the last boss from API is the heroic only boss
+                    local lastBossIndex = numEncounters
+                    if(mapID == 619) then
+                        lastBossIndex = lastBossIndex - 1
+                    end
+
+                    local _, _, isKilled = GetSavedInstanceEncounterInfo(i, lastBossIndex)
                     completed = isKilled
                 end
 
