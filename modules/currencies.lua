@@ -248,6 +248,16 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
     },
 
+    -- 10.1.5
+    paracausal_flakes = {
+        label = 'Paracausal Flakes',
+		type = 'currency',
+		key = 2594,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+    },
+
     emblem_of_heroism = {
         label = 'Heroism Emblems',
 		type = 'currency',
