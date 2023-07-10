@@ -186,6 +186,11 @@ local default_categories = {
 			'potionOfSpeed',
 			'potionOfWildMagic',
 			'potionIndestructible',
+			'potionRunicManaInjector',
+			'potionRunicHealingInjector',
+			'potionRunicMana',
+			'potionRunicHealing',
+			'potionFreeAction',
 			'separator3',
 			'engiGlobalThermalSapperCharge',
 			'engiSaroniteBomb',
@@ -206,6 +211,11 @@ local default_categories = {
 			potionOfSpeed = 21,
 			potionOfWildMagic = 22,
 			potionIndestructible = 23,
+			potionRunicManaInjector = 24,
+			potionRunicHealingInjector = 25,
+			potionRunicMana = 26,
+			potionRunicHealing = 27,
+			potionFreeAction = 28,
 			separator3 = 30,
 			engiGlobalThermalSapperCharge = 31,
 			engiSaroniteBomb = 32,
@@ -216,10 +226,16 @@ local default_categories = {
 		order = 7,
 		name = 'Items',
 		childs = {
-			'trophyOfTheCrusade'
+			'trophyOfTheCrusade',
+			'frozenOrb',
+			'runedOrb',
+			'crusaderOrb',
 		},
 		childOrder = {
 			trophyOfTheCrusade = 1,
+			frozenOrb = 2,
+			runedOrb = 3,
+			crusaderOrb = 4,
 		},
 		enabled = true
 	}
