@@ -8,6 +8,8 @@ local default_categories = {
 		childs = {
 			'characterName',
 			'characterLevel',
+			'ilevelWrath',
+			'gearScore',
 			'gold',
 			'location',
 			'profession1CDs',
@@ -26,20 +28,22 @@ local default_categories = {
 		childOrder = {
 			characterName = 1,
 			characterLevel = 2,
-			gold = 3,
-			location = 4,
-			profession1CDs = 5,
-			profession2CDs = 6,
-			dailyQuestCounter = 7,
-			honorBCC = 8,
-			arenaPoints = 9,
-			emblem_of_heroism = 10,
-			emblem_of_valor = 11,
-			emblem_of_conquest = 12,
-			emblem_of_triumph = 13,
-			emblem_of_frost = 14,
-			sidereal_essence = 15,
-			stone_keepers_shard = 16,
+			ilevelWrath = 3,
+			gearScore = 4,
+			gold = 5,
+			location = 6,
+			profession1CDs = 7,
+			profession2CDs = 8,
+			dailyQuestCounter = 9,
+			honorBCC = 10,
+			arenaPoints = 11,
+			emblem_of_heroism = 12,
+			emblem_of_valor = 13,
+			emblem_of_conquest = 14,
+			emblem_of_triumph = 15,
+			emblem_of_frost = 16,
+			sidereal_essence = 17,
+			stone_keepers_shard = 18,
 		},
 		hideToggle = true,
 		enabled = true
@@ -400,12 +404,19 @@ PermoksAccountManager.item = {
 	[40211] = { key = 'potionOfSpeed' }, -- Potion of Speed
 	[40212] = { key = 'potionOfWildMagic' }, -- Potion of Wild Magic
 	[40093] = { key = 'potionIndestructible' }, -- Indestructible Potion
+	[42545] = { key = 'potionRunicManaInjector' }, -- Runic Mana Injector
+	[41166] = { key = 'potionRunicHealingInjector' }, -- Runic Healing Injector
+	[33448] = { key = 'potionRunicMana' }, -- Runic Mana Potion
+	[33447] = { key = 'potionRunicHealing' }, -- Runic Healing Potion
 	[5634] = { key = 'potionFreeAction' }, -- Free Action Potion
 	-- Engineering
 	[42641] = { key = 'engiGlobalThermalSapperCharge' }, -- Global Thermal Sapper Charge
 	[41119] = { key = 'engiSaroniteBomb' }, -- Saronite Bomb
 	-- Others
 	[47242] = { key = 'trophyOfTheCrusade' }, -- Trophy of the Crusade
+	[43102] = { key = 'frozenOrb' }, -- Frozen Orb
+	[45087] = { key = 'runedOrb' }, -- Runed Orb
+	[47556] = { key = 'crusaderOrb' }, -- Crusader Orb
 }
 
 PermoksAccountManager.factions = {
@@ -443,83 +454,6 @@ PermoksAccountManager.currency = {
 	[341] = 0,
 }
 
-PermoksAccountManager.professionCDsTBC = {
-	[L['Tailoring']] = {
-		cds = {
-			[26751] = L['Primal Mooncloth'], -- Primal Mooncloth
-			[31373] = L['Spellcloth'], -- Spellcloth
-			[36686] = L['Shadowcloth'] -- Shadowcloth
-		},
-		items = {
-			[26751] = 21845,
-			[31373] = 24271,
-			[36686] = 24272
-		},
-		icon = 136249,
-		num = 3
-	},
-	[L['Alchemy']] = {
-		cds = {
-			[29688] = L['Transmute'] -- Transmute: Primal Might
-		},
-		items = {
-			[29688] = 23571
-		},
-		icon = 136240,
-		num = 1
-	},
-	[L['Leatherworking']] = {
-		cds = {
-			[19566] = L['Salt Shaker'] -- Salt Shaker
-		},
-		items = {
-			[19566] = 15846
-		},
-		icon = 133611,
-		num = 1
-	},
-	[L['Enchanting']] = {
-		cds = {
-			[28027] = L['Void Sphere'] -- Void Sphere
-		},
-		items = {
-			[28027] = 22459
-		},
-		icon = 136244,
-		num = 1
-	},
-	[L['Engineering']] = {
-		icon = 136243,
-		num = 0
-	},
-	[L['Blacksmithing']] = {
-		icon = 136241,
-		num = 0
-	},
-	[L['Herbalism']] = {
-		icon = 136246,
-		num = 0
-	},
-	[L['Mining']] = {
-		icon = 136248,
-		num = 0
-	},
-	[L['Skinning']] = {
-		icon = 134366,
-		num = 0
-	},
-	[L['Jewelcrafting']] = {
-		cds = {
-			[47280] = L['Brilliant Glass'] -- Brilliant Glass
-		},
-		items = {
-			[47280] = 35945
-		},
-		icon = 134071,
-		num = 1
-	}
-}
-
 PermoksAccountManager.professionCDs = {
 	[L['Tailoring']] = {
 		cds = {
@@ -547,33 +481,33 @@ PermoksAccountManager.professionCDs = {
 	},
 	[L['Leatherworking']] = {
 		icon = 133611,
-		num = 1
+		num = 0
 	},
 	[L['Enchanting']] = {
 		icon = 136244,
-		num = 1
+		num = 0
 	},
 	[L['Engineering']] = {
 		icon = 136243,
 		num = 0
 	},
 	[L['Blacksmithing']] = {
-		cds = {
-			[55208] = L['Titansteel'] -- Titansteel
-		},
-		items = {
-			[55208] = 37663,
-		},
 		icon = 136241,
-		num = 1
+		num = 0
 	},
 	[L['Herbalism']] = {
 		icon = 136246,
 		num = 0
 	},
 	[L['Mining']] = {
+		cds = {
+			[55208] = L['Titansteel'] -- Titansteel
+		},
+		items = {
+			[55208] = 37663,
+		},
 		icon = 136248,
-		num = 0
+		num = 1
 	},
 	[L['Skinning']] = {
 		icon = 134366,

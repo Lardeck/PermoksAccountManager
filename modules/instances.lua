@@ -168,7 +168,6 @@ local labelRows = {
 
 local function UpdateInstanceInfo(charInfo)
     charInfo.instanceInfo = charInfo.instanceInfo or {raids = {}, dungeons = {}}
-
     local self = PermoksAccountManager
     local instanceInfo = charInfo.instanceInfo
     local name, difficulty, locked, extended, difficultyName, numEncounters, encounterProgress, _
@@ -179,7 +178,7 @@ local function UpdateInstanceInfo(charInfo)
         name, _, _, difficulty, locked, extended, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
 		local raidInfo
         if locked or extended then
-            if self.raids[mapID] or (self.isBC and self.raids[name]) then
+            if self.raids[mapID] or (self.isWOTLK and self.raids[name]) then
                 local info = self.raids[mapID] or self.raids[name]
                 instanceInfo.raids[info.englishID] = instanceInfo.raids[info.englishID] or {}
 				instanceInfo.raids[info.englishID][difficulty] =  instanceInfo.raids[info.englishID][difficulty] or {
@@ -198,11 +197,11 @@ local function UpdateInstanceInfo(charInfo)
                 end
 
 				raidInfo = oldInstanceInfo
-            elseif (self.dungeons[mapID] and difficulty == 23) or (self.isBC and self.dungeons[name] and difficulty == 2) then
+            elseif (self.dungeons[mapID] and difficulty == 23) or (self.isWOTLK and self.dungeons[name] and difficulty == 2) then
                 local completed = numEncounters == encounterProgress
 
                 -- find out if last boss is killed, since in wotlk the dungeon is completed if last boss is killed
-                if self.isBC then
+                if self.isWOTLK then
                     -- for Ahn'kahet: The Old Kingdom we need to subtract 1 from numEncounters, since the last boss from API is the heroic only boss
                     local lastBossIndex = numEncounters
                     if(mapID == 619) then
@@ -221,14 +220,14 @@ local function UpdateInstanceInfo(charInfo)
             end
         end
 
-		if not self.isBC and raidInfo then
+		if not self.isWOTLK and raidInfo then
 			local index = self.raids[mapID].startIndex - 1
 			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
 			for boss = 1, numEncounters do
 				local isKilled = select(3, GetSavedInstanceEncounterInfo(i, boss))
 				raidInfo.defeatedEncountersInfo[index + boss] = isKilled
 			end
-        elseif self.isBC and raidInfo then
+        elseif self.isWOTLK and raidInfo then
             raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {} 
             for bossIndex = 1, raidInfo.numEncounters do
                 local name, _, isKilled = GetSavedInstanceEncounterInfo(i, bossIndex)
@@ -288,12 +287,12 @@ function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
 
     local highestDifficulty = 0
     for difficulty in pairs(savedInfo) do
-        if (not self.isBC and (retailDifficultyOrder[difficulty] > (retailDifficultyOrder[highestDifficulty] or highestDifficulty))) or (self.isBC and (difficulty > highestDifficulty)) then
+        if (not self.isWOTLK and (retailDifficultyOrder[difficulty] > (retailDifficultyOrder[highestDifficulty] or highestDifficulty))) or (self.isWOTLK and (difficulty > highestDifficulty)) then
             highestDifficulty = difficulty
         end
     end
 
-    if self.isBC then
+    if self.isWOTLK then
         -- for wrath we want to show all difficulties
         for difficulty in PermoksAccountManager.spairs(savedInfo, function(_, a, b) return a < b end) do
             local difficultyString = ''
@@ -339,8 +338,8 @@ function PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data)
             return t[a] < t[b]
         end
     ) do
-        local left = self.isBC and key or value
-        local info = self.isBC and dungeonInfo[value] or dungeonInfo[key]
+        local left = self.isWOTLK and key or value
+        local info = self.isWOTLK and dungeonInfo[value] or dungeonInfo[key]
         local right = '|cffff0000-|r'
 
         if info then
@@ -441,9 +440,9 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     tooltip:AddHeader(dbInfo.name or labelRow.label)
     tooltip:AddLine('')
         
-    if self.isBC then
+    if self.isWOTLK then
         WOTLKRaid_OnEnter(tooltip, raidInfo)
-    elseif not self.isBC then
+    elseif not self.isBC and not self.isWOTLK then
         RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
     end
     

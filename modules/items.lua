@@ -535,6 +535,34 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_WRATH_CLASSIC
     },
+    potionRunicManaInjector = {
+        label = 'Runic Mana Injector',
+        type = 'item',
+        key = 42545,
+        group = 'item',
+        version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    potionRunicHealingInjector = {
+        label = 'Runic Healing Injector',
+        type = 'item',
+        key = 41166,
+        group = 'item',
+        version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    potionRunicMana = {
+        label = 'Runic Mana Potion',
+        type = 'item',
+        key = 33448,
+        group = 'item',
+        version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    potionRunicHealing = {
+        label = 'Runic Healing Potion',
+        type = 'item',
+        key = 33447,
+        group = 'item',
+        version = WOW_PROJECT_WRATH_CLASSIC
+    },
     engiGlobalThermalSapperCharge = {
         label = 'Global Thermal Sapper Charge',
         type = 'item',
@@ -553,6 +581,27 @@ local labelRows = {
         label = 'Trophy of the Crusade',
         type = 'item',
         key = 47242,
+        group = 'item',
+        version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    frozenOrb = {
+        label = 'Frozen Orb',
+        type = 'item',
+        key = 43102,
+        group = 'item',
+        version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    runedOrb = {
+        label = 'Runed Orb',
+        type = 'item',
+        key = 45087,
+        group = 'item',
+        version = WOW_PROJECT_WRATH_CLASSIC
+    },
+    crusaderOrb = {
+        label = 'Crusader Orb',
+        type = 'item',
+        key = 47556,
         group = 'item',
         version = WOW_PROJECT_WRATH_CLASSIC
     },

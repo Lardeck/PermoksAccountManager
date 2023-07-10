@@ -343,7 +343,7 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     end
 
     
-	if not self.isBC then
+	if not self.isBC and not self.isWOTLK then
     	charInfo.currencyInfo[currencyType].totalEarned = quantityChanged + (charInfo.currencyInfo[currencyType].totalEarned or 0)
 	end
 

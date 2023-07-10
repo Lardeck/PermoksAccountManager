@@ -576,6 +576,19 @@ function PermoksAccountManager:CreateResetTimers()
             end
         )
     end
+
+    if self.isWOTLK then
+        local db = self.db.global
+        local threeDayResetTime = self:GetNextThreeDayLockoutResetTime()
+        if db.threeDayReset < threeDayResetTime then
+            C_Timer.After(
+                threeDayResetTime,
+                function()
+                    self:CheckForReset()
+                end
+            )
+        end
+    end
 end
 
 function PermoksAccountManager:CheckForModernize()
@@ -905,18 +918,22 @@ function PermoksAccountManager:CheckForReset()
     local resetDaily = currentTime >= (db.dailyReset or 0)
     local resetWeekly = currentTime >= (db.weeklyReset or 0)
     local resetBiweekly = currentTime >= (db.biweeklyReset or 0)
+    local resetThreeDayRaids = currentTime >= (db.threeDayReset or 0)
     wipe(db.completionData)
 
     for account, accountData in pairs(db.accounts) do
-        self:ResetAccount(db, accountData, resetDaily, resetWeekly, resetBiweekly)
+        self:ResetAccount(db, accountData, resetDaily, resetWeekly, resetBiweekly, resetThreeDayRaids)
     end
 
     db.weeklyReset = resetWeekly and currentTime + self:GetNextWeeklyResetTime() or db.weeklyReset
     db.dailyReset = resetDaily and currentTime + self:GetNextDailyResetTime() or db.dailyReset
     db.biweeklyReset = resetBiweekly and currentTime + self:GetNextBiWeeklyResetTime() or db.biweeklyReset
+    if self.isWOTLK then
+        db.threeDayReset = resetThreeDayRaids and self:GetNextThreeDayLockoutResetTime() or db.threeDayReset
+    end
 end
 
-function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biweekly)
+function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biweekly, resetThreeDayRaids)
     for _, altData in pairs(accountData.data) do
         if weekly then
             self:ResetWeeklyActivities(altData)
@@ -928,6 +945,10 @@ function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biwe
 
         if biweekly then
             self:ResetBiweeklyActivities(altData)
+        end
+
+        if resetThreeDayRaids then
+            self:ResetThreeDayRaids(altData)
         end
     end
 end
@@ -1012,8 +1033,14 @@ function PermoksAccountManager:ResetBiweeklyActivities(altData)
     end
 end
 
+function PermoksAccountManager:ResetThreeDayRaids(altData)
+    if altData.instanceInfo.raids and altData.instanceInfo.raids['Zul\'Gurub'] then
+        altData.instanceInfo.raids['Zul\'Gurub'] = nil
+    end
+end
+
 function PermoksAccountManager:RequestCharacterInfo()
-    if not self.isBC then
+    if not self.isBC and not self.isWOTLK then
         RequestRatedInfo()
         CovenantCalling_CheckCallings()
     end
@@ -1815,6 +1842,34 @@ end
 function PermoksAccountManager:GetNextBiWeeklyResetTime()
     local weeklyReset = C_DateAndTime.GetSecondsUntilWeeklyReset()
     return (weeklyReset >= 302400 and weeklyReset - 302400 or weeklyReset)
+end
+
+function PermoksAccountManager:GetNextThreeDayLockoutResetTime()
+    local resetDate = 0
+    local euStart = { zg = {year=2020, month=4, day=13, hour=9, min=0, sec=0}, }
+    local selectedStart = euStart;
+    local resetInterVals = { zg = 3*24*60*60, }
+
+    -- todo implement region
+    -- local naStart = { zg = {year=2020, month=4, day=13, hour=18, min=0, sec=0}, }
+    -- local oceStart = { zg = {year=2020, month=4, day=16, hour=2, min=0, sec=0}, }
+    -- local chnStart = { zg = {year=2020, month=4, day=18, hour=7, min=0, sec=0}, }
+    -- if aura_env.config.region == 1 then
+    --     selectedStart = euStart
+    -- elseif aura_env.config.region == 2 then
+    --     selectedStart = naStart
+    -- elseif aura_env.config.region == 3 then
+    --     selectedStart = oceStart
+    -- elseif aura_env.config.region == 4 then
+    --     selectedStart = chnStart
+    -- end
+
+    local reset = time(selectedStart['zg'])
+    for loopReset = reset, time(), resetInterVals['zg'] do
+        resetDate = loopReset+resetInterVals['zg']
+    end
+    
+    return resetDate
 end
 
 local function GetAllkeysArguments()

@@ -39,6 +39,7 @@ L['Name'] = true
 L['Location'] = true
 L['Level'] = true
 L['Item Level'] = true
+L['Gear Score'] = true
 L['Gold'] = true
 L['Highest Key'] = true
 L['Mythic+ Score'] = true
