@@ -319,7 +319,7 @@ local function GearScoreGetItemScore(ItemLink)
 		end
 	end
 
-	return -1, ItemLevel, 50, 1, 1, 1, PVPScore, ItemEquipLoc, 1
+	return -1, ItemLevel
 end
 
 local function GearScoreGetScore(Name, Target)
@@ -331,22 +331,30 @@ local function GearScoreGetScore(Name, Target)
 		local LevelTotal = 0
 		local TitanGrip = 1
 
-		if (GetInventoryItemLink(Target, 16)) and (GetInventoryItemLink(Target, 17)) then
-			local _, _, _, _, _, _, _, _, ItemEquipLoc, _ = GetItemInfo(GetInventoryItemLink(Target, 16))
+		local mainHandItemLink = GetInventoryItemLink(Target, 16)
+		local offhandItemLink = GetInventoryItemLink(Target, 17)
+
+		if (mainHandItemLink) and (offhandItemLink) then
+			local _, _, _, _, _, _, _, _, ItemEquipLoc, _ = GetItemInfo(mainHandItemLink)
 			if (ItemEquipLoc == "INVTYPE_2HWEAPON") then
 				TitanGrip = 0.5
 			end
 		end
 
-		if (GetInventoryItemLink(Target, 17)) then
-			local _, _, _, _, _, _, _, _, ItemEquipLoc, _ = GetItemInfo(GetInventoryItemLink(Target, 17))
+		if (offhandItemLink) then
+			local _, _, _, _, _, _, _, _, ItemEquipLoc, _ = GetItemInfo(offhandItemLink)
 			if (ItemEquipLoc == "INVTYPE_2HWEAPON") then
 				TitanGrip = 0.5
 			end
 
-			local TempScore, ItemLevel = GearScoreGetItemScore(GetInventoryItemLink(Target, 17))
+			local TempScore, ItemLevel = GearScoreGetItemScore(offhandItemLink)
 			if (PlayerEnglishClass == "HUNTER") then
 				TempScore = TempScore * 0.3164
+			end
+
+			-- failsafe because sometimes it seems to be nil
+			if ItemLevel == nil then
+				ItemLevel = 0
 			end
 
 			GearScore = GearScore + TempScore * TitanGrip
@@ -371,6 +379,11 @@ local function GearScoreGetScore(Name, Target)
 
 					if (i == 16) then
 						TempScore = TempScore * TitanGrip
+					end
+
+					-- failsafe because sometimes it seems to be nil
+					if ItemLevel == nil then
+						ItemLevel = 0
 					end
 
 					GearScore = GearScore + TempScore
