@@ -494,6 +494,7 @@ PermoksAccountManager.item = {
     [204715] = {key = 'unearthed_fragrant_coin'}, -- Unearthed Fragrant Coin
     [204985] = {key = 'barter_brick'}, -- Barter Brick
     [202171] = {key = 'obsidian_flightstone'}, -- Obsidian Flightstone
+    [207030] = {key = 'dilated_time_capsule'}, -- Dilated Time Capsule
 }
 
 PermoksAccountManager.factions = {
@@ -535,16 +536,17 @@ PermoksAccountManager.currency = {
     [2000] = 0,
     [2003] = 0,
     [2009] = 0,
-    [2118] = 0,
-    [2122] = 0,
-    [2123] = 0,
-    [2166] = 0,
-    [2245] = 0,
-    [2409] = 0,
-    [2410] = 0,
-    [2411] = 0,
-    [2412] = 0,
-    [2533] = 0,
+    [2118] = 0, -- Elemental Overflow
+    [2122] = 0, -- Storm Sigil
+    [2123] = 0, -- Bloody Tokens
+    [2166] = 0, -- Renascent Lifeblood (Crucible Charges DF Season 1)
+    [2245] = 0, -- Flightstones
+    [2409] = 0, -- Whelpling Crest Fragment Tracker
+    [2410] = 0, -- Drake Crest Fragment Tracker
+    [2411] = 0, -- Wyrm Crest Fragment Tracker
+    [2412] = 0, -- Aspect Crest Fragment Tracker
+    [2533] = 0, -- Renascent Shadowflame (Crucible Charges DF Season 2)
+    [2594] = 0, -- Paracausal Flakes
 }
 
 PermoksAccountManager.currencyCustomOptions = {

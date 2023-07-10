@@ -1160,14 +1160,19 @@ local payload = {
 		['QUEST_ACCEPTED'] = AddQuest,
 		['QUEST_TURNED_IN'] = UpdateQuest,
 		['QUEST_REMOVED'] = RemoveQuest,
-		['QUEST_LOG_UPDATE'] = HiddenQuestTimer
+		['QUEST_LOG_UPDATE'] = {HiddenQuestTimer}, 
 	},
 	share = {
 		[HiddenQuestTimer] = 'questInfo',
 		[UpdateQuest] = 'questInfo'
 	}
 }
-PermoksAccountManager:AddModule(module, payload)
+
+if PermoksAccountManager.isWOTLK then
+	tinsert(payload.events.QUEST_LOG_UPDATE, UpdateBCDailies)
+end
+
+local module = PermoksAccountManager:AddModule(module, payload)
 
 function PermoksAccountManager:FindQuestKeyByQuestID(questID)
 	for key, quests in pairs(self.quests) do

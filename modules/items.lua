@@ -207,6 +207,13 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
+    dilated_time_capsule = {
+        label = "Dilated Time Capsule",
+        type = 'item',
+        key = 207030,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
 
 
 
@@ -617,7 +624,7 @@ do
     function SaveItemCounts(charInfo, itemID)
         if not cachedItemInfo[itemID] then
             local item = Item:CreateFromItemID(itemID)
-            if not item:IsItemEmpty() then
+            if not item:IsItemEmpty() and GetItemInfoInstant(itemID) then
                 item:ContinueOnItemLoad(
                     function()
                         cachedItemInfo[itemID] = true
