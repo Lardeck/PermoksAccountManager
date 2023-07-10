@@ -956,8 +956,14 @@ end
 function PermoksAccountManager:ResetWeeklyActivities(altData)
     -- M0/Raids
     if altData.instanceInfo then
+        -- Store three day raids so they won't get reset here (currently only ZG for WOTLK)
+        local threeDayResetRaids = altData.instanceInfo.raids['Zul\'Gurub'] or false
         altData.instanceInfo.raids = {}
         altData.instanceInfo.dungeons = {}
+        -- Resave after purge if there were any three day raids
+        if threeDayResetRaids ~= false then
+            altData.instanceInfo.raids['Zul\'Gurub'] = threeDayResetRaids
+        end
     end
 
     -- Torghast
