@@ -167,7 +167,7 @@ local labelRows = {
 }
 
 local function UpdateInstanceInfo(charInfo)
-    charInfo.instanceInfo = charInfo.instanceInfo or {raids = {}, dungeons = {}}
+    charInfo.instanceInfo = charInfo.instanceInfo or {raids = {}, dungeons = {}, customRaids = {}}
     local self = PermoksAccountManager
     local instanceInfo = charInfo.instanceInfo
     local name, difficulty, locked, extended, difficultyName, numEncounters, encounterProgress, _
@@ -217,6 +217,26 @@ local function UpdateInstanceInfo(charInfo)
                     defeatedEncounters = encounterProgress,
                     completed = completed
                 }
+            elseif self.customRaids and self.customRaids[name] then
+                local info = self.customRaids[name]
+                instanceInfo.customRaids = instanceInfo.customRaids or {}
+                instanceInfo.customRaids[info.englishID] = instanceInfo.customRaids[info.englishID] or {}
+				instanceInfo.customRaids[info.englishID][difficulty] =  instanceInfo.customRaids[info.englishID][difficulty] or {
+                    key = info.englishID,
+					difficulty = difficultyName,
+					numEncounters = numEncounters
+				}
+
+                if not instanceInfo.customRaids[info.englishID][difficulty].key then
+                    instanceInfo.customRaids[info.englishID][difficulty].key = info.englishID
+                end
+                
+                local oldInstanceInfo = instanceInfo.customRaids[info.englishID][difficulty]
+                if not oldInstanceInfo.defeatedEncounters or oldInstanceInfo.defeatedEncounters < encounterProgress then
+                    instanceInfo.customRaids[info.englishID][difficulty].defeatedEncounters = encounterProgress
+                end
+
+				raidInfo = oldInstanceInfo
             end
         end
 
