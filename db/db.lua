@@ -22,7 +22,9 @@ local default_categories = {
             'wyrm_crest',
             'aspect_crest',
             'spark_ingenuity',
-            'spark_shadowflame'
+            'spark_shadowflame',
+            'paracausal_flakes',
+            'dilated_time_capsule'
         },
         childOrder = {
             characterName = 1,
@@ -42,6 +44,8 @@ local default_categories = {
             aspect_crest = 15,
             spark_ingenuity = 16,
             spark_shadowflame = 17,
+            paracausal_flakes = 18,
+            dilated_time_capsule = 19,
         },
         hideToggle = true,
         enabled = true
