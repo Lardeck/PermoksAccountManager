@@ -381,6 +381,33 @@ PermoksAccountManager.raidDifficultyLabels = {
 	[194] = '25H',
 }
 
+-- GetCurrentRegion
+-- TODO Use instanceID or GetRealZoneText as key
+-- Seems like we probably have to use GetCurrentRegionName
+PermoksAccountManager.oldRaidResetInfo = {
+	-- US (+ Brazil + OC)
+	[1] = {
+		zg = {year=2020, month=4, day=13, hour=18, min=0, sec=0, interval =  0},
+		zgOC = {year=2020, month=4, day=16, hour=2, min=0, sec=0}, -- not sure how to differentiate
+	},
+	-- Korea
+	[2] = {
+		
+	},
+	-- EU (+ Russia)
+	[3] = {
+		zg = {year = 2020, month = 4, day = 13, hour = 9, min = 0, sec = 0}, --3*24*60*60
+	},
+	-- TW
+	[4] = {
+
+	},
+	-- CN
+	[5] = {
+		zg = {year=2020, month=4, day=18, hour=7, min=0, sec=0},
+	}
+}
+
 PermoksAccountManager.numDungeons = 13
 
 -- Name = MapID

@@ -578,9 +578,8 @@ function PermoksAccountManager:CreateResetTimers()
     end
 
     if self.isWOTLK then
-        local db = self.db.global
         local threeDayResetTime = self:GetNextThreeDayLockoutResetTime()
-        if db.threeDayReset < threeDayResetTime then
+        if threeDayResetTime then
             C_Timer.After(
                 threeDayResetTime,
                 function()
@@ -940,7 +939,7 @@ function PermoksAccountManager:CheckForReset()
     db.dailyReset = resetDaily and currentTime + self:GetNextDailyResetTime() or db.dailyReset
     db.biweeklyReset = resetBiweekly and currentTime + self:GetNextBiWeeklyResetTime() or db.biweeklyReset
     if self.isWOTLK then
-        db.threeDayReset = resetThreeDayRaids and self:GetNextThreeDayLockoutResetTime() or db.threeDayReset
+        db.threeDayReset = resetThreeDayRaids and currentTime + self:GetNextThreeDayLockoutResetTime() or db.threeDayReset
     end
 end
 
@@ -1862,31 +1861,17 @@ function PermoksAccountManager:GetNextBiWeeklyResetTime()
 end
 
 function PermoksAccountManager:GetNextThreeDayLockoutResetTime()
-    local resetDate = 0
-    local euStart = { zg = {year=2020, month=4, day=13, hour=9, min=0, sec=0}, }
-    local selectedStart = euStart;
+    local resetInfo = self.oldRaidResetInfo and self.oldRaidResetInfo[GetCurrentRegion()]
+    if not resetInfo then return end
+
+    local selectedStart = resetInfo.zg;
     local resetInterVals = { zg = 3*24*60*60, }
+    local interval = resetInterVals.zg
 
-    -- todo implement region
-    -- local naStart = { zg = {year=2020, month=4, day=13, hour=18, min=0, sec=0}, }
-    -- local oceStart = { zg = {year=2020, month=4, day=16, hour=2, min=0, sec=0}, }
-    -- local chnStart = { zg = {year=2020, month=4, day=18, hour=7, min=0, sec=0}, }
-    -- if aura_env.config.region == 1 then
-    --     selectedStart = euStart
-    -- elseif aura_env.config.region == 2 then
-    --     selectedStart = naStart
-    -- elseif aura_env.config.region == 3 then
-    --     selectedStart = oceStart
-    -- elseif aura_env.config.region == 4 then
-    --     selectedStart = chnStart
-    -- end
-
-    local reset = time(selectedStart['zg'])
-    for loopReset = reset, time(), resetInterVals['zg'] do
-        resetDate = loopReset+resetInterVals['zg']
-    end
+    local reset = time(selectedStart)
+    local nextReset = interval - ((GetServerTime() - reset) % interval)
     
-    return resetDate
+    return nextReset
 end
 
 local function GetAllkeysArguments()
