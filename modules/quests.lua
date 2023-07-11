@@ -1153,26 +1153,28 @@ local function Update(charInfo)
 	UpdateBCDailies(charInfo)
 end
 
-local payload = {
-	update = Update,
-	labels = labelRows,
-	events = {
-		['QUEST_ACCEPTED'] = AddQuest,
-		['QUEST_TURNED_IN'] = UpdateQuest,
-		['QUEST_REMOVED'] = RemoveQuest,
-		['QUEST_LOG_UPDATE'] = {HiddenQuestTimer}, 
-	},
-	share = {
-		[HiddenQuestTimer] = 'questInfo',
-		[UpdateQuest] = 'questInfo'
+do
+	local payload = {
+		update = Update,
+		labels = labelRows,
+		events = {
+			['QUEST_ACCEPTED'] = AddQuest,
+			['QUEST_TURNED_IN'] = UpdateQuest,
+			['QUEST_REMOVED'] = RemoveQuest,
+			['QUEST_LOG_UPDATE'] = {HiddenQuestTimer}, 
+		},
+		share = {
+			[HiddenQuestTimer] = 'questInfo',
+			[UpdateQuest] = 'questInfo'
+		}
 	}
-}
 
-if PermoksAccountManager.isWOTLK then
-	tinsert(payload.events.QUEST_LOG_UPDATE, UpdateBCDailies)
+	if PermoksAccountManager.isWOTLK then
+		tinsert(payload.events.QUEST_LOG_UPDATE, UpdateBCDailies)
+	end
+
+	PermoksAccountManager:AddModule(module, payload)
 end
-
-local module = PermoksAccountManager:AddModule(module, payload)
 
 function PermoksAccountManager:FindQuestKeyByQuestID(questID)
 	for key, quests in pairs(self.quests) do
