@@ -387,7 +387,7 @@ PermoksAccountManager.raidDifficultyLabels = {
 PermoksAccountManager.oldRaidResetInfo = {
 	-- US (+ Brazil + OC)
 	[1] = {
-		zg = {year=2020, month=4, day=13, hour=18, min=0, sec=0, interval =  0},
+		zg = {year=2020, month=4, day=13, hour=18, min=0, sec=0},
 		zgOC = {year=2020, month=4, day=16, hour=2, min=0, sec=0}, -- not sure how to differentiate
 	},
 	-- Korea
