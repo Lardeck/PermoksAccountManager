@@ -1050,7 +1050,7 @@ function PermoksAccountManager:ResetBiweeklyActivities(altData)
 end
 
 function PermoksAccountManager:ResetThreeDayRaids(altData)
-    if altData.instanceInfo.raids and altData.instanceInfo.raids['Zul\'Gurub'] then
+    if altData.instanceInfo and altData.instanceInfo.raids and altData.instanceInfo.raids['Zul\'Gurub'] then
         altData.instanceInfo.raids['Zul\'Gurub'] = nil
     end
 end
