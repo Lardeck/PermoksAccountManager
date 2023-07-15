@@ -158,7 +158,7 @@ local function deleteCustomCategory(category)
     end
 
     custom_categories[category] = nil
-    options.args.categoryToggles.args.custom_categories_toggles.args[category] = nil
+    options.args.categories.args.custom_categories_toggles.args[category] = nil
     options.args.categories.args.customCategories.args[category] = nil
     options.args.order.args.customCategories.args[category] = nil
     options.args.order.args.customCategoriesOrder.args[category] = nil

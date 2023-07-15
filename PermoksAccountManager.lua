@@ -1671,7 +1671,7 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
         categories,
         function(t, a, b)
             if t[a] and t[b] then
-                return t[a].order < t[b].order
+                return (t[a].order or 1) < (t[b].order or 1)
             end
         end
     ) do
@@ -1697,8 +1697,10 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
 
             PermoksAccountManager.managerFrame.categoryButtons[category] = categoryButton
             buttonrows = buttonrows + 1
-        elseif PermoksAccountManager.managerFrame.categoryButtons[category] and not PermoksAccountManager.db.global.currentCategories[category].enabled then
-            PermoksAccountManager.managerFrame.categoryButtons[category]:Hide()
+        elseif PermoksAccountManager.managerFrame.categoryButtons then
+            if PermoksAccountManager.managerFrame.categoryButtons[category] and not PermoksAccountManager.db.global.currentCategories[category].enabled then
+                PermoksAccountManager.managerFrame.categoryButtons[category]:Hide()
+            end
         end
     end
 
