@@ -770,7 +770,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	researchers_under_fire_weekly = {
-		label = 'Under Fire (NYI)',
+		label = 'Under Fire',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
@@ -812,7 +812,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	fyrak_assault = {
-		label = 'Fyrak Assault (NYI)',
+		label = 'Fyrak Assault',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
