@@ -193,6 +193,10 @@ function commands.SECRET()
 	end
 end
 
+function commands.CL()
+	PermoksAccountManager.db.global.customLabels = not PermoksAccountManager.db.global.customLabels
+end
+
 function PermoksAccountManager:HandleChatCommand(chatString)
 	local command, nextposition = PermoksAccountManager:GetArgs(chatString, 1)
 

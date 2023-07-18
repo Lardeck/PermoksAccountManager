@@ -65,6 +65,7 @@ local defaultDB = {
         alts = 0,
         synchedCharacters = {},
         blockedCharacters = {},
+        customLabels = false,
         options = {
             buttons = {
                 updated = false,
@@ -118,7 +119,7 @@ local defaultDB = {
                 }
             },
             customLabels = {
-                quests = {},
+                quest = {},
                 item = {},
                 currency = {}
             }

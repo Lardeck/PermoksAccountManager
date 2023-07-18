@@ -411,6 +411,10 @@ local function EditCustomLabel(labelInfo, labelOptionsInfo)
     AceConfigRegistry:NotifyChange(addonName)
 end
 
+local function CreateCustomLabelQuestKey(name)
+    return name:lower():gsub(" ", "_")
+end
+
 local function CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labelIdentifier)
     local labelIdentifier = labelIdentifier or string.format('custom_%s', labelInfo.name:lower())
     if PermoksAccountManager.labelRows[labelIdentifier] then
@@ -432,8 +436,8 @@ local function CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labe
         label = labelInfo.name,
         type = labelInfo.type,
         customId = labelInfo.id,
-        key = labelInfo.type ~= 'quests' and labelInfo.id or nil,
-        group = labelInfo.type ~= 'quests' and labelInfo.type or nil,
+        key = labelInfo.type ~= 'quest' and labelInfo.id or nil,
+        group = labelInfo.type ~= 'quest' and labelInfo.type or string.format("reset%s%s", labelInfo.reset:sub(1,1):upper(), labelInfo.reset:sub(2)),
         tooltip = labelInfo.type == 'item',
         version = WOW_PROJECT_ID
     }
@@ -442,6 +446,19 @@ local function CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labe
         PermoksAccountManager.item[labelInfo.id] = {key = labelIdentifier}
     elseif labelInfo.type == 'currency' then
         PermoksAccountManager.currency[labelInfo.id] = 0
+    elseif labelInfo.type == 'quest' then
+        local key = CreateCustomLabelQuestKey(labelInfo.name)
+        if not PermoksAccountManager.quests[key] then
+            PermoksAccountManager.quests[key] = {}
+            PermoksAccountManager.quests[key][labelInfo.id] = {questType = labelInfo.reset, log = not labelInfo.hidden}
+
+            local module, charInfo = PermoksAccountManager:GetPAMModule('quests')
+            if module and charInfo then
+                module.update(charInfo)
+            end
+        else
+            PermoksAccountManager:Print(labelInfo.name .. " already exists. Please choose a different one.")
+        end
     end
 end
 
@@ -1311,23 +1328,36 @@ function PermoksAccountManager:LoadOptionsTemplate()
         type = 'group',
         name = L['Custom Labels'],
         childGroups = 'tab',
-		hidden = true,
+		hidden = function()
+            return not PermoksAccountManager.db.global.customLabels
+        end,
         args = {
             addTab = {
                 order = 1,
                 type = 'group',
-                name = L['Add/Edit'],
+                name = function() 
+                    if labelData.oldId then
+                        return L['Edit']
+                    else
+                        return L['Create']
+                    end
+                end,
                 inline = true,
                 args = {
+                    general_options = {
+                        order = 0.5,
+                        name = 'General',
+                        type = 'header',
+                    },
                     name = {
-                        order = 1,
+                        order = 2,
                         name = L['Name'],
                         type = 'input',
                         validate = function(info, value)
                             if value:match('[^%a%s:]') then
                                 return 'You can only use letters (for now).'
                             elseif string.len(value) == 0 then
-                                return "Can't create an empty category."
+                                return "Can't create an empty label."
                             end
 
                             return true
@@ -1340,7 +1370,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         end
                     },
                     id = {
-                        order = 2,
+                        order = 3,
                         name = L['ID'],
                         type = 'input',
                         width = 'half',
@@ -1351,6 +1381,9 @@ function PermoksAccountManager:LoadOptionsTemplate()
 
                             return true
                         end,
+                        disabled = function()
+                            return labelData.oldId and true or false
+                        end,
                         set = function(info, value)
                             labelData.id = tonumber(value)
                         end,
@@ -1359,12 +1392,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         end
                     },
                     labelType = {
-                        order = 3,
+                        order = 1,
                         name = L['Type'],
                         type = 'select',
-                        values = {item = L['Item'], currency = L['Currency']},
-                        sorting = {'item', 'currency'},
-                        width = 'half',
+                        values = {item = L['Item'], currency = L['Currency'], quest = L['Quest']},
+                        sorting = {'item', 'currency', 'quest'},
+                        --width = 'half',
                         disabled = function()
                             return labelData.oldId and true or false
                         end,
@@ -1372,12 +1405,63 @@ function PermoksAccountManager:LoadOptionsTemplate()
                             labelData.type = value
                         end,
                         get = function(info)
-                            return labelData.type or 'quest'
+                            return labelData.type or ''
                         end
                     },
-                    create = {
+                    quest_options = {
+                        order = 3.5,
+                        name = 'Quest',
+                        type = 'header',
+                        hidden = function()
+                            return labelData.type and labelData.type ~= 'quest' or not labelData.type
+                        end,
+                    },
+                    reset = {
                         order = 4,
-                        name = L['Create/Edit'],
+                        name = L['Reset'],
+                        type = 'select',
+                        values = {daily = L['Daily'], weekly = L['Weekly'], biweekly = L['Biweekly']},
+                        sorting = {'daily', 'biweekly', 'weekly'},
+                        --width = 'half',
+                        hidden = function()
+                            return labelData.type and labelData.type ~= 'quest' or not labelData.type
+                        end,
+                        set = function(info, value)
+                            labelData.reset = value
+                        end,
+                        get = function(info)
+                            return labelData.reset or ' '
+                        end
+                    },
+                    inlog = {
+                        order = 5,
+                        name = L['Hidden'],
+                        type = 'toggle',
+                        --width = 'half',
+                        hidden = function()
+                            return labelData.type and labelData.type ~= 'quest' or not labelData.type
+                        end,
+                        set = function(info, value)
+                            labelData.hidden = value
+                        end,
+                        get = function(info)
+                            return labelData.hidden or false
+                        end
+                    },
+                    sep1 = {
+                        order = 5.5,
+                        name = '',
+                        type = 'header',
+                    },
+                    create = {
+                        order = 6,
+                        name = function()
+                            if labelData.oldId then
+                                return L['Edit']
+                            else
+                                return L['Create']
+                            end
+                        end,
                         type = 'execute',
                         func = function(info)
                             if labelData.name and labelData.id and labelData.type then
@@ -1389,9 +1473,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         end
                     },
                     delete = {
-                        order = 5,
+                        order = 7,
                         name = L['Delete'],
                         type = 'execute',
+                        hidden = function()
+                            return labelData.oldId and false or true
+                        end,
                         func = function(info)
                             if labelData.name and labelData.id and labelData.type then
                                 DelecteCustomLabelButton(labelData)
@@ -1399,6 +1486,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         end
                     }
                 }
+            },
+            desc = {
+                order = 1.5,
+                type = 'description',
+                name = 'To edit/delete custom labels click on the button for the label below.',
+                fontSize = 'medium',
             },
             item = {
                 order = 2,
@@ -1410,6 +1503,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                 order = 3,
                 type = 'group',
                 name = L['Currencies'],
+                args = {}
+            },
+            quest = {
+                order = 4,
+                type = 'group',
+                name = L['Quests'],
                 args = {}
             }
         }
