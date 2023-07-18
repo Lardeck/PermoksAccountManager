@@ -461,6 +461,7 @@ local function CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labe
         end
     }
 
+    labelInfo.labelIdentifier = labelIdentifier
     options[labelInfo.id] = labelInfo
     PermoksAccountManager.labelRows[labelIdentifier] = {
         label = labelInfo.name,
@@ -492,7 +493,7 @@ local function CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labe
     end
 end
 
-local function DelecteCustomLabelButton(labelInfo)
+local function DeleteCustomLabelButton(labelInfo, isUpdate)
     local labelOptionsTbl = options.args.add.args[labelInfo.type]
     local options = PermoksAccountManager.db.global.options.customLabels[labelInfo.type]
     if labelOptionsTbl and options and labelOptionsTbl.args[labelInfo.id] then
@@ -504,8 +505,10 @@ local function DelecteCustomLabelButton(labelInfo)
         options[labelInfo.id] = nil
         labelData = {}
 
-        PermoksAccountManager:DeleteUnusedLabels(oldLabelOptions.labelIdentifier)
-        PermoksAccountManager:RemoveIdentifierFromLabelTable(oldLabeRowInfo.type, oldLabelOptions.labelIdentifier)
+        if not isUpdate then
+            PermoksAccountManager:DeleteUnusedLabels(oldLabelOptions.labelIdentifier)
+            PermoksAccountManager:RemoveIdentifierFromLabelTable(oldLabeRowInfo.type, oldLabelOptions.labelIdentifier)
+        end
     end
 end
 
@@ -513,13 +516,9 @@ local function UpdateCustomLabelButton(labelInfo, options, labelOptionsTbl)
     local oldId = labelInfo.oldId
     if oldId and labelOptionsTbl.args[oldId] then
         local oldlabelOptionsTbl = labelOptionsTbl.args[oldId]
-        local labelIdentifier = string.format('custom_%s', labelInfo.name:lower())
-        if PermoksAccountManager.labelRows[labelIdentifier] then
-            PermoksAccountManager:Print(labelInfo.name .. ' already exists as a custom label.')
-            return
-        end
+        local labelIdentifier = oldlabelOptionsTbl.labelIdentifier or string.format('custom_%s', labelInfo.name:lower())
 
-        DelecteCustomLabelButton({name = oldlabelOptionsTbl.name, id = oldId, type = labelInfo.type})
+        DeleteCustomLabelButton({name = oldlabelOptionsTbl.name, id = oldId, type = labelInfo.type}, true)
         CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labelIdentifier)
     end
 end
@@ -1102,7 +1101,9 @@ function PermoksAccountManager:LoadOptionsTemplate()
                 hidden = function()
                     return PermoksAccountManager.db.global.custom
                 end,
-                args = {}
+                args = {
+                    
+                }
             },
             custom_categories_toggles = {
                 order = 1,
