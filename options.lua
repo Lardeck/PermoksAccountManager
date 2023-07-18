@@ -1556,12 +1556,16 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         order = 7,
                         name = L['Delete'],
                         type = 'execute',
-                        hidden = function()
-                            return labelData.oldId and false or true
+                        disabled = function()
+                            if labelData.oldId then
+                                return false
+                            else 
+                                return true
+                            end
                         end,
                         func = function(info)
                             if labelData.name and labelData.id and labelData.type then
-                                DelecteCustomLabelButton(labelData)
+                                DeleteCustomLabelButton(labelData)
                             end
                         end
                     }
