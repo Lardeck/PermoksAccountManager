@@ -54,9 +54,14 @@ local enums = {}
 local events = {}
 local functions = {}
 local modulesEventFrame = CreateFrame('Frame')
+local currentCharInfo
 local function SetEventScript(charInfo)
     if not charInfo then
         return
+    end
+
+    if not currentCharInfo then
+        currentCharInfo = charInfo
     end
 
     modulesEventFrame:SetScript(
@@ -153,6 +158,12 @@ function PermoksAccountManager:AddModule(moduleName, payload, load)
     end
 
     return module
+end
+
+function PermoksAccountManager:GetPAMModule(moduleName)
+    if modules[moduleName] then
+        return modules[moduleName], currentCharInfo
+    end
 end
 
 function PermoksAccountManager:LoadAllModules(charInfo)
