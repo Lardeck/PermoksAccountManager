@@ -1333,7 +1333,10 @@ PermoksAccountManager.quests = {
         [75665] = {questType = 'weekly', log = true}, -- Zaqali Elders
     },
     researchers_under_fire_weekly = {
-
+        [75627] = {questType = 'weekly'},
+        [75628] = {questType = 'weekly'},
+        [75629] = {questType = 'weekly'},
+        [75630] = {questType = 'weekly'},
     },
     zc_wb_wq = {
         [74892] = {questType = 'weekly', log = true}, -- Zaqali Elders
@@ -1356,7 +1359,7 @@ PermoksAccountManager.quests = {
         [72171] = {questType = 'weekly', log = true},
     },
     fyrak_assault = {
-
+        [75467] = {questType = 'weekly'},
     },
     zyrak_cavern_zone_events = {
         [75664] = {questType = 'weekly', forceUpdate = true},
