@@ -475,8 +475,18 @@ local function CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labe
 
     if labelInfo.type == 'item' then
         PermoksAccountManager.item[labelInfo.id] = {key = labelIdentifier}
+
+        local module, charInfo = PermoksAccountManager:GetPAMModule('items')
+        if module and charInfo then
+            module.update(charInfo)
+        end
     elseif labelInfo.type == 'currency' then
         PermoksAccountManager.currency[labelInfo.id] = 0
+
+        local module, charInfo = PermoksAccountManager:GetPAMModule('currencies')
+        if module and charInfo then
+            module.update(charInfo)
+        end
     elseif labelInfo.type == 'quest' then
         local key = CreateCustomLabelQuestKey(labelInfo.name)
         if not PermoksAccountManager.quests[key] then
