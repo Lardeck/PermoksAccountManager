@@ -1200,7 +1200,7 @@ PermoksAccountManager.quests = {
         [75600] = {questType = 'weekly', log = true}, -- Tailoring
         [75362] = {questType = 'weekly', log = true}, -- Jewelcrafting
         [75602] = {questType = 'weekly', log = true}, -- Jewelcrafting
-        [75636] = {questType = 'weekly', log = true}, -- Alchemy
+        [75363] = {questType = 'weekly', log = true}, -- Alchemy
         [75371] = {questType = 'weekly', log = true}, -- Alchemy
     },
     knowledge_weeklies_order = {
