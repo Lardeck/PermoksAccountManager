@@ -1676,31 +1676,33 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
             end
         end
     ) do
-        if category ~= 'general' and db.currentCategories[category].enabled then
-            local categoryButton = PermoksAccountManager.managerFrame.categoryButtons[category] or CreateManagerButton(100, 25, nameTbl and nameTbl[category] and nameTbl[category].name or row.name)
-            categoryButton:Show()
-            categoryButton:SetPoint('TOPRIGHT', PermoksAccountManager.managerFrame.topDragBar, 'TOPLEFT', 0, -(buttonrows * 26) - 5)
-            if not PermoksAccountManager.managerFrame.categoryButtons[category] then
-                categoryButton.name = row.name
-            end
-
-            if row.disable_drawLayer then
-                categoryButton:DisableDrawLayer('BACKGROUND')
-            end
-
-            categoryButton:SetScript(
-                'OnClick',
-                function()
-                    PermoksAccountManager:HideAllCategories(category)
-                    PermoksAccountManager:UpdateCategory(categoryButton, nil, row.name, category)
+        if PermoksAccountManager.managerFrame.categoryButtons then
+            if category ~= 'general' and db.currentCategories[category].enabled then
+                local categoryButton = PermoksAccountManager.managerFrame.categoryButtons[category] or CreateManagerButton(100, 25, nameTbl and nameTbl[category] and nameTbl[category].name or row.name)
+                categoryButton:Show()
+                categoryButton:SetPoint('TOPRIGHT', PermoksAccountManager.managerFrame.topDragBar, 'TOPLEFT', 0, -(buttonrows * 26) - 5)
+                if not PermoksAccountManager.managerFrame.categoryButtons[category] then
+                    categoryButton.name = row.name
                 end
-            )
 
-            PermoksAccountManager.managerFrame.categoryButtons[category] = categoryButton
-            buttonrows = buttonrows + 1
-        elseif PermoksAccountManager.managerFrame.categoryButtons then
-            if PermoksAccountManager.managerFrame.categoryButtons[category] and not PermoksAccountManager.db.global.currentCategories[category].enabled then
-                PermoksAccountManager.managerFrame.categoryButtons[category]:Hide()
+                if row.disable_drawLayer then
+                    categoryButton:DisableDrawLayer('BACKGROUND')
+                end
+
+                categoryButton:SetScript(
+                    'OnClick',
+                    function()
+                        PermoksAccountManager:HideAllCategories(category)
+                        PermoksAccountManager:UpdateCategory(categoryButton, nil, row.name, category)
+                    end
+                )
+
+                PermoksAccountManager.managerFrame.categoryButtons[category] = categoryButton
+                buttonrows = buttonrows + 1
+            else
+                if PermoksAccountManager.managerFrame.categoryButtons[category] and not PermoksAccountManager.db.global.currentCategories[category].enabled then
+                    PermoksAccountManager.managerFrame.categoryButtons[category]:Hide()
+                end
             end
         end
     end

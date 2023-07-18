@@ -147,27 +147,35 @@ local function deleteCustomCategory(category)
     local categoryButtons = PermoksAccountManager.managerFrame.categoryButtons
     local categoryFrame = PermoksAccountManager.categoryFrame
 
-    if categoryFrame.openCategory and categoryFrame.openCategory == category then
-        PermoksAccountManager:UpdateCategory(categoryButtons[category], 'open', nil, category)
-        categoryFrame.labelColumn.categories[category] = nil
+    if categoryFrame and categoryButtons then
+        if categoryFrame.openCategory and categoryFrame.openCategory == category then
+            PermoksAccountManager:UpdateCategory(categoryButtons[category], 'open', nil, category)
+            categoryFrame.labelColumn.categories[category] = nil
+        end
+    
+        if categoryButtons[category] then
+            categoryButtons[category]:Hide()
+            categoryButtons[category] = nil
+        end
     end
-
-    if categoryButtons[category] then
-        categoryButtons[category]:Hide()
-        categoryButtons[category] = nil
-    end
-
-    custom_categories[category] = nil
-    options.args.categories.args.custom_categories_toggles.args[category] = nil
-    options.args.categories.args.customCategories.args[category] = nil
-    options.args.order.args.customCategories.args[category] = nil
-    options.args.order.args.customCategoriesOrder.args[category] = nil
 
     if PermoksAccountManager.db.global.custom then
-        PermoksAccountManager.numCategories = PermoksAccountManager.numCategories - 1
+        custom_categories[category] = nil
+        options.args.categories.args.custom_categories_toggles.args[category] = nil
+        options.args.categories.args.customCategories.args[category] = nil
+        options.args.order.args.customCategories.args[category] = nil
+        options.args.order.args.customCategoriesOrder.args[category] = nil
+        selectDifferentTab('customCategories', 'create')
+    else
+        PermoksAccountManager.db.global.currentCategories[category] = nil
+        options.args.categories.args.default_categories_toggles.args[category] = nil
+        options.args.categories.args.defaultCategories.args[category] = nil
+        options.args.order.args.defaultCategories.args[category] = nil
+        options.args.order.args.defaultCategoriesOrder.args[category] = nil
+        selectDifferentTab('defaultCategories', 'create')
     end
 
-    selectDifferentTab('customCategories', 'create')
+    PermoksAccountManager.numCategories = PermoksAccountManager.numCategories - 1
 end
 
 local function sortCategoryChilds(optionsTable, category)
@@ -332,8 +340,30 @@ local function createOrderOptionsForCategory(categoryOptions, optionsTable, cate
     end
 end
 
-local function addCustomCategory(category, name)
-    if not custom_categories[category].name then
+local function addCustomCategory(category, name, isDefault)
+    if isDefault then
+        local currentCategories = PermoksAccountManager.db.global.currentCategories
+        if not currentCategories[category].name then
+            PermoksAccountManager.numCategories = PermoksAccountManager.numCategories + 1
+            local order = PermoksAccountManager.numCategories
+
+            currentCategories[category] = {
+                name = name,
+                childs = {},
+                childOrder = {},
+                order = order,
+                hideToggle = false,
+                enabled = true,
+            }
+
+            addCategoryToggle('default_categories_toggles', category, name, order)
+            addCategoryOptions('defaultCategories', nil, category, name, order)
+            createOrderOptionsForCategory(PermoksAccountManager.db.global.options.defaultCategories[category], 'defaultCategories', category)
+
+            selectDifferentTab('defaultCategories', category)
+            PermoksAccountManager:UpdateOrCreateCategoryButtons()
+        end
+    elseif not custom_categories[category].name then
         if PermoksAccountManager.db.global.custom then
             PermoksAccountManager.numCategories = PermoksAccountManager.numCategories + 1
         end
@@ -354,7 +384,7 @@ end
 local function createDefaultOptions()
     local numCategories = 0
 
-    for category, info in pairs(default_categories) do
+    for category, info in pairs(PermoksAccountManager.db.global.options.defaultCategories) do
         if not info.hideToggle then
             if PermoksAccountManager.db.global.options.defaultCategories[category].enabled then
                 numCategories = numCategories + 1
@@ -363,7 +393,7 @@ local function createDefaultOptions()
         end
 
         local args = {}
-        if category == 'general' then
+        if category == 'general' or not default_categories[category] then
             args = nil
         else
             for i, child in pairs(info.childs) do
@@ -416,7 +446,7 @@ local function CreateCustomLabelQuestKey(name)
 end
 
 local function CreateCustomLabelButton(labelInfo, options, labelOptionsTbl, labelIdentifier)
-    local labelIdentifier = labelIdentifier or string.format('custom_%s', labelInfo.name:lower())
+    local labelIdentifier = labelIdentifier or labelInfo.labelIdentifier or string.format('custom_%s', labelInfo.name:lower())
     if PermoksAccountManager.labelRows[labelIdentifier] then
         PermoksAccountManager:Print(labelInfo.name .. ' already exists as a custom label.')
         return
@@ -1106,7 +1136,57 @@ function PermoksAccountManager:LoadOptionsTemplate()
                 type = 'group',
                 name = L['Default'],
                 childGroups = 'tab',
-                args = {}
+                args = {
+                    create = {
+                        order = 100,
+                        type = 'group',
+                        name = L['Add New'],
+                        args = {
+                            create_group = {
+                                order = 1,
+                                type = 'group',
+                                name = L['General'],
+                                inline = true,
+                                args = {
+                                    name = {
+                                        order = 1,
+                                        name = L['Name'],
+                                        type = 'input',
+                                        validate = function(info, value)
+                                            if value:match('[^%w:]') then
+                                                return 'You can only use letters, numbers, and colons (for now).'
+                                            elseif string.len(value) == 0 then
+                                                return "Can't create an empty category."
+                                            elseif PermoksAccountManager.db.global.currentCategories[value:lower()].name then
+                                                return 'This category already exists.'
+                                            end
+
+                                            return true
+                                        end,
+                                        set = function(info, value)
+                                            categoryData.create = value
+                                        end,
+                                        get = function(info)
+                                            return categoryData.create or ''
+                                        end
+                                    },
+                                    create = {
+                                        order = 2,
+                                        name = L['Create'],
+                                        type = 'execute',
+                                        func = function(info)
+                                            if categoryData.create then
+                                                local categoryName = categoryData.create:lower()
+                                                addCustomCategory(categoryName, categoryData.create, true)
+                                                categoryData.create = nil
+                                            end
+                                        end
+                                    }
+                                }
+                            }
+                        }
+                    },
+                }
             },
             customCategories = {
                 order = 3,
