@@ -378,7 +378,7 @@ function PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data)
         local right = '|cffff0000-|r'
 
         if info then
-            right = self:CreateQuestString(info.defeatedEncounters, info.numEncounters)
+            right = self:CreateQuestString(info.defeatedEncounters, info.numEncounters, true)
         end
         tooltip:AddLine(left, '   ', right)
     end
