@@ -1346,7 +1346,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         name = L['Name'],
                         type = 'input',
                         validate = function(info, value)
-                            if value:match('[^%a]') then
+                            if value:match('[%d%s%p%c]') then
                                 return 'Character names can only consist of letters.'
                             end
 
