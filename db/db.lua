@@ -1382,6 +1382,9 @@ PermoksAccountManager.quests = {
         [75494] = {questType = 'weekly', forceUpdate = true},
         [75705] = {questType = 'weekly', forceUpdate = true},
     },
+    time_rift = {
+        [77236] = {questType = 'weekly', log = true},
+    }
 }
 
 PermoksAccountManager.locale = {

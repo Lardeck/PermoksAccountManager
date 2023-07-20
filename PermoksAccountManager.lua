@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.23'
-local INTERNALVERSION = 23
+local INTERNALVERSION = 24
 local INTERNALWOTLKVERSION = 3
 local defaultDB = {
     profile = {
@@ -746,6 +746,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     if oldInternalVersion < 23 then
         self:AddLabelToDefaultCategory('general', 'paracausal_flakes')
         self:AddLabelToDefaultCategory('general', 'dilated_time_capsule')
+    end
+
+    if oldInternalVersion < 24 then
+        self:AddLabelToDefaultCategory('general', 'time_rift')
     end
 end
 
