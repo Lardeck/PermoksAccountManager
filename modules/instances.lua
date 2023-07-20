@@ -38,6 +38,21 @@ local labelRows = {
 		group = 'raids',
 		version = WOW_PROJECT_MAINLINE
     },
+    dawn_of_the_infinite = {
+        label = GetRealZoneText(2579),
+        id = 2579,
+        data = function(alt_data)
+            local defeated = 0
+            if alt_data.instanceInfo and alt_data.instanceInfo.dungeons and alt_data.instanceInfo.dungeons[2579] then
+                defeated = alt_data.instanceInfo.dungeons[2579].defeatedEncounters
+            else
+                
+            end
+            return PermoksAccountManager:CreateFractionString(defeated, 8)
+        end,
+        group = 'dungeons',
+        version = WOW_PROJECT_MAINLINE
+    },
 
     -- wotlk
 	-- TOOD: Change db structure so you can get the locale name without calling the function again

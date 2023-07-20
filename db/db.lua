@@ -390,7 +390,7 @@ PermoksAccountManager.labelRows = {
     }
 }
 
-PermoksAccountManager.numDungeons = 8
+PermoksAccountManager.numDungeons = 9
 PermoksAccountManager.keys = {
     [2] = "TJS", -- Temple of the Jade Serpent
     [165] = "SBG", -- Shadowmoon Burial Grounds
@@ -464,6 +464,7 @@ PermoksAccountManager.dungeons = {
     [2521] = GetRealZoneText(2521),
     [2526] = GetRealZoneText(2526),
     [2527] = GetRealZoneText(2527),
+    [2579] = GetRealZoneText(2579),
 }
 
 PermoksAccountManager.item = {
