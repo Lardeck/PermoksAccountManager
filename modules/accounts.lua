@@ -13,6 +13,7 @@ do
         local realm = GetNormalizedRealmName()
         local connectedRealms = GetAutoCompleteRealms()
 
+        local faction = UnitFactionGroup("player")
         for accountName, accountInfo in pairs(PermoksAccountManager.db.global.accounts) do
             if accountName ~= 'main' then
                 for alt_guid, alt_data in pairs(accountInfo.data) do
@@ -20,7 +21,7 @@ do
                         local characterName = alt_data.realm ~= realm and alt_data.name .. '-' .. alt_data.realm or alt_data.name
 
                         local friendInfo = C_FriendList.GetFriendInfo(characterName)
-                        if not friendInfo then
+                        if not friendInfo and ((alt_data.faction or '') == faction) then
                             C_FriendList.AddFriend(characterName)
                             friendInfo = C_FriendList.GetFriendInfo(characterName)
                         end
@@ -219,6 +220,7 @@ function PermoksAccountManager:UnsyncAccount(accountKey)
 end
 
 function PermoksAccountManager:SendAccountUpdate(name)
+    UpdateOnlineFriends()
     if self.db.global.numAccounts == 1 or #onlineFriends == 0 then return end
 
     local message = {type = 'updateaccount', account = self.db.global.accounts.main}
@@ -247,8 +249,9 @@ end
 
 function PermoksAccountManager:BefriendEveryoneOfAccount(account)
     local realm = GetNormalizedRealmName()
+    local faction = UnitFactionGroup("player")
     for alt_guid, alt_data in pairs(account.data) do
-        if not C_FriendList.IsFriend(alt_guid) then
+        if not C_FriendList.IsFriend(alt_guid) and (alt_data.faction or '') == faction then
             local characterName = alt_data.realm ~= realm and alt_data.name .. '-' .. alt_data.realm or alt_data.name
             C_FriendList.AddFriend(characterName)
         end
