@@ -1061,18 +1061,17 @@ PermoksAccountManager.quests = {
         [71861] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, --Herbalism 5
         [71864] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, --Herbalism 6
         [70381] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 1
-        [70382] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 2
-        [70383] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 3
-        [70384] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 4
-        [70385] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 5
-        --[71864] = {questType = 'weekly', profession = 'Skinning', skillLineID = 393}, --Skinning 6
+        [70383] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 2
+        [70384] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 3
+        [70385] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 4
+        [70386] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 5
+        [70389] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, --Skinning 6
         [72160] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 1
         [72161] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 2
         [72162] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 3
         [72163] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 4
         [72164] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 5
         [72165] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 6
-        --[66936] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 6
     },
     knowledge_scout_packs = {
         [66375] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193904}, --Inscription 1
