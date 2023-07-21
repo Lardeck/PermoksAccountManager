@@ -193,7 +193,7 @@ do
         smallFont:SetTextColor(1, 1, 1, 1)
 
         mediumLargeFont = CreateFont('PAM_MediumLargeFont')
-        mediumLargeFont:SetFont(font, 12, outline)
+        mediumLargeFont:SetFont(font, 13, outline)
         mediumLargeFont:SetTextColor(1, 1, 1, 1)
 
         largeFont = CreateFont('PAM_LargeFont')
@@ -206,10 +206,10 @@ do
         local options = PermoksAccountManager.db.global.options
         local outline = options.useOutline and 'OUTLINE' or nil
         local font = LSM:Fetch('font', options.font)
-        normalFont:SetFont(font, 11, outline)
+        normalFont:SetFont(font, options.fontSize, outline)
         smallFont:SetFont(font, 9, outline)
-        mediumLargeFont:SetFont(font, 13, outline)
-        largeFont:SetFont(font, 17, outline)
+        mediumLargeFont:SetFont(font, options.fontSize + 2, outline)
+        largeFont:SetFont(font, max(17, options.fontSize + 2), outline)
     end
 
     --- Create the text for a normal button.
