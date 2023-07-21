@@ -1523,8 +1523,11 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
     for _, row_identifier in pairs(childs) do
         local labelRow = self.labelRows[row_identifier]
         if labelRow and enabledChilds[row_identifier] then
-            local row = rows[row_identifier] or CreateLabelButton('row', anchorFrame, labelRow, enabledRows)
-            if not rows[row_identifier] then
+            local row = (not self.isLayoutDirty and rows[row_identifier]) or CreateLabelButton('row', anchorFrame, labelRow, enabledRows)
+            if self.isLayoutDirty or not rows[row_identifier] then
+                if rows[row_identifier] then
+                    rows[row_identifier]:Hide()
+                end
                 rows[row_identifier] = row
 
                 local module = self:GetModuleForRow(row_identifier)
@@ -1584,9 +1587,6 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
             end
             row:SetPoint('TOPLEFT', anchorFrame, 'TOPLEFT', 0, -yOffset * 20)
             row:Show()
-
-            UpdateButtonTexture(row, enabledRows, row_identifier, alt_guid)
-            UpdateRowButton(row, buttonOptions, row_identifier)
 
             if labelRow.color and row.fontString then
                 row.fontString:SetTextColor(labelRow.color(altData):GetRGBA())
@@ -1755,6 +1755,8 @@ function PermoksAccountManager:UpdateManagerFrame()
 end
 
 function PermoksAccountManager:UpdateManagerFrameSize(widthOnly, heightOnly)
+    if not self.managerFrame or not self.managerFrame.height then return end
+
     local alts = #self.pages[self.db.global.currentPage]
     local width = ((alts * self.db.global.options.buttons.widthPerAlt) + 140) - min((self.db.global.options.buttons.widthPerAlt - self.db.global.options.buttons.buttonWidth), 20) + 4
     local height = self.managerFrame.height
