@@ -227,11 +227,17 @@ local function UpdateInstanceInfo(charInfo)
                     completed = isKilled
                 end
 
-                instanceInfo.dungeons[mapID or self.dungeons[name]] = {
-                    numEncounters = numEncounters,
-                    defeatedEncounters = encounterProgress,
-                    completed = completed
-                }
+                local oldInstanceInfo = instanceInfo.dungeons[mapID or self.dungeons[name]]
+                if oldInstanceInfo then
+                    oldInstanceInfo.defeatedEncounters = max(oldInstanceInfo.defeatedEncounters, encounterProgress)
+                    oldInstanceInfo.completed = completed
+                else
+                    instanceInfo.dungeons[mapID or self.dungeons[name]] = {
+                        numEncounters = numEncounters,
+                        defeatedEncounters = encounterProgress,
+                        completed = completed
+                    }
+                end
             elseif self.customRaids and self.customRaids[name] then
                 local info = self.customRaids[name]
                 instanceInfo.customRaids = instanceInfo.customRaids or {}
