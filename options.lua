@@ -108,6 +108,9 @@ function PermoksAccountManager:AddCharacterToOrderOptions(altGUID, altData, acco
 				type = 'input',
 				name = 'Order',
 				width = 'half',
+                disabled = function()
+                    return PermoksAccountManager.db.global.options.characters.sortBy ~= 'order'
+                end
 			},
 			remove = {
 				order = 2,
@@ -886,7 +889,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         PermoksAccountManager.db.global.options[parentKey].buttonTextWidth = value
                     end
 
+                    if key == 'justifyH' then
+                        PermoksAccountManager.isLayoutDirty = true
+                    end
+
                     PermoksAccountManager:UpdateAnchorsAndSize('general', true)
+                    PermoksAccountManager.isLayoutDirty = nil
                 end,
                 args = {
                     buttonWidth = {
@@ -1044,6 +1052,52 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         confirm = true,
                         confirmText = 'Requires a reload!'
 					},
+                    sortByIlvl = {
+                        order = 2,
+                        type = 'select',
+                        name = L['Sort By'],
+                        values = {ilevel = 'Ilevel', order = 'Custom Order', charLevel = 'Level'},
+                        sorting = {'order', 'ilevel', 'charLevel'},
+                        hidden = function()
+                            return PermoksAccountManager.isWOTLK
+                        end,
+						set = function(_, value)
+                            PermoksAccountManager.db.global.options.characters.sortBy = value
+                            if value == 'order' then
+                                PermoksAccountManager.db.global.options.characters.sortByLesser = true
+                            else
+                                PermoksAccountManager.db.global.options.characters.sortByLesser = false
+                            end
+
+                            PermoksAccountManager:SortPages()
+                            PermoksAccountManager:UpdateAnchorsAndSize('general')
+                        end,
+                        get = function(_)
+                            return PermoksAccountManager.db.global.options.characters.sortBy
+                        end,
+                    },
+                    sortByComparison = {
+                        order = 3,
+                        type = 'select',
+                        name = L['Operator'],
+                        values = {greater = '>', lesser = '<'},
+                        sorting = {'greater', 'lesser'},
+                        width = 'half',
+                        disabled = function()
+                            return PermoksAccountManager.db.global.options.characters.sortBy == 'order'
+                        end,
+                        hidden = function()
+                            return PermoksAccountManager.isWOTLK
+                        end,
+						set = function(_, value)
+                            PermoksAccountManager.db.global.options.characters.sortByLesser = value == 'lesser'
+                            PermoksAccountManager:SortPages()
+                            PermoksAccountManager:UpdateAnchorsAndSize('general')
+                        end,
+                        get = function(_)
+                            return PermoksAccountManager.db.global.options.characters.sortByLesser and 'lesser' or 'greater'
+                        end,
+                    }
 				}
 			},
 			customCharacterOrder = {

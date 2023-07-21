@@ -228,3 +228,7 @@ L['Biweekly'] = true
 L['Weekly'] = true
 L['Reset'] = true
 L['Hidden'] = true
+L['Sort By Ilevel'] = 'Nach Ilevel sortieren'
+L['Sort By'] = 'Sortiere nach'
+L['Compare'] = true
+L['Operator'] = true

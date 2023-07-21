@@ -82,7 +82,9 @@ local defaultDB = {
             characters = {
                 charactersPerPage = 6,
                 minLevel = GetMaxLevelForExpansionLevel(GetExpansionLevel())-10,
-                combine = false
+                combine = false,
+                sortBy = 'order',
+                sortByLesser = true,
             },
             border = {
                 edgeSize = 5,
@@ -90,6 +92,7 @@ local defaultDB = {
                 bgColor = {0.1, 0.1, 0.1, 0.9}
             },
             font = 'Expressway',
+            fontSize = 11,
             savePosition = false,
             showOptionsButton = false,
             showGuildAttunementButton = false,
@@ -760,6 +763,8 @@ end
 
 local function SortPages(pages)
     local options = PermoksAccountManager.db.global.options
+    local sortBy = options.characters.sortBy
+    local sortByLesser = options.characters.sortByLesser
     local GUID = PermoksAccountManager:GetGUID()
 
     table.sort(
@@ -773,7 +778,13 @@ local function SortPages(pages)
                 end
             end
 
-            return a.order < b.order
+            local ta = a[sortBy]
+            local tb = b[sortBy]
+            if sortByLesser then
+                return ta < tb or (ta == tb and a.name < b.name)
+            else
+                return ta > tb or (ta == tb and a.name < b.name)
+            end
         end
     )
 
@@ -790,18 +801,22 @@ local function SortPages(pages)
 end
 
 local function GetCharacterOrders(pages, data, enabledAlts, accountName)
-    local customSortKey = 'order'
-    local sortKey = PermoksAccountManager.isBC and 'charLevel' or 'ilevel'
+    local db = PermoksAccountManager.db.global
+    local sortBy = db.options.characters.sortBy
+    local sortByLesser = db.options.characters.sortByLesser
 
     local enabledAlts = enabledAlts or 1
     for alt_guid, alt_data in PermoksAccountManager.spairs(
         data,
         function(t, a, b)
             if t[a] and t[b] then
-                if t[a][customSortKey] and t[b][customSortKey] then
-                    return t[a][customSortKey] < t[b][customSortKey]
+                local ta = t[a][sortBy]
+                local tb = t[b][sortBy]
+                if sortByLesser then
+                    return ta < tb or (ta == tb and t[a].name < t[b].name)
+                else
+                    return ta > tb or (ta == tb and t[a].name < t[b].name)
                 end
-                return t[a][sortKey] > t[b][sortKey]
             end
         end
     ) do
@@ -817,7 +832,6 @@ end
 
 function PermoksAccountManager:SortPages()
     local db = self.db.global
-    local perPage = db.options.characters.charactersPerPage
 
     if db.options.characters.combine then
         local dummyPages = {}
