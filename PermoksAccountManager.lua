@@ -1551,6 +1551,9 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
                 end)
             end
 
+            UpdateButtonTexture(row, enabledRows, row_identifier, altData.guid)
+            UpdateRowButton(row, buttonOptions, row_identifier)
+
             if row.module then
                 local args = row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update)
                 local text
