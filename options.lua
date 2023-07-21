@@ -1734,24 +1734,48 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         end,
                         dialogControl = 'LSM30_Font'
                     },
-                    itemIconPosition = {
+                    fontSize = {
                         order = 8,
+                        type = 'range',
+                        name = 'Font Size',
+                        min = 9,
+                        max = 16,
+                        step = 1,
+                        set = function(info, value)
+                            PermoksAccountManager.db.global.options[info[#info]] = value
+                            PermoksAccountManager:UpdateAllFonts()
+                        end,
+                    },
+                    itemIconPosition = {
+                        order = 9,
                         type = 'select',
                         name = 'Item Icon Position',
                         values = {left = 'Left', right = 'Right'}
                     },
                     currencyIconPosition = {
-                        order = 9,
+                        order = 10,
                         type = 'select',
                         name = 'Currency Icon Position',
                         values = {left = 'Left', right = 'Right'}
                     },
                     currentCharacterFirstPosition = {
-                        order = 10,
+                        order = 11,
                         type = 'toggle',
                         name = 'Prioritise current char',
                         desc = 'Always show the current character at the front'
-                    }
+                    },
+                    name = {
+                        order = 12,
+                        type = 'input',
+                        name = 'Rename Main Account',
+                        desc = nil,
+                        get = function(info)
+                            return PermoksAccountManager.db.global.accounts.main.name
+                        end,
+                        set = function(info, value)
+                            changeAccountName('main', value)
+                        end
+                    },
                 }
             }
         }
