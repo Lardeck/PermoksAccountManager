@@ -804,14 +804,16 @@ local function GetCharacterOrders(pages, data, enabledAlts, accountName)
     local db = PermoksAccountManager.db.global
     local sortBy = db.options.characters.sortBy
     local sortByLesser = db.options.characters.sortByLesser
+    local default = sortBy == 'order' and 100 or 1
 
     local enabledAlts = enabledAlts or 1
     for alt_guid, alt_data in PermoksAccountManager.spairs(
         data,
         function(t, a, b)
             if t[a] and t[b] then
-                local ta = t[a][sortBy]
-                local tb = t[b][sortBy]
+                local ta = t[a][sortBy] or default
+                local tb = t[b][sortBy] or default
+                
                 if sortByLesser then
                     return ta < tb or (ta == tb and t[a].name < t[b].name)
                 else
@@ -876,6 +878,7 @@ function PermoksAccountManager:AddNewCharacter(account, guid)
     local name, realm = UnitFullName('player')
     charInfo.name = name
     charInfo.realm = realm
+    charInfo.order = self.db.global.alts
 
     charInfo.charLevel = UnitLevel('player')
 end
