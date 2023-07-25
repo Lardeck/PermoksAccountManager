@@ -862,16 +862,17 @@ PermoksAccountManager.quests = {
     },
     -- Weekend Event
     weekend_event = {
-        [62631] = {questType = 'weekly', log = true}, -- World Quests
-        [62632] = {questType = 'weekly', log = true}, -- BC Timewalking
-        [62633] = {questType = 'weekly', log = true}, -- WotLK Timewalking
-        [62634] = {questType = 'weekly', log = true}, -- Cata Timewalking
-        [62635] = {questType = 'weekly', log = true}, -- MOP Timewalking
-        [62636] = {questType = 'weekly', log = true}, -- Draenor Timewalking
-        [62637] = {questType = 'weekly', log = true}, -- Battleground Event
-        [62638] = {questType = 'weekly', log = true}, -- Mythuc Dungeon Event
-        [62639] = {questType = 'weekly', log = true}, -- Pet Battle Event
-        [62640] = {questType = 'weekly', log = true} -- Arena Event
+        [72728] = {questType = 'weekly', log = true}, -- World Quests
+        [72727] = {questType = 'weekly', log = true}, -- BC Timewalking
+        [72726] = {questType = 'weekly', log = true}, -- WotLK Timewalking
+        [72810] = {questType = 'weekly', log = true}, -- Cata Timewalking
+        [72725] = {questType = 'weekly', log = true}, -- MOP Timewalking
+        [72724] = {questType = 'weekly', log = true}, -- Draenor Timewalking
+        [72719] = {questType = 'weekly', log = true}, -- Legion Timewalking
+        [72723] = {questType = 'weekly', log = true}, -- Battleground Event
+        [72722] = {questType = 'weekly', log = true}, -- Mythuc Dungeon Event
+        [72721] = {questType = 'weekly', log = true}, -- Pet Battle Event
+        [72720] = {questType = 'weekly', log = true} -- Arena Event
     },
     korthia_weekly = {
         [63949] = {questType = 'weekly', log = true} -- Shaping Fate
