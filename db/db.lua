@@ -1177,9 +1177,10 @@ PermoksAccountManager.quests = {
         [66890] = {questType = 'weekly', log = true}, -- Engineering 6
         [66942] = {questType = 'weekly', log = true}, -- Engineering 7
         [72396] = {questType = 'weekly', log = true}, -- Engineering 8
+        [73165] = {questType = 'weekly', log = true}, -- Engineering 9
         [66516] = {questType = 'weekly', log = true}, -- Jewelcrafting 5
-        [66950] = {questType = 'weekly', log = true}, -- Jewelcrafting 6
-        [70563] = {questType = 'weekly', log = true}, -- Jewelcrafting 7
+        [66949] = {questType = 'weekly', log = true}, -- Jewelcrafting 6
+        [66950] = {questType = 'weekly', log = true}, -- Jewelcrafting 7
         [72428] = {questType = 'weekly', log = true}, -- Jewelcrafting 8
         [66937] = {questType = 'weekly', log = true}, -- Alchemy 5
         [66938] = {questType = 'weekly', log = true}, -- Alchemy 6
