@@ -1046,20 +1046,28 @@ PermoksAccountManager.quests = {
     knowledge_mobs = {
         [70522] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 198975}, --Leatherworking 1
         [70523] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 198976}, --Leatherworking 2
+        [73138] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 204232}, --Leatherworking 3
         [70514] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item= 198967}, --Enchanting 1
         [70515] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item= 198968}, --Enchanting 2
+        [73136] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item= 204224}, --Enchanting 3
         [70516] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 198969}, --Engineering 1
         [70517] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 198970}, --Engineering 2
+        [73165] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 204227}, --Engineering 3
         [70518] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 198971}, --Inscription 1
         [70519] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 198972}, --Inscription 2
+        [73163] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 204229}, --Inscription 3
         [70524] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 198977}, --Tailoring 1
         [70525] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 198978}, --Tailoring 2
+        [73153] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 204225}, --Tailoring 3
         [70512] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 198965}, --Blacksmithing 1
         [70513] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 198966}, --Blacksmithing 2
+        [73161] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 204230}, --Blacksmithing 3
         [70520] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 198973}, --Jewelcrafting 1
         [70521] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 198974}, --Jewelcrafting 2
+        [73168] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 204222}, --Jewelcrafting 3
         [70504] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 198963}, --Alchemy 1
         [70511] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 198964}, --Alchemy 2
+        [73166] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 204226}, --Alchemy 3
         [71857] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, --Herbalism 1
         [71858] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, --Herbalism 2
         [71859] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, --Herbalism 3
