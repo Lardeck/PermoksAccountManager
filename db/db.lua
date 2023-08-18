@@ -997,6 +997,11 @@ PermoksAccountManager.quests = {
         [72373] = {questType = 'weekly', log = true},
         [72374] = {questType = 'weekly', log = true},
         [72375] = {questType = 'weekly', log = true},
+        [75259] = {questType = 'weekly', log = true},
+        [75859] = {questType = 'weekly', log = true},
+        [75860] = {questType = 'weekly', log = true},
+        [75861] = {questType = 'weekly', log = true},
+        [77254] = {questType = 'weekly', log = true},
     },
     grand_hunts = {
         [70906] = {questType = 'weekly'},
