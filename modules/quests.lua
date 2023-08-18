@@ -523,7 +523,8 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
 		end,
-		required = 4,
+		required = 6,
+		tooltipRequired = 3,
 		professionOffset = {
 			[182] = 4,
 			[186] = 4,
