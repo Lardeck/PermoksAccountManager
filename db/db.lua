@@ -23,8 +23,8 @@ local default_categories = {
             'aspect_crest',
             'spark_ingenuity',
             'spark_shadowflame',
-            'paracausal_flakes',
-            'dilated_time_capsule'
+            'dreamsurge_coalescence',
+            'dreamsurge_chrysalis'
         },
         childOrder = {
             characterName = 1,
@@ -44,8 +44,8 @@ local default_categories = {
             aspect_crest = 15,
             spark_ingenuity = 16,
             spark_shadowflame = 17,
-            paracausal_flakes = 18,
-            dilated_time_capsule = 19,
+            dreamsurge_coalescence = 18,
+            dreamsurge_chrysalis = 19,
         },
         hideToggle = true,
         enabled = true
@@ -500,6 +500,8 @@ PermoksAccountManager.item = {
     [204985] = {key = 'barter_brick'}, -- Barter Brick
     [202171] = {key = 'obsidian_flightstone'}, -- Obsidian Flightstone
     [207030] = {key = 'dilated_time_capsule'}, -- Dilated Time Capsule
+    [207026] = {key = 'dreamsurge_coalescence'}, -- Dreamsurge Coalescence
+    [208153] = {key = 'dreamsurge_chrysalis'}, -- Dreamsurge Chrysalis
 }
 
 PermoksAccountManager.factions = {
@@ -1398,6 +1400,9 @@ PermoksAccountManager.quests = {
     },
     time_rift = {
         [77236] = {questType = 'weekly', log = true},
+    },
+    dreamsurge_weekly = {
+        [77251] = {questType = 'weekly', log = true},
     }
 }
 
