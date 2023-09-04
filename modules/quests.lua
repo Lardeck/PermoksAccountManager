@@ -851,6 +851,14 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	dreamsurge_weekly = {
+		label = 'Dreamsurge Weekly',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 
 	--wotlk
 	general_dailies = {

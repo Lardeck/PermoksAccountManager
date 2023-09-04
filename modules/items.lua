@@ -215,7 +215,21 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
-
+    -- 10.1.7
+    dreamsurge_coalescence = {
+        label = 'Dream Coalescence',
+        type = 'item',
+        key = 207026,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    dreamsurge_chrysalis = {
+        label = 'Dream Chrysalis',
+        type = 'item',
+        key = 208153,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
 
     -- tbc
     elixirDemonslaying = {
