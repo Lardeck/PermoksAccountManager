@@ -628,7 +628,7 @@ function PermoksAccountManager:ModernizeWOTLK(oldInternalVersion)
     end
 
     if oldInternalVersion < 4 then
-        self:UpdateDefaultCategories('sharedFactions')
+        self:AddLabelToDefaultCategory('sharedFactions', 'the_ashen_verdict')
         self:UpdateDefaultCategories('lockouts')
         self:UpdateDefaultCategories('items')
         oldInternalVersion = 4
