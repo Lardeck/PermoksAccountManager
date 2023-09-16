@@ -85,7 +85,7 @@ local default_categories = {
 			'frenzyheart_tribe',
 			'the_oracles',
 			'the_sons_of_hodir',
-			'ashen_Verdict',
+			'the_ashen_Verdict',
 		},
 		childOrder = {
 			kirin_tor = 1,
@@ -96,7 +96,7 @@ local default_categories = {
 			frenzyheart_tribe = 6,
 			the_oracles = 7,
 			the_sons_of_hodir = 8,
-			ashen_Verdict = 9,
+			the_ashen_verdict = 9,
 		},
 		enabled = true
 	},
