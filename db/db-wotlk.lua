@@ -85,6 +85,7 @@ local default_categories = {
 			'frenzyheart_tribe',
 			'the_oracles',
 			'the_sons_of_hodir',
+			'ashen_Verdict',
 		},
 		childOrder = {
 			kirin_tor = 1,
@@ -95,6 +96,7 @@ local default_categories = {
 			frenzyheart_tribe = 6,
 			the_oracles = 7,
 			the_sons_of_hodir = 8,
+			ashen_Verdict = 9,
 		},
 		enabled = true
 	},
@@ -150,7 +152,9 @@ local default_categories = {
 			'ulduar',
 			'separator3',
 			'trial_of_the_crusader',
-			'onyxias_lair'
+			'onyxias_lair',
+			'separator4',
+			'icecrown_citadel',
 		},
 		childOrder = {
 			heroics_done = 1,
@@ -164,6 +168,8 @@ local default_categories = {
 			separator3 = 22,
 			trial_of_the_crusader = 23,
 			onyxias_lair = 24,
+			separator4 = 25,
+			icecrown_citadel = 26,
 		},
 		enabled = true
 	},
@@ -230,12 +236,14 @@ local default_categories = {
 			'frozenOrb',
 			'runedOrb',
 			'crusaderOrb',
+			'primordialSaronite',
 		},
 		childOrder = {
 			trophyOfTheCrusade = 1,
 			frozenOrb = 2,
 			runedOrb = 3,
 			crusaderOrb = 4,
+			primordialSaronite = 5,
 		},
 		enabled = true
 	}
@@ -356,8 +364,8 @@ PermoksAccountManager.raids = {
 	[GetRealZoneText(624)] = { instanceID = 624, englishID = 'vault_of_archavon' },
 	[GetRealZoneText(649)] = {instanceID = 649, englishID = 'trial_of_the_crusader'},
 	[GetRealZoneText(249)] = {instanceID = 249, englishID = 'onyxias_lair'},
-	--[GetRealZoneText(631)] = {instanceID = 631, englishID = 'icecrown_citadel'},
-	--[GetRealZoneText(724)] = {instanceID = 724, englishID = 'ruby_sanctum'},
+	[GetRealZoneText(631)] = {instanceID = 631, englishID = 'icecrown_citadel'},
+	[GetRealZoneText(724)] = {instanceID = 724, englishID = 'ruby_sanctum'},
     -- old mount drop raids (optional)
 	[GetRealZoneText(309)] = {instanceID = 309, englishID = 'zul_gurub'},
 	[GetRealZoneText(532)] = {instanceID = 532, englishID = 'karazhan'},
@@ -424,10 +432,10 @@ PermoksAccountManager.dungeons = {
 	[GetRealZoneText(604)] = 604, -- Gundrak
 	[GetRealZoneText(608)] = 608, -- Violet Hold
 	[GetRealZoneText(619)] = 619, -- Ahn'kahet: The Old Kingdom
-	--[GetRealZoneText(632)] = 632, -- The Forge of Souls
 	[GetRealZoneText(650)] = 650, -- Trial of the Champion
-	--[GetRealZoneText(658)] = 658, -- Pit of Saron
-	--[GetRealZoneText(668)] = 668, -- Halls of Reflection
+	[GetRealZoneText(632)] = 632, -- The Forge of Souls
+	[GetRealZoneText(658)] = 658, -- Pit of Saron
+	[GetRealZoneText(668)] = 668, -- Halls of Reflection
 }
 
 PermoksAccountManager.item = {
@@ -460,6 +468,7 @@ PermoksAccountManager.item = {
 	[43102] = { key = 'frozenOrb' }, -- Frozen Orb
 	[45087] = { key = 'runedOrb' }, -- Runed Orb
 	[47556] = { key = 'crusaderOrb' }, -- Crusader Orb
+	[49908] = { key = 'primordialSaronite' }, -- Primordial Saronite
 }
 
 PermoksAccountManager.factions = {

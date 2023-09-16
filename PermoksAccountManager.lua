@@ -1899,7 +1899,7 @@ end
 
 function PermoksAccountManager:GetNextThreeDayLockoutResetTime()
     local resetInfo = self.oldRaidResetInfo and self.oldRaidResetInfo[GetCurrentRegion()]
-    if not resetInfo then return end
+    if not resetInfo then return 0 end
 
     local selectedStart = resetInfo.zg;
     local resetInterVals = { zg = 3*24*60*60, }
