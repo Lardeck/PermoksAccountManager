@@ -85,7 +85,7 @@ local default_categories = {
 			'frenzyheart_tribe',
 			'the_oracles',
 			'the_sons_of_hodir',
-			'the_ashen_Verdict',
+			'the_ashen_verdict',
 		},
 		childOrder = {
 			kirin_tor = 1,

@@ -628,7 +628,7 @@ function PermoksAccountManager:ModernizeWOTLK(oldInternalVersion)
     end
 
     if oldInternalVersion < 4 then
-        self:UpdateDefaultCategories('factions')
+        self:UpdateDefaultCategories('sharedFactions')
         self:UpdateDefaultCategories('lockouts')
         self:UpdateDefaultCategories('items')
         oldInternalVersion = 4
