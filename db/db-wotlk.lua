@@ -416,7 +416,7 @@ PermoksAccountManager.oldRaidResetInfo = {
 	}
 }
 
-PermoksAccountManager.numDungeons = 13
+PermoksAccountManager.numDungeons = 16
 
 -- Name = MapID
 PermoksAccountManager.dungeons = {
