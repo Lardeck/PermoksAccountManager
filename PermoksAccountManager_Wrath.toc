@@ -1,4 +1,4 @@
-## Interface: 30402
+## Interface: 30403
 ## Title: Permoks Account Manager
 ## Author: Permok
 ## Version: @project-version@

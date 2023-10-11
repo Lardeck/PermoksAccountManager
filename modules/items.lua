@@ -626,6 +626,13 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_WRATH_CLASSIC
     },
+    primordialSaronite = {
+        label = 'Primordial Saronite',
+        type = 'item',
+        key = 49908,
+        group = 'item',
+        version = WOW_PROJECT_WRATH_CLASSIC
+    },
 }
 
 local function GetAllItemCounts(itemID)
