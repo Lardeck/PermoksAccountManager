@@ -306,6 +306,14 @@ local labelRows = {
 		group = 'currency',
 		version = WOW_PROJECT_WRATH_CLASSIC
     },
+    defilers_scourgestone = {
+        label = 'Scourgestones',
+		type = 'currency',
+		key = 2711,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_WRATH_CLASSIC
+    },
     stone_keepers_shard = {
         label = 'Stone Keeper\'s Shard',
 		type = 'currency',

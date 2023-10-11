@@ -503,7 +503,9 @@ PermoksAccountManager.currency = {
 	[221] = 0,
 	[301] = 0,
 	[2589] = 0,
+	[2711] = 0,
 	[341] = 0,
+
 }
 
 PermoksAccountManager.professionCDs = {
