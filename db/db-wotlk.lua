@@ -52,7 +52,7 @@ local default_categories = {
 		order = 1,
 		name = 'Dailies',
 		childs = {
-			'normal_dungeon_dailies',
+			-- 'normal_dungeon_dailies',
 			'heroic_dungeon_dailies',
 			'separator1',
 			'argent_crusade_dailies',
@@ -62,7 +62,7 @@ local default_categories = {
 			'wotlk_jewelcrafting_dailies'
 		},
 		childOrder = {
-			normal_dungeon_dailies = 1,
+			-- normal_dungeon_dailies = 1,
 			heroic_dungeon_dailies = 2,
 			separator1 = 10,
 			argent_crusade_dailies = 11,
@@ -626,29 +626,10 @@ PermoksAccountManager.quests = {
 		[13404] = { questType = 'daily', log = true, faction = 'Alliance' }, -- Static Shock Troops: the Bombardment
 	},
 
-	normal_dungeon_dailies = {
-		-- Timear Foresees
-		[13240] = { questType = 'daily', log = true }, -- Normal: Oculus
-		[13243] = { questType = 'daily', log = true }, -- Normal: Culling of Stratholme
-		[13244] = { questType = 'daily', log = true }, -- Normal: Halls of Lightning
-		[13241] = { questType = 'daily', log = true }, -- Normal: Utgarde Pinnacle
-	},
-
 	heroic_dungeon_dailies = {
-		-- Proof of Demise
-		[13250] = { questType = 'daily', log = true }, -- Heroic: Gundrak
-		[13252] = { questType = 'daily', log = true }, -- Heroic: Halls of Stone
-		[13253] = { questType = 'daily', log = true }, -- Heroic: Halls of Lightning
-		[13246] = { questType = 'daily', log = true }, -- Heroic: The Nexus
-		[13245] = { questType = 'daily', log = true }, -- Heroic: Utgarde Keep
-		[13254] = { questType = 'daily', log = true }, -- Heroic: Azjol-Nerub
-		[13255] = { questType = 'daily', log = true }, -- Heroic: Ahn'kahet: The Old Kingdom
-		[13249] = { questType = 'daily', log = true }, -- Heroic: Drak'Tharon Keep
-		[13256] = { questType = 'daily', log = true }, -- Heroic: The Violet Hold
-		[13251] = { questType = 'daily', log = true }, -- Heroic: Culling of Stratholme
-		[13247] = { questType = 'daily', log = true }, -- Heroic: The Oculus
-		[13248] = { questType = 'daily', log = true }, -- Heroic: Utgarde Pinnacle
-		[14199] = { questType = 'daily', log = true }, -- Heroic: Trial of the Champion
+		-- 3.3.4 Gamma Dailies
+		[78753] = { questType = 'daily', log = true }, -- Threats to Azeroth
+		[78752] = { questType = 'daily', log = true }, -- Titan Rune Protocol Gamma
 	},
 
 	valiance_expedition_dailies = {
