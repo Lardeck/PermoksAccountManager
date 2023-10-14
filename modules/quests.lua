@@ -897,6 +897,15 @@ local labelRows = {
 		group = 'resetDaily',
 		version = WOW_PROJECT_WRATH_CLASSIC,
 	},
+	raid_weekly = {
+		label = 'Raid Weekly',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		required = 1,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_WRATH_CLASSIC,
+	},
 	argent_crusade_dailies = {
 		label = 'Argent Crusade',
 		type = 'quest',

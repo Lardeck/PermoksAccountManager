@@ -54,6 +54,7 @@ local default_categories = {
 		childs = {
 			-- 'normal_dungeon_dailies',
 			'heroic_dungeon_dailies',
+			'raid_weekly',
 			'separator1',
 			'argent_crusade_dailies',
 			'separator2',
@@ -64,6 +65,7 @@ local default_categories = {
 		childOrder = {
 			-- normal_dungeon_dailies = 1,
 			heroic_dungeon_dailies = 2,
+			raid_weekly = 3,
 			separator1 = 10,
 			argent_crusade_dailies = 11,
 			separator2 = 20,
@@ -630,6 +632,22 @@ PermoksAccountManager.quests = {
 		-- 3.3.4 Gamma Dailies
 		[78753] = { questType = 'daily', log = true }, -- Threats to Azeroth
 		[78752] = { questType = 'daily', log = true }, -- Titan Rune Protocol Gamma
+	},
+
+	raid_weekly = {
+		-- Raids
+		[24581] = { questType = 'weekly', log = true }, -- Noth the Plaguebringer Must Die!
+		[24580] = { questType = 'weekly', log = true }, -- Anub'Rekhan Must Die!
+		[24585] = { questType = 'weekly', log = true }, -- Flame Leviathan Must Die!
+		[24587] = { questType = 'weekly', log = true }, -- Ignis the Furnace Master Must Die!
+		[24582] = { questType = 'weekly', log = true }, -- Instructor Razuvious Must Die!
+		[24589] = { questType = 'weekly', log = true }, -- Lord Jaraxxus Must Die!
+		[24590] = { questType = 'weekly', log = true }, -- Lord Marrowgar Must Die!
+		[24584] = { questType = 'weekly', log = true }, -- Malygos Must Die!
+		[24583] = { questType = 'weekly', log = true }, -- Patchwerk Must Die!
+		[24586] = { questType = 'weekly', log = true }, -- Razorscale Must Die!
+		[24579] = { questType = 'weekly', log = true }, -- Sartharion Must Die!
+		[24588] = { questType = 'weekly', log = true }, -- XT-002 Deconstructor Must Die!
 	},
 
 	valiance_expedition_dailies = {
