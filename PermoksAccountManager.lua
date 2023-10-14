@@ -39,7 +39,7 @@ local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.23'
 local INTERNALVERSION = 25
-local INTERNALWOTLKVERSION = 5
+local INTERNALWOTLKVERSION = 6
 local defaultDB = {
     profile = {
         minimap = {
@@ -636,6 +636,10 @@ function PermoksAccountManager:ModernizeWOTLK(oldInternalVersion)
 
     if oldInternalVersion < 5 then
         self:AddLabelToDefaultCategory('general', 'defilers_scourgestone')
+    end
+
+    if oldInternalVersion < 6 then
+        self:UpdateDefaultCategories('dailies')
     end
 end
 

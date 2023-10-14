@@ -64,8 +64,8 @@ local default_categories = {
 		},
 		childOrder = {
 			-- normal_dungeon_dailies = 1,
-			heroic_dungeon_dailies = 2,
-			raid_weekly = 3,
+			heroic_dungeon_dailies = 1,
+			raid_weekly = 2,
 			separator1 = 10,
 			argent_crusade_dailies = 11,
 			separator2 = 20,
