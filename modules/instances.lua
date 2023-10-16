@@ -269,15 +269,15 @@ local function UpdateInstanceInfo(charInfo)
 				raidInfo.defeatedEncountersInfo[index + boss] = isKilled
 			end
         elseif self.isWOTLK and raidInfo then
-            print("Update", name)
             raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {} 
             for bossIndex = 1, raidInfo.numEncounters do
                 local name, _, isKilled = GetSavedInstanceEncounterInfo(i, bossIndex)
-                print("BossIndex", bossIndex, "Name", name, "IsKilled", isKilled)
-                raidInfo.defeatedEncountersInfo[bossIndex] = {
-                    name = name,
-                    isKilled = isKilled
-                }
+                if name then
+                    raidInfo.defeatedEncountersInfo[bossIndex] = {
+                        name = name,
+                        isKilled = isKilled
+                    }
+                end
             end
         end
     end
@@ -448,12 +448,15 @@ local function WOTLKRaid_OnEnter(tooltip, raidInfo)
         tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 
         if info.defeatedEncountersInfo then
+            print("OnEnter")
             for bossIndex = 1, info.numEncounters do
+                
                 local bossName = info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].name
                 local text = L['Alive']
                 local color = "00ff00"
 
-                if info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].isKilled == true then
+                print("BossIndex", bossIndex, "BossName", bossName, "IsKilled", info.defeatedEncountersInfo[bossIndex].isKilled)
+                if info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].isKilled then
                     text = L['Killed']
                     color = "ff0000"
                 end
