@@ -269,9 +269,11 @@ local function UpdateInstanceInfo(charInfo)
 				raidInfo.defeatedEncountersInfo[index + boss] = isKilled
 			end
         elseif self.isWOTLK and raidInfo then
+            print("Update", name)
             raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {} 
             for bossIndex = 1, raidInfo.numEncounters do
                 local name, _, isKilled = GetSavedInstanceEncounterInfo(i, bossIndex)
+                print("BossIndex", bossIndex, "Name", name, "IsKilled", isKilled)
                 raidInfo.defeatedEncountersInfo[bossIndex] = {
                     name = name,
                     isKilled = isKilled
