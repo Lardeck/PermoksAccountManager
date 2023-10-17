@@ -448,14 +448,12 @@ local function WOTLKRaid_OnEnter(tooltip, raidInfo)
         tooltip:AddLine(info.difficulty .. ':', self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 
         if info.defeatedEncountersInfo then
-            print("OnEnter")
             for bossIndex = 1, info.numEncounters do
                 
                 local bossName = info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].name
                 local text = L['Alive']
                 local color = "00ff00"
 
-                print("BossIndex", bossIndex, "BossName", bossName, "IsKilled", info.defeatedEncountersInfo[bossIndex].isKilled)
                 if info.defeatedEncountersInfo[bossIndex] and info.defeatedEncountersInfo[bossIndex].isKilled then
                     text = L['Killed']
                     color = "ff0000"
