@@ -507,10 +507,15 @@ PermoksAccountManager.item = {
     [204717] = {key = 'spark_shadowflame'}, -- Splintered Spark of Shadowflame
     [204715] = {key = 'unearthed_fragrant_coin'}, -- Unearthed Fragrant Coin
     [204985] = {key = 'barter_brick'}, -- Barter Brick
+    [206959] = {key = 'spark_dreams'}, -- Spark of Dreams
+    [208396] = {key = 'spark_dreams'}, -- Splintered Spark of Dreams
     [202171] = {key = 'obsidian_flightstone'}, -- Obsidian Flightstone
     [207030] = {key = 'dilated_time_capsule'}, -- Dilated Time Capsule
     [207026] = {key = 'dreamsurge_coalescence'}, -- Dreamsurge Coalescence
     [208153] = {key = 'dreamsurge_chrysalis'}, -- Dreamsurge Chrysalis
+    [208066] = {key = 'dreamseeds'}, -- Small Dreamseed
+    [208067] = {key = 'dreamseeds'}, -- Plump Dreamseed
+    [208047] = {key = 'dreamseeds'}, -- Gigantic Dreamseed
 }
 
 PermoksAccountManager.factions = {
