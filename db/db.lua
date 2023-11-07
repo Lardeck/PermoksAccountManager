@@ -409,6 +409,7 @@ PermoksAccountManager.keys = {
     [391] = 'STRT', -- Tazavesh: Streets of Wonder
     [392] = 'GMBT', -- Tazavesh: So'lesh Gambit
 	[166] = 'GD', -- Grimrail Depot
+    [168] = 'TEB', -- Everbloom
 	[169] = 'ID', -- Iron Docks
 	[197] = 'EOA', -- Eye of Azshara
 	[198] = 'DHT', -- Darkheart Thicket
@@ -423,7 +424,9 @@ PermoksAccountManager.keys = {
 	[233] = 'COEN', -- Cathedral of Eternal Night
 	[234] = 'UPPR', -- Return to Karathan: Upper
 	[239] = 'SEAT', -- Seat of the Triumvirate
+    [244] = 'AD', -- Atal'Dazar
     [245] = 'FH', -- Freehold
+    [248] = 'WM', -- Waycrest Manor
     [251] = 'UNDR', -- The Underrot
     [399] = 'RLP', -- Ruby Life Pools
     [400] = 'NO', -- The Nokhud Offensive
@@ -434,6 +437,9 @@ PermoksAccountManager.keys = {
     [405] = 'BH', -- Brackenhide Hollow
     [406] = 'HOI', -- Halls of Infusion
     [438] = 'VP', -- The Vortex Pinnacle
+    [456] = 'ToT', -- Throne of the Tides
+    [463] = 'FALL', -- Dawn of the Infinite: Galakrond's Fall
+    [464] = 'RISE', -- Dawn of the Infinite: Murozond's Rise
 }
 
 PermoksAccountManager.activityIDToKeys = {
