@@ -164,11 +164,13 @@ local default_categories = {
         name = L['Raid'],
         childs = {
             'vault_of_the_incarnates',
-            'aberrus_the_shadowed_crucible'
+            'aberrus_the_shadowed_crucible',
+            'amirdrassil_the_dreams_hope',
         },
         childOrder = {
             vault_of_the_incarnates = 1,
             aberrus_the_shadowed_crucible = 2,
+            amirdrassil_the_dreams_hope = 3
         },
         enabled = true
     },
@@ -453,6 +455,7 @@ PermoksAccountManager.activityIDToKeys = {
 PermoksAccountManager.raids = {
     [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1200, startIndex = 1, endIndex = 8},
     [2569] = {name = GetRealZoneText(2569), englishID = 'aberrus_the_shadowed_crucible', instanceID = 1208, startIndex = 9, endIndex = 17},
+    [2549] = {name = GetRealZoneText(2549), englishID = 'amirdrassil_the_dreams_hope', instanceID = 1207, startIndex = 18, endIndex = 26},
 }
 
 PermoksAccountManager.dungeons = {
