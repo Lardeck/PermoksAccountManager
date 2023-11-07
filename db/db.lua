@@ -1020,6 +1020,9 @@ PermoksAccountManager.quests = {
         [75860] = {questType = 'weekly', log = true},
         [75861] = {questType = 'weekly', log = true},
         [77254] = {questType = 'weekly', log = true},
+        [78446] = {questType = 'weekly', log = true},
+        [78447] = {questType = 'weekly', log = true},
+        [78861] = {questType = 'weekly', log = true},
     },
     grand_hunts = {
         [70906] = {questType = 'weekly'},
@@ -1315,7 +1318,10 @@ PermoksAccountManager.quests = {
         [72646] = {questType = 'weekly', log = true},
         [72647] = {questType = 'weekly', log = true},
         [72648] = {questType = 'weekly', log = true},
-        [72649] = {questType = 'weekly', log = true}
+        [72649] = {questType = 'weekly', log = true},
+        [74871] = {questType = 'weekly', log = true},
+        [75305] = {questType = 'weekly', log = true},
+        [78097] = {questType = 'weekly', log = true},
     },
     forbidden_reach_weeklies = {
         [72952] = {questType = 'weekly', log = true},
@@ -1363,7 +1369,7 @@ PermoksAccountManager.quests = {
         [74520] = {questType = 'weekly', log = true}, -- Less Cargo
     },
     loamm_niffen_weekly = {
-        [75665] = {questType = 'weekly', log = true}, -- Zaqali Elders
+        [75665] = {questType = 'weekly', log = true},
     },
     researchers_under_fire_weekly = {
         [75627] = {questType = 'weekly'},
@@ -1419,6 +1425,15 @@ PermoksAccountManager.quests = {
     },
     dreamsurge_weekly = {
         [77251] = {questType = 'weekly', log = true},
+    },
+    ed_wb_wq = {
+        [76367] = {questType = 'weekly', log = true}, -- Aurostor
+    },
+    dream_wardens_weekly = {
+        [78444] = {questType = 'weekly', log = true},
+    },
+    superbloom = {
+        [78319] = {questType = 'weekly', log = true},
     }
 }
 
