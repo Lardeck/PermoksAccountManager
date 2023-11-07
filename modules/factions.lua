@@ -167,10 +167,19 @@ local labelRows = {
     },
     loam_niffen = {
         label = function()
-            return PermoksAccountManager.factions[2564].localName or 'Wrathion'
+            return PermoksAccountManager.factions[2564].localName or 'Loam Niffen'
         end,
         type = 'faction',
         key = 2564,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    dream_wardens = {
+        label = function()
+            return PermoksAccountManager.factions[2574].localName or 'Dream Wardens'
+        end,
+        type = 'faction',
+        key = 2574,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },

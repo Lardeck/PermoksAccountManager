@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.23'
-local INTERNALVERSION = 25
+local INTERNALVERSION = 26
 local INTERNALWOTLKVERSION = 6
 local defaultDB = {
     profile = {
@@ -702,78 +702,14 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 		oldInternalVersion = 7
 	end
 
-    if oldInternalVersion < 8 then
-        local defaultCategories = PermoksAccountManager:getDefaultCategories()
-        PermoksAccountManager.db.global.options.defaultCategories = defaultCategories
-		oldInternalVersion = 8
-    end
-
-    if oldInternalVersion < 9 then
-		self:AddLabelToDefaultCategory('renown', 'cobalt_assembly', 8)
-        oldInternalVersion = 9
-    end
-
-    if oldInternalVersion < 10 then
-        self:AddLabelToDefaultCategory('currentdaily', 'community_feast', 1)
-        self:AddLabelToDefaultCategory('currentdaily', 'separator1', 2)
-        self:AddLabelToDefaultCategory('currentdaily', 'brackenhide_hollow_rares', 3)
-        self:AddLabelToDefaultCategory('currentdaily', 'obsidian_citadel_rares', 4)
-        self:AddLabelToDefaultCategory('currentdaily', 'tyrhold_rares', 5)
-        oldInternalVersion = 10
-    end
-
-    if oldInternalVersion < 13 then
-        self:AddLabelToDefaultCategory('currentweekly', 'show_your_mettle', 36)
-        oldInternalVersion = 13
-    end
-
-    if oldInternalVersion < 14 then
-        self:AddLabelToDefaultCategory('currentdaily', 'iskaara_fishing_dailies', 1)
-        oldInternalVersion = 14
-    end
-
-    if oldInternalVersion < 17 then
-		self:AddLabelToDefaultCategory('general', 'catalyst_charges', 13)
-		oldInternalVersion = 16
-	end
-
-    if oldInternalVersion < 18 then
-        self:AddLabelToDefaultCategory('currentweekly', 'knowledge_weeklies_order', 36)
-        oldInternalVersion = 16
-    end
-
-    if oldInternalVersion < 20 then
+    if oldInternalVersion < 26 then
         self:UpdateDefaultCategories('currentweekly')
         self:UpdateDefaultCategories('currentdaily')
         self:UpdateDefaultCategories('general')
         self:UpdateDefaultCategories('renown')
         self:AddLabelToDefaultCategory('raid', 'aberrus_the_shadowed_crucible')
-        oldInternalVersion = 20
-    end
+        self:AddLabelToDefaultCategory('raid', 'amirdrassil_the_dreams_hope')
 
-    if oldInternalVersion < 21 then
-        self:AddLabelToDefaultCategory('general', 'barter_brick')
-        self:AddLabelToDefaultCategory('general', 'obsidian_flightstone')
-        oldInternalVersion = 21
-    end
-
-    if oldInternalVersion < 22 then
-        self:AddLabelToDefaultCategory('currentweekly', 'knowledge_weeklies_zaralek')
-    end
-
-    if oldInternalVersion < 23 then
-        self:AddLabelToDefaultCategory('general', 'paracausal_flakes')
-        self:AddLabelToDefaultCategory('general', 'dilated_time_capsule')
-    end
-
-    if oldInternalVersion < 24 then
-        self:AddLabelToDefaultCategory('general', 'time_rift')
-    end
-
-    if oldInternalVersion < 25 then
-        self:AddLabelToDefaultCategory('general', 'dreamsurge_weekly')
-        self:AddLabelToDefaultCategory('general', 'dreamsurge_coalescence')
-        self:AddLabelToDefaultCategory('general', 'dreamsurge_chrysalis')
     end
 end
 

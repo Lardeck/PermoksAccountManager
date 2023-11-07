@@ -258,6 +258,55 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
     },
 
+    -- 10.2
+    whelpling_crest_s3 = {
+        label = 'Whelpling Crests',
+        type = 'currency',
+        key = 2706,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    drake_crest_s3 = {
+        label = 'Drake Crests',
+        type = 'currency',
+        key = 2707,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    wyrm_crest_s3 = {
+        label = 'Wyrm Crests',
+        type = 'currency',
+        key = 2708,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    aspect_crest_s3 = {
+        label = 'Aspect Crests',
+        type = 'currency',
+        key = 2709,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    emerald_dewdrop = {
+        label = 'Emerald Dewdrop',
+        type = 'currency',
+        key = 2650,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    seedbloom = {
+        label = 'Seedbloom',
+        type = 'currency',
+        key = 2651,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+
     emblem_of_heroism = {
         label = 'Heroism Emblems',
 		type = 'currency',

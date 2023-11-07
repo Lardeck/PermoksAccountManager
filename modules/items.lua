@@ -131,7 +131,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     whelpling_crest = {
-        label = 'Whelpling Crest',
+        label = 'Whelpling Crest (S2)',
         type = 'crest',
         fragment = 204075,
         crest = 204193,
@@ -140,7 +140,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     drake_crest = {
-        label = 'Drake Crest',
+        label = 'Drake Crest (S2)',
         type = 'crest',
         fragment = 204076,
         crest = 204195,
@@ -149,7 +149,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     wyrm_crest = {
-        label = 'Wyrm Crest',
+        label = 'Wyrm Crest (S2)',
         type = 'crest',
         fragment = 204077,
         crest = 204196,
@@ -158,7 +158,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     aspect_crest = {
-        label = 'Aspect Crest',
+        label = 'Aspect Crest (S2)',
         type = 'crest',
         fragment = 204078,
         crest = 204194,
@@ -167,7 +167,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     spark_ingenuity = {
-        label = 'Spark of Ingenuity',
+        label = 'Spark - Ingenuity',
         type = 'spark',
         passRow = true,
         key = 190453,
@@ -177,7 +177,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     spark_shadowflame = {
-        label = 'Spark of Shadowflame',
+        label = 'Spark - Shadowflame',
         type = 'spark',
         passRow = true,
         key = 204440,
@@ -227,6 +227,28 @@ local labelRows = {
         label = 'Dream Chrysalis',
         type = 'item',
         key = 208153,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- 10.2
+    spark_dreams = {
+        label = 'Spark - Dreams',
+        type = 'spark',
+        passRow = true,
+        key = 206959,
+        reagent = 208396,
+        reagentRequired = 2,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    dreamseeds = {
+        label = 'Dreamseeds',
+        type = 'dreamseeds',
+        passRow = true,
+        seed1 = 208066,
+        seed2 = 208067,
+        seed3 = 208047,
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
@@ -706,6 +728,24 @@ local function CreateSparkString(labelRow, itemCounts)
     return PermoksAccountManager:CreateItemString(nil, total, (sparkInfo and sparkInfo.icon))
 end
 
+local function CreateDreamSeedString(labelRow, itemCounts)
+    if itemCounts then
+        local seed1Info = itemCounts[labelRow.seed1]
+        local seed2Info = itemCounts[labelRow.seed2]
+        local seed3Info = itemCounts[labelRow.seed3]
+
+        local strings = {}
+        tinsert(strings, PermoksAccountManager:CreateItemString(nil, seed1Info.total, (seed1Info and seed1Info.icon)))
+        tinsert(strings, PermoksAccountManager:CreateItemString(nil, seed2Info.total, (seed2Info and seed2Info.icon)))
+        tinsert(strings, PermoksAccountManager:CreateItemString(nil, seed3Info.total, (seed3Info and seed3Info.icon)))
+
+
+        return table.concat(strings, " ")
+    end
+
+    return " "
+end
+
 local payload = {
     update = Update,
     labels = labelRows,
@@ -719,6 +759,7 @@ local payload = {
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
 module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
+module:AddCustomLabelType('dreamseeds', CreateDreamSeedString, nil, 'itemCounts')
 
 function PermoksAccountManager:CreateItemString(itemInfo, total, icon)
     local options = self.db.global.options

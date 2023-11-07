@@ -53,6 +53,17 @@ local labelRows = {
         group = 'dungeons',
         version = WOW_PROJECT_MAINLINE
     },
+    amirdrassil_the_dreams_hope = {
+		label = function()
+            return PermoksAccountManager.raids[2549].name or 'Amirdrassil'
+        end,
+		id = 2549,
+		type = 'raid',
+		key = 'amirdrassil_the_dreams_hope',
+		tooltip = true,
+		group = 'raids',
+		version = WOW_PROJECT_MAINLINE
+    },
 
     -- wotlk
 	-- TOOD: Change db structure so you can get the locale name without calling the function again

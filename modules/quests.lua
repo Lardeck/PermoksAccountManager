@@ -764,7 +764,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	loamm_niffen_weekly = {
-		label = 'A Worthy Ally',
+		label = 'AWA: Cavern',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
@@ -853,6 +853,30 @@ local labelRows = {
 	},
 	dreamsurge_weekly = {
 		label = 'Dreamsurge Weekly',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	superbloom = {
+		label = 'Superbloom',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	ed_wb_wq = {
+		label = 'Dream WB',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	dream_wardens_weekly = {
+		label = 'AWA: Dream ',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',

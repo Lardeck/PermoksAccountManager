@@ -12,19 +12,15 @@ local default_categories = {
             'weekly_key',
             'keystone',
             'mplus_score',
-            'dragon_isles_supplies',
             'catalyst_charges',
-            'vaultKey',
-            'unearthed_fragrant_coin',
             'flightstones',
-            'whelpling_crest',
-            'drake_crest',
-            'wyrm_crest',
-            'aspect_crest',
+            'whelpling_crest_s3',
+            'drake_crest_s3',
+            'wyrm_crest_s3',
+            'aspect_crest_s3',
             'spark_ingenuity',
             'spark_shadowflame',
-            'dreamsurge_coalescence',
-            'dreamsurge_chrysalis'
+            'spark_dreams'
         },
         childOrder = {
             characterName = 1,
@@ -33,19 +29,15 @@ local default_categories = {
             weekly_key = 4,
             keystone = 5,
             mplus_score = 6,
-            dragon_isles_supplies = 7,
-            catalyst_charges = 8,
-            vaultKey = 9,
-            flightstones = 10,
-            unearthed_fragrant_coin = 11,
-            whelpling_crest = 12,
-            drake_crest = 13,
-            wyrm_crest = 14,
-            aspect_crest = 15,
-            spark_ingenuity = 16,
-            spark_shadowflame = 17,
-            dreamsurge_coalescence = 18,
-            dreamsurge_chrysalis = 19,
+            catalyst_charges = 7,
+            flightstones = 8,
+            whelpling_crest_s3 = 9,
+            drake_crest_s3 = 10,
+            wyrm_crest_s3 = 11,
+            aspect_crest_s3 = 12,
+            spark_ingenuity = 13,
+            spark_shadowflame = 14,
+            spark_dreams = 15,
         },
         hideToggle = true,
         enabled = true
@@ -54,10 +46,8 @@ local default_categories = {
         order = 1,
         name = 'Daily',
         childs = {
-            'glimerogg_racer_dailies'
         },
         childOrder = {
-            glimerogg_racer_dailies = 1,
         },
         enabled = true
     },
@@ -65,19 +55,12 @@ local default_categories = {
         order = 2,
         name = '(Bi)Weekly',
         childs = {
-            'aiding_the_accord',
-            'loamm_niffen_weekly',
-            'proven_weekly',
-            'researchers_under_fire_weekly',
-            'zc_wb_wq',
-            'dig_maps_weeklies',
-            'dig_maps_received_weekly',
-            'fyrak_assault',
+            'superbloom',
+            'dream_wardens_weekly',
+            'ed_wb_wq',
             'separator1',
-            'whelpling_crest_earned',
-            'drake_crest_earned',
-            'wyrm_crest_earned',
-            'aspect_crest_earned',
+            'aiding_the_accord',
+            'fyrak_assault',
             'separator3',
             'knowledge_mobs',
             'knowledge_scout_packs',
@@ -88,19 +71,13 @@ local default_categories = {
             'show_your_mettle',
         },
         childOrder = {
-            aiding_the_accord = 1,
-            loamm_niffen_weekly = 2,
-            proven_weekly = 3,
-            researchers_under_fire_weekly = 4,
-            zc_wb_wq = 5,
-            dig_maps_weeklies = 6,
-            dig_maps_received_weekly = 7,
-            fyrak_assault = 8,
+            superbloom = 1,
+            dream_wardens_weekly = 2,
+            ed_wb_wq = 3,
             separator1 = 10,
-            whelpling_crest_earned = 11,
-            drake_crest_earned = 12,
-            wyrm_crest_earned = 13,
-            aspect_crest_earned = 14,
+            aiding_the_accord = 11,
+            fyrak_assault = 12,
+            proven_weekly = 13,
             separator3 = 30,
             knowledge_mobs = 31,
             knowledge_scout_packs = 32,
@@ -136,6 +113,7 @@ local default_categories = {
             'maruuk_centaur',
             'valdrakken_akkord',
             'loam_niffen',
+            'dream_wardens',
             'separator1',
             'winterpelt_furbolg',
             'artisan_consortium',
@@ -149,6 +127,7 @@ local default_categories = {
             maruuk_centaur = 3,
             valdrakken_akkord = 4,
             loam_niffen = 5,
+            dream_wardens = 6,
             separator1 = 10,
             winterpelt_furbolg = 11,
             artisan_consortium = 12,
@@ -164,11 +143,13 @@ local default_categories = {
         name = L['Raid'],
         childs = {
             'vault_of_the_incarnates',
-            'aberrus_the_shadowed_crucible'
+            'aberrus_the_shadowed_crucible',
+            'amirdrassil_the_dreams_hope',
         },
         childOrder = {
             vault_of_the_incarnates = 1,
             aberrus_the_shadowed_crucible = 2,
+            amirdrassil_the_dreams_hope = 3
         },
         enabled = true
     },
@@ -200,6 +181,7 @@ local default_categories = {
             'separator1',
             'mythics_done',
             'dragonflight_world_boss',
+            'zc_wb_wq',
             'grand_hunts',
             'marrukai_camp',
             'sparks_of_life',
@@ -220,11 +202,12 @@ local default_categories = {
             separator1 = 10,
             mythics_done = 11,
             dragonflight_world_boss = 12,
-            grand_hunts = 13,
-            marrukai_camp = 14,
-            sparks_of_life = 15,
-            community_feast_weekly = 16,
-            fish_turnins_df = 17,
+            zc_wb_wq = 13,
+            grand_hunts = 14,
+            marrukai_camp = 15,
+            sparks_of_life = 16,
+            community_feast_weekly = 17,
+            fish_turnins_df = 18,
             separator2 = 20,
             trial_of_flood = 21,
             trial_of_elements = 22,
@@ -242,20 +225,10 @@ local default_categories = {
         childs = {
             'community_feast',
             'iskaara_fishing_dailies',
-            'brackenhide_hollow_rares',
-            'obsidian_citadel_rares',
-            'tyrhold_rares',
-            'forbidden_reach_tasks',
-            'forbidden_reach_task_picked',
         },
         childOrder = {
             community_feast = 1,
             iskaara_fishing_dailies = 2,
-            brackenhide_hollow_rares = 3,
-            obsidian_citadel_rares = 4,
-            tyrhold_rares = 5,
-            forbidden_reach_tasks = 6,
-            forbidden_reach_task_picked = 7,
         },
         enabled = true,
     },
@@ -407,6 +380,7 @@ PermoksAccountManager.keys = {
     [391] = 'STRT', -- Tazavesh: Streets of Wonder
     [392] = 'GMBT', -- Tazavesh: So'lesh Gambit
 	[166] = 'GD', -- Grimrail Depot
+    [168] = 'TEB', -- Everbloom
 	[169] = 'ID', -- Iron Docks
 	[197] = 'EOA', -- Eye of Azshara
 	[198] = 'DHT', -- Darkheart Thicket
@@ -421,7 +395,9 @@ PermoksAccountManager.keys = {
 	[233] = 'COEN', -- Cathedral of Eternal Night
 	[234] = 'UPPR', -- Return to Karathan: Upper
 	[239] = 'SEAT', -- Seat of the Triumvirate
+    [244] = 'AD', -- Atal'Dazar
     [245] = 'FH', -- Freehold
+    [248] = 'WM', -- Waycrest Manor
     [251] = 'UNDR', -- The Underrot
     [399] = 'RLP', -- Ruby Life Pools
     [400] = 'NO', -- The Nokhud Offensive
@@ -432,6 +408,9 @@ PermoksAccountManager.keys = {
     [405] = 'BH', -- Brackenhide Hollow
     [406] = 'HOI', -- Halls of Infusion
     [438] = 'VP', -- The Vortex Pinnacle
+    [456] = 'ToT', -- Throne of the Tides
+    [463] = 'FALL', -- Dawn of the Infinite: Galakrond's Fall
+    [464] = 'RISE', -- Dawn of the Infinite: Murozond's Rise
 }
 
 PermoksAccountManager.activityIDToKeys = {
@@ -453,6 +432,7 @@ PermoksAccountManager.activityIDToKeys = {
 PermoksAccountManager.raids = {
     [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1200, startIndex = 1, endIndex = 8},
     [2569] = {name = GetRealZoneText(2569), englishID = 'aberrus_the_shadowed_crucible', instanceID = 1208, startIndex = 9, endIndex = 17},
+    [2549] = {name = GetRealZoneText(2549), englishID = 'amirdrassil_the_dreams_hope', instanceID = 1207, startIndex = 18, endIndex = 26},
 }
 
 PermoksAccountManager.dungeons = {
@@ -498,10 +478,15 @@ PermoksAccountManager.item = {
     [204717] = {key = 'spark_shadowflame'}, -- Splintered Spark of Shadowflame
     [204715] = {key = 'unearthed_fragrant_coin'}, -- Unearthed Fragrant Coin
     [204985] = {key = 'barter_brick'}, -- Barter Brick
+    [206959] = {key = 'spark_dreams'}, -- Spark of Dreams
+    [208396] = {key = 'spark_dreams'}, -- Splintered Spark of Dreams
     [202171] = {key = 'obsidian_flightstone'}, -- Obsidian Flightstone
     [207030] = {key = 'dilated_time_capsule'}, -- Dilated Time Capsule
     [207026] = {key = 'dreamsurge_coalescence'}, -- Dreamsurge Coalescence
     [208153] = {key = 'dreamsurge_chrysalis'}, -- Dreamsurge Chrysalis
+    [208066] = {key = 'dreamseeds'}, -- Small Dreamseed
+    [208067] = {key = 'dreamseeds'}, -- Plump Dreamseed
+    [208047] = {key = 'dreamseeds'}, -- Gigantic Dreamseed
 }
 
 PermoksAccountManager.factions = {
@@ -524,6 +509,8 @@ PermoksAccountManager.factions = {
     [2544] = {name = 'Artisan\'s Consortium', paragon = true, type = 'friend'},
     [2550] = {name = 'Cobalt Assembly', paragon = true, type = 'friend'},
     [2564] = {name = 'Loamm Niffen', paragon = true, type = 'renown'},
+    [2568] = {name = 'Glimmerogg Racer'},
+    [2574] = {name = 'Dream Wardens', paragonn = true, type = 'renown'},
 }
 
 PermoksAccountManager.currency = {
@@ -554,6 +541,12 @@ PermoksAccountManager.currency = {
     [2412] = 0, -- Aspect Crest Fragment Tracker
     [2533] = 0, -- Renascent Shadowflame (Crucible Charges DF Season 2)
     [2594] = 0, -- Paracausal Flakes
+    [2650] = 0, -- Emerald Dewdrop
+    [2651] = 0, -- Seedbloom
+    [2706] = 0, -- Whelpling's Dreaming Crest
+    [2707] = 0, -- Drake's Dreaming Crest
+    [2708] = 0, -- Wyrm's Dreaming Crest
+    [2709] = 0, -- Aspect's Dreaming Crest
 }
 
 PermoksAccountManager.currencyCustomOptions = {
@@ -1004,6 +997,9 @@ PermoksAccountManager.quests = {
         [75860] = {questType = 'weekly', log = true},
         [75861] = {questType = 'weekly', log = true},
         [77254] = {questType = 'weekly', log = true},
+        [78446] = {questType = 'weekly', log = true},
+        [78447] = {questType = 'weekly', log = true},
+        [78861] = {questType = 'weekly', log = true},
     },
     grand_hunts = {
         [70906] = {questType = 'weekly'},
@@ -1299,7 +1295,10 @@ PermoksAccountManager.quests = {
         [72646] = {questType = 'weekly', log = true},
         [72647] = {questType = 'weekly', log = true},
         [72648] = {questType = 'weekly', log = true},
-        [72649] = {questType = 'weekly', log = true}
+        [72649] = {questType = 'weekly', log = true},
+        [74871] = {questType = 'weekly', log = true},
+        [75305] = {questType = 'weekly', log = true},
+        [78097] = {questType = 'weekly', log = true},
     },
     forbidden_reach_weeklies = {
         [72952] = {questType = 'weekly', log = true},
@@ -1347,7 +1346,7 @@ PermoksAccountManager.quests = {
         [74520] = {questType = 'weekly', log = true}, -- Less Cargo
     },
     loamm_niffen_weekly = {
-        [75665] = {questType = 'weekly', log = true}, -- Zaqali Elders
+        [75665] = {questType = 'weekly', log = true},
     },
     researchers_under_fire_weekly = {
         [75627] = {questType = 'weekly'},
@@ -1403,6 +1402,15 @@ PermoksAccountManager.quests = {
     },
     dreamsurge_weekly = {
         [77251] = {questType = 'weekly', log = true},
+    },
+    ed_wb_wq = {
+        [76367] = {questType = 'weekly', log = true}, -- Aurostor
+    },
+    dream_wardens_weekly = {
+        [78444] = {questType = 'weekly', log = true},
+    },
+    superbloom = {
+        [78319] = {questType = 'weekly', log = true},
     }
 }
 
@@ -1468,25 +1476,25 @@ end
 PermoksAccountManager.vault_rewards = {
     -- MythicPlus
     [Enum.WeeklyRewardChestThresholdType.MythicPlus or Enum.WeeklyRewardChestThresholdType.Activities] = {
-        [2] = 415,
-        [3] = 418,
-        [4] = 421,
-        [5] = 421,
-        [6] = 424,
-        [7] = 424,
-        [8] = 428,
-        [9] = 428,
-        [10] = 431,
-        [11] = 431,
-        [12] = 434,
-        [13] = 434,
-        [14] = 437,
-        [15] = 437,
-        [16] = 441,
-        [17] = 441,
-        [18] = 444,
-        [19] = 444,
-        [20] = 447
+        [2] = 454,
+        [3] = 457,
+        [4] = 460,
+        [5] = 460,
+        [6] = 463,
+        [7] = 463,
+        [8] = 467,
+        [9] = 467,
+        [10] = 470,
+        [11] = 470,
+        [12] = 473,
+        [13] = 473,
+        [14] = 473,
+        [15] = 476,
+        [16] = 476,
+        [17] = 476,
+        [18] = 480,
+        [19] = 480,
+        [20] = 483
     },
     -- RankedPvP
     [Enum.WeeklyRewardChestThresholdType.RankedPvP] = {
