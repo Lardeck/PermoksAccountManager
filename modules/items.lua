@@ -131,7 +131,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     whelpling_crest = {
-        label = 'Whelpling Crest',
+        label = 'Whelpling Crest (S2)',
         type = 'crest',
         fragment = 204075,
         crest = 204193,
@@ -140,7 +140,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     drake_crest = {
-        label = 'Drake Crest',
+        label = 'Drake Crest (S2)',
         type = 'crest',
         fragment = 204076,
         crest = 204195,
@@ -149,7 +149,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     wyrm_crest = {
-        label = 'Wyrm Crest',
+        label = 'Wyrm Crest (S2)',
         type = 'crest',
         fragment = 204077,
         crest = 204196,
@@ -158,7 +158,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     aspect_crest = {
-        label = 'Aspect Crest',
+        label = 'Aspect Crest (S2)',
         type = 'crest',
         fragment = 204078,
         crest = 204194,
@@ -167,7 +167,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     spark_ingenuity = {
-        label = 'Spark of Ingenuity',
+        label = 'Spark - Ingenuity',
         type = 'spark',
         passRow = true,
         key = 190453,
@@ -177,7 +177,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     spark_shadowflame = {
-        label = 'Spark of Shadowflame',
+        label = 'Spark - Shadowflame',
         type = 'spark',
         passRow = true,
         key = 204440,
