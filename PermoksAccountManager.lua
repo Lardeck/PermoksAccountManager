@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = '1.1.23'
-local INTERNALVERSION = 26
+local INTERNALVERSION = 29
 local INTERNALWOTLKVERSION = 6
 local defaultDB = {
     profile = {
@@ -709,7 +709,19 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:UpdateDefaultCategories('renown')
         self:AddLabelToDefaultCategory('raid', 'aberrus_the_shadowed_crucible')
         self:AddLabelToDefaultCategory('raid', 'amirdrassil_the_dreams_hope')
+    end
 
+    if oldInternalVersion < 27 then
+        self:AddLabelToDefaultCategory('currentweekly', 'dream_shipments', 4)
+    end
+
+    if oldInternalVersion < 28 then
+        self:AddLabelToDefaultCategory('currentweekly', 'dream_shipments', 4)
+    end
+
+    if oldInternalVersion < 29 then
+        self:AddLabelToDefaultCategory('general', 'dream_infusion')
+        self:AddLabelToDefaultCategory('currentweekly', 'sparks_of_life')
     end
 end
 
