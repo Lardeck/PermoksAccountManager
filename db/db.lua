@@ -20,7 +20,8 @@ local default_categories = {
             'aspect_crest_s3',
             'spark_ingenuity',
             'spark_shadowflame',
-            'spark_dreams'
+            'spark_dreams',
+            'dream_infusion'
         },
         childOrder = {
             characterName = 1,
@@ -38,6 +39,7 @@ local default_categories = {
             spark_ingenuity = 13,
             spark_shadowflame = 14,
             spark_dreams = 15,
+            dream_infusion  = 16
         },
         hideToggle = true,
         enabled = true
@@ -58,6 +60,8 @@ local default_categories = {
             'superbloom',
             'dream_wardens_weekly',
             'ed_wb_wq',
+            'dream_shipments',
+            'sparks_of_life',
             'separator1',
             'aiding_the_accord',
             'fyrak_assault',
@@ -74,6 +78,8 @@ local default_categories = {
             superbloom = 1,
             dream_wardens_weekly = 2,
             ed_wb_wq = 3,
+            dream_shipments = 4,
+            sparks_of_life = 5,
             separator1 = 10,
             aiding_the_accord = 11,
             fyrak_assault = 12,
@@ -547,6 +553,7 @@ PermoksAccountManager.currency = {
     [2707] = 0, -- Drake's Dreaming Crest
     [2708] = 0, -- Wyrm's Dreaming Crest
     [2709] = 0, -- Aspect's Dreaming Crest
+    [2777] = 0, -- Dream Infusion
 }
 
 PermoksAccountManager.currencyCustomOptions = {
@@ -1411,6 +1418,10 @@ PermoksAccountManager.quests = {
     },
     superbloom = {
         [78319] = {questType = 'weekly', log = true},
+    },
+    dream_shipments = {
+        [78427] = {questType = 'weekly', log = true},
+        [78428] = {questType = 'weekly', log = true},
     }
 }
 
