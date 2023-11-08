@@ -876,9 +876,18 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	dream_wardens_weekly = {
-		label = 'AWA: Dream ',
+		label = 'AWA: Dream',
 		type = 'quest',
 		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	dream_shipments = {
+		label = 'Shipments',
+		type = 'quest',
+		questType = 'weekly',
+		required = 2,
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
