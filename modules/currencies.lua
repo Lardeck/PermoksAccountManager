@@ -261,14 +261,15 @@ local labelRows = {
     -- 10.2
     whelpling_crest_s3 = {
         label = 'Whelpling Crests',
-        type = 'currency',
+        type = 'crestcurrency',
         key = 2706,
+        passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
     drake_crest_s3 = {
         label = 'Drake Crests',
-        type = 'currency',
+        type = 'crestcurrency',
         key = 2707,
         passRow = true,
         group = 'currency',
@@ -276,7 +277,7 @@ local labelRows = {
     },
     wyrm_crest_s3 = {
         label = 'Wyrm Crests',
-        type = 'currency',
+        type = 'crestcurrency',
         key = 2708,
         passRow = true,
         group = 'currency',
@@ -284,7 +285,7 @@ local labelRows = {
     },
     aspect_crest_s3 = {
         label = 'Aspect Crests',
-        type = 'currency',
+        type = 'crestcurrency',
         key = 2709,
         passRow = true,
         group = 'currency',
@@ -393,9 +394,9 @@ local function UpdateAllCurrencies(charInfo)
             currencyInfo[currencyType] = charInfo.currencyInfo[currencyType] or {name = info.name}
 
             -- Fix for returning the wrong quantity
-            if currencyType ~= 1810 and info.maxQuantity > 0 and info.quantity > info.maxQuantity then
-                info.quantity = info.quantity / 100
-            end
+            --if currencyType ~= 1810 and info.maxQuantity > 0 and info.quantity > info.maxQuantity then
+            --    info.quantity = info.quantity / 100
+            --end
 
             currencyInfo[currencyType].currencyType = currencyType
             currencyInfo[currencyType].quantity = info.quantity + offset
@@ -453,6 +454,14 @@ local function CreateCatalystChargeString(currencyInfo)
 	return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, catalystCharges.maxQuantity)
 end
 
+local function CreateCrestString(labelRow, currencyInfo)
+	local crestInfo = currencyInfo and currencyInfo[labelRow.key]
+    if crestInfo then
+        local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
+        return string.format("%d - %s", crestInfo.quantity, currencyString)
+    end
+end
+
 local payload = {
     update = Update,
     labels = labelRows,
@@ -466,9 +475,10 @@ local payload = {
 }
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('catalystcharges', CreateCatalystChargeString, nil, 'currencyInfo')
+module:AddCustomLabelType('crestcurrency', CreateCrestString, nil, 'currencyInfo')
 
 -- TODO Create a CreateIconString function instead of two functions for items and currencies
-function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum, customIcon, hideIcon)
+function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum, customIcon, hideIcon, customQuantitiy)
     if not currencyInfo then
         return
     end
@@ -486,10 +496,11 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     end
 
     local currencyString
+    local quantity = customQuantitiy or currencyInfo.quantity
     if not hideMaximum and currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 then
-        currencyString = self:CreateFractionString(currencyInfo.quantity, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity, abbreviateCurrent, abbreviateMaximum)
+        currencyString = self:CreateFractionString(quantity, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity, abbreviateCurrent, abbreviateMaximum)
     else
-        currencyString = abbreviateCurrent and AbbreviateNumbers(currencyInfo.quantity) or AbbreviateLargeNumbers(currencyInfo.quantity)
+        currencyString = abbreviateCurrent and AbbreviateNumbers(quantity) or AbbreviateLargeNumbers(quantity)
     end
 
     local iconPosition = options.currencyIconPosition
