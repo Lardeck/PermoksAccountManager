@@ -306,6 +306,15 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
+    dream_infusion = {
+        label = 'Dream Infusion',
+        type = 'currency',
+        key = 2777,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+
 
     emblem_of_heroism = {
         label = 'Heroism Emblems',
