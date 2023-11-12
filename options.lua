@@ -870,7 +870,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         type = 'range',
                         name = L['Characters Per Page'],
                         min = 3,
-                        max = 10,
+                        max = 20,
                         bigStep = 1
                     }
                 }
