@@ -491,7 +491,7 @@ PermoksAccountManager.item = {
     [208396] = {key = 'spark_dreams'}, -- Splintered Spark of Dreams
     [202171] = {key = 'obsidian_flightstone'}, -- Obsidian Flightstone
     [207030] = {key = 'dilated_time_capsule'}, -- Dilated Time Capsule
-    [209856] = {key = 'dilated_time_pod'}, -- Dilated Time Capsule
+    [209856] = {key = 'dilated_time_pod'}, -- Dilated Time Pod
     [207026] = {key = 'dreamsurge_coalescence'}, -- Dreamsurge Coalescence
     [208153] = {key = 'dreamsurge_chrysalis'}, -- Dreamsurge Chrysalis
     [210254] = {key = 'dreamsurge_cocoon'}, -- Dreamsurge Cocoon
@@ -1411,6 +1411,9 @@ PermoksAccountManager.quests = {
     },
     time_rift = {
         [77236] = {questType = 'weekly', log = true},
+    },
+    time_rift_pod = {
+        [77836] = {questType = 'weekly'}
     },
     dreamsurge_weekly = {
         [77251] = {questType = 'weekly', log = true},

@@ -844,10 +844,18 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	time_rift = {
-		label = 'Time Rift Weekly',
+		label = 'Time Needs Mending',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	time_rift_pod = {
+		label = 'Time Rift Weekly',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
