@@ -491,8 +491,10 @@ PermoksAccountManager.item = {
     [208396] = {key = 'spark_dreams'}, -- Splintered Spark of Dreams
     [202171] = {key = 'obsidian_flightstone'}, -- Obsidian Flightstone
     [207030] = {key = 'dilated_time_capsule'}, -- Dilated Time Capsule
+    [209856] = {key = 'dilated_time_pod'}, -- Dilated Time Capsule
     [207026] = {key = 'dreamsurge_coalescence'}, -- Dreamsurge Coalescence
     [208153] = {key = 'dreamsurge_chrysalis'}, -- Dreamsurge Chrysalis
+    [210254] = {key = 'dreamsurge_cocoon'}, -- Dreamsurge Cocoon
     [208066] = {key = 'dreamseeds'}, -- Small Dreamseed
     [208067] = {key = 'dreamseeds'}, -- Plump Dreamseed
     [208047] = {key = 'dreamseeds'}, -- Gigantic Dreamseed

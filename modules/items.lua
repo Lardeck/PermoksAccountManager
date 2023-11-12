@@ -208,7 +208,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     dilated_time_capsule = {
-        label = "Dilated Time Capsule",
+        label = "Time Capsule",
         type = 'item',
         key = 207030,
         group = 'item',
@@ -249,6 +249,20 @@ local labelRows = {
         seed1 = 208066,
         seed2 = 208067,
         seed3 = 208047,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    dilated_time_pod = {
+        label = "Time Pod",
+        type = 'item',
+        key = 209856,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    dreamsurge_cocoon = {
+        label = 'Dream Cocoon',
+        type = 'item',
+        key = 210254,
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
