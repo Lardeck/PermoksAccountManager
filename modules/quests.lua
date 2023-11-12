@@ -817,7 +817,7 @@ local labelRows = {
 		label = 'Fyrak Assault',
 		type = 'quest',
 		questType = 'weekly',
-		visibility = 'visible',
+		visibility = 'hidden',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
