@@ -982,6 +982,10 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
         wipe(altData.vaultInfo)
     end
 
+    if altData.mythicPlusHistory then
+        wipe(altData.mythicPlusHistory)
+    end
+
     altData.raidActivityInfo = {}
 
     -- M+
