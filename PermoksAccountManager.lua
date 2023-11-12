@@ -721,7 +721,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 29 then
         self:AddLabelToDefaultCategory('general', 'dream_infusion')
-        self:AddLabelToDefaultCategory('currentweekly', 'sparks_of_life')
+        self:AddLabelToDefaultCategory('currentweekly', 'sparks_of_life', 5)
     end
 
     if oldInternalVersion < 30 then
