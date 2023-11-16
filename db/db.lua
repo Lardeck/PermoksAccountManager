@@ -1529,10 +1529,10 @@ PermoksAccountManager.vault_rewards = {
     },
     -- Raid
     [Enum.WeeklyRewardChestThresholdType.Raid] = {
-        [17] = 402,
-        [14] = 415,
-        [15] = 428,
-        [16] = 441
+        [17] = 441,
+        [14] = 454,
+        [15] = 467,
+        [16] = 480
     }
 }
 
