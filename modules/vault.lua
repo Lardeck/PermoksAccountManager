@@ -61,7 +61,7 @@ local function UpdateVaultInfo(charInfo)
             if not vaultInfo.Raid[activityInfo.index] or progressChanged or levelChanged then
                 vaultInfo.Raid[activityInfo.index] = activityInfo
             end
-        elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus then
+        elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.Activities then
             vaultInfo.MythicPlus = vaultInfo.MythicPlus or {}
             local progressChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, 'progress')
             local levelChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, 'level', true)
@@ -107,7 +107,7 @@ PermoksAccountManager:AddModule(module, payload)
 local function GetDifficultyString(type, level)
     if type == Enum.WeeklyRewardChestThresholdType.Raid then
         return DifficultyUtil.GetDifficultyName(level):sub(1, 1)
-    elseif type == Enum.WeeklyRewardChestThresholdType.MythicPlus then
+    elseif type == Enum.WeeklyRewardChestThresholdType.Activities then
         return level
     elseif type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
         return PVPUtil.GetTierName(level):sub(1, 2)
@@ -154,14 +154,14 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
         local rewardItemLevel
 
         if activityInfo.progress >= activityInfo.threshold then
-            if activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus and activityInfo.level > 20 then
+            if activityInfo.type == Enum.WeeklyRewardChestThresholdType.Activities and activityInfo.level > 20 then
                 rewardItemLevel = self.vault_rewards[activityInfo.type][20]
             else
                 rewardItemLevel = self.vault_rewards[activityInfo.type][activityInfo.level] or nil
             end
         end
 
-        if activityInfo.type == Enum.WeeklyRewardChestThresholdType.MythicPlus then
+        if activityInfo.type == Enum.WeeklyRewardChestThresholdType.Activities then
             local difficultyName = activityInfo.level and activityInfo.level > 0 and '+' .. activityInfo.level
 
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))

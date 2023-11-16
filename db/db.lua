@@ -1494,7 +1494,7 @@ end
 
 PermoksAccountManager.vault_rewards = {
     -- MythicPlus
-    [Enum.WeeklyRewardChestThresholdType.MythicPlus or Enum.WeeklyRewardChestThresholdType.Activities] = {
+    [Enum.WeeklyRewardChestThresholdType.Activities] = {
         [2] = 454,
         [3] = 457,
         [4] = 460,
