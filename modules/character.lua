@@ -663,13 +663,19 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 	tooltip:AddLine('Vault Keys:',table.concat(runs, ', ', 1, (min(#runs, 8))))
 	tooltip:AddLine('')
 	tooltip:AddSeparator(2, 1, 1, 1)
+
+	local total = 0
 	for mapChallengeModeID, levels in pairs(runPerDungeon) do
 		local keys = {}
 		for level, count in self.spairs(levels, function(_, a, b) return a > b end) do
 			tinsert(keys, string.format('+%d (%d)', level, count))
+			total = total + count
 		end
 		tooltip:AddLine(PermoksAccountManager.keys[mapChallengeModeID], table.concat(keys, ', '))
 	end
+
+	tooltip:AddSeparator(2, 1, 1, 1)
+	tooltip:AddLine(string.format("|cff03fc52Total:|r"), total)
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
