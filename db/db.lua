@@ -389,7 +389,7 @@ PermoksAccountManager.keys = {
     [391] = 'STRT', -- Tazavesh: Streets of Wonder
     [392] = 'GMBT', -- Tazavesh: So'lesh Gambit
 	[166] = 'GD', -- Grimrail Depot
-    [168] = 'TEB', -- Everbloom
+    [168] = 'EB', -- Everbloom
 	[169] = 'ID', -- Iron Docks
 	[197] = 'EOA', -- Eye of Azshara
 	[198] = 'DHT', -- Darkheart Thicket
@@ -417,7 +417,7 @@ PermoksAccountManager.keys = {
     [405] = 'BH', -- Brackenhide Hollow
     [406] = 'HOI', -- Halls of Infusion
     [438] = 'VP', -- The Vortex Pinnacle
-    [456] = 'ToT', -- Throne of the Tides
+    [456] = 'TOTT', -- Throne of the Tides
     [463] = 'FALL', -- Dawn of the Infinite: Galakrond's Fall
     [464] = 'RISE', -- Dawn of the Infinite: Murozond's Rise
 }
