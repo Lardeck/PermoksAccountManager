@@ -660,6 +660,7 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 
 	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'LEFT')
 	button.tooltip = tooltip
+	tooltip:SetBackdropColor(0, 0, 0, 1)
 	tooltip:AddLine('Vault Keys:',table.concat(runs, ', ', 1, (min(#runs, 8))))
 	tooltip:AddLine('')
 	tooltip:AddSeparator(2, 1, 1, 1)
