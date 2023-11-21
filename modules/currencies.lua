@@ -428,6 +428,7 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     if customOptions then
         if customOptions.forceUpdate then
             charInfo.currencyInfo[currencyType].quantity = C_CurrencyInfo.GetCurrencyInfo(currencyType).quantity
+            charInfo.currencyInfo[currencyType].totalEarned = C_CurrencyInfo.GetCurrencyInfo(currencyType).totalEarned
         elseif customOptions.currencyUpdate and charInfo.currencyInfo[customOptions.currencyUpdate] then
             charInfo.currencyInfo[customOptions.currencyUpdate].quantity = C_CurrencyInfo.GetCurrencyInfo(customOptions.currencyUpdate).quantity
         end
