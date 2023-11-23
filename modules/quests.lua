@@ -900,6 +900,19 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	anniversary_wb = {
+		label = 'Anniv. WBs.',
+		type = 'quest',
+		questType = 'daily',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 4,
+		visibility = 'hidden',
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
 
 	--wotlk
 	general_dailies = {
