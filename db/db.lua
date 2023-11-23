@@ -559,6 +559,7 @@ PermoksAccountManager.currency = {
     [2708] = 0, -- Wyrm's Dreaming Crest
     [2709] = 0, -- Aspect's Dreaming Crest
     [2777] = 0, -- Dream Infusion
+    [2796] = 0, -- Renascent Dream
 }
 
 PermoksAccountManager.currencyCustomOptions = {
