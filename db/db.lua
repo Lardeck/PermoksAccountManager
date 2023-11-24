@@ -1437,11 +1437,9 @@ PermoksAccountManager.quests = {
         [78428] = {questType = 'weekly', log = true},
     },
     anniversary_wb = {
-        [47460] = {questType = 'daily', name = "X"}, -- X
         [47461] = {questType = 'daily', name = "Kazzak"}, -- Kazzak
-        [47462] = {questType = 'daily', name = "Y"}, -- Y
-        [47463] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
-        [47464] = {questType = 'daily', name = "Z"}, -- Z
+        [47462] = {questType = 'daily', name = "Azuregos"}, -- Azuregos
+        [60214] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
     }
 }
 
