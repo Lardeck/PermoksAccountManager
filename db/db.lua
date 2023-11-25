@@ -1439,6 +1439,7 @@ PermoksAccountManager.quests = {
     anniversary_wb = {
         [47461] = {questType = 'daily', name = "Kazzak"}, -- Kazzak
         [47462] = {questType = 'daily', name = "Azuregos"}, -- Azuregos
+        [47463] = {questType = 'daily', name = "Dragons of Nightmare"}, -- Dragons of Nightmare
         [60214] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
     }
 }
