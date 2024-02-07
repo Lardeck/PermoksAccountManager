@@ -232,3 +232,4 @@ L['Sort By Ilevel'] = true
 L['Sort By'] = true
 L['Compare'] = true
 L['Operator'] = true
+L['Vault Reward'] = true

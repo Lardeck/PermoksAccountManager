@@ -37,8 +37,8 @@ local LibIcon = LibStub('LibDBIcon-1.0')
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
-local VERSION = '1.1.23'
-local INTERNALVERSION = 31
+local VERSION = '1.1.24'
+local INTERNALVERSION = 32
 local INTERNALWOTLKVERSION = 6
 local defaultDB = {
     profile = {
@@ -731,6 +731,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 31 then
         self:AddLabelToDefaultCategory('currentweekly', 'time_rift_pod', 15)
+    end
+
+    if oldInternalVersion < 32 then
+        self:AddLabelToDefaultCategory('vault', 'great_vault_reward_available')
     end
 end
 

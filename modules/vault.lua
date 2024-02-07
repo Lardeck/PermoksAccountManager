@@ -28,8 +28,22 @@ local labelRows = {
         tooltip = true,
         group = 'vault',
         version = WOW_PROJECT_MAINLINE
+    },
+    great_vault_reward_available = {
+        label = L['Vault Reward'],
+        type = 'vault_reward',
+        group = 'vault',
+        version = WOW_PROJECT_MAINLINE
     }
 }
+
+local function CreateVaultRewardString(vaultRewardInfo)
+    if vaultRewardInfo then
+        return string.format("|cff00ff00Availbale|r")
+    else
+        return "-"
+    end
+end
 
 local function valueChanged(oldTable, newTable, key, checkUneven)
     if not oldTable or not newTable or not key then
@@ -49,6 +63,7 @@ end
 local function UpdateVaultInfo(charInfo)
     local self = PermoksAccountManager
 
+    charInfo.vaultRewardInfo = C_WeeklyRewards.HasAvailableRewards()
     charInfo.vaultInfo = charInfo.vaultInfo or {}
     local vaultInfo = charInfo.vaultInfo
     local activities = C_WeeklyRewards.GetActivities()
@@ -95,14 +110,16 @@ local payload = {
     events = {
         ['UPDATE_INSTANCE_INFO'] = {UpdateVaultInfo, UpdateRaidActivity},
         ['WEEKLY_REWARDS_UPDATE'] = {UpdateVaultInfo, UpdateRaidActivity},
-        ['CHALLENGE_MODE_COMPLETED'] = {UpdateVaultInfo, UpdateRaidActivity}
+        ['CHALLENGE_MODE_COMPLETED'] = {UpdateVaultInfo, UpdateRaidActivity},
+        ['CHALLEGE_MODE_MAPS_UPDATE'] = {UpdateVaultInfo, UpdateRaidActivity}
     },
     share = {
         [UpdateVaultInfo] = 'vaultInfo'
     },
     labels = labelRows
 }
-PermoksAccountManager:AddModule(module, payload)
+local module = PermoksAccountManager:AddModule(module, payload)
+module:AddCustomLabelType('vault_reward', CreateVaultRewardString, nil, 'vaultRewardInfo')
 
 local function GetDifficultyString(type, level)
     if type == Enum.WeeklyRewardChestThresholdType.Raid then
