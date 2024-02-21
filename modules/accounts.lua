@@ -79,7 +79,7 @@ function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sende
 
                 if deserializedMsg.account then
                     self:AddAccount(deserializedMsg.account, sender)
-                    self:SendAccountUpdate(sender)
+                    self:SendAccountUpdate(sender, true)
                 end
             elseif requestedSync and sender ~= requestedSync then
                 self:Print(requestedSync, 'is not', sender)
@@ -151,7 +151,7 @@ function PermoksAccountManager:AcceptSync(name)
     self:Print('Sync Accepted', name)
     local accountData = self.db.global.accounts.main
     local message = {type = 'syncaccepted', account = accountData}
-    self:SendInfo('syncaccepted', accountsPrefix, message, 'WHISPER', name)
+    self:SendInfo('syncaccepted', accountsPrefix, message, 'WHISPER', name, true, true)
 
     requestedAccepts[name] = nil
 end
@@ -219,12 +219,12 @@ function PermoksAccountManager:UnsyncAccount(accountKey)
     self:UpdateAccountButtons()
 end
 
-function PermoksAccountManager:SendAccountUpdate(name)
+function PermoksAccountManager:SendAccountUpdate(name, force)
     UpdateOnlineFriends()
-    if self.db.global.numAccounts == 1 or #onlineFriends == 0 then return end
+    if not force and (self.db.global.numAccounts == 1 or #onlineFriends == 0) then return end
 
     local message = {type = 'updateaccount', account = self.db.global.accounts.main}
-    self:SendInfo('updateaccount', accountsPrefix, message, 'WHISPER', name)
+    self:SendInfo('updateaccount', accountsPrefix, message, 'WHISPER', name, force, force)
 end
 
 function PermoksAccountManager:SendAccountUpdates(isLogin)
@@ -280,6 +280,8 @@ function PermoksAccountManager:SendCharacterUpdate(key)
 end
 
 function PermoksAccountManager:UpdateAccounts()
+    self.db.global.numAccounts = self:GetNumAccounts()
+
     if self.db.global.numAccounts > 1 then
         self:Print('Initiating Account Update.')
         C_Timer.After(

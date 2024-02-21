@@ -28,14 +28,20 @@ function PermoksAccountManager:RequestData(prefix, channel, target)
 	AceComm:SendCommMessage(prefix, "request", channel, target or nil)
 end
 
-function PermoksAccountManager:SendInfo(type, prefix, msg, channel, target, overrideLimit)
+local function SendCallback(_, done, total)
+	if done == total then 
+		PermoksAccountManager:Print(string.format("Data sent. Wait for this message to appear on both accounts before reloading or syncing another account."))
+	end
+end
+
+function PermoksAccountManager:SendInfo(type, prefix, msg, channel, target, overrideLimit, useCallback)
 	if not overrideLimit and GetTime() - (lastTimeSend[type] or 0) < 5 then return end
 
 	if msg then
 		local encoded = self:Serialize(msg)
 
     	target = target and Ambiguate(target, "none")
-    	AceComm:SendCommMessage(prefix, encoded, channel, target or nil)
+    	AceComm:SendCommMessage(prefix, encoded, channel, target or nil, nil, useCallback and SendCallback or nil)
 
     	lastTimeSend[type] = GetTime()
 	end
