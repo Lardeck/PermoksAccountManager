@@ -156,9 +156,22 @@ function PermoksAccountManager:AcceptSync(name)
     requestedAccepts[name] = nil
 end
 
+local function GetFreeAccountName()
+    local start = 2
+    local accountName
+    while not accountName do
+        if not PermoksAccountManager.db.global.accounts['account' .. start] then
+            accountName = 'account' .. start
+        end
+        start = start + 1
+    end
+
+    return accountName
+end
+
 function PermoksAccountManager:SyncCharacter(name)
-    local accountName = self.db.global.synchedCharacters[name] or ('account' .. self.db.global.numAccounts + 1)
-    self:Print('Syncing with character', name)
+    local accountName = self.db.global.synchedCharacters[name] or GetFreeAccountName()
+    self:Print('Syncing with character', name, 'Account Name: ', accountName)
 
     self.db.global.synchedCharacters[name] = accountName
 end
@@ -216,6 +229,7 @@ function PermoksAccountManager:UnsyncAccount(accountKey)
         self.managerFrame.accountButtons.main:Click()
     end
     accounts[accountKey] = nil
+    self.db.global.numAccounts = self:GetNumAccounts()
     self:UpdateAccountButtons()
 end
 
