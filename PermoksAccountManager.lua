@@ -65,6 +65,7 @@ local defaultDB = {
         alts = 0,
         synchedCharacters = {},
         blockedCharacters = {},
+        syncedAccountKeys = {},
         customLabels = false,
         options = {
             buttons = {

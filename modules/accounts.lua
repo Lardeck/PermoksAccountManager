@@ -3,7 +3,7 @@ PermoksAccountManager.modules = {}
 local AceComm = LibStub('AceComm-3.0')
 local accountsPrefix = 'PAM_ACCOUNTS'
 local requestedAccepts = {}
-local requestedSync
+local requestedSyncs = {}
 
 local onlineFriends = {}
 local UpdateOnlineFriends
@@ -72,7 +72,7 @@ function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sende
             requestedAccepts[sender] = true
             self:Print(sender, "requests a sync. Type |cff00ff00/pam accept name|r to accept it or |cff00ff00/pam block name|r to block it. Don't forget the realm if it's in the name.")
         elseif deserializedMsg.type == 'syncaccepted' then
-            if requestedSync and sender == requestedSync then
+            if requestedSyncs[sender] then
                 self:Print(sender, 'accepted the sync request.')
                 self:Print("Don't forget to use the 'Send Update' button if you add/remove characters afterwards.")
                 self:SyncCharacter(sender)
@@ -81,8 +81,8 @@ function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sende
                     self:AddAccount(deserializedMsg.account, sender)
                     self:SendAccountUpdate(sender, true)
                 end
-            elseif requestedSync and sender ~= requestedSync then
-                self:Print(requestedSync, 'is not', sender)
+            else
+                self:Print(sender, 'tried to sync with you.')
             end
         else
             if db.blockedCharacters[sender] or not db.synchedCharacters[sender] then
@@ -91,6 +91,7 @@ function PermoksAccountManager:ProcessAccountMessage(prefix, msg, channel, sende
             if deserializedMsg.type == 'updateaccount' then
                 if deserializedMsg.account then
                     self:AddAccount(deserializedMsg.account, sender)
+
                     if deserializedMsg.login then
                         self:SendAccountUpdate(sender)
                     end
@@ -132,8 +133,9 @@ function PermoksAccountManager:RequestAccountSync(name, realm)
         return
     end
 
+    requestedSyncs[name] = true
+
     self:Print('Sending a sync request to:', name, realm or '')
-    requestedSync = name
     local message = {type = 'syncrequest'}
     self:SendInfo('syncrequest', accountsPrefix, message, 'WHISPER', name)
 end
@@ -143,36 +145,37 @@ function PermoksAccountManager:AcceptSync(name)
         return
     end
     if not requestedAccepts[name] then
-        self:Print(name, "didn't request to sync.")
+        self:Print(name, "is currently not requesting to sync.")
         return
     end
-    self:SyncCharacter(name)
 
+    self:SyncCharacter(name)
     self:Print('Sync Accepted', name)
     local accountData = self.db.global.accounts.main
     local message = {type = 'syncaccepted', account = accountData}
     self:SendInfo('syncaccepted', accountsPrefix, message, 'WHISPER', name, true, true)
-
-    requestedAccepts[name] = nil
 end
 
 local function GetFreeAccountName()
     local start = 2
-    local accountName
-    while not accountName do
-        if not PermoksAccountManager.db.global.accounts['account' .. start] then
-            accountName = 'account' .. start
-        end
+    local accountName = 'account' .. start
+    while PermoksAccountManager.db.global.accounts[accountName] or PermoksAccountManager.db.global.syncedAccountKeys[accountName] do
         start = start + 1
+        accountName = 'account' .. start
     end
 
     return accountName
 end
 
 function PermoksAccountManager:SyncCharacter(name)
+    if self.db.global.synchedCharacters[name] then
+        return
+    end
+
     local accountName = self.db.global.synchedCharacters[name] or GetFreeAccountName()
     self:Print('Syncing with character', name, 'Account Name: ', accountName)
 
+    self.db.global.syncedAccountKeys[accountName] = true
     self.db.global.synchedCharacters[name] = accountName
 end
 
@@ -199,6 +202,8 @@ end
 
 function PermoksAccountManager:AddAccount(account, name)
     local accountName = self.db.global.synchedCharacters[name]
+    if not accountName then return end
+
     self:Print('Add/Update Account', accountName, '. Initiated by', name)
 
     local realm = GetNormalizedRealmName()
@@ -214,10 +219,13 @@ function PermoksAccountManager:AddAccount(account, name)
     self:BefriendEveryoneOfAccount(account)
     self:UpdateAccountButtons()
 
-    requestedSync = nil
+    requestedAccepts[name] = nil
+    requestedSyncs[name] = nil
 end
 
 function PermoksAccountManager:UnsyncAccount(accountKey)
+    self.db.global.syncedAccountKeys[accountKey] = nil
+
     for characterName, accountName in pairs(self.db.global.synchedCharacters) do
         if accountName == accountKey then
             self.db.global.synchedCharacters[characterName] = nil

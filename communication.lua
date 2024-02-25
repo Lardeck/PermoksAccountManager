@@ -28,9 +28,9 @@ function PermoksAccountManager:RequestData(prefix, channel, target)
 	AceComm:SendCommMessage(prefix, "request", channel, target or nil)
 end
 
-local function SendCallback(_, done, total)
+local function SendCallback(target, done, total)
 	if done == total then 
-		PermoksAccountManager:Print(string.format("Data sent. Wait for this message to appear on both accounts before reloading or syncing another account."))
+		PermoksAccountManager:Print(string.format(target .. " done! This message has to appear on both accounts before you can reload or log out."))
 	end
 end
 
@@ -41,7 +41,11 @@ function PermoksAccountManager:SendInfo(type, prefix, msg, channel, target, over
 		local encoded = self:Serialize(msg)
 
     	target = target and Ambiguate(target, "none")
-    	AceComm:SendCommMessage(prefix, encoded, channel, target or nil, nil, useCallback and SendCallback or nil)
+		if useCallback then
+			self:Print("Sending Data ...")
+		end
+
+    	AceComm:SendCommMessage(prefix, encoded, channel, target or nil, nil, useCallback and SendCallback or nil, useCallback and target or nil)
 
     	lastTimeSend[type] = GetTime()
 	end
