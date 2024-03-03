@@ -256,7 +256,7 @@ function PermoksAccountManager:SendAccountUpdates(isLogin)
 
     local message = {type = 'updateaccount', account = self.db.global.accounts.main, login = isLogin and 1}
     for i, target in ipairs(onlineFriends) do
-        self:SendInfo('updateaccount', accountsPrefix, message, 'WHISPER', target)
+        self:SendInfo('updateaccount', accountsPrefix, message, 'WHISPER', target, isLogin, isLogin)
     end
 end
 

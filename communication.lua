@@ -28,13 +28,17 @@ function PermoksAccountManager:RequestData(prefix, channel, target)
 	AceComm:SendCommMessage(prefix, "request", channel, target or nil)
 end
 
-local function SendCallback(target, done, total)
+local function SendCallback(data, done, total)
 	if done == total then 
-		PermoksAccountManager:Print(string.format(target .. " done! This message has to appear on both accounts before you can reload or log out."))
+		if data[2] then
+			PermoksAccountManager:Print(string.format(data[1] .. " done! This message has to appear on both accounts before you can reload or log out."))
+		elseif data[1] then
+			PermoksAccountManager:Print(string.format(data[1] .. " done!"))
+		end
 	end
 end
 
-function PermoksAccountManager:SendInfo(type, prefix, msg, channel, target, overrideLimit, useCallback)
+function PermoksAccountManager:SendInfo(type, prefix, msg, channel, target, overrideLimit, useCallback, isSynch)
 	if not overrideLimit and GetTime() - (lastTimeSend[type] or 0) < 5 then return end
 
 	if msg then
@@ -45,7 +49,7 @@ function PermoksAccountManager:SendInfo(type, prefix, msg, channel, target, over
 			self:Print("Sending Data ...")
 		end
 
-    	AceComm:SendCommMessage(prefix, encoded, channel, target or nil, nil, useCallback and SendCallback or nil, useCallback and target or nil)
+    	AceComm:SendCommMessage(prefix, encoded, channel, target or nil, nil, useCallback and SendCallback or nil, useCallback and {target, isSynch} or nil)
 
     	lastTimeSend[type] = GetTime()
 	end
