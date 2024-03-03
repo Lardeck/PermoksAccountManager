@@ -1895,6 +1895,24 @@ end
 local function GetAllkeysArguments()
 end
 
+local function GetComparisonOperator(startLevel, endLevel, operator)
+    startLevel = tonumber(startLevel)
+    endLevel = tonumber(endLevel)
+    if startLevel and endLevel and operator == "-" then
+        return function(level)
+            return level >= startLevel and level <= endLevel
+        end
+    elseif startLevel and operator == "+" then
+        return function(level)
+            return level >= startLevel
+        end
+    elseif startLevel then
+        return function(level)
+            return level == startLevel
+        end
+    end
+end
+
 function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
     local chatChannel
     if channel and (channel == 'raid' or channel == 'guild' or channel == 'party') then
@@ -1905,15 +1923,21 @@ function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
 
     local message
     local keys = {}
-    local arg = msg:sub(ending + 2)
-    local level = msg and tonumber(arg)
-    local dungeon = not level and msg and arg:upper() or ''
-    if level then
+    local arg, startLevel, operator, endLevel
+    if msg then
+        arg = msg:sub(ending + 2)
+        startLevel, operator, endLevel = arg:match("(%d+)([+-]*)(%d*)")
+    end
+
+    if startLevel then
+        local comparator = GetComparisonOperator(startLevel, endLevel, operator)
+        if not comparator then return end
+
         for _, alt_data in pairs(self.db.global.accounts.main.data) do
             local keyInfo = alt_data.keyInfo
             if keyInfo then
                 local keyString = {}
-                if keyInfo.keyLevel and keyInfo.keyLevel > 0 and keyInfo.keyLevel >= level then
+                if keyInfo.keyLevel and keyInfo.keyLevel > 0 and comparator(keyInfo.keyLevel) then
                     tinsert(keyString, keyInfo.keyDungeon .. '+' .. keyInfo.keyLevel)
                 end
 
@@ -1922,7 +1946,10 @@ function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
                 end
             end
         end
-    elseif dungeon then
+    end
+
+    local dungeon = not level and msg and arg:upper() or ''
+    if dungeon then
         for _, alt_data in pairs(self.db.global.accounts.main.data) do
             local keyInfo = alt_data.keyInfo
             if keyInfo then
