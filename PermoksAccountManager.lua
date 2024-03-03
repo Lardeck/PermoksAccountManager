@@ -1948,7 +1948,7 @@ function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
         end
     end
 
-    local dungeon = not level and msg and arg:upper() or ''
+    local dungeon = not startLevel and (msg and arg:upper() or '')
     if dungeon then
         for _, alt_data in pairs(self.db.global.accounts.main.data) do
             local keyInfo = alt_data.keyInfo
