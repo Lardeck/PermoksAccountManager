@@ -523,6 +523,7 @@ PermoksAccountManager.factions = {
     [2526] = {name = 'Winterpelt Furbolg', paragon = true},
     [2544] = {name = 'Artisan\'s Consortium', paragon = true, type = 'friend'},
     [2550] = {name = 'Cobalt Assembly', paragon = true, type = 'friend'},
+    [2553] = {name = 'Soridormi', paragon = true, type = 'friend'},
     [2564] = {name = 'Loamm Niffen', paragon = true, type = 'renown'},
     [2568] = {name = 'Glimmerogg Racer'},
     [2574] = {name = 'Dream Wardens', paragonn = true, type = 'renown'},
