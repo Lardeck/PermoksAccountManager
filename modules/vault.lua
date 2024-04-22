@@ -60,7 +60,7 @@ local function valueChanged(oldTable, newTable, key, checkUneven)
     end
 end
 
-local function UpdateVaultInfo(charInfo)
+local function UpdateVaultInfo(charInfo, force)
     local self = PermoksAccountManager
 
     charInfo.vaultRewardInfo = C_WeeklyRewards.HasAvailableRewards()
@@ -78,10 +78,12 @@ local function UpdateVaultInfo(charInfo)
             end
         elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.Activities then
             vaultInfo.MythicPlus = vaultInfo.MythicPlus or {}
+            activityInfo.level = activityInfo.progress > 0 and WeeklyRewardsUtil.GetLowestLevelInTopDungeonRuns(activityInfo.threshold) or activityInfo.level
+
             local progressChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, 'progress')
             local levelChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, 'level', true)
 
-            if not vaultInfo.MythicPlus[activityInfo.index] or progressChanged or levelChanged then
+            if not vaultInfo.MythicPlus[activityInfo.index] or progressChanged or levelChanged or force then
                 vaultInfo.MythicPlus[activityInfo.index] = activityInfo
             end
         elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
@@ -101,7 +103,7 @@ local function UpdateRaidActivity(charInfo)
 end
 
 local function Update(charInfo)
-    UpdateVaultInfo(charInfo)
+    UpdateVaultInfo(charInfo, true)
     UpdateRaidActivity(charInfo)
 end
 
