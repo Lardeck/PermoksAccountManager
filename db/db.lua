@@ -14,13 +14,14 @@ local default_categories = {
             'mplus_score',
             'catalyst_charges',
             'flightstones',
-            'whelpling_crest_s3',
-            'drake_crest_s3',
-            'wyrm_crest_s3',
-            'aspect_crest_s3',
+            'whelpling_crest_s4',
+            'drake_crest_s4',
+            'wyrm_crest_s4',
+            'aspect_crest_s4',
             'spark_ingenuity',
             'spark_shadowflame',
             'spark_dreams',
+            'spark_awakening',
             'dream_infusion'
         },
         childOrder = {
@@ -32,14 +33,15 @@ local default_categories = {
             mplus_score = 6,
             catalyst_charges = 7,
             flightstones = 8,
-            whelpling_crest_s3 = 9,
-            drake_crest_s3 = 10,
-            wyrm_crest_s3 = 11,
-            aspect_crest_s3 = 12,
+            whelpling_crest_s4 = 9,
+            drake_crest_s4 = 10,
+            wyrm_crest_s4 = 11,
+            aspect_crest_s4 = 12,
             spark_ingenuity = 13,
             spark_shadowflame = 14,
             spark_dreams = 15,
-            dream_infusion  = 16
+            spark_awakening = 16,
+            dream_infusion  = 17
         },
         hideToggle = true,
         enabled = true
@@ -498,6 +500,8 @@ PermoksAccountManager.item = {
     [208066] = {key = 'dreamseeds'}, -- Small Dreamseed
     [208067] = {key = 'dreamseeds'}, -- Plump Dreamseed
     [208047] = {key = 'dreamseeds'}, -- Gigantic Dreamseed
+    [211515] = {key = 'spark_awakening'}, -- Splintered Spark of Awakening
+    [211516] = {key = 'spark_awakening'}, -- Spark of Awakening
 }
 
 PermoksAccountManager.factions = {
@@ -560,6 +564,10 @@ PermoksAccountManager.currency = {
     [2709] = 0, -- Aspect's Dreaming Crest
     [2777] = 0, -- Dream Infusion
     [2796] = 0, -- Renascent Dream
+    [2806] = 0, -- Whelpling Awakened Crest
+    [2807] = 0, -- Drake's Awakened Crest
+    [2809] = 0, -- Wyrm's Awakened Crest
+    [2812] = 0, -- Aspect's Awakened Crest
 }
 
 PermoksAccountManager.currencyCustomOptions = {

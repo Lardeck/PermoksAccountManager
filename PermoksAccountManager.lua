@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALVERSION = 32
+local INTERNALVERSION = 33
 local INTERNALWOTLKVERSION = 6
 local defaultDB = {
     profile = {
@@ -736,6 +736,14 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 32 then
         self:AddLabelToDefaultCategory('vault', 'great_vault_reward_available')
+    end
+
+    if oldInternalVersion < 33 then
+        self:AddLabelToDefaultCategory('general', 'whelpling_crest_s4')
+        self:AddLabelToDefaultCategory('general', 'drake_crest_s4')
+        self:AddLabelToDefaultCategory('general', 'wyrm_crest_s4')
+        self:AddLabelToDefaultCategory('general', 'aspect_crest_s4')
+        self:AddLabelToDefaultCategory('general', 'spark_awakening', 15)
     end
 end
 

@@ -267,6 +267,18 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
+    -- 10.2.6
+    spark_awakening = {
+        label = 'Spark - Awakening',
+        type = 'spark',
+        passRow = true,
+        key = 211516,
+        reagent = 211515,
+        reagentRequired = 2,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+
     -- tbc
     elixirDemonslaying = {
         label = 'Elixir of Demonslaying',

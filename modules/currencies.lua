@@ -317,6 +317,39 @@ local labelRows = {
     },
 
 
+    whelpling_crest_s4 = {
+        label = 'Whelpling Crests',
+        type = 'crestcurrency',
+        key = 2806,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    drake_crest_s4 = {
+        label = 'Drake Crests',
+        type = 'crestcurrency',
+        key = 2807,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    wyrm_crest_s4 = {
+        label = 'Wyrm Crests',
+        type = 'crestcurrency',
+        key = 2809,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    aspect_crest_s4 = {
+        label = 'Aspect Crests',
+        type = 'crestcurrency',
+        key = 2812,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+
     emblem_of_heroism = {
         label = 'Heroism Emblems',
 		type = 'currency',
@@ -458,8 +491,14 @@ end
 local function CreateCrestString(labelRow, currencyInfo)
 	local crestInfo = currencyInfo and currencyInfo[labelRow.key]
     if crestInfo then
-        local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
-        return string.format("%d - %s", crestInfo.quantity, currencyString)
+        if crestInfo.maxQuantity and crestInfo.maxQuantity > 0 then
+            local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
+            return string.format("%d - %s", crestInfo.quantity, currencyString)
+        else
+            return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
+        end
+    else
+        return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
     end
 end
 
