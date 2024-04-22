@@ -226,6 +226,10 @@ function PermoksAccountManager:Purge()
 	self:Print("Please reload your interface to update the displayed info.")
 end
 
+function PermoksAccountManager:ResetCategories()
+	self.db.global.options.defaultCategories = self:getDefaultCategories()
+end
+
 function PermoksAccountManager:HandleSecretPsst()
 	if self.db.global.secret then
 		PermoksAccountManager:RegisterChatCommand('mam', 'HandleChatCommand')

@@ -802,8 +802,19 @@ function PermoksAccountManager:LoadOptionsTemplate()
                             imexport:OpenBox('import')
                         end
                     },
-                    purge = {
+                    resetDB = {
                         order = 2,
+                        type = 'execute',
+                        name = L['Reset Categories'],
+                        func = function()
+                            PermoksAccountManager:ResetCategories()
+                            C_UI.Reload()
+                        end,
+                        confirm = true,
+                        confirmText = 'Are you sure?'
+                    },
+                    purge = {
+                        order = 3,
                         type = 'execute',
                         name = L['Purge'],
                         func = function()

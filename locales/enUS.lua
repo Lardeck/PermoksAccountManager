@@ -175,6 +175,7 @@ L['Characters'] = true
 L['Export'] = true
 L['Import'] = true
 L['Purge'] = true
+L['Reset Categories'] = true
 L['Currency Icons'] = true
 L['Item Icons'] = true
 L['Commands'] = true
