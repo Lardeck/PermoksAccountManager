@@ -751,7 +751,7 @@ local function CreateSparkString(labelRow, itemCounts)
         total = total + (reagentInfo.total / labelRow.reagentRequired)
     end
 
-    return PermoksAccountManager:CreateItemString(nil, total, (sparkInfo and sparkInfo.icon))
+    return PermoksAccountManager:CreateItemString(nil, total, (sparkInfo and sparkInfo.icon or GetItemIcon(labelRow.key)))
 end
 
 local function CreateDreamSeedString(labelRow, itemCounts)
