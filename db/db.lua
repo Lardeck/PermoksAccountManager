@@ -125,12 +125,14 @@ local default_categories = {
             'valdrakken_akkord',
             'loam_niffen',
             'dream_wardens',
+            'keg_legs_crew',
             'separator1',
             'winterpelt_furbolg',
             'artisan_consortium',
             'cobalt_assembly',
             'sabellian',
             'wrathion',
+            'soridormi'
         },
         childOrder = {
             dragonscale_expedition = 1,
@@ -139,13 +141,14 @@ local default_categories = {
             valdrakken_akkord = 4,
             loam_niffen = 5,
             dream_wardens = 6,
+            keg_legs_crew = 7,
             separator1 = 10,
             winterpelt_furbolg = 11,
             artisan_consortium = 12,
             cobalt_assembly = 13,
             sabellian = 14,
             wrathion = 15,
-            
+            soridormi = 16,
         },
         enabled = true
     },
@@ -527,6 +530,7 @@ PermoksAccountManager.factions = {
     [2564] = {name = 'Loamm Niffen', paragon = true, type = 'renown'},
     [2568] = {name = 'Glimmerogg Racer'},
     [2574] = {name = 'Dream Wardens', paragonn = true, type = 'renown'},
+    [2593] = {name = 'Keg Leg\'s Crew', type = 'renown'}
 }
 
 PermoksAccountManager.currency = {

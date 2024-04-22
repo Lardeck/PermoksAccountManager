@@ -183,6 +183,24 @@ local labelRows = {
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
+    soridormi = {
+        label = function()
+            return PermoksAccountManager.factions[2553].localName or 'Soridormi'
+        end,
+        type = 'faction',
+        key = 2553,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    keg_legs_crew = {
+        label = function()
+            return PermoksAccountManager.factions[2593].localName or 'Keg Leg\'s Crew'
+        end,
+        type = 'faction',
+        key = 2593,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
 
 
     -- wotlk

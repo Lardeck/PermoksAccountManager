@@ -744,6 +744,8 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('general', 'wyrm_crest_s4')
         self:AddLabelToDefaultCategory('general', 'aspect_crest_s4')
         self:AddLabelToDefaultCategory('general', 'spark_awakening', 15)
+        self:AddLabelToDefaultCategory('renown', 'keg_legs_crew', 7)
+        self:AddLabelToDefaultCategory('renown', 'soridormi', 16)
     end
 end
 
