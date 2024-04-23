@@ -1231,20 +1231,36 @@ PermoksAccountManager.quests = {
         --[66936] = {questType = 'weekly', log = true}, -- Mining 8
         [75354] = {questType = 'weekly', log = true}, -- Leatherworking
         [75368] = {questType = 'weekly', log = true}, -- Leatherworking
+        [77945] = {questType = 'weekly', log = true}, -- Leatherworking
+        [77946] = {questType = 'weekly', log = true}, -- Leatherworking
         [75150] = {questType = 'weekly', log = true}, -- Enchanting
         [75865] = {questType = 'weekly', log = true}, -- Enchanting
+        [77910] = {questType = 'weekly', log = true}, -- Enchanting
+        [77937] = {questType = 'weekly', log = true}, -- Enchanting
         [75148] = {questType = 'weekly', log = true}, -- Blacksmithing
         [75569] = {questType = 'weekly', log = true}, -- Blacksmithing
+        [77935] = {questType = 'weekly', log = true}, -- Blacksmithing
+        [77936] = {questType = 'weekly', log = true}, -- Blacksmithing
         [75575] = {questType = 'weekly', log = true}, -- Engineering
         [75608] = {questType = 'weekly', log = true}, -- Engineering
+        [77891] = {questType = 'weekly', log = true}, -- Engineering
+        [77938] = {questType = 'weekly', log = true}, -- Engineering
         [75149] = {questType = 'weekly', log = true}, -- Inscription
         [75573] = {questType = 'weekly', log = true}, -- Inscription
+        [77889] = {questType = 'weekly', log = true}, -- Inscription
+        [77914] = {questType = 'weekly', log = true}, -- Inscription
         [75407] = {questType = 'weekly', log = true}, -- Tailoring
         [75600] = {questType = 'weekly', log = true}, -- Tailoring
+        [77947] = {questType = 'weekly', log = true}, -- Tailoring
+        [77949] = {questType = 'weekly', log = true}, -- Tailoring
         [75362] = {questType = 'weekly', log = true}, -- Jewelcrafting
         [75602] = {questType = 'weekly', log = true}, -- Jewelcrafting
+        [77892] = {questType = 'weekly', log = true}, -- Jewelcrafting
+        [77912] = {questType = 'weekly', log = true}, -- Jewelcrafting
         [75363] = {questType = 'weekly', log = true}, -- Alchemy
         [75371] = {questType = 'weekly', log = true}, -- Alchemy
+        [77932] = {questType = 'weekly', log = true}, -- Alchemy
+        [77933] = {questType = 'weekly', log = true}, -- Alchemy
     },
     knowledge_weeklies_order = {
         [70589] = {questType = 'weekly', log = true}, -- Blacksmithing 0
