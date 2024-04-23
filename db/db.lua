@@ -18,11 +18,7 @@ local default_categories = {
             'drake_crest_s4',
             'wyrm_crest_s4',
             'aspect_crest_s4',
-            'spark_ingenuity',
-            'spark_shadowflame',
-            'spark_dreams',
             'spark_awakening',
-            'dream_infusion'
         },
         childOrder = {
             characterName = 1,
@@ -37,11 +33,8 @@ local default_categories = {
             drake_crest_s4 = 10,
             wyrm_crest_s4 = 11,
             aspect_crest_s4 = 12,
-            spark_ingenuity = 13,
-            spark_shadowflame = 14,
-            spark_dreams = 15,
-            spark_awakening = 16,
-            dream_infusion  = 17
+            spark_awakening = 13,
+
         },
         hideToggle = true,
         enabled = true
