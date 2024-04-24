@@ -561,11 +561,12 @@ PermoksAccountManager.currency = {
     [2708] = 0, -- Wyrm's Dreaming Crest
     [2709] = 0, -- Aspect's Dreaming Crest
     [2777] = 0, -- Dream Infusion
-    [2796] = 0, -- Renascent Dream
+    [2796] = 0, -- Renascent Dream (Crucible Charges DF Season 3)
     [2806] = 0, -- Whelpling Awakened Crest
     [2807] = 0, -- Drake's Awakened Crest
     [2809] = 0, -- Wyrm's Awakened Crest
     [2812] = 0, -- Aspect's Awakened Crest
+    [2912] = 0, -- Renascent Awakening (Crucible Charges DF Season 4)
 }
 
 PermoksAccountManager.currencyCustomOptions = {
@@ -1557,7 +1558,7 @@ PermoksAccountManager.vault_rewards = {
         [17] = 480,
         [14] = 493,
         [15] = 506,
-        [16] = 519
+        [16] = 519,
     }
 }
 
