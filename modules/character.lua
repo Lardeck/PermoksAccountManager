@@ -571,7 +571,7 @@ local function CreateWeeklyString(vaultInfo)
 	end
 
 	local activityInfo = vaultInfo.MythicPlus[1]
-	if not activityInfo or activityInfo.level == 0 then
+	if not activityInfo or activityInfo.level <= 0 then
 		return '-'
 	end
 
