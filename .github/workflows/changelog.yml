@@ -27,6 +27,10 @@ jobs:
       TITLE: "PermoksAccountManager Release"
 
     steps:
+      - name: Test
+        id: test
+        run: |
+          echo "${{ needs.get_changelog.outputs }}"
       - name: Send Discord Notification
         id: discord
         uses: tsickert/discord-webhook@v6.0.0
