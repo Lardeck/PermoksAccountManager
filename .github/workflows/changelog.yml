@@ -30,7 +30,7 @@ jobs:
       - name: Test
         id: test
         run: |
-          echo "${{ needs.get_changelog.outputs }}"
+          echo "${{ needs.get-changelog.outputs.release_info }}"
       - name: Send Discord Notification
         id: discord
         uses: tsickert/discord-webhook@v6.0.0
@@ -39,4 +39,4 @@ jobs:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.TITLE }}
           embed-url: https://github.com/Lardeck/PermoksAccountManager/releases/latest
-          embed-description:  ${{needs.get_changelog.outputs.release_info.body}}
+          embed-description: ${{ fromJson(needs.get-changelog.outputs.release_info).body }}
