@@ -1,0 +1,30 @@
+name: Send Changelog to Webhook
+
+on:
+  workflow_dispatch:
+
+jobs:
+  send_changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get release info
+        id: release_info
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            return response.data.body;
+
+      - name: Send changelog to webhook
+        uses: distributhor/http-request-action@v2
+        with:
+          method: POST
+          url: ${{ secrets.WEBHOOK_URL }}
+          body: |
+            {
+              "changelog": "${{ steps.release_info.outputs.result }}"
+            }
