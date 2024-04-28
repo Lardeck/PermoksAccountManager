@@ -50,4 +50,4 @@ jobs:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.TITLE }}
           embed-url: https://github.com/Lardeck/PermoksAccountManager/releases/latest
-          embed-description: ${{ need.get-changelog.steps.changelog.outputs.CHANGELOG }}
+          embed-description: ${{ needs.get-changelog.steps.changelog.outputs.CHANGELOG }}
