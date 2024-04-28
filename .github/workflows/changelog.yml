@@ -8,16 +8,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone Project
+      - name: Clone project
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Fetch release info
-        id: get_release
+          
+      - name: Get current tag
+        id: current_tag
         run: |
-          release_info=$(curl -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest)
-          echo "::set-output name=release_info::${release_info}"
+          echo "CURRENT_TAG=$(git describe --abbrev=0 --tags") >> $GITHUB_OUTPUT
+
+      - name: Get previous tag
+        id: previous_tag
+        run: |
+          echo "PREVIOUS_TAG=$(git describe --abbrev=0 --tags --exclude='*-beta*' --exclude='$(git describe --abbrev=0 --tags)')" >> $GITHUB_OUTPUT
+
+      - name: Get changelog
+        id: changelog
+        run: |
+          echo "CHANGELOG=$(git shortlog --no-merges --reverse '${{ steps.previous_tag.outputs.PREVIOUS_TAG }}..${{ steps.current_tag.outputs.CURRENT_TAG }}')" >> $GITHUB_OUTPUT
+          
 
   discord-release-notification:
     runs-on: ubuntu-latest
@@ -30,7 +40,8 @@ jobs:
       - name: Test
         id: test
         run: |
-          echo "${{ needs.get-changelog.outputs.release_info }}"
+          echo "${{ needs.get-changelog.steps.current_tag.outputs.CURRENT_TAG }}"
+          
       - name: Send Discord Notification
         id: discord
         uses: tsickert/discord-webhook@v6.0.0
@@ -39,4 +50,4 @@ jobs:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.TITLE }}
           embed-url: https://github.com/Lardeck/PermoksAccountManager/releases/latest
-          embed-description: ${{ fromJson(needs.get-changelog.outputs.release_info).body }}
+          embed-description: ${{ need.get-changelog.steps.changelog.outputs.CHANGELOG }}
