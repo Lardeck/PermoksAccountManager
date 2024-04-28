@@ -16,7 +16,11 @@ jobs:
       - name: Extract changelog
         id: extract_changelog
         run: |
-          changelog=$(echo "${{ steps.get_release.outputs.release_info }}" | jq -r '.body')
+          changelog=$(echo "${{ steps.get_release.outputs.release_info }}" | jq -r '.body // empty')
+          if [ -z "$changelog" ]; then
+            echo "No changelog found."
+            exit 1
+          fi
           echo "::set-output name=changelog::${changelog}"
 
       - name: Send changelog to webhook
