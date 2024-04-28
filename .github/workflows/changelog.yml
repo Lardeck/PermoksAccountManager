@@ -33,6 +33,6 @@ jobs:
         if: success()
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          embed-title: ${{ env.MESSAGE }}
+          embed-title: ${{ env.TITLE }}
           embed-url: https://github.com/Lardeck/PermoksAccountManager/releases/latest
           embed-description:  ${{needs.get_changelog.outputs.release_info.body}}
