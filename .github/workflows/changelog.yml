@@ -13,18 +13,8 @@ jobs:
           release_info=$(curl -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest)
           echo "::set-output name=release_info::${release_info}"
 
-      - name: Extract changelog
-        id: extract_changelog
-        run: |
-          changelog=$(echo "${{ steps.get_release.outputs.release_info }}" | jq -r '.body // empty')
-          if [ -z "$changelog" ]; then
-            echo "No changelog found."
-            exit 1
-          fi
-          echo "::set-output name=changelog::${changelog}"
-
       - name: Send changelog to webhook
         uses: distributhor/workflow-webhook@v3
         with:
           webhook_url: ${{ secrets.WEBHOOK_URL }}
-          data: '{ "changelog": "${{ steps.extract_changelog.outputs.changelog }}" }'
+          data: '{ "changelog": "${{ steps.get_release.outputs.release_info.body }}" }'
