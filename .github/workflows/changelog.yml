@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      current: ${{ steps.current_tag.outputs.tag}}
-      previous: ${{ steps.previous_tag.outputs.tag }}
-      changelog: ${{ steps.changelog.outputs.changelog}}
+      current: ${{ steps.current_tag.outputs.TAG }}
+      previous: ${{ steps.previous_tag.outputs.TAG }}
+      changelog: ${{ steps.changelog.outputs.CHANGELOG }}
 
     steps:
       - name: Clone project
@@ -21,17 +21,17 @@ jobs:
       - name: Get current tag
         id: current_tag
         run: |
-          echo "tag=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
+          echo "TAG=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
 
       - name: Get previous tag
         id: previous_tag
         run: |
-          echo "tag=$(git describe --abbrev=0 --tags --exclude='*-beta*' --exclude='${{ steps.current_tag.outputs.CURRENT_TAG }}')" >> $GITHUB_OUTPUT
+          echo "TAG=$(git describe --abbrev=0 --tags --exclude='*-beta*' --exclude='${{ steps.current_tag.outputs.TAG }}')" >> $GITHUB_OUTPUT
 
       - name: Get changelog
         id: changelog
         run: |
-          echo "changelog=$(git log --pretty=format:'- %s' ${{ steps.previous_tag.outputs.PREVIOUS_TAG }}..${{ steps.current_tag.outputs.CURRENT_TAG }})" >> $GITHUB_OUTPUT
+          echo "CHANGELOG=$(git log --pretty=format:'- %s' ${{ steps.previous_tag.outputs.TAG }}..${{ steps.current_tag.outputs.TAG }})" >> $GITHUB_OUTPUT
 
   post-changelog:
     runs-on: ubuntu-latest
