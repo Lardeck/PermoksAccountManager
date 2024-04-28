@@ -27,20 +27,11 @@ jobs:
         id: changelog
         run: |
           echo "CHANGELOG=$(git shortlog --no-merges --reverse '${{ steps.previous_tag.outputs.PREVIOUS_TAG }}..${{ steps.current_tag.outputs.CURRENT_TAG }}')" >> $GITHUB_OUTPUT
-          
 
-  discord-release-notification:
-    runs-on: ubuntu-latest
-    needs: get-changelog
-
-    env:
-      TITLE: "PermoksAccountManager Release"
-
-    steps:
       - name: Test
         id: test
         run: |
-          echo "${{ needs.get-changelog.steps.current_tag.outputs.CURRENT_TAG }}"
+          echo "${{ steps.current_tag.outputs.CURRENT_TAG }}"
           
       - name: Send Discord Notification
         id: discord
@@ -48,6 +39,6 @@ jobs:
         if: success()
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          embed-title: ${{ env.TITLE }}
+          embed-title: "PermoksAccountManager Release"
           embed-url: https://github.com/Lardeck/PermoksAccountManager/releases/latest
-          embed-description: ${{ needs.get-changelog.steps.changelog.outputs.CHANGELOG }}
+          embed-description: ${{ steps.changelog.outputs.CHANGELOG }}
