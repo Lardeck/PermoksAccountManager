@@ -21,7 +21,7 @@ jobs:
       - name: Get previous tag
         id: previous_tag
         run: |
-          echo "PREVIOUS_TAG=$(git describe --abbrev=0 --tags --exclude='*-beta*' --exclude='$(git describe --abbrev=0 --tags)')" >> $GITHUB_OUTPUT
+          echo "PREVIOUS_TAG=$(git describe --abbrev=0 --tags --exclude='*-beta*' --exclude='${{ steps.current_tag.outputs.CURRENT_TAG }}')" >> $GITHUB_OUTPUT
 
       - name: Get changelog
         id: changelog
