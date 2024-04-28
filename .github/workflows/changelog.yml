@@ -20,11 +20,7 @@ jobs:
             return response.data.body;
 
       - name: Send changelog to webhook
-        uses: distributhor/http-request-action@v2
+        uses: distributhor/workflow-webhook@v3
         with:
-          method: POST
-          url: ${{ secrets.WEBHOOK_URL }}
-          body: |
-            {
-              "changelog": "${{ steps.release_info.outputs.result }}"
-            }
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          data: '{ "changelog": "${{ steps.release_info.outputs.result }}" }'
