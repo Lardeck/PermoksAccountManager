@@ -60,6 +60,42 @@ local function valueChanged(oldTable, newTable, key, checkUneven)
     end
 end
 
+-- https://github.com/Gethe/wow-ui-source/blob/87c526a3ae979a7f5244d635bd8ae952b4313bd8/Interface/AddOns/Blizzard_WeeklyRewardsUtil/Blizzard_WeeklyRewardsUtil.lua#L16
+-- Blizzard doesn't count incomplete runs (runs which were depleted)
+local function GetLowestLevelInTopDungeonRuns(numRuns)
+	local lowestLevel;
+	local lowestCount = 0;
+
+	local numHeroic, numMythic, numMythicPlus = C_WeeklyRewards.GetNumCompletedDungeonRuns();
+	-- if there are not enough MythicPlus runs, the lowest level might be either Heroic or Mythic
+	if numRuns > numMythicPlus and (numHeroic + numMythic) > 0 then
+		-- if there are not enough of both mythics combined, the lowest level might be Heroic
+		if numRuns > numMythicPlus + numMythic and numHeroic > 0 then
+			lowestLevel = WeeklyRewardsUtil.HeroicLevel;
+			lowestCount = numRuns - numMythicPlus - numMythic;
+		else
+			lowestLevel = WeeklyRewardsUtil.MythicLevel;
+			lowestCount = numRuns - numMythicPlus;
+		end
+		return lowestLevel, lowestCount;
+	end
+
+	local runHistory = C_MythicPlus.GetRunHistory(nil, true);
+	table.sort(runHistory, function(left, right) return left.level > right.level; end);
+	for i = math.min(numRuns, #runHistory), 1, -1 do
+		local run = runHistory[i];
+		if not lowestLevel then
+			lowestLevel = run.level;
+		end
+		if lowestLevel == run.level then
+			lowestCount = lowestCount + 1;
+		else
+			break;
+		end
+	end
+	return lowestLevel, lowestCount;
+end
+
 local function UpdateVaultInfo(charInfo, force)
     local self = PermoksAccountManager
 
@@ -78,7 +114,7 @@ local function UpdateVaultInfo(charInfo, force)
             end
         elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.Activities then
             vaultInfo.MythicPlus = vaultInfo.MythicPlus or {}
-            activityInfo.level = activityInfo.progress > 0 and WeeklyRewardsUtil.GetLowestLevelInTopDungeonRuns(activityInfo.threshold) or activityInfo.level
+            activityInfo.level = activityInfo.progress > 0 and GetLowestLevelInTopDungeonRuns(activityInfo.threshold) or activityInfo.level
 
             local progressChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, 'progress')
             local levelChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, 'level', true)
