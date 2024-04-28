@@ -31,7 +31,7 @@ jobs:
       - name: Test
         id: test
         run: |
-          echo "${{ steps.current_tag.outputs.CURRENT_TAG }}"
+          echo "${{ steps.changelog.outputs.CHANGELOG }}"
           
       - name: Send Discord Notification
         id: discord
