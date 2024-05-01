@@ -175,7 +175,7 @@ function PermoksAccountManager:CreateVaultString(vaultInfo)
 
     for i, activityInfo in ipairs(vaultInfo) do
         if not vaultString then
-            if activityInfo.level > 0 and activityInfo.progress >= activityInfo.threshold then
+            if activityInfo.progress >= activityInfo.threshold then
                 tinsert(difficulties, GetDifficultyString(activityInfo.type, activityInfo.level))
             end
 
@@ -217,15 +217,15 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
         end
 
         if activityInfo.type == Enum.WeeklyRewardChestThresholdType.Activities then
-            local difficultyName = activityInfo.level and activityInfo.level > 0 and '+' .. activityInfo.level
+            local difficultyName = activityInfo.level and activityInfo.progress >= activityInfo.threshold and '+' .. activityInfo.level
 
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))
         elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.Raid then
-            local difficultyName = activityInfo.level and activityInfo.level > 0 and DifficultyUtil.GetDifficultyName(activityInfo.level)
+            local difficultyName = activityInfo.level and activityInfo.progress >= activityInfo.threshold and DifficultyUtil.GetDifficultyName(activityInfo.level)
 
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))
         elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
-            local difficultyName = activityInfo.level and PVPUtil.GetTierName(activityInfo.level)
+            local difficultyName = activityInfo.level and activityInfo.progress >= activityInfo.threshold and PVPUtil.GetTierName(activityInfo.level)
 
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))
         end
