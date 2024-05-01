@@ -175,7 +175,7 @@ function PermoksAccountManager:CreateVaultString(vaultInfo)
 
     for i, activityInfo in ipairs(vaultInfo) do
         if not vaultString then
-            if activityInfo.level > 0 then
+            if activityInfo.level > 0 and activityInfo.progress >= activityInfo.threshold then
                 tinsert(difficulties, GetDifficultyString(activityInfo.type, activityInfo.level))
             end
 
