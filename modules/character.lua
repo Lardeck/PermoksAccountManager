@@ -27,7 +27,7 @@ local labelRows = {
 			return alt_data.charLevel or '-'
 		end,
 		group = 'character',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
 	},
 	location = {
 		label = L['Location'],
@@ -35,7 +35,7 @@ local labelRows = {
 			return (alt_data.location and PermoksAccountManager:CreateLocationString(alt_data.location)) or '-'
 		end,
 		group = 'character',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
 	},
 	ilevel = {
 		label = L['Item Level'],
@@ -62,7 +62,7 @@ local labelRows = {
 			return CreateColor(gearScoreRed, gearScoreGreen, gearScoreBlue, 1)
 		end,
 		group = 'character',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
 	},
 	gearScore = {
 		label = L['Gear Score'],
@@ -83,7 +83,7 @@ local labelRows = {
 			return CreateColor(gearScoreRed, gearScoreGreen, gearScoreBlue, 1)
 		end,
 		group = 'character',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
 	},
 	gold = {
 		label = L['Gold'],
@@ -412,7 +412,7 @@ local GetPlayerAuraBySpellID = C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellI
 local function UpdateGeneralData(charInfo)
 	local self = PermoksAccountManager
 
-	if not self.isBC and not self.isWOTLK then
+	if self.isRetail then
 		charInfo.ilevel = select(2, GetAverageItemLevel())
 
 		-- Contracts
@@ -428,10 +428,10 @@ local function UpdateGeneralData(charInfo)
 		charInfo.contract = contract
 
 		-- Covenant
-		local covenant = C_Covenants.GetActiveCovenantID()
-		charInfo.covenant = covenant > 0 and covenant or nil
-		charInfo.callingsUnlocked = C_CovenantCallings.AreCallingsUnlocked()
-	elseif self.isWOTLK then
+		local covenant = C_Covenants and C_Covenants.GetActiveCovenantID()
+		charInfo.covenant = covenant and covenant > 0 and covenant or nil
+		charInfo.callingsUnlocked = C_CovenantCallings and C_CovenantCallings.AreCallingsUnlocked()
+	elseif self.isWOTLK or self.isCata then
 		-- Gear Score and Item Level
 		local gearScore, ilvl = GearScoreGetScore(UnitName('player'), 'player')
 		local red, green, blue = GearScoreGetQuality(gearScore)
@@ -445,7 +445,7 @@ local function UpdateGeneralData(charInfo)
 end
 
 local function UpdateKeystones(charInfo)
-	if PermoksAccountManager.isBC then return end
+	if not PermoksAccountManager.isRetail then return end
 
 	charInfo.keyInfo = charInfo.keyInfo or {}
 	C_Timer.After(0.5, function()
@@ -473,7 +473,7 @@ local function UpdateILevel(charInfo)
 end
 
 local function UpdateMythicScore(charInfo)
-	if PermoksAccountManager.isBC then return end
+	if not PermoksAccountManager.isRetail then return end
 
 	C_MythicPlus.RequestMapInfo()
 	charInfo.mythicScore = C_ChallengeMode.GetOverallDungeonScore()
@@ -481,11 +481,18 @@ local function UpdateMythicScore(charInfo)
 end
 
 local function UpdateMythicPlusHistory(charInfo)
-	charInfo.mythicPlusHistory = C_MythicPlus.GetRunHistory(nil, true)
+	charInfo.mythicPlusHistory = C_MythicPlus and C_MythicPlus.GetRunHistory(nil, true)
 end
 
 local function UpdatePlayerSpecialization(charInfo)
-	charInfo.specInfo = { GetSpecializationInfo(GetSpecialization()) }
+	if GetSpecializationInfo then
+		charInfo.specInfo = { GetSpecializationInfo(GetSpecialization()) }
+	elseif GetTalentTabInfo then
+		local primaryTalentTree = GetPrimaryTalentTree()
+		if primaryTalentTree then
+			charInfo.specInfo = {GetTalentTabInfo(primaryTalentTree)}
+		end
+	end
 end
 
 local function UpdatePlayerLevel(charInfo, level)

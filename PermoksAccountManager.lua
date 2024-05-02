@@ -243,7 +243,7 @@ do
 
         local fontString = button:GetFontString()
         fontString:SetSize(130, 20)
-        fontString:SetJustifyV('CENTER')
+        fontString:SetJustifyV('MIDDLE')
         fontString:SetJustifyH('RIGHT')
     end
 
@@ -390,6 +390,8 @@ do
         self.spairs = spairs
         self.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
         self.isWOTLK = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
+        self.isCata = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC
+        self.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
         -- init databroker
         self.db = LibStub('AceDB-3.0'):New('PermoksAccountManagerDB', defaultDB, true)
@@ -582,7 +584,7 @@ function PermoksAccountManager:CreateResetTimers()
         )
     end
 
-    if self.isWOTLK then
+    if self.isCata then
         local threeDayResetTime = self:GetNextThreeDayLockoutResetTime()
         if threeDayResetTime then
             C_Timer.After(
@@ -596,7 +598,7 @@ function PermoksAccountManager:CreateResetTimers()
 end
 
 function PermoksAccountManager:CheckForModernize()
-    if self.isWOTLK then
+    if self.isCata then
         local internalVersion = self.db.global.internalWOTLKVersion
         if not internalVersion or internalVersion < INTERNALWOTLKVERSION then
             self:ModernizeWOTLK(internalVersion)
@@ -953,7 +955,7 @@ function PermoksAccountManager:CheckForReset()
     db.weeklyReset = resetWeekly and currentTime + self:GetNextWeeklyResetTime() or db.weeklyReset
     db.dailyReset = resetDaily and currentTime + self:GetNextDailyResetTime() or db.dailyReset
     db.biweeklyReset = resetBiweekly and currentTime + self:GetNextBiWeeklyResetTime() or db.biweeklyReset
-    if self.isWOTLK then
+    if self.isCata then
         db.threeDayReset = resetThreeDayRaids and currentTime + self:GetNextThreeDayLockoutResetTime() or db.threeDayReset
     end
 end
@@ -1055,7 +1057,7 @@ function PermoksAccountManager:ResetDailyActivities(db, altData)
         end
     end
 
-    if self.isWOTLK and altData.instanceInfo then
+    if self.isCata and altData.instanceInfo then
         altData.instanceInfo.dungeons = {}
     end
 end
@@ -1075,7 +1077,7 @@ function PermoksAccountManager:ResetThreeDayRaids(altData)
 end
 
 function PermoksAccountManager:RequestCharacterInfo()
-    if not self.isBC and not self.isWOTLK then
+    if not self.isBC and self.isRetail then
         RequestRatedInfo()
         CovenantCalling_CheckCallings()
     end

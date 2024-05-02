@@ -399,13 +399,15 @@ local function createDefaultOptions()
         if category == 'general' or not default_categories[category] then
             args = nil
         else
-            for i, child in pairs(info.childs) do
-                if PermoksAccountManager.labelRows[child] and not PermoksAccountManager.labelRows[child].hideOption then
-                    args[child] = {
-                        order = i,
-                        type = 'toggle',
-                        name = PermoksAccountManager.labelRows[child].label
-                    }
+            if info.childs then
+                for i, child in pairs(info.childs) do
+                    if PermoksAccountManager.labelRows[child] and not PermoksAccountManager.labelRows[child].hideOption then
+                        args[child] = {
+                            order = i,
+                            type = 'toggle',
+                            name = PermoksAccountManager.labelRows[child].label
+                        }
+                    end
                 end
             end
         end

@@ -74,7 +74,7 @@ local labelRows = {
 		key = 'naxxramas',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	ulduar = {
 		label = GetRealZoneText(603),
@@ -83,7 +83,7 @@ local labelRows = {
 		key = 'ulduar',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	obsidian_sanctum = {
 		label = GetRealZoneText(615),
@@ -92,7 +92,7 @@ local labelRows = {
 		key = 'obsidian_sanctum',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	eye_of_eternity = {
 		label = GetRealZoneText(616),
@@ -101,7 +101,7 @@ local labelRows = {
 		key = 'eye_of_eternity',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	vault_of_archavon = {
 		label = GetRealZoneText(624),
@@ -110,7 +110,7 @@ local labelRows = {
 		key = 'vault_of_archavon',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	icecrown_citadel = {
 		label = GetRealZoneText(631),
@@ -119,7 +119,7 @@ local labelRows = {
 		key = 'icecrown_citadel',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	trial_of_the_crusader = {
 		label = GetRealZoneText(649),
@@ -128,7 +128,7 @@ local labelRows = {
 		key = 'trial_of_the_crusader',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
     onyxias_lair = {
 		label = GetRealZoneText(249),
@@ -137,7 +137,7 @@ local labelRows = {
 		key = 'onyxias_lair',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},    
 	ruby_sanctum = {
 		label = GetRealZoneText(724),
@@ -146,7 +146,7 @@ local labelRows = {
 		key = 'ruby_sanctum',
 		group = 'raids',
 		tooltip = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
     -- old mount drop raids (optional)
     zul_gurub = {
@@ -157,7 +157,7 @@ local labelRows = {
 		group = 'raids',
 		tooltip = true,
         hasSingularLockout = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
     karazhan = {
 		label = GetRealZoneText(532),
@@ -167,7 +167,7 @@ local labelRows = {
 		group = 'raids',
 		tooltip = true,
         hasSingularLockout = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
     tempest_keep = {
 		label = GetRealZoneText(550),
@@ -177,7 +177,7 @@ local labelRows = {
 		group = 'raids',
 		tooltip = true,
         hasSingularLockout = true,
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
     heroics_done = {
         label = 'Heroic Dungeons',
@@ -188,7 +188,7 @@ local labelRows = {
             return alt_data.instanceInfo and PermoksAccountManager:CreateDungeonString(alt_data.instanceInfo.dungeons) or '-'
         end,
         group = 'dungeons',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
 }
 
@@ -204,7 +204,7 @@ local function UpdateInstanceInfo(charInfo)
         name, _, _, difficulty, locked, extended, _, _, _, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
 		local raidInfo
         if locked or extended then
-            if self.raids[mapID] or (self.isWOTLK and self.raids[name]) then
+            if self.raids[mapID] or (self.isCata and self.raids[name]) then
                 local info = self.raids[mapID] or self.raids[name]
                 instanceInfo.raids[info.englishID] = instanceInfo.raids[info.englishID] or {}
 				instanceInfo.raids[info.englishID][difficulty] =  instanceInfo.raids[info.englishID][difficulty] or {
@@ -223,11 +223,11 @@ local function UpdateInstanceInfo(charInfo)
                 end
 
 				raidInfo = oldInstanceInfo
-            elseif (self.dungeons[mapID] and difficulty == 23) or (self.isWOTLK and self.dungeons[name] and difficulty == 2) then
+            elseif (self.dungeons[mapID] and difficulty == 23) or (self.isCata and self.dungeons[name] and difficulty == 2) then
                 local completed = numEncounters == encounterProgress
 
                 -- find out if last boss is killed, since in wotlk the dungeon is completed if last boss is killed
-                if self.isWOTLK then
+                if self.isCata then
                     -- for Ahn'kahet: The Old Kingdom we need to subtract 1 from numEncounters, since the last boss from API is the heroic only boss
                     local lastBossIndex = numEncounters
                     if(mapID == 619) then
@@ -272,14 +272,14 @@ local function UpdateInstanceInfo(charInfo)
             end
         end
 
-		if not self.isWOTLK and raidInfo then
+		if self.isRetail and raidInfo then
 			local index = self.raids[mapID].startIndex - 1
 			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
 			for boss = 1, numEncounters do
 				local isKilled = select(3, GetSavedInstanceEncounterInfo(i, boss))
 				raidInfo.defeatedEncountersInfo[index + boss] = isKilled
 			end
-        elseif self.isWOTLK and raidInfo then
+        elseif self.isCata and raidInfo then
             raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {} 
             for bossIndex = 1, raidInfo.numEncounters do
                 local name, _, isKilled = GetSavedInstanceEncounterInfo(i, bossIndex)
@@ -341,12 +341,12 @@ function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
 
     local highestDifficulty = 0
     for difficulty in pairs(savedInfo) do
-        if (not self.isWOTLK and (retailDifficultyOrder[difficulty] > (retailDifficultyOrder[highestDifficulty] or highestDifficulty))) or (self.isWOTLK and (difficulty > highestDifficulty)) then
+        if (self.isRetail and (retailDifficultyOrder[difficulty] > (retailDifficultyOrder[highestDifficulty] or highestDifficulty))) or (self.isCata and (difficulty > highestDifficulty)) then
             highestDifficulty = difficulty
         end
     end
 
-    if self.isWOTLK then
+    if self.isCata then
         -- for wrath we want to show all difficulties
         for difficulty in PermoksAccountManager.spairs(savedInfo, function(_, a, b) return a < b end) do
             local difficultyString = ''
@@ -392,8 +392,8 @@ function PermoksAccountManager:DungeonTooltip_OnEnter(button, alt_data)
             return t[a] < t[b]
         end
     ) do
-        local left = self.isWOTLK and key or value
-        local info = self.isWOTLK and dungeonInfo[value] or dungeonInfo[key]
+        local left = self.isCata and key or value
+        local info = self.isCata and dungeonInfo[value] or dungeonInfo[key]
         local right = '|cffff0000-|r'
 
         if info then
@@ -495,9 +495,9 @@ function PermoksAccountManager.RaidTooltip_OnEnter(button, altData, labelRow)
     tooltip:AddHeader(dbInfo.name or labelRow.label)
     tooltip:AddLine('')
         
-    if self.isWOTLK then
+    if self.isCata then
         WOTLKRaid_OnEnter(tooltip, raidInfo)
-    elseif not self.isBC and not self.isWOTLK then
+    elseif not self.isBC and self.isRetail then
         RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
     end
     

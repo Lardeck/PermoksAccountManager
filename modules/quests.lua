@@ -92,7 +92,7 @@ local labelRows = {
 				PermoksAccountManager:CreateFractionString((alt_data.completedDailies.num or 0), 25)
 		end,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
 	},
 	relic_gorger = {
 		label = L['Relic Gorger'],
@@ -922,7 +922,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	general_horde_dailies = {
 		label = 'General Horde',
@@ -931,7 +931,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	general_alliance_dailies = {
 		label = 'General Alliance',
@@ -940,7 +940,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	heroic_dungeon_dailies = {
 		label = 'Heroic Dungeon',
@@ -949,7 +949,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 2,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	raid_weekly = {
 		label = 'Raid Weekly',
@@ -958,7 +958,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 1,
 		group = 'resetWeekly',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	argent_crusade_dailies = {
 		label = 'Argent Crusade',
@@ -967,7 +967,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 7,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	the_oracles_dailies = {
 		label = 'Orcales',
@@ -976,7 +976,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	frenzyheart_tribe_dailies = {
 		label = 'Frenzyheart',
@@ -985,7 +985,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	knights_of_the_ebon_blade_dailies = {
 		label = 'Ebon Blade',
@@ -994,7 +994,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	the_sons_of_hodir_dailies = {
 		label = 'Sons of Hodir',
@@ -1003,7 +1003,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	valiance_expedition_dailies = {
 		label = 'Expedition',
@@ -1012,7 +1012,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	explorers_league_dailies = {
 		label = 'Explorers League',
@@ -1021,7 +1021,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 1,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	the_frostborn_dailies = {
 		label = 'Frostborn',
@@ -1034,7 +1034,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 1,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	warsong_offensive_dailies = {
 		label = 'Offensive',
@@ -1043,7 +1043,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 3,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	wotlk_cooking_dailies = {
 		label = 'Cooking',
@@ -1052,7 +1052,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 1,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	wotlk_fishing_dailies = {
 		label = 'Fishing',
@@ -1061,7 +1061,7 @@ local labelRows = {
 		visibility = 'visible',
 		required = 1,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 	wotlk_jewelcrafting_dailies = {
 		label = 'Jewelcrafting',
@@ -1070,21 +1070,21 @@ local labelRows = {
 		visibility = 'visible',
 		required = 1,
 		group = 'resetDaily',
-		version = WOW_PROJECT_WRATH_CLASSIC,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
 	},
 }
 
-local function UpdateBCDailies(charInfo)
+local function UpdateCataDailies(charInfo)
 	charInfo.completedDailies = charInfo.completedDailies or { num = 0 }
 	charInfo.completedDailies.num = GetDailyQuestsCompleted()
 end
 
 local function GetQuestInfo(questLogIndex)
-	if PermoksAccountManager.isBC then
+	if not PermoksAccountManager.isRetail then
 		local title, _, _, isHeader, _, _, frequency, questID, _, _, _, _, _, _, _, isHidden = GetQuestLogTitle(questLogIndex)
 		return { title = title, isHeader = isHeader, frequency = frequency, isHidden = isHidden, questID = questID }
 	else
-		return C_QuestLog.GetInfo(questLogIndex)
+		return C_QuestLog.GetInfo and C_QuestLog.GetInfo(questLogIndex)
 	end
 end
 
@@ -1092,7 +1092,7 @@ local function UpdateAllQuests(charInfo)
 	local self = PermoksAccountManager
 	charInfo.questInfo = charInfo.questInfo or default
 
-	local covenant = not self.isBC and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
+	local covenant = self.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
 	local questInfo = charInfo.questInfo
 	for key, quests in pairs(self.quests) do
 		for questID, info in pairs(quests) do
@@ -1181,7 +1181,7 @@ local function RemoveQuest(_, questID)
 end
 
 local function UpdateCurrentlyActiveQuests(charInfo)
-	local numQuests = PermoksAccountManager.isBC and GetNumQuestLogEntries() or C_QuestLog.GetNumQuestLogEntries()
+	local numQuests = C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetNumQuestLogEntries() or GetNumQuestLogEntries()
 	local info
 	for questLogIndex = 1, numQuests do
 		info = GetQuestInfo(questLogIndex)
@@ -1211,7 +1211,7 @@ local function UpdateQuest(charInfo, questID)
 	self:Debug('Update', questType, visibility, key, questID)
 	if questType and visibility and key and charInfo.questInfo[questType][visibility][key] then
 		if self.isBC and questType == 'daily' then
-			UpdateBCDailies(charInfo)
+			UpdateCataDailies(charInfo)
 		end
 
 		charInfo.questInfo[questType][visibility][key][questID] = true
@@ -1222,7 +1222,7 @@ end
 local function Update(charInfo)
 	UpdateAllQuests(charInfo)
 	UpdateCurrentlyActiveQuests(charInfo)
-	UpdateBCDailies(charInfo)
+	UpdateCataDailies(charInfo)
 end
 
 do
@@ -1241,8 +1241,8 @@ do
 		}
 	}
 
-	if PermoksAccountManager.isWOTLK then
-		tinsert(payload.events.QUEST_LOG_UPDATE, UpdateBCDailies)
+	if PermoksAccountManager.isCata then
+		tinsert(payload.events.QUEST_LOG_UPDATE, UpdateCataDailies)
 	end
 
 	PermoksAccountManager:AddModule(module, payload)

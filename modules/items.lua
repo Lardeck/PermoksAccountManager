@@ -383,7 +383,7 @@ local labelRows = {
         type = 'item',
         key = 5634,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     adamantiteWeightstone = {
         label = 'Adamantite Weightstone',
@@ -518,168 +518,168 @@ local labelRows = {
         type = 'item',
         key = 46377,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     flaskStoneblood = {
         label = 'Flask of Stoneblood',
         type = 'item',
         key = 46379,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     flaskFrostWyrm = {
         label = 'Flask of Frost Wyrm',
         type = 'item',
         key = 46376,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     flaskPureMojo = {
         label = 'Flask of Pure Mojo',
         type = 'item',
         key = 46378,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     foodFishFeast = {
         label = 'Fish Feast',
         type = 'item',
         key = 43015,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     foodSpicedMammothTreats = {
         label = 'Spiced Mammoth Treats',
         type = 'item',
         key = 43005,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     foodDragonfinFilet = {
         label = 'Dragonfin Filet',
         type = 'item',
         key = 42999,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     foodBlackenedDragonfin = {
         label = 'Blackened Dragonfin',
         type = 'item',
         key = 43000,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     foodFirecrackerSalmon = {
         label = 'Firecracker Salmon',
         type = 'item',
         key = 34767,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     foodTenderShoveltuskSteak = {
         label = 'Tender Shoveltusk Steak',
         type = 'item',
         key = 34755,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     potionOfSpeed = {
         label = 'Potion of Speed',
         type = 'item',
         key = 40211,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     potionOfWildMagic = {
         label = 'Potion of Wild Magic',
         type = 'item',
         key = 40212,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     potionIndestructible = {
         label = 'Indestructible Potion',
         type = 'item',
         key = 40093,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     potionRunicManaInjector = {
         label = 'Runic Mana Injector',
         type = 'item',
         key = 42545,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     potionRunicHealingInjector = {
         label = 'Runic Healing Injector',
         type = 'item',
         key = 41166,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     potionRunicMana = {
         label = 'Runic Mana Potion',
         type = 'item',
         key = 33448,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     potionRunicHealing = {
         label = 'Runic Healing Potion',
         type = 'item',
         key = 33447,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     engiGlobalThermalSapperCharge = {
         label = 'Global Thermal Sapper Charge',
         type = 'item',
         key = 42641,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     engiSaroniteBomb = {
         label = 'Saronite Bomb',
         type = 'item',
         key = 41119,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     trophyOfTheCrusade = {
         label = 'Trophy of the Crusade',
         type = 'item',
         key = 47242,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     frozenOrb = {
         label = 'Frozen Orb',
         type = 'item',
         key = 43102,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     runedOrb = {
         label = 'Runed Orb',
         type = 'item',
         key = 45087,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     crusaderOrb = {
         label = 'Crusader Orb',
         type = 'item',
         key = 47556,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     primordialSaronite = {
         label = 'Primordial Saronite',
         type = 'item',
         key = 49908,
         group = 'item',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
 }
 
@@ -783,9 +783,11 @@ local payload = {
     }
 }
 local module = PermoksAccountManager:AddModule(module, payload)
-module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
-module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
-module:AddCustomLabelType('dreamseeds', CreateDreamSeedString, nil, 'itemCounts')
+if PermoksAccountManager.isRetail then
+    module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
+    module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
+    module:AddCustomLabelType('dreamseeds', CreateDreamSeedString, nil, 'itemCounts')
+end
 
 function PermoksAccountManager:CreateItemString(itemInfo, total, icon)
     local options = self.db.global.options

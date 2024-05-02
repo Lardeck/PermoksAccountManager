@@ -68,7 +68,7 @@ local labelRows = {
             yOffset = -5
         },
         group = 'currency',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     arenaPoints = {
         label = function()
@@ -77,7 +77,7 @@ local labelRows = {
         type = 'currency',
         key = 1900,
         group = 'currency',
-        version = WOW_PROJECT_WRATH_CLASSIC
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     valor = {
         label = function()
@@ -356,7 +356,7 @@ local labelRows = {
 		key = 101,
         abbMax = true,
 		group = 'currency',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     emblem_of_valor = {
         label = 'Valor Emblems',
@@ -364,7 +364,7 @@ local labelRows = {
 		key = 102,
         abbMax = true,
 		group = 'currency',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     emblem_of_conquest = {
         label = 'Conq. Emblems',
@@ -372,7 +372,7 @@ local labelRows = {
 		key = 221,
         abbMax = true,
 		group = 'currency',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     emblem_of_triumph = {
         label = 'Triumph Emblems',
@@ -380,7 +380,7 @@ local labelRows = {
 		key = 301,
         abbMax = true,
 		group = 'currency',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     emblem_of_frost = {
         label = 'Frost Emblems',
@@ -388,7 +388,7 @@ local labelRows = {
 		key = 341,
         abbMax = true,
 		group = 'currency',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     sidereal_essence = {
         label = 'Sidereal Essence',
@@ -396,7 +396,7 @@ local labelRows = {
 		key = 2589,
         abbMax = true,
 		group = 'currency',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     defilers_scourgestone = {
         label = 'Scourgestones',
@@ -404,7 +404,7 @@ local labelRows = {
 		key = 2711,
         abbMax = true,
 		group = 'currency',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     stone_keepers_shard = {
         label = 'Stone Keeper\'s Shard',
@@ -412,7 +412,7 @@ local labelRows = {
 		key = 161,
         abbMax = true,
 		group = 'currency',
-		version = WOW_PROJECT_WRATH_CLASSIC
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
 }
 
@@ -453,7 +453,7 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     end
 
     
-	if not self.isBC and not self.isWOTLK then
+	if self.isRetail then
     	charInfo.currencyInfo[currencyType].totalEarned = quantityChanged + (charInfo.currencyInfo[currencyType].totalEarned or 0)
 	end
 

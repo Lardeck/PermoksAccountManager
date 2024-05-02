@@ -211,7 +211,7 @@ local labelRows = {
         end,
         key = 1037,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     valiance_expedition = {
@@ -221,7 +221,7 @@ local labelRows = {
         end,
         key = 1050,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     horde_expedition = {
@@ -231,7 +231,7 @@ local labelRows = {
         end,
         key = 1052,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_taunka = {
@@ -241,7 +241,7 @@ local labelRows = {
         end,
         key = 1064,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_hand_of_vengeance = {
@@ -251,7 +251,7 @@ local labelRows = {
         end,
         key = 1067,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     explorers_league = {
@@ -261,7 +261,7 @@ local labelRows = {
         end,
         key = 1068,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_kaluak = {
@@ -271,7 +271,7 @@ local labelRows = {
         end,
         key = 1073,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     warsong_offensive = {
@@ -281,7 +281,7 @@ local labelRows = {
         end,
         key = 1085,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     kirin_tor = {
@@ -291,7 +291,7 @@ local labelRows = {
         end,
         key = 1090,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_wyrmrest_accord = {
@@ -301,7 +301,7 @@ local labelRows = {
         end,
         key = 1091,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_silver_covenant = {
@@ -311,7 +311,7 @@ local labelRows = {
         end,
         key = 1094,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     knights_of_the_ebon_blade = {
@@ -321,7 +321,7 @@ local labelRows = {
         end,
         key = 1098,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     frenzyheart_tribe = {
@@ -331,7 +331,7 @@ local labelRows = {
         end,
         key = 1104,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_oracles = {
@@ -341,7 +341,7 @@ local labelRows = {
         end,
         key = 1105,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     argent_crusade = {
@@ -351,7 +351,7 @@ local labelRows = {
         end,
         key = 1106,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_sons_of_hodir = {
@@ -361,7 +361,7 @@ local labelRows = {
         end,
         key = 1119,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_sunreavers = {
@@ -371,7 +371,7 @@ local labelRows = {
         end,
         key = 1124,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
     the_frostborn = {
@@ -381,7 +381,7 @@ local labelRows = {
         end,
         key = 1126,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
 	the_ashen_verdict = {
@@ -391,7 +391,7 @@ local labelRows = {
         end,
         key = 1156,
         type = 'faction',
-        version = WOW_PROJECT_WRATH_CLASSIC,
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     }
 }

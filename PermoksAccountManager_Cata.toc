@@ -1,0 +1,46 @@
+## Interface: 40400
+## Title: Permoks Account Manager
+## Author: Permok
+## Version: @project-version@
+## SavedVariables: PermoksAccountManagerDB
+## X-Curse-Project-ID: 582886
+## X-Wago-ID: 25NRoe63
+
+
+libs\LibStub\LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+libs\AceAddon-3.0\AceAddon-3.0.xml
+libs\AceConsole-3.0\AceConsole-3.0.xml
+libs\AceEvent-3.0\AceEvent-3.0.xml
+libs\AceDB-3.0\AceDB-3.0.xml
+libs\AceGUI-3.0\AceGUI-3.0.xml
+libs\AceConfig-3.0\AceConfig-3.0.xml
+libs\AceComm-3.0\AceComm-3.0.xml
+libs\AceLocale-3.0\AceLocale-3.0.xml
+libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+libs\LibDBIcon-1.0\lib.xml
+libs\LibQTip-1.0\lib.xml
+libs\LibDeflate\LibDeflate.lua
+libs\LibSerialize\LibSerialize.lua
+libs\LibSharedMedia-3.0\lib.xml
+libs\AceGUI-3.0-SharedMediaWidgets\widget.xml
+libs\AceGUIWidget-TwoTextButton.lua
+
+modules.lua
+locales\locales.xml
+commands.lua
+communication.lua
+
+db\db-cata.lua
+
+modules\accounts.lua
+modules\character.lua
+modules\currencies.lua
+modules\factions.lua
+modules\instances.lua
+modules\quests.lua
+modules\items.lua
+modules\classic_professions.lua
+
+PermoksAccountManager.lua
+options.lua
