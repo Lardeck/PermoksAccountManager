@@ -209,6 +209,7 @@ L['ID'] = true
 L['Type'] = true
 L['Quest'] = true
 L['Item'] = true
+L['Professions'] = 'Berufe'
 L['Create/Edit'] = true
 L['Quests'] = true
 L['Items'] = true

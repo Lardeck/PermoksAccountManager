@@ -212,6 +212,7 @@ L['Item'] = true
 L['Create/Edit'] = true
 L['Quests'] = true
 L['Items'] = true
+L['Professions'] = true
 L['Currencies'] = true
 L['Saved'] = true
 L['Unsaved'] = true

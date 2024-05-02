@@ -6,7 +6,7 @@ local options
 local module = 'retail_professions'
 local labelRows = {
     profession1CDs = {
-        label = 'Profession 1',
+        label = 'Profession 1 (NYI)',
         tooltip = function(button, alt_data)
             PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[1])
         end,
@@ -17,7 +17,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     profession2CDs = {
-        label = 'Profession 2',
+        label = 'Profession 2 (NYI)',
         tooltip = function(button, alt_data)
             PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions[2])
         end,

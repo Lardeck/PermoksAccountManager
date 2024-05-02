@@ -316,6 +316,10 @@ PermoksAccountManager.groups = {
     other = {
         label = L['Other'],
         order = 18
+    },
+    profession = {
+        label = L['Professions'],
+        order = 19
     }
 }
 

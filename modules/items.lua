@@ -783,11 +783,10 @@ local payload = {
     }
 }
 local module = PermoksAccountManager:AddModule(module, payload)
-if PermoksAccountManager.isRetail then
-    module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
-    module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
-    module:AddCustomLabelType('dreamseeds', CreateDreamSeedString, nil, 'itemCounts')
-end
+module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
+module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
+module:AddCustomLabelType('dreamseeds', CreateDreamSeedString, nil, 'itemCounts')
+
 
 function PermoksAccountManager:CreateItemString(itemInfo, total, icon)
     local options = self.db.global.options
