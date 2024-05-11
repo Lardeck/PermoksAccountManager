@@ -40,6 +40,7 @@ local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
 local INTERNALVERSION = 33
 local INTERNALWOTLKVERSION = 6
+local INTERNALCATAVERSION = 1
 local defaultDB = {
     profile = {
         minimap = {
@@ -599,9 +600,10 @@ end
 
 function PermoksAccountManager:CheckForModernize()
     if self.isCata then
-        local internalVersion = self.db.global.internalWOTLKVersion
-        if not internalVersion or internalVersion < INTERNALWOTLKVERSION then
-            self:ModernizeWOTLK(internalVersion)
+        local internalVersion = self.db.global.internalCataVersion
+        if not internalVersion or internalVersion < INTERNALCATAVERSION then
+            --self:ModernizeWOTLK(internalVersion)
+            self:ModernizeCata(internalVersion)
         end
         self.db.global.internalWOTLKVersion = INTERNALWOTLKVERSION
     else
@@ -610,6 +612,14 @@ function PermoksAccountManager:CheckForModernize()
             self:Modernize(internalVersion)
         end
         self.db.global.internalVersion = INTERNALVERSION
+    end
+end
+
+function PermoksAccountManager:ModernizeCata(oldInternalVersion)
+    local db = self.db
+
+    if (oldInternalVersion or 0) < 2 then
+        self:UpdateDefaultCategories('general')
     end
 end
 

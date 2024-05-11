@@ -17,13 +17,8 @@ local default_categories = {
 			'dailyQuestCounter',
 			'honorBCC',
 			'arenaPoints',
-			'emblem_of_heroism',
-			'emblem_of_valor',
-			'emblem_of_conquest',
-			'emblem_of_triumph',
-			'emblem_of_frost',
-			'sidereal_essence',
-			'stone_keepers_shard'
+			'stone_keepers_shard',
+			'justice_points'
 		},
 		childOrder = {
 			characterName = 1,
@@ -37,13 +32,8 @@ local default_categories = {
 			dailyQuestCounter = 9,
 			honorBCC = 10,
 			arenaPoints = 11,
-			emblem_of_heroism = 12,
-			emblem_of_valor = 13,
-			emblem_of_conquest = 14,
-			emblem_of_triumph = 15,
-			emblem_of_frost = 16,
-			sidereal_essence = 17,
-			stone_keepers_shard = 18,
+			stone_keepers_shard = 12,
+			justice_points = 13,
 		},
 		hideToggle = true,
 		enabled = true
@@ -507,6 +497,7 @@ PermoksAccountManager.currency = {
 	[2589] = 0,
 	[2711] = 0,
 	[341] = 0,
+	[395] = 0,
 
 }
 

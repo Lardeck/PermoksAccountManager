@@ -414,6 +414,14 @@ local labelRows = {
 		group = 'currency',
 		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
+    justice_points = {
+        label = 'Justice Points',
+		type = 'currency',
+		key = 395,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
 }
 
 local function UpdateAllCurrencies(charInfo)
