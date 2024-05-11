@@ -2,9 +2,12 @@ name: Post Release Changelog To Discord
 
 on:
   workflow_dispatch:
+  release:
+    type: [published]
 
 jobs:
   get-changelog:
+    if: "!contains(github.ref, '-beta') && !contains(github.ref, '-alpha')"
     runs-on: ubuntu-latest
 
     outputs:
@@ -34,6 +37,7 @@ jobs:
           echo "CHANGELOG=$(git log --pretty=format:'- %s' ${{ steps.previous_tag.outputs.TAG }}..${{ steps.current_tag.outputs.TAG }})" >> $GITHUB_OUTPUT
 
   post-changelog:
+    if: "!contains(github.ref, '-beta') && !contains(github.ref, '-alpha')"
     runs-on: ubuntu-latest
     needs: get-changelog
     
