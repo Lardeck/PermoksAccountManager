@@ -422,6 +422,22 @@ local labelRows = {
 		group = 'currency',
 		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
+    valor_points = {
+        label = 'Valor Points',
+		type = 'currency',
+		key = 396,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
+    tol_barad_commendations = {
+        label = 'Commendations',
+		type = 'currency',
+		key = 391,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
 }
 
 local function UpdateAllCurrencies(charInfo)
@@ -434,18 +450,14 @@ local function UpdateAllCurrencies(charInfo)
         if info then
             currencyInfo[currencyType] = charInfo.currencyInfo[currencyType] or {name = info.name}
 
-            -- Fix for returning the wrong quantity
-            --if currencyType ~= 1810 and info.maxQuantity > 0 and info.quantity > info.maxQuantity then
-            --    info.quantity = info.quantity / 100
-            --end
-
             currencyInfo[currencyType].currencyType = currencyType
             currencyInfo[currencyType].quantity = info.quantity + offset
-            currencyInfo[currencyType].maxQuantity = info.maxQuantity
+            currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or nil
             currencyInfo[currencyType].totalEarned = info.totalEarned
+            currencyInfo[currencyType].maxWeeklyQuantity = info.maxWeeklyQuantity
 
             self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType] or {icon = info.iconFileID, name = info.name}
-            self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity
+            self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or nil
         end
     end
 end
@@ -545,8 +557,8 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
 
     local currencyString
     local quantity = customQuantitiy or currencyInfo.quantity
-    if not hideMaximum and currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 then
-        currencyString = self:CreateFractionString(quantity, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity, abbreviateCurrent, abbreviateMaximum)
+    if not hideMaximum and ((currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0) or (currencyInfo.maxWeeklyQuantity and currencyInfo.maxWeeklyQuantity > 0)) then
+        currencyString = self:CreateFractionString(quantity, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity  or currencyInfo.maxWeeklyQuantity, abbreviateCurrent, abbreviateMaximum)
     else
         currencyString = abbreviateCurrent and AbbreviateNumbers(quantity) or AbbreviateLargeNumbers(quantity)
     end

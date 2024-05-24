@@ -190,6 +190,62 @@ local labelRows = {
         group = 'dungeons',
         version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
+
+    -- Cataclysm
+    blackwing_descent = {
+		label = GetRealZoneText(669),
+		id = 669,
+		type = 'raid',
+		key = 'blackwing_descent',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
+	},
+    the_bastion_of_twilight = {
+		label = GetRealZoneText(671),
+		id = 671,
+		type = 'raid',
+		key = 'the_bastion_of_twilight',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
+	},
+    firelands = {
+		label = GetRealZoneText(720),
+		id = 720,
+		type = 'raid',
+		key = 'firelands',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
+	},
+    throne_of_the_four_winds = {
+		label = GetRealZoneText(754),
+		id = 754,
+		type = 'raid',
+		key = 'throne_of_the_four_winds',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
+	},
+    baradin_hold = {
+		label = GetRealZoneText(757),
+		id = 757,
+		type = 'raid',
+		key = 'baradin_hold',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
+	},
+    dragon_soul = {
+		label = GetRealZoneText(967),
+		id = 967,
+		type = 'raid',
+		key = 'dragon_soul',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_CATACLYSM_CLASSIC,
+	},
 }
 
 local function UpdateInstanceInfo(charInfo)

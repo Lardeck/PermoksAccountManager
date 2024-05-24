@@ -26,9 +26,12 @@ L['Primal Nether'] = 'Urmacht'
 L['Transmute'] = 'Transmutation'
 L['Brilliant Glass'] = 'Glänzendes Glas'
 L['Icy Prism'] = 'Eisiges Prisma'
+L['Fire Prism'] = 'Feuerprisma'
 L['Void Sphere'] = 'Sphäre der Leere'
 L['Salt Shaker'] = 'Salzstreuer'
 L['Titansteel'] = 'Titanstahl'
+L['Transmute: Living Elements'] = 'Transmutieren: Lebende Elemente'
+L['Transmute: Truegold'] = 'Transmutieren: Echtgold'
 L['|cff00ff00READY|r'] = '|cff00ff00Verfügbar|r'
 L['Main'] = true
 

@@ -1,10 +1,20 @@
 local addonName, PermoksAccountManager = ...
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 
-local FACTION_BAR_COLORS_CUSTOM, FACTION_STANDING_LABEL_CUSTOM = {}, {}
+local FACTION_STANDING_LABEL_CUSTOM = {}
+local FACTION_BAR_COLORS_CUSTOM = {
+    [1] = {r = 152, g = 32, b = 32},
+    [2] = {r = 222, g = 0, b = 10},
+    [3] = {r = 209, g = 102, b = 33},
+    [4] = {r = 222, g = 255, b = 10},
+    [5] = {r = 7, g = 255, b = 13},
+    [6] = {r = 10, g = 222, b = 136},
+    [7] = {r = 18, g = 224, b = 204},
+    [8] = {r = 5, g = 255, b = 189},
+}
 do
     for standingID, color in pairs(FACTION_BAR_COLORS) do
-        FACTION_BAR_COLORS_CUSTOM[standingID] = {r = color.r * 256, g = color.g * 256, b = color.b * 256}
+        FACTION_BAR_COLORS_CUSTOM[standingID] = FACTION_BAR_COLORS_CUSTOM[standingID] or {r = color.r * 256, g = color.g * 256, b = color.b * 256}
     end
     FACTION_BAR_COLORS_CUSTOM[9] = {r = 16, g = 165, b = 202}
 
@@ -393,7 +403,88 @@ local labelRows = {
         type = 'faction',
         version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
-    }
+    },
+
+    the_earthen_ring = {
+        label = function()
+            local factionInfo = PermoksAccountManager.factions[1135]
+            return factionInfo.localName or factionInfo.name
+        end,
+        key = 1135,
+        type = 'faction',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
+        group = 'reputation'
+    },
+    therazane = {
+        label = function()
+            local factionInfo = PermoksAccountManager.factions[1171]
+            return factionInfo.localName or factionInfo.name
+        end,
+        key = 1171,
+        type = 'faction',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
+        group = 'reputation'
+    },
+    guardians_of_hyjal = {
+        label = function()
+            local factionInfo = PermoksAccountManager.factions[1158]
+            return factionInfo.localName or factionInfo.name
+        end,
+        key = 1158,
+        type = 'faction',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
+        group = 'reputation'
+    },
+    dragonmaw_clan = {
+        label = function()
+            local factionInfo = PermoksAccountManager.factions[1172]
+            return factionInfo.localName or factionInfo.name
+        end,
+        key = 1172,
+        type = 'faction',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
+        group = 'reputation'
+    },
+    ramkahen = {
+        label = function()
+            local factionInfo = PermoksAccountManager.factions[1173]
+            return factionInfo.localName or factionInfo.name
+        end,
+        key = 1173,
+        type = 'faction',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
+        group = 'reputation'
+    },
+    wildhammer_clan = {
+        label = function()
+            local factionInfo = PermoksAccountManager.factions[1174]
+            return factionInfo.localName or factionInfo.name
+        end,
+        key = 1174,
+        type = 'faction',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
+        group = 'reputation'
+    },
+    hellscreams_reach = {
+        label = function()
+            local factionInfo = PermoksAccountManager.factions[1178]
+            return factionInfo.localName or factionInfo.name
+        end,
+        key = 1178,
+        type = 'faction',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
+        group = 'reputation'
+    },
+    baradins_warden = {
+        label = function()
+            local factionInfo = PermoksAccountManager.factions[1177]
+            return factionInfo.localName or factionInfo.name
+        end,
+        key = 1177,
+        type = 'faction',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC,
+        group = 'reputation'
+    },
 }
 
 local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReputation or GetFriendshipReputation

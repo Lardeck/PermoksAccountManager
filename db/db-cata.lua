@@ -17,8 +17,9 @@ local default_categories = {
 			'dailyQuestCounter',
 			'honorBCC',
 			'arenaPoints',
-			'stone_keepers_shard',
-			'justice_points'
+			'justice_points',
+			'valor_points',
+			'tol_barad_commendations',
 		},
 		childOrder = {
 			characterName = 1,
@@ -32,8 +33,9 @@ local default_categories = {
 			dailyQuestCounter = 9,
 			honorBCC = 10,
 			arenaPoints = 11,
-			stone_keepers_shard = 12,
-			justice_points = 13,
+			justice_points = 12,
+			valor_points = 13,
+			tol_barad_commendations = 14,
 		},
 		hideToggle = true,
 		enabled = true
@@ -42,91 +44,37 @@ local default_categories = {
 		order = 1,
 		name = 'Dailies',
 		childs = {
-			-- 'normal_dungeon_dailies',
-			'heroic_dungeon_dailies',
-			'raid_weekly',
-			'separator1',
-			'argent_crusade_dailies',
-			'separator2',
-			'wotlk_cooking_dailies',
-			'wotlk_fishing_dailies',
-			'wotlk_jewelcrafting_dailies'
 		},
 		childOrder = {
-			-- normal_dungeon_dailies = 1,
-			heroic_dungeon_dailies = 1,
-			raid_weekly = 2,
-			separator1 = 10,
-			argent_crusade_dailies = 11,
-			separator2 = 20,
-			wotlk_cooking_dailies = 21,
-			wotlk_fishing_dailies = 22,
-			wotlk_jewelcrafting_dailies = 23,
 		},
 		enabled = true,
 	},
 	sharedFactions = {
 		order = 3.1,
-		name = 'Shared Rep',
+		name = 'Repuation',
 		childs = {
-			'kirin_tor',
-			'argent_crusade',
-			'the_kaluak',
-			'the_wyrmrest_accord',
-			'knights_of_the_ebon_blade',
-			'frenzyheart_tribe',
-			'the_oracles',
-			'the_sons_of_hodir',
-			'the_ashen_verdict',
+			'guardians_of_hyjal',
+			'ramkahen',
+			'the_earthen_ring',
+			'therazane',
+			'separator2',
+			'wildhammer_clan',
+			'dragonmaw_clan',
+			'separator3',
+			'baradins_warden',
+			'hellscreams_reach',
 		},
 		childOrder = {
-			kirin_tor = 1,
-			argent_crusade = 2,
-			the_kaluak = 3,
-			the_wyrmrest_accord = 4,
-			knights_of_the_ebon_blade = 5,
-			frenzyheart_tribe = 6,
-			the_oracles = 7,
-			the_sons_of_hodir = 8,
-			the_ashen_verdict = 9,
-		},
-		enabled = true
-	},
-	allianceFactions = {
-		order = 3.2,
-		name = 'Alliance Rep',
-		childs = {
-			'alliance_vanguard',
-			'valiance_expedition',
-			'explorers_league',
-			'the_silver_covenant',
-			'the_frostborn',
-		},
-		childOrder = {
-			alliance_vanguard = 1,
-			valiance_expedition = 2,
-			explorers_league = 3,
-			the_silver_covenant = 4,
-			the_frostborn = 5,
-		},
-		enabled = true
-	},
-	hordeFactions = {
-		order = 3.3,
-		name = 'Horde Rep',
-		childs = {
-			'horde_expedition',
-			'the_taunka',
-			'the_hand_of_vengeance',
-			'warsong_offensive',
-			'the_sunreavers',
-		},
-		childOrder = {
-			horde_expedition = 1,
-			the_taunka = 2,
-			the_hand_of_vengeance = 3,
-			warsong_offensive = 4,
-			the_sunreavers = 5,
+			guardians_of_hyjal = 1,
+			ramkahen = 2,
+			the_earthen_ring = 3,
+			therazane = 4,
+			separator2 = 20,
+			wildhammer_clan = 21,
+			dragonmaw_clan = 22,
+			separator3 = 30,
+			baradins_warden = 31,
+			hellscreams_reach = 32,
 		},
 		enabled = true
 	},
@@ -134,34 +82,16 @@ local default_categories = {
 		order = 4,
 		name = 'Lockouts',
 		childs = {
-			'heroics_done',
-			'separator1',
-			'obsidian_sanctum',
-			'eye_of_eternity',
-			'vault_of_archavon',
-			'naxxramas',
-			'separator2',
-			'ulduar',
-			'separator3',
-			'trial_of_the_crusader',
-			'onyxias_lair',
-			'separator4',
-			'icecrown_citadel',
+			'baradin_hold',
+			'blackwing_descent',
+			'the_bastion_of_twilight',
+			'throne_of_the_four_winds',
 		},
 		childOrder = {
-			heroics_done = 1,
-			separator1 = 10,
-			obsidian_sanctum = 11,
-			eye_of_eternity = 12,
-			vault_of_archavon = 13,
-			naxxramas = 14,
-			separator2 = 20,
-			ulduar = 21,
-			separator3 = 22,
-			trial_of_the_crusader = 23,
-			onyxias_lair = 24,
-			separator4 = 25,
-			icecrown_citadel = 26,
+			baradin_hold = 1,
+			blackwing_descent = 2,
+			the_bastion_of_twilight = 3,
+			throne_of_the_four_winds = 4,
 		},
 		enabled = true
 	},
@@ -169,54 +99,10 @@ local default_categories = {
 		order = 6,
 		name = 'Consumables',
 		childs = {
-			'flaskEndlessRage',
-			'flaskStoneblood',
-			'flaskFrostWyrm',
-			'flaskPureMojo',
-			'separator1',
-			'foodFishFeast',
-			'foodSpicedMammothTreats',
-			'foodDragonfinFilet',
-			'foodBlackenedDragonfin',
-			'foodFirecrackerSalmon',
-			'foodTenderShoveltuskSteak',
-			'separator2',
-			'potionOfSpeed',
-			'potionOfWildMagic',
-			'potionIndestructible',
-			'potionRunicManaInjector',
-			'potionRunicHealingInjector',
-			'potionRunicMana',
-			'potionRunicHealing',
-			'potionFreeAction',
-			'separator3',
-			'engiGlobalThermalSapperCharge',
-			'engiSaroniteBomb',
+
 		},
 		childOrder = {
-			flaskEndlessRage = 1,
-			flaskStoneblood = 2,
-			flaskFrostWyrm = 3,
-			flaskPureMojo = 4,
-			separator1 = 10,
-			foodFishFeast = 11,
-			foodSpicedMammothTreats = 12,
-			foodDragonfinFilet = 13,
-			foodBlackenedDragonfin = 14,
-			foodFirecrackerSalmon = 15,
-			foodTenderShoveltuskSteak = 16,
-			separator2 = 20,
-			potionOfSpeed = 21,
-			potionOfWildMagic = 22,
-			potionIndestructible = 23,
-			potionRunicManaInjector = 24,
-			potionRunicHealingInjector = 25,
-			potionRunicMana = 26,
-			potionRunicHealing = 27,
-			potionFreeAction = 28,
-			separator3 = 30,
-			engiGlobalThermalSapperCharge = 31,
-			engiSaroniteBomb = 32,
+
 		},
 		enabled = true
 	},
@@ -224,18 +110,10 @@ local default_categories = {
 		order = 7,
 		name = 'Items',
 		childs = {
-			'trophyOfTheCrusade',
-			'frozenOrb',
-			'runedOrb',
-			'crusaderOrb',
-			'primordialSaronite',
+
 		},
 		childOrder = {
-			trophyOfTheCrusade = 1,
-			frozenOrb = 2,
-			runedOrb = 3,
-			crusaderOrb = 4,
-			primordialSaronite = 5,
+
 		},
 		enabled = true
 	}
@@ -349,19 +227,30 @@ PermoksAccountManager.labelRows = {
 
 -- instanceID = mapID (retail uses instanceIDs)
 PermoksAccountManager.raids = {
+	-- old mount drop raids (optional)
+	[GetRealZoneText(309)] = { instanceID = 309, englishID = 'zul_gurub' },
+	[GetRealZoneText(532)] = { instanceID = 532, englishID = 'karazhan' },
+	[GetRealZoneText(550)] = { instanceID = 550, englishID = 'tempest_keep' },
+
+	-- Wrath of the Lich King
 	[GetRealZoneText(533)] = { instanceID = 533, englishID = 'naxxramas' },
-	[GetRealZoneText(603)] = {instanceID = 603, englishID = 'ulduar'},
+	[GetRealZoneText(603)] = { instanceID = 603, englishID = 'ulduar' },
 	[GetRealZoneText(615)] = { instanceID = 615, englishID = 'obsidian_sanctum' },
 	[GetRealZoneText(616)] = { instanceID = 616, englishID = 'eye_of_eternity' },
 	[GetRealZoneText(624)] = { instanceID = 624, englishID = 'vault_of_archavon' },
-	[GetRealZoneText(649)] = {instanceID = 649, englishID = 'trial_of_the_crusader'},
-	[GetRealZoneText(249)] = {instanceID = 249, englishID = 'onyxias_lair'},
-	[GetRealZoneText(631)] = {instanceID = 631, englishID = 'icecrown_citadel'},
-	[GetRealZoneText(724)] = {instanceID = 724, englishID = 'ruby_sanctum'},
-    -- old mount drop raids (optional)
-	[GetRealZoneText(309)] = {instanceID = 309, englishID = 'zul_gurub'},
-	[GetRealZoneText(532)] = {instanceID = 532, englishID = 'karazhan'},
-	[GetRealZoneText(550)] = {instanceID = 550, englishID = 'tempest_keep'},
+	[GetRealZoneText(649)] = { instanceID = 649, englishID = 'trial_of_the_crusader' },
+	[GetRealZoneText(249)] = { instanceID = 249, englishID = 'onyxias_lair' },
+	[GetRealZoneText(631)] = { instanceID = 631, englishID = 'icecrown_citadel' },
+	[GetRealZoneText(724)] = { instanceID = 724, englishID = 'ruby_sanctum' },
+
+	-- Catacylsm
+	[GetRealZoneText(669)] = { instanceID = 669, englishID = 'blackwing_descent' },
+	[GetRealZoneText(671)] = { instanceID = 671, englishID = 'the_bastion_of_twilight' },
+	[GetRealZoneText(720)] = { instanceID = 720, englishID = 'firelands' },
+	[GetRealZoneText(754)] = { instanceID = 754, englishID = 'throne_of_the_four_winds' },
+	[GetRealZoneText(757)] = { instanceID = 757, englishID = 'baradin_hold' },
+	[GetRealZoneText(967)] = { instanceID = 967, englishID = 'dragon_soul' },
+
 }
 
 PermoksAccountManager.raidDifficultyLabels = {
@@ -387,16 +276,16 @@ PermoksAccountManager.raidDifficultyLabels = {
 PermoksAccountManager.oldRaidResetInfo = {
 	-- US (+ Brazil + OC)
 	[1] = {
-		zg = {year=2020, month=4, day=13, hour=18, min=0, sec=0},
-		zgOC = {year=2020, month=4, day=16, hour=2, min=0, sec=0}, -- not sure how to differentiate
+		zg = { year = 2020, month = 4, day = 13, hour = 18, min = 0, sec = 0 },
+		zgOC = { year = 2020, month = 4, day = 16, hour = 2, min = 0, sec = 0 }, -- not sure how to differentiate
 	},
 	-- Korea
 	[2] = {
-		
+
 	},
 	-- EU (+ Russia)
 	[3] = {
-		zg = {year = 2020, month = 4, day = 13, hour = 9, min = 0, sec = 0}, --3*24*60*60
+		zg = { year = 2020, month = 4, day = 13, hour = 9, min = 0, sec = 0 }, --3*24*60*60
 	},
 	-- TW
 	[4] = {
@@ -404,7 +293,7 @@ PermoksAccountManager.oldRaidResetInfo = {
 	},
 	-- CN
 	[5] = {
-		zg = {year=2020, month=4, day=18, hour=7, min=0, sec=0},
+		zg = { year = 2020, month = 4, day = 18, hour = 7, min = 0, sec = 0 },
 	}
 }
 
@@ -432,35 +321,35 @@ PermoksAccountManager.dungeons = {
 
 PermoksAccountManager.item = {
 	-- Flasks
-	[46377] = { key = 'flaskEndlessRage' }, -- Flask of Endless Rage
-	[46379] = { key = 'flaskStoneblood' }, -- Flask of Stoneblood
-	[46376] = { key = 'flaskFrostWyrm' }, -- Flask of Frost Wyrm
-	[46378] = { key = 'flaskPureMojo' }, -- Flask of Pure Mojo
+	[46377] = { key = 'flaskEndlessRage' },           -- Flask of Endless Rage
+	[46379] = { key = 'flaskStoneblood' },            -- Flask of Stoneblood
+	[46376] = { key = 'flaskFrostWyrm' },             -- Flask of Frost Wyrm
+	[46378] = { key = 'flaskPureMojo' },              -- Flask of Pure Mojo
 	-- Food buffs
-	[43015] = { key = 'foodFishFeast' }, -- Fish Feast
-	[43005] = { key = 'foodSpicedMammothTreats' }, -- Spiced Mammoth Treats
-	[42999] = { key = 'foodDragonfinFilet' }, -- Dragonfin Filet
-	[43000] = { key = 'foodBlackenedDragonfin' }, -- Blackened Dragonfin
-	[34767] = { key = 'foodFirecrackerSalmon' }, -- Firecracker Salmon
-	[34755] = { key = 'foodTenderShoveltuskSteak' }, -- Tender Shoveltusk Steak
+	[43015] = { key = 'foodFishFeast' },              -- Fish Feast
+	[43005] = { key = 'foodSpicedMammothTreats' },    -- Spiced Mammoth Treats
+	[42999] = { key = 'foodDragonfinFilet' },         -- Dragonfin Filet
+	[43000] = { key = 'foodBlackenedDragonfin' },     -- Blackened Dragonfin
+	[34767] = { key = 'foodFirecrackerSalmon' },      -- Firecracker Salmon
+	[34755] = { key = 'foodTenderShoveltuskSteak' },  -- Tender Shoveltusk Steak
 	-- Potions
-	[40211] = { key = 'potionOfSpeed' }, -- Potion of Speed
-	[40212] = { key = 'potionOfWildMagic' }, -- Potion of Wild Magic
-	[40093] = { key = 'potionIndestructible' }, -- Indestructible Potion
-	[42545] = { key = 'potionRunicManaInjector' }, -- Runic Mana Injector
+	[40211] = { key = 'potionOfSpeed' },              -- Potion of Speed
+	[40212] = { key = 'potionOfWildMagic' },          -- Potion of Wild Magic
+	[40093] = { key = 'potionIndestructible' },       -- Indestructible Potion
+	[42545] = { key = 'potionRunicManaInjector' },    -- Runic Mana Injector
 	[41166] = { key = 'potionRunicHealingInjector' }, -- Runic Healing Injector
-	[33448] = { key = 'potionRunicMana' }, -- Runic Mana Potion
-	[33447] = { key = 'potionRunicHealing' }, -- Runic Healing Potion
-	[5634] = { key = 'potionFreeAction' }, -- Free Action Potion
+	[33448] = { key = 'potionRunicMana' },            -- Runic Mana Potion
+	[33447] = { key = 'potionRunicHealing' },         -- Runic Healing Potion
+	[5634] = { key = 'potionFreeAction' },            -- Free Action Potion
 	-- Engineering
 	[42641] = { key = 'engiGlobalThermalSapperCharge' }, -- Global Thermal Sapper Charge
-	[41119] = { key = 'engiSaroniteBomb' }, -- Saronite Bomb
+	[41119] = { key = 'engiSaroniteBomb' },           -- Saronite Bomb
 	-- Others
-	[47242] = { key = 'trophyOfTheCrusade' }, -- Trophy of the Crusade
-	[43102] = { key = 'frozenOrb' }, -- Frozen Orb
-	[45087] = { key = 'runedOrb' }, -- Runed Orb
-	[47556] = { key = 'crusaderOrb' }, -- Crusader Orb
-	[49908] = { key = 'primordialSaronite' }, -- Primordial Saronite
+	[47242] = { key = 'trophyOfTheCrusade' },         -- Trophy of the Crusade
+	[43102] = { key = 'frozenOrb' },                  -- Frozen Orb
+	[45087] = { key = 'runedOrb' },                   -- Runed Orb
+	[47556] = { key = 'crusaderOrb' },                -- Crusader Orb
+	[49908] = { key = 'primordialSaronite' },         -- Primordial Saronite
 }
 
 PermoksAccountManager.factions = {
@@ -484,6 +373,15 @@ PermoksAccountManager.factions = {
 	[1124] = { name = 'The Sunreavers', faction = 'Horde' }, -- Argent Tournament
 	[1126] = { name = 'The Frostborn', faction = 'Alliance' },
 	[1156] = { name = 'The Ashen Verdict' },
+
+	[1135] = { name = 'The Earthen Ring' },
+	[1158] = { name = 'Guardians of Hyjal' },
+	[1171] = { name = 'Therazane' },
+	[1172] = { name = 'Dragonmaw Clan', faction = 'Horde' },
+	[1173] = { name = 'Ramkahen' },
+	[1174] = { name = 'Wildhammer Clan', faction = 'Alliance' },
+	[1177] = { name = 'Baradin\'s Wardens', faction = 'Alliance' },
+	[1178] = { name = 'Hellscream\'s Reach', faction = 'Horde' },
 }
 
 PermoksAccountManager.currency = {
@@ -497,34 +395,43 @@ PermoksAccountManager.currency = {
 	[2589] = 0,
 	[2711] = 0,
 	[341] = 0,
+	[391] = 0,
 	[395] = 0,
-
+	[396] = 0,
 }
 
 PermoksAccountManager.professionCDs = {
 	[L['Tailoring']] = {
 		cds = {
-			[56001] = L['Moonshroud'], -- Moonshroud
-			[56002] = L['Ebonweave'], -- Ebonweave
-			[56003] = L['Spellweave'] -- Spellweave
+			[94743] = "Dreamcloth",
+			[75141] = "Dreamcloth",
+			[75142] = "Dreamcloth",
+			[75144] = "Dreamcloth",
+			[75145] = "Dreamcloth",
+			[75146] = "Dreamcloth",
 		},
 		items = {
-			[56001] = 41594,
-			[56002] = 41593,
-			[56003] = 41595
+			[94743] = 54440,
+			[75141] = 54440,
+			[75142] = 54440,
+			[75144] = 54440,
+			[75145] = 54440,
+			[75146] = 54440,
 		},
 		icon = 136249,
-		num = 3
+		num = 6
 	},
 	[L['Alchemy']] = {
 		cds = {
-			[66658] = L['Transmute'] -- Transmute: Ametrine
+			[78866] = L['Transmute: Living Elements'], -- Transmute: Living Elements
+			[80243] = L['Transmute: Truegold'] -- Transmute: Truegold
 		},
 		items = {
-			[66658] = 36931
+			[78866] = 54464,
+			[80243] = 58480
 		},
 		icon = 136240,
-		num = 1
+		num = 2
 	},
 	[L['Leatherworking']] = {
 		icon = 133611,
@@ -547,14 +454,8 @@ PermoksAccountManager.professionCDs = {
 		num = 0
 	},
 	[L['Mining']] = {
-		cds = {
-			[55208] = L['Titansteel'] -- Titansteel
-		},
-		items = {
-			[55208] = 37663,
-		},
 		icon = 136248,
-		num = 1
+		num = 0
 	},
 	[L['Skinning']] = {
 		icon = 134366,
@@ -562,10 +463,10 @@ PermoksAccountManager.professionCDs = {
 	},
 	[L['Jewelcrafting']] = {
 		cds = {
-			[62242] = L['Icy Prism'] -- Icy Prism
+			[73478] = L['Fire Prism'] -- Fire Prism
 		},
 		items = {
-			[62242] = 44943
+			[73478] = 52304
 		},
 		icon = 134071,
 		num = 1
@@ -737,18 +638,18 @@ PermoksAccountManager.quests = {
 	},
 
 	argent_crusade_dailies = {
-		[12501] = { questType = 'daily', log = true }, -- Troll Patrol
-		[12502] = { questType = 'daily', log = true }, -- Troll Patrol: Can You Dig It? (Captain Brandon - 75)
-		[12509] = { questType = 'daily', log = true }, -- Troll Patrol: Intestinal Fortitude (Captain Rupert - 250)
-		[12519] = { questType = 'daily', log = true }, -- Troll Patrol: Whatdya Want, a Medal? (Captain Grondel - 25)
-		[12541] = { questType = 'daily', log = true }, -- Troll Patrol: The Alchemist's Apprentice (Alchemist Finklestein - 75)
-		[12564] = { questType = 'daily', log = true }, -- Troll Patrol: Something for the Pain (Captain Brandon - 75)
-		[12568] = { questType = 'daily', log = true }, -- Troll Patrol: Done to Death (Captain Rupert - 75)
-		[12585] = { questType = 'daily', log = true }, -- Troll Patrol: Creature Comforts (Captain Grondel - 75)
-		[12588] = { questType = 'daily', log = true }, -- Troll Patrol: Can You Dig It? (Captain Brandon - 75)
-		[12591] = { questType = 'daily', log = true }, -- Troll Patrol: Throwing Down (Captain Rupert - 75)
-		[12594] = { questType = 'daily', log = true }, -- Troll Patrol: Couldn't Care Less (Captain Grondel - 75)
-		[12604] = { questType = 'daily', log = true }, -- Congratulations!
+		[12501] = { questType = 'daily', log = true },                 -- Troll Patrol
+		[12502] = { questType = 'daily', log = true },                 -- Troll Patrol: Can You Dig It? (Captain Brandon - 75)
+		[12509] = { questType = 'daily', log = true },                 -- Troll Patrol: Intestinal Fortitude (Captain Rupert - 250)
+		[12519] = { questType = 'daily', log = true },                 -- Troll Patrol: Whatdya Want, a Medal? (Captain Grondel - 25)
+		[12541] = { questType = 'daily', log = true },                 -- Troll Patrol: The Alchemist's Apprentice (Alchemist Finklestein - 75)
+		[12564] = { questType = 'daily', log = true },                 -- Troll Patrol: Something for the Pain (Captain Brandon - 75)
+		[12568] = { questType = 'daily', log = true },                 -- Troll Patrol: Done to Death (Captain Rupert - 75)
+		[12585] = { questType = 'daily', log = true },                 -- Troll Patrol: Creature Comforts (Captain Grondel - 75)
+		[12588] = { questType = 'daily', log = true },                 -- Troll Patrol: Can You Dig It? (Captain Brandon - 75)
+		[12591] = { questType = 'daily', log = true },                 -- Troll Patrol: Throwing Down (Captain Rupert - 75)
+		[12594] = { questType = 'daily', log = true },                 -- Troll Patrol: Couldn't Care Less (Captain Grondel - 75)
+		[12604] = { questType = 'daily', log = true },                 -- Congratulations!
 		[13302] = { questType = 'daily', log = true, faction = 'Horde' }, -- Slaves to Saronite
 		[13300] = { questType = 'daily', log = true, faction = 'Alliance' }, -- Slaves to Saronite
 	},
@@ -796,6 +697,6 @@ PermoksAccountManager.ICONSTRINGS = {
 }
 
 PermoksAccountManager.ICONBANKSTRINGS = {
-    left = '\124T%d:18:18\124t %s (%s)',
-    right = '%s (%s) \124T%d:18:18\124t'
+	left = '\124T%d:18:18\124t %s (%s)',
+	right = '%s (%s) \124T%d:18:18\124t'
 }
