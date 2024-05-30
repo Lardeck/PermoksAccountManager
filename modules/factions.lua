@@ -578,16 +578,16 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
     end
 
     local standingColor, standing = FACTION_BAR_COLORS_CUSTOM[5], FACTION_STANDING_LABEL_CUSTOM[factionInfo.standing]
-    local color = factionInfo.hasReward and '00ff00' or 'ffffff'
     if standing then
         standingColor = FACTION_BAR_COLORS_CUSTOM[factionInfo.standing]
     else
         standing = factionInfo.standing
     end
 
+    local color = factionInfo.hasReward and 'ff00ff00' or CreateColor(standingColor.r / 255, standingColor.g / 255, standingColor.b / 255):GenerateHexColor()
     if factionInfo.renown then
-        return string.format('%s - %s/%s', BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown), AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0))
+        return string.format('%s - %s /%s', BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown), AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0))
     elseif factionInfo.max then
-        return string.format('|cff%s%s/%s|r |cff%02X%02X%02X%s|r', color, AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, standing)
+        return string.format('|c%s%s|r/%s |cff%02X%02X%02X%s|r', color, AbbreviateLargeNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, standing:sub(1,1))
     end
 end
