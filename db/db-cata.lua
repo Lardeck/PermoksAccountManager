@@ -400,6 +400,10 @@ PermoksAccountManager.currency = {
 	[396] = 0,
 }
 
+PermoksAccountManager.currencyCustomOptions = {
+    [396] = {forceUpdate = true},
+}
+
 PermoksAccountManager.professionCDs = {
 	[L['Tailoring']] = {
 		cds = {

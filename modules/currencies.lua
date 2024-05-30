@@ -424,9 +424,10 @@ local labelRows = {
     },
     valor_points = {
         label = 'Valor Points',
-		type = 'currency',
+		type = 'valor',
 		key = 396,
         abbMax = true,
+        passRow = true,
 		group = 'currency',
 		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
@@ -455,6 +456,7 @@ local function UpdateAllCurrencies(charInfo)
             currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or nil
             currencyInfo[currencyType].totalEarned = info.totalEarned
             currencyInfo[currencyType].maxWeeklyQuantity = info.maxWeeklyQuantity
+            currencyInfo[currencyType].quantityEarnedThisWeek = info.quantityEarnedThisWeek
 
             self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType] or {icon = info.iconFileID, name = info.name}
             self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or nil
@@ -472,25 +474,23 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
         return
     end
 
-    
+    local currencyInfo = charInfo.currencyInfo[currencyType]
 	if self.isRetail then
-    	charInfo.currencyInfo[currencyType].totalEarned = quantityChanged + (charInfo.currencyInfo[currencyType].totalEarned or 0)
+    	currencyInfo.totalEarned = quantityChanged + (currencyInfo.totalEarned or 0)
 	end
 
     local customOptions = self.currencyCustomOptions and self.currencyCustomOptions[currencyType]
     if customOptions then
         if customOptions.forceUpdate then
-            charInfo.currencyInfo[currencyType].quantity = C_CurrencyInfo.GetCurrencyInfo(currencyType).quantity
-            charInfo.currencyInfo[currencyType].totalEarned = C_CurrencyInfo.GetCurrencyInfo(currencyType).totalEarned
+            local newCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(currencyType)
+            currencyInfo.quantity = newCurrencyInfo.quantity
+            currencyInfo.totalEarned = newCurrencyInfo.totalEarned
         elseif customOptions.currencyUpdate and charInfo.currencyInfo[customOptions.currencyUpdate] then
             charInfo.currencyInfo[customOptions.currencyUpdate].quantity = C_CurrencyInfo.GetCurrencyInfo(customOptions.currencyUpdate).quantity
         end
-    end
-
-    if not customOptions then
+    else
         charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
     end
-
 end
 
 local function UpdateCatalystCharges(charInfo)
@@ -522,6 +522,13 @@ local function CreateCrestString(labelRow, currencyInfo)
     end
 end
 
+local function CreateValorString(labelRow, currencyInfo)
+    local info = currencyInfo and currencyInfo[labelRow.key]
+    if info then
+        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(info.maxWeeklyQuantity or 0, min(info.maxWeeklyQuantity,info.quantityEarnedThisWeek or 0)))
+    end
+end
+
 local payload = {
     update = Update,
     labels = labelRows,
@@ -536,6 +543,7 @@ local payload = {
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('catalystcharges', CreateCatalystChargeString, nil, 'currencyInfo')
 module:AddCustomLabelType('crestcurrency', CreateCrestString, nil, 'currencyInfo')
+module:AddCustomLabelType('valor', CreateValorString, nil, 'currencyInfo')
 
 -- TODO Create a CreateIconString function instead of two functions for items and currencies
 function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum, customIcon, hideIcon, customQuantitiy)
