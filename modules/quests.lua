@@ -1201,6 +1201,10 @@ local function UpdateQuest(charInfo, questID)
 		UpdateAllQuests(charInfo)
 	end
 
+	if self.isCata then
+		UpdateCataDailies(charInfo)
+	end
+
 	local key = self:FindQuestKeyByQuestID(questID)
 	if not key then
 		return
@@ -1210,7 +1214,7 @@ local function UpdateQuest(charInfo, questID)
 	local questType, visibility = questInfo.questType, questInfo.log and 'visible' or 'hidden'
 	self:Debug('Update', questType, visibility, key, questID)
 	if questType and visibility and key and charInfo.questInfo[questType][visibility][key] then
-		if self.isBC and questType == 'daily' then
+		if self.isCata and questType == 'daily' then
 			UpdateCataDailies(charInfo)
 		end
 
