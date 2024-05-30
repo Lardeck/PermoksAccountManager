@@ -61,12 +61,6 @@ local labelRows = {
         type = 'currency',
         key = 1901,
 		abbMax = true,
-        customIcon = {
-            height = 32,
-            width = 32,
-            xOffset = -5,
-            yOffset = -5
-        },
         group = 'currency',
         version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
@@ -86,7 +80,6 @@ local labelRows = {
         type = 'currency',
         key = 1191,
         hideMax = true,
-        tooltip = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -525,7 +518,7 @@ end
 local function CreateValorString(labelRow, currencyInfo)
     local info = currencyInfo and currencyInfo[labelRow.key]
     if info then
-        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(info.maxWeeklyQuantity or 0, min(info.maxWeeklyQuantity,info.quantityEarnedThisWeek or 0)))
+        return string.format("%s - %s", info.quantity, PermoksAccountManager:CreateFractionString(info.maxWeeklyQuantity or 0, (info.quantityEarnedThisWeek/100 or 0)))
     end
 end
 
@@ -569,7 +562,7 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
         currencyString = self:CreateFractionString(quantity, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity  or currencyInfo.maxWeeklyQuantity, abbreviateCurrent, abbreviateMaximum)
     else
         currencyString = abbreviateCurrent and AbbreviateNumbers(quantity) or AbbreviateLargeNumbers(quantity)
-    end
+    end						
 
     local iconPosition = options.currencyIconPosition
     if iconPosition == 'left' then
