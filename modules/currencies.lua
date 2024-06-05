@@ -525,7 +525,11 @@ end
 local function CreateValorString(labelRow, currencyInfo)
     local info = currencyInfo and currencyInfo[labelRow.key]
     if info then
-        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(info.maxWeeklyQuantity or 0, min(info.maxWeeklyQuantity,info.quantityEarnedThisWeek or 0)))
+        local quantityEarnedThisWeek = info.quantityEarnedThisWeek or 0
+        if quantityEarnedThisWeek > (info.maxWeeklyQuantity or 0) then
+            quantityEarnedThisWeek = quantityEarnedThisWeek / 100
+        end
+        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(quantityEarnedThisWeek, info.maxWeeklyQuantity or 0))
     end
 end
 
