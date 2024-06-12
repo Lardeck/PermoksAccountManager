@@ -431,6 +431,14 @@ local labelRows = {
 		group = 'currency',
 		version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
+    conquest_points = {
+        label = 'Conquest',
+		type = 'currency',
+		key = 390,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
     tol_barad_commendations = {
         label = 'Commendations',
 		type = 'currency',
@@ -485,6 +493,9 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
             local newCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(currencyType)
             currencyInfo.quantity = newCurrencyInfo.quantity
             currencyInfo.totalEarned = newCurrencyInfo.totalEarned
+            currencyInfo.quantityEarnedThisWeek = newCurrencyInfo.quantityEarnedThisWeek
+            currencyInfo.maxWeeklyQuantity = newCurrencyInfo.maxWeeklyQuantity
+            currencyInfo.maxQuantity = newCurrencyInfo.maxQuantity and newCurrencyInfo.maxQuantity > 0 and newCurrencyInfo.maxQuantity or nil
         elseif customOptions.currencyUpdate and charInfo.currencyInfo[customOptions.currencyUpdate] then
             charInfo.currencyInfo[customOptions.currencyUpdate].quantity = C_CurrencyInfo.GetCurrencyInfo(customOptions.currencyUpdate).quantity
         end
@@ -525,11 +536,7 @@ end
 local function CreateValorString(labelRow, currencyInfo)
     local info = currencyInfo and currencyInfo[labelRow.key]
     if info then
-        local quantityEarnedThisWeek = info.quantityEarnedThisWeek or 0
-        if quantityEarnedThisWeek > (info.maxWeeklyQuantity or 0) then
-            quantityEarnedThisWeek = quantityEarnedThisWeek / 100
-        end
-        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(quantityEarnedThisWeek, info.maxWeeklyQuantity or 0))
+        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(info.totalEarned, info.maxQuantity))
     end
 end
 
@@ -565,6 +572,10 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
         else
             iconString = string.format('\124T%d:18:18\124t', currencyIcon)
         end
+    end
+
+    if currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 and (currencyInfo.quantity or 0) > currencyInfo.maxQuantity then
+        currencyInfo.quantity = currencyInfo.quantity / 100
     end
 
     local currencyString

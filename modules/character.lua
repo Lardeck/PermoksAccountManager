@@ -44,22 +44,10 @@ local labelRows = {
 		end,
 		version = WOW_PROJECT_MAINLINE
 	},
-	ilevelwrath = {
+	ilevel_wrath = {
 		label = L['Item Level'],
 		data = function(alt_data)
 			return string.format('%.2f', alt_data.ilevel or 0)
-		end,
-		color = function(alt_data)
-			local gearScore = alt_data.gearScore or 0
-			local gearScoreRed = alt_data.gearScoreRed or 1
-			local gearScoreGreen = alt_data.gearScoreGreen or 1
-			local gearScoreBlue = alt_data.gearScoreBlue or 1
-
-			if gearScore == 0 then
-				return CreateColor(0.5, 0.5, 0.5)
-			end
-
-			return CreateColor(gearScoreRed, gearScoreGreen, gearScoreBlue, 1)
 		end,
 		group = 'character',
 		version = WOW_PROJECT_CATACLYSM_CLASSIC
