@@ -407,7 +407,6 @@ PermoksAccountManager.currencyCustomOptions = {
 PermoksAccountManager.professionCDs = {
 	[L['Tailoring']] = {
 		cds = {
-			[94743] = "Dreamcloth",
 			[75141] = "Dreamcloth",
 			[75142] = "Dreamcloth",
 			[75144] = "Dreamcloth",
@@ -415,7 +414,6 @@ PermoksAccountManager.professionCDs = {
 			[75146] = "Dreamcloth",
 		},
 		items = {
-			[94743] = 54440,
 			[75141] = 54440,
 			[75142] = 54440,
 			[75144] = 54440,
