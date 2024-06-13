@@ -467,7 +467,7 @@ local function UpdateAllCurrencies(charInfo)
             currencyInfo[currencyType].quantityEarnedThisWeek = info.quantityEarnedThisWeek
 
             self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType] or {icon = info.iconFileID, name = info.name}
-            self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or nil
+            self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or self.db.global.currencyInfo[currencyType].maxQuantity
         end
     end
 end
@@ -536,7 +536,9 @@ end
 local function CreateValorString(labelRow, currencyInfo)
     local info = currencyInfo and currencyInfo[labelRow.key]
     if info then
-        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(info.totalEarned, info.maxQuantity))
+        local globalCurrencyInfo = PermoksAccountManager.db.global.currencyInfo[labelRow.key]
+        local maxQuantity = (info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity) or (globalCurrencyInfo and globalCurrencyInfo.maxQuantity or 0)
+        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(info.totalEarned or 0, maxQuantity or 0))
     end
 end
 
