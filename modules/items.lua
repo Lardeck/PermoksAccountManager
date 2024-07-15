@@ -684,7 +684,7 @@ local labelRows = {
 }
 
 local function GetAllItemCounts(itemID)
-    return GetItemCount(itemID), GetItemCount(itemID, true)
+    return C_Item.GetItemCount(itemID), C_Item.GetItemCount(itemID, true)
 end
 
 local SaveItemCounts
@@ -693,7 +693,7 @@ do
     function SaveItemCounts(charInfo, itemID)
         if not cachedItemInfo[itemID] then
             local item = Item:CreateFromItemID(itemID)
-            if not item:IsItemEmpty() and GetItemInfoInstant(itemID) then
+            if not item:IsItemEmpty() and C_Item.GetItemInfoInstant(itemID) then
                 item:ContinueOnItemLoad(
                     function()
                         cachedItemInfo[itemID] = true
@@ -751,7 +751,7 @@ local function CreateSparkString(labelRow, itemCounts)
         total = total + (reagentInfo.total / labelRow.reagentRequired)
     end
 
-    return PermoksAccountManager:CreateItemString(nil, total, (sparkInfo and sparkInfo.icon or GetItemIcon(labelRow.key)))
+    return PermoksAccountManager:CreateItemString(nil, total, (sparkInfo and sparkInfo.icon or C_Item.GetItemIcon(labelRow.key)))
 end
 
 local function CreateDreamSeedString(labelRow, itemCounts)

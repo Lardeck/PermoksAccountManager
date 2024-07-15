@@ -491,7 +491,17 @@ local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReput
 --TODO: Rework after DF launch
 local function GetFactionOrFriendshipInfo(factionId, factionType)
     local hasReward, renown
-    local name, _, standing, barMin, barMax, barValue = GetFactionInfoByID(factionId)
+    local name, _, standing, barMin, barMax, barValue
+    if C_Reputation then
+        local factionData = C_Reputation.GetFactionDataByID(factionId)
+        name = factionData.name
+        standing = factionData.reaction
+        barMin = factionData.currentReactionThreshold
+        barMax = factionData.nextReactionThreshold
+        barValue = factionData.currentStanding
+    else 
+        name, _, standing, barMin, barMax, barValue = GetFactionInfoByID(factionId)
+    end
     local isParagon = C_Reputation.IsFactionParagon(factionId)
     
     if isParagon then

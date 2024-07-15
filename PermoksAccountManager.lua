@@ -911,7 +911,7 @@ function PermoksAccountManager:OnLogin()
     local level = UnitLevel('player')
     local min_level = db.options.characters.minLevel
 
-    self.elvui = IsAddOnLoaded('ElvUI')
+    self.elvui = C_AddOns.IsAddOnLoaded('ElvUI')
     self.ElvUI_Skins = self.elvui and ElvUI[1]:GetModule('Skins')
     self:SaveBattleTag(db)
     self:CheckForModernize()

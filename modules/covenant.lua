@@ -99,7 +99,7 @@ local function UpdateCallings(charInfo, callings)
     local self = PermoksAccountManager
 
     if not callings then
-        if not IsAddOnLoaded('Blizzard_CovenantCallings') then
+        if not C_AddOns.IsAddOnLoaded('Blizzard_CovenantCallings') then
             UIParentLoadAddOn('Blizzard_CovenantCallings')
         end
         self:RequestCharacterInfo()
