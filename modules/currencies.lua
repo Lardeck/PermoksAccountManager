@@ -316,7 +316,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
-
+    -- 10.2.7
     whelpling_crest_s4 = {
         label = 'Whelpling Crests',
         type = 'crestcurrency',
@@ -350,6 +350,22 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
+    -- 11.0 Prepatch
+    residual_memories = {
+        label = 'Residual Memories',
+        type = 'currency',
+        key = 3089,
+        passRow = true,
+        group = 'currency',
+        warband = true,
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- 11.0
+    
+
+
+    -- wotlk-classic
     emblem_of_heroism = {
         label = 'Heroism Emblems',
 		type = 'currency',

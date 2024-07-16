@@ -19,6 +19,7 @@ local default_categories = {
             'wyrm_crest_s4',
             'aspect_crest_s4',
             'spark_awakening',
+            'residual_memories',
         },
         childOrder = {
             characterName = 1,
@@ -34,6 +35,7 @@ local default_categories = {
             wyrm_crest_s4 = 11,
             aspect_crest_s4 = 12,
             spark_awakening = 13,
+            residual_memories = 14,
 
         },
         hideToggle = true,
@@ -571,6 +573,7 @@ PermoksAccountManager.currency = {
     [2809] = 0, -- Wyrm's Awakened Crest
     [2812] = 0, -- Aspect's Awakened Crest
     [2912] = 0, -- Renascent Awakening (Crucible Charges DF Season 4)
+    [3089] = 0, -- Residual Memories (11.0 prepatch currency)
 }
 
 PermoksAccountManager.currencyCustomOptions = {
