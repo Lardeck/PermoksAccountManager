@@ -525,11 +525,13 @@ local function CreateCrestString(labelRow, currencyInfo)
         if crestInfo.maxQuantity and crestInfo.maxQuantity > 0 then
             local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
             return string.format("%d - %s", crestInfo.quantity, currencyString)
-        else
+        elseif currencyInfo then
             return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
-    else
+    elseif currencyInfo then
         return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
+    else
+        return '-'
     end
 end
 

@@ -16,7 +16,9 @@ local labelRows = {
 			return PermoksAccountManager:CreateCharacterString(alt_data.name, alt_data.specInfo)
 		end,
 		color = function(alt_data)
-			return RAID_CLASS_COLORS[alt_data.class]
+			if alt_data.class then
+				return RAID_CLASS_COLORS[alt_data.class]
+			end
 		end,
 		version = false
 	},
@@ -40,7 +42,7 @@ local labelRows = {
 	ilevel = {
 		label = L['Item Level'],
 		data = function(alt_data)
-			return string.format('%.2f', alt_data.ilevel or 0)
+			return alt_data.ilevel and string.format('%.2f', alt_data.ilevel) or '-'
 		end,
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -523,8 +525,10 @@ local function CreateCharacterString(name, specInfo)
 	return string.format('%s %s', name, specString or '')
 end
 
-local function CreateKeystoneString(keyInfo)
-	if not keyInfo or not type(keyInfo) == "table" or not keyInfo.keyDungeon then
+local function CreateKeystoneString(name, keyInfo)
+	if name == 'Warband' then
+		return '-'
+	elseif not keyInfo or not type(keyInfo) == "table" or not keyInfo.keyDungeon then
 		return 'Unknown'
 	end
 
@@ -611,7 +615,7 @@ local payload = {
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('gold', CreateGoldString, true, 'gold')
 module:AddCustomLabelType('characterName', CreateCharacterString, nil, 'name', 'specInfo')
-module:AddCustomLabelType('keystone', CreateKeystoneString, nil, 'keyInfo')
+module:AddCustomLabelType('keystone', CreateKeystoneString, nil, 'name', 'keyInfo')
 module:AddCustomLabelType('twkeystone', CreateTWKeystoneString, nil, 'keyInfo')
 module:AddCustomLabelType('dungeonScore', CreateDungeonScoreString, true, 'mythicScore')
 module:AddCustomLabelType('weeklyKey', CreateWeeklyString, nil, 'vaultInfo')
