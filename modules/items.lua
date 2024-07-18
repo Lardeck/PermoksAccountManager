@@ -728,6 +728,8 @@ local function Update(charInfo)
 end
 
 local function CreateCrestString(labelRow, itemCounts)
+    if not itemCounts then return '-' end
+
     local fragmentInfo = itemCounts[labelRow.fragment]
     local fragmentCount = fragmentInfo and itemCounts[labelRow.fragment].total
     local crestInfo = itemCounts[labelRow.crest]
@@ -739,6 +741,8 @@ local function CreateCrestString(labelRow, itemCounts)
 end
 
 local function CreateSparkString(labelRow, itemCounts)
+    if not itemCounts then return '-' end
+
     local sparkInfo = itemCounts[labelRow.key]
     local reagentInfo = itemCounts[labelRow.reagent]
 
@@ -751,7 +755,7 @@ local function CreateSparkString(labelRow, itemCounts)
         total = total + (reagentInfo.total / labelRow.reagentRequired)
     end
 
-    return PermoksAccountManager:CreateItemString(nil, total, (sparkInfo and sparkInfo.icon or C_Item.GetItemIcon(labelRow.key)))
+    return PermoksAccountManager:CreateItemString(nil, total, (sparkInfo and sparkInfo.icon or C_Item.GetItemIconByID(labelRow.key)))
 end
 
 local function CreateDreamSeedString(labelRow, itemCounts)

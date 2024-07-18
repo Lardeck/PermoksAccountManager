@@ -34,8 +34,10 @@ function ModuleMixin:GenerateLabelArgs(altData, labelType, update)
         return
     end
 
-	if self.labelArgs[labelType][altData.guid] and not self.forceLabelUpdate[labelType] and not update then
-		return self.labelArgs[labelType][altData.guid]
+    local labelArgKey = altData.guid or altData.name
+
+	if self.labelArgs[labelType][labelArgKey] and not self.forceLabelUpdate[labelType] and not update then
+		return self.labelArgs[labelType][labelArgKey]
 	end
 
     local args = {}
@@ -45,7 +47,7 @@ function ModuleMixin:GenerateLabelArgs(altData, labelType, update)
         end
     end
 
-	self.labelArgs[labelType][altData.guid] = args
+	self.labelArgs[labelType][labelArgKey] = args
     return args
 end
 

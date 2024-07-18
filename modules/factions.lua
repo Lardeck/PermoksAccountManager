@@ -492,7 +492,7 @@ local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReput
 local function GetFactionOrFriendshipInfo(factionId, factionType)
     local hasReward, renown
     local name, _, standing, barMin, barMax, barValue
-    if C_Reputation then
+    if C_Reputation and C_Reputation.GetFactionDataByID then
         local factionData = C_Reputation.GetFactionDataByID(factionId)
         name = factionData.name
         standing = factionData.reaction

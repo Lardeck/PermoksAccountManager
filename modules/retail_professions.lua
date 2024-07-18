@@ -85,4 +85,4 @@ local payload = {
     },
     labels = labelRows
 }
-PermoksAccountManager:AddModule(module, payload)
+local module = PermoksAccountManager:AddModule(module, payload)
