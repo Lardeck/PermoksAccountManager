@@ -19,7 +19,9 @@ local default_categories = {
             'wyrm_crest_s4',
             'aspect_crest_s4',
             'spark_awakening',
+            'radiant_echoes_prepatch_weeklies',
             'residual_memories',
+
         },
         childOrder = {
             characterName = 1,
@@ -35,7 +37,9 @@ local default_categories = {
             wyrm_crest_s4 = 11,
             aspect_crest_s4 = 12,
             spark_awakening = 13,
-            residual_memories = 14,
+            radiant_echoes_prepatch_weeklies = 14,
+            residual_memories = 15,
+
 
         },
         hideToggle = true,
@@ -1477,6 +1481,13 @@ PermoksAccountManager.quests = {
         [47462] = {questType = 'daily', name = "Azuregos"}, -- Azuregos
         [47463] = {questType = 'daily', name = "Dragons of Nightmare"}, -- Dragons of Nightmare
         [60214] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
+    },
+
+    -- 11.0 PREPATCH
+    radiant_echoes_prepatch_weeklies = {
+        [82689] = {questType = 'weekly', name = 'Only Darkness'},
+        [82676] = {questType = 'weekly', name = 'Broken Masquerade'},
+        [78938] = {questType = 'weekly', name = 'Champion of the Waterlords'},
     }
 }
 

@@ -913,6 +913,21 @@ local labelRows = {
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	},
+	-- 11.0 PREPATCH
+	radiant_echoes_prepatch_weeklies = {
+		label = 'Radiant Echoes Weeklies',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 3,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
 
 	--wotlk
 	general_dailies = {
