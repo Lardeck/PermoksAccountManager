@@ -19,8 +19,9 @@ local default_categories = {
             'wyrm_crest_s4',
             'aspect_crest_s4',
             'spark_awakening',
-            'radiant_echoes_prepatch_weeklies',
             'residual_memories',
+            'radiant_echoes_prepatch_weeklies',
+            
 
         },
         childOrder = {
@@ -37,8 +38,8 @@ local default_categories = {
             wyrm_crest_s4 = 11,
             aspect_crest_s4 = 12,
             spark_awakening = 13,
-            radiant_echoes_prepatch_weeklies = 14,
-            residual_memories = 15,
+            residual_memories = 14,
+            radiant_echoes_prepatch_weeklies = 15,
 
 
         },
@@ -1485,9 +1486,9 @@ PermoksAccountManager.quests = {
 
     -- 11.0 PREPATCH
     radiant_echoes_prepatch_weeklies = {
-        [82689] = {questType = 'weekly', name = 'Only Darkness'},
-        [82676] = {questType = 'weekly', name = 'Broken Masquerade'},
-        [78938] = {questType = 'weekly', name = 'Champion of the Waterlords'},
+        [82689] = {questType = 'weekly', log = true}, --name = 'Only Darkness'},
+        [82676] = {questType = 'weekly', log = true}, --name = 'Broken Masquerade'},
+        [78938] = {questType = 'weekly', log = true}, --name = 'Champion of the Waterlords'},
     }
 }
 

@@ -928,7 +928,6 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
-
 	--wotlk
 	general_dailies = {
 		label = 'General',

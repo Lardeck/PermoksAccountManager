@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALVERSION = 33
+local INTERNALVERSION = 34
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -772,6 +772,11 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('general', 'spark_awakening', 15)
         self:AddLabelToDefaultCategory('renown', 'keg_legs_crew', 7)
         self:AddLabelToDefaultCategory('renown', 'soridormi', 16)
+    end
+
+    if oldInternalVersion < 34 then
+        self:AddLabelToDefaultCategory('general', 'residual_memories')
+        self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_weeklies')
     end
 end
 
