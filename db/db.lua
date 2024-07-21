@@ -19,6 +19,10 @@ local default_categories = {
             'wyrm_crest_s4',
             'aspect_crest_s4',
             'spark_awakening',
+            'residual_memories',
+            'radiant_echoes_prepatch_weeklies',
+            
+
         },
         childOrder = {
             characterName = 1,
@@ -34,6 +38,9 @@ local default_categories = {
             wyrm_crest_s4 = 11,
             aspect_crest_s4 = 12,
             spark_awakening = 13,
+            residual_memories = 14,
+            radiant_echoes_prepatch_weeklies = 15,
+
 
         },
         hideToggle = true,
@@ -571,6 +578,7 @@ PermoksAccountManager.currency = {
     [2809] = 0, -- Wyrm's Awakened Crest
     [2812] = 0, -- Aspect's Awakened Crest
     [2912] = 0, -- Renascent Awakening (Crucible Charges DF Season 4)
+    [3089] = 0, -- Residual Memories (11.0 prepatch currency)
 }
 
 PermoksAccountManager.currencyCustomOptions = {
@@ -1474,6 +1482,13 @@ PermoksAccountManager.quests = {
         [47462] = {questType = 'daily', name = "Azuregos"}, -- Azuregos
         [47463] = {questType = 'daily', name = "Dragons of Nightmare"}, -- Dragons of Nightmare
         [60214] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
+    },
+
+    -- 11.0 PREPATCH
+    radiant_echoes_prepatch_weeklies = {
+        [82689] = {questType = 'weekly', log = true}, --name = 'Only Darkness'},
+        [82676] = {questType = 'weekly', log = true}, --name = 'Broken Masquerade'},
+        [78938] = {questType = 'weekly', log = true}, --name = 'Champion of the Waterlords'},
     }
 }
 
