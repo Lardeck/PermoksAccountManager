@@ -316,7 +316,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
-
+    -- 10.2.7
     whelpling_crest_s4 = {
         label = 'Whelpling Crests',
         type = 'crestcurrency',
@@ -350,6 +350,22 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
+    -- 11.0 Prepatch
+    residual_memories = {
+        label = 'Residual Memories',
+        type = 'currency',
+        key = 3089,
+        passRow = true,
+        group = 'currency',
+        warband = true,
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- 11.0
+    
+
+
+    -- wotlk-classic
     emblem_of_heroism = {
         label = 'Heroism Emblems',
 		type = 'currency',
@@ -525,11 +541,13 @@ local function CreateCrestString(labelRow, currencyInfo)
         if crestInfo.maxQuantity and crestInfo.maxQuantity > 0 then
             local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
             return string.format("%d - %s", crestInfo.quantity, currencyString)
-        else
+        elseif currencyInfo then
             return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
-    else
+    elseif currencyInfo then
         return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
+    else
+        return '-'
     end
 end
 

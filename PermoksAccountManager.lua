@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALVERSION = 33
+local INTERNALVERSION = 34
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -56,6 +56,9 @@ local defaultDB = {
                 data = {
 
 				},
+                warbandData = {
+                    name = 'Warband (NYI)'
+                },
                 pages = {}
             }
         },
@@ -95,6 +98,7 @@ local defaultDB = {
             },
             font = 'Expressway',
             fontSize = 11,
+            hideWarband = true,
             savePosition = false,
             showOptionsButton = false,
             showGuildAttunementButton = false,
@@ -466,6 +470,7 @@ function PermoksAccountManager:CreateFrames()
     managerFrame.labelColumn:SetPoint('TOPLEFT', managerFrame, 'TOPLEFT', 0, -5)
     managerFrame.labelColumn:SetPoint('BOTTOMRIGHT', managerFrame, 'BOTTOMLEFT', 140, 0)
     managerFrame.altColumns = {general = {}}
+    managerFrame.warbandColumns = {}
 
     managerFrame.topDragBar = CreateFrame('Frame', nil, managerFrame, 'BackdropTemplate')
     managerFrame.topDragBar:ClearAllPoints()
@@ -769,6 +774,11 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('renown', 'keg_legs_crew', 7)
         self:AddLabelToDefaultCategory('renown', 'soridormi', 16)
     end
+
+    if oldInternalVersion < 34 then
+        self:AddLabelToDefaultCategory('general', 'residual_memories')
+        self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_weeklies')
+    end
 end
 
 function PermoksAccountManager:GetGUID()
@@ -911,7 +921,7 @@ function PermoksAccountManager:OnLogin()
     local level = UnitLevel('player')
     local min_level = db.options.characters.minLevel
 
-    self.elvui = IsAddOnLoaded('ElvUI')
+    self.elvui = C_AddOns.IsAddOnLoaded('ElvUI')
     self.ElvUI_Skins = self.elvui and ElvUI[1]:GetModule('Skins')
     self:SaveBattleTag(db)
     self:CheckForModernize()
@@ -1170,6 +1180,7 @@ function PermoksAccountManager:UpdateAccountButtons()
                 PermoksAccountManager.account = PermoksAccountManager.db.global.accounts[accountKey]
                 PermoksAccountManager.pages = PermoksAccountManager.account.pages
                 PermoksAccountManager:HideAllCategories()
+                PermoksAccountManager:UpdateWarbandAnchors('general', managerFrame.labelColumn)
                 PermoksAccountManager:UpdateAltAnchors('general', managerFrame, managerFrame.labelColumn)
                 PermoksAccountManager:UpdateStrings(1, 'general')
                 PermoksAccountManager:UpdatePageButtons()
@@ -1244,12 +1255,14 @@ function PermoksAccountManager:UpdatePageButtons()
                     self.selected:Show()
                     self.Text:SetTextColor(0, 1, 0, 1)
                     PermoksAccountManager.db.global.currentPage = pageNumber
+                    PermoksAccountManager:UpdateWarbandAnchors('general', managerFrame.labelColumn)
                     PermoksAccountManager:UpdateAltAnchors('general', managerFrame, managerFrame.labelColumn)
                     PermoksAccountManager:UpdateStrings(pageNumber, 'general')
                     PermoksAccountManager:UpdateManagerFrameSize(true)
 
                     if categoryFrame.openCategory then
                         local category = categoryFrame.openCategory
+                        PermoksAccountManager:UpdateWarbandAnchors(category, categoryFrame.labelColumn.categories[category])
                         PermoksAccountManager:UpdateAltAnchors(category, categoryFrame, categoryFrame.labelColumn.categories[category])
                         PermoksAccountManager:UpdateStrings(nil, category, categoryFrame)
                     end
@@ -1334,6 +1347,23 @@ function PermoksAccountManager:UpdateMenuButton(button)
     end
 end
 
+function PermoksAccountManager:UpdateWarbandAnchors(category, customAnchorFrame)
+    if not self.isRetail or self.db.global.options.hideWarband then return end
+
+    local db = self.db.global
+    local managerFrame = self.managerFrame
+    local labelOffset = db.options.other.labelOffset
+    local widthPerAlt = db.options.buttons.widthPerAlt
+
+    managerFrame.warbandColumns[category] = managerFrame.warbandColumns[category] or CreateFrame('Button', nil, customAnchorFrame)
+    local anchorFrame = managerFrame.warbandColumns[category]
+    anchorFrame.rows = anchorFrame.rows or {}
+    anchorFrame:ClearAllPoints()
+    anchorFrame:SetPoint('TOPLEFT', customAnchorFrame, 'TOPRIGHT', labelOffset, 0)
+    anchorFrame:SetPoint('BOTTOMRIGHT', customAnchorFrame, 'BOTTOMLEFT', (widthPerAlt * 2) + labelOffset, 0)
+    anchorFrame:Show()
+end
+
 function PermoksAccountManager:UpdateAltAnchors(category, columnFrame, customAnchorFrame)
     columnFrame.altColumns[category] = columnFrame.altColumns[category] or {}
 
@@ -1356,8 +1386,8 @@ function PermoksAccountManager:UpdateAltAnchors(category, columnFrame, customAnc
     for index, alt_guid in ipairs(altDataForPage) do
         local anchorFrame = altColumns[index] or CreateFrame('Button', nil, customAnchorFrame)
         anchorFrame:ClearAllPoints()
-        anchorFrame:SetPoint('TOPLEFT', customAnchorFrame, 'TOPRIGHT', (widthPerAlt * (index - 1)) + labelOffset, 0)
-        anchorFrame:SetPoint('BOTTOMRIGHT', customAnchorFrame, 'BOTTOMLEFT', (widthPerAlt * index) + widthPerAlt + labelOffset, 0)
+        anchorFrame:SetPoint('TOPLEFT', customAnchorFrame, 'TOPRIGHT', ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + (widthPerAlt * (index - 1)) + labelOffset, 0)
+        anchorFrame:SetPoint('BOTTOMRIGHT', customAnchorFrame, 'BOTTOMLEFT', ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + (widthPerAlt * index) + widthPerAlt + labelOffset, 0)
         anchorFrame.GUID = alt_guid
         anchorFrame:Show()
 
@@ -1526,11 +1556,114 @@ function PermoksAccountManager:DeleteUnusedLabels(labelIdentifier)
     end
 end
 
+function PermoksAccountManager:UpdateRows(childs, rows, anchorFrame, enabledChilds, data, options)
+    local enabledRows, yOffset = 0, 0
+    for _, row_identifier in pairs(childs) do
+        local labelRow = self.labelRows[row_identifier]
+        if labelRow and enabledChilds[row_identifier] then
+            local row = (not self.isLayoutDirty and rows[row_identifier]) or CreateLabelButton('row', anchorFrame, labelRow, enabledRows)
+            if self.isLayoutDirty or not rows[row_identifier] then
+                if rows[row_identifier] then
+                    rows[row_identifier]:Hide()
+                end
+                rows[row_identifier] = row
+
+                local module = self:GetModuleForRow(row_identifier)
+                local moduleLabelFunction = module and module.labelFunctions[labelRow.type]
+                if moduleLabelFunction then
+                    row.module = module
+                    row.labelFunction = moduleLabelFunction.callback
+                else
+                    row.labelFunction = self:GetInternalLabelFunction(labelRow)
+                end
+
+                if labelRow.tooltip then
+                    local tooltipFunction
+                    if labelRow.customTooltip then
+                        tooltipFunction = labelRow.customTooltip
+                    elseif InternalTooltipFunctions[labelRow.type] then
+                        tooltipFunction = InternalTooltipFunctions[labelRow.type]
+                    elseif type(labelRow.tooltip) == 'function' then
+                        tooltipFunction = labelRow.tooltip
+                    end
+                    row:SetScript('OnLeave', Tooltip_OnLeave)
+                    row.tooltipFunction = tooltipFunction
+                end
+            end
+
+            if row.tooltipFunction then
+                row:SetScript(
+                    'OnEnter',
+                    function(self)
+                        self.tooltipFunction(self, data, labelRow, row_identifier)
+                    end
+                )
+            end
+
+            if labelRow.OnClick then
+                row:SetScript("OnClick", function(self, button)
+                    labelRow.OnClick(button, data)
+                end)
+            end
+
+            UpdateButtonTexture(row, enabledRows, row_identifier, data.guid)
+            UpdateRowButton(row, options, row_identifier)
+
+            if row.module then
+                local args = row.module:GenerateLabelArgs(data, labelRow.type, labelRow.update)
+                local text
+                if labelRow.passKey then
+                    text = row.labelFunction(labelRow.key or row_identifier, unpack(args))
+                elseif labelRow.passRow then
+                    text = row.labelFunction(labelRow, unpack(args))
+                else
+                    text = row.labelFunction(unpack(args))
+                end
+                row:SetText(text)
+            else
+                row:SetText(row.labelFunction(data, labelRow, row_identifier))
+            end
+            row:SetPoint('TOPLEFT', anchorFrame, 'TOPLEFT', 0, -yOffset * 20)
+            row:Show()
+
+            if labelRow.color and row.fontString then
+                local color = labelRow.color(data)
+                if color then
+                    row.fontString:SetTextColor(color:GetRGBA())
+                end
+            end
+
+            enabledRows = enabledRows + 1
+            yOffset = yOffset + (labelRow.offset or 1)
+        end
+    end
+
+    for row_identifier, row in pairs(rows) do
+        if not enabledChilds[row_identifier] then
+            row:Hide()
+        end
+    end
+end
+
+function PermoksAccountManager:UpdateColumnForWarband(category)
+    if not self.isRetail or self.db.global.options.hideWarband then return end
+
+    if not self.account.warbandData then
+        return
+    end
+    
+    local account = self.account
+    local db = self.db.global
+    local anchorFrame = self.managerFrame.warbandColumns[category]
+    self:UpdateRows(db.currentCategories[category].childs, anchorFrame.rows, anchorFrame, db.currentCategories[category].childOrder, account.warbandData, db.options.buttons)
+end
+
 function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category)
     -- Fix synced Account using old format
     if type(altData) == 'string' then
         altData = self.account.data[altData] or nil
     end
+
     if not altData then
         return
     end
@@ -1635,6 +1768,8 @@ function PermoksAccountManager:UpdateStrings(page, category, columnFrame)
 
     local enabledAlts = 1
     columnFrame = columnFrame or self.managerFrame
+
+    self:UpdateColumnForWarband(category)
     for _, altData in pairs(page) do
         if not db.blacklist[altData.guid] then
             local anchorFrame = columnFrame.altColumns[category][enabledAlts]
@@ -1654,6 +1789,7 @@ function PermoksAccountManager:UpdateCategory(button, defaultState, name, catego
 
     if categoryLabelColumn.state == 'closed' then
         local numRows = UpdateOrCreateMenu(category, categoryLabelColumn)
+        self:UpdateWarbandAnchors(category, categoryLabelColumn)
         self:UpdateAltAnchors(category, self.categoryFrame, categoryLabelColumn)
         self:UpdateStrings(nil, category, self.categoryFrame)
         categoryLabelColumn:SetSize(140, (numRows * 20))
@@ -1780,7 +1916,8 @@ function PermoksAccountManager:UpdateManagerFrameSize(widthOnly, heightOnly)
     if not self.managerFrame or not self.managerFrame.height then return end
 
     local alts = #self.pages[self.db.global.currentPage]
-    local width = ((alts * self.db.global.options.buttons.widthPerAlt) + 140) - min((self.db.global.options.buttons.widthPerAlt - self.db.global.options.buttons.buttonWidth), 20) + 4
+    local widthPerAlt = self.db.global.options.buttons.widthPerAlt
+    local width = ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + ((alts * widthPerAlt) + 140) - min((widthPerAlt - self.db.global.options.buttons.buttonWidth), 20) + 4
     local height = self.managerFrame.height
 
     if widthOnly then
@@ -1820,6 +1957,7 @@ function PermoksAccountManager:UpdateAnchorsAndSize(category, widthOnly, heightO
             self.managerFrame.height = max(numRows * 20 + 10, max(0, (self.numCategories - 2) * 30))
         end
 
+        self:UpdateWarbandAnchors('general', self.managerFrame.labelColumn)
         self:UpdateAltAnchors('general', self.managerFrame, self.managerFrame.labelColumn)
         self:UpdateStrings(self.db.global.currentPage, 'general')
     end
@@ -1879,6 +2017,7 @@ function PermoksAccountManager:ShowInterface()
 
     if not self.loaded then
         self:CreateMenuButtons()
+        self:UpdateWarbandAnchors('general', self.managerFrame.labelColumn)
         self:UpdateAltAnchors('general', self.managerFrame, self.managerFrame.labelColumn)
         self:UpdatePageButtons()
 
