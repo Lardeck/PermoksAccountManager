@@ -57,7 +57,7 @@ local defaultDB = {
 
 				},
                 warbandData = {
-                    name = 'Warband'
+                    name = 'Warband (NYI)'
                 },
                 pages = {}
             }
@@ -98,6 +98,7 @@ local defaultDB = {
             },
             font = 'Expressway',
             fontSize = 11,
+            hideWarband = true,
             savePosition = false,
             showOptionsButton = false,
             showGuildAttunementButton = false,
@@ -1347,7 +1348,7 @@ function PermoksAccountManager:UpdateMenuButton(button)
 end
 
 function PermoksAccountManager:UpdateWarbandAnchors(category, customAnchorFrame)
-    if not self.isRetail then return end
+    if not self.isRetail or self.db.global.options.hideWarband then return end
 
     local db = self.db.global
     local managerFrame = self.managerFrame
@@ -1385,8 +1386,8 @@ function PermoksAccountManager:UpdateAltAnchors(category, columnFrame, customAnc
     for index, alt_guid in ipairs(altDataForPage) do
         local anchorFrame = altColumns[index] or CreateFrame('Button', nil, customAnchorFrame)
         anchorFrame:ClearAllPoints()
-        anchorFrame:SetPoint('TOPLEFT', customAnchorFrame, 'TOPRIGHT', (self.isRetail and widthPerAlt or 0) + (widthPerAlt * (index - 1)) + labelOffset, 0)
-        anchorFrame:SetPoint('BOTTOMRIGHT', customAnchorFrame, 'BOTTOMLEFT', (self.isRetail and widthPerAlt or 0) + (widthPerAlt * index) + widthPerAlt + labelOffset, 0)
+        anchorFrame:SetPoint('TOPLEFT', customAnchorFrame, 'TOPRIGHT', ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + (widthPerAlt * (index - 1)) + labelOffset, 0)
+        anchorFrame:SetPoint('BOTTOMRIGHT', customAnchorFrame, 'BOTTOMLEFT', ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + (widthPerAlt * index) + widthPerAlt + labelOffset, 0)
         anchorFrame.GUID = alt_guid
         anchorFrame:Show()
 
@@ -1645,7 +1646,7 @@ function PermoksAccountManager:UpdateRows(childs, rows, anchorFrame, enabledChil
 end
 
 function PermoksAccountManager:UpdateColumnForWarband(category)
-    if not self.isRetail then return end
+    if not self.isRetail or self.db.global.options.hideWarband then return end
 
     if not self.account.warbandData then
         return
@@ -1916,7 +1917,7 @@ function PermoksAccountManager:UpdateManagerFrameSize(widthOnly, heightOnly)
 
     local alts = #self.pages[self.db.global.currentPage]
     local widthPerAlt = self.db.global.options.buttons.widthPerAlt
-    local width = (self.isRetail and widthPerAlt or 0) + ((alts * widthPerAlt) + 140) - min((widthPerAlt - self.db.global.options.buttons.buttonWidth), 20) + 4
+    local width = ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + ((alts * widthPerAlt) + 140) - min((widthPerAlt - self.db.global.options.buttons.buttonWidth), 20) + 4
     local height = self.managerFrame.height
 
     if widthOnly then
