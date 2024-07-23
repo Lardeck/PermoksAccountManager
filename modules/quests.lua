@@ -928,6 +928,32 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
+	-- 11.0
+	spreading_the_light = {
+		label = 'Spreading the Light',
+		type = 'quest',
+		questType = 'weekly',
+		accWide = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
+	lesser_keyflame_weeklies = {
+		label = 'Lesser Keyflame Weeklies',
+		type = 'quest',
+		questType = 'weekly',
+		accWide = true,
+		visibility = 'visible',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 8,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
 	--wotlk
 	general_dailies = {
 		label = 'General',
@@ -1243,10 +1269,10 @@ local function Update(charInfo)
 	UpdateCataDailies(charInfo)
 end
 
-do
+local function AddQuestModule(moduleName, labelRowsData)
 	local payload = {
 		update = Update,
-		labels = labelRows,
+		labels = labelRowsData,
 		events = {
 			['QUEST_ACCEPTED'] = AddQuest,
 			['QUEST_TURNED_IN'] = UpdateQuest,
@@ -1263,7 +1289,11 @@ do
 		tinsert(payload.events.QUEST_LOG_UPDATE, UpdateCataDailies)
 	end
 
-	PermoksAccountManager:AddModule(module, payload)
+	PermoksAccountManager:AddModule(moduleName, payload)
+end
+
+do
+	AddQuestModule(module, labelRows)
 end
 
 function PermoksAccountManager:FindQuestKeyByQuestID(questID)

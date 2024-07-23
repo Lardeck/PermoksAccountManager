@@ -212,6 +212,18 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
+    -- 11.0
+    council_of_dornogal = {
+        label = function()
+            return PermoksAccountManager.factions[2590].localName or 'Council of Dornogal'
+        end,
+        type = 'faction',
+        key = 2590,
+        group = 'reputation',
+        accWide = true,
+        version = WOW_PROJECT_MAINLINE
+    },
+
 
     -- wotlk
     alliance_vanguard = {

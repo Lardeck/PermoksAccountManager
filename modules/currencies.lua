@@ -485,6 +485,45 @@ local function UpdateAllCurrencies(charInfo)
             self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType] or {icon = info.iconFileID, name = info.name}
             self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or self.db.global.currencyInfo[currencyType].maxQuantity
         end
+
+    end
+end
+
+local function getWarbandCurrencyInfo(warbandData)
+    warbandData = warbandData or self.db.global.accounts.main.warbandData
+    warbandData.currencyInfo = warbandData.currencyInfo or {}
+
+    return warbandData.currencyInfo
+end
+
+local function SumWarbandCurrencies(warbandCurrency)
+    local currencySum = 0
+    for _, alt in pairs(warbandCurrency) do
+        currencySum = currencySum + alt.quantity
+    end
+    return currencySum
+end
+
+local function UpdateWarbandCurrency(warbandCurrencyInfo, currencyType, charCurrencyInfo)
+    warbandCurrencyInfo[currencyType] = warbandCurrencyInfo[currencyType] or {name = C_CurrencyInfo.GetCurrencyInfo(currencyType).name}
+
+    warbandCurrencyInfo[currencyType].currencyType = currencyType
+    warbandCurrencyInfo[currencyType].altQuantity = SumWarbandCurrencies(warbandInfo)
+    warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + charCurrencyInfo[currencyType].quantity
+end
+
+local function UpdateAllWarbandCurrencies(charInfo, warbandData)
+    local self = PermoksAccountManager
+
+    local charCurrencyInfo = charInfo.currencyInfo
+    local warbandCurrencyInfo = getWarbandCurrencyInfo(warbandData)
+    for currencyType, _ in pairs(self.currency) do
+        -- only fetches data from non-active characters
+        local warbandInfo = C_CurrencyInfo.FetchCurrencyDataFromAccountCharacters(currencyType)
+        if warbandInfo then
+            UpdateWarbandCurrency(warbandCurrencyInfo, currencyType, charCurrencyInfo)         
+        end
+             
     end
 end
 
@@ -492,7 +531,7 @@ local function Update(charInfo)
     UpdateAllCurrencies(charInfo)
 end
 
-local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
+local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged, warbandData)
     local self = PermoksAccountManager
     if not currencyType or not self.currency[currencyType] then
         return
@@ -566,6 +605,7 @@ local payload = {
     events = {
         ['CURRENCY_DISPLAY_UPDATE'] = UpdateCurrency,
         ['PERKS_ACTIVITIES_UDPATED'] = UpdateCatalystCharges,
+        ['ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED'] = UpdateAllWarbandCurrencies,
     },
     share = {
         [UpdateCurrency] = 'currencyInfo'

@@ -21,6 +21,9 @@ local default_categories = {
             'spark_awakening',
             'residual_memories',
             'radiant_echoes_prepatch_weeklies',
+            'spreading_the_light',
+            'lesser_keyflame_weeklies',
+            'council_of_dornogal'
             
 
         },
@@ -40,6 +43,9 @@ local default_categories = {
             spark_awakening = 13,
             residual_memories = 14,
             radiant_echoes_prepatch_weeklies = 15,
+            spreading_the_light = 16,
+            lesser_keyflame_weeklies = 17,
+            council_of_dornogal = 18,
 
 
         },
@@ -534,7 +540,8 @@ PermoksAccountManager.factions = {
     [2564] = {name = 'Loamm Niffen', paragon = true, type = 'renown'},
     [2568] = {name = 'Glimmerogg Racer'},
     [2574] = {name = 'Dream Wardens', paragonn = true, type = 'renown'},
-    [2593] = {name = 'Keg Leg\'s Crew', type = 'renown'}
+    [2593] = {name = 'Keg Leg\'s Crew', type = 'renown'},
+    [2590] = {name = 'Council of Dornogal', paragonn = true, type = 'renown', accWide = true},
 }
 
 PermoksAccountManager.currency = {
@@ -1489,7 +1496,31 @@ PermoksAccountManager.quests = {
         [82689] = {questType = 'weekly', log = true}, --name = 'Only Darkness'},
         [82676] = {questType = 'weekly', log = true}, --name = 'Broken Masquerade'},
         [78938] = {questType = 'weekly', log = true}, --name = 'Champion of the Waterlords'},
-    }
+    },
+
+    -- 11.0
+    spreading_the_light = {
+        [76586] = {questType = 'weekly', log = true},
+    },
+    lesser_keyflame_weeklies = {
+        [76169] = {questType = 'weekly', log = true},
+        [76394] = {questType = 'weekly', log = true},
+        [76600] = {questType = 'weekly', log = true},
+        [76733] = {questType = 'weekly', log = true},
+        [76997] = {questType = 'weekly', log = true},
+        [78656] = {questType = 'weekly', log = true},
+        [78915] = {questType = 'weekly', log = true},
+        [78933] = {questType = 'weekly', log = true},
+        [78972] = {questType = 'weekly', log = true},
+        [79158] = {questType = 'weekly', log = true},
+        [79173] = {questType = 'weekly', log = true},
+        [79216] = {questType = 'weekly', log = true},
+        [79346] = {questType = 'weekly', log = true},
+        [80004] = {questType = 'weekly', log = true},
+        [80562] = {questType = 'weekly', log = true},
+        [81574] = {questType = 'weekly', log = true},
+        [81632] = {questType = 'weekly', log = true},        
+    },
 }
 
 PermoksAccountManager.locale = {
