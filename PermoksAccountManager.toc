@@ -1,4 +1,4 @@
-## Interface: 100206
+## Interface: 110000
 ## Title: Permoks Account Manager
 ## Version: @project-version@
 ## SavedVariables: PermoksAccountManagerDB

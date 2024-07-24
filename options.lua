@@ -779,7 +779,19 @@ function PermoksAccountManager:LoadOptionsTemplate()
 						order = 5,
 						type = 'toggle',
 						name = L['Save Position'],
-					}
+					},
+                    hideWarband = {
+                        order = 6,
+                        type = 'toggle',
+                        name = 'Hide Warband',
+                        hidden = function() return not PermoksAccountManager.isRetail end,
+                        set = function(info, value)
+                            PermoksAccountManager.db.global.options[info[#info]] = value
+                            C_UI.Reload()
+                        end,
+                        confirm = true,
+                        confirmText = 'This requires a reload (for now). Are you sure?',
+                    },
                 }
             },
             commands = {
