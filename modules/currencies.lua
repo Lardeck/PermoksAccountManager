@@ -562,15 +562,16 @@ end
 
 local function CurrencyTransferUpdate()
     local self = PermoksAccountManager
-    local data = self.account.data
-
+    local accountData = self.account.data
     local warbandCurrencyInfo = self.warbandData.currencyInfo
-    local transferLog = C_CurrencyInfo.FetchCurrencyTransferTransactions()
-    local lastTransferCurrencyType = transferLog[#transferLog].currencyType
-    print('updating for ' ..lastTransferCurrencyType.. '.')
 
-    -- reference to the currency tables for character and Warband
-    local newCharCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(lastTransferCurrencyType)
+    -- Fetch the latest currency transfer transactions
+    local transferLog = C_CurrencyInfo.FetchCurrencyTransferTransactions()
+    local lastTransfer = transferLog[#transferLog]
+    local lastTransferCurrencyType = lastTransfer.currencyType
+
+    -- Get new currency information for character and warband
+    local newCharacterCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(lastTransferCurrencyType)
     local newWarbandCurrencyInfo = C_CurrencyInfo.FetchCurrencyDataFromAccountCharacters(lastTransferCurrencyType)
 
     -- this is necessary because a transfer can be taxed by with different penalties
@@ -582,7 +583,6 @@ local function CurrencyTransferUpdate()
         data[alt.characterGUID].currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
     end
 end
-
 
 local function UpdateCatalystCharges(charInfo)
     if not charInfo.currencyInfo or not charInfo.currencyInfo[2912] then
