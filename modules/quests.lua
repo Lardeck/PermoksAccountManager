@@ -1269,10 +1269,10 @@ local function Update(charInfo)
 	UpdateCataDailies(charInfo)
 end
 
-local function AddQuestModule(moduleName, labelRowsData)
+local function AddQuestModule(moduleName, labelRows)
 	local payload = {
 		update = Update,
-		labels = labelRowsData,
+		labels = labelRows,
 		events = {
 			['QUEST_ACCEPTED'] = AddQuest,
 			['QUEST_TURNED_IN'] = UpdateQuest,
