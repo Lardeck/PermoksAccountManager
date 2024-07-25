@@ -489,13 +489,6 @@ local function UpdateAllCurrencies(charInfo)
     end
 end
 
-local function getWarbandCurrencyInfo(warbandData)
-    warbandData = warbandData or self.db.global.accounts.main.warbandData
-    warbandData.currencyInfo = warbandData.currencyInfo or {}
-
-    return warbandData.currencyInfo
-end
-
 local function SumWarbandCurrencies(warbandCurrency)
     local currencySum = 0
     for _, alt in pairs(warbandCurrency) do
@@ -504,24 +497,26 @@ local function SumWarbandCurrencies(warbandCurrency)
     return currencySum
 end
 
-local function UpdateWarbandCurrency(warbandCurrencyInfo, currencyType, charCurrencyInfo)
+-- this is only for the Warband column, not for the Warband characters
+local function UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, currencyType)
     warbandCurrencyInfo[currencyType] = warbandCurrencyInfo[currencyType] or {name = C_CurrencyInfo.GetCurrencyInfo(currencyType).name}
 
     warbandCurrencyInfo[currencyType].currencyType = currencyType
-    warbandCurrencyInfo[currencyType].altQuantity = SumWarbandCurrencies(warbandInfo)
-    warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + charCurrencyInfo[currencyType].quantity
+    warbandCurrencyInfo[currencyType].altQuantity = SumWarbandCurrencies(newWarbandCurrencyInfo)
 end
 
-local function UpdateAllWarbandCurrencies(charInfo, warbandData)
+local function UpdateAllWarbandCurrencies(charInfo)
     local self = PermoksAccountManager
 
+    -- reference to the currency tables for character and Warband
     local charCurrencyInfo = charInfo.currencyInfo
-    local warbandCurrencyInfo = getWarbandCurrencyInfo(warbandData)
+    local warbandCurrencyInfo = self.warbandData.currencyInfo
     for currencyType, _ in pairs(self.currency) do
         -- only fetches data from non-active characters
-        local warbandInfo = C_CurrencyInfo.FetchCurrencyDataFromAccountCharacters(currencyType)
-        if warbandInfo then
-            UpdateWarbandCurrency(warbandCurrencyInfo, currencyType, charCurrencyInfo)         
+        local newWarbandCurrencyInfo = C_CurrencyInfo.FetchCurrencyDataFromAccountCharacters(currencyType)
+        if newWarbandCurrencyInfo then
+            UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, currencyType)
+            warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + charCurrencyInfo[currencyType].quantity
         end
              
     end
@@ -531,7 +526,7 @@ local function Update(charInfo)
     UpdateAllCurrencies(charInfo)
 end
 
-local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged, warbandData)
+local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     local self = PermoksAccountManager
     if not currencyType or not self.currency[currencyType] then
         return
@@ -557,7 +552,37 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged,
     else
         charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
     end
+        
+    -- Update Warband amount
+    if self.isRetail and C_CurrencyInfo.IsAccountTransferableCurrency(currencyType) then
+        local warbandCurrencyInfo = self.warbandData.currencyInfo
+        warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + quantity
+    end
 end
+
+local function CurrencyTransferUpdate()
+    local self = PermoksAccountManager
+    local data = self.account.data
+
+    local warbandCurrencyInfo = self.warbandData.currencyInfo
+    local transferLog = C_CurrencyInfo.FetchCurrencyTransferTransactions()
+    local lastTransferCurrencyType = transferLog[#transferLog].currencyType
+    print('updating for ' ..lastTransferCurrencyType.. '.')
+
+    -- reference to the currency tables for character and Warband
+    local newCharCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(lastTransferCurrencyType)
+    local newWarbandCurrencyInfo = C_CurrencyInfo.FetchCurrencyDataFromAccountCharacters(lastTransferCurrencyType)
+
+    -- this is necessary because a transfer can be taxed by with different penalties
+    UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, lastTransferCurrencyType)
+    warbandCurrencyInfo[lastTransferCurrencyType].quantity = warbandCurrencyInfo[lastTransferCurrencyType].altQuantity + newCharCurrencyInfo.quantity
+
+    -- update all alts for this currency because the transferlog has no GUID unless you relog (cringe)
+    for _, alt in pairs(newWarbandCurrencyInfo) do
+        data[alt.characterGUID].currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
+    end
+end
+
 
 local function UpdateCatalystCharges(charInfo)
     if not charInfo.currencyInfo or not charInfo.currencyInfo[2912] then
@@ -606,6 +631,7 @@ local payload = {
         ['CURRENCY_DISPLAY_UPDATE'] = UpdateCurrency,
         ['PERKS_ACTIVITIES_UDPATED'] = UpdateCatalystCharges,
         ['ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED'] = UpdateAllWarbandCurrencies,
+        ['CURRENCY_TRANSFER_LOG_UPDATE'] = CurrencyTransferUpdate,
     },
     share = {
         [UpdateCurrency] = 'currencyInfo'

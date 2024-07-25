@@ -921,8 +921,6 @@ function PermoksAccountManager:OnLogin()
     local level = UnitLevel('player')
     local min_level = db.options.characters.minLevel
 
-    C_CurrencyInfo.RequestCurrencyDataForAccountCharacters()
-
     self.elvui = C_AddOns.IsAddOnLoaded('ElvUI')
     self.ElvUI_Skins = self.elvui and ElvUI[1]:GetModule('Skins')
     self:SaveBattleTag(db)
@@ -935,6 +933,12 @@ function PermoksAccountManager:OnLogin()
     if guid and not data[guid] and not self:isBlacklisted(guid) and not (level < min_level) then
         db.alts = db.alts + 1
         self:AddNewCharacter(self.account, guid)
+    end
+
+    -- Request required to access warband data
+    if self.isRetail then
+        C_CurrencyInfo.RequestCurrencyDataForAccountCharacters()
+        self.warbandData = db.accounts.main.warbandData
     end
 
     self.charInfo = data[guid]
