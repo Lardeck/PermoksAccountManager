@@ -490,6 +490,7 @@ local function UpdateAllCurrencies(charInfo)
 end
 
 local function SumWarbandCurrencies(warbandCurrency)
+   
     local currencySum = 0
     for _, alt in pairs(warbandCurrency) do
         currencySum = currencySum + alt.quantity
@@ -502,21 +503,23 @@ local function UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyI
     warbandCurrencyInfo[currencyType] = warbandCurrencyInfo[currencyType] or {name = C_CurrencyInfo.GetCurrencyInfo(currencyType).name}
 
     warbandCurrencyInfo[currencyType].currencyType = currencyType
-    warbandCurrencyInfo[currencyType].altQuantity = SumWarbandCurrencies(newWarbandCurrencyInfo)
+    warbandCurrencyInfo[currencyType].altQuantity = newWarbandCurrencyInfo and SumWarbandCurrencies(newWarbandCurrencyInfo) or 0
 end
 
 local function UpdateAllWarbandCurrencies(charInfo)
     local self = PermoksAccountManager
+    self.warbandData.currencyInfo = self.warbandData.currencyInfo or {}
 
     -- reference to the currency tables for character and Warband
     local charCurrencyInfo = charInfo.currencyInfo
     local warbandCurrencyInfo = self.warbandData.currencyInfo
-    for currencyType, _ in pairs(self.currency) do
+    for currencyType, offset in pairs(self.currency) do
         -- only fetches data from non-active characters
         local newWarbandCurrencyInfo = C_CurrencyInfo.FetchCurrencyDataFromAccountCharacters(currencyType)
-        if newWarbandCurrencyInfo then
+        local transferableCurrency = C_CurrencyInfo.IsAccountTransferableCurrency(currencyType)
+        if newWarbandCurrencyInfo or transferableCurrency then
             UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, currencyType)
-            warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + charCurrencyInfo[currencyType].quantity
+            warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + charCurrencyInfo[currencyType].quantity + offset
         end
              
     end
@@ -576,11 +579,14 @@ local function CurrencyTransferUpdate()
 
     -- this is necessary because a transfer can be taxed by with different penalties
     UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, lastTransferCurrencyType)
-    warbandCurrencyInfo[lastTransferCurrencyType].quantity = warbandCurrencyInfo[lastTransferCurrencyType].altQuantity + newCharCurrencyInfo.quantity
+    warbandCurrencyInfo[lastTransferCurrencyType].quantity = warbandCurrencyInfo[lastTransferCurrencyType].altQuantity + newCharacterCurrencyInfo.quantity
 
     -- update all alts for this currency because the transferlog has no GUID unless you relog (cringe)
     for _, alt in pairs(newWarbandCurrencyInfo) do
-        data[alt.characterGUID].currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
+        local character = accountData[alt.characterGUID]
+        if character then
+            character.currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
+        end
     end
 end
 
@@ -601,6 +607,8 @@ end
 
 local function CreateCrestString(labelRow, currencyInfo)
 	local crestInfo = currencyInfo and currencyInfo[labelRow.key]
+    local self = PermoksAccountManager
+
     if crestInfo then
         if crestInfo.maxQuantity and crestInfo.maxQuantity > 0 then
             local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
@@ -608,7 +616,8 @@ local function CreateCrestString(labelRow, currencyInfo)
         elseif currencyInfo then
             return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
-    elseif currencyInfo then
+    -- making a global reference here, maybe theres a better solution?
+    elseif currencyInfo and not currencyInfo ~= self.warbandData.currencyInfo then
         return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
     else
         return '-'

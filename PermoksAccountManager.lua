@@ -57,7 +57,7 @@ local defaultDB = {
 
 				},
                 warbandData = {
-                    name = 'Warband (NYI)'
+                    name = 'Warband'
                 },
                 pages = {}
             }
