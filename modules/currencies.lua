@@ -617,7 +617,7 @@ local function CreateCrestString(labelRow, currencyInfo)
             return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
     -- making a global reference here, maybe theres a better solution?
-    elseif currencyInfo and not currencyInfo ~= self.warbandData.currencyInfo then
+    elseif currencyInfo and not currencyInfo == self.warbandData.currencyInfo then
         return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
     else
         return '-'

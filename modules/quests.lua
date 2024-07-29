@@ -933,7 +933,6 @@ local labelRows = {
 		label = 'Spreading the Light',
 		type = 'quest',
 		questType = 'weekly',
-		accWide = true,
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
@@ -943,7 +942,6 @@ local labelRows = {
 		label = 'Lesser Keyflame Weeklies',
 		type = 'quest',
 		questType = 'weekly',
-		accWide = true,
 		visibility = 'visible',
 		tooltip = true,
 		customTooltip = function(...)
@@ -1269,7 +1267,7 @@ local function Update(charInfo)
 	UpdateCataDailies(charInfo)
 end
 
-local function AddQuestModule(moduleName, labelRows)
+local function AddQuestModule(module, labelRows)
 	local payload = {
 		update = Update,
 		labels = labelRows,
@@ -1289,7 +1287,7 @@ local function AddQuestModule(moduleName, labelRows)
 		tinsert(payload.events.QUEST_LOG_UPDATE, UpdateCataDailies)
 	end
 
-	PermoksAccountManager:AddModule(moduleName, payload)
+	PermoksAccountManager:AddModule(module, payload)
 end
 
 do
