@@ -8,9 +8,9 @@ function ModuleMixin:Init(moduleName, payload)
     self.share = payload.share
     self.update = payload.update
     self.payload = payload
-	self.forceLabelUpdate = {}
+    self.forceLabelUpdate = {}
     self.labelFunctions = {}
-	self.labelArgs = {}
+    self.labelArgs = {}
 end
 
 ---Adds a custom label type
@@ -24,21 +24,21 @@ function ModuleMixin:AddCustomLabelType(customType, callback, alwaysForceUpdate,
         return
     end
 
-	self.forceLabelUpdate[customType] = alwaysForceUpdate
-    self.labelFunctions[customType] = {callback = callback, args = {...}}
-	self.labelArgs[customType] = {}
+    self.forceLabelUpdate[customType] = alwaysForceUpdate
+    self.labelFunctions[customType] = { callback = callback, args = { ... } }
+    self.labelArgs[customType] = {}
 end
 
 function ModuleMixin:GenerateLabelArgs(altData, labelType, update)
-	if not labelType or not altData then
+    if not labelType or not altData then
         return
     end
 
     local labelArgKey = altData.guid or altData.name
 
-	if self.labelArgs[labelType][labelArgKey] and not self.forceLabelUpdate[labelType] and not update then
-		return self.labelArgs[labelType][labelArgKey]
-	end
+    if self.labelArgs[labelType][labelArgKey] and not self.forceLabelUpdate[labelType] and not update then
+        return self.labelArgs[labelType][labelArgKey]
+    end
 
     local args = {}
     for _, key in ipairs(self.labelFunctions[labelType].args) do
@@ -47,7 +47,7 @@ function ModuleMixin:GenerateLabelArgs(altData, labelType, update)
         end
     end
 
-	self.labelArgs[labelType][labelArgKey] = args
+    self.labelArgs[labelType][labelArgKey] = args
     return args
 end
 
@@ -78,6 +78,16 @@ local function SetEventScript(charInfo)
     )
 end
 
+local function AddIDsToDatabase(row, key)
+    if not row or not row.IDs then return end
+    key = row.key or key
+
+    PermoksAccountManager[row.type] = PermoksAccountManager[row.type] or {}
+
+    local typeRows = PermoksAccountManager[row.type]
+    typeRows[key] = row
+end
+
 local function AddLabelRows(module, rows)
     if not rows then
         return
@@ -85,10 +95,11 @@ local function AddLabelRows(module, rows)
 
     for row_identifier, row in pairs(rows) do
         if row.version == false or row.version == WOW_PROJECT_ID then
-            PermoksAccountManager.labelRows[row_identifier] = row
             if enums[row_identifier] then
-                PermoksAccountManager:Print('Please use another identifier for', module.name, row_identifier, '. Module', enums[row_identifier].name, 'already uses it.')
+                PermoksAccountManager:Print("Identifier already in use:", row_identifier, "by", enums[row_identifier].name)
             else
+                AddIDsToDatabase(row, row_identifier)
+                PermoksAccountManager.labelRows[row_identifier] = row
                 enums[row_identifier] = module
             end
         end

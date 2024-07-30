@@ -75,7 +75,7 @@ local labelRows = {
             if alt_data.covenant then
                 local covenant = alt_data.covenant
                 local rightFeatureType = (covenant == 3 and 2) or (covenant == 4 and 5) or 0
-                return (alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:CreateSanctumString(alt_data.sanctumInfo, rightFeatureType, alt_data.questInfo.daily.visible.transport_network, alt_data.questInfo.maxnfTransport or 1)) or '-'
+                return (alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:CreateSanctumString(alt_data.sanctumInfo, rightFeatureType, alt_data.questInfo.daily.visible.transport_network_dailies, alt_data.questInfo.maxnfTransport or 1)) or '-'
             else
                 return '-'
             end
