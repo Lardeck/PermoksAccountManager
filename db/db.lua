@@ -1486,10 +1486,10 @@ PermoksAccountManager.quests = {
 
     -- 11.0 PREPATCH
     radiant_echoes_prepatch_weeklies = {
-        [82689] = {questType = 'weekly', log = true}, --name = 'Only Darkness'},
-        [82676] = {questType = 'weekly', log = true}, --name = 'Broken Masquerade'},
-        [78938] = {questType = 'weekly', log = true}, --name = 'Champion of the Waterlords'},
-    }
+        [82689] = {questType = 'weekly', log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
+        [82676] = {questType = 'weekly', log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
+        [78938] = {questType = 'weekly', log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
+    },
 }
 
 PermoksAccountManager.locale = {
