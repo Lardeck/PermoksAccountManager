@@ -913,6 +913,15 @@ local labelRows = {
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	},
+	big_dig = {
+		label = 'The Big Dig',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
 	-- 11.0 PREPATCH
 	radiant_echoes_prepatch_weeklies = {
 		label = 'Radiant Echoes Weeklies',
@@ -1131,6 +1140,8 @@ local function UpdateAllQuests(charInfo)
 	charInfo.questInfo = charInfo.questInfo or default
 
 	local covenant = self.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
+	local warbandQuestInfo = self.isRetail and (self.warbandData.questInfo or default)
+
 	local questInfo = charInfo.questInfo
 	for key, quests in pairs(self.quests) do
 		for questID, info in pairs(quests) do
@@ -1143,6 +1154,14 @@ local function UpdateAllQuests(charInfo)
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 
 			if not self.isBC then
+
+				-- check for weekly Warband Rewards
+				if info.warbandReward then
+					local gotWarbandReward = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
+					print('Big Dig completed: ' .. tostring(gotWarbandReward))
+				end
+
+				-- covenant stuff
 				if info.covenant and covenant == info.covenant then
 					local sanctumTier
 					if info.sanctum and charInfo.sanctumInfo then
@@ -1261,13 +1280,14 @@ local function UpdateQuest(charInfo, questID)
 	end
 end
 
+-- module init
 local function Update(charInfo)
 	UpdateAllQuests(charInfo)
 	UpdateCurrentlyActiveQuests(charInfo)
 	UpdateCataDailies(charInfo)
 end
 
-local function AddQuestModule(module, labelRows)
+do
 	local payload = {
 		update = Update,
 		labels = labelRows,
@@ -1290,8 +1310,8 @@ local function AddQuestModule(module, labelRows)
 	PermoksAccountManager:AddModule(module, payload)
 end
 
-do
-	AddQuestModule(module, labelRows)
+if PermoksAccountManager.isCata then
+	tinsert(payload.events.QUEST_LOG_UPDATE, UpdateCataDailies)
 end
 
 function PermoksAccountManager:FindQuestKeyByQuestID(questID)

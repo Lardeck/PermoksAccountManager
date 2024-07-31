@@ -75,6 +75,7 @@ local default_categories = {
             'time_rift',
             'dreamsurge_weekly',
             'sparks_of_life',
+            'big_dig',
             'separator3',
             'knowledge_mobs',
             'knowledge_scout_packs',
@@ -95,6 +96,7 @@ local default_categories = {
             time_rift = 13,
             dreamsurge_weekly = 14,
             sparks_of_life = 15,
+            big_dig = 16,
             separator3 = 30,
             knowledge_mobs = 31,
             knowledge_scout_packs = 32,
@@ -1490,12 +1492,15 @@ PermoksAccountManager.quests = {
         [47463] = {questType = 'daily', name = "Dragons of Nightmare"}, -- Dragons of Nightmare
         [60214] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
     },
+    big_dig = {
+        [79226] = {questType = 'weekly', warbandReward = true, log = true},
+    },
 
     -- 11.0 PREPATCH
     radiant_echoes_prepatch_weeklies = {
-        [82689] = {questType = 'weekly', log = true}, --name = 'Only Darkness'},
-        [82676] = {questType = 'weekly', log = true}, --name = 'Broken Masquerade'},
-        [78938] = {questType = 'weekly', log = true}, --name = 'Champion of the Waterlords'},
+        [82689] = {questType = 'weekly', log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
+        [82676] = {questType = 'weekly', log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
+        [78938] = {questType = 'weekly', log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
     },
 
     -- 11.0

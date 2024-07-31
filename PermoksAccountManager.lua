@@ -778,6 +778,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     if oldInternalVersion < 34 then
         self:AddLabelToDefaultCategory('general', 'residual_memories')
         self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_weeklies')
+        self:AddLabelToDefaultCategory('currentweekly', 'big_dig', 16)
     end
 end
 
@@ -929,16 +930,11 @@ function PermoksAccountManager:OnLogin()
     LoadFonts()
 
     self.account = db.accounts.main
+    self.warbandData = db.accounts.main.warbandData
     local data = self.account.data
     if guid and not data[guid] and not self:isBlacklisted(guid) and not (level < min_level) then
         db.alts = db.alts + 1
         self:AddNewCharacter(self.account, guid)
-    end
-
-    -- Request required to access warband data
-    if self.isRetail then
-        C_CurrencyInfo.RequestCurrencyDataForAccountCharacters()
-        self.warbandData = db.accounts.main.warbandData
     end
 
     self.charInfo = data[guid]

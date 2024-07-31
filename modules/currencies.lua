@@ -527,6 +527,11 @@ end
 
 local function Update(charInfo)
     UpdateAllCurrencies(charInfo)
+
+    -- requesting the warband data has a slight server-delay
+    if PermoksAccountManager.isRetail then
+        C_CurrencyInfo.RequestCurrencyDataForAccountCharacters()
+    end
 end
 
 local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
@@ -614,7 +619,7 @@ local function CreateCrestString(labelRow, currencyInfo)
             local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
             return string.format("%d - %s", crestInfo.quantity, currencyString)
         elseif currencyInfo then
-            return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
+            return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.tabbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
     -- making a global reference here, maybe theres a better solution?
     elseif currencyInfo and not currencyInfo == self.warbandData.currencyInfo then
