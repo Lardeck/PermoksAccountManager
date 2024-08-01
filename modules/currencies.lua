@@ -568,15 +568,15 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     end
 end
 
-local function CurrencyTransferUpdate()
+local function CurrencyTransferUpdate(charInfo)
     local self = PermoksAccountManager
     local accountData = self.account.data
     local warbandCurrencyInfo = self.warbandData.currencyInfo
 
     -- Fetch the latest currency transfer transactions
     local transferLog = C_CurrencyInfo.FetchCurrencyTransferTransactions()
-    local lastTransfer = transferLog[#transferLog]
-    local lastTransferCurrencyType = lastTransfer.currencyType
+    local lastTransferCurrencyType = transferLog[#transferLog].currencyType
+    
 
     -- Get new currency information for character and warband
     local newCharacterCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(lastTransferCurrencyType)
@@ -587,9 +587,17 @@ local function CurrencyTransferUpdate()
     warbandCurrencyInfo[lastTransferCurrencyType].quantity = warbandCurrencyInfo[lastTransferCurrencyType].altQuantity + newCharacterCurrencyInfo.quantity
 
     -- update all alts for this currency because the transferlog has no GUID unless you relog (cringe)
+    -- even more cringe is that reducing a currency to 0 makes the character disappear from data.
+    -- comparing tables to find the nils is too complex so we just reset the db and fill it again.
+    for guID, alt in pairs(accountData) do
+        if guID ~= charInfo.guid and alt.currencyInfo[lastTransferCurrencyType] then
+            alt.currencyInfo[lastTransferCurrencyType].quantity = 0
+        end
+    end
+    
     for _, alt in pairs(newWarbandCurrencyInfo) do
         local character = accountData[alt.characterGUID]
-        if character then
+        if character and character.currencyInfo[lastTransferCurrencyType] then
             character.currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
         end
     end
@@ -622,7 +630,7 @@ local function CreateCrestString(labelRow, currencyInfo)
             return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.tabbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
     -- making a global reference here, maybe theres a better solution?
-    elseif currencyInfo and not currencyInfo == self.warbandData.currencyInfo then
+    elseif currencyInfo and currencyInfo ~= self.warbandData.currencyInfo then
         return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
     else
         return '-'
