@@ -1171,7 +1171,7 @@ local function UpdateAllQuests(charInfo)
 				-- check for weekly Warband Rewards
 				if info.warbandReward then
                     local currentWarbandQuestInfo = setQuestInfo(warbandQuestInfo, info, key)
-                    local isWarbandComplete --= C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
+                    local isWarbandComplete = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
                     currentWarbandQuestInfo[questID] = currentWarbandQuestInfo[questID] or isWarbandComplete or nil
 					--debug line delete latet
 					print(C_QuestLog.GetTitleForQuestID(questID) .. ' completed: ' .. tostring(isWarbandComplete))
