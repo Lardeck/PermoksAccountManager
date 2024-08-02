@@ -1155,7 +1155,7 @@ end
 local function UpdateAllQuests(charInfo)
 	local self = PermoksAccountManager
 	charInfo.questInfo = charInfo.questInfo or default
-	self.warbandData.questInfo = self.warbandData.questInfo or default
+	self.warbandData.questInfo = self.isRetail and (self.warbandData.questInfo or default)
 
 	local covenant = self.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
 
