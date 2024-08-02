@@ -20,12 +20,8 @@ local default_categories = {
             'aspect_crest_s4',
             'spark_awakening',
             'residual_memories',
-            'radiant_echoes_prepatch_weeklies',
-            'spreading_the_light',
-            'lesser_keyflame_weeklies',
-            'council_of_dornogal'
-            
-
+            'radiant_echoes_prepatch_daylies',
+            'radiant_echoes_cache',
         },
         childOrder = {
             characterName = 1,
@@ -42,12 +38,8 @@ local default_categories = {
             aspect_crest_s4 = 12,
             spark_awakening = 13,
             residual_memories = 14,
-            radiant_echoes_prepatch_weeklies = 15,
-            spreading_the_light = 16,
-            lesser_keyflame_weeklies = 17,
-            council_of_dornogal = 18,
-
-
+            radiant_echoes_prepatch_daylies = 15,
+            radiant_echoes_cache = 16,
         },
         hideToggle = true,
         enabled = true
@@ -1497,10 +1489,13 @@ PermoksAccountManager.quests = {
     },
 
     -- 11.0 PREPATCH
-    radiant_echoes_prepatch_weeklies = {
-        [82689] = {questType = 'weekly', log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
-        [82676] = {questType = 'weekly', log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
-        [78938] = {questType = 'weekly', log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
+    radiant_echoes_prepatch_daylies = {
+        [82689] = {questType = 'daily', warbandReward = 'unique', log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
+        [82676] = {questType = 'daily', warbandReward = 'unique', log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
+        [78938] = {questType = 'daily', warbandReward = 'unique', log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
+    },
+    radiant_echoes_cache = {
+        [84083] = {questType = 'weekly'}
     },
 
     -- 11.0

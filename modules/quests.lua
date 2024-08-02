@@ -923,16 +923,24 @@ local labelRows = {
 	},
 
 	-- 11.0 PREPATCH
-	radiant_echoes_prepatch_weeklies = {
-		label = 'Radiant Echoes Weeklies',
+	radiant_echoes_prepatch_daylies = {
+		label = 'Prepatch Daylies',
 		type = 'quest',
-		questType = 'weekly',
+		questType = 'daily',
 		visibility = 'visible',
 		tooltip = true,
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
 		required = 3,
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
+	radiant_echoes_cache = {
+		label = 'Prepatch Weekly Cache',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1135,30 +1143,38 @@ local function GetQuestInfo(questLogIndex)
 	end
 end
 
+local function setQuestInfo(questInfo, info, key)
+	local visibleType = info.log and 'visible' or 'hidden'
+
+	questInfo[info.questType] = questInfo[info.questType] or {}
+	questInfo[info.questType][visibleType] = questInfo[info.questType][visibleType] or {}
+	questInfo[info.questType][visibleType][key] = questInfo[info.questType][visibleType][key] or {}
+	return questInfo[info.questType][visibleType][key]
+end
+
 local function UpdateAllQuests(charInfo)
 	local self = PermoksAccountManager
 	charInfo.questInfo = charInfo.questInfo or default
+	self.warbandData.questInfo = self.warbandData.questInfo or default
 
 	local covenant = self.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
-	local warbandQuestInfo = self.isRetail and (self.warbandData.questInfo or default)
 
 	local questInfo = charInfo.questInfo
+	local warbandQuestInfo = self.warbandData.questInfo
 	for key, quests in pairs(self.quests) do
-		for questID, info in pairs(quests) do
-			local visibleType = info.log and 'visible' or 'hidden'
-
-			questInfo[info.questType] = questInfo[info.questType] or {}
-			questInfo[info.questType][visibleType] = questInfo[info.questType][visibleType] or {}
-			questInfo[info.questType][visibleType][key] = questInfo[info.questType][visibleType][key] or {}
-			local currentQuestInfo = questInfo[info.questType][visibleType][key]
-			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
+		for questID, info in pairs(quests) do			
+			local currentQuestInfo = setQuestInfo(questInfo, info, key)
+			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)			
 
 			if not self.isBC then
 
 				-- check for weekly Warband Rewards
 				if info.warbandReward then
-					local gotWarbandReward = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
-					print('Big Dig completed: ' .. tostring(gotWarbandReward))
+                    local currentWarbandQuestInfo = setQuestInfo(warbandQuestInfo, info, key)
+                    local isWarbandComplete --= C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
+                    currentWarbandQuestInfo[questID] = currentWarbandQuestInfo[questID] or isWarbandComplete or nil
+					--debug line delete latet
+					print(C_QuestLog.GetTitleForQuestID(questID) .. ' completed: ' .. tostring(isWarbandComplete))
 				end
 
 				-- covenant stuff
@@ -1172,6 +1188,7 @@ local function UpdateAllQuests(charInfo)
 					if not info.sanctum or (sanctumTier and sanctumTier >= info.minSanctumTier) then
 						currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
 					end
+
 				elseif not info.covenant then
 					currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
 				end
