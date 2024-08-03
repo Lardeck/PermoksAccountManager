@@ -983,6 +983,7 @@ function PermoksAccountManager:CheckForReset()
 
     for account, accountData in pairs(db.accounts) do
         self:ResetAccount(db, accountData, resetDaily, resetWeekly, resetBiweekly, resetThreeDayRaids)
+        self:ResetWarband(db, accountData, resetDaily, resetWeekly, resetBiweekly)
     end
 
     db.weeklyReset = resetWeekly and currentTime + self:GetNextWeeklyResetTime() or db.weeklyReset
@@ -1010,6 +1011,21 @@ function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biwe
         if resetThreeDayRaids then
             self:ResetThreeDayRaids(altData)
         end
+    end
+end
+
+function PermoksAccountManager:ResetWarband(db, accountData, daily, weekly, biweekly)
+    local warbandData = accountData.warbandData
+    if weekly then
+        self:ResetWeeklyActivities(warbandData)
+    end
+
+    if daily then
+        self:ResetDailyActivities(db, warbandData)
+    end
+
+    if biweekly then
+        self:ResetBiweeklyActivities(warbandData)
     end
 end
 
