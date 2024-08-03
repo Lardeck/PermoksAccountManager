@@ -1087,6 +1087,10 @@ function PermoksAccountManager:ResetDailyActivities(db, altData)
         end
     end
 
+    if altData.completedWorldQuests then
+        altData.completedWorldQuests = {}
+    end
+
     if self.isCata and altData.instanceInfo then
         altData.instanceInfo.dungeons = {}
     end
