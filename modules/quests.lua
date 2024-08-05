@@ -917,6 +917,7 @@ local labelRows = {
 		label = 'The Big Dig',
 		type = 'quest',
 		questType = 'weekly',
+		warband = true,
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
@@ -927,6 +928,7 @@ local labelRows = {
 		label = 'Prepatch Daylies',
 		type = 'quest',
 		questType = 'daily',
+		warband = 'unique',
 		visibility = 'visible',
 		tooltip = true,
 		customTooltip = function(...)
@@ -1154,17 +1156,17 @@ end
 
 local function UpdateAllQuests(charInfo)
 	local self = PermoksAccountManager
-	charInfo.questInfo = charInfo.questInfo or default
-	self.warbandData.questInfo = self.isRetail and (self.warbandData.questInfo or default)
+	charInfo.questInfo = charInfo.questInfo or CopyTable(default)
+	self.warbandData.questInfo = self.isRetail and (self.warbandData.questInfo or CopyTable(default))
 
 	local covenant = self.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
 
 	local questInfo = charInfo.questInfo
 	local warbandQuestInfo = self.warbandData.questInfo
 	for key, quests in pairs(self.quests) do
-		for questID, info in pairs(quests) do			
+		for questID, info in pairs(quests) do
 			local currentQuestInfo = setQuestInfo(questInfo, info, key)
-			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)			
+			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 
 			if not self.isBC then
 
@@ -1173,7 +1175,7 @@ local function UpdateAllQuests(charInfo)
                     local currentWarbandQuestInfo = setQuestInfo(warbandQuestInfo, info, key)
                     local isWarbandComplete = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
                     currentWarbandQuestInfo[questID] = currentWarbandQuestInfo[questID] or isWarbandComplete or nil
-					--debug line delete latet
+					--debug line delete later
 					print(C_QuestLog.GetTitleForQuestID(questID) .. ' completed: ' .. tostring(isWarbandComplete))
 				end
 

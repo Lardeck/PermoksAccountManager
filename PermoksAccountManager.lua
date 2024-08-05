@@ -98,7 +98,7 @@ local defaultDB = {
             },
             font = 'Expressway',
             fontSize = 11,
-            hideWarband = true,
+            hideWarband = false,
             savePosition = false,
             showOptionsButton = false,
             showGuildAttunementButton = false,

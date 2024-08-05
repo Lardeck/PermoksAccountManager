@@ -623,6 +623,40 @@ PermoksAccountManager.professionCDs = {
 	}
 }
 
+-- key is the SkillLineID of the parentProfession
+PermoksAccountManager.childProfessions = {
+    df_professions = {
+        [164] = {spellID = 365677, SkillLineID = 2822}, -- Blacksmithing
+        [165] = {spellID = 366249, SkillLineID = 2830}, -- Leatherworking
+        [171] = {spellID = 366261, SkillLineID = 2823}, -- Alchemy
+        [182] = {spellID = 366252, SkillLineID = 2832}, -- Herbalism
+        [185] = {spellID = 366256, SkillLineID = 2824}, -- Cooking
+        [186] = {spellID = 366260, SkillLineID = 2833}, -- Mining
+        [197] = {spellID = 366258, SkillLineID = 2831}, -- Tailoring
+        [202] = {spellID = 366254, SkillLineID = 2827}, -- Engineering
+        [333] = {spellID = 366255, SkillLineID = 2825}, -- Enchanting
+        [356] = {spellID = 366253, SkillLineID = 2826}, -- Fishing
+        [393] = {spellID = 366259, SkillLineID = 2834}, -- Skinning
+        [755] = {spellID = 366250, SkillLineID = 2829}, -- Jewelcrafting
+        [773] = {spellID = 366251, SkillLineID = 2828}, -- Inscription
+    },
+    tww_professions = {
+        [164] = {spellID = 423332, SkillLineID = 2872}, -- Blacksmithing
+        [165] = {spellID = 423340, SkillLineID = 2880}, -- Leatherworking
+        [171] = {spellID = 423321, SkillLineID = 2871}, -- Alchemy
+        [182] = {spellID = 441327, SkillLineID = 2877}, -- Herbalism
+        [185] = {spellID = 423333, SkillLineID = 2873}, -- Cooking
+        [186] = {spellID = 423341, SkillLineID = 2881}, -- Mining
+        [197] = {spellID = 423343, SkillLineID = 2883}, -- Tailoring
+        [202] = {spellID = 423335, SkillLineID = 2875}, -- Engineering
+        [333] = {spellID = 423334, SkillLineID = 2874}, -- Enchanting
+        [356] = {spellID = 423336, SkillLineID = 2876}, -- Fishing
+        [393] = {spellID = 423342, SkillLineID = 2882}, -- Skinning
+        [755] = {spellID = 423339, SkillLineID = 2879}, -- Jewelcrafting
+        [773] = {spellID = 423338, SkillLineID = 2878}, -- Inscription
+    },
+}
+
 PermoksAccountManager.quests = {
     maw_dailies = {
         [60732] = {questType = 'daily', log = true},
@@ -1490,9 +1524,9 @@ PermoksAccountManager.quests = {
 
     -- 11.0 PREPATCH
     radiant_echoes_prepatch_daylies = {
-        [82689] = {questType = 'daily', warbandReward = 'unique', log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
-        [82676] = {questType = 'daily', warbandReward = 'unique', log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
-        [78938] = {questType = 'daily', warbandReward = 'unique', log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
+        [82689] = {questType = 'daily', warbandReward = true, log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
+        [82676] = {questType = 'daily', warbandReward = true, log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
+        [78938] = {questType = 'daily', warbandReward = true, log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
     },
     radiant_echoes_cache = {
         [84083] = {questType = 'weekly'}
