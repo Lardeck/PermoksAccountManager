@@ -45,7 +45,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedWorldQuestsTooltip_OnEnter(...)
 		end,
-		group = 'resetDaily',
+		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
 	korthia_dailies = {

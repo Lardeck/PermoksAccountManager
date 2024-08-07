@@ -1049,6 +1049,10 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
         end
     end
 
+    if altData.completedWorldQuests then
+        altData.completedWorldQuests = {}
+    end
+
 	-- Crests Earned
     if altData.currencyInfo then
         for _, crestID in ipairs({2409, 2410, 2411, 2412}) do
@@ -1085,10 +1089,6 @@ function PermoksAccountManager:ResetDailyActivities(db, altData)
         for visibility, quests in pairs(altData.questInfo.daily) do
             altData.questInfo.daily[visibility] = {}
         end
-    end
-
-    if altData.completedWorldQuests then
-        altData.completedWorldQuests = {}
     end
 
     if self.isCata and altData.instanceInfo then
@@ -2065,9 +2065,6 @@ function PermoksAccountManager:GetNextThreeDayLockoutResetTime()
     local nextReset = interval - ((GetServerTime() - reset) % interval)
     
     return nextReset
-end
-
-local function GetAllkeysArguments()
 end
 
 local function GetComparisonOperator(startLevel, endLevel, operator)
