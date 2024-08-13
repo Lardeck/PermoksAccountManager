@@ -1,6 +1,7 @@
 local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
+local timer
 
 local frequencyNames = {
 	[0] = 'default',
@@ -36,7 +37,15 @@ local default = {
 	}
 }
 
-local module = 'quests'
+local function GetQuestInfo(questLogIndex)
+	if not PermoksAccountManager.isRetail then
+		local title, _, _, isHeader, _, _, frequency, questID, _, _, _, _, _, _, _, isHidden = GetQuestLogTitle(questLogIndex)
+		return { title = title, isHeader = isHeader, frequency = frequency, isHidden = isHidden, questID = questID }
+	else
+		return C_QuestLog.GetInfo and C_QuestLog.GetInfo(questLogIndex)
+	end
+end
+
 local labelRows = {
 	korthia_dailies = {
 		IDs = {63775,63776,63777,63778,63779,63780,63781,63782,63783,63784,63785,63786,63787,63788,63789,63790,63791,63792,63793,63794,63934,63935,63936,63937,63950,63954,63955,63956,63957,63958,63959,63960,63961,63962,63963,63964,63965,63989,64015,64016,64017,64043,64065,64070,64080,64089,64101,64103,64104,64129,64166,64194,64432},
@@ -1336,65 +1345,44 @@ local labelRows = {
 	},
 }
 
-local function UpdateCataDailies(charInfo)
+local function GetPayload(labelRows)
+	local payload = {
+		labels = labelRows,
+		events = {
+			['QUEST_ACCEPTED'] = "AddQuest",
+			['QUEST_TURNED_IN'] = "UpdateQuest",
+			['QUEST_REMOVED'] = "RemoveQuest",
+			['QUEST_LOG_UPDATE'] = {"HiddenQuestTimer"}, 
+		},
+		share = {
+			["HiddenQuestTimer"] = 'questInfo',
+			["UpdateQuest"] = 'questInfo'
+		}
+	}
+	
+	if PermoksAccountManager.isCata then
+		tinsert(payload.events.QUEST_LOG_UPDATE, "UpdateCataDailies")
+	end
+
+	return payload
+end
+
+-- Quest Module
+local Module = PermoksAccountManager:AddModule('quests', GetPayload(labelRows))
+
+function Module:UpdateCataDailies(charInfo)
 	charInfo.completedDailies = charInfo.completedDailies or { num = 0 }
 	charInfo.completedDailies.num = GetDailyQuestsCompleted()
 end
 
-local function GetQuestInfo(questLogIndex)
-	if not PermoksAccountManager.isRetail then
-		local title, _, _, isHeader, _, _, frequency, questID, _, _, _, _, _, _, _, isHidden = GetQuestLogTitle(questLogIndex)
-		return { title = title, isHeader = isHeader, frequency = frequency, isHidden = isHidden, questID = questID }
-	else
-		return C_QuestLog.GetInfo and C_QuestLog.GetInfo(questLogIndex)
-	end
-end
-
-local function UpdateAllQuests(charInfo)
-	local self = PermoksAccountManager
+function Module:UpdateAllQuests(charInfo)
 	charInfo.questInfo = charInfo.questInfo or default
 
-	local covenant = self.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
+	local covenant = PermoksAccountManager.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
 	local questInfo = charInfo.questInfo
-	for key, quests in pairs(self.quests) do
-		for questID, info in pairs(quests) do
-			local visibleType = info.log and 'visible' or 'hidden'
-
-			questInfo[info.questType] = questInfo[info.questType] or {}
-			questInfo[info.questType][visibleType] = questInfo[info.questType][visibleType] or {}
-			questInfo[info.questType][visibleType][key] = questInfo[info.questType][visibleType][key] or {}
-			local currentQuestInfo = questInfo[info.questType][visibleType][key]
-			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
-
-			if not self.isBC then
-				if info.covenant and covenant == info.covenant then
-					local sanctumTier
-					if info.sanctum and charInfo.sanctumInfo then
-						sanctumTier = charInfo.sanctumInfo[info.sanctum] and charInfo.sanctumInfo[info.sanctum].tier or 0
-						questInfo['max' .. key] = max(1, sanctumTier)
-					end
-
-					if not info.sanctum or (sanctumTier and sanctumTier >= info.minSanctumTier) then
-						currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
-					end
-				elseif not info.covenant then
-					currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
-				end
-			else
-				currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
-			end
-		end
-	end
-end
-
-local function UpdateAllQuestsNew(charInfo)
-	local self = PermoksAccountManager
-	charInfo.questInfo = charInfo.questInfo or default
-
-	local covenant = self.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
-	local questInfo = charInfo.questInfo
-	for key, info in pairs(self.quest) do
-		for _, questID in ipairs(info.IDs) do
+	for questID, key in pairs(self.IDs.quest) do
+		local info = labelRows[key]
+		if info then
 			local questType = info.questType
 			local visibility = info.visibility
 
@@ -1404,7 +1392,7 @@ local function UpdateAllQuestsNew(charInfo)
 			local currentQuestInfo = questInfo[questType][visibility][key]
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 
-			if not self.isBC then
+			if not PermoksAccountManager.isBC then
 				if info.covenant and covenant == info.covenant then
 					local sanctumTier
 					if info.sanctum and charInfo.sanctumInfo then
@@ -1425,18 +1413,18 @@ local function UpdateAllQuestsNew(charInfo)
 	end
 end
 
-local function UpdateAllHiddenQuests(charInfo)
-	local self = PermoksAccountManager
+function Module:UpdateAllHiddenQuests(charInfo)
 	if not charInfo.questInfo then
-		UpdateAllQuestsNew(charInfo)
+		self:UpdateAllQuests(charInfo)
 	end
+
 	self:Debug('Update Hidden Quests')
 
 	for questType, keys in pairs(charInfo.questInfo) do
 		if type(keys) == 'table' and keys.hidden then
 			for key, _ in pairs(keys.hidden) do
-				if self.quests[key] then
-					for questID, questData in pairs(self.quests[key]) do
+				if self.quest[key] then
+					for questID, questData in pairs(self.quest[key]) do
 						local isComplete = charInfo.questInfo[questType].hidden[key][questID]
 						if not isComplete or questData.forceUpdate then
 							isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
@@ -1449,111 +1437,85 @@ local function UpdateAllHiddenQuests(charInfo)
 	end
 end
 
-local HiddenQuestTimer
-do
-	local timer
-	function HiddenQuestTimer(charInfo)
-		if not timer then
-			local function HiddenQuestTimerCallback()
-				UpdateAllHiddenQuests(charInfo)
-				timer = nil
-			end
 
-			timer = C_Timer.NewTimer(1, HiddenQuestTimerCallback)
+function Module:HiddenQuestTimer(charInfo)
+	if not timer then
+		local function HiddenQuestTimerCallback()
+			Module:UpdateAllHiddenQuests(charInfo)
+			timer = nil
 		end
+
+		timer = C_Timer.NewTimer(1, HiddenQuestTimerCallback)
 	end
 end
 
-local function AddQuest(_, questID, questLogIndex, questInfo)
-	local self = PermoksAccountManager
+function Module:AddQuest(_, questID, questLogIndex, questInfo)
 	local questLogIndex = questLogIndex or
-		(self.isBC and GetQuestLogIndexByID(questID) or C_QuestLog.GetLogIndexForQuestID(questID))
+		(PermoksAccountManager.isBC and GetQuestLogIndexByID(questID) or C_QuestLog.GetLogIndexForQuestID(questID))
 	if questLogIndex then
 		local questInfo = questInfo or GetQuestInfo(questLogIndex)
-		self.db.global.quests[questID] = { frequency = questInfo.frequency, name = questInfo.title }
+		PermoksAccountManager.db.global.quests[questID] = { frequency = questInfo.frequency, name = questInfo.title }
 	end
 end
 
-local function RemoveQuest(_, questID)
+function Module:RemoveQuest(_, questID)
 	if questID then
 		PermoksAccountManager.db.global.quests[questID] = nil
 	end
 end
 
-local function UpdateCurrentlyActiveQuests(charInfo)
+function Module:UpdateCurrentlyActiveQuests(charInfo)
 	local numQuests = C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetNumQuestLogEntries() or GetNumQuestLogEntries()
 	local info
 	for questLogIndex = 1, numQuests do
 		info = GetQuestInfo(questLogIndex)
 		if info and not info.isHeader and not info.isHidden then
-			AddQuest(charInfo, info.questID, questLogIndex, info)
+			self:AddQuest(charInfo, info.questID, questLogIndex, info)
 		end
 	end
 end
 
-local function UpdateQuest(charInfo, questID)
+function Module:UpdateQuest(charInfo, questID)
 	if not questID then
 		return
 	end
 
-	local self = PermoksAccountManager
 	if not charInfo.questInfo then
 		UpdateAllQuestsNew(charInfo)
 	end
 
-	if self.isCata then
-		UpdateCataDailies(charInfo)
+	if PermoksAccountManager.isCata then
+		self:UpdateCataDailies(charInfo)
 	end
 
-	local key = self:FindQuestKeyByQuestID(questID)
+	local key = PermoksAccountManager:FindQuestKeyByQuestID(questID)
 	if not key then
 		return
 	end
 
-	local questInfo = self.quests[key][questID]
+	local questInfo = self.quest[key][questID]
 	local questType, visibility = questInfo.questType, questInfo.log and 'visible' or 'hidden'
-	self:Debug('Update', questType, visibility, key, questID)
+	PermoksAccountManager:Debug('Update', questType, visibility, key, questID)
 	if questType and visibility and key and charInfo.questInfo[questType][visibility][key] then
-		if self.isCata and questType == 'daily' then
-			UpdateCataDailies(charInfo)
+		if PermoksAccountManager.isCata and questType == 'daily' then
+			self:UpdateCataDailies(charInfo)
 		end
 
 		charInfo.questInfo[questType][visibility][key][questID] = true
-		RemoveQuest(charInfo, questID)
+		self:RemoveQuest(charInfo, questID)
 	end
 end
 
-local function Update(charInfo)
-	UpdateAllQuestsNew(charInfo)
-	UpdateCurrentlyActiveQuests(charInfo)
-	UpdateCataDailies(charInfo)
+function Module:Update(charInfo)
+	self:UpdateAllQuests(charInfo)
+	self:UpdateCurrentlyActiveQuests(charInfo)
+	self:UpdateCataDailies(charInfo)
 end
 
-do
-	local payload = {
-		update = Update,
-		labels = labelRows,
-		events = {
-			['QUEST_ACCEPTED'] = AddQuest,
-			['QUEST_TURNED_IN'] = UpdateQuest,
-			['QUEST_REMOVED'] = RemoveQuest,
-			['QUEST_LOG_UPDATE'] = {HiddenQuestTimer}, 
-		},
-		share = {
-			[HiddenQuestTimer] = 'questInfo',
-			[UpdateQuest] = 'questInfo'
-		}
-	}
 
-	if PermoksAccountManager.isCata then
-		tinsert(payload.events.QUEST_LOG_UPDATE, UpdateCataDailies)
-	end
-
-	PermoksAccountManager:AddModule(module, payload)
-end
 
 function PermoksAccountManager:FindQuestKeyByQuestID(questID)
-	for key, quests in pairs(self.quests) do
+	for key, quests in pairs(self.quest) do
 		if quests[questID] then
 			return key
 		end

@@ -6,11 +6,11 @@ function ModuleMixin:Init(moduleName, payload)
     self.name = moduleName
     self.events = payload.events
     self.share = payload.share
-    self.update = payload.update
     self.payload = payload
     self.forceLabelUpdate = {}
     self.labelFunctions = {}
     self.labelArgs = {}
+    self.IDs = {}
 end
 
 ---Adds a custom label type
@@ -78,14 +78,19 @@ local function SetEventScript(charInfo)
     )
 end
 
-local function AddIDsToDatabase(row, key)
+local function AddIDsToDatabase(module, row, key)
     if not row or not row.IDs then return end
     key = row.key or key
 
-    PermoksAccountManager[row.type] = PermoksAccountManager[row.type] or {}
+    if not row.IDs and row.customIDs and row.customData then
+        row.IDs = row.customIDs(row.customData)
+    end
 
-    local typeRows = PermoksAccountManager[row.type]
-    typeRows[key] = row
+    local ID
+    for i=1, #row.IDs do
+        ID = row.IDs[i]
+        module.IDs[row.type][ID] = key
+    end
 end
 
 local function AddLabelRows(module, rows)
@@ -94,15 +99,24 @@ local function AddLabelRows(module, rows)
     end
 
     for row_identifier, row in pairs(rows) do
-        if row.version == false or row.version == WOW_PROJECT_ID then
+        if row.version == false or row.version == WOW_PROJECT_ID and row.type then
             if enums[row_identifier] then
                 PermoksAccountManager:Print("Identifier already in use:", row_identifier, "by", enums[row_identifier].name)
             else
-                AddIDsToDatabase(row, row_identifier)
+                module.IDs[row.type] = module.IDs[row.type] or {}
+                AddIDsToDatabase(module, row, row_identifier)
                 PermoksAccountManager.labelRows[row_identifier] = row
                 enums[row_identifier] = module
             end
         end
+    end
+end
+
+local function CallFunction(module, func, charInfo, ...)
+    func(module, charInfo, ...)
+
+    if module.share and module.share[func] then
+        PermoksAccountManager:SendCharacterUpdate(module.share[func])
     end
 end
 
@@ -112,14 +126,24 @@ local function RegisterModuleEvent(event)
     end
 
     functions[event] = function(charInfo, ...)
-        for func, shareKey in pairs(events[event]) do
-            func(charInfo, ...)
-
-            if shareKey then
-                PermoksAccountManager:SendCharacterUpdate(shareKey)
+        for i, module in ipairs(events[event]) do
+            if type(module.events[event]) == "table" then
+                for _, functionName in ipairs(module.events[event]) do
+                    if type(functionName) == "string" and module[functionName] then
+                        CallFunction(module, module[functionName], charInfo, ...)
+                    -- for backwards compatibility (for now)
+                    elseif type(functionName) == "function" then
+                        CallFunction(module, functionName, charInfo, ...)
+                    end
+                end
+            elseif type(module.events[event]) == "string" and module.events[event] then
+                CallFunction(module, module.events[event], charInfo, ...)
+            elseif type(module.events[event]) == "function" then
+                CallFunction(module, module.events[event], charInfo, ...)
             end
         end
     end
+
     pcall(
         function()
             modulesEventFrame:RegisterEvent(event)
@@ -127,21 +151,15 @@ local function RegisterModuleEvent(event)
     )
 end
 
-local function AddEvents(moduleEvents, share)
+local function AddEvents(module)
+    local moduleEvents = module.events
     if not moduleEvents then
         return
     end
 
     for event, v in pairs(moduleEvents) do
         events[event] = events[event] or {}
-
-        if type(v) == 'table' then
-            for _, func in pairs(v) do
-                events[event][func] = share and share[func] or false
-            end
-        else
-            events[event][v] = share and share[v] or false
-        end
+        tinsert(events[event], module)
 
         RegisterModuleEvent(event)
     end
@@ -192,10 +210,10 @@ function PermoksAccountManager:LoadModule(moduleName, module)
         return
     end
 
-    AddEvents(module.events, module.share)
+    AddEvents(module)
 
-    if self.charInfo then
-        module.update(self.charInfo)
+    if self.charInfo and module.Update then
+        module:Update(self.charInfo)
     end
 end
 
