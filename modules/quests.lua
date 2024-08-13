@@ -1495,13 +1495,13 @@ function Module:UpdateQuest(charInfo, questID)
 		self:UpdateCataDailies(charInfo)
 	end
 
-	local key = PermoksAccountManager:FindQuestKeyByQuestID(questID)
+	local key = self:FindQuestKeyByQuestID(questID)
 	if not key then
 		return
 	end
 
-	local questInfo = self.quest[key][questID]
-	local questType, visibility = questInfo.questType, questInfo.log and 'visible' or 'hidden'
+	local questInfo = labelRows[key]
+	local questType, visibility = questInfo.questType, questInfo.visibility
 	PermoksAccountManager:Debug('Update', questType, visibility, key, questID)
 	if questType and visibility and key and charInfo.questInfo[questType][visibility][key] then
 		if PermoksAccountManager.isCata and questType == 'daily' then
