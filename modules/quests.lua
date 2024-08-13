@@ -917,18 +917,18 @@ local labelRows = {
 		label = 'The Big Dig',
 		type = 'quest',
 		questType = 'weekly',
-		warband = true,
+		warbandReward = true,
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
 
 	-- 11.0 PREPATCH
-	radiant_echoes_prepatch_daylies = {
-		label = 'Prepatch Daylies',
+	radiant_echoes_prepatch_dailies = {
+		label = 'Prepatch Dailies',
 		type = 'quest',
 		questType = 'daily',
-		warband = 'unique',
+		warbandReward = 'unique',
 		visibility = 'visible',
 		tooltip = true,
 		customTooltip = function(...)
@@ -1165,18 +1165,29 @@ local function UpdateAllQuests(charInfo)
 	local warbandQuestInfo = self.warbandData.questInfo
 	for key, quests in pairs(self.quests) do
 		for questID, info in pairs(quests) do
-			local currentQuestInfo = setQuestInfo(questInfo, info, key)
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
+			local currentQuestInfo = setQuestInfo(questInfo, info, key)
+
+			--debug line delete later
+			if isComplete then
+				print(questID .. ' completed: ' .. tostring(isComplete))
+			end
+			
 
 			if not self.isBC then
 
 				-- check for weekly Warband Rewards
 				if info.warbandReward then
                     local currentWarbandQuestInfo = setQuestInfo(warbandQuestInfo, info, key)
-                    local isWarbandComplete = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
+
+					-- API CURRENTLY NOT FUNCTIONING AS INTENDED
+                    -- local isWarbandComplete = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
+					-- Workaround, but requires login on character that completed the quest:
+					local isWarbandComplete = isComplete
                     currentWarbandQuestInfo[questID] = currentWarbandQuestInfo[questID] or isWarbandComplete or nil
+
 					--debug line delete later
-					print(C_QuestLog.GetTitleForQuestID(questID) .. ' completed: ' .. tostring(isWarbandComplete))
+					print(questID .. ' Warband completed: ' .. tostring(isWarbandComplete))
 				end
 
 				-- covenant stuff

@@ -766,10 +766,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     end
 
     if oldInternalVersion < 33 then
-        self:AddLabelToDefaultCategory('general', 'whelpling_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'drake_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'wyrm_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'aspect_crest_s4')
+        self:AddLabelToDefaultCategory('general', 'champion_crest')
+        self:AddLabelToDefaultCategory('general', 'veteran_crest')
+        self:AddLabelToDefaultCategory('general', 'hero_crest')
+        self:AddLabelToDefaultCategory('general', 'myth_crest')
         self:AddLabelToDefaultCategory('general', 'spark_awakening', 15)
         self:AddLabelToDefaultCategory('renown', 'keg_legs_crew', 7)
         self:AddLabelToDefaultCategory('renown', 'soridormi', 16)

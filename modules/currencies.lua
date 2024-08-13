@@ -211,34 +211,6 @@ local labelRows = {
 	},
 
     --10.1
-    whelpling_crest_earned = {
-        label = 'Whelpling earned',
-		type = 'currency',
-		key = 2409,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-    },
-    drake_crest_earned = {
-        label = 'Drake earned',
-		type = 'currency',
-		key = 2410,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-    },
-    wyrm_crest_earned = {
-        label = 'Wyrm earned',
-		type = 'currency',
-		key = 2411,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-    },
-    aspect_crest_earned = {
-        label = 'Aspect earned',
-		type = 'currency',
-		key = 2412,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-    },
     flightstones = {
         label = 'Flightstones',
 		type = 'currency',
@@ -259,38 +231,6 @@ local labelRows = {
     },
 
     -- 10.2
-    whelpling_crest_s3 = {
-        label = 'Whelpling Crests',
-        type = 'crestcurrency',
-        key = 2706,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    drake_crest_s3 = {
-        label = 'Drake Crests',
-        type = 'crestcurrency',
-        key = 2707,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    wyrm_crest_s3 = {
-        label = 'Wyrm Crests',
-        type = 'crestcurrency',
-        key = 2708,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    aspect_crest_s3 = {
-        label = 'Aspect Crests',
-        type = 'crestcurrency',
-        key = 2709,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
     emerald_dewdrop = {
         label = 'Emerald Dewdrop',
         type = 'currency',
@@ -317,7 +257,7 @@ local labelRows = {
     },
 
     -- 10.2.7
-    whelpling_crest_s4 = {
+    champion_crest = {
         label = 'Whelpling Crests',
         type = 'crestcurrency',
         key = 2806,
@@ -325,7 +265,7 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    drake_crest_s4 = {
+    veteran_crest = {
         label = 'Drake Crests',
         type = 'crestcurrency',
         key = 2807,
@@ -333,7 +273,7 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    wyrm_crest_s4 = {
+    hero_crest = {
         label = 'Wyrm Crests',
         type = 'crestcurrency',
         key = 2809,
@@ -341,7 +281,7 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    aspect_crest_s4 = {
+    myth_crest = {
         label = 'Aspect Crests',
         type = 'crestcurrency',
         key = 2812,
@@ -562,7 +502,7 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     end
         
     -- Update Warband amount
-    if self.isRetail and C_CurrencyInfo.IsAccountTransferableCurrency(currencyType) then
+    if self.warbandData.currencyInfo and C_CurrencyInfo.IsAccountTransferableCurrency(currencyType) then
         local warbandCurrencyInfo = self.warbandData.currencyInfo
         warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + quantity
     end
@@ -629,7 +569,7 @@ local function CreateCrestString(labelRow, currencyInfo)
         elseif currencyInfo then
             return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.tabbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
-    -- making a global reference here, maybe theres a better solution?
+    -- manually exclcluding crests for the warband column. need a better solution what labelRows the Warband column shows
     elseif currencyInfo and currencyInfo ~= self.warbandData.currencyInfo then
         return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
     else
