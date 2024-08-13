@@ -1370,6 +1370,12 @@ end
 -- Quest Module
 local Module = PermoksAccountManager:AddModule('quests', GetPayload(labelRows))
 
+function Module:Update(charInfo)
+	self:UpdateAllQuests(charInfo)
+	self:UpdateCurrentlyActiveQuests(charInfo)
+	self:UpdateCataDailies(charInfo)
+end
+
 function Module:UpdateCataDailies(charInfo)
 	charInfo.completedDailies = charInfo.completedDailies or { num = 0 }
 	charInfo.completedDailies.num = GetDailyQuestsCompleted()
@@ -1418,15 +1424,17 @@ function Module:UpdateAllHiddenQuests(charInfo)
 		self:UpdateAllQuests(charInfo)
 	end
 
-	self:Debug('Update Hidden Quests')
+	PermoksAccountManager:Debug('Update Hidden Quests')
 
 	for questType, keys in pairs(charInfo.questInfo) do
 		if type(keys) == 'table' and keys.hidden then
 			for key, _ in pairs(keys.hidden) do
-				if self.quest[key] then
-					for questID, questData in pairs(self.quest[key]) do
+				local row = labelRows[key]
+				if row and row.IDs then
+					-- the IDs key will be populated by the module class if it doesn't exist and a 'customIDs' function exists
+					for _,  questID in ipairs(row.IDs) do
 						local isComplete = charInfo.questInfo[questType].hidden[key][questID]
-						if not isComplete or questData.forceUpdate then
+						if not isComplete or row.forceUpdate then
 							isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 						end
 						charInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
@@ -1436,7 +1444,6 @@ function Module:UpdateAllHiddenQuests(charInfo)
 		end
 	end
 end
-
 
 function Module:HiddenQuestTimer(charInfo)
 	if not timer then
@@ -1505,14 +1512,6 @@ function Module:UpdateQuest(charInfo, questID)
 		self:RemoveQuest(charInfo, questID)
 	end
 end
-
-function Module:Update(charInfo)
-	self:UpdateAllQuests(charInfo)
-	self:UpdateCurrentlyActiveQuests(charInfo)
-	self:UpdateCataDailies(charInfo)
-end
-
-
 
 function PermoksAccountManager:FindQuestKeyByQuestID(questID)
 	for key, quests in pairs(self.quest) do

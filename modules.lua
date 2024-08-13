@@ -10,6 +10,7 @@ function ModuleMixin:Init(moduleName, payload)
     self.forceLabelUpdate = {}
     self.labelFunctions = {}
     self.labelArgs = {}
+    self.loadedLabelRows = {}
     self.IDs = {}
 end
 
@@ -103,6 +104,7 @@ local function AddLabelRows(module, rows)
             if enums[row_identifier] then
                 PermoksAccountManager:Print("Identifier already in use:", row_identifier, "by", enums[row_identifier].name)
             else
+                module.loadedLabelRows[row_identifier] = true
                 module.IDs[row.type] = module.IDs[row.type] or {}
                 AddIDsToDatabase(module, row, row_identifier)
                 PermoksAccountManager.labelRows[row_identifier] = row
@@ -137,7 +139,7 @@ local function RegisterModuleEvent(event)
                     end
                 end
             elseif type(module.events[event]) == "string" and module.events[event] then
-                CallFunction(module, module.events[event], charInfo, ...)
+                CallFunction(module, module[module.events[event]], charInfo, ...)
             elseif type(module.events[event]) == "function" then
                 CallFunction(module, module.events[event], charInfo, ...)
             end
