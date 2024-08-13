@@ -567,7 +567,7 @@ local function CreateCrestString(labelRow, currencyInfo)
             local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
             return string.format("%d - %s", crestInfo.quantity, currencyString)
         elseif currencyInfo then
-            return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.tabbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
+            return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
     -- manually exclcluding crests for the warband column. need a better solution what labelRows the Warband column shows
     elseif currencyInfo and currencyInfo ~= self.warbandData.currencyInfo then
