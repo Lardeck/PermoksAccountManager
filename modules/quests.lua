@@ -1513,31 +1513,8 @@ function Module:UpdateQuest(charInfo, questID)
 	end
 end
 
-function PermoksAccountManager:FindQuestKeyByQuestID(questID)
-	for key, quests in pairs(self.quest) do
-		if quests[questID] then
-			return key
-		end
-	end
-end
-
-function PermoksAccountManager:FindQuestByQuestID(questID)
-	local resetKey, key
-	if self.db.global.quests[questID] then
-		local questInfo = self.db.global.quests[questID]
-		resetKey = frequencyNames[questInfo.frequency]
-		if self.quests[resetKey] then
-			key = self.quests[resetKey][questID]
-		end
-	else
-		for reset, quests in pairs(self.quests) do
-			if quests[questID] then
-				return reset, quests[questID].key
-			end
-		end
-	end
-
-	return resetKey, key
+function Module:FindQuestKeyByQuestID(questID)
+	return self.IDs.quest[questID]
 end
 
 function PermoksAccountManager:GetNumCompletedQuests(questInfo)
