@@ -9,6 +9,7 @@ local labelRows = {
 		hideLabel = true,
 		label = L['Name'],
 		hideOption = true,
+		warband = true,
 		big = true,
 		offset = 1.5,
 		type = 'characterName',

@@ -357,7 +357,7 @@ local labelRows = {
         key = 3089,
         passRow = true,
         group = 'currency',
-        warband = true,
+        warband = 'unique',
         version = WOW_PROJECT_MAINLINE
     },
 
