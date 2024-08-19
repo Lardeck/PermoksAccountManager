@@ -19,6 +19,7 @@ end
 ---@param alwaysForceUpdate boolean
 ---@param ... string
 function ModuleMixin:AddCustomLabelType(customType, callback, alwaysForceUpdate, ...)
+    -- additional varargs can be any table present in altData
     if self.labelFunctions[customType] then
         PermoksAccountManager:Print(string.format('[%s] - Custom Type [%s] already exists.', self.name, customType))
         return

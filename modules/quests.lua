@@ -913,9 +913,52 @@ local labelRows = {
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	},
+	big_dig = {
+		label = 'The Big Dig',
+		type = 'quest',
+		questType = 'weekly',
+		warbandReward = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
 	-- 11.0 PREPATCH
-	radiant_echoes_prepatch_weeklies = {
-		label = 'Radiant Echoes Weeklies',
+	radiant_echoes_prepatch_dailies = {
+		label = 'Prepatch Dailies',
+		type = 'quest',
+		questType = 'daily',
+		warbandReward = 'unique',
+		visibility = 'visible',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 3,
+		group = 'resetDaily',
+		version = WOW_PROJECT_MAINLINE
+	},
+	radiant_echoes_cache = {
+		label = 'Prepatch Weekly Cache',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
+	-- 11.0
+	spreading_the_light = {
+		label = 'Spreading the Light',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
+	lesser_keyflame_weeklies = {
+		label = 'Lesser Keyflame Weeklies',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
@@ -923,7 +966,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 3,
+		required = 8,
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1102,23 +1145,52 @@ local function GetQuestInfo(questLogIndex)
 	end
 end
 
+local function setQuestInfo(questInfo, info, key)
+	local visibleType = info.log and 'visible' or 'hidden'
+
+	questInfo[info.questType] = questInfo[info.questType] or {}
+	questInfo[info.questType][visibleType] = questInfo[info.questType][visibleType] or {}
+	questInfo[info.questType][visibleType][key] = questInfo[info.questType][visibleType][key] or {}
+	return questInfo[info.questType][visibleType][key]
+end
+
 local function UpdateAllQuests(charInfo)
 	local self = PermoksAccountManager
-	charInfo.questInfo = charInfo.questInfo or default
+	charInfo.questInfo = charInfo.questInfo or CopyTable(default)
+	self.warbandData.questInfo = self.isRetail and (self.warbandData.questInfo or CopyTable(default))
 
 	local covenant = self.isRetail and (charInfo.covenant or C_Covenants.GetActiveCovenantID())
+
 	local questInfo = charInfo.questInfo
+	local warbandQuestInfo = self.warbandData.questInfo
 	for key, quests in pairs(self.quests) do
 		for questID, info in pairs(quests) do
-			local visibleType = info.log and 'visible' or 'hidden'
-
-			questInfo[info.questType] = questInfo[info.questType] or {}
-			questInfo[info.questType][visibleType] = questInfo[info.questType][visibleType] or {}
-			questInfo[info.questType][visibleType][key] = questInfo[info.questType][visibleType][key] or {}
-			local currentQuestInfo = questInfo[info.questType][visibleType][key]
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
+			local currentQuestInfo = setQuestInfo(questInfo, info, key)
+
+			--debug line delete later
+			if isComplete then
+				print(questID .. ' completed: ' .. tostring(isComplete))
+			end
+			
 
 			if not self.isBC then
+
+				-- check for weekly Warband Rewards
+				if info.warbandReward then
+                    local currentWarbandQuestInfo = setQuestInfo(warbandQuestInfo, info, key)
+
+					-- API CURRENTLY NOT FUNCTIONING AS INTENDED
+                    -- local isWarbandComplete = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
+					-- Workaround, but requires login on character that completed the quest:
+					local isWarbandComplete = isComplete
+                    currentWarbandQuestInfo[questID] = currentWarbandQuestInfo[questID] or isWarbandComplete or nil
+
+					--debug line delete later
+					print(questID .. ' Warband completed: ' .. tostring(isWarbandComplete))
+				end
+
+				-- covenant stuff
 				if info.covenant and covenant == info.covenant then
 					local sanctumTier
 					if info.sanctum and charInfo.sanctumInfo then
@@ -1129,6 +1201,7 @@ local function UpdateAllQuests(charInfo)
 					if not info.sanctum or (sanctumTier and sanctumTier >= info.minSanctumTier) then
 						currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
 					end
+
 				elseif not info.covenant then
 					currentQuestInfo[questID] = currentQuestInfo[questID] or isComplete or nil
 				end
@@ -1237,6 +1310,7 @@ local function UpdateQuest(charInfo, questID)
 	end
 end
 
+-- module init
 local function Update(charInfo)
 	UpdateAllQuests(charInfo)
 	UpdateCurrentlyActiveQuests(charInfo)
@@ -1264,6 +1338,10 @@ do
 	end
 
 	PermoksAccountManager:AddModule(module, payload)
+end
+
+if PermoksAccountManager.isCata then
+	tinsert(payload.events.QUEST_LOG_UPDATE, UpdateCataDailies)
 end
 
 function PermoksAccountManager:FindQuestKeyByQuestID(questID)

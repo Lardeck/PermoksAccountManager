@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALVERSION = 34
+local INTERNALVERSION = 33
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -57,7 +57,7 @@ local defaultDB = {
 
 				},
                 warbandData = {
-                    name = 'Warband (NYI)'
+                    name = 'Warband'
                 },
                 pages = {}
             }
@@ -98,7 +98,7 @@ local defaultDB = {
             },
             font = 'Expressway',
             fontSize = 11,
-            hideWarband = true,
+            hideWarband = false,
             savePosition = false,
             showOptionsButton = false,
             showGuildAttunementButton = false,
@@ -766,10 +766,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     end
 
     if oldInternalVersion < 33 then
-        self:AddLabelToDefaultCategory('general', 'whelpling_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'drake_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'wyrm_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'aspect_crest_s4')
+        self:AddLabelToDefaultCategory('general', 'champion_crest')
+        self:AddLabelToDefaultCategory('general', 'veteran_crest')
+        self:AddLabelToDefaultCategory('general', 'hero_crest')
+        self:AddLabelToDefaultCategory('general', 'myth_crest')
         self:AddLabelToDefaultCategory('general', 'spark_awakening', 15)
         self:AddLabelToDefaultCategory('renown', 'keg_legs_crew', 7)
         self:AddLabelToDefaultCategory('renown', 'soridormi', 16)
@@ -777,7 +777,9 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 34 then
         self:AddLabelToDefaultCategory('general', 'residual_memories')
-        self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_weeklies')
+        self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_daylies')
+        self:AddLabelToDefaultCategory('general', 'radiant_echoes_cache')
+        self:AddLabelToDefaultCategory('currentweekly', 'big_dig', 16)
     end
 end
 
@@ -929,6 +931,7 @@ function PermoksAccountManager:OnLogin()
     LoadFonts()
 
     self.account = db.accounts.main
+    self.warbandData = db.accounts.main.warbandData
     local data = self.account.data
     if guid and not data[guid] and not self:isBlacklisted(guid) and not (level < min_level) then
         db.alts = db.alts + 1
@@ -980,6 +983,7 @@ function PermoksAccountManager:CheckForReset()
 
     for account, accountData in pairs(db.accounts) do
         self:ResetAccount(db, accountData, resetDaily, resetWeekly, resetBiweekly, resetThreeDayRaids)
+        self:ResetWarband(db, accountData, resetDaily, resetWeekly, resetBiweekly)
     end
 
     db.weeklyReset = resetWeekly and currentTime + self:GetNextWeeklyResetTime() or db.weeklyReset
@@ -1007,6 +1011,21 @@ function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biwe
         if resetThreeDayRaids then
             self:ResetThreeDayRaids(altData)
         end
+    end
+end
+
+function PermoksAccountManager:ResetWarband(db, accountData, daily, weekly, biweekly)
+    local warbandData = accountData.warbandData
+    if weekly then
+        self:ResetWeeklyActivities(warbandData)
+    end
+
+    if daily then
+        self:ResetDailyActivities(db, warbandData)
+    end
+
+    if biweekly then
+        self:ResetBiweeklyActivities(warbandData)
     end
 end
 

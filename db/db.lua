@@ -14,15 +14,14 @@ local default_categories = {
             'mplus_score',
             'catalyst_charges',
             'flightstones',
-            'whelpling_crest_s4',
-            'drake_crest_s4',
-            'wyrm_crest_s4',
-            'aspect_crest_s4',
+            'champion_crest',
+            'veteran_crest',
+            'hero_crest',
+            'myth_crest',
             'spark_awakening',
             'residual_memories',
-            'radiant_echoes_prepatch_weeklies',
-            
-
+            'radiant_echoes_prepatch_dailies',
+            'radiant_echoes_cache',
         },
         childOrder = {
             characterName = 1,
@@ -33,15 +32,14 @@ local default_categories = {
             mplus_score = 6,
             catalyst_charges = 7,
             flightstones = 8,
-            whelpling_crest_s4 = 9,
-            drake_crest_s4 = 10,
-            wyrm_crest_s4 = 11,
-            aspect_crest_s4 = 12,
+            champion_crest = 9,
+            veteran_crest = 10,
+            hero_crest = 11,
+            myth_crest = 12,
             spark_awakening = 13,
             residual_memories = 14,
-            radiant_echoes_prepatch_weeklies = 15,
-
-
+            radiant_echoes_prepatch_dailies = 15,
+            radiant_echoes_cache = 16,
         },
         hideToggle = true,
         enabled = true
@@ -69,14 +67,7 @@ local default_categories = {
             'time_rift',
             'dreamsurge_weekly',
             'sparks_of_life',
-            'separator3',
-            'knowledge_mobs',
-            'knowledge_scout_packs',
-            'knowledge_treatise',
-            'knowledge_weeklies_loot',
-            'knowledge_weeklies_craft',
-            'knowledge_weeklies_order',
-            'show_your_mettle',
+            'big_dig',
         },
         childOrder = {
             superbloom = 1,
@@ -89,14 +80,7 @@ local default_categories = {
             time_rift = 13,
             dreamsurge_weekly = 14,
             sparks_of_life = 15,
-            separator3 = 30,
-            knowledge_mobs = 31,
-            knowledge_scout_packs = 32,
-            knowledge_treatise = 33,
-            knowledge_weeklies_loot = 34,
-            knowledge_weeklies_craft = 35,
-            knowledge_weeklies_order = 36,
-            show_your_mettle = 37,
+            big_dig = 16,
         },
         enabled = true
     },
@@ -115,45 +99,48 @@ local default_categories = {
         },
         enabled = true
     },
-    renown = {
+    professions = {
         order = 4,
-        name = L['Reputation'],
+        name = L['Professions'],
         childs = {
-            'dragonscale_expedition',
-            'iskaara_tuskar',
-            'maruuk_centaur',
-            'valdrakken_akkord',
-            'loam_niffen',
-            'dream_wardens',
-            'keg_legs_crew',
-            'separator1',
-            'winterpelt_furbolg',
-            'artisan_consortium',
-            'cobalt_assembly',
-            'sabellian',
-            'wrathion',
-            'soridormi'
+            'profession1_concentration_df',
+            'profession2_concentration_df',
+            'separator3',
+            'knowledge_mobs',
+            'knowledge_scout_packs',
+            'knowledge_treatise',
+            'knowledge_weeklies_loot',
+            'knowledge_weeklies_craft',
+            'knowledge_weeklies_order',
+            'show_your_mettle',
         },
         childOrder = {
-            dragonscale_expedition = 1,
-            iskaara_tuskar = 2,
-            maruuk_centaur = 3,
-            valdrakken_akkord = 4,
-            loam_niffen = 5,
-            dream_wardens = 6,
-            keg_legs_crew = 7,
-            separator1 = 10,
+            profession1_concentration_df = 1,
+            profession2_concentration_df = 2,
+            separator3 = 30,
+            knowledge_mobs = 31,
+            knowledge_scout_packs = 32,
+            knowledge_treatise = 33,
+            knowledge_weeklies_loot = 34,
+            knowledge_weeklies_craft = 35,
+            knowledge_weeklies_order = 36,
+            show_your_mettle = 37,
+        },
+        enabled = true
+    },
+    renown = {
+        order = 5,
+        name = L['Reputation'],
+        childs = {
+            'winterpelt_furbolg',
+        },
+        childOrder = {
             winterpelt_furbolg = 11,
-            artisan_consortium = 12,
-            cobalt_assembly = 13,
-            sabellian = 14,
-            wrathion = 15,
-            soridormi = 16,
         },
         enabled = true
     },
     raid = {
-        order = 5,
+        order = 6,
         name = L['Raid'],
         childs = {
             'vault_of_the_incarnates',
@@ -168,7 +155,7 @@ local default_categories = {
         enabled = true
     },
     pvp = {
-        order = 6,
+        order = 7,
         name = L['PVP'],
         childs = {
             'conquest',
@@ -187,7 +174,7 @@ local default_categories = {
         enabled = true
     },
     old_weekly = {
-        order = 7,
+        order = 8,
         name = "Old Weekly",
         childs = {
             'forbidden_reach_weeklies',
@@ -234,7 +221,7 @@ local default_categories = {
         enabled = true,
     },
     old_daily = {
-        order = 8,
+        order = 9,
         name = "Old Daily",
         childs = {
             'community_feast',
@@ -247,7 +234,7 @@ local default_categories = {
         enabled = true,
     },
     unlocks = {
-        order = 9,
+        order = 10,
         name = 'Unlocks',
         childs = {},
         childOrder = {},
@@ -482,14 +469,6 @@ PermoksAccountManager.item = {
 	[187802] = {key = 'potCosmicHP'}, -- Cosmic HP Pot
 	[199211] = {key = 'primevalEssence'}, --Primeval Essence
     [202196] = {key = 'vaultKey'}, -- Zskera Vault Key
-    [204193] = {key = 'whelpling_crest'}, -- Whelpling Crest
-    [204194] = {key = 'aspect_crest'}, -- Aspect Crest
-    [204195] = {key = 'drake_crest'}, -- Drake Crest
-    [204196] = {key = 'wyrm_crest'}, -- Wyrm Crest
-    [204075] = {key = 'whelpling_crest'}, -- Whelpling Fragments
-    [204076] = {key = 'drake_crest'}, -- Drake Fragments
-    [204077] = {key = 'wyrm_crest'}, -- Wyrm Fragments
-    [204078] = {key = 'aspect_crest'}, -- Aspect Fragments
     [190453] = {key = 'spark_ingenuity'}, -- Spark of Ingenuity
     [199197] = {key = 'spark_ingenuity'}, -- Bottled Essence
     [204440] = {key = 'spark_shadowflame'}, -- Spark of Shadowflame
@@ -534,7 +513,8 @@ PermoksAccountManager.factions = {
     [2564] = {name = 'Loamm Niffen', paragon = true, type = 'renown'},
     [2568] = {name = 'Glimmerogg Racer'},
     [2574] = {name = 'Dream Wardens', paragonn = true, type = 'renown'},
-    [2593] = {name = 'Keg Leg\'s Crew', type = 'renown'}
+    [2593] = {name = 'Keg Leg\'s Crew', type = 'renown'},
+    [2590] = {name = 'Council of Dornogal', paragonn = true, type = 'renown', accWide = true},
 }
 
 PermoksAccountManager.currency = {
@@ -549,28 +529,20 @@ PermoksAccountManager.currency = {
     [1904] = 0,
     [1906] = 0,
     [1977] = 0,
-    [1822] = 1,
+    [1822] = 1, -- Renown
     [1979] = 0,
     [2000] = 0,
-    [2003] = 0,
+    [2003] = 0, -- Dragon Isles Supplies
     [2009] = 0,
     [2118] = 0, -- Elemental Overflow
     [2122] = 0, -- Storm Sigil
     [2123] = 0, -- Bloody Tokens
     [2166] = 0, -- Renascent Lifeblood (Crucible Charges DF Season 1)
     [2245] = 0, -- Flightstones
-    [2409] = 0, -- Whelpling Crest Fragment Tracker
-    [2410] = 0, -- Drake Crest Fragment Tracker
-    [2411] = 0, -- Wyrm Crest Fragment Tracker
-    [2412] = 0, -- Aspect Crest Fragment Tracker
     [2533] = 0, -- Renascent Shadowflame (Crucible Charges DF Season 2)
     [2594] = 0, -- Paracausal Flakes
     [2650] = 0, -- Emerald Dewdrop
     [2651] = 0, -- Seedbloom
-    [2706] = 0, -- Whelpling's Dreaming Crest
-    [2707] = 0, -- Drake's Dreaming Crest
-    [2708] = 0, -- Wyrm's Dreaming Crest
-    [2709] = 0, -- Aspect's Dreaming Crest
     [2777] = 0, -- Dream Infusion
     [2796] = 0, -- Renascent Dream (Crucible Charges DF Season 3)
     [2806] = 0, -- Whelpling Awakened Crest
@@ -620,6 +592,40 @@ PermoksAccountManager.professionCDs = {
 	},
 	[L['Jewelcrafting']] = {
 	}
+}
+
+-- key is the SkillLineID of the parentProfession
+PermoksAccountManager.childProfessions = {
+    df_profession = {
+        [164] = {spellID = 365677, skillLineID = 2822}, -- Blacksmithing
+        [165] = {spellID = 366249, skillLineID = 2830}, -- Leatherworking
+        [171] = {spellID = 366261, skillLineID = 2823}, -- Alchemy
+        [182] = {spellID = 366252, skillLineID = 2832}, -- Herbalism
+        [185] = {spellID = 366256, skillLineID = 2824}, -- Cooking
+        [186] = {spellID = 366260, skillLineID = 2833}, -- Mining
+        [197] = {spellID = 366258, skillLineID = 2831}, -- Tailoring
+        [202] = {spellID = 366254, skillLineID = 2827}, -- Engineering
+        [333] = {spellID = 366255, skillLineID = 2825}, -- Enchanting
+        [356] = {spellID = 366253, skillLineID = 2826}, -- Fishing
+        [393] = {spellID = 366259, skillLineID = 2834}, -- Skinning
+        [755] = {spellID = 366250, skillLineID = 2829}, -- Jewelcrafting
+        [773] = {spellID = 366251, skillLineID = 2828}, -- Inscription
+    },
+    tww_profession = {
+        [164] = {spellID = 423332, skillLineID = 2872}, -- Blacksmithing
+        [165] = {spellID = 423340, skillLineID = 2880}, -- Leatherworking
+        [171] = {spellID = 423321, skillLineID = 2871}, -- Alchemy
+        [182] = {spellID = 441327, skillLineID = 2877}, -- Herbalism
+        [185] = {spellID = 423333, skillLineID = 2873}, -- Cooking
+        [186] = {spellID = 423341, skillLineID = 2881}, -- Mining
+        [197] = {spellID = 423343, skillLineID = 2883}, -- Tailoring
+        [202] = {spellID = 423335, skillLineID = 2875}, -- Engineering
+        [333] = {spellID = 423334, skillLineID = 2874}, -- Enchanting
+        [356] = {spellID = 423336, skillLineID = 2876}, -- Fishing
+        [393] = {spellID = 423342, skillLineID = 2882}, -- Skinning
+        [755] = {spellID = 423339, skillLineID = 2879}, -- Jewelcrafting
+        [773] = {spellID = 423338, skillLineID = 2878}, -- Inscription
+    },
 }
 
 PermoksAccountManager.quests = {
@@ -1483,13 +1489,43 @@ PermoksAccountManager.quests = {
         [47463] = {questType = 'daily', name = "Dragons of Nightmare"}, -- Dragons of Nightmare
         [60214] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
     },
+    big_dig = {
+        [79226] = {questType = 'weekly', warbandReward = true, log = true},
+    },
 
     -- 11.0 PREPATCH
-    radiant_echoes_prepatch_weeklies = {
-        [82689] = {questType = 'weekly', log = true}, --name = 'Only Darkness'},
-        [82676] = {questType = 'weekly', log = true}, --name = 'Broken Masquerade'},
-        [78938] = {questType = 'weekly', log = true}, --name = 'Champion of the Waterlords'},
-    }
+    radiant_echoes_prepatch_dailies = {
+        [82689] = {questType = 'daily', warbandReward = true, log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
+        [82676] = {questType = 'daily', warbandReward = true, log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
+        [78938] = {questType = 'daily', warbandReward = true, log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
+    },
+    radiant_echoes_cache = {
+        [84083] = {questType = 'weekly'}
+    },
+
+    -- 11.0
+    spreading_the_light = {
+        [76586] = {questType = 'weekly', log = true},
+    },
+    lesser_keyflame_weeklies = {
+        [76169] = {questType = 'weekly', log = true},
+        [76394] = {questType = 'weekly', log = true},
+        [76600] = {questType = 'weekly', log = true},
+        [76733] = {questType = 'weekly', log = true},
+        [76997] = {questType = 'weekly', log = true},
+        [78656] = {questType = 'weekly', log = true},
+        [78915] = {questType = 'weekly', log = true},
+        [78933] = {questType = 'weekly', log = true},
+        [78972] = {questType = 'weekly', log = true},
+        [79158] = {questType = 'weekly', log = true},
+        [79173] = {questType = 'weekly', log = true},
+        [79216] = {questType = 'weekly', log = true},
+        [79346] = {questType = 'weekly', log = true},
+        [80004] = {questType = 'weekly', log = true},
+        [80562] = {questType = 'weekly', log = true},
+        [81574] = {questType = 'weekly', log = true},
+        [81632] = {questType = 'weekly', log = true},        
+    },
 }
 
 PermoksAccountManager.locale = {
