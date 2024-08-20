@@ -1420,12 +1420,6 @@ local function UpdateAllQuests(charInfo)
 			local isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 			local currentQuestInfo = setQuestInfo(questInfo, info, key)
 
-			--debug line delete later
-			if isComplete then
-				print(questID .. ' completed: ' .. tostring(isComplete))
-			end
-			
-
 			if not self.isBC then
 
 				-- check for weekly Warband Rewards
@@ -1437,9 +1431,6 @@ local function UpdateAllQuests(charInfo)
 					-- Workaround, but requires login on character that completed the quest:
 					local isWarbandComplete = isComplete
                     currentWarbandQuestInfo[questID] = currentWarbandQuestInfo[questID] or isWarbandComplete or nil
-
-					--debug line delete later
-					print(questID .. ' Warband completed: ' .. tostring(isWarbandComplete))
 				end
 
 				-- covenant stuff

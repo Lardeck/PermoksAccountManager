@@ -94,7 +94,6 @@ local function UpdateChildConcentration(child)
     end
 
     local formattedDate = date("%Y-%m-%d %H:%M:%S", child.concentrationCapTime)
-    print(child.name .. ' concentration capped at ' .. formattedDate)
 end
 
 local function CalculateChildConcentration(child)
@@ -149,8 +148,6 @@ local function UpdateChildProfessionInfo(profession)
     end
 
     local concentrationInfo = C_CurrencyInfo.GetCurrencyInfo(concentration)
-
-    print('updating child: ' ..  info.professionName .. 'skillLineID ' .. profession.skillLineID)
 
     return {
         skillLineID = profession.skillLineID,
