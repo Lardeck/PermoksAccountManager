@@ -19,6 +19,9 @@ local default_categories = {
             'hero_crest',
             'myth_crest',
             'spark_awakening',
+
+            -- DF Stuff -> Remove from Default Categories
+            'separator3',
             'residual_memories',
             'radiant_echoes_prepatch_dailies',
             'radiant_echoes_cache',
@@ -37,9 +40,12 @@ local default_categories = {
             hero_crest = 11,
             myth_crest = 12,
             spark_awakening = 13,
-            residual_memories = 14,
-            radiant_echoes_prepatch_dailies = 15,
-            radiant_echoes_cache = 16,
+
+            -- DF Stuff -> Remove from Default Categories
+            separator3 = 30,
+            residual_memories = 31,
+            radiant_echoes_prepatch_dailies = 32,
+            radiant_echoes_cache = 33,
         },
         hideToggle = true,
         enabled = true
@@ -103,27 +109,33 @@ local default_categories = {
         order = 4,
         name = L['Professions'],
         childs = {
+
+            -- DF Stuff -> Remove from Default Categories
+            'separator2',
             'profession1_concentration_df',
             'profession2_concentration_df',
             'separator3',
-            'knowledge_mobs',
-            'knowledge_scout_packs',
-            'knowledge_treatise',
-            'knowledge_weeklies_loot',
-            'knowledge_weeklies_craft',
-            'knowledge_weeklies_order',
+            'knowledge_df_mobs',
+            'knowledge_df_treasures',
+            'knowledge_df_treatise',
+            'knowledge_df_weeklies_loot',
+            'knowledge_df_weeklies_craft',
+            'knowledge_df_weeklies_order',
             'show_your_mettle',
         },
         childOrder = {
-            profession1_concentration_df = 1,
-            profession2_concentration_df = 2,
+
+            -- DF Stuff -> Remove from Default Categories
+            separator2 = 20,
+            profession1_concentration_df = 21,
+            profession2_concentration_df = 22,
             separator3 = 30,
-            knowledge_mobs = 31,
-            knowledge_scout_packs = 32,
-            knowledge_treatise = 33,
-            knowledge_weeklies_loot = 34,
-            knowledge_weeklies_craft = 35,
-            knowledge_weeklies_order = 36,
+            knowledge_df_mobs = 31,
+            knowledge_df_treasures = 32,
+            knowledge_df_treatise = 33,
+            knowledge_df_weeklies_loot = 34,
+            knowledge_df_weeklies_craft = 35,
+            knowledge_df_weeklies_order = 36,
             show_your_mettle = 37,
         },
         enabled = true
@@ -143,14 +155,8 @@ local default_categories = {
         order = 6,
         name = L['Raid'],
         childs = {
-            'vault_of_the_incarnates',
-            'aberrus_the_shadowed_crucible',
-            'amirdrassil_the_dreams_hope',
         },
         childOrder = {
-            vault_of_the_incarnates = 1,
-            aberrus_the_shadowed_crucible = 2,
-            amirdrassil_the_dreams_hope = 3
         },
         enabled = true
     },
@@ -177,46 +183,10 @@ local default_categories = {
         order = 8,
         name = "Old Weekly",
         childs = {
-            'forbidden_reach_weeklies',
-            'forbidden_reach_elite_wqs',
-            'separator1',
-            'mythics_done',
-            'dragonflight_world_boss',
-            'zc_wb_wq',
-            'grand_hunts',
-            'marrukai_camp',
-            'sparks_of_life',
-            'community_feast_weekly',
-            'fish_turnins_df',
-            'separator2',
-            'trial_of_flood',
-            'trial_of_elements',
-            'trial_of_storms',
-            'separator3',
-            'dragonbane_keep_siege',
-            'dragonbane_keep_key',
-            'dragonbane_keep_weeklies',
+            'big_dig'
         },
         childOrder = {
-            forbidden_reach_weeklies = 1,
-            forbidden_reach_elite_wqs = 2,
-            separator1 = 10,
-            mythics_done = 11,
-            dragonflight_world_boss = 12,
-            zc_wb_wq = 13,
-            grand_hunts = 14,
-            marrukai_camp = 15,
-            sparks_of_life = 16,
-            community_feast_weekly = 17,
-            fish_turnins_df = 18,
-            separator2 = 20,
-            trial_of_flood = 21,
-            trial_of_elements = 22,
-            trial_of_storms = 23,
-            separator3 = 30,
-            dragonbane_keep_siege = 31,
-            dragonbane_keep_key = 32,
-            dragonbane_keep_weeklies = 33,
+            big_dig = 51,
         },
         enabled = true,
     },
@@ -224,12 +194,8 @@ local default_categories = {
         order = 9,
         name = "Old Daily",
         childs = {
-            'community_feast',
-            'iskaara_fishing_dailies',
         },
         childOrder = {
-            community_feast = 1,
-            iskaara_fishing_dailies = 2,
         },
         enabled = true,
     },
@@ -416,6 +382,17 @@ PermoksAccountManager.keys = {
     [456] = 'TOTT', -- Throne of the Tides
     [463] = 'FALL', -- Dawn of the Infinite: Galakrond's Fall
     [464] = 'RISE', -- Dawn of the Infinite: Murozond's Rise
+
+    -- PLACEHOLDER ABBREVIATIONS
+    [499] = 'PSF', -- Priory of the Sacred Flame
+    [500] = 'TR', -- The Rookery
+    [501] = 'TSV', -- The Stonevault
+    [502] = 'COT', -- City of Threads
+    [503] = 'AK', -- Ara-Kara, City of Echoes
+    [504] = 'DFC', -- Darkflame Cleft
+    [505] = 'DAWN', -- The Dawnbreaker
+    [506] = 'CIN', -- Cinderbrew Meadery
+    [507] = 'GB', -- Grim Batol
 }
 
 PermoksAccountManager.activityIDToKeys = {
@@ -435,9 +412,10 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1200, startIndex = 1, endIndex = 8},
-    [2569] = {name = GetRealZoneText(2569), englishID = 'aberrus_the_shadowed_crucible', instanceID = 1208, startIndex = 9, endIndex = 17},
-    [2549] = {name = GetRealZoneText(2549), englishID = 'amirdrassil_the_dreams_hope', instanceID = 1207, startIndex = 18, endIndex = 26},
+    [2657] = {name = GetRealZoneText(2657), englishID = 'nerub_ar_palace', instanceID = 1273, startIndex = 1, endIndex = 8},
+    --[2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1200, startIndex = 1, endIndex = 8},
+    --[2569] = {name = GetRealZoneText(2569), englishID = 'aberrus_the_shadowed_crucible', instanceID = 1208, startIndex = 9, endIndex = 17},
+    --[2549] = {name = GetRealZoneText(2549), englishID = 'amirdrassil_the_dreams_hope', instanceID = 1207, startIndex = 18, endIndex = 26},
 }
 
 PermoksAccountManager.dungeons = {
@@ -488,6 +466,18 @@ PermoksAccountManager.item = {
     [208047] = {key = 'dreamseeds'}, -- Gigantic Dreamseed
     [211515] = {key = 'spark_awakening'}, -- Splintered Spark of Awakening
     [211516] = {key = 'spark_awakening'}, -- Spark of Awakening
+
+    --- TWW items
+    [211297] = {key = 'spark_omens'}, -- Fractured Spark of Omens
+    [211296] = {key = 'spark_omens'}, -- Spark of Omens
+    [190456] = {key = 'artisans_mettle'}, -- Artisan's Mettle
+    [210814] = {key = 'artisans_acuity'}, -- Artisan's Acuity
+    [206350] = {key = 'radiant_remnant'}, -- Radiant Remnant
+    [212493] = {key = 'odd_glob_wax'}, -- Odd Glob of Wax
+    [224642] = {key = 'firelight_ruby'}, -- Firelight Ruby
+    [220693] = {key = 'coffer_key_shard'}, -- Coffer Key Shard
+
+    
 }
 
 PermoksAccountManager.factions = {
@@ -551,6 +541,16 @@ PermoksAccountManager.currency = {
     [2812] = 0, -- Aspect's Awakened Crest
     [2912] = 0, -- Renascent Awakening (Crucible Charges DF Season 4)
     [3089] = 0, -- Residual Memories (11.0 prepatch currency)
+
+    -- TWW Currencies
+    [2914] = 0, -- Weathered Harbinger Crest
+    [2915] = 0, -- Carved Harbinger Crest
+    [2916] = 0, -- Runed Harbinger Crest
+    [2917] = 0, -- Gilded Harbinger Crest
+    [3008] = 0, -- Valorstones
+    [2815] = 0, -- Resonance Crystals
+    [3056] = 0, -- Kej
+    [3028] = 0, -- Restored Coffer Key
 }
 
 PermoksAccountManager.currencyCustomOptions = {
@@ -1089,7 +1089,7 @@ PermoksAccountManager.quests = {
         [73996] = {questType = 'daily', name = 'Gnarls'},
         [74004] = {questType = 'daily', name = 'High Shaman Rotknuckle'},
     },
-    knowledge_mobs = {
+    knowledge_df_mobs = {
         [70522] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 198975}, --Leatherworking 1
         [70523] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 198976}, --Leatherworking 2
         [73138] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 204232}, --Leatherworking 3
@@ -1133,7 +1133,7 @@ PermoksAccountManager.quests = {
         [72164] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 5
         [72165] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 6
     },
-    knowledge_scout_packs = {
+    knowledge_df_treasures = {
         [66375] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193904}, --Inscription 1
         [66376] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193905}, --Inscription 2
         [66384] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 193910}, --Leatherworking 1
@@ -1151,7 +1151,7 @@ PermoksAccountManager.quests = {
         [66373] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 193891}, --Alchemy 1
         [66374] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 193897}, --Alchemy 2
     },
-    knowledge_treatise = {
+    knowledge_df_treatise = {
         [74105] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription'}, -- Inscription
         [74106] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Mining
         [74107] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Herbalism
@@ -1164,7 +1164,7 @@ PermoksAccountManager.quests = {
         [74114] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Skinning
         [74115] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring'}, -- Tailoring
     },
-    knowledge_weeklies_craft = {
+    knowledge_df_weeklies_craft = {
         [70558] = {questType = 'weekly', log = true}, -- Inscription 1
         [70559] = {questType = 'weekly', log = true}, -- Inscription 2
         [70560] = {questType = 'weekly', log = true}, -- Inscription 3
@@ -1198,7 +1198,7 @@ PermoksAccountManager.quests = {
         [70533] = {questType = 'weekly', log = true}, -- Alchemy 3
         [70530] = {questType = 'weekly', log = true}, -- Alchemy 4
     },
-    knowledge_weeklies_loot = {
+    knowledge_df_weeklies_loot = {
         [66943] = {questType = 'weekly', log = true}, -- Inscription 5
         [66944] = {questType = 'weekly', log = true}, -- Inscription 6
         [66945] = {questType = 'weekly', log = true}, -- Inscription 7
@@ -1280,7 +1280,7 @@ PermoksAccountManager.quests = {
         [77932] = {questType = 'weekly', log = true}, -- Alchemy
         [77933] = {questType = 'weekly', log = true}, -- Alchemy
     },
-    knowledge_weeklies_order = {
+    knowledge_df_weeklies_order = {
         [70589] = {questType = 'weekly', log = true}, -- Blacksmithing 0
         [70591] = {questType = 'weekly', log = true}, -- Engineering 0
         [70592] = {questType = 'weekly', log = true}, -- Inscription 0
@@ -1490,41 +1490,301 @@ PermoksAccountManager.quests = {
         [60214] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
     },
     big_dig = {
-        [79226] = {questType = 'weekly', warbandReward = true, log = true},
+        [79226] = {questType = 'weekly', warband = true, log = true},
     },
 
     -- 11.0 PREPATCH
     radiant_echoes_prepatch_dailies = {
-        [82689] = {questType = 'daily', warbandReward = true, log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
-        [82676] = {questType = 'daily', warbandReward = true, log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
-        [78938] = {questType = 'daily', warbandReward = true, log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
+        [82689] = {questType = 'daily', warband = 'unique', log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
+        [82676] = {questType = 'daily', warband = 'unique', log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
+        [78938] = {questType = 'daily', warband = 'unique', log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
     },
     radiant_echoes_cache = {
         [84083] = {questType = 'weekly'}
     },
 
     -- 11.0
+    -- Dornogal Weeklies
+    weekly_dungeon_tww = {
+        [83432] = {questType = 'weekly', log = true}, -- The Rookery
+        [83436] = {questType = 'weekly', log = true}, -- Cinderbrew Meadery
+        [83443] = {questType = 'weekly', log = true}, -- Darkflame Cleft
+        [83457] = {questType = 'weekly', log = true}, -- The Stonevault
+        [83458] = {questType = 'weekly', log = true}, -- Priory of the Sacred Flame
+        [83459] = {questType = 'weekly', log = true}, -- The Dawnbreaker
+        [83465] = {questType = 'weekly', log = true}, -- Ara-Kara, City of Echoes
+        [83469] = {questType = 'weekly', log = true}, -- City of Threads
+    },
+    weekend_event_tww = {
+        [83345] = {questType = 'weekly', log = true}, -- A Call to Battle
+        [83347] = {questType = 'weekly', log = true}, -- Emissary of War
+        [83357] = {questType = 'weekly', log = true}, -- The Very Best
+        [83358] = {questType = 'weekly', log = true}, -- The Arena Calls
+        [83359] = {questType = 'weekly', log = true}, -- A Shattered Path Through Time
+        [83362] = {questType = 'weekly', log = true}, -- A Shrouded Path Through Time
+        [83365] = {questType = 'weekly', log = true}, -- A Frozen Path Through Time
+        [83366] = {questType = 'weekly', log = true}, -- The World Awaits
+    },
+    delve_weekly_tww = { --UNCLEAR HOW THIS WORKS NEED MORE INFO
+        [82746] = {questType = 'weekly', log = true}, -- Delves: Breaking Tough to Loot Stuff
+        [82712] = {questType = 'weekly', log = true}, -- Delves: Trouble Up and Down Khaz Algar
+        [82711] = {questType = 'weekly', log = true}, -- Delves: Lost and Found
+        [82709] = {questType = 'weekly', log = true}, -- Delves: Percussive Archaeology
+        [82706] = {questType = 'weekly', log = true}, -- Delves: Khaz Algar Research
+        [82707] = {questType = 'weekly', log = true}, -- Delves: Earthen Defense
+    },
+    sparks_of_war_tww = {
+        [81793] = {questType = 'weekly', log = true}, -- Sparks of War: Isle of Dorn
+        [81794] = {questType = 'weekly', log = true}, -- Sparks of War: The Ringing Deeps
+        [81795] = {questType = 'weekly', log = true}, -- Sparks of War: Hallowfall
+        [81796] = {questType = 'weekly', log = true}, -- Sparks of War: Azj-Kahet
+    },    
+    pvp_weekly_tww = {
+        [80184] = {questType = 'weekly', log = true}, -- Preserving in Battle
+        [80185] = {questType = 'weekly', log = true}, -- Preserving Solo
+        [80186] = {questType = 'weekly', log = true}, -- Preserving in War
+        [80187] = {questType = 'weekly', log = true}, -- Preserving in Skirmishes
+        [80188] = {questType = 'weekly', log = true}, -- Preserving in Arenas
+        [80189] = {questType = 'weekly', log = true}, -- Preserving Teamwork
+    },
+
+    -- Weekly World Activities
+    the_theater_troupe = {
+        [83240] = {questType = 'weekly', log = true}, -- The Theater Troupe
+    },    
+    rollin_down_in_the_deeps = {
+        [82946] = {questType = 'weekly', log = true}, -- Rollin' Down in the Deeps (Digging)
+    },
+    gearing_up_for_trouble = {
+        [83333] = {questType = 'weekly', log = true}, -- Gearing Up for Trouble (Awakening the Machine Weekly)
+    },
+    awakening_the_machine = {
+        [84642] = {questType = 'weekly', log = true}, -- cache 1
+        [84644] = {questType = 'weekly', log = true}, -- cache 2
+        [84646] = {questType = 'weekly', log = true}, -- cache 3
+        [84647] = {questType = 'weekly', log = true}, -- cache 4
+    },
     spreading_the_light = {
-        [76586] = {questType = 'weekly', log = true},
+        [76586] = {questType = 'weekly', log = true}, -- Hallowfall Event in Dunelle's Kindness
     },
     lesser_keyflame_weeklies = {
-        [76169] = {questType = 'weekly', log = true},
-        [76394] = {questType = 'weekly', log = true},
-        [76600] = {questType = 'weekly', log = true},
-        [76733] = {questType = 'weekly', log = true},
-        [76997] = {questType = 'weekly', log = true},
-        [78656] = {questType = 'weekly', log = true},
-        [78915] = {questType = 'weekly', log = true},
-        [78933] = {questType = 'weekly', log = true},
-        [78972] = {questType = 'weekly', log = true},
-        [79158] = {questType = 'weekly', log = true},
-        [79173] = {questType = 'weekly', log = true},
-        [79216] = {questType = 'weekly', log = true},
-        [79346] = {questType = 'weekly', log = true},
-        [80004] = {questType = 'weekly', log = true},
-        [80562] = {questType = 'weekly', log = true},
-        [81574] = {questType = 'weekly', log = true},
-        [81632] = {questType = 'weekly', log = true},        
+        [76169] = {questType = 'weekly', log = true}, -- Glow in the Dark
+        [76394] = {questType = 'weekly', log = true}, -- Shadows of Flavor
+        [76600] = {questType = 'weekly', log = true}, -- Right Between the Gyro-Optics
+        [76733] = {questType = 'weekly', log = true}, -- Tater Trawl
+        [76997] = {questType = 'weekly', log = true}, -- Lost in Shadows
+        [78656] = {questType = 'weekly', log = true}, -- Hose It Down
+        [78915] = {questType = 'weekly', log = true}, -- Squashing the Threat
+        [78933] = {questType = 'weekly', log = true}, -- The Sweet Eclipse
+        [78972] = {questType = 'weekly', log = true}, -- Harvest Havoc
+        [79158] = {questType = 'weekly', log = true}, -- Seeds of Salvation
+        [79173] = {questType = 'weekly', log = true}, -- Supply the Effort
+        [79216] = {questType = 'weekly', log = true}, -- Web of Manipulation
+        [79346] = {questType = 'weekly', log = true}, -- Chew On That
+        [80004] = {questType = 'weekly', log = true}, -- Crab Grab
+        [80562] = {questType = 'weekly', log = true}, -- Blossoming Delight
+        [81574] = {questType = 'weekly', log = true}, -- Sporadic Growth
+        [81632] = {questType = 'weekly', log = true}, -- Lizard Looters
+    },
+    greater_keyflame_weeklies = { -- not added to default categories because shit rewards
+        [78590] = {questType = 'weekly', log = true}, -- Cutting Edge
+        [78657] = {questType = 'weekly', log = true}, -- The Midnight Sentry
+        [79329] = {questType = 'weekly', log = true}, -- Glowing Harvest
+        [79380] = {questType = 'weekly', log = true}, -- Bog Beast Banishment
+        [79469] = {questType = 'weekly', log = true}, -- Lurking Below
+        [79470] = {questType = 'weekly', log = true}, -- Waters of War
+        [79471] = {questType = 'weekly', log = true}, -- Bleak Sand
+    },
+    severed_threads_pact_chosen = {
+        [80544] = {questType = 'weekly', log = true}, -- Eyes of the Weaver
+    },
+    severed_threads_pact_weekly = {
+        [80670] = {questType = 'weekly', log = true}, -- Eyes of the Weaver
+        [80671] = {questType = 'weekly', log = true}, -- Blade of the General
+        [80672] = {questType = 'weekly', log = true}, -- Hand of the Vizier
+    },
+
+    -- Weekly Rares - NEED TO CONFIRM THEY GIVE REPUTATION
+    isle_of_dorne_rares = {
+        [82196] = {questType = 'weekly', name = 'Alunira'},
+        [81923] = {questType = 'weekly', name = 'Tephratennae'},
+        [81894] = {questType = 'weekly', name = 'Warphorn'},
+        [81902] = {questType = 'weekly', name = 'Kronolith, Might of the Mountain'},
+        [81903] = {questType = 'weekly', name = 'Shallowshell the Clacker'},
+        [81893] = {questType = 'weekly', name = 'Bloodmaw'},
+        [81892] = {questType = 'weekly', name = 'Springbubble'},
+        [79685] = {questType = 'weekly', name = 'Sandres the Relicbearer'},
+        [81920] = {questType = 'weekly', name = 'Clawbreaker K\'zithix'},
+        [81895] = {questType = 'weekly', name = 'Emperor Pitfang'},
+        [81907] = {questType = 'weekly', name = 'Escaped Cutthroat'},
+        [81921] = {questType = 'weekly', name = 'Matriarch Charfuria'},
+        [81901] = {questType = 'weekly', name = 'Tempest Lord Incarnus'},
+        [81899] = {questType = 'weekly', name = 'Gar\'loc'},
+        [81904] = {questType = 'weekly', name = 'Twice-Stinger the Wretched'},
+        [78619] = {questType = 'weekly', name = 'Rustul Titancap'},
+        [81905] = {questType = 'weekly', name = 'Flamekeeper Graz'},
+        [81897] = {questType = 'weekly', name = 'Plaguehart'},
+        [81922] = {questType = 'weekly', name = 'Sweetspark the Oozeful'},
+        [82204] = {questType = 'weekly', name = 'Kereke'},
+        [82203] = {questType = 'weekly', name = 'Zovex'},
+        [82205] = {questType = 'weekly', name = 'Rotfist'},
+    },
+    ringing_deeps_rares = {
+        [81674] = {questType = 'weekly', name = 'Automaxor'},
+        [81562] = {questType = 'weekly', name = 'Charmonger'},
+        [80547] = {questType = 'weekly', name = 'King Splash'},
+        [80505] = {questType = 'weekly', name = 'Candleflyer Captain'},
+        [80560] = {questType = 'weekly', name = 'Cragmund'},
+        [80536] = {questType = 'weekly', name = 'Deepflayer Broodmother'},
+        [80557] = {questType = 'weekly', name = 'Aquellion'},
+        [80506] = {questType = 'weekly', name = 'Zilthara'},
+        [81511] = {questType = 'weekly', name = 'Coalesced Monstrosity'},
+        [80507] = {questType = 'weekly', name = 'Terror of the Forge'},
+        [81485] = {questType = 'weekly', name = 'Kelpmire'},
+        [81563] = {questType = 'weekly', name = 'Rampaging Blight'},
+        [80574] = {questType = 'weekly', name = 'Trungal'},
+        [81652] = {questType = 'weekly', name = 'Spore-infused Shalewing'},
+        [81648] = {questType = 'weekly', name = 'Hungerer of the Deeps'},
+        [80003] = {questType = 'weekly', name = 'Disturbed Earthgorger'},
+        [81566] = {questType = 'weekly', name = 'Deathbound Husk'},
+        [81633] = {questType = 'weekly', name = 'Lurker of the Deeps'},
+    },
+    hallowfall_rares = {
+        [81756] = {questType = 'weekly', name = 'Lytfang the Lost'},
+        [82557] = {questType = 'weekly', name = 'Moth\'ethk'},
+        [81791] = {questType = 'weekly', name = 'The Perchfather'},
+        [80009] = {questType = 'weekly', name = 'The Taskmaker'},
+        [81761] = {questType = 'weekly', name = 'Grimslice'},
+        [81849] = {questType = 'weekly', name = 'Strength of Beledar'},
+        [80006] = {questType = 'weekly', name = 'Ixlorb the Spinner'},
+        [82565] = {questType = 'weekly', name = 'Murkspike'},
+        [82559] = {questType = 'weekly', name = 'Deathpetal'},
+        [80011] = {questType = 'weekly', name = 'Deepfiend Azellix'},
+        [82562] = {questType = 'weekly', name = 'Duskshadow'},
+        [81881] = {questType = 'weekly', name = 'Funglour'},
+        [81853] = {questType = 'weekly', name = 'Sir Alastair Purefire'},
+        [81836] = {questType = 'weekly', name = 'Horror of the Shallows'},
+        [79271] = {questType = 'weekly', name = 'Sloshmuck'},
+        [80010] = {questType = 'weekly', name = 'Murkshade'},
+        [82560] = {questType = 'weekly', name = 'Croakit'},
+        [81882] = {questType = 'weekly', name = 'Pride of Beledar'},
+        [82558] = {questType = 'weekly', name = 'Crazed Cabbage Smacker'},
+        [82561] = {questType = 'weekly', name = 'Toadstomper'},
+        [82564] = {questType = 'weekly', name = 'Finclaw Bloodtide'},
+        [82566] = {questType = 'weekly', name = 'Ravageant'},
+    },
+    azj_kahet_rares = {
+        [81702] = {questType = 'weekly', name = 'Kaheti Silk Hauler'},
+        [81703] = {questType = 'weekly', name = 'XT-Minecrusher 8700'},
+        [81695] = {questType = 'weekly', name = 'Abyssal Devourer'},
+        [81706] = {questType = 'weekly', name = 'Maddened Siegebomber'},
+        [81700] = {questType = 'weekly', name = 'Vilewing'},
+        [81699] = {questType = 'weekly', name = 'Webspeaker Grik\'ik'},
+        [81704] = {questType = 'weekly', name = 'Cha\'tak'},
+        [81707] = {questType = 'weekly', name = 'Enduring Gutterface'},
+        [81705] = {questType = 'weekly', name = 'Monstrous Lasharoth'},
+        [81694] = {questType = 'weekly', name = 'Rhak\'ik'},
+        [78905] = {questType = 'weekly', name = 'Ahg\'zagall'},
+        [82037] = {questType = 'weekly', name = 'Umbraclaw Matra'},
+        [82078] = {questType = 'weekly', name = 'Kaheti Bladeguard'},
+        [82077] = {questType = 'weekly', name = 'Deepcrawler Tx\'kesh'},
+        [82036] = {questType = 'weekly', name = 'Harvester Qixt'},
+        [82035] = {questType = 'weekly', name = 'The Oozekhan'},
+        [82034] = {questType = 'weekly', name = 'Jix\'ak the Crazed'},
+        [81634] = {questType = 'weekly', name = 'The Groundskeeper'},
+        [81701] = {questType = 'weekly', name = 'Xishorr'},
+    },
+
+    -- Professions
+    knowledge_tww_treasures = {
+        [83253] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 225234}, -- Alchemical Sediment
+        [83255] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 225235}, -- Deepstone Crucible
+        [83256] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 225233}, -- Dense Bladestone
+        [83257] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 225232}, -- Coreway Billet
+        [83258] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 225231}, -- Powdered Fulgurance
+        [83259] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 225230}, -- Crystalline Repository
+        [83260] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 225228}, -- Rust-Locked Mechanism
+        [83261] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 225229}, -- Earthen Induction Coil
+        [83264] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 225226}, -- Striated Inkstone
+        [83262] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 225227}, -- Wax-sealed Records
+        [83265] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 225224}, -- Diaphanous Gem Shards
+        [83266] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 225225}, -- Deepstone Fragment
+        [83268] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 225222}, -- Stone-Leather Swatch
+        [83267] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 225223}, -- Sturdy Nerubian Carapace
+        [83270] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 225220}, -- Chitin Needle
+        [83269] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 225221}, -- Spool of Webweave
+    },
+    knowledge_tww_treatise = {
+        [83725] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy'},
+        [83726] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing'},
+        [83727] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'},
+        [83728] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering'},
+        [83730] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription'},
+        [83731] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting'},
+        [83732] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking'},
+        [83735] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring'},
+        [83729] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'},
+        [83733] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'},
+        [83734] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'},
+    },
+    knowledge_tww_gather = {
+        [81416] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 1
+        [81417] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 2
+        [81418] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 3
+        [81419] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 4
+        [81420] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 5
+        [81421] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Rose
+    
+        [83054] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 1
+        [83055] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 2
+        [83056] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 3
+        [83057] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 4
+        [83058] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 5
+        [83059] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Erosion Polished Slate
+    
+        [81459] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 1
+        [81460] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 2
+        [81461] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 3
+        [81462] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 4
+        [81463] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 5
+        [81464] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Abyssal Fur
+    
+        [84290] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 1
+        [84291] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 2
+        [84292] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 3
+        [84293] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 4
+        [84294] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 5
+        [84295] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Gleaming Telluric Crystal
+    },
+    knowledge_tww_weeklies_quest = {
+        [84133] = {questType = 'weekly', profession = 'Alchemy', description = 'Alchemy Services Requested'},
+        [84127] = {questType = 'weekly', profession = 'Blacksmithing', description = 'Blacksmithing Services Requested'},
+        
+        [84085] = {questType = 'weekly', profession = 'Enchanting', description = 'The Power of Potential'},
+        [84086] = {questType = 'weekly', profession = 'Enchanting', description = 'A Rare Necessity'},
+        [84134] = {questType = 'weekly', profession = 'Enchanting', description = 'Enchanting Services Requested'},
+        
+        [84128] = {questType = 'weekly', profession = 'Engineering', description = 'Engineering Services Requested'},
+        [84129] = {questType = 'weekly', profession = 'Inscription', description = 'Inscription Services Requested'},
+        [84130] = {questType = 'weekly', profession = 'Jewelcrafting', description = 'Jewelcrafting Services Requested'},
+        [84131] = {questType = 'weekly', profession = 'Leatherworking', description = 'Leatherworking Services Requested'},
+        [84132] = {questType = 'weekly', profession = 'Tailoring', description = 'Tailoring Services Requested'},
+        
+        [82916] = {questType = 'weekly', profession = 'Herbalism', description = 'When Fungi Bloom'},
+        [82958] = {questType = 'weekly', profession = 'Herbalism', description = 'Little Blessings'},
+        [82962] = {questType = 'weekly', profession = 'Herbalism', description = 'A handful of Luredrops'},
+        [82965] = {questType = 'weekly', profession = 'Herbalism', description = 'Light and Shadow'},
+        [82970] = {questType = 'weekly', profession = 'Herbalism', description = 'A Bloom and A Blossom'},
+        
+        [83102] = {questType = 'weekly', profession = 'Mining', description = 'Bismuth is Business'},
+        [83103] = {questType = 'weekly', profession = 'Mining', description = 'Acquiring Aqirite'},
+        [83104] = {questType = 'weekly', profession = 'Mining', description = 'Identifying Ironclaw'},
+        [83106] = {questType = 'weekly', profession = 'Mining', description = 'Null Pebble Excavation'},
+        
+        [82992] = {questType = 'weekly', profession = 'Skinning', description = 'Stormcharged Goods'},
+        [82993] = {questType = 'weekly', profession = 'Skinning', description = 'From Shadows'},
+        [83097] = {questType = 'weekly', profession = 'Skinning', description = 'Cinder and Storm'},
+        [83098] = {questType = 'weekly', profession = 'Skinning', description = 'Snap and Crackle'},
     },
 }
 

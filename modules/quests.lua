@@ -514,7 +514,7 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_mobs = {
+	knowledge_df_mobs = {
 		label = 'Gather Knowledge',
 		type = 'quest',
 		questType = 'weekly',
@@ -538,7 +538,7 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_scout_packs = {
+	knowledge_df_scout_packs = {
 		label = 'Treasure Knowledge',
 		type = 'quest',
 		questType = 'weekly',
@@ -556,7 +556,7 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_treatise = {
+	knowledge_df_treatise = {
 		label = 'Treatise Knowledge',
 		type = 'quest',
 		questType = 'weekly',
@@ -570,7 +570,7 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_weeklies_craft = {
+	knowledge_df_weeklies_craft = {
 		label = 'Crafting Quests',
 		type = 'quest',
 		questType = 'weekly',
@@ -588,7 +588,7 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_weeklies_loot = {
+	knowledge_df_weeklies_loot = {
 		label = 'Loot Quests',
 		type = 'quest',
 		questType = 'weekly',
@@ -601,7 +601,7 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_weeklies_order  ={
+	knowledge_df_weeklies_order  ={
 		label = 'Crafting Order Quests',
 		type = 'quest',
 		questType = 'weekly',
@@ -917,7 +917,7 @@ local labelRows = {
 		label = 'The Big Dig',
 		type = 'quest',
 		questType = 'weekly',
-		warbandReward = true,
+		warband = true,
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
@@ -928,7 +928,7 @@ local labelRows = {
 		label = 'Prepatch Dailies',
 		type = 'quest',
 		questType = 'daily',
-		warbandReward = 'unique',
+		warband = 'unique',
 		visibility = 'visible',
 		tooltip = true,
 		customTooltip = function(...)
@@ -1177,7 +1177,7 @@ local function UpdateAllQuests(charInfo)
 			if not self.isBC then
 
 				-- check for weekly Warband Rewards
-				if info.warbandReward then
+				if info.warband then
                     local currentWarbandQuestInfo = setQuestInfo(warbandQuestInfo, info, key)
 
 					-- API CURRENTLY NOT FUNCTIONING AS INTENDED
