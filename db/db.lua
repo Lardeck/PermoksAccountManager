@@ -81,7 +81,8 @@ local default_categories = {
         childs = {
             'dungeon_weekly',
             'weekend_event',
-            'delve_weekly',
+            'worldsoul_weekly',
+            'weekly_meta',
             'archaic_cypher_key',
 
             'separator1',
@@ -103,8 +104,9 @@ local default_categories = {
         childOrder = {
             dungeon_weekly = 1,
             weekend_event = 2,
-            delve_weekly = 3,
-            archaic_cypher_key = 4,
+            worldsoul_weekly = 3,
+            weekly_meta = 4,
+            archaic_cypher_key = 5,
 
             separator1 = 10,
             the_theater_troupe = 11,
@@ -598,6 +600,7 @@ PermoksAccountManager.currency = {
     [2915] = 0, -- Carved Harbinger Crest
     [2916] = 0, -- Runed Harbinger Crest
     [2917] = 0, -- Gilded Harbinger Crest
+    [2813] = 0, -- Harmonized Silk (Crucible Charges TWW Season 1)
     [3008] = 0, -- Valorstones
     [2815] = 0, -- Resonance Crystals
     [3056] = 0, -- Kej
@@ -1553,13 +1556,52 @@ PermoksAccountManager.quests = {
         [999992] =  {questType = 'weekly'}, -- Shurrai, Atrocity of the Undersea
         [999993] =  {questType = 'weekly'}, -- Orta, the Broken Mountain
     },
-    delve_weekly = { -- PLACEHOLDER: Meta Quest, need more info how this timegate works
+    worldsoul_weekly = {
+        [82452] = {questType = 'weekly', log = true}, -- Worldsoul: World Quests
+        [82453] = {questType = 'weekly', log = true}, -- Worldsoul: Encore!
+        [82458] = {questType = 'weekly', log = true}, -- Worldsoul: Renown
+        [82482] = {questType = 'weekly', log = true}, -- Worldsoul: Snuffling
+        [82483] = {questType = 'weekly', log = true}, -- Worldsoul: Spreading the Light
+        [82485] = {questType = 'weekly', log = true}, -- Worldsoul: Cinderbrew Meadery
+        [82486] = {questType = 'weekly', log = true}, -- Worldsoul: The Rookery
+        [82487] = {questType = 'weekly', log = true}, -- Worldsoul: The Stonevault
+        [82488] = {questType = 'weekly', log = true}, -- Worldsoul: Darkflame Cleft
+        [82489] = {questType = 'weekly', log = true}, -- Worldsoul: The Dawnbreaker
+        [82490] = {questType = 'weekly', log = true}, -- Worldsoul: Priory of the Sacred Flame
+        [82491] = {questType = 'weekly', log = true}, -- Worldsoul: Ara-Kara, City of Echoes
+        [82492] = {questType = 'weekly', log = true}, -- Worldsoul: City of Threads
+        [82493] = {questType = 'weekly', log = true}, -- Worldsoul: The Dawnbreaker
+        [82494] = {questType = 'weekly', log = true}, -- Worldsoul: Ara-Kara, City of Echoes
+        [82495] = {questType = 'weekly', log = true}, -- Worldsoul: Cinderbrew Meadery
+        [82496] = {questType = 'weekly', log = true}, -- Worldsoul: City of Threads
+        [82497] = {questType = 'weekly', log = true}, -- Worldsoul: The Stonevault
+        [82498] = {questType = 'weekly', log = true}, -- Worldsoul: Darkflame Cleft
+        [82499] = {questType = 'weekly', log = true}, -- Worldsoul: Priory of the Sacred Flame
+        [82500] = {questType = 'weekly', log = true}, -- Worldsoul: The Rookery
+        [82501] = {questType = 'weekly', log = true}, -- Worldsoul: The Dawnbreaker
+        [82502] = {questType = 'weekly', log = true}, -- Worldsoul: Ara-Kara, City of Echoes
+        [82503] = {questType = 'weekly', log = true}, -- Worldsoul: Cinderbrew Meadery
+        [82504] = {questType = 'weekly', log = true}, -- Worldsoul: City of Threads
+        [82505] = {questType = 'weekly', log = true}, -- Worldsoul: The Stonevault
+        [82506] = {questType = 'weekly', log = true}, -- Worldsoul: Darkflame Cleft
+        [82507] = {questType = 'weekly', log = true}, -- Worldsoul: Priory of the Sacred Flame
+        [82508] = {questType = 'weekly', log = true}, -- Worldsoul: The Rookery
+        [82509] = {questType = 'weekly', log = true}, -- Worldsoul: Nerub-ar Palace
+        [82510] = {questType = 'weekly', log = true}, -- Worldsoul: Nerub-ar Palace
+        [82511] = {questType = 'weekly', log = true}, -- Worldsoul: Awakening Machine
+        [82512] = {questType = 'weekly', log = true}, -- Worldsoul: World Boss
+        [82516] = {questType = 'weekly', log = true}, -- Worldsoul: Forging a Pact
+        [82659] = {questType = 'weekly', log = true}, -- Worldsoul: Nerub-ar Palace
+    },
+    weekly_meta = { -- PLACEHOLDER: Meta Quest, need more info how this timegate works
         [82746] = {questType = 'weekly', log = true}, -- Delves: Breaking Tough to Loot Stuff
         [82712] = {questType = 'weekly', log = true}, -- Delves: Trouble Up and Down Khaz Algar
         [82711] = {questType = 'weekly', log = true}, -- Delves: Lost and Found
         [82709] = {questType = 'weekly', log = true}, -- Delves: Percussive Archaeology
         [82706] = {questType = 'weekly', log = true}, -- Delves: Khaz Algar Research
         [82707] = {questType = 'weekly', log = true}, -- Delves: Earthen Defense
+        [82678] = {questType = 'weekly', log = true}, -- Archives: The First Disc
+        [82679] = {questType = 'weekly', log = true}, -- Archives: Seeking History
     },
     archaic_cypher_key = {
         [84370] = {questType = 'weekly', log = true}, -- The Key to Success

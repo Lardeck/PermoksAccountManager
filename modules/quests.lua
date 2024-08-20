@@ -938,7 +938,7 @@ local labelRows = {
 		label = 'Prepatch Dailies',
 		type = 'quest',
 		questType = 'daily',
-		warband = 'unique',
+		warband = true,
 		visibility = 'visible',
 		tooltip = true,
 		customTooltip = function(...)
@@ -967,16 +967,26 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	delve_weekly = { -- PLACEHOLDER: Meta Quest, need more info how this timegate works
-		IDs = {82746, 82712, 82711, 82709, 82706, 82707},
-		label = 'Delve Meta',
+	worldsoul_weekly = {
+		IDs = {	
+			82483, 82489, 82452, 82516, 82458, 82482, 82511, 82486, 82492, 82503,
+			82453, 82488, 82485, 82659, 82494, 82498, 82490, 82510, 82491, 82504,
+			82495, 82506, 82496, 82507, 82497, 82508, 82509, 82499, 82500, 82501,
+			82512, 82505, 82502, 82487, 82493
+		},
+		label = 'Worldsoul Weekly',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
-		isComplete = function(alt_data)
-			return alt_data.questInfo and alt_data.questInfo.weekly and
-				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 1
-		end,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	weekly_meta = { -- PLACEHOLDER: Meta Quest, need more info how this timegate works
+		IDs = {82746, 82712, 82711, 82709, 82706, 82707, 82678, 82679},
+		label = 'Weekly Meta',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1045,7 +1055,10 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	lesser_keyflame_weeklies = {
-		IDs = {76169, 76394, 76600, 76733, 76997, 78656, 78915, 78933, 78972, 79158, 79173, 79216, 79346, 80004, 80562, 81574, 81632},
+		IDs = {
+			76169, 76394, 76600, 76733, 76997, 78656, 78915, 78933, 78972, 79158,
+			79173, 79216, 79346, 80004, 80562, 81574, 81632
+		},
 		label = 'Lesser Keyflames',
 		type = 'quest',
 		questType = 'weekly',
@@ -1091,7 +1104,11 @@ local labelRows = {
 	},	
 	-- rares
 	isle_of_dorne_rares = {
-		IDs = {82196, 81923, 81894, 81902, 81903, 81893, 81892, 79685, 81920, 81895, 81907, 81921, 81901, 81899, 81904, 78619, 81905, 81897, 81922, 82204, 82203, 82205},
+		IDs = {
+			82196, 81923, 81894, 81902, 81903, 81893, 81892, 79685, 81920, 81895,
+			81907, 81921, 81901, 81899, 81904, 78619, 81905, 81897, 81922, 82204,
+			82203, 82205
+		},
 		label = 'Isle of Dorne Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1106,7 +1123,10 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	ringing_deeps_rares = {
-		IDs = {81674, 81562, 80547, 80505, 80560, 80536, 80557, 80506, 81511, 80507, 81485, 81563, 80574, 81652, 81648, 80003, 81566, 81633},
+		IDs = {
+			81674, 81562, 80547, 80505, 80560, 80536, 80557, 80506, 81511, 80507,
+			81485, 81563, 80574, 81652, 81648, 80003, 81566, 81633
+		},
 		label = 'Ringing Deeps Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1121,7 +1141,11 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	hallowfall_rares = {
-		IDs = {81756, 82557, 81791, 80009, 81761, 81849, 80006, 82565, 82559, 80011, 82562, 81881, 81853, 81836, 79271, 80010, 82560, 81882, 82558, 82561, 82564, 82566},
+		IDs = {
+			81756, 82557, 81791, 80009, 81761, 81849, 80006, 82565, 82559, 80011,
+			82562, 81881, 81853, 81836, 79271, 80010, 82560, 81882, 82558, 82561,
+			82564, 82566
+		},
 		label = 'Hallowfall Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1136,7 +1160,10 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	azj_kahet_rares = {
-		IDs = {81702, 81703, 81695, 81706, 81700, 81699, 81704, 81707, 81705, 81694, 78905, 82037, 82078, 82077, 82036, 82035, 82034, 81634, 81701},
+		IDs = {
+			81702, 81703, 81695, 81706, 81700, 81699, 81704, 81707, 81705, 81694,
+			78905, 82037, 82078, 82077, 82036, 82035, 82034, 81634, 81701
+		},
 		label = 'Azj-Kahet Rares',
 		type = 'quest',
 		questType = 'weekly',
