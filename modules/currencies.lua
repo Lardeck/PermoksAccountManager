@@ -273,7 +273,7 @@ local labelRows = {
 
     -- 11.0
     champion_crest = {
-        label = 'Weathered Harbinger Crest',
+        label = 'Champion Crests',
         type = 'crestcurrency',
         key = 2914,
         passRow = true,
@@ -281,7 +281,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     veteran_crest = {
-        label = 'Carved Harbinger Crest',
+        label = 'Veteran Crests',
         type = 'crestcurrency',
         key = 2915,
         passRow = true,
@@ -289,7 +289,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     hero_crest = {
-        label = 'Runed Harbinger Crest',
+        label = 'Hero Crests',
         type = 'crestcurrency',
         key = 2916,
         passRow = true,
@@ -297,7 +297,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     myth_crest = {
-        label = 'Gilded Harbinger Crest',
+        label = 'Myth Crests',
         type = 'crestcurrency',
         key = 2917,
         passRow = true,

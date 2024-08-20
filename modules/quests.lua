@@ -1002,7 +1002,7 @@ local labelRows = {
 	},
 	rollin_down_in_the_deeps = {
 		IDs = {82946},
-		label = "Rollin' Down in the Deeps",
+		label = "Wax Weekly", -- Rollin' Down in the Deeps
 		type = 'quest',
 		questType = 'weekly',
 		warband = true,
@@ -1012,7 +1012,7 @@ local labelRows = {
 	},
 	gearing_up_for_trouble = {
 		IDs = {83333},
-		label = "Gearing Up for Trouble",
+		label = "Machine Weekly", -- Gearing Up for Trouble
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
@@ -1046,7 +1046,7 @@ local labelRows = {
 	},
 	lesser_keyflame_weeklies = {
 		IDs = {76169, 76394, 76600, 76733, 76997, 78656, 78915, 78933, 78972, 79158, 79173, 79216, 79346, 80004, 80562, 81574, 81632},
-		label = 'Lesser Keyflame Weeklies',
+		label = 'Lesser Keyflames',
 		type = 'quest',
 		questType = 'weekly',
 		warband = true,
@@ -1061,7 +1061,7 @@ local labelRows = {
 	},
 	greater_keyflame_weeklies = {
 		IDs = {78590, 78657, 79329, 79380, 79469, 79470, 79471},
-		label = 'Greater Keyflame Weeklies',
+		label = 'Greater Keyflames',
 		type = 'quest',
 		questType = 'weekly',
 		warband = false,
@@ -1081,7 +1081,7 @@ local labelRows = {
 	},
 	severed_threads_pact_weekly = {
 		IDs = {80670, 80671, 80672},
-		label = 'Severed Threads Pact Weekly',
+		label = 'Severed Threads',
 		type = 'quest',
 		questType = 'weekly',
 		warband = true,
