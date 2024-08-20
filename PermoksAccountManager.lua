@@ -983,7 +983,6 @@ function PermoksAccountManager:CheckForReset()
 
     for account, accountData in pairs(db.accounts) do
         self:ResetAccount(db, accountData, resetDaily, resetWeekly, resetBiweekly, resetThreeDayRaids)
-        self:ResetWarband(db, accountData, resetDaily, resetWeekly, resetBiweekly)
     end
 
     db.weeklyReset = resetWeekly and currentTime + self:GetNextWeeklyResetTime() or db.weeklyReset
@@ -995,37 +994,36 @@ function PermoksAccountManager:CheckForReset()
 end
 
 function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biweekly, resetThreeDayRaids)
+    -- Loop through account data and reset each altData
     for _, altData in pairs(accountData.data) do
-        if weekly then
-            self:ResetWeeklyActivities(altData)
-        end
-
-        if daily then
-            self:ResetDailyActivities(db, altData)
-        end
-
-        if biweekly then
-            self:ResetBiweeklyActivities(altData)
-        end
-
-        if resetThreeDayRaids then
-            self:ResetThreeDayRaids(altData)
-        end
+        self:ResetActivities(db, altData, daily, weekly, biweekly, resetThreeDayRaids)
     end
+
+    -- Reset warband data
+    self:ResetActivities(db, accountData.warbandData, daily, weekly, biweekly, false)
 end
 
-function PermoksAccountManager:ResetWarband(db, accountData, daily, weekly, biweekly)
-    local warbandData = accountData.warbandData
+function PermoksAccountManager:ResetActivities(db, data, daily, weekly, biweekly, resetThreeDayRaids)
     if weekly then
-        self:ResetWeeklyActivities(warbandData)
+        self:ResetWeeklyActivities(data)
+
+        -- DEBUG LINE DELETE LATER
+        print('PAM: Weekly activities gracefully reset.')
     end
 
     if daily then
-        self:ResetDailyActivities(db, warbandData)
+        self:ResetDailyActivities(db, data)
+
+        -- DEBUG LINE DELETE LATER
+        print('PAM: Daily activities gracefully reset.')
     end
 
     if biweekly then
-        self:ResetBiweeklyActivities(warbandData)
+        self:ResetBiweeklyActivities(data)
+    end
+
+    if resetThreeDayRaids then
+        self:ResetThreeDayRaids(data)
     end
 end
 
@@ -1070,7 +1068,8 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
 
 	-- Crests Earned
     if altData.currencyInfo then
-        for _, crestID in ipairs({2409, 2410, 2411, 2412}) do
+        -- REFACTOR: move this to the currency module and reduce redundancy
+        for _, crestID in ipairs({2914, 2915, 2916, 2917}) do
             if altData.currencyInfo[crestID] then
                 altData.currencyInfo[crestID].quantity = 0
             end
