@@ -99,6 +99,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2507].localName or 'Expedition'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2507,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -108,6 +109,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2511].localName or 'Iskaara Tuskar'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2511,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -117,6 +119,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2503].localName or 'Maruuk Centaur'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2503,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -126,6 +129,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2510].localName or 'Valdrakken Akkord'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2510,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -144,6 +148,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2544].localName or "Artisan's Consortium"
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2544,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -153,6 +158,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2550].localName or "Cobalt Assembly"
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2550,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -162,6 +168,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2518].localName or 'Sabellian'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2518,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -171,6 +178,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2517].localName or 'Wrathion'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2517,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -180,6 +188,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2564].localName or 'Loam Niffen'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2564,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -189,6 +198,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2574].localName or 'Dream Wardens'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2574,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -198,6 +208,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2553].localName or 'Soridormi'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2553,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -207,6 +218,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2593].localName or 'Keg Leg\'s Crew'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2593,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -218,12 +230,81 @@ local labelRows = {
             return PermoksAccountManager.factions[2590].localName or 'Council of Dornogal'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2590,
         group = 'reputation',
-        accWide = true,
+        version = WOW_PROJECT_MAINLINE
+    },    
+    hallowfall_arathi = {
+        label = function()
+            return PermoksAccountManager.factions[2570].localName or 'Hallowfall Arathi'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2570,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_assembly_of_the_deeps = {
+        label = function()
+            return PermoksAccountManager.factions[2594].localName or 'The Assembly of the Deeps'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2594,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_severed_threads = {
+        label = function()
+            return PermoksAccountManager.factions[2600].localName or 'The Severed Threads'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2600,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_general = {
+        label = function()
+            return PermoksAccountManager.factions[2605].localName or 'The General'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2605,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_vizier = {
+        label = function()
+            return PermoksAccountManager.factions[2607].localName or 'The Vizier'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2607,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_weaver = {
+        label = function()
+            return PermoksAccountManager.factions[2601].localName or 'The Weaver'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2601,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    brann_bronzebeard = {
+        label = function()
+            return PermoksAccountManager.factions[2640].localName or 'Brann Bronzebeard'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2640,
+        group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
-
 
     -- wotlk
     alliance_vanguard = {

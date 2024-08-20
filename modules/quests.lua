@@ -38,6 +38,60 @@ local default = {
 
 local module = 'quests'
 local labelRows = {
+
+	-- General Weeklies
+	dungeon_weekly = {
+		IDs = {80184, 80185, 80186, 80187, 80188, 80189},
+		label = L['Dungeon Quests'],
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'visible',
+		isComplete = function(alt_data)
+			return alt_data.questInfo and alt_data.questInfo.weekly and
+				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 1
+		end,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	pvp_weekly = {
+		IDs = {80184, 80185, 80186, 80187, 80188, 80189},
+		label = L['PVP Quests'],
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		required = 2,
+		isComplete = function(alt_data)
+			return alt_data.questInfo and alt_data.questInfo.weekly and
+				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 2
+		end,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	pvp_sparks = {
+		IDs = {81793, 81794, 81795, 81796},
+		label = 'Sparks of War',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	weekend_event = {
+		IDs = {83345, 83347, 83357, 83358, 83366, 83359, 83362, 83365, 83364},
+		label = L['Weekend Event'],
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		isComplete = function(alt_data)
+			return alt_data.questInfo and alt_data.questInfo.weekly and
+				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.weekend_event) == 1
+		end,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
+	-- 9.0 Shadowlands
 	korthia_dailies = {
 		label = L['Korthia Dailies'],
 		type = 'quest',
@@ -173,44 +227,6 @@ local labelRows = {
 				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) >= 2
 		end,
 		group = 'resetDaily',
-		version = WOW_PROJECT_MAINLINE
-	},
-	dungeon_quests = {
-		label = L['Dungeon Quests'],
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'visible',
-		required = 2,
-		isComplete = function(alt_data)
-			return alt_data.questInfo and alt_data.questInfo.weekl and
-				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 2
-		end,
-		group = 'resetWeekly',
-		version = WOW_PROJECT_MAINLINE
-	},
-	pvp_quests = {
-		label = L['PVP Quests'],
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'visible',
-		required = 2,
-		isComplete = function(alt_data)
-			return alt_data.questInfo and alt_data.questInfo.weekly and
-				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 2
-		end,
-		group = 'resetWeekly',
-		version = WOW_PROJECT_MAINLINE
-	},
-	weekend_event = {
-		label = L['Weekend Event'],
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'visible',
-		isComplete = function(alt_data)
-			return alt_data.questInfo and alt_data.questInfo.weekly and
-				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.weekend_event) == 1
-		end,
-		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
 	world_boss = {
@@ -435,6 +451,8 @@ local labelRows = {
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	},
+
+	-- 10.0 Dragonflight
 	dragonflight_world_boss = {
 		label = L['World Boss'],
 		type = 'quest',
@@ -467,14 +485,6 @@ local labelRows = {
 		visibility = 'visible',
 		group = 'resetBiweekly',
 		required = 4,
-		version = WOW_PROJECT_MAINLINE
-	},
-	sparks_of_life = {
-		label = 'Sparks of Life',
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'visible',
-		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
 	brackenhide_hollow_rares = {
@@ -514,8 +524,8 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_mobs = {
-		label = 'Gather Knowledge',
+	knowledge_df_mobs = {
+		label = '(DF) Gather Knowledge',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
@@ -538,8 +548,8 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_scout_packs = {
-		label = 'Treasure Knowledge',
+	knowledge_df_treasures = {
+		label = '(DF) Treasure Knowledge',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
@@ -556,8 +566,8 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_treatise = {
-		label = 'Treatise Knowledge',
+	knowledge_df_treatise = {
+		label = '(DF) Treatise Knowledge',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
@@ -570,8 +580,8 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_weeklies_craft = {
-		label = 'Crafting Quests',
+	knowledge_df_weeklies_craft = {
+		label = '(DF) Crafting Quests',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
@@ -588,8 +598,8 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_weeklies_loot = {
-		label = 'Loot Quests',
+	knowledge_df_weeklies_loot = {
+		label = '(DF) Loot Quests',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
@@ -601,8 +611,8 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_weeklies_order  ={
-		label = 'Crafting Order Quests',
+	knowledge_df_weeklies_order  ={
+		label = '(DF) Crafting Order Quests',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
@@ -917,7 +927,7 @@ local labelRows = {
 		label = 'The Big Dig',
 		type = 'quest',
 		questType = 'weekly',
-		warbandReward = true,
+		warband = true,
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
@@ -928,7 +938,7 @@ local labelRows = {
 		label = 'Prepatch Dailies',
 		type = 'quest',
 		questType = 'daily',
-		warbandReward = 'unique',
+		warband = 'unique',
 		visibility = 'visible',
 		tooltip = true,
 		customTooltip = function(...)
@@ -947,18 +957,260 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
-	-- 11.0
-	spreading_the_light = {
-		label = 'Spreading the Light',
+    -- 11.0 The War Within
+	-- world activities
+	tww_world_boss = {
+		label = L['World Boss'],
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	delve_weekly = { -- PLACEHOLDER: Meta Quest, need more info how this timegate works
+		IDs = {82746, 82712, 82711, 82709, 82706, 82707},
+		label = 'Delve Meta',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		isComplete = function(alt_data)
+			return alt_data.questInfo and alt_data.questInfo.weekly and
+				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 1
+		end,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	archaic_cypher_key = {
+		IDs = {84370},
+		label = 'Archaic Cypher Key',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	the_theater_troupe = {
+		IDs = {83240},
+		label = 'The Theater Troupe',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	rollin_down_in_the_deeps = {
+		IDs = {82946},
+		label = "Rollin' Down in the Deeps",
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	gearing_up_for_trouble = {
+		IDs = {83333},
+		label = "Gearing Up for Trouble",
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-
+	awakening_the_machine = {
+		IDs = {84642, 84644, 84646, 84647},
+		label = 'Awakening the Machine',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 4,
+		version = WOW_PROJECT_MAINLINE
+	},
+	spreading_the_light = {
+		IDs = {76586},
+		label = 'Spreading the Light',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 	lesser_keyflame_weeklies = {
+		IDs = {76169, 76394, 76600, 76733, 76997, 78656, 78915, 78933, 78972, 79158, 79173, 79216, 79346, 80004, 80562, 81574, 81632},
 		label = 'Lesser Keyflame Weeklies',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 8,
+		version = WOW_PROJECT_MAINLINE
+	},
+	greater_keyflame_weeklies = {
+		IDs = {78590, 78657, 79329, 79380, 79469, 79470, 79471},
+		label = 'Greater Keyflame Weeklies',
+		type = 'quest',
+		questType = 'weekly',
+		warband = false,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	severed_threads_pact_chosen = {
+		IDs = {80544},
+		label = 'Severed Threads Pact Chosen',
+		type = 'quest',
+		questType = 'weekly',
+		warband = 'unique',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	severed_threads_pact_weekly = {
+		IDs = {80670, 80671, 80672},
+		label = 'Severed Threads Pact Weekly',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},	
+	-- rares
+	isle_of_dorne_rares = {
+		IDs = {82196, 81923, 81894, 81902, 81903, 81893, 81892, 79685, 81920, 81895, 81907, 81921, 81901, 81899, 81904, 78619, 81905, 81897, 81922, 82204, 82203, 82205},
+		label = 'Isle of Dorne Rares',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 4,
+		version = WOW_PROJECT_MAINLINE
+	},
+	ringing_deeps_rares = {
+		IDs = {81674, 81562, 80547, 80505, 80560, 80536, 80557, 80506, 81511, 80507, 81485, 81563, 80574, 81652, 81648, 80003, 81566, 81633},
+		label = 'Ringing Deeps Rares',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 4,
+		version = WOW_PROJECT_MAINLINE
+	},
+	hallowfall_rares = {
+		IDs = {81756, 82557, 81791, 80009, 81761, 81849, 80006, 82565, 82559, 80011, 82562, 81881, 81853, 81836, 79271, 80010, 82560, 81882, 82558, 82561, 82564, 82566},
+		label = 'Hallowfall Rares',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 22,
+		version = WOW_PROJECT_MAINLINE
+	},
+	azj_kahet_rares = {
+		IDs = {81702, 81703, 81695, 81706, 81700, 81699, 81704, 81707, 81705, 81694, 78905, 82037, 82078, 82077, 82036, 82035, 82034, 81634, 81701},
+		label = 'Azj-Kahet Rares',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 19,
+		version = WOW_PROJECT_MAINLINE
+	},
+	-- professions
+	knowledge_tww_treasures = {
+		label = 'Treasure Knowledge',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
+		end,
+		required = 4,
+		professionOffset = {
+			[182] = -2,
+			[186] = -2,
+			[393] = -2,
+		},
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	knowledge_tww_treatise = {
+		label = 'Treatise Knowledge',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
+		end,
+		tooltipRequired = 1,
+		required = 2,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	knowledge_tww_gather = {
+		label = 'Gather Knowledge',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
+		end,
+		required = 6,
+		tooltipRequired = 3,
+		professionOffset = {
+			[182] = 4,
+			[186] = 4,
+			[393] = 4,
+			[333] = 4,
+		},
+		professionRequired = {
+			[182] = 6,
+			[186] = 6,
+			[393] = 6,
+			[333] = 6,
+		},
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	knowledge_tww__weeklies_quest = {
+		label = 'Profession Quests',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
@@ -966,11 +1218,11 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 8,
+		required = 2,
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-
+	
 	--wotlk
 	general_dailies = {
 		label = 'General',
@@ -1177,7 +1429,7 @@ local function UpdateAllQuests(charInfo)
 			if not self.isBC then
 
 				-- check for weekly Warband Rewards
-				if info.warbandReward then
+				if info.warband then
                     local currentWarbandQuestInfo = setQuestInfo(warbandQuestInfo, info, key)
 
 					-- API CURRENTLY NOT FUNCTIONING AS INTENDED

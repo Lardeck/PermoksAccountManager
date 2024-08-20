@@ -16,28 +16,6 @@ local labelRows = {
         group = 'dungeons',
         version = WOW_PROJECT_MAINLINE
     },
-    vault_of_the_incarnates = {
-		label = function()
-            return PermoksAccountManager.raids[2522].name or 'VotI'
-        end,
-		id = 2522,
-		type = 'raid',
-		key = 'vault_of_the_incarnates',
-		tooltip = true,
-		group = 'raids',
-		version = WOW_PROJECT_MAINLINE
-    },
-    aberrus_the_shadowed_crucible = {
-		label = function()
-            return PermoksAccountManager.raids[2569].name or 'Aberrus'
-        end,
-		id = 2569,
-		type = 'raid',
-		key = 'aberrus_the_shadowed_crucible',
-		tooltip = true,
-		group = 'raids',
-		version = WOW_PROJECT_MAINLINE
-    },
     dawn_of_the_infinite = {
         label = GetRealZoneText(2579),
         id = 2579,
@@ -53,13 +31,15 @@ local labelRows = {
         group = 'dungeons',
         version = WOW_PROJECT_MAINLINE
     },
-    amirdrassil_the_dreams_hope = {
+
+    -- TWW Raids
+    nerub_ar_palace = {
 		label = function()
-            return PermoksAccountManager.raids[2549].name or 'Amirdrassil'
+            return PermoksAccountManager.raids[2657].name or 'Palace'
         end,
-		id = 2549,
+		id = 2657,
 		type = 'raid',
-		key = 'amirdrassil_the_dreams_hope',
+		key = 'nerub_ar_palace',
 		tooltip = true,
 		group = 'raids',
 		version = WOW_PROJECT_MAINLINE

@@ -4,30 +4,29 @@ local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 
 local module = 'currencies'
 local labelRows = {
-    soul_cinders = {
+
+    -- general currencies
+    honor = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1906].name or 'Soul Cinders'
+            return PermoksAccountManager.db.global.currencyInfo[1792].name or 'Honor'
         end,
         type = 'currency',
-        key = 1906,
+        warband = true,
+        key = 1792,
+        abbCurrent = true,
+        abbMax = true,
+        tooltip = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    soul_ash = {
+    valor = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1828].name or 'Soul Ash'
+            return PermoksAccountManager.db.global.currencyInfo[1191].name or 'Valor'
         end,
         type = 'currency',
-        key = 1828,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    stygia = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1767].name or 'Stygia'
-        end,
-        type = 'currency',
-        key = 1767,
+        key = 1191,
+        hideMax = true,
+        tooltip = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -42,51 +41,50 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    honor = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1792].name or 'Honor'
-        end,
+    timewarped_badge = {
+        label = 'Timewarped Badge',
         type = 'currency',
-        key = 1792,
-        abbCurrent = true,
-        abbMax = true,
-        tooltip = true,
+        warband = true,
+        key = 1166,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    honorBCC = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1901] and PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
-        end,
+    dmf_prize_ticket = {
+        label = 'Darkmoon Prize Ticket',
         type = 'currency',
-        key = 1901,
-		abbMax = true,
-        customIcon = {
-            height = 32,
-            width = 32,
-            xOffset = -5,
-            yOffset = -5
-        },
+        warband = true,
+        key = 515,
         group = 'currency',
-        version = WOW_PROJECT_CATACLYSM_CLASSIC
+        version = WOW_PROJECT_MAINLINE
     },
-    arenaPoints = {
+
+    -- Shadowlands
+    soul_cinders = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1900] and PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
+            return PermoksAccountManager.db.global.currencyInfo[1906].name or 'Soul Cinders'
         end,
         type = 'currency',
-        key = 1900,
+        warband = true,
+        key = 1906,
         group = 'currency',
-        version = WOW_PROJECT_CATACLYSM_CLASSIC
+        version = WOW_PROJECT_MAINLINE
     },
-    valor = {
+    soul_ash = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1191].name or 'Valor'
+            return PermoksAccountManager.db.global.currencyInfo[1828].name or 'Soul Ash'
         end,
         type = 'currency',
-        key = 1191,
-        hideMax = true,
-        tooltip = true,
+        warband = true,
+        key = 1828,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    stygia = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[1767].name or 'Stygia'
+        end,
+        type = 'currency',
+        key = 1767,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -119,6 +117,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1931].name or 'Cataloged Research'
         end,
         type = 'currency',
+        warband = true,
         key = 1931,
         abbMax = true,
         group = 'currency',
@@ -160,6 +159,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[2009] and PermoksAccountManager.db.global.currencyInfo[2009].name or 'Cosmic Flux'
         end,
 		type = 'currency',
+        warband = true,
 		key = 2009,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -167,6 +167,7 @@ local labelRows = {
 	cyphers = {
 		label = L['Cyphers'],
 		type = 'currency',
+        warband = true,
 		key = 1979,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -180,10 +181,11 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
-    --10.0
+    -- 10.0
     dragon_isles_supplies = {
 		label = 'Dragon Isles Supplies',
 		type = 'currency',
+        warband = true,
 		key = 2003,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -191,6 +193,7 @@ local labelRows = {
     elemental_overflow = {
 		label = 'Elemental Overflow',
 		type = 'currency',
+        warband = true,
 		key = 2118,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -210,7 +213,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
-    --10.1
+    -- 10.1
     flightstones = {
         label = 'Flightstones',
 		type = 'currency',
@@ -224,6 +227,7 @@ local labelRows = {
     paracausal_flakes = {
         label = 'Paracausal Flakes',
 		type = 'currency',
+        warband = true,
 		key = 2594,
         abbMax = true,
 		group = 'currency',
@@ -256,40 +260,6 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
-    -- 10.2.7
-    champion_crest = {
-        label = 'Whelpling Crests',
-        type = 'crestcurrency',
-        key = 2806,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    veteran_crest = {
-        label = 'Drake Crests',
-        type = 'crestcurrency',
-        key = 2807,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    hero_crest = {
-        label = 'Wyrm Crests',
-        type = 'crestcurrency',
-        key = 2809,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    myth_crest = {
-        label = 'Aspect Crests',
-        type = 'crestcurrency',
-        key = 2812,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-
     -- 11.0 Prepatch
     residual_memories = {
         label = 'Residual Memories',
@@ -302,10 +272,104 @@ local labelRows = {
     },
 
     -- 11.0
-    
-
+    champion_crest = {
+        label = 'Weathered Harbinger Crest',
+        type = 'crestcurrency',
+        key = 2914,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    veteran_crest = {
+        label = 'Carved Harbinger Crest',
+        type = 'crestcurrency',
+        key = 2915,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    hero_crest = {
+        label = 'Runed Harbinger Crest',
+        type = 'crestcurrency',
+        key = 2916,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    myth_crest = {
+        label = 'Gilded Harbinger Crest',
+        type = 'crestcurrency',
+        key = 2917,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    valorstones = {
+        label = 'Valorstones',
+		type = 'currency',
+		key = 3008,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+    },
+    resonance_crystals = {
+        label = 'Resonance Crystals',
+        type = 'currency',
+        warband = true,
+        key = 2815,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    kej = {
+        label = 'Kej',
+        type = 'currency',
+        warband = true,
+        key = 3056,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    restored_coffer_key = {
+        label = 'Restored Coffer Key',
+        type = 'currency',
+        key = 3028,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    undercoin = {
+        label = 'Undercoin',
+        type = 'currency',
+        warband = true,
+        key = 2803,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE 
+    },
 
     -- wotlk-classic
+    honorBCC = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[1901] and PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
+        end,
+        type = 'currency',
+        key = 1901,
+		abbMax = true,
+        customIcon = {
+            height = 32,
+            width = 32,
+            xOffset = -5,
+            yOffset = -5
+        },
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
+    arenaPoints = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[1900] and PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
+        end,
+        type = 'currency',
+        key = 1900,
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
     emblem_of_heroism = {
         label = 'Heroism Emblems',
 		type = 'currency',
