@@ -981,15 +981,15 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	weekly_meta = { -- PLACEHOLDER: Meta Quest, need more info how this timegate works
-		IDs = {82746, 82712, 82711, 82709, 82706, 82707, 82678, 82679},
-		label = 'Weekly Meta',
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'visible',
-		group = 'resetWeekly',
-		version = WOW_PROJECT_MAINLINE
-	},
+	-- weekly_meta = { -- -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
+	--	IDs = {82746, 82712, 82711, 82709, 82706, 82707, 82678, 82679},
+	--	label = 'Weekly Meta',
+	--	type = 'quest',
+	--	questType = 'weekly',
+	--	visibility = 'visible',
+	--	group = 'resetWeekly',
+	--	version = WOW_PROJECT_MAINLINE
+	-- },
 	archaic_cypher_key = {
 		IDs = {84370},
 		label = 'Archaic Cypher Key',
@@ -1502,7 +1502,7 @@ local function UpdateAllHiddenQuests(charInfo)
 						end
 						charInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
 
-						if warbandInfo and questData.warband then
+						if warbandInfo and questData.warband and not warbandInfo.questInfo[questType].hidden[key][questID] then
 							warbandInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
 						end
 					end
