@@ -581,15 +581,53 @@ local labelRows = {
 }
 
 local friendshipStandings = {
-    Stranger = "1/9",
-    Acquaintance = "2/9",
-    Crony = "3/9",
-    Accomplice = "4/9",
-    Collaborator = "5/9",
-    Accessory = "6/9",
-    Abettor = "7/9",
-    Conspirator = "8/9",
-    Mastermind = "9/9"
+    -- Ve'nari
+    ["Dubious"] = "1/6",
+    ["Apprehensive"] = "2/6",
+    ["Tentative"] = "3/6",
+    ["Ambivalent"] = "4/6",
+    ["Cordial"] = "5/6",
+    ["Appreciative"] = "6/6",
+
+    -- Black Dragons / Severed Threads Leaders
+    ["Stranger"] = "1/9",
+    ["Acquaintance"] = "2/9",
+    ["Crony"] = "3/9",
+    ["Accomplice"] = "4/9",
+    ["Collaborator"] = "5/9",
+    ["Accessory"] = "6/9",
+    ["Abettor"] = "7/9",
+    ["Conspirator"] = "8/9",
+    ["Mastermind"] = "9/9",
+
+    -- Archivists
+    ["Tier 1"] = "1/6",
+    ["Tier 2"] = "2/6",
+    ["Tier 3"] = "3/6",
+    ["Tier 4"] = "4/6",
+    ["Tier 5"] = "5/6",
+    ["Tier 6"] = "6/6",
+
+    -- Consortium
+    ["Neutral"] = "1/5",
+    ["Preferred"] = "2/5",
+    ["Respected"] = "3/5",
+    ["Valued"] = "4/5",
+    ["Esteemed"] = "5/5",
+
+    -- Soridormi
+    ["Anomaly"] = "1/5",
+    ["Future Friend"] = "2/5",
+    ["Rift-Mender"] = "3/5",
+    ["Timewalker"] = "4/5",
+    ["Legend"] = "5/5",
+
+    -- Cobalt Assembly
+    ["Empty"] = "1/5",
+    ["Low"] = "2/5",
+    ["Medium"] = "3/5",
+    ["High"] = "4/5",
+    ["Maximum"] = "5/5",
 }
 
 local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReputation or GetFriendshipReputation
