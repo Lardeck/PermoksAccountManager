@@ -580,6 +580,18 @@ local labelRows = {
     },
 }
 
+local friendshipStandings = {
+    Stranger = "1/9",
+    Acquaintance = "2/9",
+    Crony = "3/9",
+    Accomplice = "4/9",
+    Collaborator = "5/9",
+    Accessory = "6/9",
+    Abettor = "7/9",
+    Conspirator = "8/9",
+    Mastermind = "9/9"
+}
+
 local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReputation or GetFriendshipReputation
 --TODO: Rework after DF launch
 local function GetFactionOrFriendshipInfo(factionId, factionType)
@@ -625,11 +637,24 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
     return barValue - barMin, (barMax - barMin), standing, name, hasReward, renown
 end
 
+local function convertStanding(standing)
+    if friendshipStandings[standing] then
+        return friendshipStandings[standing]
+    else
+        return standing:sub(1,1)
+    end
+end
+
 local function UpdateFactions(charInfo)
     local self = PermoksAccountManager
 
     charInfo.factions = charInfo.factions or {}
+    if self.isRetail then
+        self.warbandData.factions = self.warbandData.factions or {}
+    end
+
     local factions = charInfo.factions
+    local warbandFactions = self.warbandData.factions
 
     for factionId, info in pairs(self.factions) do
         local current, maximum, standing, name, hasReward, renown = GetFactionOrFriendshipInfo(factionId, info.type)
@@ -644,10 +669,26 @@ local function UpdateFactions(charInfo)
         factions[factionId].exalted = not info.paragon and standing == 8
         factions[factionId].maximum = info.type == "friend" and current >= maximum
 
+        if warbandFactions then
+            warbandFactions[factionId] = warbandFactions[factionId] or {}
+            warbandFactions[factionId].standing = standing
+            warbandFactions[factionId].current = current
+            warbandFactions[factionId].max = maximum
+            warbandFactions[factionId].type = info.type
+            warbandFactions[factionId].hasReward = hasReward
+            warbandFactions[factionId].renown = renown
+            warbandFactions[factionId].exalted = not info.paragon and standing == 8
+            warbandFactions[factionId].maximum = info.type == "friend" and current >= maximum
+        end
+
         if not info.localName then
             info.localName = name
         end
     end
+end
+
+local function UpdateFaction(factionInfo)
+
 end
 
 local function Update(charInfo)
@@ -691,6 +732,6 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
     if factionInfo.renown then
         return string.format('%s - %s /%s', BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown), AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0))
     elseif factionInfo.max then
-        return string.format('|c%s%s|r/%s |cff%02X%02X%02X%s|r', color, AbbreviateLargeNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, standing:sub(1,1))
+        return string.format('|c%s%s|r/%s |cff%02X%02X%02X%s|r', color, AbbreviateLargeNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, convertStanding(standing))
     end
 end

@@ -981,15 +981,20 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	-- weekly_meta = { -- -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
-	--	IDs = {82746, 82712, 82711, 82709, 82706, 82707, 82678, 82679},
-	--	label = 'Weekly Meta',
-	--	type = 'quest',
-	--	questType = 'weekly',
-	--	visibility = 'visible',
-	--	group = 'resetWeekly',
-	--	version = WOW_PROJECT_MAINLINE
-	-- },
+	weekly_meta = { -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Need better solution
+		IDs = {82746, 82712, 82711, 82709, 82706, 82707, 82678, 82679},
+		label = '(WIP) Weekly Meta',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 8,
+		version = WOW_PROJECT_MAINLINE
+		},
 	archaic_cypher_key = {
 		IDs = {84370},
 		label = 'Archaic Cypher Key',
