@@ -637,14 +637,6 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
     return barValue - barMin, (barMax - barMin), standing, name, hasReward, renown
 end
 
-local function convertStanding(standing)
-    if friendshipStandings[standing] then
-        return friendshipStandings[standing]
-    else
-        return standing:sub(1,1)
-    end
-end
-
 local function UpdateFactions(charInfo)
     local self = PermoksAccountManager
 
@@ -707,6 +699,14 @@ local payload = {
     }
 }
 PermoksAccountManager:AddModule(module, payload)
+
+local function convertStanding(standing)
+    if friendshipStandings[standing] then
+        return friendshipStandings[standing]
+    else
+        return standing:sub(1,1)
+    end
+end
 
 function PermoksAccountManager:CreateFactionString(factionInfo)
     if not factionInfo then
