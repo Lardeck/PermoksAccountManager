@@ -713,14 +713,14 @@ PermoksAccountManager.quests = {
         [81796] = {questType = 'weekly', log = true}, -- Sparks of War: Azj-Kahet
     },
     dungeon_weekly = {
-        [83432] = {questType = 'weekly', log = true}, -- The Rookery
-        [83436] = {questType = 'weekly', log = true}, -- Cinderbrew Meadery
-        [83443] = {questType = 'weekly', log = true}, -- Darkflame Cleft
-        [83457] = {questType = 'weekly', log = true}, -- The Stonevault
-        [83458] = {questType = 'weekly', log = true}, -- Priory of the Sacred Flame
-        [83459] = {questType = 'weekly', log = true}, -- The Dawnbreaker
-        [83465] = {questType = 'weekly', log = true}, -- Ara-Kara, City of Echoes
-        [83469] = {questType = 'weekly', log = true}, -- City of Threads
+        [83432] = {questType = 'weekly', warband = true, log = true}, -- The Rookery
+        [83436] = {questType = 'weekly', warband = true, log = true}, -- Cinderbrew Meadery
+        [83443] = {questType = 'weekly', warband = true, log = true}, -- Darkflame Cleft
+        [83457] = {questType = 'weekly', warband = true, log = true}, -- The Stonevault
+        [83458] = {questType = 'weekly', warband = true, log = true}, -- Priory of the Sacred Flame
+        [83459] = {questType = 'weekly', warband = true, log = true}, -- The Dawnbreaker
+        [83465] = {questType = 'weekly', warband = true, log = true}, -- Ara-Kara, City of Echoes
+        [83469] = {questType = 'weekly', warband = true, log = true}, -- City of Threads
     },
 
     -- 9.0 Shadowlands
@@ -1604,44 +1604,44 @@ PermoksAccountManager.quests = {
         [82679] = {questType = 'weekly', log = true}, -- Archives: Seeking History
     },
     archaic_cypher_key = {
-        [84370] = {questType = 'weekly', log = true}, -- The Key to Success
+        [84370] = {questType = 'weekly', warband = true, log = true}, -- The Key to Success
     },
     the_theater_troupe = {
-        [83240] = {questType = 'weekly', log = true}, -- The Theater Troupe
+        [83240] = {questType = 'weekly', warband = true, log = true}, -- The Theater Troupe
     },    
     rollin_down_in_the_deeps = {
-        [82946] = {questType = 'weekly', log = true}, -- Rollin' Down in the Deeps (Digging)
+        [82946] = {questType = 'weekly', warband = true, log = true}, -- Rollin' Down in the Deeps (Digging)
     },
     gearing_up_for_trouble = {
         [83333] = {questType = 'weekly', log = true}, -- Gearing Up for Trouble (Awakening the Machine Weekly)
     },
     awakening_the_machine = {
-        [84642] = {questType = 'weekly', log = true}, -- cache 1
-        [84644] = {questType = 'weekly', log = true}, -- cache 2
-        [84646] = {questType = 'weekly', log = true}, -- cache 3
-        [84647] = {questType = 'weekly', log = true}, -- cache 4
+        [84642] = {questType = 'weekly', warband = true, log = true}, -- cache 1
+        [84644] = {questType = 'weekly', warband = true, log = true}, -- cache 2
+        [84646] = {questType = 'weekly', warband = true, log = true}, -- cache 3
+        [84647] = {questType = 'weekly', warband = true, log = true}, -- cache 4
     },
     spreading_the_light = {
-        [76586] = {questType = 'weekly', log = true}, -- Hallowfall Event in Dunelle's Kindness
+        [76586] = {questType = 'weekly', warband = true, log = true}, -- Hallowfall Event in Dunelle's Kindness
     },
     lesser_keyflame_weeklies = {
-        [76169] = {questType = 'weekly', log = true}, -- Glow in the Dark
-        [76394] = {questType = 'weekly', log = true}, -- Shadows of Flavor
-        [76600] = {questType = 'weekly', log = true}, -- Right Between the Gyro-Optics
-        [76733] = {questType = 'weekly', log = true}, -- Tater Trawl
-        [76997] = {questType = 'weekly', log = true}, -- Lost in Shadows
-        [78656] = {questType = 'weekly', log = true}, -- Hose It Down
-        [78915] = {questType = 'weekly', log = true}, -- Squashing the Threat
-        [78933] = {questType = 'weekly', log = true}, -- The Sweet Eclipse
-        [78972] = {questType = 'weekly', log = true}, -- Harvest Havoc
-        [79158] = {questType = 'weekly', log = true}, -- Seeds of Salvation
-        [79173] = {questType = 'weekly', log = true}, -- Supply the Effort
-        [79216] = {questType = 'weekly', log = true}, -- Web of Manipulation
-        [79346] = {questType = 'weekly', log = true}, -- Chew On That
-        [80004] = {questType = 'weekly', log = true}, -- Crab Grab
-        [80562] = {questType = 'weekly', log = true}, -- Blossoming Delight
-        [81574] = {questType = 'weekly', log = true}, -- Sporadic Growth
-        [81632] = {questType = 'weekly', log = true}, -- Lizard Looters
+        [76169] = {questType = 'weekly', warband = true, log = true}, -- Glow in the Dark
+        [76394] = {questType = 'weekly', warband = true, log = true}, -- Shadows of Flavor
+        [76600] = {questType = 'weekly', warband = true, log = true}, -- Right Between the Gyro-Optics
+        [76733] = {questType = 'weekly', warband = true, log = true}, -- Tater Trawl
+        [76997] = {questType = 'weekly', warband = true, log = true}, -- Lost in Shadows
+        [78656] = {questType = 'weekly', warband = true, log = true}, -- Hose It Down
+        [78915] = {questType = 'weekly', warband = true, log = true}, -- Squashing the Threat
+        [78933] = {questType = 'weekly', warband = true, log = true}, -- The Sweet Eclipse
+        [78972] = {questType = 'weekly', warband = true, log = true}, -- Harvest Havoc
+        [79158] = {questType = 'weekly', warband = true, log = true}, -- Seeds of Salvation
+        [79173] = {questType = 'weekly', warband = true, log = true}, -- Supply the Effort
+        [79216] = {questType = 'weekly', warband = true, log = true}, -- Web of Manipulation
+        [79346] = {questType = 'weekly', warband = true, log = true}, -- Chew On That
+        [80004] = {questType = 'weekly', warband = true, log = true}, -- Crab Grab
+        [80562] = {questType = 'weekly', warband = true, log = true}, -- Blossoming Delight
+        [81574] = {questType = 'weekly', warband = true, log = true}, -- Sporadic Growth
+        [81632] = {questType = 'weekly', warband = true, log = true}, -- Lizard Looters
     },
     greater_keyflame_weeklies = { -- not added to default categories because shit rewards
         [78590] = {questType = 'weekly', log = true}, -- Cutting Edge
@@ -1653,103 +1653,103 @@ PermoksAccountManager.quests = {
         [79471] = {questType = 'weekly', log = true}, -- Bleak Sand
     },
     severed_threads_pact_chosen = {
-        [80544] = {questType = 'weekly', log = true}, -- Eyes of the Weaver
+        [80544] = {questType = 'weekly', warband = true, log = true}, -- Eyes of the Weaver
     },
     severed_threads_pact_weekly = {
-        [80670] = {questType = 'weekly', log = true}, -- Eyes of the Weaver
-        [80671] = {questType = 'weekly', log = true}, -- Blade of the General
-        [80672] = {questType = 'weekly', log = true}, -- Hand of the Vizier
+        [80670] = {questType = 'weekly', warband = true, log = true}, -- Eyes of the Weaver
+        [80671] = {questType = 'weekly', warband = true, log = true}, -- Blade of the General
+        [80672] = {questType = 'weekly', warband = true, log = true}, -- Hand of the Vizier
     },
 
     -- Weekly Rares - NEED TO CONFIRM THEY GIVE REPUTATION
     isle_of_dorne_rares = {
-        [82196] = {questType = 'weekly', name = 'Alunira'},
-        [81923] = {questType = 'weekly', name = 'Tephratennae'},
-        [81894] = {questType = 'weekly', name = 'Warphorn'},
-        [81902] = {questType = 'weekly', name = 'Kronolith, Might of the Mountain'},
-        [81903] = {questType = 'weekly', name = 'Shallowshell the Clacker'},
-        [81893] = {questType = 'weekly', name = 'Bloodmaw'},
-        [81892] = {questType = 'weekly', name = 'Springbubble'},
-        [79685] = {questType = 'weekly', name = 'Sandres the Relicbearer'},
-        [81920] = {questType = 'weekly', name = 'Clawbreaker K\'zithix'},
-        [81895] = {questType = 'weekly', name = 'Emperor Pitfang'},
-        [81907] = {questType = 'weekly', name = 'Escaped Cutthroat'},
-        [81921] = {questType = 'weekly', name = 'Matriarch Charfuria'},
-        [81901] = {questType = 'weekly', name = 'Tempest Lord Incarnus'},
-        [81899] = {questType = 'weekly', name = 'Gar\'loc'},
-        [81904] = {questType = 'weekly', name = 'Twice-Stinger the Wretched'},
-        [78619] = {questType = 'weekly', name = 'Rustul Titancap'},
-        [81905] = {questType = 'weekly', name = 'Flamekeeper Graz'},
-        [81897] = {questType = 'weekly', name = 'Plaguehart'},
-        [81922] = {questType = 'weekly', name = 'Sweetspark the Oozeful'},
-        [82204] = {questType = 'weekly', name = 'Kereke'},
-        [82203] = {questType = 'weekly', name = 'Zovex'},
-        [82205] = {questType = 'weekly', name = 'Rotfist'},
+        [82196] = {questType = 'weekly', warband = true, name = 'Alunira'},
+        [81923] = {questType = 'weekly', warband = true, name = 'Tephratennae'},
+        [81894] = {questType = 'weekly', warband = true, name = 'Warphorn'},
+        [81902] = {questType = 'weekly', warband = true, name = 'Kronolith, Might of the Mountain'},
+        [81903] = {questType = 'weekly', warband = true, name = 'Shallowshell the Clacker'},
+        [81893] = {questType = 'weekly', warband = true, name = 'Bloodmaw'},
+        [81892] = {questType = 'weekly', warband = true, name = 'Springbubble'},
+        [79685] = {questType = 'weekly', warband = true, name = 'Sandres the Relicbearer'},
+        [81920] = {questType = 'weekly', warband = true, name = 'Clawbreaker K\'zithix'},
+        [81895] = {questType = 'weekly', warband = true, name = 'Emperor Pitfang'},
+        [81907] = {questType = 'weekly', warband = true, name = 'Escaped Cutthroat'},
+        [81921] = {questType = 'weekly', warband = true, name = 'Matriarch Charfuria'},
+        [81901] = {questType = 'weekly', warband = true, name = 'Tempest Lord Incarnus'},
+        [81899] = {questType = 'weekly', warband = true, name = 'Gar\'loc'},
+        [81904] = {questType = 'weekly', warband = true, name = 'Twice-Stinger the Wretched'},
+        [78619] = {questType = 'weekly', warband = true, name = 'Rustul Titancap'},
+        [81905] = {questType = 'weekly', warband = true, name = 'Flamekeeper Graz'},
+        [81897] = {questType = 'weekly', warband = true, name = 'Plaguehart'},
+        [81922] = {questType = 'weekly', warband = true, name = 'Sweetspark the Oozeful'},
+        [82204] = {questType = 'weekly', warband = true, name = 'Kereke'},
+        [82203] = {questType = 'weekly', warband = true, name = 'Zovex'},
+        [82205] = {questType = 'weekly', warband = true, name = 'Rotfist'},
     },
     ringing_deeps_rares = {
-        [81674] = {questType = 'weekly', name = 'Automaxor'},
-        [81562] = {questType = 'weekly', name = 'Charmonger'},
-        [80547] = {questType = 'weekly', name = 'King Splash'},
-        [80505] = {questType = 'weekly', name = 'Candleflyer Captain'},
-        [80560] = {questType = 'weekly', name = 'Cragmund'},
-        [80536] = {questType = 'weekly', name = 'Deepflayer Broodmother'},
-        [80557] = {questType = 'weekly', name = 'Aquellion'},
-        [80506] = {questType = 'weekly', name = 'Zilthara'},
-        [81511] = {questType = 'weekly', name = 'Coalesced Monstrosity'},
-        [80507] = {questType = 'weekly', name = 'Terror of the Forge'},
-        [81485] = {questType = 'weekly', name = 'Kelpmire'},
-        [81563] = {questType = 'weekly', name = 'Rampaging Blight'},
-        [80574] = {questType = 'weekly', name = 'Trungal'},
-        [81652] = {questType = 'weekly', name = 'Spore-infused Shalewing'},
-        [81648] = {questType = 'weekly', name = 'Hungerer of the Deeps'},
-        [80003] = {questType = 'weekly', name = 'Disturbed Earthgorger'},
-        [81566] = {questType = 'weekly', name = 'Deathbound Husk'},
-        [81633] = {questType = 'weekly', name = 'Lurker of the Deeps'},
+        [81674] = {questType = 'weekly', warband = true, name = 'Automaxor'},
+        [81562] = {questType = 'weekly', warband = true, name = 'Charmonger'},
+        [80547] = {questType = 'weekly', warband = true, name = 'King Splash'},
+        [80505] = {questType = 'weekly', warband = true, name = 'Candleflyer Captain'},
+        [80560] = {questType = 'weekly', warband = true, name = 'Cragmund'},
+        [80536] = {questType = 'weekly', warband = true, name = 'Deepflayer Broodmother'},
+        [80557] = {questType = 'weekly', warband = true, name = 'Aquellion'},
+        [80506] = {questType = 'weekly', warband = true, name = 'Zilthara'},
+        [81511] = {questType = 'weekly', warband = true, name = 'Coalesced Monstrosity'},
+        [80507] = {questType = 'weekly', warband = true, name = 'Terror of the Forge'},
+        [81485] = {questType = 'weekly', warband = true, name = 'Kelpmire'},
+        [81563] = {questType = 'weekly', warband = true, name = 'Rampaging Blight'},
+        [80574] = {questType = 'weekly', warband = true, name = 'Trungal'},
+        [81652] = {questType = 'weekly', warband = true, name = 'Spore-infused Shalewing'},
+        [81648] = {questType = 'weekly', warband = true, name = 'Hungerer of the Deeps'},
+        [80003] = {questType = 'weekly', warband = true, name = 'Disturbed Earthgorger'},
+        [81566] = {questType = 'weekly', warband = true, name = 'Deathbound Husk'},
+        [81633] = {questType = 'weekly', warband = true, name = 'Lurker of the Deeps'},
     },
     hallowfall_rares = {
-        [81756] = {questType = 'weekly', name = 'Lytfang the Lost'},
-        [82557] = {questType = 'weekly', name = 'Moth\'ethk'},
-        [81791] = {questType = 'weekly', name = 'The Perchfather'},
-        [80009] = {questType = 'weekly', name = 'The Taskmaker'},
-        [81761] = {questType = 'weekly', name = 'Grimslice'},
-        [81849] = {questType = 'weekly', name = 'Strength of Beledar'},
-        [80006] = {questType = 'weekly', name = 'Ixlorb the Spinner'},
-        [82565] = {questType = 'weekly', name = 'Murkspike'},
-        [82559] = {questType = 'weekly', name = 'Deathpetal'},
-        [80011] = {questType = 'weekly', name = 'Deepfiend Azellix'},
-        [82562] = {questType = 'weekly', name = 'Duskshadow'},
-        [81881] = {questType = 'weekly', name = 'Funglour'},
-        [81853] = {questType = 'weekly', name = 'Sir Alastair Purefire'},
-        [81836] = {questType = 'weekly', name = 'Horror of the Shallows'},
-        [79271] = {questType = 'weekly', name = 'Sloshmuck'},
-        [80010] = {questType = 'weekly', name = 'Murkshade'},
-        [82560] = {questType = 'weekly', name = 'Croakit'},
-        [81882] = {questType = 'weekly', name = 'Pride of Beledar'},
-        [82558] = {questType = 'weekly', name = 'Crazed Cabbage Smacker'},
-        [82561] = {questType = 'weekly', name = 'Toadstomper'},
-        [82564] = {questType = 'weekly', name = 'Finclaw Bloodtide'},
-        [82566] = {questType = 'weekly', name = 'Ravageant'},
+        [81756] = {questType = 'weekly', warband = true, name = 'Lytfang the Lost'},
+        [82557] = {questType = 'weekly', warband = true, name = 'Moth\'ethk'},
+        [81791] = {questType = 'weekly', warband = true, name = 'The Perchfather'},
+        [80009] = {questType = 'weekly', warband = true, name = 'The Taskmaker'},
+        [81761] = {questType = 'weekly', warband = true, name = 'Grimslice'},
+        [81849] = {questType = 'weekly', warband = true, name = 'Strength of Beledar'},
+        [80006] = {questType = 'weekly', warband = true, name = 'Ixlorb the Spinner'},
+        [82565] = {questType = 'weekly', warband = true, name = 'Murkspike'},
+        [82559] = {questType = 'weekly', warband = true, name = 'Deathpetal'},
+        [80011] = {questType = 'weekly', warband = true, name = 'Deepfiend Azellix'},
+        [82562] = {questType = 'weekly', warband = true, name = 'Duskshadow'},
+        [81881] = {questType = 'weekly', warband = true, name = 'Funglour'},
+        [81853] = {questType = 'weekly', warband = true, name = 'Sir Alastair Purefire'},
+        [81836] = {questType = 'weekly', warband = true, name = 'Horror of the Shallows'},
+        [79271] = {questType = 'weekly', warband = true, name = 'Sloshmuck'},
+        [80010] = {questType = 'weekly', warband = true, name = 'Murkshade'},
+        [82560] = {questType = 'weekly', warband = true, name = 'Croakit'},
+        [81882] = {questType = 'weekly', warband = true, name = 'Pride of Beledar'},
+        [82558] = {questType = 'weekly', warband = true, name = 'Crazed Cabbage Smacker'},
+        [82561] = {questType = 'weekly', warband = true, name = 'Toadstomper'},
+        [82564] = {questType = 'weekly', warband = true, name = 'Finclaw Bloodtide'},
+        [82566] = {questType = 'weekly', warband = true, name = 'Ravageant'},
     },
     azj_kahet_rares = {
-        [81702] = {questType = 'weekly', name = 'Kaheti Silk Hauler'},
-        [81703] = {questType = 'weekly', name = 'XT-Minecrusher 8700'},
-        [81695] = {questType = 'weekly', name = 'Abyssal Devourer'},
-        [81706] = {questType = 'weekly', name = 'Maddened Siegebomber'},
-        [81700] = {questType = 'weekly', name = 'Vilewing'},
-        [81699] = {questType = 'weekly', name = 'Webspeaker Grik\'ik'},
-        [81704] = {questType = 'weekly', name = 'Cha\'tak'},
-        [81707] = {questType = 'weekly', name = 'Enduring Gutterface'},
-        [81705] = {questType = 'weekly', name = 'Monstrous Lasharoth'},
-        [81694] = {questType = 'weekly', name = 'Rhak\'ik'},
-        [78905] = {questType = 'weekly', name = 'Ahg\'zagall'},
-        [82037] = {questType = 'weekly', name = 'Umbraclaw Matra'},
-        [82078] = {questType = 'weekly', name = 'Kaheti Bladeguard'},
-        [82077] = {questType = 'weekly', name = 'Deepcrawler Tx\'kesh'},
-        [82036] = {questType = 'weekly', name = 'Harvester Qixt'},
-        [82035] = {questType = 'weekly', name = 'The Oozekhan'},
-        [82034] = {questType = 'weekly', name = 'Jix\'ak the Crazed'},
-        [81634] = {questType = 'weekly', name = 'The Groundskeeper'},
-        [81701] = {questType = 'weekly', name = 'Xishorr'},
+        [81702] = {questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler'},
+        [81703] = {questType = 'weekly', warband = true, name = 'XT-Minecrusher 8700'},
+        [81695] = {questType = 'weekly', warband = true, name = 'Abyssal Devourer'},
+        [81706] = {questType = 'weekly', warband = true, name = 'Maddened Siegebomber'},
+        [81700] = {questType = 'weekly', warband = true, name = 'Vilewing'},
+        [81699] = {questType = 'weekly', warband = true, name = 'Webspeaker Grik\'ik'},
+        [81704] = {questType = 'weekly', warband = true, name = 'Cha\'tak'},
+        [81707] = {questType = 'weekly', warband = true, name = 'Enduring Gutterface'},
+        [81705] = {questType = 'weekly', warband = true, name = 'Monstrous Lasharoth'},
+        [81694] = {questType = 'weekly', warband = true, name = 'Rhak\'ik'},
+        [78905] = {questType = 'weekly', warband = true, name = 'Ahg\'zagall'},
+        [82037] = {questType = 'weekly', warband = true, name = 'Umbraclaw Matra'},
+        [82078] = {questType = 'weekly', warband = true, name = 'Kaheti Bladeguard'},
+        [82077] = {questType = 'weekly', warband = true, name = 'Deepcrawler Tx\'kesh'},
+        [82036] = {questType = 'weekly', warband = true, name = 'Harvester Qixt'},
+        [82035] = {questType = 'weekly', warband = true, name = 'The Oozekhan'},
+        [82034] = {questType = 'weekly', warband = true, name = 'Jix\'ak the Crazed'},
+        [81634] = {questType = 'weekly', warband = true, name = 'The Groundskeeper'},
+        [81701] = {questType = 'weekly', warband = true, name = 'Xishorr'},
     },
 
     -- Professions

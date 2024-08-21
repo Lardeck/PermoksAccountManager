@@ -1119,7 +1119,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 4,
+		required = 22,
 		version = WOW_PROJECT_MAINLINE
 	},
 	ringing_deeps_rares = {
@@ -1137,7 +1137,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 4,
+		required = 18,
 		version = WOW_PROJECT_MAINLINE
 	},
 	hallowfall_rares = {
@@ -1489,6 +1489,8 @@ local function UpdateAllHiddenQuests(charInfo)
 	end
 	self:Debug('Update Hidden Quests')
 
+	local warbandInfo = self.isRetail and self.warbandData or nil
+
 	for questType, keys in pairs(charInfo.questInfo) do
 		if type(keys) == 'table' and keys.hidden then
 			for key, _ in pairs(keys.hidden) do
@@ -1499,6 +1501,10 @@ local function UpdateAllHiddenQuests(charInfo)
 							isComplete = C_QuestLog.IsQuestFlaggedCompleted(questID)
 						end
 						charInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
+
+						if warbandInfo and questData.warband then
+							warbandInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
+						end
 					end
 				end
 			end
@@ -1521,6 +1527,7 @@ do
 	end
 end
 
+-- classic function
 local function AddQuest(_, questID, questLogIndex, questInfo)
 	local self = PermoksAccountManager
 	local questLogIndex = questLogIndex or
@@ -1531,12 +1538,14 @@ local function AddQuest(_, questID, questLogIndex, questInfo)
 	end
 end
 
+-- classic function
 local function RemoveQuest(_, questID)
 	if questID then
 		PermoksAccountManager.db.global.quests[questID] = nil
 	end
 end
 
+-- classic function
 local function UpdateCurrentlyActiveQuests(charInfo)
 	local numQuests = C_QuestLog and C_QuestLog.GetNumQuestLogEntries and C_QuestLog.GetNumQuestLogEntries() or GetNumQuestLogEntries()
 	local info
@@ -1567,6 +1576,8 @@ local function UpdateQuest(charInfo, questID)
 		return
 	end
 
+	local warbandInfo = self.isRetail and self.warbandData or nil
+
 	local questInfo = self.quests[key][questID]
 	local questType, visibility = questInfo.questType, questInfo.log and 'visible' or 'hidden'
 	self:Debug('Update', questType, visibility, key, questID)
@@ -1576,6 +1587,10 @@ local function UpdateQuest(charInfo, questID)
 		end
 
 		charInfo.questInfo[questType][visibility][key][questID] = true
+		if warbandInfo and warbandInfo.questInfo[questType][visibility][key] then
+			warbandInfo.questInfo[questType][visibility][key][questID] = true
+		end
+
 		RemoveQuest(charInfo, questID)
 	end
 end
@@ -1595,7 +1610,7 @@ do
 			['QUEST_ACCEPTED'] = AddQuest,
 			['QUEST_TURNED_IN'] = UpdateQuest,
 			['QUEST_REMOVED'] = RemoveQuest,
-			['QUEST_LOG_UPDATE'] = {HiddenQuestTimer}, 
+			['QUEST_LOG_UPDATE'] = {HiddenQuestTimer},
 		},
 		share = {
 			[HiddenQuestTimer] = 'questInfo',
