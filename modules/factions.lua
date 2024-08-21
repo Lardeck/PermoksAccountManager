@@ -675,6 +675,20 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
     return barValue - barMin, (barMax - barMin), standing, name, hasReward, renown
 end
 
+local function UpdateFaction(factionTable, factionId, standing, current, maximum, info, hasReward, renown)
+    
+    factionTable[factionId] = factionTable[factionId] or {}
+    local faction = factionTable[factionId]
+    faction.standing = standing
+    faction.current = current
+    faction.max = maximum
+    faction.type = info.type
+    faction.hasReward = hasReward
+    faction.renown = renown
+    faction.exalted = not info.paragon and standing == 8
+    faction.maximum = info.type == "friend" and current >= maximum
+end
+
 local function UpdateFactions(charInfo)
     local self = PermoksAccountManager
 
@@ -689,36 +703,16 @@ local function UpdateFactions(charInfo)
     for factionId, info in pairs(self.factions) do
         local current, maximum, standing, name, hasReward, renown = GetFactionOrFriendshipInfo(factionId, info.type)
 
-        factions[factionId] = factions[factionId] or {}
-        factions[factionId].standing = standing
-        factions[factionId].current = current
-        factions[factionId].max = maximum
-        factions[factionId].type = info.type
-        factions[factionId].hasReward = hasReward
-        factions[factionId].renown = renown
-        factions[factionId].exalted = not info.paragon and standing == 8
-        factions[factionId].maximum = info.type == "friend" and current >= maximum
+        UpdateFaction(factions, factionId, standing, current, maximum, info, hasReward, renown)
 
         if warbandFactions then
-            warbandFactions[factionId] = warbandFactions[factionId] or {}
-            warbandFactions[factionId].standing = standing
-            warbandFactions[factionId].current = current
-            warbandFactions[factionId].max = maximum
-            warbandFactions[factionId].type = info.type
-            warbandFactions[factionId].hasReward = hasReward
-            warbandFactions[factionId].renown = renown
-            warbandFactions[factionId].exalted = not info.paragon and standing == 8
-            warbandFactions[factionId].maximum = info.type == "friend" and current >= maximum
+            UpdateFaction(warbandFactions, factionId, standing, current, maximum, info, hasReward, renown)
         end
 
         if not info.localName then
             info.localName = name
         end
     end
-end
-
-local function UpdateFaction(factionInfo)
-
 end
 
 local function Update(charInfo)

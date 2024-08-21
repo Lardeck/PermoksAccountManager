@@ -1013,9 +1013,6 @@ function PermoksAccountManager:ResetActivities(db, data, daily, weekly, biweekly
 
     if daily then
         self:ResetDailyActivities(db, data)
-
-        -- DEBUG LINE DELETE LATER
-        print('PAM: Daily activities gracefully reset.')
     end
 
     if biweekly then
