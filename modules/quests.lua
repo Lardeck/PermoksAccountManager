@@ -38,7 +38,6 @@ local default = {
 
 local module = 'quests'
 local labelRows = {
-
 	-- General Weeklies
 	dungeon_weekly = {
 		IDs = {80184, 80185, 80186, 80187, 80188, 80189},
@@ -50,6 +49,16 @@ local labelRows = {
 		isComplete = function(alt_data)
 			return alt_data.questInfo and alt_data.questInfo.weekly and
 				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 1
+		end,
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+	completed_world_quests = {
+		label = 'Done WQs',
+		type = 'worldquest',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedWorldQuestsTooltip_OnEnter(...)
 		end,
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
@@ -1420,6 +1429,11 @@ local function UpdateCataDailies(charInfo)
 	charInfo.completedDailies.num = GetDailyQuestsCompleted()
 end
 
+local function UpdateWorldQuests(charInfo, questID)
+	charInfo.completedWorldQuests = charInfo.completedWorldQuests or {}
+	charInfo.completedWorldQuests[questID] = true
+end
+
 local function GetQuestInfo(questLogIndex)
 	if not PermoksAccountManager.isRetail then
 		local title, _, _, isHeader, _, _, frequency, questID, _, _, _, _, _, _, _, isHidden = GetQuestLogTitle(questLogIndex)
@@ -1576,6 +1590,10 @@ local function UpdateQuest(charInfo, questID)
 		UpdateCataDailies(charInfo)
 	end
 
+	if C_QuestLog.IsWorldQuest(questID) then
+		UpdateWorldQuests(charInfo, questID)
+	end
+
 	local key = self:FindQuestKeyByQuestID(questID)
 	if not key then
 		return
@@ -1598,6 +1616,10 @@ local function UpdateQuest(charInfo, questID)
 
 		RemoveQuest(charInfo, questID)
 	end
+end
+
+local function CreateWorldQuestString(completedWorldQuests)
+	return PermoksAccountManager:GetNumCompletedQuests(completedWorldQuests)
 end
 
 -- module init
@@ -1629,7 +1651,8 @@ do
 		tinsert(payload.events.QUEST_LOG_UPDATE, UpdateCataDailies)
 	end
 
-	PermoksAccountManager:AddModule(module, payload)
+	local module = PermoksAccountManager:AddModule(module, payload)
+	module:AddCustomLabelType('worldquest', CreateWorldQuestString, true, 'completedWorldQuests')
 end
 
 if PermoksAccountManager.isCata then
@@ -1775,6 +1798,33 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 		tooltip:SmartAnchorTo(button)
 		tooltip:Show()
 	end
+end
+
+function PermoksAccountManager:CompletedWorldQuestsTooltip_OnEnter(button, altData, column, key)
+	if not altData or not altData.completedWorldQuests then
+		return
+	end
+
+	local info = altData.completedWorldQuests
+
+	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 1, 'LEFT')
+	button.tooltip = tooltip
+
+	for questID, isComplete in pairs(info) do
+		local name = QuestUtils_GetQuestName(questID)
+		local color = "FF0000"
+
+		if isComplete then
+			color = "00FF00"
+		end
+
+		if name then
+			tooltip:AddLine(string.format("|cFF%s%s|r", color, name))
+		end
+	end
+
+	tooltip:SmartAnchorTo(button)
+	tooltip:Show()
 end
 
 function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column, key)

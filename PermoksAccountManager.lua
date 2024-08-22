@@ -959,6 +959,10 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
         end
     end
 
+    if altData.completedWorldQuests then
+        altData.completedWorldQuests = {}
+    end
+
 	-- Crests Earned
     if altData.currencyInfo then
         -- REFACTOR: move this to the currency module and reduce redundancy
@@ -1892,9 +1896,6 @@ function PermoksAccountManager:GetNextThreeDayLockoutResetTime()
     local nextReset = interval - ((GetServerTime() - reset) % interval)
     
     return nextReset
-end
-
-local function GetAllkeysArguments()
 end
 
 local function GetComparisonOperator(startLevel, endLevel, operator)
