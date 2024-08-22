@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALVERSION = 34
+local INTERNALVERSION = 33
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -57,7 +57,7 @@ local defaultDB = {
 
 				},
                 warbandData = {
-                    name = 'Warband (NYI)'
+                    name = 'Warband'
                 },
                 pages = {}
             }
@@ -98,7 +98,7 @@ local defaultDB = {
             },
             font = 'Expressway',
             fontSize = 11,
-            hideWarband = true,
+            hideWarband = false,
             savePosition = false,
             showOptionsButton = false,
             showGuildAttunementButton = false,
@@ -766,10 +766,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     end
 
     if oldInternalVersion < 33 then
-        self:AddLabelToDefaultCategory('general', 'whelpling_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'drake_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'wyrm_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'aspect_crest_s4')
+        self:AddLabelToDefaultCategory('general', 'champion_crest')
+        self:AddLabelToDefaultCategory('general', 'veteran_crest')
+        self:AddLabelToDefaultCategory('general', 'hero_crest')
+        self:AddLabelToDefaultCategory('general', 'myth_crest')
         self:AddLabelToDefaultCategory('general', 'spark_awakening', 15)
         self:AddLabelToDefaultCategory('renown', 'keg_legs_crew', 7)
         self:AddLabelToDefaultCategory('renown', 'soridormi', 16)
@@ -777,7 +777,9 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 34 then
         self:AddLabelToDefaultCategory('general', 'residual_memories')
-        self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_weeklies')
+        self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_daylies')
+        self:AddLabelToDefaultCategory('general', 'radiant_echoes_cache')
+        self:AddLabelToDefaultCategory('currentweekly', 'big_dig', 16)
     end
 end
 
@@ -929,6 +931,7 @@ function PermoksAccountManager:OnLogin()
     LoadFonts()
 
     self.account = db.accounts.main
+    self.warbandData = db.accounts.main.warbandData
     local data = self.account.data
     if guid and not data[guid] and not self:isBlacklisted(guid) and not (level < min_level) then
         db.alts = db.alts + 1
@@ -991,22 +994,33 @@ function PermoksAccountManager:CheckForReset()
 end
 
 function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biweekly, resetThreeDayRaids)
+    -- Loop through account data and reset each altData
     for _, altData in pairs(accountData.data) do
-        if weekly then
-            self:ResetWeeklyActivities(altData)
-        end
+        self:ResetActivities(db, altData, daily, weekly, biweekly, resetThreeDayRaids)
+    end
 
-        if daily then
-            self:ResetDailyActivities(db, altData)
-        end
+    -- Reset warband data
+    self:ResetActivities(db, accountData.warbandData, daily, weekly, biweekly, false)
+end
 
-        if biweekly then
-            self:ResetBiweeklyActivities(altData)
-        end
+function PermoksAccountManager:ResetActivities(db, data, daily, weekly, biweekly, resetThreeDayRaids)
+    if weekly then
+        self:ResetWeeklyActivities(data)
 
-        if resetThreeDayRaids then
-            self:ResetThreeDayRaids(altData)
-        end
+        -- DEBUG LINE DELETE LATER
+        print('PAM: Weekly activities gracefully reset.')
+    end
+
+    if daily then
+        self:ResetDailyActivities(db, data)
+    end
+
+    if biweekly then
+        self:ResetBiweeklyActivities(data)
+    end
+
+    if resetThreeDayRaids then
+        self:ResetThreeDayRaids(data)
     end
 end
 
@@ -1051,7 +1065,8 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
 
 	-- Crests Earned
     if altData.currencyInfo then
-        for _, crestID in ipairs({2409, 2410, 2411, 2412}) do
+        -- REFACTOR: move this to the currency module and reduce redundancy
+        for _, crestID in ipairs({2914, 2915, 2916, 2917}) do
             if altData.currencyInfo[crestID] then
                 altData.currencyInfo[crestID].quantity = 0
             end
