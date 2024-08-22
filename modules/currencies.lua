@@ -4,30 +4,29 @@ local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 
 local module = 'currencies'
 local labelRows = {
-    soul_cinders = {
+
+    -- general currencies
+    honor = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1906].name or 'Soul Cinders'
+            return PermoksAccountManager.db.global.currencyInfo[1792].name or 'Honor'
         end,
         type = 'currency',
-        key = 1906,
+        warband = true,
+        key = 1792,
+        abbCurrent = true,
+        abbMax = true,
+        tooltip = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    soul_ash = {
+    valor = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1828].name or 'Soul Ash'
+            return PermoksAccountManager.db.global.currencyInfo[1191].name or 'Valor'
         end,
         type = 'currency',
-        key = 1828,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    stygia = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1767].name or 'Stygia'
-        end,
-        type = 'currency',
-        key = 1767,
+        key = 1191,
+        hideMax = true,
+        tooltip = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -42,51 +41,50 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    honor = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1792].name or 'Honor'
-        end,
+    timewarped_badge = {
+        label = 'Timewarped Badge',
         type = 'currency',
-        key = 1792,
-        abbCurrent = true,
-        abbMax = true,
-        tooltip = true,
+        warband = true,
+        key = 1166,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    honorBCC = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1901] and PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
-        end,
+    dmf_prize_ticket = {
+        label = 'Darkmoon Prize Ticket',
         type = 'currency',
-        key = 1901,
-		abbMax = true,
-        customIcon = {
-            height = 32,
-            width = 32,
-            xOffset = -5,
-            yOffset = -5
-        },
+        warband = true,
+        key = 515,
         group = 'currency',
-        version = WOW_PROJECT_CATACLYSM_CLASSIC
+        version = WOW_PROJECT_MAINLINE
     },
-    arenaPoints = {
+
+    -- Shadowlands
+    soul_cinders = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1900] and PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
+            return PermoksAccountManager.db.global.currencyInfo[1906].name or 'Soul Cinders'
         end,
         type = 'currency',
-        key = 1900,
+        warband = true,
+        key = 1906,
         group = 'currency',
-        version = WOW_PROJECT_CATACLYSM_CLASSIC
+        version = WOW_PROJECT_MAINLINE
     },
-    valor = {
+    soul_ash = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1191].name or 'Valor'
+            return PermoksAccountManager.db.global.currencyInfo[1828].name or 'Soul Ash'
         end,
         type = 'currency',
-        key = 1191,
-        hideMax = true,
-        tooltip = true,
+        warband = true,
+        key = 1828,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    stygia = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[1767].name or 'Stygia'
+        end,
+        type = 'currency',
+        key = 1767,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -119,6 +117,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[1931].name or 'Cataloged Research'
         end,
         type = 'currency',
+        warband = true,
         key = 1931,
         abbMax = true,
         group = 'currency',
@@ -160,6 +159,7 @@ local labelRows = {
             return PermoksAccountManager.db.global.currencyInfo[2009] and PermoksAccountManager.db.global.currencyInfo[2009].name or 'Cosmic Flux'
         end,
 		type = 'currency',
+        warband = true,
 		key = 2009,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -167,6 +167,7 @@ local labelRows = {
 	cyphers = {
 		label = L['Cyphers'],
 		type = 'currency',
+        warband = true,
 		key = 1979,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -174,16 +175,17 @@ local labelRows = {
 	catalyst_charges = {
 		label = L['Catalyst Charges'],
 		type = 'catalystcharges',
-		key = 2912,
+		key = 2813,
 		hideIcon = true,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
 	},
 
-    --10.0
+    -- 10.0
     dragon_isles_supplies = {
 		label = 'Dragon Isles Supplies',
 		type = 'currency',
+        warband = true,
 		key = 2003,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -191,6 +193,7 @@ local labelRows = {
     elemental_overflow = {
 		label = 'Elemental Overflow',
 		type = 'currency',
+        warband = true,
 		key = 2118,
 		group = 'currency',
 		version = WOW_PROJECT_MAINLINE
@@ -210,35 +213,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
-    --10.1
-    whelpling_crest_earned = {
-        label = 'Whelpling earned',
-		type = 'currency',
-		key = 2409,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-    },
-    drake_crest_earned = {
-        label = 'Drake earned',
-		type = 'currency',
-		key = 2410,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-    },
-    wyrm_crest_earned = {
-        label = 'Wyrm earned',
-		type = 'currency',
-		key = 2411,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-    },
-    aspect_crest_earned = {
-        label = 'Aspect earned',
-		type = 'currency',
-		key = 2412,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-    },
+    -- 10.1
     flightstones = {
         label = 'Flightstones',
 		type = 'currency',
@@ -252,6 +227,7 @@ local labelRows = {
     paracausal_flakes = {
         label = 'Paracausal Flakes',
 		type = 'currency',
+        warband = true,
 		key = 2594,
         abbMax = true,
 		group = 'currency',
@@ -259,38 +235,6 @@ local labelRows = {
     },
 
     -- 10.2
-    whelpling_crest_s3 = {
-        label = 'Whelpling Crests',
-        type = 'crestcurrency',
-        key = 2706,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    drake_crest_s3 = {
-        label = 'Drake Crests',
-        type = 'crestcurrency',
-        key = 2707,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    wyrm_crest_s3 = {
-        label = 'Wyrm Crests',
-        type = 'crestcurrency',
-        key = 2708,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    aspect_crest_s3 = {
-        label = 'Aspect Crests',
-        type = 'crestcurrency',
-        key = 2709,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
     emerald_dewdrop = {
         label = 'Emerald Dewdrop',
         type = 'currency',
@@ -316,40 +260,6 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
-    -- 10.2.7
-    whelpling_crest_s4 = {
-        label = 'Whelpling Crests',
-        type = 'crestcurrency',
-        key = 2806,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    drake_crest_s4 = {
-        label = 'Drake Crests',
-        type = 'crestcurrency',
-        key = 2807,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    wyrm_crest_s4 = {
-        label = 'Wyrm Crests',
-        type = 'crestcurrency',
-        key = 2809,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    aspect_crest_s4 = {
-        label = 'Aspect Crests',
-        type = 'crestcurrency',
-        key = 2812,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-
     -- 11.0 Prepatch
     residual_memories = {
         label = 'Residual Memories',
@@ -362,10 +272,104 @@ local labelRows = {
     },
 
     -- 11.0
-    
-
+    champion_crest = {
+        label = 'Champion Crests',
+        type = 'crestcurrency',
+        key = 2914,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    veteran_crest = {
+        label = 'Veteran Crests',
+        type = 'crestcurrency',
+        key = 2915,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    hero_crest = {
+        label = 'Hero Crests',
+        type = 'crestcurrency',
+        key = 2916,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    myth_crest = {
+        label = 'Myth Crests',
+        type = 'crestcurrency',
+        key = 2917,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    valorstones = {
+        label = 'Valorstones',
+		type = 'currency',
+		key = 3008,
+        abbMax = true,
+		group = 'currency',
+		version = WOW_PROJECT_MAINLINE
+    },
+    resonance_crystals = {
+        label = 'Resonance Crystals',
+        type = 'currency',
+        warband = true,
+        key = 2815,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    kej = {
+        label = 'Kej',
+        type = 'currency',
+        warband = true,
+        key = 3056,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    restored_coffer_key = {
+        label = 'Restored Coffer Key',
+        type = 'currency',
+        key = 3028,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    undercoin = {
+        label = 'Undercoin',
+        type = 'currency',
+        warband = true,
+        key = 2803,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE 
+    },
 
     -- wotlk-classic
+    honorBCC = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[1901] and PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
+        end,
+        type = 'currency',
+        key = 1901,
+		abbMax = true,
+        customIcon = {
+            height = 32,
+            width = 32,
+            xOffset = -5,
+            yOffset = -5
+        },
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
+    arenaPoints = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[1900] and PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
+        end,
+        type = 'currency',
+        key = 1900,
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
     emblem_of_heroism = {
         label = 'Heroism Emblems',
 		type = 'currency',
@@ -485,11 +489,53 @@ local function UpdateAllCurrencies(charInfo)
             self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType] or {icon = info.iconFileID, name = info.name}
             self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or self.db.global.currencyInfo[currencyType].maxQuantity
         end
+
+    end
+end
+
+local function SumWarbandCurrencies(warbandCurrency)
+   
+    local currencySum = 0
+    for _, alt in pairs(warbandCurrency) do
+        currencySum = currencySum + alt.quantity
+    end
+    return currencySum
+end
+
+-- this is only for the Warband column, not for the Warband characters
+local function UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, currencyType)
+    warbandCurrencyInfo[currencyType] = warbandCurrencyInfo[currencyType] or {name = C_CurrencyInfo.GetCurrencyInfo(currencyType).name}
+
+    warbandCurrencyInfo[currencyType].currencyType = currencyType
+    warbandCurrencyInfo[currencyType].altQuantity = newWarbandCurrencyInfo and SumWarbandCurrencies(newWarbandCurrencyInfo) or 0
+end
+
+local function UpdateAllWarbandCurrencies(charInfo)
+    local self = PermoksAccountManager
+    self.warbandData.currencyInfo = self.warbandData.currencyInfo or {}
+
+    -- reference to the currency tables for character and Warband
+    local charCurrencyInfo = charInfo.currencyInfo
+    local warbandCurrencyInfo = self.warbandData.currencyInfo
+    for currencyType, offset in pairs(self.currency) do
+        -- only fetches data from non-active characters
+        local newWarbandCurrencyInfo = C_CurrencyInfo.FetchCurrencyDataFromAccountCharacters(currencyType)
+        local transferableCurrency = C_CurrencyInfo.IsAccountTransferableCurrency(currencyType)
+        if newWarbandCurrencyInfo or transferableCurrency then
+            UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, currencyType)
+            warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + charCurrencyInfo[currencyType].quantity + offset
+        end
+             
     end
 end
 
 local function Update(charInfo)
     UpdateAllCurrencies(charInfo)
+
+    -- requesting the warband data has a slight server-delay
+    if PermoksAccountManager.isRetail then
+        C_CurrencyInfo.RequestCurrencyDataForAccountCharacters()
+    end
 end
 
 local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
@@ -518,18 +564,59 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     else
         charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
     end
+        
+    -- Update Warband amount
+    if self.warbandData.currencyInfo and C_CurrencyInfo.IsAccountTransferableCurrency(currencyType) then
+        local warbandCurrencyInfo = self.warbandData.currencyInfo
+        warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + quantity
+    end
+end
+
+local function CurrencyTransferUpdate(charInfo)
+    local self = PermoksAccountManager
+    local accountData = self.account.data
+    local warbandCurrencyInfo = self.warbandData.currencyInfo
+
+    -- Fetch the latest currency transfer transactions
+    local transferLog = C_CurrencyInfo.FetchCurrencyTransferTransactions()
+    local lastTransferCurrencyType = transferLog[#transferLog].currencyType
+    
+
+    -- Get new currency information for character and warband
+    local newCharacterCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(lastTransferCurrencyType)
+    local newWarbandCurrencyInfo = C_CurrencyInfo.FetchCurrencyDataFromAccountCharacters(lastTransferCurrencyType)
+
+    -- this is necessary because a transfer can be taxed by with different penalties
+    UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, lastTransferCurrencyType)
+    warbandCurrencyInfo[lastTransferCurrencyType].quantity = warbandCurrencyInfo[lastTransferCurrencyType].altQuantity + newCharacterCurrencyInfo.quantity
+
+    -- update all alts for this currency because the transferlog has no GUID unless you relog (cringe)
+    -- even more cringe is that reducing a currency to 0 makes the character disappear from data.
+    -- comparing tables to find the nils is too complex so we just reset the db and fill it again.
+    for guID, alt in pairs(accountData) do
+        if guID ~= charInfo.guid and alt.currencyInfo[lastTransferCurrencyType] then
+            alt.currencyInfo[lastTransferCurrencyType].quantity = 0
+        end
+    end
+    
+    for _, alt in pairs(newWarbandCurrencyInfo) do
+        local character = accountData[alt.characterGUID]
+        if character and character.currencyInfo[lastTransferCurrencyType] then
+            character.currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
+        end
+    end
 end
 
 local function UpdateCatalystCharges(charInfo)
-    if not charInfo.currencyInfo or not charInfo.currencyInfo[2912] then
+    if not charInfo.currencyInfo or not charInfo.currencyInfo[2813] then
         UpdateAllCurrencies(charInfo)
     end
 
-    charInfo.currencyInfo[2912].quantity = C_CurrencyInfo.GetCurrencyInfo(2912).quantity
+    charInfo.currencyInfo[2813].quantity = C_CurrencyInfo.GetCurrencyInfo(2813).quantity
 end
 
 local function CreateCatalystChargeString(currencyInfo)
-	local catalystCharges = currencyInfo and currencyInfo[2912]
+	local catalystCharges = currencyInfo and currencyInfo[2813]
 	if not catalystCharges then return '-' end
 
 	return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, catalystCharges.maxQuantity)
@@ -537,6 +624,8 @@ end
 
 local function CreateCrestString(labelRow, currencyInfo)
 	local crestInfo = currencyInfo and currencyInfo[labelRow.key]
+    local self = PermoksAccountManager
+
     if crestInfo then
         if crestInfo.maxQuantity and crestInfo.maxQuantity > 0 then
             local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
@@ -544,7 +633,8 @@ local function CreateCrestString(labelRow, currencyInfo)
         elseif currencyInfo then
             return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
-    elseif currencyInfo then
+    -- manually exclcluding crests for the warband column. need a better solution what labelRows the Warband column shows
+    elseif currencyInfo and currencyInfo ~= self.warbandData.currencyInfo then
         return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
     else
         return '-'
@@ -566,6 +656,8 @@ local payload = {
     events = {
         ['CURRENCY_DISPLAY_UPDATE'] = UpdateCurrency,
         ['PERKS_ACTIVITIES_UDPATED'] = UpdateCatalystCharges,
+        ['ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED'] = UpdateAllWarbandCurrencies,
+        ['CURRENCY_TRANSFER_LOG_UPDATE'] = CurrencyTransferUpdate,
     },
     share = {
         [UpdateCurrency] = 'currencyInfo'

@@ -99,6 +99,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2507].localName or 'Expedition'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2507,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -108,6 +109,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2511].localName or 'Iskaara Tuskar'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2511,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -117,6 +119,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2503].localName or 'Maruuk Centaur'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2503,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -126,6 +129,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2510].localName or 'Valdrakken Akkord'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2510,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -144,6 +148,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2544].localName or "Artisan's Consortium"
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2544,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -153,6 +158,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2550].localName or "Cobalt Assembly"
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2550,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -162,6 +168,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2518].localName or 'Sabellian'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2518,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -171,6 +178,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2517].localName or 'Wrathion'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2517,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -180,6 +188,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2564].localName or 'Loam Niffen'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2564,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -189,6 +198,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2574].localName or 'Dream Wardens'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2574,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -198,6 +208,7 @@ local labelRows = {
             return PermoksAccountManager.factions[2553].localName or 'Soridormi'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2553,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
@@ -207,11 +218,93 @@ local labelRows = {
             return PermoksAccountManager.factions[2593].localName or 'Keg Leg\'s Crew'
         end,
         type = 'faction',
+        warband = 'unique',
         key = 2593,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
 
+    -- 11.0
+    council_of_dornogal = {
+        label = function()
+            return PermoksAccountManager.factions[2590].localName or 'Council of Dornogal'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2590,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    hallowfall_arathi = {
+        label = function()
+            return PermoksAccountManager.factions[2570].localName or 'Hallowfall Arathi'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2570,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_assembly_of_the_deeps = {
+        label = function()
+            return PermoksAccountManager.factions[2594].localName or 'The Assembly of the Deeps'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2594,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_severed_threads = {
+        label = function()
+            return PermoksAccountManager.factions[2600].localName or 'The Severed Threads'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2600,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_general = {
+        label = function()
+            return PermoksAccountManager.factions[2605].localName or 'The General'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2605,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_vizier = {
+        label = function()
+            return PermoksAccountManager.factions[2607].localName or 'The Vizier'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2607,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    the_weaver = {
+        label = function()
+            return PermoksAccountManager.factions[2601].localName or 'The Weaver'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2601,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },    
+    brann_bronzebeard = {
+        label = function()
+            return PermoksAccountManager.factions[2640].localName or 'Brann Bronzebeard'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2640,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
 
     -- wotlk
     alliance_vanguard = {
@@ -487,6 +580,56 @@ local labelRows = {
     },
 }
 
+local friendshipStandings = {
+    -- Ve'nari
+    ["Dubious"] = "1/6",
+    ["Apprehensive"] = "2/6",
+    ["Tentative"] = "3/6",
+    ["Ambivalent"] = "4/6",
+    ["Cordial"] = "5/6",
+    ["Appreciative"] = "6/6",
+
+    -- Black Dragons / Severed Threads Leaders
+    ["Stranger"] = "1/9",
+    ["Acquaintance"] = "2/9",
+    ["Crony"] = "3/9",
+    ["Accomplice"] = "4/9",
+    ["Collaborator"] = "5/9",
+    ["Accessory"] = "6/9",
+    ["Abettor"] = "7/9",
+    ["Conspirator"] = "8/9",
+    ["Mastermind"] = "9/9",
+
+    -- Archivists
+    ["Tier 1"] = "1/6",
+    ["Tier 2"] = "2/6",
+    ["Tier 3"] = "3/6",
+    ["Tier 4"] = "4/6",
+    ["Tier 5"] = "5/6",
+    ["Tier 6"] = "6/6",
+
+    -- Consortium
+    ["Neutral"] = "1/5",
+    ["Preferred"] = "2/5",
+    ["Respected"] = "3/5",
+    ["Valued"] = "4/5",
+    ["Esteemed"] = "5/5",
+
+    -- Soridormi
+    ["Anomaly"] = "1/5",
+    ["Future Friend"] = "2/5",
+    ["Rift-Mender"] = "3/5",
+    ["Timewalker"] = "4/5",
+    ["Legend"] = "5/5",
+
+    -- Cobalt Assembly
+    ["Empty"] = "1/5",
+    ["Low"] = "2/5",
+    ["Medium"] = "3/5",
+    ["High"] = "4/5",
+    ["Maximum"] = "5/5",
+}
+
 local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReputation or GetFriendshipReputation
 --TODO: Rework after DF launch
 local function GetFactionOrFriendshipInfo(factionId, factionType)
@@ -532,24 +675,39 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
     return barValue - barMin, (barMax - barMin), standing, name, hasReward, renown
 end
 
+local function UpdateFaction(factionTable, factionId, standing, current, maximum, info, hasReward, renown)
+    
+    factionTable[factionId] = factionTable[factionId] or {}
+    local faction = factionTable[factionId]
+    faction.standing = standing
+    faction.current = current
+    faction.max = maximum
+    faction.type = info.type
+    faction.hasReward = hasReward
+    faction.renown = renown
+    faction.exalted = not info.paragon and standing == 8
+    faction.maximum = info.type == "friend" and current >= maximum
+end
+
 local function UpdateFactions(charInfo)
     local self = PermoksAccountManager
 
     charInfo.factions = charInfo.factions or {}
+    if self.isRetail then
+        self.warbandData.factions = self.warbandData.factions or {}
+    end
+
     local factions = charInfo.factions
+    local warbandFactions = self.warbandData.factions
 
     for factionId, info in pairs(self.factions) do
         local current, maximum, standing, name, hasReward, renown = GetFactionOrFriendshipInfo(factionId, info.type)
 
-        factions[factionId] = factions[factionId] or {}
-        factions[factionId].standing = standing
-        factions[factionId].current = current
-        factions[factionId].max = maximum
-        factions[factionId].type = info.type
-        factions[factionId].hasReward = hasReward
-        factions[factionId].renown = renown
-        factions[factionId].exalted = not info.paragon and standing == 8
-        factions[factionId].maximum = info.type == "friend" and current >= maximum
+        UpdateFaction(factions, factionId, standing, current, maximum, info, hasReward, renown)
+
+        if warbandFactions then
+            UpdateFaction(warbandFactions, factionId, standing, current, maximum, info, hasReward, renown)
+        end
 
         if not info.localName then
             info.localName = name
@@ -573,6 +731,14 @@ local payload = {
     }
 }
 PermoksAccountManager:AddModule(module, payload)
+
+local function convertStanding(standing)
+    if friendshipStandings[standing] then
+        return friendshipStandings[standing]
+    else
+        return standing:sub(1,1)
+    end
+end
 
 function PermoksAccountManager:CreateFactionString(factionInfo)
     if not factionInfo then
@@ -598,6 +764,6 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
     if factionInfo.renown then
         return string.format('%s - %s /%s', BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown), AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0))
     elseif factionInfo.max then
-        return string.format('|c%s%s|r/%s |cff%02X%02X%02X%s|r', color, AbbreviateLargeNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, standing:sub(1,1))
+        return string.format('|c%s%s|r/%s |cff%02X%02X%02X%s|r', color, AbbreviateLargeNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, convertStanding(standing))
     end
 end

@@ -123,6 +123,8 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
+
+    -- 10.0 Dragonflight
     vaultKey = {
         label = 'Zskera Vault Key',
         type = 'item',
@@ -130,39 +132,10 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
-    whelpling_crest = {
-        label = 'Whelpling Crest (S2)',
-        type = 'crest',
-        fragment = 204075,
-        crest = 204193,
-        passRow = true,
-        group = 'item',
-        version = WOW_PROJECT_MAINLINE
-    },
-    drake_crest = {
-        label = 'Drake Crest (S2)',
-        type = 'crest',
-        fragment = 204076,
-        crest = 204195,
-        passRow = true,
-        group = 'item',
-        version = WOW_PROJECT_MAINLINE
-    },
-    wyrm_crest = {
-        label = 'Wyrm Crest (S2)',
-        type = 'crest',
-        fragment = 204077,
-        crest = 204196,
-        passRow = true,
-        group = 'item',
-        version = WOW_PROJECT_MAINLINE
-    },
-    aspect_crest = {
-        label = 'Aspect Crest (S2)',
-        type = 'crest',
-        fragment = 204078,
-        crest = 204194,
-        passRow = true,
+    artisans_mettle = {
+        label = "Artisan's Mettle",
+        type = 'item',
+        key = 190456,
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
@@ -275,6 +248,58 @@ local labelRows = {
         key = 211516,
         reagent = 211515,
         reagentRequired = 2,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- 11.0 The War Within
+    spark_omens = {
+        label = 'Spark - Omens',
+        type = 'spark',
+        passRow = true,
+        key = 211296,
+        reagent = 211297,
+        reagentRequired = 2,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    artisans_acuity = {
+        label = "Artisan's Acuity",
+        type = 'item',
+        key = 210814,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    radiant_remnant = {
+        label = 'Radiant Remnant',
+        type = 'item',
+        key = 206350,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    radiant_echo = {
+        label = 'Radiant Echo',
+        type = 'item',
+        key = 220520,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- REFACTOR: technically 50Glob of Wax = 1x Firelight Ruby so this could be merged. Using spark function for this, could generalize the concept
+    firelight_ruby = {
+        label = 'Firelight Ruby',
+        type = 'spark',
+        passRow = true,
+        key = 224642,
+        reagent = 212493,
+        reagentRequired = 50,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    coffer_key_shard = {
+        label = 'Coffer Key Shard',
+        type = 'item',
+        key = 220693,
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },

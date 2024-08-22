@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALVERSION = 34
+local INTERNALTWWVERSION = 1
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -57,7 +57,7 @@ local defaultDB = {
 
 				},
                 warbandData = {
-                    name = 'Warband (NYI)'
+                    name = 'Warband'
                 },
                 pages = {}
             }
@@ -98,7 +98,7 @@ local defaultDB = {
             },
             font = 'Expressway',
             fontSize = 11,
-            hideWarband = true,
+            hideWarband = false,
             savePosition = false,
             showOptionsButton = false,
             showGuildAttunementButton = false,
@@ -612,11 +612,11 @@ function PermoksAccountManager:CheckForModernize()
         end
         self.db.global.internalCataVersion = INTERNALCATAVERSION
     else
-        local internalVersion = self.db.global.internalVersion or INTERNALVERSION
-        if internalVersion < INTERNALVERSION then
+        local internalVersion = self.db.global.internalTWWVersion
+        if (internalVersion or 0) < INTERNALTWWVERSION then
             self:Modernize(internalVersion)
         end
-        self.db.global.internalVersion = INTERNALVERSION
+        self.db.global.internalTWWVersion = INTERNALTWWVERSION
     end
 end
 
@@ -674,110 +674,8 @@ end
 function PermoksAccountManager:Modernize(oldInternalVersion)
     local db = self.db
 
-    if (oldInternalVersion or 0) < 2 then
-        self:UpdateDefaultCategories('currentdaily')
-        oldInternalVersion = 2
-    end
-
-    if oldInternalVersion < 3 then
-        for _, accountInfo in pairs(db.global.accounts) do
-            for _, altData in pairs(accountInfo.data) do
-                altData.sanctumInfo = nil
-            end
-        end
-        oldInternalVersion = 3
-    end
-
-    if oldInternalVersion < 4 then
-        db.global.options.buttons.widthPerAlt = db.global.options.other.widthPerAlt or 120
-        oldInternalVersion = 4
-    end
-
-    if oldInternalVersion < 5 then
-        self:AddLabelToDefaultCategory('general', 'tw_keystone', 5.1)
-
-        local sortKey = self.isBC and 'charLevel' or 'ilevel'
-        if true then
-            return
-        end
-        for _, accountInfo in pairs(db.global.accounts) do
-            local order = 1
-            for _, altData in self.spairs(
-                accountInfo.data,
-                function(t, a, b)
-                    if t[a] and t[b] then
-                        if t[a].order and t[b].order then
-                            return t[a].order < t[b].order
-                        end
-                        return t[a][sortKey] > t[b][sortKey]
-                    end
-                end
-            ) do
-                altData.order = order
-                order = order + 1
-            end
-        end
-		oldInternalVersion = 5
-    end
-
-	if oldInternalVersion < 7 then
-		for _, accountInfo in pairs(db.global.accounts) do
-            for _, altData in pairs(accountInfo.data) do
-				altData.instanceInfo = nil
-            end
-        end
-		self:Print("Reset instance info for every character.")
-		oldInternalVersion = 7
-	end
-
-    if oldInternalVersion < 26 then
-        self:UpdateDefaultCategories('currentweekly')
-        self:UpdateDefaultCategories('currentdaily')
-        self:UpdateDefaultCategories('general')
-        self:UpdateDefaultCategories('renown')
-        self:AddLabelToDefaultCategory('raid', 'aberrus_the_shadowed_crucible')
-        self:AddLabelToDefaultCategory('raid', 'amirdrassil_the_dreams_hope')
-    end
-
-    if oldInternalVersion < 27 then
-        self:AddLabelToDefaultCategory('currentweekly', 'dream_shipments', 4)
-    end
-
-    if oldInternalVersion < 28 then
-        self:AddLabelToDefaultCategory('currentweekly', 'dream_shipments', 4)
-    end
-
-    if oldInternalVersion < 29 then
-        self:AddLabelToDefaultCategory('general', 'dream_infusion')
-        self:AddLabelToDefaultCategory('currentweekly', 'sparks_of_life', 5)
-    end
-
-    if oldInternalVersion < 30 then
-        self:AddLabelToDefaultCategory('currentweekly', 'dreamsurge_weekly', 13)
-        self:AddLabelToDefaultCategory('currentweekly', 'time_rift', 14)
-    end
-
-    if oldInternalVersion < 31 then
-        self:AddLabelToDefaultCategory('currentweekly', 'time_rift_pod', 15)
-    end
-
-    if oldInternalVersion < 32 then
-        self:AddLabelToDefaultCategory('vault', 'great_vault_reward_available')
-    end
-
-    if oldInternalVersion < 33 then
-        self:AddLabelToDefaultCategory('general', 'whelpling_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'drake_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'wyrm_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'aspect_crest_s4')
-        self:AddLabelToDefaultCategory('general', 'spark_awakening', 15)
-        self:AddLabelToDefaultCategory('renown', 'keg_legs_crew', 7)
-        self:AddLabelToDefaultCategory('renown', 'soridormi', 16)
-    end
-
-    if oldInternalVersion < 34 then
-        self:AddLabelToDefaultCategory('general', 'residual_memories')
-        self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_weeklies')
+    if not oldInternalVersion then
+        PermoksAccountManager:ResetCategories()
     end
 end
 
@@ -929,6 +827,7 @@ function PermoksAccountManager:OnLogin()
     LoadFonts()
 
     self.account = db.accounts.main
+    self.warbandData = db.accounts.main.warbandData
     local data = self.account.data
     if guid and not data[guid] and not self:isBlacklisted(guid) and not (level < min_level) then
         db.alts = db.alts + 1
@@ -991,22 +890,33 @@ function PermoksAccountManager:CheckForReset()
 end
 
 function PermoksAccountManager:ResetAccount(db, accountData, daily, weekly, biweekly, resetThreeDayRaids)
+    -- Loop through account data and reset each altData
     for _, altData in pairs(accountData.data) do
-        if weekly then
-            self:ResetWeeklyActivities(altData)
-        end
+        self:ResetActivities(db, altData, daily, weekly, biweekly, resetThreeDayRaids)
+    end
 
-        if daily then
-            self:ResetDailyActivities(db, altData)
-        end
+    -- Reset warband data
+    self:ResetActivities(db, accountData.warbandData, daily, weekly, biweekly, false)
+end
 
-        if biweekly then
-            self:ResetBiweeklyActivities(altData)
-        end
+function PermoksAccountManager:ResetActivities(db, data, daily, weekly, biweekly, resetThreeDayRaids)
+    if weekly then
+        self:ResetWeeklyActivities(data)
 
-        if resetThreeDayRaids then
-            self:ResetThreeDayRaids(altData)
-        end
+        -- DEBUG LINE DELETE LATER
+        print('PAM: Weekly activities gracefully reset.')
+    end
+
+    if daily then
+        self:ResetDailyActivities(db, data)
+    end
+
+    if biweekly then
+        self:ResetBiweeklyActivities(data)
+    end
+
+    if resetThreeDayRaids then
+        self:ResetThreeDayRaids(data)
     end
 end
 
@@ -1055,7 +965,8 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
 
 	-- Crests Earned
     if altData.currencyInfo then
-        for _, crestID in ipairs({2409, 2410, 2411, 2412}) do
+        -- REFACTOR: move this to the currency module and reduce redundancy
+        for _, crestID in ipairs({2914, 2915, 2916, 2917}) do
             if altData.currencyInfo[crestID] then
                 altData.currencyInfo[crestID].quantity = 0
             end
@@ -1560,82 +1471,89 @@ function PermoksAccountManager:DeleteUnusedLabels(labelIdentifier)
     end
 end
 
-function PermoksAccountManager:UpdateRows(childs, rows, anchorFrame, enabledChilds, data, options)
+function PermoksAccountManager:UpdateRows(childs, rows, anchorFrame, enabledChilds, data, options, isWarband)
     local enabledRows, yOffset = 0, 0
     for _, row_identifier in pairs(childs) do
         local labelRow = self.labelRows[row_identifier]
         if labelRow and enabledChilds[row_identifier] then
+
             local row = (not self.isLayoutDirty and rows[row_identifier]) or CreateLabelButton('row', anchorFrame, labelRow, enabledRows)
-            if self.isLayoutDirty or not rows[row_identifier] then
-                if rows[row_identifier] then
-                    rows[row_identifier]:Hide()
-                end
-                rows[row_identifier] = row
+            if (not isWarband and labelRow.warband ~= 'unique') or (isWarband and labelRow.warband) then
+                if self.isLayoutDirty or not rows[row_identifier] then
 
-                local module = self:GetModuleForRow(row_identifier)
-                local moduleLabelFunction = module and module.labelFunctions[labelRow.type]
-                if moduleLabelFunction then
-                    row.module = module
-                    row.labelFunction = moduleLabelFunction.callback
+                    local module = self:GetModuleForRow(row_identifier)
+                    local moduleLabelFunction = module and module.labelFunctions[labelRow.type]
+                    if moduleLabelFunction then
+                        row.module = module
+                        row.labelFunction = moduleLabelFunction.callback
+                    else
+                        row.labelFunction = self:GetInternalLabelFunction(labelRow)
+                    end
+
+                    if labelRow.tooltip then
+                        local tooltipFunction
+                        if labelRow.customTooltip then
+                            tooltipFunction = labelRow.customTooltip
+                        elseif InternalTooltipFunctions[labelRow.type] then
+                            tooltipFunction = InternalTooltipFunctions[labelRow.type]
+                        elseif type(labelRow.tooltip) == 'function' then
+                            tooltipFunction = labelRow.tooltip
+                        end
+                        row:SetScript('OnLeave', Tooltip_OnLeave)
+                        row.tooltipFunction = tooltipFunction
+                    end
+                end
+
+                if row.tooltipFunction then
+                    row:SetScript(
+                        'OnEnter',
+                        function(self)
+                            self.tooltipFunction(self, data, labelRow, row_identifier)
+                        end
+                    )
+                end
+
+                if labelRow.OnClick then
+                    row:SetScript("OnClick", function(self, button)
+                        labelRow.OnClick(button, data)
+                    end)
+                end
+
+                UpdateRowButton(row, options, row_identifier)
+
+                if row.module then
+                    local args = row.module:GenerateLabelArgs(data, labelRow.type, labelRow.update)
+                    local text
+                    if labelRow.passKey then
+                        text = row.labelFunction(labelRow.key or row_identifier, unpack(args))
+                    elseif labelRow.passRow then
+                        text = row.labelFunction(labelRow, unpack(args))
+                    else
+                        text = row.labelFunction(unpack(args))
+                    end
+                    row:SetText(text)
                 else
-                    row.labelFunction = self:GetInternalLabelFunction(labelRow)
+                    row:SetText(row.labelFunction(data, labelRow, row_identifier))
                 end
-
-                if labelRow.tooltip then
-                    local tooltipFunction
-                    if labelRow.customTooltip then
-                        tooltipFunction = labelRow.customTooltip
-                    elseif InternalTooltipFunctions[labelRow.type] then
-                        tooltipFunction = InternalTooltipFunctions[labelRow.type]
-                    elseif type(labelRow.tooltip) == 'function' then
-                        tooltipFunction = labelRow.tooltip
+                
+                if labelRow.color and row.fontString then
+                    local color = labelRow.color(data)
+                    if color then
+                        row.fontString:SetTextColor(color:GetRGBA())
                     end
-                    row:SetScript('OnLeave', Tooltip_OnLeave)
-                    row.tooltipFunction = tooltipFunction
                 end
             end
 
-            if row.tooltipFunction then
-                row:SetScript(
-                    'OnEnter',
-                    function(self)
-                        self.tooltipFunction(self, data, labelRow, row_identifier)
-                    end
-                )
+            if rows[row_identifier] then
+                rows[row_identifier]:Hide()
             end
-
-            if labelRow.OnClick then
-                row:SetScript("OnClick", function(self, button)
-                    labelRow.OnClick(button, data)
-                end)
-            end
+            rows[row_identifier] = row
 
             UpdateButtonTexture(row, enabledRows, row_identifier, data.guid)
-            UpdateRowButton(row, options, row_identifier)
 
-            if row.module then
-                local args = row.module:GenerateLabelArgs(data, labelRow.type, labelRow.update)
-                local text
-                if labelRow.passKey then
-                    text = row.labelFunction(labelRow.key or row_identifier, unpack(args))
-                elseif labelRow.passRow then
-                    text = row.labelFunction(labelRow, unpack(args))
-                else
-                    text = row.labelFunction(unpack(args))
-                end
-                row:SetText(text)
-            else
-                row:SetText(row.labelFunction(data, labelRow, row_identifier))
-            end
+            
             row:SetPoint('TOPLEFT', anchorFrame, 'TOPLEFT', 0, -yOffset * 20)
             row:Show()
-
-            if labelRow.color and row.fontString then
-                local color = labelRow.color(data)
-                if color then
-                    row.fontString:SetTextColor(color:GetRGBA())
-                end
-            end
 
             enabledRows = enabledRows + 1
             yOffset = yOffset + (labelRow.offset or 1)
@@ -1659,7 +1577,7 @@ function PermoksAccountManager:UpdateColumnForWarband(category)
     local account = self.account
     local db = self.db.global
     local anchorFrame = self.managerFrame.warbandColumns[category]
-    self:UpdateRows(db.currentCategories[category].childs, anchorFrame.rows, anchorFrame, db.currentCategories[category].childOrder, account.warbandData, db.options.buttons)
+    self:UpdateRows(db.currentCategories[category].childs, anchorFrame.rows, anchorFrame, db.currentCategories[category].childOrder, account.warbandData, db.options.buttons, true)
 end
 
 function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category)
@@ -1673,94 +1591,7 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
     end
 
     local db = self.db.global
-    local buttonOptions = db.options.buttons
-    local childs = db.currentCategories[category].childs
-    local enabledChilds = db.currentCategories[category].childOrder
-
-    local rows = anchorFrame.rows
-    local enabledRows, yOffset = 0, 0
-    for _, row_identifier in pairs(childs) do
-        local labelRow = self.labelRows[row_identifier]
-        if labelRow and enabledChilds[row_identifier] then
-            local row = (not self.isLayoutDirty and rows[row_identifier]) or CreateLabelButton('row', anchorFrame, labelRow, enabledRows)
-            if self.isLayoutDirty or not rows[row_identifier] then
-                if rows[row_identifier] then
-                    rows[row_identifier]:Hide()
-                end
-                rows[row_identifier] = row
-
-                local module = self:GetModuleForRow(row_identifier)
-                local moduleLabelFunction = module and module.labelFunctions[labelRow.type]
-                if moduleLabelFunction then
-                    row.module = module
-                    row.labelFunction = moduleLabelFunction.callback
-                else
-                    row.labelFunction = self:GetInternalLabelFunction(labelRow)
-                end
-
-                if labelRow.tooltip then
-                    local tooltipFunction
-                    if labelRow.customTooltip then
-                        tooltipFunction = labelRow.customTooltip
-                    elseif InternalTooltipFunctions[labelRow.type] then
-                        tooltipFunction = InternalTooltipFunctions[labelRow.type]
-                    elseif type(labelRow.tooltip) == 'function' then
-                        tooltipFunction = labelRow.tooltip
-                    end
-                    row:SetScript('OnLeave', Tooltip_OnLeave)
-                    row.tooltipFunction = tooltipFunction
-                end
-            end
-
-            if row.tooltipFunction then
-                row:SetScript(
-                    'OnEnter',
-                    function(self)
-                        self.tooltipFunction(self, altData, labelRow, row_identifier)
-                    end
-                )
-            end
-
-            if labelRow.OnClick then
-                row:SetScript("OnClick", function(self, button)
-                    labelRow.OnClick(button, altData)
-                end)
-            end
-
-            UpdateButtonTexture(row, enabledRows, row_identifier, altData.guid)
-            UpdateRowButton(row, buttonOptions, row_identifier)
-
-            if row.module then
-                local args = row.module:GenerateLabelArgs(altData, labelRow.type, labelRow.update)
-                local text
-                if labelRow.passKey then
-                    text = row.labelFunction(labelRow.key or row_identifier, unpack(args))
-                elseif labelRow.passRow then
-                    text = row.labelFunction(labelRow, unpack(args))
-                else
-                    text = row.labelFunction(unpack(args))
-                end
-                row:SetText(text)
-            else
-                row:SetText(row.labelFunction(altData, labelRow, row_identifier))
-            end
-            row:SetPoint('TOPLEFT', anchorFrame, 'TOPLEFT', 0, -yOffset * 20)
-            row:Show()
-
-            if labelRow.color and row.fontString then
-                row.fontString:SetTextColor(labelRow.color(altData):GetRGBA())
-            end
-
-            enabledRows = enabledRows + 1
-            yOffset = yOffset + (labelRow.offset or 1)
-        end
-    end
-
-    for row_identifier, row in pairs(rows) do
-        if not enabledChilds[row_identifier] then
-            row:Hide()
-        end
-    end
+    self:UpdateRows(db.currentCategories[category].childs, anchorFrame.rows, anchorFrame, db.currentCategories[category].childOrder, altData, db.options.buttons)
 end
 
 function PermoksAccountManager:UpdateStrings(page, category, columnFrame)

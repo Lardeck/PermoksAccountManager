@@ -13,16 +13,26 @@ local default_categories = {
             'keystone',
             'mplus_score',
             'catalyst_charges',
-            'flightstones',
-            'whelpling_crest_s4',
-            'drake_crest_s4',
-            'wyrm_crest_s4',
-            'aspect_crest_s4',
-            'spark_awakening',
-            'residual_memories',
-            'radiant_echoes_prepatch_weeklies',
-            
+            'valorstones',
+            'champion_crest',
+            'veteran_crest',
+            'hero_crest',
+            'myth_crest',
+            'spark_omens',
 
+            -- Probably interesting during the first weeks, might wanna (re-)move later
+            'separator2',
+            'restored_coffer_key',
+            'resonance_crystals',
+            'kej',
+            'radiant_remnant',
+            'radiant_echo',
+
+            -- DF Stuff -> Remove from Default Categories after global Launch
+            'separator3',
+            'residual_memories',
+            'radiant_echoes_prepatch_dailies',
+            'radiant_echoes_cache',
         },
         childOrder = {
             characterName = 1,
@@ -32,16 +42,26 @@ local default_categories = {
             keystone = 5,
             mplus_score = 6,
             catalyst_charges = 7,
-            flightstones = 8,
-            whelpling_crest_s4 = 9,
-            drake_crest_s4 = 10,
-            wyrm_crest_s4 = 11,
-            aspect_crest_s4 = 12,
-            spark_awakening = 13,
-            residual_memories = 14,
-            radiant_echoes_prepatch_weeklies = 15,
+            valorstones = 8,
+            champion_crest = 9,
+            veteran_crest = 10,
+            hero_crest = 11,
+            myth_crest = 12,
+            spark_omens = 13,
 
+            -- Probably interesting during the first weeks, might wanna (re-)move later
+            separator2 = 20,
+            restored_coffer_key = 21,
+            resonance_crystals = 22,
+            kej = 23, 
+            radiant_remnant = 24,
+            radiant_echo = 25,
 
+            -- DF Stuff -> Remove from Default Categories after global Launch
+            separator3 = 30,
+            residual_memories = 31,
+            radiant_echoes_prepatch_dailies = 32,
+            radiant_echoes_cache = 33,
         },
         hideToggle = true,
         enabled = true
@@ -53,50 +73,55 @@ local default_categories = {
         },
         childOrder = {
         },
-        enabled = true
+        enabled = false
     },
     currentweekly = {
         order = 2,
         name = '(Bi)Weekly',
         childs = {
-            'superbloom',
-            'dream_wardens_weekly',
-            'ed_wb_wq',
-            'dream_shipments',
+            'dungeon_weekly',
+            'weekend_event',
+            'worldsoul_weekly',
+            'archaic_cypher_key',
+
             'separator1',
-            'aiding_the_accord',
-            'fyrak_assault',
-            'time_rift',
-            'dreamsurge_weekly',
-            'sparks_of_life',
-            'separator3',
-            'knowledge_mobs',
-            'knowledge_scout_packs',
-            'knowledge_treatise',
-            'knowledge_weeklies_loot',
-            'knowledge_weeklies_craft',
-            'knowledge_weeklies_order',
-            'show_your_mettle',
+            'the_theater_troupe',
+            'rollin_down_in_the_deeps',
+            'gearing_up_for_trouble',
+            'awakening_the_machine',
+            'spreading_the_light',
+            'lesser_keyflame_weeklies',
+            'greater_keyflame_weeklies',
+            'severed_threads_pact_weekly',
+
+            'separator2',
+            'isle_of_dorne_rares',
+            'ringing_deeps_rares',
+            'hallowfall_rares',
+            'azj_kahet_rares',
         },
         childOrder = {
-            superbloom = 1,
-            dream_wardens_weekly = 2,
-            ed_wb_wq = 3,
-            dream_shipments = 4,
+            dungeon_weekly = 1,
+            weekend_event = 2,
+            worldsoul_weekly = 3,
+            archaic_cypher_key = 5,
+
             separator1 = 10,
-            aiding_the_accord = 11,
-            fyrak_assault = 12,
-            time_rift = 13,
-            dreamsurge_weekly = 14,
-            sparks_of_life = 15,
-            separator3 = 30,
-            knowledge_mobs = 31,
-            knowledge_scout_packs = 32,
-            knowledge_treatise = 33,
-            knowledge_weeklies_loot = 34,
-            knowledge_weeklies_craft = 35,
-            knowledge_weeklies_order = 36,
-            show_your_mettle = 37,
+            the_theater_troupe = 11,
+            rollin_down_in_the_deeps = 12,
+            gearing_up_for_trouble = 13,
+            awakening_the_machine = 14,
+            spreading_the_light = 15,
+            lesser_keyflame_weeklies = 16,
+            greater_keyflame_weeklies = 17,
+            severed_threads_pact_weekly = 18,
+
+            
+            separator2 = 20,
+            isle_of_dorne_rares = 21,
+            ringing_deeps_rares = 22,
+            hallowfall_rares = 23,
+            azj_kahet_rares = 24,
         },
         enabled = true
     },
@@ -115,139 +140,115 @@ local default_categories = {
         },
         enabled = true
     },
-    renown = {
+    professions = {
         order = 4,
-        name = L['Reputation'],
+        name = L['Professions'],
         childs = {
-            'dragonscale_expedition',
-            'iskaara_tuskar',
-            'maruuk_centaur',
-            'valdrakken_akkord',
-            'loam_niffen',
-            'dream_wardens',
-            'keg_legs_crew',
+            'knowledge_tww_treasures',
+            'knowledge_tww_treatise',
+            'knowledge_tww_gather',
+            'knowledge_tww_weeklies_quest',
             'separator1',
-            'winterpelt_furbolg',
-            'artisan_consortium',
-            'cobalt_assembly',
-            'sabellian',
-            'wrathion',
-            'soridormi'
+            'artisans_acuity',
         },
         childOrder = {
-            dragonscale_expedition = 1,
-            iskaara_tuskar = 2,
-            maruuk_centaur = 3,
-            valdrakken_akkord = 4,
-            loam_niffen = 5,
-            dream_wardens = 6,
-            keg_legs_crew = 7,
+            knowledge_tww_treasures = 1,
+            knowledge_tww_treatise = 2,
+            knowledge_tww_gather = 3,
+            knowledge_tww_weeklies_quest = 4,
+
             separator1 = 10,
-            winterpelt_furbolg = 11,
-            artisan_consortium = 12,
-            cobalt_assembly = 13,
-            sabellian = 14,
-            wrathion = 15,
-            soridormi = 16,
+            artisans_acuity = 11,
+        },
+        enabled = true
+    },
+    renown = {
+        order = 5,
+        name = L['Reputation'],
+        childs = {
+            'council_of_dornogal',
+            'hallowfall_arathi',
+            'the_assembly_of_the_deeps',
+            'the_severed_threads',
+            'the_general',
+            'the_vizier',
+            'the_weaver',
+            -- 'brann_bronzebeard', Makes no sense without a custom string for the level
+        },
+        childOrder = {
+            council_of_dornogal = 1,
+            hallowfall_arathi = 2,
+            the_assembly_of_the_deeps= 2,
+            the_severed_threads = 4,
+            the_general = 5,
+            the_vizier = 6,
+            the_weaver = 7,
+            -- brann_bronzebeard = 8,
         },
         enabled = true
     },
     raid = {
-        order = 5,
+        order = 6,
         name = L['Raid'],
         childs = {
-            'vault_of_the_incarnates',
-            'aberrus_the_shadowed_crucible',
-            'amirdrassil_the_dreams_hope',
+            'nerub_ar_palace',
         },
         childOrder = {
-            vault_of_the_incarnates = 1,
-            aberrus_the_shadowed_crucible = 2,
-            amirdrassil_the_dreams_hope = 3
+            nerub_ar_palace = 1,
         },
         enabled = true
     },
     pvp = {
-        order = 6,
+        order = 7,
         name = L['PVP'],
         childs = {
             'conquest',
             'honor',
             'arenaRating2v2',
             'arenaRating3v3',
-            'rbgRating'
+            'rbgRating',
+
+            'separator3',
+            'pvp_sparks',
+            'pvp_weekly',
         },
         childOrder = {
             conquest = 1,
             honor = 2,
             arenaRating2v2 = 3,
             arenaRating3v3 = 4,
-            rbgRating = 5
+            rbgRating = 5,
+
+            separator3 = 30,
+            pvp_sparks = 31,
+            pvp_weekly = 32,
         },
         enabled = true
     },
     old_weekly = {
-        order = 7,
+        order = 8,
         name = "Old Weekly",
         childs = {
-            'forbidden_reach_weeklies',
-            'forbidden_reach_elite_wqs',
-            'separator1',
-            'mythics_done',
-            'dragonflight_world_boss',
-            'zc_wb_wq',
-            'grand_hunts',
-            'marrukai_camp',
-            'sparks_of_life',
-            'community_feast_weekly',
-            'fish_turnins_df',
-            'separator2',
-            'trial_of_flood',
-            'trial_of_elements',
-            'trial_of_storms',
-            'separator3',
-            'dragonbane_keep_siege',
-            'dragonbane_keep_key',
-            'dragonbane_keep_weeklies',
+            'big_dig',
+            'show_your_mettle',
         },
         childOrder = {
-            forbidden_reach_weeklies = 1,
-            forbidden_reach_elite_wqs = 2,
-            separator1 = 10,
-            mythics_done = 11,
-            dragonflight_world_boss = 12,
-            zc_wb_wq = 13,
-            grand_hunts = 14,
-            marrukai_camp = 15,
-            sparks_of_life = 16,
-            community_feast_weekly = 17,
-            fish_turnins_df = 18,
-            separator2 = 20,
-            trial_of_flood = 21,
-            trial_of_elements = 22,
-            trial_of_storms = 23,
-            separator3 = 30,
-            dragonbane_keep_siege = 31,
-            dragonbane_keep_key = 32,
-            dragonbane_keep_weeklies = 33,
+            big_dig = 51,
+            show_your_mettle = 52,
         },
         enabled = true,
     },
     old_daily = {
-        order = 8,
+        order = 9,
         name = "Old Daily",
         childs = {
-            'community_feast',
-            'iskaara_fishing_dailies',
         },
         childOrder = {
-            community_feast = 1,
-            iskaara_fishing_dailies = 2,
         },
-        enabled = true,
+        enabled = false,
     },
     unlocks = {
-        order = 9,
+        order = 10,
         name = 'Unlocks',
         childs = {},
         childOrder = {},
@@ -429,6 +430,17 @@ PermoksAccountManager.keys = {
     [456] = 'TOTT', -- Throne of the Tides
     [463] = 'FALL', -- Dawn of the Infinite: Galakrond's Fall
     [464] = 'RISE', -- Dawn of the Infinite: Murozond's Rise
+
+    -- PLACEHOLDER: abbreviations
+    [499] = 'PSF', -- Priory of the Sacred Flame
+    [500] = 'TR', -- The Rookery
+    [501] = 'TSV', -- The Stonevault
+    [502] = 'COT', -- City of Threads
+    [503] = 'AK', -- Ara-Kara, City of Echoes
+    [504] = 'DFC', -- Darkflame Cleft
+    [505] = 'DAWN', -- The Dawnbreaker
+    [506] = 'CIN', -- Cinderbrew Meadery
+    [507] = 'GB', -- Grim Batol
 }
 
 PermoksAccountManager.activityIDToKeys = {
@@ -448,9 +460,7 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2522] = {name = GetRealZoneText(2522), englishID = 'vault_of_the_incarnates', instanceID = 1200, startIndex = 1, endIndex = 8},
-    [2569] = {name = GetRealZoneText(2569), englishID = 'aberrus_the_shadowed_crucible', instanceID = 1208, startIndex = 9, endIndex = 17},
-    [2549] = {name = GetRealZoneText(2549), englishID = 'amirdrassil_the_dreams_hope', instanceID = 1207, startIndex = 18, endIndex = 26},
+    [2657] = {name = GetRealZoneText(2657), englishID = 'nerub_ar_palace', instanceID = 1273, startIndex = 1, endIndex = 8},
 }
 
 PermoksAccountManager.dungeons = {
@@ -482,14 +492,6 @@ PermoksAccountManager.item = {
 	[187802] = {key = 'potCosmicHP'}, -- Cosmic HP Pot
 	[199211] = {key = 'primevalEssence'}, --Primeval Essence
     [202196] = {key = 'vaultKey'}, -- Zskera Vault Key
-    [204193] = {key = 'whelpling_crest'}, -- Whelpling Crest
-    [204194] = {key = 'aspect_crest'}, -- Aspect Crest
-    [204195] = {key = 'drake_crest'}, -- Drake Crest
-    [204196] = {key = 'wyrm_crest'}, -- Wyrm Crest
-    [204075] = {key = 'whelpling_crest'}, -- Whelpling Fragments
-    [204076] = {key = 'drake_crest'}, -- Drake Fragments
-    [204077] = {key = 'wyrm_crest'}, -- Wyrm Fragments
-    [204078] = {key = 'aspect_crest'}, -- Aspect Fragments
     [190453] = {key = 'spark_ingenuity'}, -- Spark of Ingenuity
     [199197] = {key = 'spark_ingenuity'}, -- Bottled Essence
     [204440] = {key = 'spark_shadowflame'}, -- Spark of Shadowflame
@@ -509,6 +511,17 @@ PermoksAccountManager.item = {
     [208047] = {key = 'dreamseeds'}, -- Gigantic Dreamseed
     [211515] = {key = 'spark_awakening'}, -- Splintered Spark of Awakening
     [211516] = {key = 'spark_awakening'}, -- Spark of Awakening
+    [190456] = {key = 'artisans_mettle'}, -- Artisan's Mettle
+
+    --- TWW items
+    [211297] = {key = 'spark_omens'}, -- Fractured Spark of Omens
+    [211296] = {key = 'spark_omens'}, -- Spark of Omens
+    [210814] = {key = 'artisans_acuity'}, -- Artisan's Acuity
+    [206350] = {key = 'radiant_remnant'}, -- Radiant Remnant
+    [220520] = {key = 'radiant_echo'}, -- Radiant Echo
+    [212493] = {key = 'firelight_ruby'}, -- Odd Glob of Wax
+    [224642] = {key = 'firelight_ruby'}, -- Firelight Ruby
+    [220693] = {key = 'coffer_key_shard'}, -- Coffer Key Shard    
 }
 
 PermoksAccountManager.factions = {
@@ -521,20 +534,28 @@ PermoksAccountManager.factions = {
     [2470] = {name = "Death's Advance", paragon = true},
     [2478] = {name = 'The Enlightened', paragon = true},
     [2480] = {name = 'Automa', paragon = true},
-    [2503] = {name = 'Maruuk Centaur', paragon = true, type = 'renown'},
-    [2507] = {name = 'Dragonscale Expedition', paragon = true, type = 'renown'},
-    [2510] = {name = 'Valdrakken Akkord', paragon = true, type = 'renown'},
-    [2511] = {name = 'Iskaara Tuskar', paragon = true, type = 'renown'},
-    [2517] = {name = 'Wrathion', paragon = true, type = 'friend'},
-    [2518] = {name = 'Sabellian', paragon = true, type = 'friend'},
+    [2503] = {name = 'Maruuk Centaur', paragon = true, type = 'renown', warband = 'unique'},
+    [2507] = {name = 'Dragonscale Expedition', paragon = true, type = 'renown', warband = 'unique'},
+    [2510] = {name = 'Valdrakken Akkord', paragon = true, type = 'renown', warband = 'unique'},
+    [2511] = {name = 'Iskaara Tuskar', paragon = true, type = 'renown', warband = 'unique'},
+    [2517] = {name = 'Wrathion', paragon = true, type = 'friend', warband = 'unique'},
+    [2518] = {name = 'Sabellian', paragon = true, type = 'friend', warband = 'unique'},
     [2526] = {name = 'Winterpelt Furbolg', paragon = true},
-    [2544] = {name = 'Artisan\'s Consortium', paragon = true, type = 'friend'},
-    [2550] = {name = 'Cobalt Assembly', paragon = true, type = 'friend'},
-    [2553] = {name = 'Soridormi', paragon = true, type = 'friend'},
-    [2564] = {name = 'Loamm Niffen', paragon = true, type = 'renown'},
+    [2544] = {name = 'Artisan\'s Consortium', paragon = true, type = 'friend', warband = 'unique'},
+    [2550] = {name = 'Cobalt Assembly', paragon = true, type = 'friend', warband = 'unique'},
+    [2553] = {name = 'Soridormi', paragon = true, type = 'friend', warband = 'unique'},
+    [2564] = {name = 'Loamm Niffen', paragon = true, type = 'renown', warband = 'unique'},
     [2568] = {name = 'Glimmerogg Racer'},
-    [2574] = {name = 'Dream Wardens', paragonn = true, type = 'renown'},
-    [2593] = {name = 'Keg Leg\'s Crew', type = 'renown'}
+    [2574] = {name = 'Dream Wardens', paragon = true, type = 'renown', warband = 'unique'},
+    [2593] = {name = 'Keg Leg\'s Crew', type = 'renown', warband = 'unique'},
+    [2590] = {name = 'Council of Dornogal', paragon = true, type = 'renown', warband = 'unique'},
+    [2570] = {name = 'Hallowfall Arathi', paragon = true, type = 'renown', warband = 'unique'},
+    [2594] = {name = 'The Assembly of the Deeps', paragon = true, type = 'renown', warband = 'unique'},
+    [2600] = {name = 'The Severed Threads', paragon = true, type = 'renown', warband = 'unique'},
+    [2605] = {name = 'The General',paragon = true, type = 'friend', warband = 'unique'},
+    [2607] = {name = 'The Vizier',paragon = true, type = 'friend', warband = 'unique'},
+    [2601] = {name = 'The Weaver',paragon = true, type = 'friend', warband = 'unique'},
+    [2640] = {name = 'Brann Bronzebeard', type = 'friend', warband = 'unique'},
 }
 
 PermoksAccountManager.currency = {
@@ -549,28 +570,20 @@ PermoksAccountManager.currency = {
     [1904] = 0,
     [1906] = 0,
     [1977] = 0,
-    [1822] = 1,
+    [1822] = 1, -- Renown
     [1979] = 0,
     [2000] = 0,
-    [2003] = 0,
+    [2003] = 0, -- Dragon Isles Supplies
     [2009] = 0,
     [2118] = 0, -- Elemental Overflow
     [2122] = 0, -- Storm Sigil
     [2123] = 0, -- Bloody Tokens
     [2166] = 0, -- Renascent Lifeblood (Crucible Charges DF Season 1)
     [2245] = 0, -- Flightstones
-    [2409] = 0, -- Whelpling Crest Fragment Tracker
-    [2410] = 0, -- Drake Crest Fragment Tracker
-    [2411] = 0, -- Wyrm Crest Fragment Tracker
-    [2412] = 0, -- Aspect Crest Fragment Tracker
     [2533] = 0, -- Renascent Shadowflame (Crucible Charges DF Season 2)
     [2594] = 0, -- Paracausal Flakes
     [2650] = 0, -- Emerald Dewdrop
     [2651] = 0, -- Seedbloom
-    [2706] = 0, -- Whelpling's Dreaming Crest
-    [2707] = 0, -- Drake's Dreaming Crest
-    [2708] = 0, -- Wyrm's Dreaming Crest
-    [2709] = 0, -- Aspect's Dreaming Crest
     [2777] = 0, -- Dream Infusion
     [2796] = 0, -- Renascent Dream (Crucible Charges DF Season 3)
     [2806] = 0, -- Whelpling Awakened Crest
@@ -579,6 +592,18 @@ PermoksAccountManager.currency = {
     [2812] = 0, -- Aspect's Awakened Crest
     [2912] = 0, -- Renascent Awakening (Crucible Charges DF Season 4)
     [3089] = 0, -- Residual Memories (11.0 prepatch currency)
+
+    -- TWW Currencies
+    [2914] = 0, -- Weathered Harbinger Crest
+    [2915] = 0, -- Carved Harbinger Crest
+    [2916] = 0, -- Runed Harbinger Crest
+    [2917] = 0, -- Gilded Harbinger Crest
+    [2813] = 0, -- Harmonized Silk (Crucible Charges TWW Season 1)
+    [3008] = 0, -- Valorstones
+    [2815] = 0, -- Resonance Crystals
+    [3056] = 0, -- Kej
+    [3028] = 0, -- Restored Coffer Key
+    [2803] = 0, -- Undercoin
 }
 
 PermoksAccountManager.currencyCustomOptions = {
@@ -622,7 +647,81 @@ PermoksAccountManager.professionCDs = {
 	}
 }
 
+-- key is the SkillLineID of the parentProfession
+PermoksAccountManager.childProfessions = {
+    df_profession = {
+        [164] = {spellID = 365677, skillLineID = 2822}, -- Blacksmithing
+        [165] = {spellID = 366249, skillLineID = 2830}, -- Leatherworking
+        [171] = {spellID = 366261, skillLineID = 2823}, -- Alchemy
+        [182] = {spellID = 366252, skillLineID = 2832}, -- Herbalism
+        [185] = {spellID = 366256, skillLineID = 2824}, -- Cooking
+        [186] = {spellID = 366260, skillLineID = 2833}, -- Mining
+        [197] = {spellID = 366258, skillLineID = 2831}, -- Tailoring
+        [202] = {spellID = 366254, skillLineID = 2827}, -- Engineering
+        [333] = {spellID = 366255, skillLineID = 2825}, -- Enchanting
+        [356] = {spellID = 366253, skillLineID = 2826}, -- Fishing
+        [393] = {spellID = 366259, skillLineID = 2834}, -- Skinning
+        [755] = {spellID = 366250, skillLineID = 2829}, -- Jewelcrafting
+        [773] = {spellID = 366251, skillLineID = 2828}, -- Inscription
+    },
+    tww_profession = {
+        [164] = {spellID = 423332, skillLineID = 2872}, -- Blacksmithing
+        [165] = {spellID = 423340, skillLineID = 2880}, -- Leatherworking
+        [171] = {spellID = 423321, skillLineID = 2871}, -- Alchemy
+        [182] = {spellID = 441327, skillLineID = 2877}, -- Herbalism
+        [185] = {spellID = 423333, skillLineID = 2873}, -- Cooking
+        [186] = {spellID = 423341, skillLineID = 2881}, -- Mining
+        [197] = {spellID = 423343, skillLineID = 2883}, -- Tailoring
+        [202] = {spellID = 423335, skillLineID = 2875}, -- Engineering
+        [333] = {spellID = 423334, skillLineID = 2874}, -- Enchanting
+        [356] = {spellID = 423336, skillLineID = 2876}, -- Fishing
+        [393] = {spellID = 423342, skillLineID = 2882}, -- Skinning
+        [755] = {spellID = 423339, skillLineID = 2879}, -- Jewelcrafting
+        [773] = {spellID = 423338, skillLineID = 2878}, -- Inscription
+    },
+}
+
 PermoksAccountManager.quests = {
+
+    -- General Weeklies (previous expansion quests get deprecated so we replace these IDs instead of adding new ones)
+    weekend_event = {
+        [83345] = {questType = 'weekly', log = true}, -- Battleground Event:    A Call to Battle
+        [83347] = {questType = 'weekly', log = true}, -- Mythic Dungeon Event:  Emissary of War
+        [83357] = {questType = 'weekly', log = true}, -- Pet Battle Event:      The Very Best
+        [83358] = {questType = 'weekly', log = true}, -- Arena Event:           The Arena Calls
+        [83366] = {questType = 'weekly', log = true}, -- World Quests:          The World Awaits
+        [83359] = {questType = 'weekly', log = true}, -- A Shattered Path Through Time
+        [83362] = {questType = 'weekly', log = true}, -- A Shrouded Path Through Time
+        [83365] = {questType = 'weekly', log = true}, -- A Frozen Path Through Time
+        [83364] = {questType = 'weekly', log = true}, -- A Savage Path Through Time
+
+    },
+    pvp_weekly = {
+        [80184] = {questType = 'weekly', log = true}, -- Preserving in Battle
+        [80185] = {questType = 'weekly', log = true}, -- Preserving Solo
+        [80186] = {questType = 'weekly', log = true}, -- Preserving in War
+        [80187] = {questType = 'weekly', log = true}, -- Preserving in Skirmishes
+        [80188] = {questType = 'weekly', log = true}, -- Preserving in Arenas
+        [80189] = {questType = 'weekly', log = true}, -- Preserving Teamwork
+    },
+    pvp_sparks = {
+        [81793] = {questType = 'weekly', log = true}, -- Sparks of War: Isle of Dorn
+        [81794] = {questType = 'weekly', log = true}, -- Sparks of War: The Ringing Deeps
+        [81795] = {questType = 'weekly', log = true}, -- Sparks of War: Hallowfall
+        [81796] = {questType = 'weekly', log = true}, -- Sparks of War: Azj-Kahet
+    },
+    dungeon_weekly = {
+        [83432] = {questType = 'weekly', warband = true, log = true}, -- The Rookery
+        [83436] = {questType = 'weekly', warband = true, log = true}, -- Cinderbrew Meadery
+        [83443] = {questType = 'weekly', warband = true, log = true}, -- Darkflame Cleft
+        [83457] = {questType = 'weekly', warband = true, log = true}, -- The Stonevault
+        [83458] = {questType = 'weekly', warband = true, log = true}, -- Priory of the Sacred Flame
+        [83459] = {questType = 'weekly', warband = true, log = true}, -- The Dawnbreaker
+        [83465] = {questType = 'weekly', warband = true, log = true}, -- Ara-Kara, City of Echoes
+        [83469] = {questType = 'weekly', warband = true, log = true}, -- City of Threads
+    },
+
+    -- 9.0 Shadowlands
     maw_dailies = {
         [60732] = {questType = 'daily', log = true},
         [61334] = {questType = 'daily', log = true},
@@ -858,52 +957,11 @@ PermoksAccountManager.quests = {
         [61984] = {covenant = 3, questType = 'weekly', log = true}, -- night fae 1k anima
         [61983] = {covenant = 4, questType = 'weekly', log = true} -- necro 1k anima
     },
-    dungeon_quests = {
-        [60242] = {questType = 'weekly', log = true}, -- Trading Favors: Necrotic Wake
-        [60243] = {questType = 'weekly', log = true}, -- Trading Favors: Sanguine Depths
-        [60244] = {questType = 'weekly', log = true}, -- Trading Favors: Halls of Atonement
-        [60245] = {questType = 'weekly', log = true}, -- Trading Favors: The Other Side
-        [60246] = {questType = 'weekly', log = true}, -- Trading Favors: Tirna Scithe
-        [60247] = {questType = 'weekly', log = true}, -- Trading Favors: Theater of Pain
-        [60248] = {questType = 'weekly', log = true}, -- Trading Favors: Plaguefall
-        [60249] = {questType = 'weekly', log = true}, -- Trading Favors: Spires of Ascension
-        [60250] = {questType = 'weekly', log = true}, -- A Valuable Find: Theater of Pain
-        [60251] = {questType = 'weekly', log = true}, -- A Valuable Find: Plaguefall
-        [60252] = {questType = 'weekly', log = true}, -- A Valuable Find: Spires of Ascension
-        [60253] = {questType = 'weekly', log = true}, -- A Valuable Find: Necrotic Wake
-        [60254] = {questType = 'weekly', log = true}, -- A Valuable Find: Tirna Scithe
-        [60255] = {questType = 'weekly', log = true}, -- A Valuable Find: The Other Side
-        [60256] = {questType = 'weekly', log = true}, -- A Valuable Find: Halls of Atonement
-        [60257] = {questType = 'weekly', log = true} -- A Valuable Find: Sanguine Depths
-    },
     battle_plans = {
         [64521] = {questType = 'weekly', log = true} -- Helsworn Battle Plans
     },
     korthia_supplies = {
         [64522] = {questType = 'weekly', log = true} -- Stolen Korthia Supplies
-    },
-    pvp_quests = {
-        -- PVP Weekly
-        [62284] = {questType = 'weekly', log = true}, -- Random BGs
-        [62285] = {questType = 'weekly', log = true}, -- Epic BGs
-        [62286] = {questType = 'weekly', log = true},
-        [62287] = {questType = 'weekly', log = true},
-        [62288] = {questType = 'weekly', log = true},
-        [62289] = {questType = 'weekly', log = true}
-    },
-    -- Weekend Event
-    weekend_event = {
-        [72728] = {questType = 'weekly', log = true}, -- World Quests
-        [72727] = {questType = 'weekly', log = true}, -- BC Timewalking
-        [72726] = {questType = 'weekly', log = true}, -- WotLK Timewalking
-        [72810] = {questType = 'weekly', log = true}, -- Cata Timewalking
-        [72725] = {questType = 'weekly', log = true}, -- MOP Timewalking
-        [72724] = {questType = 'weekly', log = true}, -- Draenor Timewalking
-        [72719] = {questType = 'weekly', log = true}, -- Legion Timewalking
-        [72723] = {questType = 'weekly', log = true}, -- Battleground Event
-        [72722] = {questType = 'weekly', log = true}, -- Mythuc Dungeon Event
-        [72721] = {questType = 'weekly', log = true}, -- Pet Battle Event
-        [72720] = {questType = 'weekly', log = true} -- Arena Event
     },
     korthia_weekly = {
         [63949] = {questType = 'weekly', log = true} -- Shaping Fate
@@ -1083,7 +1141,7 @@ PermoksAccountManager.quests = {
         [73996] = {questType = 'daily', name = 'Gnarls'},
         [74004] = {questType = 'daily', name = 'High Shaman Rotknuckle'},
     },
-    knowledge_mobs = {
+    knowledge_df_mobs = {
         [70522] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 198975}, --Leatherworking 1
         [70523] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 198976}, --Leatherworking 2
         [73138] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 204232}, --Leatherworking 3
@@ -1127,7 +1185,7 @@ PermoksAccountManager.quests = {
         [72164] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 5
         [72165] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, --Mining 6
     },
-    knowledge_scout_packs = {
+    knowledge_df_treasures = {
         [66375] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193904}, --Inscription 1
         [66376] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193905}, --Inscription 2
         [66384] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 193910}, --Leatherworking 1
@@ -1145,7 +1203,7 @@ PermoksAccountManager.quests = {
         [66373] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 193891}, --Alchemy 1
         [66374] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 193897}, --Alchemy 2
     },
-    knowledge_treatise = {
+    knowledge_df_treatise = {
         [74105] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription'}, -- Inscription
         [74106] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Mining
         [74107] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Herbalism
@@ -1158,7 +1216,7 @@ PermoksAccountManager.quests = {
         [74114] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Skinning
         [74115] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring'}, -- Tailoring
     },
-    knowledge_weeklies_craft = {
+    knowledge_df_weeklies_craft = {
         [70558] = {questType = 'weekly', log = true}, -- Inscription 1
         [70559] = {questType = 'weekly', log = true}, -- Inscription 2
         [70560] = {questType = 'weekly', log = true}, -- Inscription 3
@@ -1192,7 +1250,7 @@ PermoksAccountManager.quests = {
         [70533] = {questType = 'weekly', log = true}, -- Alchemy 3
         [70530] = {questType = 'weekly', log = true}, -- Alchemy 4
     },
-    knowledge_weeklies_loot = {
+    knowledge_df_weeklies_loot = {
         [66943] = {questType = 'weekly', log = true}, -- Inscription 5
         [66944] = {questType = 'weekly', log = true}, -- Inscription 6
         [66945] = {questType = 'weekly', log = true}, -- Inscription 7
@@ -1274,7 +1332,7 @@ PermoksAccountManager.quests = {
         [77932] = {questType = 'weekly', log = true}, -- Alchemy
         [77933] = {questType = 'weekly', log = true}, -- Alchemy
     },
-    knowledge_weeklies_order = {
+    knowledge_df_weeklies_order = {
         [70589] = {questType = 'weekly', log = true}, -- Blacksmithing 0
         [70591] = {questType = 'weekly', log = true}, -- Engineering 0
         [70592] = {questType = 'weekly', log = true}, -- Inscription 0
@@ -1348,15 +1406,6 @@ PermoksAccountManager.quests = {
         [72826] = {questType = 'weekly', name = '|T4539689:0|t[Aileron Seamoth]'},
         [72825] = {questType = 'weekly', name = '|T4539687:0|t[Cerulean Spinefish]'},
         [72824] = {questType = 'weekly', name = '|T4554371:0|t[Temporal Dragonhead]'},
-    },
-    sparks_of_life = {
-        [72646] = {questType = 'weekly', log = true},
-        [72647] = {questType = 'weekly', log = true},
-        [72648] = {questType = 'weekly', log = true},
-        [72649] = {questType = 'weekly', log = true},
-        [74871] = {questType = 'weekly', log = true},
-        [75305] = {questType = 'weekly', log = true},
-        [78097] = {questType = 'weekly', log = true},
     },
     forbidden_reach_weeklies = {
         [72952] = {questType = 'weekly', log = true},
@@ -1482,6 +1531,9 @@ PermoksAccountManager.quests = {
         [47462] = {questType = 'daily', name = "Azuregos"}, -- Azuregos
         [47463] = {questType = 'daily', name = "Dragons of Nightmare"}, -- Dragons of Nightmare
         [60214] = {questType = 'daily', name = "Doomwalker"}, -- Doomwalker
+    },
+    big_dig = {
+        [79226] = {questType = 'weekly', warband = true, log = true},
     },
 
     -- 11.0 PREPATCH

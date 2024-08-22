@@ -224,6 +224,10 @@ function PermoksAccountManager:Purge()
 	self:OnLogin()
 
 	self:Print("Please reload your interface to update the displayed info.")
+
+	if self.isRetail then
+		self:Print("To update Warband currency info a relog is required.")
+	end
 end
 
 function PermoksAccountManager:ResetCategories()
