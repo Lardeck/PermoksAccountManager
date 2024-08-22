@@ -1580,10 +1580,6 @@ function PermoksAccountManager:UpdateRows(childs, rows, anchorFrame, enabledChil
             local row = (not self.isLayoutDirty and rows[row_identifier]) or CreateLabelButton('row', anchorFrame, labelRow, enabledRows)
             if (not isWarband and labelRow.warband ~= 'unique') or (isWarband and labelRow.warband) then
                 if self.isLayoutDirty or not rows[row_identifier] then
-                    if rows[row_identifier] then
-                        rows[row_identifier]:Hide()
-                    end
-                    rows[row_identifier] = row
 
                     local module = self:GetModuleForRow(row_identifier)
                     local moduleLabelFunction = module and module.labelFunctions[labelRow.type]
@@ -1648,6 +1644,11 @@ function PermoksAccountManager:UpdateRows(childs, rows, anchorFrame, enabledChil
                 end
             end
 
+            if rows[row_identifier] then
+                rows[row_identifier]:Hide()
+            end
+            rows[row_identifier] = row
+            
             UpdateButtonTexture(row, enabledRows, row_identifier, data.guid)
 
             
