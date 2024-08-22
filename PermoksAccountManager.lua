@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALVERSION = 33
+local INTERNALTWWVERSION = 1
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -612,11 +612,11 @@ function PermoksAccountManager:CheckForModernize()
         end
         self.db.global.internalCataVersion = INTERNALCATAVERSION
     else
-        local internalVersion = self.db.global.internalVersion or INTERNALVERSION
-        if internalVersion < INTERNALVERSION then
+        local internalVersion = self.db.global.internalTWWVersion
+        if (internalVersion or 0) < INTERNALTWWVERSION then
             self:Modernize(internalVersion)
         end
-        self.db.global.internalVersion = INTERNALVERSION
+        self.db.global.internalTWWVersion = INTERNALTWWVERSION
     end
 end
 
@@ -674,112 +674,8 @@ end
 function PermoksAccountManager:Modernize(oldInternalVersion)
     local db = self.db
 
-    if (oldInternalVersion or 0) < 2 then
-        self:UpdateDefaultCategories('currentdaily')
-        oldInternalVersion = 2
-    end
-
-    if oldInternalVersion < 3 then
-        for _, accountInfo in pairs(db.global.accounts) do
-            for _, altData in pairs(accountInfo.data) do
-                altData.sanctumInfo = nil
-            end
-        end
-        oldInternalVersion = 3
-    end
-
-    if oldInternalVersion < 4 then
-        db.global.options.buttons.widthPerAlt = db.global.options.other.widthPerAlt or 120
-        oldInternalVersion = 4
-    end
-
-    if oldInternalVersion < 5 then
-        self:AddLabelToDefaultCategory('general', 'tw_keystone', 5.1)
-
-        local sortKey = self.isBC and 'charLevel' or 'ilevel'
-        if true then
-            return
-        end
-        for _, accountInfo in pairs(db.global.accounts) do
-            local order = 1
-            for _, altData in self.spairs(
-                accountInfo.data,
-                function(t, a, b)
-                    if t[a] and t[b] then
-                        if t[a].order and t[b].order then
-                            return t[a].order < t[b].order
-                        end
-                        return t[a][sortKey] > t[b][sortKey]
-                    end
-                end
-            ) do
-                altData.order = order
-                order = order + 1
-            end
-        end
-		oldInternalVersion = 5
-    end
-
-	if oldInternalVersion < 7 then
-		for _, accountInfo in pairs(db.global.accounts) do
-            for _, altData in pairs(accountInfo.data) do
-				altData.instanceInfo = nil
-            end
-        end
-		self:Print("Reset instance info for every character.")
-		oldInternalVersion = 7
-	end
-
-    if oldInternalVersion < 26 then
-        self:UpdateDefaultCategories('currentweekly')
-        self:UpdateDefaultCategories('currentdaily')
-        self:UpdateDefaultCategories('general')
-        self:UpdateDefaultCategories('renown')
-        self:AddLabelToDefaultCategory('raid', 'aberrus_the_shadowed_crucible')
-        self:AddLabelToDefaultCategory('raid', 'amirdrassil_the_dreams_hope')
-    end
-
-    if oldInternalVersion < 27 then
-        self:AddLabelToDefaultCategory('currentweekly', 'dream_shipments', 4)
-    end
-
-    if oldInternalVersion < 28 then
-        self:AddLabelToDefaultCategory('currentweekly', 'dream_shipments', 4)
-    end
-
-    if oldInternalVersion < 29 then
-        self:AddLabelToDefaultCategory('general', 'dream_infusion')
-        self:AddLabelToDefaultCategory('currentweekly', 'sparks_of_life', 5)
-    end
-
-    if oldInternalVersion < 30 then
-        self:AddLabelToDefaultCategory('currentweekly', 'dreamsurge_weekly', 13)
-        self:AddLabelToDefaultCategory('currentweekly', 'time_rift', 14)
-    end
-
-    if oldInternalVersion < 31 then
-        self:AddLabelToDefaultCategory('currentweekly', 'time_rift_pod', 15)
-    end
-
-    if oldInternalVersion < 32 then
-        self:AddLabelToDefaultCategory('vault', 'great_vault_reward_available')
-    end
-
-    if oldInternalVersion < 33 then
-        self:AddLabelToDefaultCategory('general', 'champion_crest')
-        self:AddLabelToDefaultCategory('general', 'veteran_crest')
-        self:AddLabelToDefaultCategory('general', 'hero_crest')
-        self:AddLabelToDefaultCategory('general', 'myth_crest')
-        self:AddLabelToDefaultCategory('general', 'spark_awakening', 15)
-        self:AddLabelToDefaultCategory('renown', 'keg_legs_crew', 7)
-        self:AddLabelToDefaultCategory('renown', 'soridormi', 16)
-    end
-
-    if oldInternalVersion < 34 then
-        self:AddLabelToDefaultCategory('general', 'residual_memories')
-        self:AddLabelToDefaultCategory('general', 'radiant_echoes_prepatch_daylies')
-        self:AddLabelToDefaultCategory('general', 'radiant_echoes_cache')
-        self:AddLabelToDefaultCategory('currentweekly', 'big_dig', 16)
+    if not oldInternalVersion then
+        PermoksAccountManager:ResetCategories()
     end
 end
 
@@ -1648,7 +1544,7 @@ function PermoksAccountManager:UpdateRows(childs, rows, anchorFrame, enabledChil
                 rows[row_identifier]:Hide()
             end
             rows[row_identifier] = row
-            
+
             UpdateButtonTexture(row, enabledRows, row_identifier, data.guid)
 
             
