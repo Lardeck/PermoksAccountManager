@@ -1602,9 +1602,11 @@ end
 
 -- module init
 local function Update(charInfo)
-	UpdateAllQuests(charInfo)
-	UpdateCurrentlyActiveQuests(charInfo)
-	UpdateCataDailies(charInfo)
+	C_Timer.After(10, function()
+		UpdateAllQuests(charInfo)
+		UpdateCurrentlyActiveQuests(charInfo)
+		UpdateCataDailies(charInfo)
+	end)
 end
 
 do
