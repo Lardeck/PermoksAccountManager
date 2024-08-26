@@ -1639,7 +1639,7 @@ PermoksAccountManager.quests = {
 
     -- Weekly Rares - NEED TO CONFIRM THE REPUTATION QUEST RESETS WEEKLY
     isle_of_dorne_rares = {
-        [82196] = {questType = 'weekly', warband = true, name = 'Alunira'}, -- suspect One Time Kill
+        [85158] = {questType = 'weekly', warband = true, name = 'Alunira'}, -- (daily?!: 82196)
         [84037] = {questType = 'weekly', warband = true, name = 'Tephratennae'}, -- (daily: 81923)
         [81894] = {questType = 'weekly', warband = true, name = 'Warphorn'}, -- One Time Kill
         [84031] = {questType = 'weekly', warband = true, name = 'Kronolith, Might of the Mountain'}, -- (daily: 81902)
