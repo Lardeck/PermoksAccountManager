@@ -1656,7 +1656,7 @@ PermoksAccountManager.quests = {
         [80672] = {questType = 'weekly', warband = true, log = true}, -- Hand of the Vizier
     },
 
-    -- Weekly Rares - NEED TO CONFIRM THEY GIVE REPUTATION
+    -- Weekly Rares - NEED TO CONFIRM THE REPUTATION QUEST RESETS WEEKLY
     isle_of_dorne_rares = {
         [82196] = {questType = 'weekly', warband = true, name = 'Alunira'}, -- suspect One Time Kill
         [84037] = {questType = 'weekly', warband = true, name = 'Tephratennae'}, -- (daily: 81923)
@@ -1726,6 +1726,8 @@ PermoksAccountManager.quests = {
         [84055] = {questType = 'weekly', warband = true, name = 'Toadstomper'}, -- (daily: 82561)
         [84059] = {questType = 'weekly', warband = true, name = 'Finclaw Bloodtide'}, -- (daily: 82564)
         [84058] = {questType = 'weekly', warband = true, name = 'Ravageant'}, -- (daily: 82566)
+        [84057] = {questType = 'weekly', warband = true, name = 'Parasidious'}, -- (daily: 82563)
+        [80486] = {questType = 'weekly', warband = true, name = 'Brineslash'}, -- can't find it
     },
     azj_kahet_rares = {
         [84071] = {questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler'}, -- (daily: 81702)

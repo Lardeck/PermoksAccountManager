@@ -1094,6 +1094,11 @@ local labelRows = {
 		warband = false,
 		visibility = 'visible',
 		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 7,
 		version = WOW_PROJECT_MAINLINE
 	},
 	severed_threads_pact_chosen = {
@@ -1134,6 +1139,7 @@ local labelRows = {
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
 		required = 22,
+		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	ringing_deeps_rares = {
@@ -1152,6 +1158,7 @@ local labelRows = {
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
 		required = 18,
+		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	hallowfall_rares = {
@@ -1170,7 +1177,8 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 24,
+		required = 26,
+		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	azj_kahet_rares = {
@@ -1189,6 +1197,7 @@ local labelRows = {
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
 		required = 21,
+		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	-- professions
