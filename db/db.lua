@@ -1727,7 +1727,7 @@ PermoksAccountManager.quests = {
         [84059] = {questType = 'weekly', warband = true, name = 'Finclaw Bloodtide'}, -- (daily: 82564)
         [84058] = {questType = 'weekly', warband = true, name = 'Ravageant'}, -- (daily: 82566)
         [84057] = {questType = 'weekly', warband = true, name = 'Parasidious'}, -- (daily: 82563)
-        [80486] = {questType = 'weekly', warband = true, name = 'Brineslash'}, -- can't find it
+        [80486] = {questType = 'weekly', warband = true, name = 'Brineslash'}, -- BUGGED
     },
     azj_kahet_rares = {
         [84071] = {questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler'}, -- (daily: 81702)
@@ -1815,35 +1815,35 @@ PermoksAccountManager.quests = {
         [84295] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Gleaming Telluric Crystal
     },
     knowledge_tww_weeklies_quest = {
-        [84133] = {questType = 'weekly', profession = 'Alchemy', description = 'Alchemy Services Requested'},
-        [84127] = {questType = 'weekly', profession = 'Blacksmithing', description = 'Blacksmithing Services Requested'},
+        [84133] = {questType = 'weekly', log = true}, -- Alchemy
+        [84127] = {questType = 'weekly', log = true}, -- Blacksmithing
         
-        [84085] = {questType = 'weekly', profession = 'Enchanting', description = 'The Power of Potential'},
-        [84086] = {questType = 'weekly', profession = 'Enchanting', description = 'A Rare Necessity'},
-        [84134] = {questType = 'weekly', profession = 'Enchanting', description = 'Enchanting Services Requested'},
-        [84084] = {questType = 'weekly', profession = 'Enchanting', description = 'Just a Pinch'},
+        [84085] = {questType = 'weekly', log = true}, --Enchanting
+        [84086] = {questType = 'weekly', log = true}, --Enchanting
+        [84134] = {questType = 'weekly', log = true}, --Enchanting
+        [84084] = {questType = 'weekly', log = true}, --Enchanting
         
-        [84128] = {questType = 'weekly', profession = 'Engineering', description = 'Engineering Services Requested'},
-        [84129] = {questType = 'weekly', profession = 'Inscription', description = 'Inscription Services Requested'},
-        [84130] = {questType = 'weekly', profession = 'Jewelcrafting', description = 'Jewelcrafting Services Requested'},
-        [84131] = {questType = 'weekly', profession = 'Leatherworking', description = 'Leatherworking Services Requested'},
-        [84132] = {questType = 'weekly', profession = 'Tailoring', description = 'Tailoring Services Requested'},
+        [84128] = {questType = 'weekly', log = true}, -- Engineering
+        [84129] = {questType = 'weekly', log = true}, -- Inscription
+        [84130] = {questType = 'weekly', log = true}, -- Jewelcrafting
+        [84131] = {questType = 'weekly', log = true}, -- Leatherworking
+        [84132] = {questType = 'weekly', log = true}, -- Tailoring
         
-        [82916] = {questType = 'weekly', profession = 'Herbalism', description = 'When Fungi Bloom'},
-        [82958] = {questType = 'weekly', profession = 'Herbalism', description = 'Little Blessings'},
-        [82962] = {questType = 'weekly', profession = 'Herbalism', description = 'A handful of Luredrops'},
-        [82965] = {questType = 'weekly', profession = 'Herbalism', description = 'Light and Shadow'},
-        [82970] = {questType = 'weekly', profession = 'Herbalism', description = 'A Bloom and A Blossom'},
+        [82916] = {questType = 'weekly', log = true}, -- Herbalism
+        [82958] = {questType = 'weekly', log = true}, -- Herbalism
+        [82962] = {questType = 'weekly', log = true}, -- Herbalism
+        [82965] = {questType = 'weekly', log = true}, -- Herbalism
+        [82970] = {questType = 'weekly', log = true}, -- Herbalism
         
-        [83102] = {questType = 'weekly', profession = 'Mining', description = 'Bismuth is Business'},
-        [83103] = {questType = 'weekly', profession = 'Mining', description = 'Acquiring Aqirite'},
-        [83104] = {questType = 'weekly', profession = 'Mining', description = 'Identifying Ironclaw'},
-        [83106] = {questType = 'weekly', profession = 'Mining', description = 'Null Pebble Excavation'},
+        [83102] = {questType = 'weekly', log = true}, -- Mining
+        [83103] = {questType = 'weekly', log = true}, -- Mining
+        [83104] = {questType = 'weekly', log = true}, -- Mining
+        [83106] = {questType = 'weekly', log = true}, -- Mining
         
-        [82992] = {questType = 'weekly', profession = 'Skinning', description = 'Stormcharged Goods'},
-        [82993] = {questType = 'weekly', profession = 'Skinning', description = 'From Shadows'},
-        [83097] = {questType = 'weekly', profession = 'Skinning', description = 'Cinder and Storm'},
-        [83098] = {questType = 'weekly', profession = 'Skinning', description = 'Snap and Crackle'},
+        [82992] = {questType = 'weekly', log = true}, -- Skinning
+        [82993] = {questType = 'weekly', log = true}, -- Skinning
+        [83097] = {questType = 'weekly', log = true}, -- Skinning
+        [83098] = {questType = 'weekly', log = true}, -- Skinning
     },
 }
 
