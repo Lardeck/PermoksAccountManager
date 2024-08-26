@@ -1250,7 +1250,7 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_tww__weeklies_quest = {
+	knowledge_tww_weeklies_quest = {
 		label = 'Profession Quests',
 		type = 'quest',
 		questType = 'weekly',

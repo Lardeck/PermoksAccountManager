@@ -1542,6 +1542,303 @@ PermoksAccountManager.quests = {
         [82676] = {questType = 'weekly', log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
         [78938] = {questType = 'weekly', log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
     },
+
+    -- 11.0 The War Within
+    -- Weekly World Activities
+    tww_world_boss = {-- PLACEHOLDER: wrong quest IDs
+        [999990] =  {questType = 'weekly'}, -- Kordac, the Dormant Protector
+        [999991] =  {questType = 'weekly'}, -- Aggregation of Horrors
+        [999992] =  {questType = 'weekly'}, -- Shurrai, Atrocity of the Undersea
+        [999993] =  {questType = 'weekly'}, -- Orta, the Broken Mountain
+    },
+    worldsoul_weekly = {
+        [82452] = {questType = 'weekly', log = true}, -- Worldsoul: World Quests
+        [82453] = {questType = 'weekly', log = true}, -- Worldsoul: Encore!
+        [82458] = {questType = 'weekly', log = true}, -- Worldsoul: Renown
+        [82482] = {questType = 'weekly', log = true}, -- Worldsoul: Snuffling
+        [82483] = {questType = 'weekly', log = true}, -- Worldsoul: Spreading the Light
+        [82485] = {questType = 'weekly', log = true}, -- Worldsoul: Cinderbrew Meadery
+        [82486] = {questType = 'weekly', log = true}, -- Worldsoul: The Rookery
+        [82487] = {questType = 'weekly', log = true}, -- Worldsoul: The Stonevault
+        [82488] = {questType = 'weekly', log = true}, -- Worldsoul: Darkflame Cleft
+        [82489] = {questType = 'weekly', log = true}, -- Worldsoul: The Dawnbreaker
+        [82490] = {questType = 'weekly', log = true}, -- Worldsoul: Priory of the Sacred Flame
+        [82491] = {questType = 'weekly', log = true}, -- Worldsoul: Ara-Kara, City of Echoes
+        [82492] = {questType = 'weekly', log = true}, -- Worldsoul: City of Threads
+        [82493] = {questType = 'weekly', log = true}, -- Worldsoul: The Dawnbreaker
+        [82494] = {questType = 'weekly', log = true}, -- Worldsoul: Ara-Kara, City of Echoes
+        [82495] = {questType = 'weekly', log = true}, -- Worldsoul: Cinderbrew Meadery
+        [82496] = {questType = 'weekly', log = true}, -- Worldsoul: City of Threads
+        [82497] = {questType = 'weekly', log = true}, -- Worldsoul: The Stonevault
+        [82498] = {questType = 'weekly', log = true}, -- Worldsoul: Darkflame Cleft
+        [82499] = {questType = 'weekly', log = true}, -- Worldsoul: Priory of the Sacred Flame
+        [82500] = {questType = 'weekly', log = true}, -- Worldsoul: The Rookery
+        [82501] = {questType = 'weekly', log = true}, -- Worldsoul: The Dawnbreaker
+        [82502] = {questType = 'weekly', log = true}, -- Worldsoul: Ara-Kara, City of Echoes
+        [82503] = {questType = 'weekly', log = true}, -- Worldsoul: Cinderbrew Meadery
+        [82504] = {questType = 'weekly', log = true}, -- Worldsoul: City of Threads
+        [82505] = {questType = 'weekly', log = true}, -- Worldsoul: The Stonevault
+        [82506] = {questType = 'weekly', log = true}, -- Worldsoul: Darkflame Cleft
+        [82507] = {questType = 'weekly', log = true}, -- Worldsoul: Priory of the Sacred Flame
+        [82508] = {questType = 'weekly', log = true}, -- Worldsoul: The Rookery
+        [82509] = {questType = 'weekly', log = true}, -- Worldsoul: Nerub-ar Palace
+        [82510] = {questType = 'weekly', log = true}, -- Worldsoul: Nerub-ar Palace
+        [82511] = {questType = 'weekly', log = true}, -- Worldsoul: Awakening Machine
+        [82512] = {questType = 'weekly', log = true}, -- Worldsoul: World Boss
+        [82516] = {questType = 'weekly', log = true}, -- Worldsoul: Forging a Pact
+        [82659] = {questType = 'weekly', log = true}, -- Worldsoul: Nerub-ar Palace
+    },
+    weekly_meta = { -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
+        [82746] = {questType = 'weekly', log = true}, -- Delves: Breaking Tough to Loot Stuff
+        [82712] = {questType = 'weekly', log = true}, -- Delves: Trouble Up and Down Khaz Algar
+        [82711] = {questType = 'weekly', log = true}, -- Delves: Lost and Found
+        [82709] = {questType = 'weekly', log = true}, -- Delves: Percussive Archaeology
+        [82706] = {questType = 'weekly', log = true}, -- Delves: Khaz Algar Research
+        [82707] = {questType = 'weekly', log = true}, -- Delves: Earthen Defense
+        [82678] = {questType = 'weekly', log = true}, -- Archives: The First Disc
+        [82679] = {questType = 'weekly', log = true}, -- Archives: Seeking History
+        },
+    archaic_cypher_key = {
+        [84370] = {questType = 'weekly', warband = true, log = true}, -- The Key to Success
+    },
+    the_theater_troupe = {
+        [83240] = {questType = 'weekly', warband = true, log = true}, -- The Theater Troupe
+    },    
+    rollin_down_in_the_deeps = {
+        [82946] = {questType = 'weekly', warband = true, log = true}, -- Rollin' Down in the Deeps (Digging)
+    },
+    gearing_up_for_trouble = {
+        [83333] = {questType = 'weekly', log = true}, -- Gearing Up for Trouble (Awakening the Machine Weekly)
+    },
+    awakening_the_machine = {
+        [84642] = {questType = 'weekly', warband = true, log = true}, -- cache 1
+        [84644] = {questType = 'weekly', warband = true, log = true}, -- cache 2
+        [84646] = {questType = 'weekly', warband = true, log = true}, -- cache 3
+        [84647] = {questType = 'weekly', warband = true, log = true}, -- cache 4
+    },
+    spreading_the_light = {
+        [76586] = {questType = 'weekly', warband = true, log = true}, -- Hallowfall Event in Dunelle's Kindness
+    },
+    lesser_keyflame_weeklies = {
+        [76169] = {questType = 'weekly', warband = true, log = true}, -- Glow in the Dark
+        [76394] = {questType = 'weekly', warband = true, log = true}, -- Shadows of Flavor
+        [76600] = {questType = 'weekly', warband = true, log = true}, -- Right Between the Gyro-Optics
+        [76733] = {questType = 'weekly', warband = true, log = true}, -- Tater Trawl
+        [76997] = {questType = 'weekly', warband = true, log = true}, -- Lost in Shadows
+        [78656] = {questType = 'weekly', warband = true, log = true}, -- Hose It Down
+        [78915] = {questType = 'weekly', warband = true, log = true}, -- Squashing the Threat
+        [78933] = {questType = 'weekly', warband = true, log = true}, -- The Sweet Eclipse
+        [78972] = {questType = 'weekly', warband = true, log = true}, -- Harvest Havoc
+        [79158] = {questType = 'weekly', warband = true, log = true}, -- Seeds of Salvation
+        [79173] = {questType = 'weekly', warband = true, log = true}, -- Supply the Effort
+        [79216] = {questType = 'weekly', warband = true, log = true}, -- Web of Manipulation
+        [79346] = {questType = 'weekly', warband = true, log = true}, -- Chew On That
+        [80004] = {questType = 'weekly', warband = true, log = true}, -- Crab Grab
+        [80562] = {questType = 'weekly', warband = true, log = true}, -- Blossoming Delight
+        [81574] = {questType = 'weekly', warband = true, log = true}, -- Sporadic Growth
+        [81632] = {questType = 'weekly', warband = true, log = true}, -- Lizard Looters
+    },
+    greater_keyflame_weeklies = { -- not added to default categories because shit rewards
+        [78590] = {questType = 'weekly', log = true}, -- Cutting Edge
+        [78657] = {questType = 'weekly', log = true}, -- The Midnight Sentry
+        [79329] = {questType = 'weekly', log = true}, -- Glowing Harvest
+        [79380] = {questType = 'weekly', log = true}, -- Bog Beast Banishment
+        [79469] = {questType = 'weekly', log = true}, -- Lurking Below
+        [79470] = {questType = 'weekly', log = true}, -- Waters of War
+        [79471] = {questType = 'weekly', log = true}, -- Bleak Sand
+    },
+    severed_threads_pact_chosen = {
+        [80544] = {questType = 'weekly', warband = true, log = true}, -- Eyes of the Weaver
+    },
+    severed_threads_pact_weekly = {
+        [80670] = {questType = 'weekly', warband = true, log = true}, -- Eyes of the Weaver
+        [80671] = {questType = 'weekly', warband = true, log = true}, -- Blade of the General
+        [80672] = {questType = 'weekly', warband = true, log = true}, -- Hand of the Vizier
+    },
+
+    -- Weekly Rares - NEED TO CONFIRM THEY GIVE REPUTATION
+    isle_of_dorne_rares = {
+        [82196] = {questType = 'weekly', warband = true, name = 'Alunira'},
+        [81923] = {questType = 'weekly', warband = true, name = 'Tephratennae'},
+        [81894] = {questType = 'weekly', warband = true, name = 'Warphorn'},
+        [81902] = {questType = 'weekly', warband = true, name = 'Kronolith, Might of the Mountain'},
+        [81903] = {questType = 'weekly', warband = true, name = 'Shallowshell the Clacker'},
+        [81893] = {questType = 'weekly', warband = true, name = 'Bloodmaw'},
+        [81892] = {questType = 'weekly', warband = true, name = 'Springbubble'},
+        [79685] = {questType = 'weekly', warband = true, name = 'Sandres the Relicbearer'},
+        [81920] = {questType = 'weekly', warband = true, name = 'Clawbreaker K\'zithix'},
+        [81895] = {questType = 'weekly', warband = true, name = 'Emperor Pitfang'},
+        [81907] = {questType = 'weekly', warband = true, name = 'Escaped Cutthroat'},
+        [81921] = {questType = 'weekly', warband = true, name = 'Matriarch Charfuria'},
+        [81901] = {questType = 'weekly', warband = true, name = 'Tempest Lord Incarnus'},
+        [81899] = {questType = 'weekly', warband = true, name = 'Gar\'loc'},
+        [81904] = {questType = 'weekly', warband = true, name = 'Twice-Stinger the Wretched'},
+        [78619] = {questType = 'weekly', warband = true, name = 'Rustul Titancap'},
+        [81905] = {questType = 'weekly', warband = true, name = 'Flamekeeper Graz'},
+        [81897] = {questType = 'weekly', warband = true, name = 'Plaguehart'},
+        [81922] = {questType = 'weekly', warband = true, name = 'Sweetspark the Oozeful'},
+        [82204] = {questType = 'weekly', warband = true, name = 'Kereke'},
+        [82203] = {questType = 'weekly', warband = true, name = 'Zovex'},
+        [82205] = {questType = 'weekly', warband = true, name = 'Rotfist'},
+    },
+    ringing_deeps_rares = {
+        [81674] = {questType = 'weekly', warband = true, name = 'Automaxor'},
+        [81562] = {questType = 'weekly', warband = true, name = 'Charmonger'},
+        [80547] = {questType = 'weekly', warband = true, name = 'King Splash'},
+        [80505] = {questType = 'weekly', warband = true, name = 'Candleflyer Captain'},
+        [80560] = {questType = 'weekly', warband = true, name = 'Cragmund'},
+        [80536] = {questType = 'weekly', warband = true, name = 'Deepflayer Broodmother'},
+        [80557] = {questType = 'weekly', warband = true, name = 'Aquellion'},
+        [80506] = {questType = 'weekly', warband = true, name = 'Zilthara'},
+        [81511] = {questType = 'weekly', warband = true, name = 'Coalesced Monstrosity'},
+        [80507] = {questType = 'weekly', warband = true, name = 'Terror of the Forge'},
+        [81485] = {questType = 'weekly', warband = true, name = 'Kelpmire'},
+        [81563] = {questType = 'weekly', warband = true, name = 'Rampaging Blight'},
+        [80574] = {questType = 'weekly', warband = true, name = 'Trungal'},
+        [81652] = {questType = 'weekly', warband = true, name = 'Spore-infused Shalewing'},
+        [81648] = {questType = 'weekly', warband = true, name = 'Hungerer of the Deeps'},
+        [80003] = {questType = 'weekly', warband = true, name = 'Disturbed Earthgorger'},
+        [81566] = {questType = 'weekly', warband = true, name = 'Deathbound Husk'},
+        [81633] = {questType = 'weekly', warband = true, name = 'Lurker of the Deeps'},
+    },
+    hallowfall_rares = {
+        [81756] = {questType = 'weekly', warband = true, name = 'Lytfang the Lost'},
+        [82557] = {questType = 'weekly', warband = true, name = 'Moth\'ethk'},
+        [81791] = {questType = 'weekly', warband = true, name = 'The Perchfather'},
+        [80009] = {questType = 'weekly', warband = true, name = 'The Taskmaker'},
+        [81761] = {questType = 'weekly', warband = true, name = 'Grimslice'},
+        [81849] = {questType = 'weekly', warband = true, name = 'Strength of Beledar'},
+        [80006] = {questType = 'weekly', warband = true, name = 'Ixlorb the Spinner'},
+        [82565] = {questType = 'weekly', warband = true, name = 'Murkspike'},
+        [82559] = {questType = 'weekly', warband = true, name = 'Deathpetal'},
+        [80011] = {questType = 'weekly', warband = true, name = 'Deepfiend Azellix'},
+        [82562] = {questType = 'weekly', warband = true, name = 'Duskshadow'},
+        [81881] = {questType = 'weekly', warband = true, name = 'Funglour'},
+        [81853] = {questType = 'weekly', warband = true, name = 'Sir Alastair Purefire'},
+        [81836] = {questType = 'weekly', warband = true, name = 'Horror of the Shallows'},
+        [79271] = {questType = 'weekly', warband = true, name = 'Sloshmuck'},
+        [80010] = {questType = 'weekly', warband = true, name = 'Murkshade'},
+        [82560] = {questType = 'weekly', warband = true, name = 'Croakit'},
+        [81882] = {questType = 'weekly', warband = true, name = 'Pride of Beledar'},
+        [82558] = {questType = 'weekly', warband = true, name = 'Crazed Cabbage Smacker'},
+        [82561] = {questType = 'weekly', warband = true, name = 'Toadstomper'},
+        [82564] = {questType = 'weekly', warband = true, name = 'Finclaw Bloodtide'},
+        [82566] = {questType = 'weekly', warband = true, name = 'Ravageant'},
+    },
+    azj_kahet_rares = {
+        [81702] = {questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler'},
+        [81703] = {questType = 'weekly', warband = true, name = 'XT-Minecrusher 8700'},
+        [81695] = {questType = 'weekly', warband = true, name = 'Abyssal Devourer'},
+        [81706] = {questType = 'weekly', warband = true, name = 'Maddened Siegebomber'},
+        [81700] = {questType = 'weekly', warband = true, name = 'Vilewing'},
+        [81699] = {questType = 'weekly', warband = true, name = 'Webspeaker Grik\'ik'},
+        [81704] = {questType = 'weekly', warband = true, name = 'Cha\'tak'},
+        [81707] = {questType = 'weekly', warband = true, name = 'Enduring Gutterface'},
+        [81705] = {questType = 'weekly', warband = true, name = 'Monstrous Lasharoth'},
+        [81694] = {questType = 'weekly', warband = true, name = 'Rhak\'ik'},
+        [78905] = {questType = 'weekly', warband = true, name = 'Ahg\'zagall'},
+        [82037] = {questType = 'weekly', warband = true, name = 'Umbraclaw Matra'},
+        [82078] = {questType = 'weekly', warband = true, name = 'Kaheti Bladeguard'},
+        [82077] = {questType = 'weekly', warband = true, name = 'Deepcrawler Tx\'kesh'},
+        [82036] = {questType = 'weekly', warband = true, name = 'Harvester Qixt'},
+        [82035] = {questType = 'weekly', warband = true, name = 'The Oozekhan'},
+        [82034] = {questType = 'weekly', warband = true, name = 'Jix\'ak the Crazed'},
+        [81634] = {questType = 'weekly', warband = true, name = 'The Groundskeeper'},
+        [81701] = {questType = 'weekly', warband = true, name = 'Xishorr'},
+    },
+
+    -- Professions
+    knowledge_tww_treasures = {
+        [83253] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 225234}, -- Alchemical Sediment
+        [83255] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 225235}, -- Deepstone Crucible
+        [83256] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 225233}, -- Dense Bladestone
+        [83257] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 225232}, -- Coreway Billet
+        [83258] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 225231}, -- Powdered Fulgurance
+        [83259] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 225230}, -- Crystalline Repository
+        [83260] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 225228}, -- Rust-Locked Mechanism
+        [83261] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 225229}, -- Earthen Induction Coil
+        [83264] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 225226}, -- Striated Inkstone
+        [83262] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 225227}, -- Wax-sealed Records
+        [83265] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 225224}, -- Diaphanous Gem Shards
+        [83266] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 225225}, -- Deepstone Fragment
+        [83268] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 225222}, -- Stone-Leather Swatch
+        [83267] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 225223}, -- Sturdy Nerubian Carapace
+        [83270] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 225220}, -- Chitin Needle
+        [83269] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 225221}, -- Spool of Webweave
+    },
+    knowledge_tww_treatise = {
+        [83725] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy'},
+        [83726] = {questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing'},
+        [83727] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'},
+        [83728] = {questType = 'weekly', skillLineID = 202, profession = 'Engineering'},
+        [83730] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription'},
+        [83731] = {questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting'},
+        [83732] = {questType = 'weekly', skillLineID = 165, profession = 'Leatherworking'},
+        [83735] = {questType = 'weekly', skillLineID = 197, profession = 'Tailoring'},
+        [83729] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'},
+        [83733] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'},
+        [83734] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'},
+    },
+    knowledge_tww_gather = {
+        [81416] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 1
+        [81417] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 2
+        [81418] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 3
+        [81419] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 4
+        [81420] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 5
+        [81421] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Rose
+    
+        [83054] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 1
+        [83055] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 2
+        [83056] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 3
+        [83057] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 4
+        [83058] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 5
+        [83059] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Erosion Polished Slate
+    
+        [81459] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 1
+        [81460] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 2
+        [81461] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 3
+        [81462] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 4
+        [81463] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 5
+        [81464] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Abyssal Fur
+    
+        [84290] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 1
+        [84291] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 2
+        [84292] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 3
+        [84293] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 4
+        [84294] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Fleeting Arcane Manifestation 5
+        [84295] = {questType = 'weekly', skillLineID = 333, profession = 'Enchanting'}, -- Gleaming Telluric Crystal
+    },
+    knowledge_tww_weeklies_quest = {
+        [84133] = {questType = 'weekly', profession = 'Alchemy', description = 'Alchemy Services Requested'},
+        [84127] = {questType = 'weekly', profession = 'Blacksmithing', description = 'Blacksmithing Services Requested'},
+        
+        [84085] = {questType = 'weekly', profession = 'Enchanting', description = 'The Power of Potential'},
+        [84086] = {questType = 'weekly', profession = 'Enchanting', description = 'A Rare Necessity'},
+        [84134] = {questType = 'weekly', profession = 'Enchanting', description = 'Enchanting Services Requested'},
+        [84084] = {questType = 'weekly', profession = 'Enchanting', description = 'Just a Pinch'},
+        
+        [84128] = {questType = 'weekly', profession = 'Engineering', description = 'Engineering Services Requested'},
+        [84129] = {questType = 'weekly', profession = 'Inscription', description = 'Inscription Services Requested'},
+        [84130] = {questType = 'weekly', profession = 'Jewelcrafting', description = 'Jewelcrafting Services Requested'},
+        [84131] = {questType = 'weekly', profession = 'Leatherworking', description = 'Leatherworking Services Requested'},
+        [84132] = {questType = 'weekly', profession = 'Tailoring', description = 'Tailoring Services Requested'},
+        
+        [82916] = {questType = 'weekly', profession = 'Herbalism', description = 'When Fungi Bloom'},
+        [82958] = {questType = 'weekly', profession = 'Herbalism', description = 'Little Blessings'},
+        [82962] = {questType = 'weekly', profession = 'Herbalism', description = 'A handful of Luredrops'},
+        [82965] = {questType = 'weekly', profession = 'Herbalism', description = 'Light and Shadow'},
+        [82970] = {questType = 'weekly', profession = 'Herbalism', description = 'A Bloom and A Blossom'},
+        
+        [83102] = {questType = 'weekly', profession = 'Mining', description = 'Bismuth is Business'},
+        [83103] = {questType = 'weekly', profession = 'Mining', description = 'Acquiring Aqirite'},
+        [83104] = {questType = 'weekly', profession = 'Mining', description = 'Identifying Ironclaw'},
+        [83106] = {questType = 'weekly', profession = 'Mining', description = 'Null Pebble Excavation'},
+        
+        [82992] = {questType = 'weekly', profession = 'Skinning', description = 'Stormcharged Goods'},
+        [82993] = {questType = 'weekly', profession = 'Skinning', description = 'From Shadows'},
+        [83097] = {questType = 'weekly', profession = 'Skinning', description = 'Cinder and Storm'},
+        [83098] = {questType = 'weekly', profession = 'Skinning', description = 'Snap and Crackle'},
+    },
 }
 
 PermoksAccountManager.locale = {
