@@ -942,30 +942,6 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
-	-- 11.0 PREPATCH
-	radiant_echoes_prepatch_dailies = {
-		label = 'Prepatch Dailies',
-		type = 'quest',
-		questType = 'daily',
-		warband = true,
-		visibility = 'visible',
-		tooltip = true,
-		customTooltip = function(...)
-			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
-		end,
-		required = 3,
-		group = 'resetDaily',
-		version = WOW_PROJECT_MAINLINE
-	},
-	radiant_echoes_cache = {
-		label = 'Prepatch Weekly Cache',
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'hidden',
-		group = 'resetWeekly',
-		version = WOW_PROJECT_MAINLINE
-	},
-
     -- 11.0 The War Within
 	-- world activities
 	tww_world_boss = {

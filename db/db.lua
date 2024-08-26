@@ -27,12 +27,6 @@ local default_categories = {
             'kej',
             'radiant_remnant',
             'radiant_echo',
-
-            -- DF Stuff -> Remove from Default Categories after global Launch
-            'separator3',
-            'residual_memories',
-            'radiant_echoes_prepatch_dailies',
-            'radiant_echoes_cache',
         },
         childOrder = {
             characterName = 1,
@@ -56,12 +50,6 @@ local default_categories = {
             kej = 23, 
             radiant_remnant = 24,
             radiant_echo = 25,
-
-            -- DF Stuff -> Remove from Default Categories after global Launch
-            separator3 = 30,
-            residual_memories = 31,
-            radiant_echoes_prepatch_dailies = 32,
-            radiant_echoes_cache = 33,
         },
         hideToggle = true,
         enabled = true
@@ -1534,13 +1522,6 @@ PermoksAccountManager.quests = {
     },
     big_dig = {
         [79226] = {questType = 'weekly', warband = true, log = true},
-    },
-
-    -- 11.0 PREPATCH
-    radiant_echoes_prepatch_weeklies = {
-        [82689] = {questType = 'weekly', log = true, name = "Dragonblight (Lich King)"}, --name = 'Only Darkness'},
-        [82676] = {questType = 'weekly', log = true, name = "Dustwallow Marsh (Onyxia)"}, --name = 'Broken Masquerade'},
-        [78938] = {questType = 'weekly', log = true, name = "Searing Gorge (Ragnaros)"}, --name = 'Champion of the Waterlords'},
     },
 
     -- 11.0 The War Within
