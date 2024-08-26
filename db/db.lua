@@ -1723,14 +1723,14 @@ PermoksAccountManager.quests = {
         [81694] = {questType = 'weekly', warband = true, name = 'Rhak\'ik & Khak\'ik'}, -- One Time Kill
         [78905] = {questType = 'weekly', warband = true, name = 'Ahg\'zagall'}, -- One Time Kill
         [84080] = {questType = 'weekly', warband = true, name = 'Umbraclaw Matra'}, -- (daily: 82037)
-        [84082] = {questType = 'weekly', warband = true, name = 'Kaheti Bladeguard'}, -- (daily: 82078)
+        [84082] = {questType = 'weekly', warband = true, name = 'Skirmisher Sa\'zryk'}, -- (daily: 82078)
         [84081] = {questType = 'weekly', warband = true, name = 'Deepcrawler Tx\'kesh'}, -- (daily: 82077)
         [84079] = {questType = 'weekly', warband = true, name = 'Harvester Qixt'}, -- (daily: 82036)
         [84078] = {questType = 'weekly', warband = true, name = 'The Oozekhan'}, -- (daily: 82035)
         [84077] = {questType = 'weekly', warband = true, name = 'Jix\'ak the Crazed'}, -- (daily: 82034)
         [84069] = {questType = 'weekly', warband = true, name = 'The Groundskeeper'}, -- (daily: 81634)
         [84070] = {questType = 'weekly', warband = true, name = 'Xishorr'}, -- (daily: 81701)
-        [85167] = {questType = 'weekly', warband = true, name = ' The One Left'}, -- (daily: 82290)
+        [85167] = {questType = 'weekly', warband = true, name = 'The One Left'}, -- (daily: 82290)
         [85166] = {questType = 'weekly', warband = true, name = 'Tka\'ktath'}, -- (daily: 82289)
     },
 
