@@ -1170,7 +1170,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 22,
+		required = 24,
 		version = WOW_PROJECT_MAINLINE
 	},
 	azj_kahet_rares = {
@@ -1188,7 +1188,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 19,
+		required = 21,
 		version = WOW_PROJECT_MAINLINE
 	},
 	-- professions
