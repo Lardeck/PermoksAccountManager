@@ -921,6 +921,8 @@ function PermoksAccountManager:ResetActivities(db, data, daily, weekly, biweekly
 end
 
 function PermoksAccountManager:ResetWeeklyActivities(altData)
+    if not altData then return end
+
     -- M0/Raids
     if altData.instanceInfo then
         -- Store three day raids so they won't get reset here (currently only ZG for WOTLK)
@@ -976,6 +978,7 @@ end
 
 function PermoksAccountManager:ResetDailyActivities(db, altData)
     local currentTime = time()
+    if not altData then return end
 
     if altData.completedDailies then
         altData.completedDailies = {}
@@ -1008,6 +1011,8 @@ function PermoksAccountManager:ResetDailyActivities(db, altData)
 end
 
 function PermoksAccountManager:ResetBiweeklyActivities(altData)
+    if not altData then return end
+
     if altData.questInfo and altData.questInfo.biweekly then
         for visibility, quests in pairs(altData.questInfo.biweekly) do
             altData.questInfo.biweekly[visibility] = {}
@@ -1016,6 +1021,8 @@ function PermoksAccountManager:ResetBiweeklyActivities(altData)
 end
 
 function PermoksAccountManager:ResetThreeDayRaids(altData)
+    if not altData then return end
+    
     if altData.instanceInfo and altData.instanceInfo.raids and altData.instanceInfo.raids['zul_gurub'] then
         altData.instanceInfo.raids['zul_gurub'] = nil
     end
