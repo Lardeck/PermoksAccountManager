@@ -1330,13 +1330,15 @@ local InternalLabelFunctions = {
                 required = unlockInfo.required
             end
         elseif column.professionOffset and alt_data.professions then
-            local skillLine1, skillLine2 = unpack(alt_data.professions)
+            local skillLine1, skillLine2 = alt_data.professions.profession1, alt_data.professions.profession2
 
             if skillLine1 then
+                skillLine1 = skillLine1.skillLineID
                 offset = offset + (column.professionOffset[skillLine1] or 0)
             end
 
             if skillLine2 then
+                skillLine2 = skillLine2.skillLineID
                 offset = offset + (column.professionOffset[skillLine2] or 0)
             end
         end

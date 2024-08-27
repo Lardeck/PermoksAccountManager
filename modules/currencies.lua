@@ -259,18 +259,7 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-
-    -- 11.0 Prepatch
-    residual_memories = {
-        label = 'Residual Memories',
-        type = 'currency',
-        key = 3089,
-        passRow = true,
-        group = 'currency',
-        warband = true,
-        version = WOW_PROJECT_MAINLINE
-    },
-
+    
     -- 11.0
     champion_crest = {
         label = 'Champion Crests',
@@ -687,7 +676,11 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     end
 
     if currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 and (currencyInfo.quantity or 0) > currencyInfo.maxQuantity then
-        currencyInfo.quantity = currencyInfo.quantity / 100
+        -- REFACTOR: move this logic to the crest labelRows to remove redundancy
+        local id = currencyInfo.currencyType
+        if id ~= 2914 and id ~= 2915 and id ~= 2916 and id ~= 2917 then
+            currencyInfo.quantity = currencyInfo.quantity / 100
+        end
     end
 
     local currencyString

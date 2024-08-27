@@ -942,30 +942,6 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
-	-- 11.0 PREPATCH
-	radiant_echoes_prepatch_dailies = {
-		label = 'Prepatch Dailies',
-		type = 'quest',
-		questType = 'daily',
-		warband = true,
-		visibility = 'visible',
-		tooltip = true,
-		customTooltip = function(...)
-			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
-		end,
-		required = 3,
-		group = 'resetDaily',
-		version = WOW_PROJECT_MAINLINE
-	},
-	radiant_echoes_cache = {
-		label = 'Prepatch Weekly Cache',
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'hidden',
-		group = 'resetWeekly',
-		version = WOW_PROJECT_MAINLINE
-	},
-
     -- 11.0 The War Within
 	-- world activities
 	tww_world_boss = {
@@ -1094,6 +1070,11 @@ local labelRows = {
 		warband = false,
 		visibility = 'visible',
 		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 7,
 		version = WOW_PROJECT_MAINLINE
 	},
 	severed_threads_pact_chosen = {
@@ -1134,6 +1115,7 @@ local labelRows = {
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
 		required = 22,
+		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	ringing_deeps_rares = {
@@ -1152,6 +1134,7 @@ local labelRows = {
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
 		required = 18,
+		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	hallowfall_rares = {
@@ -1170,7 +1153,8 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 22,
+		required = 26,
+		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	azj_kahet_rares = {
@@ -1188,7 +1172,8 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 19,
+		required = 21,
+		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	-- professions
@@ -1233,13 +1218,16 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:KnowledgeTooltip_OnEnter(...)
 		end,
-		required = 6,
-		tooltipRequired = 3,
+		required = 12,
+		tooltipRequired = 6,
 		professionOffset = {
-			[182] = 4,
-			[186] = 4,
-			[393] = 4,
-			[333] = 4,
+			[171] = -6,
+			[164] = -6,
+			[202] = -6,
+			[773] = -6,
+			[755] = -6,
+			[165] = -6,
+			[197] = -6,
 		},
 		professionRequired = {
 			[182] = 6,
@@ -1250,17 +1238,18 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
-	knowledge_tww__weeklies_quest = {
+
+	knowledge_tww_weeklies_quest = {
 		label = 'Profession Quests',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
+		group = 'resetWeekly',
 		tooltip = true,
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
 		required = 2,
-		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
 	
@@ -1843,7 +1832,7 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 	local questInfo = self.quests[key]
 	local professionCounter = {}
 	local professionItems = {}
-	local prof1, prof2 = unpack(altData.professions or {})
+	local prof1, prof2 = altData.professions.profession1, altData.professions.profession2
 
 	if prof1 or prof2 then
 		for questID, questInfoTbl in pairs(questInfo) do
@@ -1853,7 +1842,7 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 					professionCounter[skillLineID] = (professionCounter[skillLineID] or 0) + 1
 				end
 
-				if (skillLineID == prof1 or skillLineID == prof2) then
+				if (skillLineID == prof1.skillLineID or skillLineID == prof2.skillLineID) then
 					professionItems[questInfoTbl.skillLineID] = professionItems[questInfoTbl.skillLineID] or {}
 
 					if questInfoTbl.item then
