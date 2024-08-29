@@ -319,8 +319,11 @@ local labelRows = {
     },
     restored_coffer_key = {
         label = 'Restored Coffer Key',
-        type = 'currency',
+        type = 'cofferkey',
+        passRow = true,
         key = 3028,
+        reagent = 229899,
+        reagentRequired = 100,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -639,6 +642,25 @@ local function CreateValorString(labelRow, currencyInfo)
     end
 end
 
+local function CreateCofferKeyString(labelRow, currencyInfo, itemCounts)
+    if not currencyInfo then return '-' end
+
+    local keyInfo = currencyInfo[labelRow.key]
+    local reagentInfo = itemCounts[labelRow.reagent]
+
+    local total = 0
+    if keyInfo then
+        total = total + keyInfo.quantity
+    end
+
+    ViragDevTool:AddData(itemCounts)
+    if reagentInfo then
+        total = total + (reagentInfo.total / labelRow.reagentRequired)
+    end
+
+    return PermoksAccountManager:CreateCurrencyString(keyInfo, nil, nil, nil, nil, nil, total)
+end
+
 local payload = {
     update = Update,
     labels = labelRows,
@@ -656,6 +678,7 @@ local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('catalystcharges', CreateCatalystChargeString, nil, 'currencyInfo')
 module:AddCustomLabelType('crestcurrency', CreateCrestString, nil, 'currencyInfo')
 module:AddCustomLabelType('valor', CreateValorString, nil, 'currencyInfo')
+module:AddCustomLabelType('cofferkey', CreateCofferKeyString, nil, 'currencyInfo', 'itemCounts')
 
 -- TODO Create a CreateIconString function instead of two functions for items and currencies
 function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum, customIcon, hideIcon, customQuantitiy)
@@ -683,11 +706,11 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
         end
     end
 
-    local currencyString
     local quantity = customQuantitiy or currencyInfo.quantity
+    local currencyString = quantity
     if not hideMaximum and ((currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0) or (currencyInfo.maxWeeklyQuantity and currencyInfo.maxWeeklyQuantity > 0)) then
         currencyString = self:CreateFractionString(quantity, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity  or currencyInfo.maxWeeklyQuantity, abbreviateCurrent, abbreviateMaximum)
-    else
+    elseif quantity >= 1000 then
         currencyString = abbreviateCurrent and AbbreviateNumbers(quantity) or AbbreviateLargeNumbers(quantity)
     end
 

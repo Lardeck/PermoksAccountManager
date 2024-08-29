@@ -509,7 +509,7 @@ PermoksAccountManager.item = {
     [220520] = {key = 'radiant_echo'}, -- Radiant Echo
     [212493] = {key = 'firelight_ruby'}, -- Odd Glob of Wax
     [224642] = {key = 'firelight_ruby'}, -- Firelight Ruby
-    [220693] = {key = 'coffer_key_shard'}, -- Coffer Key Shard    
+    [229899] = {key = 'coffer_key_shard'}, -- Coffer Key Shard    
 }
 
 PermoksAccountManager.factions = {

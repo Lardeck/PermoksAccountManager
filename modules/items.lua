@@ -299,7 +299,7 @@ local labelRows = {
     coffer_key_shard = {
         label = 'Coffer Key Shard',
         type = 'item',
-        key = 220693,
+        key = 229899,
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
