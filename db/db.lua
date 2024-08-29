@@ -1193,6 +1193,7 @@ PermoksAccountManager.quests = {
     },
     knowledge_df_treatise = {
         [74105] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription'}, -- Inscription
+        [83730] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription'}, -- Inscription 2
         [74106] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Mining
         [74107] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Herbalism
         [74108] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy'}, -- Alchemy
