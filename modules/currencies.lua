@@ -653,7 +653,6 @@ local function CreateCofferKeyString(labelRow, currencyInfo, itemCounts)
         total = total + keyInfo.quantity
     end
 
-    ViragDevTool:AddData(itemCounts)
     if reagentInfo then
         total = total + (reagentInfo.total / labelRow.reagentRequired)
     end
