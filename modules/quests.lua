@@ -1114,7 +1114,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 22,
+		required = 16,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1133,7 +1133,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 18,
+		required = 13,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1153,7 +1153,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 26,
+		required = 21,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1172,7 +1172,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 21,
+		required = 16,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
