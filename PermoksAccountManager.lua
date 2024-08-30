@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 1
+local INTERNALTWWVERSION = 2
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -603,6 +603,25 @@ function PermoksAccountManager:CreateResetTimers()
     end
 end
 
+function PermoksAccountManager:ResetQuestCompletion(labelRow)
+    local db = self.db.global
+    local accountData = db.accounts.main
+    local warbandData = db.accounts.main.warbandData
+
+    local questType = self.labelRows[labelRow].questType
+    local visibility = self.labelRows[labelRow].visibility
+    
+    for _, alt_data in pairs(accountData.data) do
+        if alt_data.questInfo and alt_data.questInfo[questType] and alt_data.questInfo[questType][visibility] then
+            alt_data.questInfo[questType][visibility][labelRow] = {}
+        end
+    end
+
+    if warbandData.questInfo and warbandData.questInfo[questType] and warbandData.questInfo[questType][visibility] then
+        warbandData.questInfo[questType][visibility][labelRow] = {}
+    end
+end
+
 function PermoksAccountManager:CheckForModernize()
     if self.isCata then
         local internalVersion = self.db.global.internalCataVersion
@@ -676,6 +695,13 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if not oldInternalVersion then
         PermoksAccountManager:ResetCategories()
+    end
+
+    if oldInternalVersion < 2 then
+        PermoksAccountManager:ResetQuestCompletion('isle_of_dorne_rares')
+        PermoksAccountManager:ResetQuestCompletion('ringing_deeps_rares')
+        PermoksAccountManager:ResetQuestCompletion('hallowfall_rares')
+        PermoksAccountManager:ResetQuestCompletion('azj_kahet_rares')
     end
 end
 

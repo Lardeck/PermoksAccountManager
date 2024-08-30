@@ -1193,6 +1193,7 @@ PermoksAccountManager.quests = {
     },
     knowledge_df_treatise = {
         [74105] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription'}, -- Inscription
+        [83730] = {questType = 'weekly', skillLineID = 773, profession = 'Inscription'}, -- Inscription 2
         [74106] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Mining
         [74107] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Herbalism
         [74108] = {questType = 'weekly', skillLineID = 171, profession = 'Alchemy'}, -- Alchemy
@@ -1592,10 +1593,10 @@ PermoksAccountManager.quests = {
         [83333] = {questType = 'weekly', log = true}, -- Gearing Up for Trouble (Awakening the Machine Weekly)
     },
     awakening_the_machine = {
-        [84642] = {questType = 'weekly', warband = true, log = true}, -- cache 1
-        [84644] = {questType = 'weekly', warband = true, log = true}, -- cache 2
-        [84646] = {questType = 'weekly', warband = true, log = true}, -- cache 3
-        [84647] = {questType = 'weekly', warband = true, log = true}, -- cache 4
+        [84642] = {questType = 'weekly', warband = true, name = "1st Cache"}, -- cache 1
+        [84644] = {questType = 'weekly', warband = true, name = "2nd Cache"}, -- cache 2
+        [84646] = {questType = 'weekly', warband = true, name = "3rd Cache"}, -- cache 3
+        [84647] = {questType = 'weekly', warband = true, name = "4th Cache"}, -- cache 4
     },
     spreading_the_light = {
         [76586] = {questType = 'weekly', warband = true, log = true}, -- Hallowfall Event in Dunelle's Kindness
@@ -1641,20 +1642,20 @@ PermoksAccountManager.quests = {
     isle_of_dorne_rares = {
         [85158] = {questType = 'weekly', warband = true, name = 'Alunira'}, -- (daily?!: 82196)
         [84037] = {questType = 'weekly', warband = true, name = 'Tephratennae'}, -- (daily: 81923)
-        [81894] = {questType = 'weekly', warband = true, name = 'Warphorn'}, -- One Time Kill
+        --[81894] = {questType = 'weekly', warband = true, name = 'Warphorn'}, -- One Time Kill
         [84031] = {questType = 'weekly', warband = true, name = 'Kronolith, Might of the Mountain'}, -- (daily: 81902)
         [84032] = {questType = 'weekly', warband = true, name = 'Shallowshell the Clacker'}, -- (daily: 81903)
-        [81893] = {questType = 'weekly', warband = true, name = 'Bloodmaw'}, -- One Time Kill
-        [81892] = {questType = 'weekly', warband = true, name = 'Springbubble'}, -- One Time Kill
-        [79685] = {questType = 'weekly', warband = true, name = 'Sandres the Relicbearer'}, -- One Time Kill
+        --[81893] = {questType = 'weekly', warband = true, name = 'Bloodmaw'}, -- One Time Kill
+        --[81892] = {questType = 'weekly', warband = true, name = 'Springbubble'}, -- One Time Kill
+        --[79685] = {questType = 'weekly', warband = true, name = 'Sandres the Relicbearer'}, -- One Time Kill
         [84036] = {questType = 'weekly', warband = true, name = 'Clawbreaker K\'zithix'}, -- (daily: 81920)
-        [81895] = {questType = 'weekly', warband = true, name = 'Emperor Pitfang'},-- One Time Kill
+        --[81895] = {questType = 'weekly', warband = true, name = 'Emperor Pitfang'},-- One Time Kill
         [84029] = {questType = 'weekly', warband = true, name = 'Escaped Cutthroat'}, -- (daily: 81907)
         [84039] = {questType = 'weekly', warband = true, name = 'Matriarch Charfuria'}, -- (daily: 81921)
         [84030] = {questType = 'weekly', warband = true, name = 'Tempest Lord Incarnus'}, -- (daily: 81901)
         [84028] = {questType = 'weekly', warband = true, name = 'Gar\'loc'}, -- (daily: 81899)
         [84033] = {questType = 'weekly', warband = true, name = 'Twice-Stinger the Wretched'}, -- (daily: 81904)
-        [78619] = {questType = 'weekly', warband = true, name = 'Rustul Titancap'}, -- One Time Kill
+        --[78619] = {questType = 'weekly', warband = true, name = 'Rustul Titancap'}, -- One Time Kill
         [84034] = {questType = 'weekly', warband = true, name = 'Flamekeeper Graz'}, -- (daily: 81905)
         [84026] = {questType = 'weekly', warband = true, name = 'Plaguehart'}, --  (daily: 81897)
         [84038] = {questType = 'weekly', warband = true, name = 'Sweetspark the Oozeful'}, -- (daily: 81922)
@@ -1665,21 +1666,21 @@ PermoksAccountManager.quests = {
     ringing_deeps_rares = {
         [84046] = {questType = 'weekly', warband = true, name = 'Automaxor'}, -- (daily: 81674)
         [84044] = {questType = 'weekly', warband = true, name = 'Charmonger'}, -- (daily: 81562)
-        [80547] = {questType = 'weekly', warband = true, name = 'King Splash'}, -- One Time Kill 
-        [80505] = {questType = 'weekly', warband = true, name = 'Candleflyer Captain'}, -- One time kill
+        --[80547] = {questType = 'weekly', warband = true, name = 'King Splash'}, -- One Time Kill 
+        --[80505] = {questType = 'weekly', warband = true, name = 'Candleflyer Captain'}, -- One time kill
         [84042] = {questType = 'weekly', warband = true, name = 'Cragmund'}, -- (daily: 80560)
         [85162] = {questType = 'weekly', warband = true, name = 'Deepflayer Broodmother'}, -- (daily: 80536)
-        [80557] = {questType = 'weekly', warband = true, name = 'Aquellion'}, -- One time kill
+        --[80557] = {questType = 'weekly', warband = true, name = 'Aquellion'}, -- One time kill
         [84041] = {questType = 'weekly', warband = true, name = 'Zilthara'}, -- (daily: 80506)
         [84045] = {questType = 'weekly', warband = true, name = 'Coalesced Monstrosity'}, -- (daily: 81511)
         [84040] = {questType = 'weekly', warband = true, name = 'Terror of the Forge'}, -- (daily: 80507)
         [84047] = {questType = 'weekly', warband = true, name = 'Kelpmire'}, -- (daily: 81485)
-        [81563] = {questType = 'weekly', warband = true, name = 'Rampaging Blight'}, -- One time kill
+        --[81563] = {questType = 'weekly', warband = true, name = 'Rampaging Blight'}, -- One time kill
         [84043] = {questType = 'weekly', warband = true, name = 'Trungal'}, -- (daily: 80574)
         [84049] = {questType = 'weekly', warband = true, name = 'Spore-infused Shalewing'}, -- (daily: 81652)
         [84048] = {questType = 'weekly', warband = true, name = 'Hungerer of the Deeps'}, -- (daily: 81648)
         [84050] = {questType = 'weekly', warband = true, name = 'Disturbed Earthgorger'}, -- (daily: 80003)
-        [81566] = {questType = 'weekly', warband = true, name = 'Deathbound Husk'}, -- One time kill
+        --[81566] = {questType = 'weekly', warband = true, name = 'Deathbound Husk'}, -- One time kill
         [85163] = {questType = 'weekly', warband = true, name = 'Lurker of the Deeps'}, -- (daily: 81633)
     },
     hallowfall_rares = {
@@ -1689,18 +1690,18 @@ PermoksAccountManager.quests = {
         [84051] = {questType = 'weekly', warband = true, name = 'Moth\'ethk'}, -- (daily: 82557)
         [84064] = {questType = 'weekly', warband = true, name = 'The Perchfather'}, -- (daily: 81791)
         [84061] = {questType = 'weekly', warband = true, name = 'The Taskmaker'}, -- (daily: 80009)
-        [81761] = {questType = 'weekly', warband = true, name = 'Grimslice'}, -- One Time Kill
+        --[81761] = {questType = 'weekly', warband = true, name = 'Grimslice'}, -- One Time Kill
         [84066] = {questType = 'weekly', warband = true, name = 'Strength of Beledar'}, -- (daily: 81849)
-        [80006] = {questType = 'weekly', warband = true, name = 'Ixlorb the Spinner'}, -- One Time Kill
+        --[80006] = {questType = 'weekly', warband = true, name = 'Ixlorb the Spinner'}, -- One Time Kill
         [84060] = {questType = 'weekly', warband = true, name = 'Murkspike'}, -- (daily: 82565)
         [84053] = {questType = 'weekly', warband = true, name = 'Deathpetal'}, -- (daily: 82559)
-        [80011] = {questType = 'weekly', warband = true, name = 'Deepfiend Azellix'}, -- One Time Kill
+        --[80011] = {questType = 'weekly', warband = true, name = 'Deepfiend Azellix'}, -- One Time Kill
         [84056] = {questType = 'weekly', warband = true, name = 'Duskshadow'}, -- (daily: 82562)
-        [81881] = {questType = 'weekly', warband = true, name = 'Funglour'}, -- One Time Kill
+        --[81881] = {questType = 'weekly', warband = true, name = 'Funglour'}, -- One Time Kill
         [84067] = {questType = 'weekly', warband = true, name = 'Sir Alastair Purefire'}, -- (daily: 81853)
         [84065] = {questType = 'weekly', warband = true, name = 'Horror of the Shallows'}, -- (daily: 81836)
         [84062] = {questType = 'weekly', warband = true, name = 'Sloshmuck'}, -- (daily: 79271)
-        [80010] = {questType = 'weekly', warband = true, name = 'Murkshade'}, -- One Time Kill
+        --[80010] = {questType = 'weekly', warband = true, name = 'Murkshade'}, -- One Time Kill
         [84054] = {questType = 'weekly', warband = true, name = 'Croakit'}, -- (daily: 82560)
         [84068] = {questType = 'weekly', warband = true, name = 'Pride of Beledar'}, -- (daily: 81882)
         [84052] = {questType = 'weekly', warband = true, name = 'Crazed Cabbage Smacker'}, -- (daily: 82558)
@@ -1713,15 +1714,15 @@ PermoksAccountManager.quests = {
     azj_kahet_rares = {
         [84071] = {questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler'}, -- (daily: 81702)
         [84072] = {questType = 'weekly', warband = true, name = 'XT-Minecrusher 8700'}, -- (daily: 81703)
-        [81695] = {questType = 'weekly', warband = true, name = 'Abyssal Devourer'}, -- One Time Kill
+        --[81695] = {questType = 'weekly', warband = true, name = 'Abyssal Devourer'}, -- One Time Kill
         [84075] = {questType = 'weekly', warband = true, name = 'Maddened Siegebomber'}, -- (daily: 81706)
-        [81700] = {questType = 'weekly', warband = true, name = 'Vilewing'}, -- One Time Kill
-        [81699] = {questType = 'weekly', warband = true, name = 'Webspeaker Grik\'ik'}, -- One Time Kill
+        --[81700] = {questType = 'weekly', warband = true, name = 'Vilewing'}, -- One Time Kill
+        --[81699] = {questType = 'weekly', warband = true, name = 'Webspeaker Grik\'ik'}, -- One Time Kill
         [84073] = {questType = 'weekly', warband = true, name = 'Cha\'tak'}, -- (daily: 81704)
         [84076] = {questType = 'weekly', warband = true, name = 'Enduring Gutterface'}, -- (daily: 81707)
         [84074] = {questType = 'weekly', warband = true, name = 'Monstrous Lasharoth'}, -- (daily: 81705)
-        [81694] = {questType = 'weekly', warband = true, name = 'Rhak\'ik & Khak\'ik'}, -- One Time Kill
-        [78905] = {questType = 'weekly', warband = true, name = 'Ahg\'zagall'}, -- One Time Kill
+        --[81694] = {questType = 'weekly', warband = true, name = 'Rhak\'ik & Khak\'ik'}, -- One Time Kill
+        --[78905] = {questType = 'weekly', warband = true, name = 'Ahg\'zagall'}, -- One Time Kill
         [84080] = {questType = 'weekly', warband = true, name = 'Umbraclaw Matra'}, -- (daily: 82037)
         [84082] = {questType = 'weekly', warband = true, name = 'Skirmisher Sa\'zryk'}, -- (daily: 82078)
         [84081] = {questType = 'weekly', warband = true, name = 'Deepcrawler Tx\'kesh'}, -- (daily: 82077)
@@ -1774,12 +1775,12 @@ PermoksAccountManager.quests = {
         [81420] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 5
         [81421] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Rose
     
-        [83054] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 1
-        [83055] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 2
-        [83056] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 3
-        [83057] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 4
-        [83058] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 5
-        [83059] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Erosion Polished Slate
+        [83050] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 1
+        [83051] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 2
+        [83052] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 3
+        [83053] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 4
+        [83054] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 5
+        [83049] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Erosion Polished Slate
     
         [81459] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 1
         [81460] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 2
