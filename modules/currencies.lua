@@ -706,7 +706,8 @@ function PermoksAccountManager.CurrencyTooltip_OnEnter(button, altData, labelRow
     local self = PermoksAccountManager
     local currencyInfo = altData.currencyInfo[labelRow.key]
     local globalCurrencyInfo = self.db.global.currencyInfo[labelRow.key]
-    if not currencyInfo or not currencyInfo.name then
+    if not currencyInfo or not currencyInfo.name or currencyInfo.altQuantity then
+        -- don't create currency tooltips for the warband column
         return
     end
 
