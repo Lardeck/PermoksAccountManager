@@ -1775,12 +1775,12 @@ PermoksAccountManager.quests = {
         [81420] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Petal 5
         [81421] = {questType = 'weekly', skillLineID = 182, profession = 'Herbalism'}, -- Deepgrove Rose
     
-        [83054] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 1
-        [83055] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 2
-        [83056] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 3
-        [83057] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 4
-        [83058] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 5
-        [83059] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Erosion Polished Slate
+        [83050] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 1
+        [83051] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 2
+        [83052] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 3
+        [83053] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 4
+        [83054] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Slab of Slate 5
+        [83049] = {questType = 'weekly', skillLineID = 186, profession = 'Mining'}, -- Erosion Polished Slate
     
         [81459] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 1
         [81460] = {questType = 'weekly', skillLineID = 393, profession = 'Skinning'}, -- Toughened Tempest Pelt 2
