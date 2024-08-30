@@ -1178,7 +1178,7 @@ local labelRows = {
 	},
 	-- professions
 	knowledge_tww_treasures = {
-		label = 'Treasure Knowledge',
+		label = 'Loot Knowledge',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
