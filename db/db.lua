@@ -1593,10 +1593,10 @@ PermoksAccountManager.quests = {
         [83333] = {questType = 'weekly', log = true}, -- Gearing Up for Trouble (Awakening the Machine Weekly)
     },
     awakening_the_machine = {
-        [84642] = {questType = 'weekly', warband = true, log = true}, -- cache 1
-        [84644] = {questType = 'weekly', warband = true, log = true}, -- cache 2
-        [84646] = {questType = 'weekly', warband = true, log = true}, -- cache 3
-        [84647] = {questType = 'weekly', warband = true, log = true}, -- cache 4
+        [84642] = {questType = 'weekly', warband = true, name = "1st Cache"}, -- cache 1
+        [84644] = {questType = 'weekly', warband = true, name = "2nd Cache"}, -- cache 2
+        [84646] = {questType = 'weekly', warband = true, name = "3rd Cache"}, -- cache 3
+        [84647] = {questType = 'weekly', warband = true, name = "4th Cache"}, -- cache 4
     },
     spreading_the_light = {
         [76586] = {questType = 'weekly', warband = true, log = true}, -- Hallowfall Event in Dunelle's Kindness
