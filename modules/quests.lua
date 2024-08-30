@@ -68,11 +68,12 @@ local labelRows = {
 		label = L['PVP Quests'],
 		type = 'quest',
 		questType = 'weekly',
+		warband = true,
 		visibility = 'visible',
-		required = 2,
+		required = 1,
 		isComplete = function(alt_data)
 			return alt_data.questInfo and alt_data.questInfo.weekly and
-				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 2
+				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 1
 		end,
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
@@ -82,6 +83,7 @@ local labelRows = {
 		label = 'Sparks of War',
 		type = 'quest',
 		questType = 'weekly',
+		warband = true,
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
