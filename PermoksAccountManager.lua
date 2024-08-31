@@ -695,6 +695,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if not oldInternalVersion then
         PermoksAccountManager:ResetCategories()
+        oldInternalVersion = 1
     end
 
     if oldInternalVersion < 2 then
