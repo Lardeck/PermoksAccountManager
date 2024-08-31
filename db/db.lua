@@ -1891,36 +1891,30 @@ end
 PermoksAccountManager.vault_rewards = {
     -- MythicPlus
     [Enum.WeeklyRewardChestThresholdType.Activities] = {
-        [-1] = 489,
-        [0] = 506,
-        [2] = 509,
-        [3] = 509,
-        [4] = 512,
-        [5] = 512,
-        [6] = 515,
-        [7] = 515,
-        [8] = 519,
-        [9] = 519,
-        [10] = 522,
+        [-1] = 593,
+        [0] = 603,
+        [2] = 606,
+        [3] = 610,
+        [4] = 610,
+        [5] = 613,
+        [6] = 613,
+        [7] = 616,
+        [8] = 619,
+        [9] = 619,
+        [10] = 623,
     },
-    -- RankedPvP
-    [Enum.WeeklyRewardChestThresholdType.RankedPvP] = {
-        [0] = 445,
-        [1] = 455,
-        [2] = 460,
-        [3] = 465,
-        [4] = 470,
-        [5] = 475,
-		[6] = 458,
-		[7] = 464,
-		[8] = 471
+    -- World
+    [Enum.WeeklyRewardChestThresholdType.World] = {
+        [0] = 603,
+        [1] = 610,
+        [2] = 616,
     },
     -- Raid
     [Enum.WeeklyRewardChestThresholdType.Raid] = {
-        [17] = 480,
-        [14] = 493,
-        [15] = 506,
-        [16] = 519,
+        [17] = 584,
+        [14] = 597,
+        [15] = 610,
+        [16] = 623,
     }
 }
 
