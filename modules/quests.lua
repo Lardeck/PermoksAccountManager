@@ -1462,13 +1462,11 @@ local function UpdateAllQuests(charInfo)
 				-- check for weekly Warband Rewards
 				if info.warband then
                     local currentWarbandQuestInfo = setQuestInfo(warbandQuestInfo, info, key)
-					local isWarbandComplete = false
-					-- API CURRENTLY NOT FUNCTIONING AS INTENDED?. COUPLE OF WORKAROUNDS HERE
-					if info.rare then
-                    	isWarbandComplete = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
-					else
-						isWarbandComplete = isComplete
-					end
+
+					-- API CURRENTLY NOT FUNCTIONING AS INTENDED
+                    -- local isWarbandComplete = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
+					-- Workaround, but requires login on character that completed the quest:
+					local isWarbandComplete = isComplete
                     currentWarbandQuestInfo[questID] = currentWarbandQuestInfo[questID] or isWarbandComplete or nil
 				end
 
