@@ -1690,7 +1690,7 @@ PermoksAccountManager.quests = {
         [84059] = {questType = 'weekly', warband = true, name = 'Finclaw Bloodtide'}, -- (daily: 82564)
         [84058] = {questType = 'weekly', warband = true, name = 'Ravageant'}, -- (daily: 82566)
         [84057] = {questType = 'weekly', warband = true, name = 'Parasidious'}, -- (daily: 82563)
-        [80486] = {questType = 'weekly', warband = true, name = 'Brineslash'}, -- BUGGED
+        -- [80486] = {questType = 'weekly', warband = true, name = 'Brineslash'}, -- BUGGED
     },
     azj_kahet_rares = {
         [84071] = {questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler'}, -- (daily: 81702)
