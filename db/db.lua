@@ -1670,7 +1670,6 @@ PermoksAccountManager.quests = {
         [84050] = {questType = 'weekly', warband = true, name = 'Disturbed Earthgorger'}, -- (daily: 80003)
     },
     hallowfall_rares = {
-        --[85164] = {questType = 'weekly', warband = true, name = 'Beledar\'s Spawn'}, -- (daily: 81763)
         [85165] = {questType = 'weekly', warband = true, name = 'Deathtide'}, -- (daily: 81880)
         [84063] = {questType = 'weekly', warband = true, name = 'Lytfang the Lost'}, -- (daily: 81756)
         [84051] = {questType = 'weekly', warband = true, name = 'Moth\'ethk'}, -- (daily: 82557)
@@ -1690,7 +1689,6 @@ PermoksAccountManager.quests = {
         [84059] = {questType = 'weekly', warband = true, name = 'Finclaw Bloodtide'}, -- (daily: 82564)
         [84058] = {questType = 'weekly', warband = true, name = 'Ravageant'}, -- (daily: 82566)
         [84057] = {questType = 'weekly', warband = true, name = 'Parasidious'}, -- (daily: 82563)
-        [80486] = {questType = 'weekly', warband = true, name = 'Brineslash'}, -- BUGGED
     },
     azj_kahet_rares = {
         [84071] = {questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler'}, -- (daily: 81702)
