@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 2
+local INTERNALTWWVERSION = 3
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -603,23 +603,42 @@ function PermoksAccountManager:CreateResetTimers()
     end
 end
 
-function PermoksAccountManager:ResetQuestCompletion(labelRow)
+function PermoksAccountManager:ResetQuestCompletion(labelRow, ...)
     local db = self.db.global
     local accountData = db.accounts.main
     local warbandData = db.accounts.main.warbandData
-
+    
+    local questIDs = false
     local questType = self.labelRows[labelRow].questType
     local visibility = self.labelRows[labelRow].visibility
+
+    -- optional arguments in form of quest IDs can be passed if only specific quests are to be removed
+    if select("#", ...) > 0 then questIDs = {...} end
     
-    for _, alt_data in pairs(accountData.data) do
-        if alt_data.questInfo and alt_data.questInfo[questType] and alt_data.questInfo[questType][visibility] then
-            alt_data.questInfo[questType][visibility][labelRow] = {}
+    -- Helper function to process questInfo tables
+    local function processQuestInfo(questInfo)
+        if questInfo and questInfo[questType] and questInfo[questType][visibility] then
+            if not questInfo[questType][visibility][labelRow] then
+                questInfo[questType][visibility][labelRow] = {}
+            end
+
+            if questIDs then
+                for _, quest in ipairs(questIDs) do
+                    questInfo[questType][visibility][labelRow][quest] = nil
+                end
+            else
+                questInfo[questType][visibility][labelRow] = {}
+            end
         end
     end
 
-    if warbandData.questInfo and warbandData.questInfo[questType] and warbandData.questInfo[questType][visibility] then
-        warbandData.questInfo[questType][visibility][labelRow] = {}
+    -- Process account data
+    for _, alt_data in pairs(accountData.data) do
+        processQuestInfo(alt_data.questInfo)
     end
+
+    -- Process warband data
+    processQuestInfo(warbandData.questInfo)
 end
 
 function PermoksAccountManager:CheckForModernize()
@@ -699,10 +718,18 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     end
 
     if oldInternalVersion < 2 then
-        PermoksAccountManager:ResetQuestCompletion('isle_of_dorne_rares')
-        PermoksAccountManager:ResetQuestCompletion('ringing_deeps_rares')
-        PermoksAccountManager:ResetQuestCompletion('hallowfall_rares')
-        PermoksAccountManager:ResetQuestCompletion('azj_kahet_rares')
+        self:ResetQuestCompletion('isle_of_dorne_rares')
+        self:ResetQuestCompletion('ringing_deeps_rares')
+        self:ResetQuestCompletion('hallowfall_rares')
+        self:ResetQuestCompletion('azj_kahet_rares')
+    end
+
+    if oldInternalVersion < 3 then
+        self:UpdateDefaultCategories('currentweekly')
+        self:ResetQuestCompletion('isle_of_dorne_rares', 85158, 85160, 85161, 85159)
+        self:ResetQuestCompletion('ringing_deeps_rares', 85163, 85162)
+        self:ResetQuestCompletion('hallowfall_rares', 85164)
+        self:ResetQuestCompletion('azj_kahet_rares', 85167, 85166)
     end
 end
 
