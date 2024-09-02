@@ -1101,11 +1101,7 @@ local labelRows = {
 	},	
 	-- rares
 	isle_of_dorne_rares = {
-		IDs = {
-			82196, 81923, 81894, 81902, 81903, 81893, 81892, 79685, 81920, 81895,
-			81907, 81921, 81901, 81899, 81904, 78619, 81905, 81897, 81922, 82204,
-			82203, 82205
-		},
+		IDs = {84037, 84031, 84032, 84036, 84029, 84039, 84030, 84028, 84033, 84034, 84026, 84038},
 		label = 'Isle of Dorne Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1116,15 +1112,12 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 16,
+		required = 12,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	ringing_deeps_rares = {
-		IDs = {
-			81674, 81562, 80547, 80505, 80560, 80536, 80557, 80506, 81511, 80507,
-			81485, 81563, 80574, 81652, 81648, 80003, 81566, 81633
-		},
+		IDs = {84046, 84044, 84042, 84041, 84045, 84040, 84047, 84043, 84049, 84048, 84050},
 		label = 'Ringing Deeps Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1135,16 +1128,12 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 13,
+		required = 11,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	hallowfall_rares = {
-		IDs = {
-			81756, 82557, 81791, 80009, 81761, 81849, 80006, 82565, 82559, 80011,
-			82562, 81881, 81853, 81836, 79271, 80010, 82560, 81882, 82558, 82561,
-			82564, 82566
-		},
+		IDs = {85165, 84063, 84051, 84064, 84061, 84066, 84060, 84053, 84056, 84067, 84065, 84062, 84054, 84068, 84052, 84055, 84059, 84058, 84057, 80486},
 		label = 'Hallowfall Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1155,15 +1144,12 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 21,
+		required = 20,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
 	azj_kahet_rares = {
-		IDs = {
-			81702, 81703, 81695, 81706, 81700, 81699, 81704, 81707, 81705, 81694,
-			78905, 82037, 82078, 82077, 82036, 82035, 82034, 81634, 81701
-		},
+		IDs = {84071, 84072, 84075, 84073, 84076, 84074, 84080, 84082, 84081, 84079, 84078, 84077, 84069, 84070},
 		label = 'Azj-Kahet Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1174,7 +1160,23 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 16,
+		required = 14,
+		showAll = true,
+		version = WOW_PROJECT_MAINLINE
+	},
+	one_time_reputation_rares = {
+		IDs = {85158, 85160, 85161, 85159, 85163, 85164, 85167, 85166, 85162},
+		label = 'One-Time Reputation Rares',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 9,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},

@@ -22,9 +22,9 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     great_vault_pvp = {
-        label = L['Vault PVP'],
+        label = 'Vault World',
         type = 'vault',
-        key = 'RankedPvP',
+        key = 'World',
         tooltip = true,
         group = 'vault',
         version = WOW_PROJECT_MAINLINE
@@ -122,13 +122,13 @@ local function UpdateVaultInfo(charInfo, force)
             if not vaultInfo.MythicPlus[activityInfo.index] or progressChanged or levelChanged or force then
                 vaultInfo.MythicPlus[activityInfo.index] = activityInfo
             end
-        elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
-            vaultInfo.RankedPvP = vaultInfo.RankedPvP or {}
-            local progressChanged = valueChanged(vaultInfo.RankedPvP[activityInfo.index], activityInfo, 'progress')
-            local levelChanged = valueChanged(vaultInfo.RankedPvP[activityInfo.index], activityInfo, 'level', true)
+        elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.World then
+            vaultInfo.World = vaultInfo.World or {}
+            local progressChanged = valueChanged(vaultInfo.World[activityInfo.index], activityInfo, 'progress')
+            local levelChanged = valueChanged(vaultInfo.World[activityInfo.index], activityInfo, 'level', true)
 
-            if not vaultInfo.RankedPvP[activityInfo.index] or progressChanged or levelChanged then
-                vaultInfo.RankedPvP[activityInfo.index] = activityInfo
+            if not vaultInfo.World[activityInfo.index] or progressChanged or levelChanged then
+                vaultInfo.World[activityInfo.index] = activityInfo
             end
         end
     end
@@ -164,8 +164,8 @@ local function GetDifficultyString(type, level)
         return DifficultyUtil.GetDifficultyName(level):sub(1, 1)
     elseif type == Enum.WeeklyRewardChestThresholdType.Activities then
         return level
-    elseif type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
-        return PVPUtil.GetTierName(level):sub(1, 2)
+    elseif type == Enum.WeeklyRewardChestThresholdType.World then
+        return level
     end
 end
 
@@ -224,7 +224,7 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
             local difficultyName = activityInfo.level and activityInfo.progress >= activityInfo.threshold and DifficultyUtil.GetDifficultyName(activityInfo.level)
 
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))
-        elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.RankedPvP then
+        elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.World then
             local difficultyName = activityInfo.level and activityInfo.progress >= activityInfo.threshold and PVPUtil.GetTierName(activityInfo.level)
 
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))
