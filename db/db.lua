@@ -1713,16 +1713,16 @@ PermoksAccountManager.quests = {
         [84070] = {questType = 'weekly', warband = true, name = 'Xishorr'}, -- (daily: 81701)
     },
     one_time_reputation_rares = {
-        [85158] = {questType = 'weekly', warband = true, name = 'Alunira'}, -- Isle of Dorne (daily: 82196)
-        [85160] = {questType = 'weekly', warband = true, name = 'Kereke'}, -- Isle of Dorne (daily: 82204)
-        [85161] = {questType = 'weekly', warband = true, name = 'Zovex'}, -- Isle of Dorne (daily: 82203)
-        [85159] = {questType = 'weekly', warband = true, name = 'Rotfist'}, -- Isle of Dorne (daily: 82205)
-        [85162] = {questType = 'weekly', warband = true, name = 'Deepflayer Broodmother'}, -- Ringing Deeps (daily: 80536)
-        [85163] = {questType = 'weekly', warband = true, name = 'Lurker of the Deeps'}, -- Ringing Deeps (daily: 81633)
-        [85164] = {questType = 'weekly', warband = true, name = 'Beledar\'s Spawn'}, -- Hallowfall (daily: 81763)
-        [85165] = {questType = 'weekly', warband = true, name = 'Deathtide'}, -- (daily: 81880)
-        [85167] = {questType = 'weekly', warband = true, name = 'The One Left'}, --  Azj-Kahet (daily: 82290)
-        [85166] = {questType = 'weekly', warband = true, name = 'Tka\'ktath'}, --  Azj-Kahet (daily: 82289)        
+        [85158] = {questType = 'weekly', warband = true, name = 'Alunira', achievementID = 40435, criteriaID = 68225}, -- Isle of Dorne (daily: 82196)
+        [85160] = {questType = 'weekly', warband = true, name = 'Kereke', achievementID = 40435, criteriaID = 68227}, -- Isle of Dorne (daily: 82204)
+        [85161] = {questType = 'weekly', warband = true, name = 'Zovex', achievementID = 40435, criteriaID = 68226}, -- Isle of Dorne (daily: 82203)
+        [85159] = {questType = 'weekly', warband = true, name = 'Rotfist', achievementID = 40435, criteriaID = 68228}, -- Isle of Dorne (daily: 82205)
+        [85162] = {questType = 'weekly', warband = true, name = 'Deepflayer Broodmother', achievementID = 40837, criteriaID = 69636}, -- Ringing Deeps (daily: 80536)
+        [85163] = {questType = 'weekly', warband = true, name = 'Lurker of the Deeps', achievementID = 40837, criteriaID = 69637}, -- Ringing Deeps (daily: 81633)
+        [85164] = {questType = 'weekly', warband = true, name = 'Beledar\'s Spawn', achievementID = 40851, criteriaID = 69716}, -- Hallowfall (daily: 81763)
+        [85165] = {questType = 'weekly', warband = true, name = 'Deathtide', achievementID = 40851, criteriaID = 69717}, -- Hallowfall (daily: 81880)
+        [85167] = {questType = 'weekly', warband = true, name = 'The One Left'}, --  Azj-kahet (daily: 82290)
+        [85166] = {questType = 'weekly', warband = true, name = 'Tka\'ktath'}, --  Azj-kahet (daily: 82289)      
     },
 
     -- Professions
