@@ -1852,8 +1852,7 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 		return
 	end
 
-	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 3, 'LEFT', 'RIGHT', 'RIGHT')
-	button.tooltip = tooltip
+
 
 	local questInfo = self.quests[key]
 	local professionCounter = {}
@@ -1878,6 +1877,11 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 			end
 		end
 	end
+
+	if not next(professionItems) then return end
+	
+	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 3, 'LEFT', 'RIGHT', 'RIGHT')
+	button.tooltip = tooltip
 
 	local professioIndex = 1
 	for skillLineID, info in pairs(professionItems) do
