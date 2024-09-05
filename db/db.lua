@@ -71,6 +71,7 @@ local default_categories = {
             'weekend_event',
             'worldsoul_weekly',
             'weekly_delve_reputation',
+            'weekly_coffer_keys',
             'archaic_cypher_key',
 
             'separator1',
@@ -95,7 +96,8 @@ local default_categories = {
             weekend_event = 2,
             worldsoul_weekly = 3,
             weekly_delve_reputation = 4,
-            archaic_cypher_key = 5,
+            weekly_coffer_keys = 5,
+            archaic_cypher_key = 6,
 
             separator1 = 10,
             the_theater_troupe = 11,
@@ -1646,6 +1648,13 @@ PermoksAccountManager.quests = {
         [83318] = {questType = 'weekly', warband = 'unique', name = 'Assembly of the Deeps'},
         [83320] = {questType = 'weekly', warband = 'unique', name = 'Hallowfall Arathi'},
         [83319] = {questType = 'weekly', warband = 'unique', name = 'Severed Threads'},
+    },
+    weekly_coffer_keys = {
+        [84736] = {questType = 'weekly'},
+        [84737] = {questType = 'weekly'},
+        [84738] = {questType = 'weekly'},
+        [84739] = {questType = 'weekly'},
+
     },
 
     -- Weekly Rares

@@ -1114,6 +1114,16 @@ local labelRows = {
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
+	weekly_coffer_keys = {
+		IDs = {84736, 84737, 84738, 84739},
+		label = 'Weekly Coffer Keys',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		required = 4,
+		version = WOW_PROJECT_MAINLINE
+	},
 	-- rares
 	isle_of_dorne_rares = {
 		IDs = {84037, 84031, 84032, 84036, 84029, 84039, 84030, 84028, 84033, 84034, 84026, 84038},
@@ -1879,7 +1889,7 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 	end
 
 	if not next(professionItems) then return end
-	
+
 	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 3, 'LEFT', 'RIGHT', 'RIGHT')
 	button.tooltip = tooltip
 
