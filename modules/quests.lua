@@ -1191,6 +1191,7 @@ local labelRows = {
 		warband = true,
 		visibility = 'hidden',
 		group = 'resetWeekly',
+		achievementString = "(REP)",
 		tooltip = true,
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
