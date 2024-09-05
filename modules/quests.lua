@@ -1032,10 +1032,6 @@ local labelRows = {
 		warband = true,
 		visibility = 'hidden',
 		group = 'resetWeekly',
-		tooltip = true,
-		customTooltip = function(...)
-			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
-		end,
 		required = 4,
 		version = WOW_PROJECT_MAINLINE
 	},
