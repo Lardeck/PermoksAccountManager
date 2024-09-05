@@ -1763,17 +1763,17 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 	end
 
 	if next(info) then
-		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 1, 'LEFT')
+		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
 		button.tooltip = tooltip
 
-		local questInfo = self.quests[key]
+		local quests = self.quests[key]
 
 		if column.showAll then
-			for questID in pairs(questInfo) do
+			for questID, questInfo in pairs(quests) do
 				local name
 				local color = "FF0000"
-				if questInfo and questInfo[questID].name then
-					name = questInfo[questID].name
+				if questInfo and questInfo.name then
+					name = questInfo.name
 				else
 					name = QuestUtils_GetQuestName(questID)
 				end
@@ -1782,7 +1782,13 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 				end
 
 				if name then
-					tooltip:AddLine(string.format("|cFF%s%s|r", color, name))
+					if questInfo.achievementID and questInfo.criteriaID then
+						local completed = select(3, GetAchievementCriteriaInfoByID(questInfo.achievementID, questInfo.criteriaID))
+						local achievementString = completed and string.format("|cFF%s%s|r", COLOR_COMPLETED, column.achievementString) or string.format("|cFF%s%s|r", COLOR_NOT_COMPLETED, column.achievementString)
+						tooltip:AddLine(string.format("|cFF%s%s|r", color, name), achievementString)
+					else
+						tooltip:AddLine(string.format("|cFF%s%s|r", color, name))
+					end
 				end
 			end
 		else
