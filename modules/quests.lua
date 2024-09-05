@@ -1098,7 +1098,23 @@ local labelRows = {
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
-	},	
+	},
+	weekly_delve_reputation = {
+		IDs = {83317, 83319, 83318, 83320},
+		label = 'Weekly Delve Reputation',
+		type = 'quest',
+		questType = 'weekly',
+		warband = 'unique',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 4,
+		showAll = true,
+		version = WOW_PROJECT_MAINLINE
+	},
 	-- rares
 	isle_of_dorne_rares = {
 		IDs = {84037, 84031, 84032, 84036, 84029, 84039, 84030, 84028, 84033, 84034, 84026, 84038},
@@ -1133,7 +1149,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	hallowfall_rares = {
-		IDs = {85165, 84063, 84051, 84064, 84061, 84066, 84060, 84053, 84056, 84067, 84065, 84062, 84054, 84068, 84052, 84055, 84059, 84058, 84057, 80486},
+		IDs = {84063, 84051, 84064, 84061, 84066, 84060, 84053, 84056, 84067, 84065, 84062, 84054, 84068, 84052, 84055, 84059, 84058, 84057},
 		label = 'Hallowfall Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1144,7 +1160,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 19,
+		required = 18,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1165,7 +1181,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	one_time_reputation_rares = {
-		IDs = {85158, 85160, 85161, 85159, 85163, 85164, 85167, 85166, 85162},
+		IDs = {85158, 85160, 85161, 85159, 85163, 85164, 85165, 85167, 85166, 85162},
 		label = 'One-Time Reputation Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1176,7 +1192,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 9,
+		required = 10,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
