@@ -2,6 +2,9 @@ local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 
+local COLOR_COMPLETED = "00FF00"
+local COLOR_NOT_COMPLETED = "FF0000"
+
 local frequencyNames = {
 	[0] = 'default',
 	[1] = 'daily',
