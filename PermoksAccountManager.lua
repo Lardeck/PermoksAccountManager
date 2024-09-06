@@ -734,7 +734,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 4 then
         self:AddLabelToDefaultCategory('currentweekly', 'weekly_delve_reputation', 4)
-        self:AddLabelToDefaultCategory('currentweekly', 'weekly_coffer_keys', 5)
+        self:AddLabelToDefaultCategory('currentweekly', 'weekly_coffer_keys', 4)
         self:ResetQuestCompletion('hallowfall_rares', 85165)
     end
 end
