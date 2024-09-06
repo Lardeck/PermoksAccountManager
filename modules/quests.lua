@@ -2,6 +2,9 @@ local addonName, PermoksAccountManager = ...
 local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 
+local COLOR_COMPLETED = "00FF00"
+local COLOR_NOT_COMPLETED = "FF0000"
+
 local frequencyNames = {
 	[0] = 'default',
 	[1] = 'daily',
@@ -1029,10 +1032,6 @@ local labelRows = {
 		warband = true,
 		visibility = 'hidden',
 		group = 'resetWeekly',
-		tooltip = true,
-		customTooltip = function(...)
-			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
-		end,
 		required = 4,
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1098,7 +1097,33 @@ local labelRows = {
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
-	},	
+	},
+	weekly_delve_reputation = {
+		IDs = {83317, 83319, 83318, 83320},
+		label = 'Weekly Delve Reputation',
+		type = 'quest',
+		questType = 'weekly',
+		warband = 'unique',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 4,
+		showAll = true,
+		version = WOW_PROJECT_MAINLINE
+	},
+	weekly_coffer_keys = {
+		IDs = {84736, 84737, 84738, 84739},
+		label = 'Weekly Coffer Keys',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		required = 4,
+		version = WOW_PROJECT_MAINLINE
+	},
 	-- rares
 	isle_of_dorne_rares = {
 		IDs = {84037, 84031, 84032, 84036, 84029, 84039, 84030, 84028, 84033, 84034, 84026, 84038},
@@ -1133,7 +1158,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	hallowfall_rares = {
-		IDs = {85165, 84063, 84051, 84064, 84061, 84066, 84060, 84053, 84056, 84067, 84065, 84062, 84054, 84068, 84052, 84055, 84059, 84058, 84057, 80486},
+		IDs = {84063, 84051, 84064, 84061, 84066, 84060, 84053, 84056, 84067, 84065, 84062, 84054, 84068, 84052, 84055, 84059, 84058, 84057},
 		label = 'Hallowfall Rares',
 		type = 'quest',
 		questType = 'weekly',
@@ -1144,7 +1169,7 @@ local labelRows = {
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 20,
+		required = 18,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1165,18 +1190,19 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	one_time_reputation_rares = {
-		IDs = {85158, 85160, 85161, 85159, 85163, 85164, 85167, 85166, 85162},
+		IDs = {85158, 85160, 85161, 85159, 85163, 85164, 85165, 85167, 85166, 85162},
 		label = 'One-Time Reputation Rares',
 		type = 'quest',
 		questType = 'weekly',
 		warband = true,
 		visibility = 'hidden',
 		group = 'resetWeekly',
+		achievementString = "(REP)",
 		tooltip = true,
 		customTooltip = function(...)
 			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
 		end,
-		required = 9,
+		required = 10,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
@@ -1617,7 +1643,7 @@ end
 
 -- module init
 local function Update(charInfo)
-	C_Timer.After(10, function()
+	C_Timer.After(15, function()
 		UpdateAllQuests(charInfo)
 		UpdateCurrentlyActiveQuests(charInfo)
 		UpdateCataDailies(charInfo)
@@ -1747,17 +1773,17 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 	end
 
 	if next(info) then
-		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 1, 'LEFT')
+		local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
 		button.tooltip = tooltip
 
-		local questInfo = self.quests[key]
+		local quests = self.quests[key]
 
 		if column.showAll then
-			for questID in pairs(questInfo) do
+			for questID, questInfo in pairs(quests) do
 				local name
 				local color = "FF0000"
-				if questInfo and questInfo[questID].name then
-					name = questInfo[questID].name
+				if questInfo and questInfo.name then
+					name = questInfo.name
 				else
 					name = QuestUtils_GetQuestName(questID)
 				end
@@ -1766,7 +1792,13 @@ function PermoksAccountManager:CompletedQuestsTooltip_OnEnter(button, altData, c
 				end
 
 				if name then
-					tooltip:AddLine(string.format("|cFF%s%s|r", color, name))
+					if questInfo.achievementID and questInfo.criteriaID then
+						local completed = select(3, GetAchievementCriteriaInfoByID(questInfo.achievementID, questInfo.criteriaID))
+						local achievementString = completed and string.format("|cFF%s%s|r", COLOR_COMPLETED, column.achievementString) or string.format("|cFF%s%s|r", COLOR_NOT_COMPLETED, column.achievementString)
+						tooltip:AddLine(string.format("|cFF%s%s|r", color, name), achievementString)
+					else
+						tooltip:AddLine(string.format("|cFF%s%s|r", color, name))
+					end
 				end
 			end
 		else
@@ -1830,8 +1862,7 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 		return
 	end
 
-	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 3, 'LEFT', 'RIGHT', 'RIGHT')
-	button.tooltip = tooltip
+
 
 	local questInfo = self.quests[key]
 	local professionCounter = {}
@@ -1856,6 +1887,11 @@ function PermoksAccountManager:KnowledgeTooltip_OnEnter(button, altData, column,
 			end
 		end
 	end
+
+	if not next(professionItems) then return end
+
+	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 3, 'LEFT', 'RIGHT', 'RIGHT')
+	button.tooltip = tooltip
 
 	local professioIndex = 1
 	for skillLineID, info in pairs(professionItems) do

@@ -70,6 +70,8 @@ local default_categories = {
             'dungeon_weekly',
             'weekend_event',
             'worldsoul_weekly',
+            'weekly_delve_reputation',
+            'weekly_coffer_keys',
             'archaic_cypher_key',
 
             'separator1',
@@ -93,7 +95,9 @@ local default_categories = {
             dungeon_weekly = 1,
             weekend_event = 2,
             worldsoul_weekly = 3,
-            archaic_cypher_key = 5,
+            weekly_delve_reputation = 4,
+            weekly_coffer_keys = 5,
+            archaic_cypher_key = 6,
 
             separator1 = 10,
             the_theater_troupe = 11,
@@ -1639,8 +1643,21 @@ PermoksAccountManager.quests = {
         [80671] = {questType = 'weekly', warband = true, log = true}, -- Blade of the General
         [80672] = {questType = 'weekly', warband = true, log = true}, -- Hand of the Vizier
     },
+    weekly_delve_reputation = {
+        [83317] = {questType = 'weekly', warband = 'unique', name = 'Council of Dornogal'},
+        [83318] = {questType = 'weekly', warband = 'unique', name = 'Assembly of the Deeps'},
+        [83320] = {questType = 'weekly', warband = 'unique', name = 'Hallowfall Arathi'},
+        [83319] = {questType = 'weekly', warband = 'unique', name = 'Severed Threads'},
+    },
+    weekly_coffer_keys = {
+        [84736] = {questType = 'weekly'},
+        [84737] = {questType = 'weekly'},
+        [84738] = {questType = 'weekly'},
+        [84739] = {questType = 'weekly'},
 
-    -- Weekly Rares - NEED TO CONFIRM THE REPUTATION QUEST RESETS WEEKLY
+    },
+
+    -- Weekly Rares
     isle_of_dorne_rares = {
         [84037] = {questType = 'weekly', warband = true, name = 'Tephratennae'}, -- (daily: 81923)
         [84031] = {questType = 'weekly', warband = true, name = 'Kronolith, Might of the Mountain'}, -- (daily: 81902)
@@ -1663,15 +1680,12 @@ PermoksAccountManager.quests = {
         [84045] = {questType = 'weekly', warband = true, name = 'Coalesced Monstrosity'}, -- (daily: 81511)
         [84040] = {questType = 'weekly', warband = true, name = 'Terror of the Forge'}, -- (daily: 80507)
         [84047] = {questType = 'weekly', warband = true, name = 'Kelpmire'}, -- (daily: 81485)
-
         [84043] = {questType = 'weekly', warband = true, name = 'Trungal'}, -- (daily: 80574)
         [84049] = {questType = 'weekly', warband = true, name = 'Spore-infused Shalewing'}, -- (daily: 81652)
         [84048] = {questType = 'weekly', warband = true, name = 'Hungerer of the Deeps'}, -- (daily: 81648)
         [84050] = {questType = 'weekly', warband = true, name = 'Disturbed Earthgorger'}, -- (daily: 80003)
     },
-    hallowfall_rares = {
-        --[85164] = {questType = 'weekly', warband = true, name = 'Beledar\'s Spawn'}, -- (daily: 81763)
-        [85165] = {questType = 'weekly', warband = true, name = 'Deathtide'}, -- (daily: 81880)
+    hallowfall_rares = {        
         [84063] = {questType = 'weekly', warband = true, name = 'Lytfang the Lost'}, -- (daily: 81756)
         [84051] = {questType = 'weekly', warband = true, name = 'Moth\'ethk'}, -- (daily: 82557)
         [84064] = {questType = 'weekly', warband = true, name = 'The Perchfather'}, -- (daily: 81791)
@@ -1690,7 +1704,6 @@ PermoksAccountManager.quests = {
         [84059] = {questType = 'weekly', warband = true, name = 'Finclaw Bloodtide'}, -- (daily: 82564)
         [84058] = {questType = 'weekly', warband = true, name = 'Ravageant'}, -- (daily: 82566)
         [84057] = {questType = 'weekly', warband = true, name = 'Parasidious'}, -- (daily: 82563)
-        [80486] = {questType = 'weekly', warband = true, name = 'Brineslash'}, -- BUGGED
     },
     azj_kahet_rares = {
         [84071] = {questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler'}, -- (daily: 81702)
@@ -1709,15 +1722,16 @@ PermoksAccountManager.quests = {
         [84070] = {questType = 'weekly', warband = true, name = 'Xishorr'}, -- (daily: 81701)
     },
     one_time_reputation_rares = {
-        [85158] = {questType = 'weekly', warband = true, name = 'Alunira'}, -- Isle of Dorne (daily: 82196)
-        [85160] = {questType = 'weekly', warband = true, name = 'Kereke'}, -- Isle of Dorne (daily: 82204)
-        [85161] = {questType = 'weekly', warband = true, name = 'Zovex'}, -- Isle of Dorne (daily: 82203)
-        [85159] = {questType = 'weekly', warband = true, name = 'Rotfist'}, -- Isle of Dorne (daily: 82205)
-        [85162] = {questType = 'weekly', warband = true, name = 'Deepflayer Broodmother'}, -- Ringing Deeps (daily: 80536)
-        [85163] = {questType = 'weekly', warband = true, name = 'Lurker of the Deeps'}, -- Ringing Deeps (daily: 81633)
-        [85164] = {questType = 'weekly', warband = true, name = 'Beledar\'s Spawn'}, -- Hallowfall (daily: 81763)
-        [85167] = {questType = 'weekly', warband = true, name = 'The One Left'}, --  Hallowfall (daily: 82290)
-        [85166] = {questType = 'weekly', warband = true, name = 'Tka\'ktath'}, --  Hallowfall (daily: 82289)        
+        [85158] = {questType = 'weekly', warband = true, name = 'Alunira', achievementID = 40435, criteriaID = 68225}, -- Isle of Dorne (daily: 82196)
+        [85160] = {questType = 'weekly', warband = true, name = 'Kereke', achievementID = 40435, criteriaID = 68227}, -- Isle of Dorne (daily: 82204)
+        [85161] = {questType = 'weekly', warband = true, name = 'Zovex', achievementID = 40435, criteriaID = 68226}, -- Isle of Dorne (daily: 82203)
+        [85159] = {questType = 'weekly', warband = true, name = 'Rotfist', achievementID = 40435, criteriaID = 68228}, -- Isle of Dorne (daily: 82205)
+        [85162] = {questType = 'weekly', warband = true, name = 'Deepflayer Broodmother', achievementID = 40837, criteriaID = 69636}, -- Ringing Deeps (daily: 80536)
+        [85163] = {questType = 'weekly', warband = true, name = 'Lurker of the Deeps', achievementID = 40837, criteriaID = 69637}, -- Ringing Deeps (daily: 81633)
+        [85164] = {questType = 'weekly', warband = true, name = 'Beledar\'s Spawn', achievementID = 40851, criteriaID = 69716}, -- Hallowfall (daily: 81763)
+        [85165] = {questType = 'weekly', warband = true, name = 'Deathtide', achievementID = 40851, criteriaID = 69717}, -- Hallowfall (daily: 81880)
+        [85167] = {questType = 'weekly', warband = true, name = 'The One Left'}, --  Azj-kahet (daily: 82290)
+        [85166] = {questType = 'weekly', warband = true, name = 'Tka\'ktath'}, --  Azj-kahet (daily: 82289)      
     },
 
     -- Professions

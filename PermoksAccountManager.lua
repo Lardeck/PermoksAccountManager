@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 3
+local INTERNALTWWVERSION = 4
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -730,6 +730,12 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:ResetQuestCompletion('ringing_deeps_rares', 85163, 85162)
         self:ResetQuestCompletion('hallowfall_rares', 85164)
         self:ResetQuestCompletion('azj_kahet_rares', 85167, 85166)
+    end
+
+    if oldInternalVersion < 4 then
+        self:AddLabelToDefaultCategory('currentweekly', 'weekly_delve_reputation', 4)
+        self:AddLabelToDefaultCategory('currentweekly', 'weekly_coffer_keys', 4)
+        self:ResetQuestCompletion('hallowfall_rares', 85165)
     end
 end
 

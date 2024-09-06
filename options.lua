@@ -827,8 +827,30 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         confirm = true,
                         confirmText = 'Are you sure?'
                     },
-                    purge = {
+                    weeklyReset = {
                         order = 3,
+                        type = 'execute',
+                        name = 'Trigger Weekly Reset',
+                        func = function()
+                            PermoksAccountManager:ResetAccount(PermoksAccountManager.db.global, PermoksAccountManager.account, nil, true)
+                            C_UI.Reload()
+                        end,
+                        confirm = true,
+                        confirmText = 'Are you sure?'
+                    },
+                    dailyReset = {
+                        order = 4,
+                        type = 'execute',
+                        name = 'Trigger Daily Reset',
+                        func = function()
+                            PermoksAccountManager:ResetAccount(PermoksAccountManager.db.global, PermoksAccountManager.account, true)
+                            C_UI.Reload()
+                        end,
+                        confirm = true,
+                        confirmText = 'Are you sure?'
+                    },
+                    purge = {
+                        order = 5,
                         type = 'execute',
                         name = L['Purge'],
                         func = function()
