@@ -975,11 +975,7 @@ PermoksAccountManager.quests = {
     },
     -- World Boss
     world_boss = {
-        [61813] = {questType = 'weekly'}, -- Valinor - Bastion
-        [61814] = {questType = 'weekly'}, -- Nurghash - Revendreth
-        [61815] = {questType = 'weekly'}, -- Oranomonos - Ardenweald
-        [61816] = {questType = 'weekly'}, -- Mortanis - Maldraxxus
-        [64531] = {questType = 'weekly'} -- Mor'geth, Tormentor of the Damned
+        [82653] = {questType = 'weekly'}, -- Aggregation of Horrors
     },
     korthia_world_boss = {
         [64531] = {questType = 'weekly'} -- Mor'geth, Tormentor of the Damned
