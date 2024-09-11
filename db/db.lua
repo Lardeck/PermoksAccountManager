@@ -376,7 +376,7 @@ PermoksAccountManager.labelRows = {
     }
 }
 
-PermoksAccountManager.numDungeons = 9
+PermoksAccountManager.numDungeons = 8
 PermoksAccountManager.keys = {
     [2] = "TJS", -- Temple of the Jade Serpent
     [165] = "SBG", -- Shadowmoon Burial Grounds
@@ -458,15 +458,14 @@ PermoksAccountManager.raids = {
 }
 
 PermoksAccountManager.dungeons = {
-    [2451] = GetRealZoneText(2451),
-    [2515] = GetRealZoneText(2515),
-    [2516] = GetRealZoneText(2516),
-    [2519] = GetRealZoneText(2519),
-    [2520] = GetRealZoneText(2520),
-    [2521] = GetRealZoneText(2521),
-    [2526] = GetRealZoneText(2526),
-    [2527] = GetRealZoneText(2527),
-    [2579] = GetRealZoneText(2579),
+    [1822] = GetRealZoneText(1822), -- Siege of Boralus
+    [670] = GetRealZoneText(670), -- Grim Batol
+    [2286] = GetRealZoneText(2286), -- The Necrotic Wake
+    [2290] = GetRealZoneText(2290), -- Mists of Tiran Scithe
+    [2652] = GetRealZoneText(2652), -- The Stonevault
+    [2660] = GetRealZoneText(2660), -- Ara-Kara, City of Echoes
+    [2662] = GetRealZoneText(2662), -- The Dawnbreaker
+    [2669] = GetRealZoneText(2669), -- City of Threads
 }
 
 PermoksAccountManager.item = {
