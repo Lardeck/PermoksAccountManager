@@ -225,7 +225,7 @@ function PermoksAccountManager.VaultTooltip_OnEnter(button, altData, labelRow)
 
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))
         elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.World then
-            local difficultyName = activityInfo.level and activityInfo.progress >= activityInfo.threshold and PVPUtil.GetTierName(activityInfo.level)
+            local difficultyName = activityInfo.level and activityInfo.progress >= activityInfo.threshold and 'Tier ' .. activityInfo.level
 
             tooltip:AddLine(i .. '. Reward:', difficultyName or '-', '|', rewardItemLevel or self:CreateQuestString(activityInfo.progress, activityInfo.threshold))
         end

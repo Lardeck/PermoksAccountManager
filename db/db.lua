@@ -376,7 +376,7 @@ PermoksAccountManager.labelRows = {
     }
 }
 
-PermoksAccountManager.numDungeons = 9
+PermoksAccountManager.numDungeons = 8
 PermoksAccountManager.keys = {
     [2] = "TJS", -- Temple of the Jade Serpent
     [165] = "SBG", -- Shadowmoon Burial Grounds
@@ -458,15 +458,14 @@ PermoksAccountManager.raids = {
 }
 
 PermoksAccountManager.dungeons = {
-    [2451] = GetRealZoneText(2451),
-    [2515] = GetRealZoneText(2515),
-    [2516] = GetRealZoneText(2516),
-    [2519] = GetRealZoneText(2519),
-    [2520] = GetRealZoneText(2520),
-    [2521] = GetRealZoneText(2521),
-    [2526] = GetRealZoneText(2526),
-    [2527] = GetRealZoneText(2527),
-    [2579] = GetRealZoneText(2579),
+    [1822] = GetRealZoneText(1822), -- Siege of Boralus
+    [670] = GetRealZoneText(670), -- Grim Batol
+    [2286] = GetRealZoneText(2286), -- The Necrotic Wake
+    [2290] = GetRealZoneText(2290), -- Mists of Tiran Scithe
+    [2652] = GetRealZoneText(2652), -- The Stonevault
+    [2660] = GetRealZoneText(2660), -- Ara-Kara, City of Echoes
+    [2662] = GetRealZoneText(2662), -- The Dawnbreaker
+    [2669] = GetRealZoneText(2669), -- City of Threads
 }
 
 PermoksAccountManager.item = {
@@ -976,11 +975,7 @@ PermoksAccountManager.quests = {
     },
     -- World Boss
     world_boss = {
-        [61813] = {questType = 'weekly'}, -- Valinor - Bastion
-        [61814] = {questType = 'weekly'}, -- Nurghash - Revendreth
-        [61815] = {questType = 'weekly'}, -- Oranomonos - Ardenweald
-        [61816] = {questType = 'weekly'}, -- Mortanis - Maldraxxus
-        [64531] = {questType = 'weekly'} -- Mor'geth, Tormentor of the Damned
+        [82653] = {questType = 'weekly'}, -- Aggregation of Horrors
     },
     korthia_world_boss = {
         [64531] = {questType = 'weekly'} -- Mor'geth, Tormentor of the Damned
@@ -1535,7 +1530,7 @@ PermoksAccountManager.quests = {
     -- Weekly World Activities
     tww_world_boss = {-- PLACEHOLDER: wrong quest IDs
         [999990] =  {questType = 'weekly'}, -- Kordac, the Dormant Protector
-        [999991] =  {questType = 'weekly'}, -- Aggregation of Horrors
+        [83466] =  {questType = 'weekly'}, -- Aggregation of Horrors
         [999992] =  {questType = 'weekly'}, -- Shurrai, Atrocity of the Undersea
         [999993] =  {questType = 'weekly'}, -- Orta, the Broken Mountain
     },
@@ -1575,17 +1570,19 @@ PermoksAccountManager.quests = {
         [82512] = {questType = 'weekly', log = true}, -- Worldsoul: World Boss
         [82516] = {questType = 'weekly', log = true}, -- Worldsoul: Forging a Pact
         [82659] = {questType = 'weekly', log = true}, -- Worldsoul: Nerub-ar Palace
-    },
-    weekly_meta = { -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
+
         [82746] = {questType = 'weekly', log = true}, -- Delves: Breaking Tough to Loot Stuff
         [82712] = {questType = 'weekly', log = true}, -- Delves: Trouble Up and Down Khaz Algar
         [82711] = {questType = 'weekly', log = true}, -- Delves: Lost and Found
         [82709] = {questType = 'weekly', log = true}, -- Delves: Percussive Archaeology
         [82706] = {questType = 'weekly', log = true}, -- Delves: Khaz Algar Research
         [82707] = {questType = 'weekly', log = true}, -- Delves: Earthen Defense
+        [82708] = {questType = 'weekly', log = true}, -- Delves: Nerubian Menace
         [82678] = {questType = 'weekly', log = true}, -- Archives: The First Disc
         [82679] = {questType = 'weekly', log = true}, -- Archives: Seeking History
-        },
+    },
+    weekly_meta = { -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
+    },
     archaic_cypher_key = {
         [84370] = {questType = 'weekly', warband = true, log = true}, -- The Key to Success
     },
@@ -1904,9 +1901,17 @@ PermoksAccountManager.vault_rewards = {
     },
     -- World
     [Enum.WeeklyRewardChestThresholdType.World] = {
-        [0] = 603,
-        [1] = 610,
-        [2] = 616,
+        [1] = 584,
+        [2] = 584,
+        [3] = 587,
+        [4] = 597,
+        [5] = 603,
+        [6] = 606,
+        [7] = 610,
+        [8] = 616,
+        [9] = 616,
+        [10] = 616,
+        [11] = 616,
     },
     -- Raid
     [Enum.WeeklyRewardChestThresholdType.Raid] = {
