@@ -964,7 +964,7 @@ local labelRows = {
 			82495, 82506, 82496, 82507, 82497, 82508, 82509, 82499, 82500, 82501,
 			82512, 82505, 82502, 82487, 82493
 		},
-		label = 'Worldsoul Weekly',
+		label = 'Weekly Meta',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'visible',
@@ -990,7 +990,7 @@ local labelRows = {
 		label = 'Archaic Cypher Key',
 		type = 'quest',
 		questType = 'weekly',
-		warband = true,
+		warband = 'unique',
 		visibility = 'visible',
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE

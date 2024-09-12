@@ -1570,17 +1570,19 @@ PermoksAccountManager.quests = {
         [82512] = {questType = 'weekly', log = true}, -- Worldsoul: World Boss
         [82516] = {questType = 'weekly', log = true}, -- Worldsoul: Forging a Pact
         [82659] = {questType = 'weekly', log = true}, -- Worldsoul: Nerub-ar Palace
-    },
-    weekly_meta = { -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
+
         [82746] = {questType = 'weekly', log = true}, -- Delves: Breaking Tough to Loot Stuff
         [82712] = {questType = 'weekly', log = true}, -- Delves: Trouble Up and Down Khaz Algar
         [82711] = {questType = 'weekly', log = true}, -- Delves: Lost and Found
         [82709] = {questType = 'weekly', log = true}, -- Delves: Percussive Archaeology
         [82706] = {questType = 'weekly', log = true}, -- Delves: Khaz Algar Research
         [82707] = {questType = 'weekly', log = true}, -- Delves: Earthen Defense
+        [82708] = {questType = 'weekly', log = true}, -- Delves: Nerubian Menace
         [82678] = {questType = 'weekly', log = true}, -- Archives: The First Disc
         [82679] = {questType = 'weekly', log = true}, -- Archives: Seeking History
-        },
+    },
+    weekly_meta = { -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
+    },
     archaic_cypher_key = {
         [84370] = {questType = 'weekly', warband = true, log = true}, -- The Key to Success
     },
