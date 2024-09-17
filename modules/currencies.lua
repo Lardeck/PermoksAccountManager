@@ -262,7 +262,7 @@ local labelRows = {
     
     -- 11.0
     champion_crest = {
-        label = 'Champion Crests',
+        label = 'Veteran Crests',
         type = 'crestcurrency',
         key = 2914,
         passRow = true,
@@ -270,7 +270,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     veteran_crest = {
-        label = 'Veteran Crests',
+        label = 'Normal Crests',
         type = 'crestcurrency',
         key = 2915,
         passRow = true,
