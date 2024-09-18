@@ -1532,7 +1532,7 @@ PermoksAccountManager.quests = {
     tww_world_boss = {-- PLACEHOLDER: wrong quest IDs
         [999990] =  {questType = 'weekly'}, -- Kordac, the Dormant Protector
         [83466] =  {questType = 'weekly'}, -- Aggregation of Horrors
-        [999992] =  {questType = 'weekly'}, -- Shurrai, Atrocity of the Undersea
+        [83467] =  {questType = 'weekly'}, -- Shurrai, Atrocity of the Undersea
         [999993] =  {questType = 'weekly'}, -- Orta, the Broken Mountain
     },
     worldsoul_weekly = {
