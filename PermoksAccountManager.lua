@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 4
+local INTERNALTWWVERSION = 5
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -736,6 +736,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('currentweekly', 'weekly_delve_reputation', 4)
         self:AddLabelToDefaultCategory('currentweekly', 'weekly_coffer_keys', 4)
         self:ResetQuestCompletion('hallowfall_rares', 85165)
+    end
+
+    if oldInternalVersion < 5 then
+        self:AddLabelToDefaultCategory('currentweekly', 'tww_world_boss', 7)
     end
 end
 
