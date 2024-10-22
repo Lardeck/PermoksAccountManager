@@ -38,7 +38,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 5
+local INTERNALTWWVERSION = 6
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -674,6 +674,7 @@ function PermoksAccountManager:ModernizeCata(oldInternalVersion)
         self:UpdateDefaultCategories('items')
         self:UpdateDefaultCategories('dailies')
     end
+
 end
 
 function PermoksAccountManager:ModernizeWOTLK(oldInternalVersion)
@@ -740,6 +741,12 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 
     if oldInternalVersion < 5 then
         self:AddLabelToDefaultCategory('currentweekly', 'tww_world_boss', 7)
+    end
+
+    if oldInternalVersion < 6 then
+        self:AddLabelToDefaultCategory('general', 'bronze_celebration_token', 26)
+        self:AddLabelToDefaultCategory('general', 'timewarped_relic_coffer_key', 27)
+        self:AddLabelToDefaultCategory('raid', 'blackrock_depths_raid', 2)
     end
 end
 
