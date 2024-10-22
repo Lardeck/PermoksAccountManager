@@ -44,6 +44,17 @@ local labelRows = {
 		group = 'raids',
 		version = WOW_PROJECT_MAINLINE
     },
+    blackrock_depths_raid = {
+        label = function()
+            return PermoksAccountManager.raids[2792].name or 'BRD'
+        end,
+        id = 2792,
+        type = 'raid',
+        key = 'blackrock_depths_raid',
+        tooltip = true,
+        group = 'raids',
+        version = WOW_PROJECT_MAINLINE
+    },
 
     -- wotlk
 	-- TOOD: Change db structure so you can get the locale name without calling the function again

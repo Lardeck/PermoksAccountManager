@@ -27,6 +27,8 @@ local default_categories = {
             'kej',
             'radiant_remnant',
             'radiant_echo',
+            'bronze_celebration_token',
+            'timewarped_relic_coffer_key'
         },
         childOrder = {
             characterName = 1,
@@ -50,6 +52,8 @@ local default_categories = {
             kej = 23, 
             radiant_remnant = 24,
             radiant_echo = 25,
+            bronze_celebration_token = 26,
+            timewarped_relic_coffer_key = 27,
         },
         hideToggle = true,
         enabled = true
@@ -186,9 +190,11 @@ local default_categories = {
         name = L['Raid'],
         childs = {
             'nerub_ar_palace',
+            'blackrock_depths_raid'
         },
         childOrder = {
             nerub_ar_palace = 1,
+            blackrock_depths_raid = 2,
         },
         enabled = true
     },
@@ -456,6 +462,7 @@ PermoksAccountManager.activityIDToKeys = {
 
 PermoksAccountManager.raids = {
     [2657] = {name = GetRealZoneText(2657), englishID = 'nerub_ar_palace', instanceID = 1273, startIndex = 1, endIndex = 8},
+    [2792] = {name = GetRealZoneText(2792), englishID = 'blackrock_depths_raid', instanceID = 1301, startIndex = 1, endIndex = 8},
 }
 
 PermoksAccountManager.dungeons = {
@@ -516,6 +523,7 @@ PermoksAccountManager.item = {
     [212493] = {key = 'firelight_ruby'}, -- Odd Glob of Wax
     [224642] = {key = 'firelight_ruby'}, -- Firelight Ruby
     [229899] = {key = 'coffer_key_shard'}, -- Coffer Key Shard    
+    [231510] = {key = 'timewarped_relic_coffer_key'}, -- Timewarped Relic Coffer Key
 }
 
 PermoksAccountManager.factions = {
@@ -598,6 +606,9 @@ PermoksAccountManager.currency = {
     [3056] = 0, -- Kej
     [3028] = 0, -- Restored Coffer Key
     [2803] = 0, -- Undercoin
+
+    [3100] = 0, -- Bronze Celebration Token
+    [1166] = 0, -- Timewarped Badge
 }
 
 PermoksAccountManager.currencyCustomOptions = {

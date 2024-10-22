@@ -303,6 +303,13 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
+    timewarped_relic_coffer_key = {
+        label = 'Timewarped Key',
+        type = 'item',
+        key = 231510,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE,
+    },
 
     -- tbc
     elixirDemonslaying = {

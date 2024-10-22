@@ -123,16 +123,16 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-	redeemed_soul = {
+    redeemed_soul = {
         label = function()
             return PermoksAccountManager.db.global.currencyInfo[1810].name or 'Redeemed Soul'
         end,
         type = 'currency',
-		customTooltip = function(button, altData, labelRow)
-			PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
-		end,
-		tooltip = true,
-		tooltipKeyPath = {'covenantInfo', 'souls'},
+        customTooltip = function(button, altData, labelRow)
+            PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
+        end,
+        tooltip = true,
+        tooltipKeyPath = { 'covenantInfo', 'souls' },
         key = 1810,
         group = 'sanctum',
         version = WOW_PROJECT_MAINLINE
@@ -141,97 +141,98 @@ local labelRows = {
         label = function()
             return PermoksAccountManager.db.global.currencyInfo[1813].name or 'Reservoir Anima'
         end,
-		type = 'currency',
-		customTooltip = function(button, altData, labelRow)
-			PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
-		end,
-		tooltip = true,
-		tooltipKeyPath = {'covenantInfo', 'anima'},
+        type = 'currency',
+        customTooltip = function(button, altData, labelRow)
+            PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
+        end,
+        tooltip = true,
+        tooltipKeyPath = { 'covenantInfo', 'anima' },
         key = 1813,
         hideMax = true,
         group = 'sanctum',
         version = WOW_PROJECT_MAINLINE
     },
 
-	-- 9.2
-	cosmic_flux = {
-		label = function()
-            return PermoksAccountManager.db.global.currencyInfo[2009] and PermoksAccountManager.db.global.currencyInfo[2009].name or 'Cosmic Flux'
+    -- 9.2
+    cosmic_flux = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[2009] and
+            PermoksAccountManager.db.global.currencyInfo[2009].name or 'Cosmic Flux'
         end,
-		type = 'currency',
+        type = 'currency',
         warband = true,
-		key = 2009,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-	},
-	cyphers = {
-		label = L['Cyphers'],
-		type = 'currency',
+        key = 2009,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    cyphers = {
+        label = L['Cyphers'],
+        type = 'currency',
         warband = true,
-		key = 1979,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-	},
-	catalyst_charges = {
-		label = L['Catalyst Charges'],
-		type = 'catalystcharges',
-		key = 2813,
-		hideIcon = true,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-	},
+        key = 1979,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    catalyst_charges = {
+        label = L['Catalyst Charges'],
+        type = 'catalystcharges',
+        key = 2813,
+        hideIcon = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
 
     -- 10.0
     dragon_isles_supplies = {
-		label = 'Dragon Isles Supplies',
-		type = 'currency',
+        label = 'Dragon Isles Supplies',
+        type = 'currency',
         warband = true,
-		key = 2003,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-	},
+        key = 2003,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
     elemental_overflow = {
-		label = 'Elemental Overflow',
-		type = 'currency',
+        label = 'Elemental Overflow',
+        type = 'currency',
         warband = true,
-		key = 2118,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-	},
+        key = 2118,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
     bloody_tokens = {
-		label = 'Bloody Tokens',
-		type = 'currency',
-		key = 2123,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-	},
+        label = 'Bloody Tokens',
+        type = 'currency',
+        key = 2123,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
     storm_sigil = {
-		label = 'Storm Sigil',
-		type = 'currency',
-		key = 2122,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
-	},
+        label = 'Storm Sigil',
+        type = 'currency',
+        key = 2122,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
 
     -- 10.1
     flightstones = {
         label = 'Flightstones',
-		type = 'currency',
-		key = 2245,
+        type = 'currency',
+        key = 2245,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
     },
 
     -- 10.1.5
     paracausal_flakes = {
         label = 'Paracausal Flakes',
-		type = 'currency',
+        type = 'currency',
         warband = true,
-		key = 2594,
+        key = 2594,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
     },
 
     -- 10.2
@@ -259,7 +260,7 @@ local labelRows = {
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    
+
     -- 11.0
     champion_crest = {
         label = 'Veteran Crests',
@@ -295,11 +296,11 @@ local labelRows = {
     },
     valorstones = {
         label = 'Valorstones',
-		type = 'currency',
-		key = 3008,
+        type = 'currency',
+        key = 3008,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_MAINLINE
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
     },
     resonance_crystals = {
         label = 'Resonance Crystals',
@@ -308,7 +309,7 @@ local labelRows = {
         key = 2815,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
-    },    
+    },
     kej = {
         label = 'Kej',
         type = 'currency',
@@ -333,17 +334,27 @@ local labelRows = {
         warband = true,
         key = 2803,
         group = 'currency',
-        version = WOW_PROJECT_MAINLINE 
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- 10.0.5
+    bronze_celebration_token = {
+        label = 'Celebartion Token',
+        type = 'currency',
+        key = 3100,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
     },
 
     -- wotlk-classic
     honorBCC = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1901] and PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
+            return PermoksAccountManager.db.global.currencyInfo[1901] and
+            PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
         end,
         type = 'currency',
         key = 1901,
-		abbMax = true,
+        abbMax = true,
         customIcon = {
             height = 32,
             width = 32,
@@ -355,7 +366,8 @@ local labelRows = {
     },
     arenaPoints = {
         label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1900] and PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
+            return PermoksAccountManager.db.global.currencyInfo[1900] and
+            PermoksAccountManager.db.global.currencyInfo[1900].name or 'Arena Points'
         end,
         type = 'currency',
         key = 1900,
@@ -364,100 +376,100 @@ local labelRows = {
     },
     emblem_of_heroism = {
         label = 'Heroism Emblems',
-		type = 'currency',
-		key = 101,
+        type = 'currency',
+        key = 101,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     emblem_of_valor = {
         label = 'Valor Emblems',
-		type = 'currency',
-		key = 102,
+        type = 'currency',
+        key = 102,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     emblem_of_conquest = {
         label = 'Conq. Emblems',
-		type = 'currency',
-		key = 221,
+        type = 'currency',
+        key = 221,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     emblem_of_triumph = {
         label = 'Triumph Emblems',
-		type = 'currency',
-		key = 301,
+        type = 'currency',
+        key = 301,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     emblem_of_frost = {
         label = 'Frost Emblems',
-		type = 'currency',
-		key = 341,
+        type = 'currency',
+        key = 341,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     sidereal_essence = {
         label = 'Sidereal Essence',
-		type = 'currency',
-		key = 2589,
+        type = 'currency',
+        key = 2589,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     defilers_scourgestone = {
         label = 'Scourgestones',
-		type = 'currency',
-		key = 2711,
+        type = 'currency',
+        key = 2711,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     stone_keepers_shard = {
         label = 'Stone Keeper\'s Shard',
-		type = 'currency',
-		key = 161,
+        type = 'currency',
+        key = 161,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     justice_points = {
         label = 'Justice Points',
-		type = 'currency',
-		key = 395,
+        type = 'currency',
+        key = 395,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     valor_points = {
         label = 'Valor Points',
-		type = 'valor',
-		key = 396,
+        type = 'valor',
+        key = 396,
         abbMax = true,
         passRow = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     conquest_points = {
         label = 'Conquest',
-		type = 'currency',
-		key = 390,
+        type = 'currency',
+        key = 390,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
     tol_barad_commendations = {
         label = 'Commendations',
-		type = 'currency',
-		key = 391,
+        type = 'currency',
+        key = 391,
         abbMax = true,
-		group = 'currency',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+        group = 'currency',
+        version = WOW_PROJECT_CATACLYSM_CLASSIC
     },
 }
 
@@ -469,24 +481,25 @@ local function UpdateAllCurrencies(charInfo)
     for currencyType, offset in pairs(self.currency) do
         local info = C_CurrencyInfo.GetCurrencyInfo(currencyType)
         if info then
-            currencyInfo[currencyType] = charInfo.currencyInfo[currencyType] or {name = info.name}
+            currencyInfo[currencyType] = charInfo.currencyInfo[currencyType] or { name = info.name }
 
             currencyInfo[currencyType].currencyType = currencyType
             currencyInfo[currencyType].quantity = info.quantity + offset
-            currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or nil
+            currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or
+            nil
             currencyInfo[currencyType].totalEarned = info.totalEarned
             currencyInfo[currencyType].maxWeeklyQuantity = info.maxWeeklyQuantity
             currencyInfo[currencyType].quantityEarnedThisWeek = info.quantityEarnedThisWeek
 
-            self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType] or {icon = info.iconFileID, name = info.name}
-            self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity or self.db.global.currencyInfo[currencyType].maxQuantity
+            self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType] or
+            { icon = info.iconFileID, name = info.name }
+            self.db.global.currencyInfo[currencyType].maxQuantity = info.maxQuantity and info.maxQuantity > 0 and
+            info.maxQuantity or self.db.global.currencyInfo[currencyType].maxQuantity
         end
-
     end
 end
 
 local function SumWarbandCurrencies(warbandCurrency)
-   
     local currencySum = 0
     for _, alt in pairs(warbandCurrency) do
         currencySum = currencySum + alt.quantity
@@ -496,10 +509,12 @@ end
 
 -- this is only for the Warband column, not for the Warband characters
 local function UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, currencyType)
-    warbandCurrencyInfo[currencyType] = warbandCurrencyInfo[currencyType] or {name = C_CurrencyInfo.GetCurrencyInfo(currencyType).name}
+    warbandCurrencyInfo[currencyType] = warbandCurrencyInfo[currencyType] or
+    { name = C_CurrencyInfo.GetCurrencyInfo(currencyType).name }
 
     warbandCurrencyInfo[currencyType].currencyType = currencyType
-    warbandCurrencyInfo[currencyType].altQuantity = newWarbandCurrencyInfo and SumWarbandCurrencies(newWarbandCurrencyInfo) or 0
+    warbandCurrencyInfo[currencyType].altQuantity = newWarbandCurrencyInfo and
+    SumWarbandCurrencies(newWarbandCurrencyInfo) or 0
 end
 
 local function UpdateAllWarbandCurrencies(charInfo)
@@ -515,9 +530,9 @@ local function UpdateAllWarbandCurrencies(charInfo)
         local transferableCurrency = C_CurrencyInfo.IsAccountTransferableCurrency(currencyType)
         if newWarbandCurrencyInfo or transferableCurrency then
             UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, currencyType)
-            warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + charCurrencyInfo[currencyType].quantity + offset
+            warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity +
+            charCurrencyInfo[currencyType].quantity + offset
         end
-             
     end
 end
 
@@ -537,9 +552,9 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     end
 
     local currencyInfo = charInfo.currencyInfo[currencyType]
-	if self.isRetail then
-    	currencyInfo.totalEarned = quantityChanged + (currencyInfo.totalEarned or 0)
-	end
+    if self.isRetail then
+        currencyInfo.totalEarned = quantityChanged + (currencyInfo.totalEarned or 0)
+    end
 
     local customOptions = self.currencyCustomOptions and self.currencyCustomOptions[currencyType]
     if customOptions then
@@ -549,14 +564,16 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
             currencyInfo.totalEarned = newCurrencyInfo.totalEarned
             currencyInfo.quantityEarnedThisWeek = newCurrencyInfo.quantityEarnedThisWeek
             currencyInfo.maxWeeklyQuantity = newCurrencyInfo.maxWeeklyQuantity
-            currencyInfo.maxQuantity = newCurrencyInfo.maxQuantity and newCurrencyInfo.maxQuantity > 0 and newCurrencyInfo.maxQuantity or nil
+            currencyInfo.maxQuantity = newCurrencyInfo.maxQuantity and newCurrencyInfo.maxQuantity > 0 and
+            newCurrencyInfo.maxQuantity or nil
         elseif customOptions.currencyUpdate and charInfo.currencyInfo[customOptions.currencyUpdate] then
-            charInfo.currencyInfo[customOptions.currencyUpdate].quantity = C_CurrencyInfo.GetCurrencyInfo(customOptions.currencyUpdate).quantity
+            charInfo.currencyInfo[customOptions.currencyUpdate].quantity = C_CurrencyInfo.GetCurrencyInfo(customOptions
+            .currencyUpdate).quantity
         end
     else
         charInfo.currencyInfo[currencyType].quantity = quantity + self.currency[currencyType]
     end
-        
+
     -- Update Warband amount
     if self.warbandData.currencyInfo and C_CurrencyInfo.IsAccountTransferableCurrency(currencyType) then
         local warbandCurrencyInfo = self.warbandData.currencyInfo
@@ -572,7 +589,7 @@ local function CurrencyTransferUpdate(charInfo)
     -- Fetch the latest currency transfer transactions
     local transferLog = C_CurrencyInfo.FetchCurrencyTransferTransactions()
     local lastTransferCurrencyType = transferLog[#transferLog].currencyType
-    
+
 
     -- Get new currency information for character and warband
     local newCharacterCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo(lastTransferCurrencyType)
@@ -580,7 +597,8 @@ local function CurrencyTransferUpdate(charInfo)
 
     -- this is necessary because a transfer can be taxed by with different penalties
     UpdateWarbandAltCurrency(warbandCurrencyInfo, newWarbandCurrencyInfo, lastTransferCurrencyType)
-    warbandCurrencyInfo[lastTransferCurrencyType].quantity = warbandCurrencyInfo[lastTransferCurrencyType].altQuantity + newCharacterCurrencyInfo.quantity
+    warbandCurrencyInfo[lastTransferCurrencyType].quantity = warbandCurrencyInfo[lastTransferCurrencyType].altQuantity +
+    newCharacterCurrencyInfo.quantity
 
     -- update all alts for this currency because the transferlog has no GUID unless you relog (cringe)
     -- even more cringe is that reducing a currency to 0 makes the character disappear from data.
@@ -590,7 +608,7 @@ local function CurrencyTransferUpdate(charInfo)
             alt.currencyInfo[lastTransferCurrencyType].quantity = 0
         end
     end
-    
+
     for _, alt in pairs(newWarbandCurrencyInfo) do
         local character = accountData[alt.characterGUID]
         if character and character.currencyInfo[lastTransferCurrencyType] then
@@ -608,26 +626,29 @@ local function UpdateCatalystCharges(charInfo)
 end
 
 local function CreateCatalystChargeString(currencyInfo)
-	local catalystCharges = currencyInfo and currencyInfo[2813]
-	if not catalystCharges then return '-' end
+    local catalystCharges = currencyInfo and currencyInfo[2813]
+    if not catalystCharges then return '-' end
 
-	return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, catalystCharges.maxQuantity)
+    return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, catalystCharges.maxQuantity)
 end
 
 local function CreateCrestString(labelRow, currencyInfo)
-	local crestInfo = currencyInfo and currencyInfo[labelRow.key]
+    local crestInfo = currencyInfo and currencyInfo[labelRow.key]
     local self = PermoksAccountManager
 
     if crestInfo then
         if crestInfo.maxQuantity and crestInfo.maxQuantity > 0 then
-            local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
+            local currencyString = PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent,
+                labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, crestInfo.totalEarned)
             return string.format("%d - %s", crestInfo.quantity, currencyString)
         elseif currencyInfo then
-            return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
+            return PermoksAccountManager:CreateCurrencyString(crestInfo, labelRow.abbCurrent, labelRow.abbMax,
+                labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon)
         end
-    -- manually exclcluding crests for the warband column. need a better solution what labelRows the Warband column shows
+        -- manually exclcluding crests for the warband column. need a better solution what labelRows the Warband column shows
     elseif currencyInfo and currencyInfo ~= self.warbandData.currencyInfo then
-        return PermoksAccountManager:CreateCurrencyString({currencyType = labelRow.key}, labelRow.abbCurrent, labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
+        return PermoksAccountManager:CreateCurrencyString({ currencyType = labelRow.key }, labelRow.abbCurrent,
+            labelRow.abbMax, labelRow.hideMaximum, labelRow.customIcon, labelRow.hideIcon, 0)
     else
         return '-'
     end
@@ -637,8 +658,10 @@ local function CreateValorString(labelRow, currencyInfo)
     local info = currencyInfo and currencyInfo[labelRow.key]
     if info then
         local globalCurrencyInfo = PermoksAccountManager.db.global.currencyInfo[labelRow.key]
-        local maxQuantity = (info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity) or (globalCurrencyInfo and globalCurrencyInfo.maxQuantity or 0)
-        return string.format("%s - %s", AbbreviateNumbers(info.quantity), PermoksAccountManager:CreateFractionString(info.totalEarned or 0, maxQuantity or 0))
+        local maxQuantity = (info.maxQuantity and info.maxQuantity > 0 and info.maxQuantity) or
+        (globalCurrencyInfo and globalCurrencyInfo.maxQuantity or 0)
+        return string.format("%s - %s", AbbreviateNumbers(info.quantity),
+            PermoksAccountManager:CreateFractionString(info.totalEarned or 0, maxQuantity or 0))
     end
 end
 
@@ -680,7 +703,8 @@ module:AddCustomLabelType('valor', CreateValorString, nil, 'currencyInfo')
 module:AddCustomLabelType('cofferkey', CreateCofferKeyString, nil, 'currencyInfo', 'itemCounts')
 
 -- TODO Create a CreateIconString function instead of two functions for items and currencies
-function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum, customIcon, hideIcon, customQuantitiy)
+function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum,
+                                                    customIcon, hideIcon, customQuantitiy)
     if not currencyInfo then
         return
     end
@@ -691,7 +715,8 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     local currencyIcon = globalCurrencyInfo.icon
     if not hideIcon and currencyIcon and options.currencyIcons then
         if customIcon then
-            iconString = string.format('\124T%s:%d:%d:%d:%d\124t', customIcon.path or currencyIcon, customIcon.height or 18, customIcon.width or 18, customIcon.xOffset or 0, customIcon.yOffset or 0)
+            iconString = string.format('\124T%s:%d:%d:%d:%d\124t', customIcon.path or currencyIcon,
+                customIcon.height or 18, customIcon.width or 18, customIcon.xOffset or 0, customIcon.yOffset or 0)
         else
             iconString = string.format('\124T%d:18:18\124t', currencyIcon)
         end
@@ -708,7 +733,9 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     local quantity = customQuantitiy or currencyInfo.quantity
     local currencyString = quantity
     if not hideMaximum and ((currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0) or (currencyInfo.maxWeeklyQuantity and currencyInfo.maxWeeklyQuantity > 0)) then
-        currencyString = self:CreateFractionString(quantity, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity  or currencyInfo.maxWeeklyQuantity, abbreviateCurrent, abbreviateMaximum)
+        currencyString = self:CreateFractionString(quantity,
+            globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity or currencyInfo.maxWeeklyQuantity,
+            abbreviateCurrent, abbreviateMaximum)
     elseif quantity >= 1000 then
         currencyString = abbreviateCurrent and AbbreviateNumbers(quantity) or AbbreviateLargeNumbers(quantity)
     end
@@ -739,7 +766,8 @@ function PermoksAccountManager.CurrencyTooltip_OnEnter(button, altData, labelRow
     tooltip:AddHeader(currencyInfo.name)
     tooltip:AddLine('')
 
-    tooltip:AddLine('Total Earned:', self:CreateFractionString(currencyInfo.totalEarned, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity))
+    tooltip:AddLine('Total Earned:',
+        self:CreateFractionString(currencyInfo.totalEarned, globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity))
 
     if ((globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity) or 0) > currencyInfo.totalEarned then
         tooltip:AddLine('Left:', (globalCurrencyInfo.maxQuantity or currencyInfo.maxQuantity) - currencyInfo.totalEarned)
@@ -783,7 +811,8 @@ do
         tooltip:AddLine('Tormentors:', PermoksAccountManager:CreateFractionString(tormentors, 50))
         tooltip:AddLine('Torghast:', PermoksAccountManager:CreateFractionString(torghast, 360))
         tooltip:AddSeparator(2, 1, 1, 1)
-        tooltip:AddLine('|cff00f7ffTotal:|r', PermoksAccountManager:CreateFractionString(assaults + tormentors + torghast, 510))
+        tooltip:AddLine('|cff00f7ffTotal:|r',
+            PermoksAccountManager:CreateFractionString(assaults + tormentors + torghast, 510))
         tooltip:SmartAnchorTo(button)
         tooltip:Show()
     end
@@ -827,24 +856,31 @@ do
         local embersFromRaidBosses = {}
         for i, encounter in ipairs(raidActivityInfo) do
             if raidBossEmbers[encounter.bestDifficulty] then
-                embersFromRaidBosses[encounter.uiOrder] = (embersFromRaidBosses[encounter.uiOrder] or 0) + raidBossEmbers[encounter.bestDifficulty]
+                embersFromRaidBosses[encounter.uiOrder] = (embersFromRaidBosses[encounter.uiOrder] or 0) +
+                raidBossEmbers[encounter.bestDifficulty]
             end
         end
 
-        local embersFromShapingFate = questInfo.visible.korthia_weekly and next(questInfo.visible.korthia_weekly) and 10 or 0
+        local embersFromShapingFate = questInfo.visible.korthia_weekly and next(questInfo.visible.korthia_weekly) and 10 or
+        0
         local embersFromWB = questInfo.hidden.world_boss and questInfo.hidden.world_boss[64531] and 1 or 0
         local embersFromNormalRaidTrash = self:GetNumCompletedQuests(questInfo.hidden.sanctum_normal_embers_trash)
         local embersFromHeroicRaidTrash = self:GetNumCompletedQuests(questInfo.hidden.sanctum_heroic_embers_trash)
-        local total = GetTotalNumRaidEmbers(embersFromRaidBosses) + embersFromShapingFate + embersFromWB + embersFromNormalRaidTrash + embersFromHeroicRaidTrash
+        local total = GetTotalNumRaidEmbers(embersFromRaidBosses) + embersFromShapingFate + embersFromWB +
+        embersFromNormalRaidTrash + embersFromHeroicRaidTrash
 
         local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
         button.tooltip = tooltip
         tooltip:AddHeader(alt_data.currencyInfo[1977].name)
         tooltip:AddSeparator(2, 1, 1, 1)
-        tooltip:AddLine('LFR Raid:', PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 17), 10))
-        tooltip:AddLine('Normal Raid:', PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 14), 10))
-        tooltip:AddLine('Heroic Raid:', PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 15), 10))
-        tooltip:AddLine('Mythic Raid:', PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 16), 10))
+        tooltip:AddLine('LFR Raid:',
+            PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 17), 10))
+        tooltip:AddLine('Normal Raid:',
+            PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 14), 10))
+        tooltip:AddLine('Heroic Raid:',
+            PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 15), 10))
+        tooltip:AddLine('Mythic Raid:',
+            PermoksAccountManager:CreateFractionString(GetEmbersForDifficulty(embersFromRaidBosses, 16), 10))
         tooltip:AddSeparator(2, 1, 1, 1)
         tooltip:AddLine('Normal Trash:', PermoksAccountManager:CreateFractionString(embersFromNormalRaidTrash, 5))
         tooltip:AddLine('Heroic Trash:', PermoksAccountManager:CreateFractionString(embersFromHeroicRaidTrash, 5))
