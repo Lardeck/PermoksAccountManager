@@ -39,7 +39,7 @@ local labelRows = {
 
 local function CreateVaultRewardString(vaultRewardInfo)
     if vaultRewardInfo then
-        return string.format("|cff00ff00Availbale|r")
+        return string.format("|cff00ff00Available|r")
     else
         return "-"
     end
