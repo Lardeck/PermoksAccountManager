@@ -339,7 +339,7 @@ local labelRows = {
 
     -- 10.0.5
     bronze_celebration_token = {
-        label = 'Celebartion Token',
+        label = 'Celebration Token',
         type = 'currency',
         key = 3100,
         group = 'currency',
