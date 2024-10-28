@@ -341,6 +341,7 @@ local labelRows = {
     bronze_celebration_token = {
         label = 'Celebration Token',
         type = 'currency',
+        warband = true,
         key = 3100,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
