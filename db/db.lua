@@ -523,7 +523,9 @@ PermoksAccountManager.item = {
     [212493] = {key = 'firelight_ruby'}, -- Odd Glob of Wax
     [224642] = {key = 'firelight_ruby'}, -- Firelight Ruby
     [229899] = {key = 'coffer_key_shard'}, -- Coffer Key Shard    
-    [231510] = {key = 'timewarped_relic_coffer_key'}, -- Timewarped Relic Coffer Key
+    [231510] = {key = 'timewarped_relic_coffer_key'}, -- Timewarped Relic Coffer Key LFR
+    [232365] = {key = 'timewarped_relic_coffer_key'}, -- Timewarped Relic Coffer Key Normal
+    [232366] = {key = 'timewarped_relic_coffer_key'}, -- Timewarped Relic Coffer Key Heroic
 }
 
 PermoksAccountManager.factions = {
