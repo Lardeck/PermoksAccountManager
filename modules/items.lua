@@ -821,7 +821,7 @@ local function CreateCofferKeyString(labelRow, itemCounts)
             end
         end
 
-        return table.concat(strings, "| ")
+        return table.concat(strings, " | ")
     end
 end
 
