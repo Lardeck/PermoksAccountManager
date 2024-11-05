@@ -645,7 +645,7 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
     else 
         name, _, standing, barMin, barMax, barValue = GetFactionInfoByID(factionId)
     end
-    local isParagon = C_Reputation.IsFactionParagon(factionId)
+    local isParagon = C_Reputation.IsFactionParagon and C_Reputation.IsFactionParagon(factionId)
     
     if isParagon then
         barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)

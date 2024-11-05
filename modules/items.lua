@@ -305,8 +305,9 @@ local labelRows = {
     },
     timewarped_relic_coffer_key = {
         label = 'Timewarped Key',
-        type = 'item',
-        key = 231510,
+        type = 'reliccofferkey',
+        passRow = true,
+        keys = { 231510, 232365, 232366 },
         group = 'item',
         version = WOW_PROJECT_MAINLINE,
     },
@@ -808,6 +809,22 @@ local function CreateDreamSeedString(labelRow, itemCounts)
     return " "
 end
 
+local function CreateCofferKeyString(labelRow, itemCounts)
+    if itemCounts then
+        local strings = {}
+        for i, itemID in ipairs(labelRow.keys) do
+            local itemInfo = itemCounts[itemID]
+            if i == #labelRow.keys then
+                tinsert(strings, PermoksAccountManager:CreateItemString(nil, itemInfo and itemInfo.total or 0, (itemInfo and itemInfo.icon or C_Item.GetItemIconByID(itemID))))
+            else
+                tinsert(strings, itemInfo and itemInfo.total or 0)
+            end
+        end
+
+        return table.concat(strings, " | ")
+    end
+end
+
 local payload = {
     update = Update,
     labels = labelRows,
@@ -822,6 +839,7 @@ local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType('crest', CreateCrestString, nil, 'itemCounts')
 module:AddCustomLabelType('spark', CreateSparkString, nil, 'itemCounts')
 module:AddCustomLabelType('dreamseeds', CreateDreamSeedString, nil, 'itemCounts')
+module:AddCustomLabelType('reliccofferkey', CreateCofferKeyString, nil, 'itemCounts')
 
 
 function PermoksAccountManager:CreateItemString(itemInfo, total, icon)
