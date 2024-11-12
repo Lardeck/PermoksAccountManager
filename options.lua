@@ -1823,6 +1823,12 @@ function PermoksAccountManager:LoadOptionsTemplate()
                             changeAccountName('main', value)
                         end
                     },
+                    showOnEnter = {
+                        order = 13,
+                        type = 'toggle',
+                        name = 'Show On Enter',
+                        desc = 'Show the window while hovering over the minimap button'
+                    }
                 }
             }
         }

@@ -12,7 +12,10 @@ local PermoksAccountManagerLDB =
         icon = 'Interface/Icons/achievement_guildperk_everybodysfriend.blp',
         OnClick = function(self, button)
             if button == 'LeftButton' then
-                if PermoksAccountManagerFrame:IsShown() then
+                if PermoksAccountManager.db.global.options.showOnEnter then
+                    PermoksAccountManager:ShowInterface()
+                    PermoksAccountManager.openedByClick = true
+                elseif PermoksAccountManagerFrame:IsShown() then
                     PermoksAccountManager:HideInterface()
                 else
                     PermoksAccountManager:ShowInterface()
@@ -22,10 +25,21 @@ local PermoksAccountManagerLDB =
             end
         end,
         OnTooltipShow = function(tt)
+            if PermoksAccountManager.db.global.options.showOnEnter then
+                PermoksAccountManager:ShowInterface()
+                PermoksAccountManager.openedByClick = nil
+            end
+
             tt:AddLine('|cfff49b42Permoks Account Manager|r')
             tt:AddLine('|cffffffffLeft-click|r to open the Manager')
             tt:AddLine('|cffffffffRight-click|r to open options')
             tt:AddLine("Type '/pam minimap' to hide the Minimap Button!")
+        end,
+        OnLeave = function()
+            if PermoksAccountManager.db.global.options.showOnEnter and not PermoksAccountManager.openedByClick then
+                PermoksAccountManager:HideInterface()
+                PermoksAccountManager.openedByClick = nil
+            end
         end
     }
 )
@@ -111,6 +125,7 @@ local defaultDB = {
             useOutline = true,
             itemIconPosition = 'right',
             currencyIconPosition = 'right',
+            showOnEnter = false,
             customCategories = {
                 general = {
                     childOrder = {characterName = 1, ilevel = 2},
