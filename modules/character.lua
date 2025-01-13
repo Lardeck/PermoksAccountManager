@@ -13,6 +13,10 @@ local labelRows = {
 		big = true,
 		offset = 1.5,
 		type = 'characterName',
+		tooltip = true,
+		customTooltip = function(button, altData, labelRow)
+			PermoksAccountManager:CustomEquippedItemsTooltip_OnEnter(button, altData, labelRow)
+		end,
 		data = function(alt_data)
 			return PermoksAccountManager:CreateCharacterString(alt_data.name, alt_data.specInfo)
 		end,
@@ -214,7 +218,7 @@ local function GearScoreGetEnchantInfo(ItemLink, ItemEquipLoc)
 	for v in string.gmatch(ItemSubString, "[^:]+") do
 		tinsert(ItemSubStringTable, v)
 	end
-	
+
 	ItemSubString = ItemSubStringTable[2] .. ":" .. ItemSubStringTable[3], ItemSubStringTable[2]
 	local StringStart, _ = string.find(ItemSubString, ":")
 	ItemSubString = string.sub(ItemSubString, StringStart + 1)
@@ -228,24 +232,27 @@ end
 
 local function GearScoreGetQuality(ItemScore)
 	ItemScore = tonumber(ItemScore)
-    if (not ItemScore) then
-        return 0, 0, 0, "Trash"
-    end
+	if (not ItemScore) then
+		return 0, 0, 0, "Trash"
+	end
 
 	if (ItemScore > 5999) then
-        ItemScore = 5999
-    end
+		ItemScore = 5999
+	end
 
-    for i = 0,6 do
-        if ((ItemScore > i * 1000) and (ItemScore <= ((i + 1) * 1000))) then
-            local Red = gsQuality[( i + 1 ) * 1000].Red["A"] + (((ItemScore - gsQuality[( i + 1 ) * 1000].Red["B"])*gsQuality[( i + 1 ) * 1000].Red["C"])*gsQuality[( i + 1 ) * 1000].Red["D"])
-            local Blue = gsQuality[( i + 1 ) * 1000].Green["A"] + (((ItemScore - gsQuality[( i + 1 ) * 1000].Green["B"])*gsQuality[( i + 1 ) * 1000].Green["C"])*gsQuality[( i + 1 ) * 1000].Green["D"])
-            local Green = gsQuality[( i + 1 ) * 1000].Blue["A"] + (((ItemScore - gsQuality[( i + 1 ) * 1000].Blue["B"])*gsQuality[( i + 1 ) * 1000].Blue["C"])*gsQuality[( i + 1 ) * 1000].Blue["D"])
+	for i = 0, 6 do
+		if ((ItemScore > i * 1000) and (ItemScore <= ((i + 1) * 1000))) then
+			local Red = gsQuality[(i + 1) * 1000].Red["A"] +
+			(((ItemScore - gsQuality[(i + 1) * 1000].Red["B"]) * gsQuality[(i + 1) * 1000].Red["C"]) * gsQuality[(i + 1) * 1000].Red["D"])
+			local Blue = gsQuality[(i + 1) * 1000].Green["A"] +
+			(((ItemScore - gsQuality[(i + 1) * 1000].Green["B"]) * gsQuality[(i + 1) * 1000].Green["C"]) * gsQuality[(i + 1) * 1000].Green["D"])
+			local Green = gsQuality[(i + 1) * 1000].Blue["A"] +
+			(((ItemScore - gsQuality[(i + 1) * 1000].Blue["B"]) * gsQuality[(i + 1) * 1000].Blue["C"]) * gsQuality[(i + 1) * 1000].Blue["D"])
 			-- we swap up blue and green because for some reason the coloring of level power works like that
-            return Red, Blue, Green, gsQuality[( i + 1 ) * 1000].Description
-        end
-    end
-    return 0.1, 0.1, 0.1, "Trash"
+			return Red, Blue, Green, gsQuality[(i + 1) * 1000].Description
+		end
+	end
+	return 0.1, 0.1, 0.1, "Trash"
 end
 
 local function GearScoreGetItemScore(ItemLink)
@@ -254,7 +261,7 @@ local function GearScoreGetItemScore(ItemLink)
 	local PVPScore = 0
 	local GearScore = 0
 
-	if not (ItemLink) then 
+	if not (ItemLink) then
 		return 0, 0
 	end
 
@@ -281,11 +288,12 @@ local function GearScoreGetItemScore(ItemLink)
 	if (gsItemTypes[ItemEquipLoc]) then
 		if (ItemLevel > 120) then
 			Table = gsFormula["A"]
-		else 
+		else
 			Table = gsFormula["B"]
 		end
 		if (ItemRarity >= 2) and (ItemRarity <= 4) then
-			GearScore = floor(((ItemLevel - Table[ItemRarity].A) / Table[ItemRarity].B) * gsItemTypes[ItemEquipLoc].SlotMOD * Scale * QualityScale)
+			GearScore = floor(((ItemLevel - Table[ItemRarity].A) / Table[ItemRarity].B) *
+			gsItemTypes[ItemEquipLoc].SlotMOD * Scale * QualityScale)
 
 			if (ItemLevel == 187.05) then
 				ItemLevel = 0
@@ -426,7 +434,7 @@ local function UpdateGeneralData(charInfo)
 		-- Gear Score and Item Level
 		local gearScore, ilvl = GearScoreGetScore(UnitName('player'), 'player')
 		local red, green, blue = GearScoreGetQuality(gearScore)
-		
+
 		charInfo.gearScore = gearScore
 		charInfo.gearScoreRed = red
 		charInfo.gearScoreGreen = green
@@ -463,12 +471,45 @@ local function UpdateILevel(charInfo)
 	end
 end
 
+local function UpdateEquip(charInfo, ...)
+	local equipmentSlot, isEmpty = ...
+
+	charInfo.equippedItems = charInfo.equippedItems or {}
+
+	if isEmpty then
+		charInfo.equippedItems[equipmentSlot] = nil
+	else
+		local itemLink = GetInventoryItemLink("player", equipmentSlot)
+		if itemLink then
+			local itemID = GetInventoryItemID("player", equipmentSlot)
+			local itemName, _, itemQuality, _, _, _, _, _, itemEquipLoc = C_Item.GetItemInfo(itemLink)
+
+			charInfo.equippedItems[equipmentSlot] = {
+				itemTexture = GetInventoryItemTexture("player", equipmentSlot),
+				itemLevel = C_Item.GetDetailedItemLevelInfo(itemLink),
+				itemName = itemName,
+				itemQuality = itemQuality,
+				itemID = itemID,
+				itemLink = itemLink,
+				itemSlot = _G[itemEquipLoc],
+			}
+		else
+			charInfo.equippedItems[equipmentSlot] = nil
+		end
+	end
+end
+
+local function UpdateCharacterEquip(charInfo)
+	for equipmentSlot = 1, 18 do
+		UpdateEquip(charInfo, equipmentSlot)
+	end
+end
+
 local function UpdateMythicScore(charInfo)
 	if not PermoksAccountManager.isRetail then return end
 
 	C_MythicPlus.RequestMapInfo()
 	charInfo.mythicScore = C_ChallengeMode.GetOverallDungeonScore()
-
 end
 
 local function UpdateMythicPlusHistory(charInfo)
@@ -481,7 +522,7 @@ local function UpdatePlayerSpecialization(charInfo)
 	elseif GetTalentTabInfo then
 		local primaryTalentTree = GetPrimaryTalentTree()
 		if primaryTalentTree then
-			charInfo.specInfo = {GetTalentTabInfo(primaryTalentTree)}
+			charInfo.specInfo = { GetTalentTabInfo(primaryTalentTree) }
 		end
 	end
 end
@@ -503,6 +544,7 @@ local function Update(charInfo)
 		UpdateLocation(charInfo)
 	else
 		UpdateILevel(charInfo)
+		UpdateCharacterEquip(charInfo)
 		UpdatePlayerSpecialization(charInfo)
 		UpdateMythicScore(charInfo)
 		UpdateMythicPlusHistory(charInfo)
@@ -593,6 +635,7 @@ local payload = {
 	events = {
 		['PLAYER_MONEY'] = UpdateGold,
 		['PLAYER_AVG_ITEM_LEVEL_UPDATE'] = UpdateILevel,
+		['PLAYER_EQUIPMENT_CHANGED'] = { UpdateILevel, UpdateEquip },
 		['PLAYER_SPECIALIZATION_CHANGED'] = UpdatePlayerSpecialization,
 		['CHALLENGE_MODE_MAPS_UPDATE'] = { UpdateMythicScore, UpdateMythicPlusHistory },
 		['BAG_UPDATE_DELAYED'] = { UpdateGeneralData, UpdateKeystones },
@@ -643,7 +686,8 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 	local runPerDungeon = {}
 	for _, info in ipairs(alt_data.mythicPlusHistory) do
 		runPerDungeon[info.mapChallengeModeID] = runPerDungeon[info.mapChallengeModeID] or {}
-		runPerDungeon[info.mapChallengeModeID][info.level] = (runPerDungeon[info.mapChallengeModeID][info.level] or 0) + 1
+		runPerDungeon[info.mapChallengeModeID][info.level] = (runPerDungeon[info.mapChallengeModeID][info.level] or 0) +
+		1
 
 		tinsert(runs, info.level)
 	end
@@ -654,14 +698,14 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 		if i == 1 or i == 4 or i == 8 then
 			runs[i] = string.format('|cff00f7ff+%d|r', runs[i])
 		else
-			runs[i] = "+"..runs[i]
+			runs[i] = "+" .. runs[i]
 		end
 	end
 
 	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'LEFT')
 	button.tooltip = tooltip
 	tooltip:SetBackdropColor(0, 0, 0, 1)
-	tooltip:AddLine('Vault Keys:',table.concat(runs, ', ', 1, (min(#runs, 8))))
+	tooltip:AddLine('Vault Keys:', table.concat(runs, ', ', 1, (min(#runs, 8))))
 	tooltip:AddLine('')
 	tooltip:AddSeparator(2, 1, 1, 1)
 
@@ -677,6 +721,30 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 
 	tooltip:AddSeparator(2, 1, 1, 1)
 	tooltip:AddLine(string.format("|cff03fc52Total:|r"), total)
+
+	tooltip:SmartAnchorTo(button)
+	tooltip:Show()
+end
+
+local equipmentSlotOrdered = {1, 2, 3, 15, 5, 4, 19, 9, 10, 6, 7, 8, 11, 12, 13, 14, 16, 17, 18}
+
+function PermoksAccountManager:CustomEquippedItemsTooltip_OnEnter(button, altData, labelRow)
+	if not altData or not altData.equippedItems then
+		return
+	end
+
+	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'LEFT')
+	button.tooltip = tooltip
+	tooltip:SetBackdropColor(0, 0, 0, 1)
+	tooltip:AddHeader('Equipment:')
+	tooltip:AddSeparator(2, 1, 1, 1)
+
+	for _, equipmentSlot in ipairs(equipmentSlotOrdered) do
+		local item = altData.equippedItems[equipmentSlot]
+		if item then
+			tooltip:AddLine(string.format("%s:", item.itemSlot), string.format("|T%d:0|t|c%s[%s]|r [%d]", item.itemTexture, ITEM_QUALITY_COLORS[item.itemQuality].color:GenerateHexColor(), item.itemName, item.itemLevel))
+		end
+	end
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()
