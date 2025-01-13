@@ -1826,7 +1826,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
                     showOnEnter = {
                         order = 13,
                         type = 'toggle',
-                        name = 'Show On Enter',
+                        name = 'Show On Mouseover',
                         desc = 'Show the window while hovering over the minimap button'
                     }
                 }
