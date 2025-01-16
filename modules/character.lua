@@ -243,11 +243,11 @@ local function GearScoreGetQuality(ItemScore)
 	for i = 0, 6 do
 		if ((ItemScore > i * 1000) and (ItemScore <= ((i + 1) * 1000))) then
 			local Red = gsQuality[(i + 1) * 1000].Red["A"] +
-			(((ItemScore - gsQuality[(i + 1) * 1000].Red["B"]) * gsQuality[(i + 1) * 1000].Red["C"]) * gsQuality[(i + 1) * 1000].Red["D"])
+				(((ItemScore - gsQuality[(i + 1) * 1000].Red["B"]) * gsQuality[(i + 1) * 1000].Red["C"]) * gsQuality[(i + 1) * 1000].Red["D"])
 			local Blue = gsQuality[(i + 1) * 1000].Green["A"] +
-			(((ItemScore - gsQuality[(i + 1) * 1000].Green["B"]) * gsQuality[(i + 1) * 1000].Green["C"]) * gsQuality[(i + 1) * 1000].Green["D"])
+				(((ItemScore - gsQuality[(i + 1) * 1000].Green["B"]) * gsQuality[(i + 1) * 1000].Green["C"]) * gsQuality[(i + 1) * 1000].Green["D"])
 			local Green = gsQuality[(i + 1) * 1000].Blue["A"] +
-			(((ItemScore - gsQuality[(i + 1) * 1000].Blue["B"]) * gsQuality[(i + 1) * 1000].Blue["C"]) * gsQuality[(i + 1) * 1000].Blue["D"])
+				(((ItemScore - gsQuality[(i + 1) * 1000].Blue["B"]) * gsQuality[(i + 1) * 1000].Blue["C"]) * gsQuality[(i + 1) * 1000].Blue["D"])
 			-- we swap up blue and green because for some reason the coloring of level power works like that
 			return Red, Blue, Green, gsQuality[(i + 1) * 1000].Description
 		end
@@ -293,7 +293,7 @@ local function GearScoreGetItemScore(ItemLink)
 		end
 		if (ItemRarity >= 2) and (ItemRarity <= 4) then
 			GearScore = floor(((ItemLevel - Table[ItemRarity].A) / Table[ItemRarity].B) *
-			gsItemTypes[ItemEquipLoc].SlotMOD * Scale * QualityScale)
+				gsItemTypes[ItemEquipLoc].SlotMOD * Scale * QualityScale)
 
 			if (ItemLevel == 187.05) then
 				ItemLevel = 0
@@ -479,20 +479,26 @@ local function UpdateEquip(charInfo, ...)
 	if isEmpty then
 		charInfo.equippedItems[equipmentSlot] = nil
 	else
-		local itemLink = GetInventoryItemLink("player", equipmentSlot)
-		if itemLink then
-			local itemID = GetInventoryItemID("player", equipmentSlot)
-			local itemName, _, itemQuality, _, _, _, _, _, itemEquipLoc = C_Item.GetItemInfo(itemLink)
+		local itemID = GetInventoryItemID("player", equipmentSlot)
+		if itemID then
+			local itemObject = Item:CreateFromItemID(itemID)
+			itemObject:ContinueOnItemLoad(function()
+				local itemLink = GetInventoryItemLink("player", equipmentSlot)
+				local itemName = itemObject:GetItemName()
+				local itemQuality = itemObject:GetItemQuality()
+				local itemEquipLoc = itemObject:GetInventoryTypeName()
 
-			charInfo.equippedItems[equipmentSlot] = {
-				itemTexture = GetInventoryItemTexture("player", equipmentSlot),
-				itemLevel = C_Item.GetDetailedItemLevelInfo(itemLink),
-				itemName = itemName,
-				itemQuality = itemQuality,
-				itemID = itemID,
-				itemLink = itemLink,
-				itemSlot = _G[itemEquipLoc],
-			}
+				charInfo.equippedItems[equipmentSlot] = {
+					equipmentSlot = equipmentSlot,
+					itemTexture = GetInventoryItemTexture("player", equipmentSlot),
+					itemLevel = C_Item.GetDetailedItemLevelInfo(itemLink),
+					itemName = itemName,
+					itemQuality = itemQuality,
+					itemID = itemID,
+					itemLink = itemLink,
+					itemSlot = _G[itemEquipLoc],
+				}
+			end)
 		else
 			charInfo.equippedItems[equipmentSlot] = nil
 		end
@@ -687,7 +693,7 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 	for _, info in ipairs(alt_data.mythicPlusHistory) do
 		runPerDungeon[info.mapChallengeModeID] = runPerDungeon[info.mapChallengeModeID] or {}
 		runPerDungeon[info.mapChallengeModeID][info.level] = (runPerDungeon[info.mapChallengeModeID][info.level] or 0) +
-		1
+			1
 
 		tinsert(runs, info.level)
 	end
@@ -726,7 +732,7 @@ function PermoksAccountManager:HighestKeyTooltip_OnEnter(button, alt_data)
 	tooltip:Show()
 end
 
-local equipmentSlotOrdered = {1, 2, 3, 15, 5, 4, 19, 9, 10, 6, 7, 8, 11, 12, 13, 14, 16, 17, 18}
+local equipmentSlotOrdered = { 1, 2, 3, 15, 5, 4, 19, 9, 10, 6, 7, 8, 11, 12, 13, 14, 16, 17, 18 }
 
 function PermoksAccountManager:CustomEquippedItemsTooltip_OnEnter(button, altData, labelRow)
 	if not altData or not altData.equippedItems then
@@ -742,7 +748,34 @@ function PermoksAccountManager:CustomEquippedItemsTooltip_OnEnter(button, altDat
 	for _, equipmentSlot in ipairs(equipmentSlotOrdered) do
 		local item = altData.equippedItems[equipmentSlot]
 		if item then
-			tooltip:AddLine(string.format("%s:", item.itemSlot), string.format("|T%d:0|t|c%s[%s]|r [%d]", item.itemTexture, ITEM_QUALITY_COLORS[item.itemQuality].color:GenerateHexColor(), item.itemName, item.itemLevel))
+			if (not item.itemName or not item.itemTexture or not item.itemQuality or not item.itemLink or not item.itemSlot) and item.itemID then
+				local itemObject = Item:CreateFromItemID(item.itemID)
+				local y, x = tooltip:AddLine()
+				itemObject:ContinueOnItemLoad(function()
+					item.itemLink = itemObject:GetItemLink()
+					item.itemQuality = itemObject:GetItemQuality()
+					item.itemName = itemObject:GetItemName()
+					item.itemSlot = _G[itemObject:GetInventoryTypeName()]
+					item.itemTexture = itemObject:GetItemIcon()
+
+					if tooltip:IsAcquiredBy(addonName .. 'Tooltip') then
+						tooltip:SetCell(y, 1, string.format("%s:", item.itemSlot))
+						tooltip:SetCell(y, 2,
+							string.format("|T%d:0|t|c%s[%s]|r [%s]", item.itemTexture,
+								ITEM_QUALITY_COLORS[item.itemQuality].color:GenerateHexColor(), item.itemName,
+								item.itemLevel or "N/A"))
+					end
+				end)
+			else
+				if not item.itemLevel and altData.GUID == UnitGUID("player") then
+
+				end
+
+				tooltip:AddLine(string.format("%s:", item.itemSlot),
+					string.format("|T%d:0|t|c%s[%s]|r [%s]", item.itemTexture,
+						ITEM_QUALITY_COLORS[item.itemQuality].color:GenerateHexColor(), item.itemName,
+						item.itemLevel or "N/A"))
+			end
 		end
 	end
 
