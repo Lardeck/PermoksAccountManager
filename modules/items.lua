@@ -303,13 +303,25 @@ local labelRows = {
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
-    timewarped_relic_coffer_key = {
-        label = 'Timewarped Key',
-        type = 'reliccofferkey',
+    --timewarped_relic_coffer_key = {
+    --    label = 'Timewarped Key',
+    --    type = 'reliccofferkey',
+    --    passRow = true,
+    --    keys = { 231510, 232365, 232366 },
+    --    group = 'item',
+    --    version = WOW_PROJECT_MAINLINE,
+    --},
+
+    -- 11.1
+    spark_current = {
+        label = 'Spark - Fortunes',
+        type = 'spark',
         passRow = true,
-        keys = { 231510, 232365, 232366 },
+        key = 230906,
+        reagen = 230905,
+        reagentRequired = 2,
         group = 'item',
-        version = WOW_PROJECT_MAINLINE,
+        version = WOW_PROJECT_MAINLINE
     },
 
     -- tbc

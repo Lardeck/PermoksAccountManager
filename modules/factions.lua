@@ -306,6 +306,78 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
+    -- 11.1
+    the_cartels_of_undermine = {
+        label = function()
+            return PermoksAccountManager.factions[2653].localName or 'Cartels Undermine'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2653,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    bilgewater_cartel = {
+        label = function()
+            return PermoksAccountManager.factions[2673].localName or 'Bilgewater'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2673,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    blackwater_cartel = {
+        label = function()
+            return PermoksAccountManager.factions[2675].localName or 'Blackwater'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2675,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    steamwheedle_cartel = {
+        label = function()
+            return PermoksAccountManager.factions[2677].localName or 'Steamwheedle'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2677,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    venture_company = {
+        label = function()
+            return PermoksAccountManager.factions[2671].localName or 'Venture Company'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2671,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    gallagio_loyalty_rewards_club = {
+        label = function()
+            return PermoksAccountManager.factions[2685].localName or 'Gallagio'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2685,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+    darkfuse_solutions = {
+        label = function()
+            return PermoksAccountManager.factions[2669].localName or 'Darkfuse Solutions'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2669,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
+
     -- wotlk
     alliance_vanguard = {
         label = function()

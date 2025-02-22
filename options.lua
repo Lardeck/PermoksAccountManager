@@ -1990,6 +1990,58 @@ function PermoksAccountManager:AddLabelToDefaultCategory(category, label, custom
 	end
 end
 
+function PermoksAccountManager:ReplaceLabelOfDefaultCategory(category, oldLabel, newLabel)
+	local categoryTbl = self.db.global.options.defaultCategories[category]
+
+    if categoryTbl and categoryTbl.childOrder[oldLabel] then
+        local index = categoryTbl.childOrder[oldLabel]
+
+        if categoryTbl.childs[index] ~= oldLabel then
+            for i, label in pairs(categoryTbl.childs[index]) do
+                if label == oldLabel then
+                    index = i
+                    break
+                end
+            end
+        end
+
+        categoryTbl.childOrder[oldLabel] = nil
+        categoryTbl.childOrder[newLabel] = index
+        categoryTbl.childs[index] = newLabel
+    end
+end
+
+function PermoksAccountManager:RemoveLabelFromDefaultCategory(category, label)
+	local categoryTbl = self.db.global.options.defaultCategories[category]
+
+    if categoryTbl and categoryTbl.childOrder[label] then
+        categoryTbl.childOrder[label] = nil
+
+        for i, l in pairs(categoryTbl.childs) do
+            if l == label then
+                categoryTbl.childs[i] = nil
+                break
+            end
+        end
+    end
+end
+
+function PermoksAccountManager:FixOrderOfDefaultCategories()
+    for _, categoryTbl in pairs(self.db.global.options.defaultCategories) do
+        local newChilds = {}
+        for _, label in pairs(categoryTbl.childs) do
+            tinsert(newChilds, label)
+        end
+
+        categoryTbl.childs = newChilds
+        
+        wipe(categoryTbl.childOrder)
+        for i, label in ipairs(categoryTbl.childs) do
+            categoryTbl.childOrder[label] = i
+        end
+    end
+end
+
 function PermoksAccountManager:OptionsToString()
     local export = {internalVersion = self.db.global.internalVersion, custom = self.db.global.custom, options = self.db.global.options}
 

@@ -72,7 +72,6 @@ local function SetEventScript(charInfo)
         function(self, event, ...)
             if functions[event] then
                 --if not charInfo then PermoksAccountManager:Debug("CharInfo is not loaded yet") return end
-
                 functions[event](charInfo, ...)
             end
         end

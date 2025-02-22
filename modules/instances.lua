@@ -44,16 +44,27 @@ local labelRows = {
 		group = 'raids',
 		version = WOW_PROJECT_MAINLINE
     },
-    blackrock_depths_raid = {
-        label = function()
-            return PermoksAccountManager.raids[2792].name or 'BRD'
+    --blackrock_depths_raid = {
+    --    label = function()
+    --        return PermoksAccountManager.raids[2792].name or 'BRD'
+    --    end,
+    --    id = 2792,
+    --    type = 'raid',
+    --    key = 'blackrock_depths_raid',
+    --    tooltip = true,
+    --    group = 'raids',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    liberation_of_undermine = {
+		label = function()
+            return PermoksAccountManager.raids[2769].name or 'LoU'
         end,
-        id = 2792,
-        type = 'raid',
-        key = 'blackrock_depths_raid',
-        tooltip = true,
-        group = 'raids',
-        version = WOW_PROJECT_MAINLINE
+		id = 2769,
+		type = 'raid',
+		key = 'liberation_of_undermine',
+		tooltip = true,
+		group = 'raids',
+		version = WOW_PROJECT_MAINLINE
     },
 
     -- wotlk
