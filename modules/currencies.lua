@@ -256,7 +256,7 @@ local labelRows = {
 
     -- 11.0
     veteran_crest = {
-        label = 'Veteran Crests',
+        label = 'Weathered Crests',
         type = 'crestcurrency',
         key = 3107,
         passRow = true,
@@ -264,7 +264,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     normal_crest = {
-        label = 'Normal Crests',
+        label = 'Carved Crests',
         type = 'crestcurrency',
         key = 3108,
         passRow = true,
@@ -272,7 +272,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     hero_crest = {
-        label = 'Hero Crests',
+        label = 'Runed Crests',
         type = 'crestcurrency',
         key = 3109,
         passRow = true,
@@ -280,7 +280,7 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
     myth_crest = {
-        label = 'Myth Crests',
+        label = 'Gilded Crests',
         type = 'crestcurrency',
         key = 3110,
         passRow = true,
@@ -346,6 +346,7 @@ local labelRows = {
         type = 'currency',
         key = 3132,
         group = 'currency',
+        hideIcon = true,
         version = WOW_PROJECT_MAINLINE,
     },
     empty_kajacola_can = {
@@ -737,7 +738,7 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     local iconString = ''
     local options = self.db.global.options
     local globalCurrencyInfo = self.db.global.currencyInfo[currencyInfo.currencyType]
-    local currencyIcon = globalCurrencyInfo.icon
+    local currencyIcon = globalCurrencyInfo and globalCurrencyInfo.icon
     if not hideIcon and currencyIcon and options.currencyIcons then
         if customIcon then
             iconString = string.format('\124T%s:%d:%d:%d:%d\124t', customIcon.path or currencyIcon,

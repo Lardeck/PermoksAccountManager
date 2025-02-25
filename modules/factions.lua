@@ -3,20 +3,21 @@ local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 
 local FACTION_STANDING_LABEL_CUSTOM = {}
 local FACTION_BAR_COLORS_CUSTOM = {
-    [1] = {r = 152, g = 32, b = 32},
-    [2] = {r = 222, g = 0, b = 10},
-    [3] = {r = 209, g = 102, b = 33},
-    [4] = {r = 222, g = 255, b = 10},
-    [5] = {r = 7, g = 255, b = 13},
-    [6] = {r = 10, g = 222, b = 136},
-    [7] = {r = 18, g = 224, b = 204},
-    [8] = {r = 5, g = 255, b = 189},
+    [1] = { r = 152, g = 32, b = 32 },
+    [2] = { r = 222, g = 0, b = 10 },
+    [3] = { r = 209, g = 102, b = 33 },
+    [4] = { r = 222, g = 255, b = 10 },
+    [5] = { r = 7, g = 255, b = 13 },
+    [6] = { r = 10, g = 222, b = 136 },
+    [7] = { r = 18, g = 224, b = 204 },
+    [8] = { r = 5, g = 255, b = 189 },
 }
 do
     for standingID, color in pairs(FACTION_BAR_COLORS) do
-        FACTION_BAR_COLORS_CUSTOM[standingID] = FACTION_BAR_COLORS_CUSTOM[standingID] or {r = color.r * 256, g = color.g * 256, b = color.b * 256}
+        FACTION_BAR_COLORS_CUSTOM[standingID] = FACTION_BAR_COLORS_CUSTOM[standingID] or
+        { r = color.r * 256, g = color.g * 256, b = color.b * 256 }
     end
-    FACTION_BAR_COLORS_CUSTOM[9] = {r = 16, g = 165, b = 202}
+    FACTION_BAR_COLORS_CUSTOM[9] = { r = 16, g = 165, b = 202 }
 
     for i = 1, 8 do
         FACTION_STANDING_LABEL_CUSTOM[i] = GetText('FACTION_STANDING_LABEL' .. i)
@@ -234,7 +235,7 @@ local labelRows = {
         key = 2590,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
-    },    
+    },
     hallowfall_arathi = {
         label = function()
             return PermoksAccountManager.factions[2570].localName or 'Hallowfall Arathi'
@@ -244,7 +245,7 @@ local labelRows = {
         key = 2570,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
-    },    
+    },
     the_assembly_of_the_deeps = {
         label = function()
             return PermoksAccountManager.factions[2594].localName or 'The Assembly of the Deeps'
@@ -254,7 +255,7 @@ local labelRows = {
         key = 2594,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
-    },    
+    },
     the_severed_threads = {
         label = function()
             return PermoksAccountManager.factions[2600].localName or 'The Severed Threads'
@@ -264,7 +265,7 @@ local labelRows = {
         key = 2600,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
-    },    
+    },
     the_general = {
         label = function()
             return PermoksAccountManager.factions[2605].localName or 'The General'
@@ -274,7 +275,7 @@ local labelRows = {
         key = 2605,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
-    },    
+    },
     the_vizier = {
         label = function()
             return PermoksAccountManager.factions[2607].localName or 'The Vizier'
@@ -284,7 +285,7 @@ local labelRows = {
         key = 2607,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
-    },    
+    },
     the_weaver = {
         label = function()
             return PermoksAccountManager.factions[2601].localName or 'The Weaver'
@@ -294,7 +295,7 @@ local labelRows = {
         key = 2601,
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
-    },    
+    },
     brann_bronzebeard = {
         label = function()
             return PermoksAccountManager.factions[2640].localName or 'Brann Bronzebeard'
@@ -559,7 +560,7 @@ local labelRows = {
         version = WOW_PROJECT_CATACLYSM_CLASSIC,
         group = 'reputation'
     },
-	the_ashen_verdict = {
+    the_ashen_verdict = {
         label = function()
             local factionInfo = PermoksAccountManager.factions[1156]
             return factionInfo.localName or factionInfo.name
@@ -705,20 +706,22 @@ local friendshipStandings = {
 local GetFriendshipReputation = C_GossipInfo and C_GossipInfo.GetFriendshipReputation or GetFriendshipReputation
 --TODO: Rework after DF launch
 local function GetFactionOrFriendshipInfo(factionId, factionType)
-    local hasReward, renown
-    local name, _, standing, barMin, barMax, barValue
+    local barMin, barMax, barValue = 0, 0, 0
+    local hasReward, renown, name, _, standing
     if C_Reputation and C_Reputation.GetFactionDataByID then
         local factionData = C_Reputation.GetFactionDataByID(factionId)
-        name = factionData.name
-        standing = factionData.reaction
-        barMin = factionData.currentReactionThreshold
-        barMax = factionData.nextReactionThreshold
-        barValue = factionData.currentStanding
-    else 
+        if factionData then
+            name = factionData.name
+            standing = factionData.reaction
+            barMin = factionData.currentReactionThreshold
+            barMax = factionData.nextReactionThreshold
+            barValue = factionData.currentStanding
+        end
+    else
         name, _, standing, barMin, barMax, barValue = GetFactionInfoByID(factionId)
     end
     local isParagon = C_Reputation.IsFactionParagon and C_Reputation.IsFactionParagon(factionId)
-    
+
     if isParagon then
         barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)
         barMin, standing, barValue = 0, 9, barValue % barMax
@@ -748,7 +751,6 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
 end
 
 local function UpdateFaction(factionTable, factionId, standing, current, maximum, info, hasReward, renown)
-    
     factionTable[factionId] = factionTable[factionId] or {}
     local faction = factionTable[factionId]
     faction.standing = standing
@@ -808,7 +810,7 @@ local function convertStanding(standing)
     if friendshipStandings[standing] then
         return friendshipStandings[standing]
     else
-        return standing:sub(1,1)
+        return standing:sub(1, 1)
     end
 end
 
@@ -832,10 +834,14 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
         standing = factionInfo.standing
     end
 
-    local color = factionInfo.hasReward and 'ff00ff00' or CreateColor(standingColor.r / 255, standingColor.g / 255, standingColor.b / 255):GenerateHexColor()
+    local color = factionInfo.hasReward and 'ff00ff00' or
+    CreateColor(standingColor.r / 255, standingColor.g / 255, standingColor.b / 255):GenerateHexColor()
     if factionInfo.renown then
-        return string.format('%s - %s /%s', BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown), AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0))
+        return string.format('%s - %s /%s', BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown),
+            AbbreviateNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0))
     elseif factionInfo.max then
-        return string.format('|c%s%s|r/%s |cff%02X%02X%02X%s|r', color, AbbreviateLargeNumbers(factionInfo.current or 0), AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b, convertStanding(standing))
+        return string.format('|c%s%s|r/%s |cff%02X%02X%02X%s|r', color, AbbreviateLargeNumbers(factionInfo.current or 0),
+            AbbreviateNumbers(factionInfo.max or 0), standingColor.r, standingColor.g, standingColor.b,
+            convertStanding(standing))
     end
 end

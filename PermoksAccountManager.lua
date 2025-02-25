@@ -765,8 +765,13 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     end
 
     if oldInternalVersion < 7 then
+        self:AddLabelToDefaultCategory('general', 'veteran_crest')
+        self:AddLabelToDefaultCategory('general', 'normal_crest')
+        self:AddLabelToDefaultCategory('general', 'hero_crest')
+        self:AddLabelToDefaultCategory('general', 'myth_crest')
         self:AddLabelToDefaultCategory('general', 'spark_drops')
 
+        self:AddLabelToDefaultCategory('currentweekly', 'undermine_weeklies', 19)
         self:AddLabelToDefaultCategory('currentweekly', 'undermine_rares')
 
         self:AddLabelToDefaultCategory('raid', 'liberation_of_undermine')

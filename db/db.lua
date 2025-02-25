@@ -16,6 +16,7 @@ local default_categories = {
             'valorstones',
             'champion_crest',
             'veteran_crest',
+            'normal_crest',
             'hero_crest',
             'myth_crest',
             'spark_current',
@@ -42,10 +43,11 @@ local default_categories = {
             valorstones = 8,
             champion_crest = 9,
             veteran_crest = 10,
-            hero_crest = 11,
-            myth_crest = 12,
-            spark_current = 13,
-            spark_drops = 14,
+            normal_crest = 11,
+            hero_crest = 12,
+            myth_crest = 13,
+            spark_current = 14,
+            spark_drops = 15,
 
             -- Probably interesting during the first weeks, might wanna (re-)move later
             separator2 = 20,
@@ -89,6 +91,7 @@ local default_categories = {
             'lesser_keyflame_weeklies',
             'greater_keyflame_weeklies',
             'severed_threads_pact_weekly',
+            'undermine_weeklies',
 
             'separator2',
             'isle_of_dorne_rares',
@@ -115,6 +118,7 @@ local default_categories = {
             lesser_keyflame_weeklies = 16,
             greater_keyflame_weeklies = 17,
             severed_threads_pact_weekly = 18,
+            undermine_weeklies = 19,
 
             separator2 = 20,
             isle_of_dorne_rares = 21,
@@ -1907,6 +1911,26 @@ PermoksAccountManager.quests = {
         [83097] = { questType = 'weekly', log = true }, -- Skinning
         [83098] = { questType = 'weekly', log = true }, -- Skinning
     },
+
+    -- 11.1
+    undermine_weeklies = {
+        [85869] = { questType = 'weekly', log = true },
+        [86775] = { questType = 'weekly', log = true },
+        [85879] = { questType = 'weekly', log = true },
+
+        [85553] = { questType = 'weekly', log = true },
+        [85554] = { questType = 'weekly', log = true },
+        [85913] = { questType = 'weekly', log = true },
+        [85914] = { questType = 'weekly', log = true },
+        [85944] = { questType = 'weekly', log = true },
+        [85945] = { questType = 'weekly', log = true },
+        [85960] = { questType = 'weekly', log = true },
+        [85962] = { questType = 'weekly', log = true },
+        [86177] = { questType = 'weekly', log = true },
+        [86178] = { questType = 'weekly', log = true },
+        [86179] = { questType = 'weekly', log = true },
+        [86180] = { questType = 'weekly', log = true },
+    }
 }
 
 PermoksAccountManager.locale = {
