@@ -52,7 +52,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 6
+local INTERNALTWWVERSION = 7
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -108,7 +108,7 @@ local defaultDB = {
             border = {
                 edgeSize = 5,
                 color = {0.39, 0.39, 0.39, 1},
-                bgColor = {0.1, 0.1, 0.1, 0.9}
+                bgColor = {0, 0, 0, 0.9}
             },
             font = 'Expressway',
             fontSize = 11,
@@ -762,6 +762,27 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('general', 'bronze_celebration_token', 26)
         self:AddLabelToDefaultCategory('general', 'timewarped_relic_coffer_key', 27)
         self:AddLabelToDefaultCategory('raid', 'blackrock_depths_raid', 2)
+    end
+
+    if oldInternalVersion < 7 then
+        self:AddLabelToDefaultCategory('general', 'veteran_crest')
+        self:AddLabelToDefaultCategory('general', 'normal_crest')
+        self:AddLabelToDefaultCategory('general', 'hero_crest')
+        self:AddLabelToDefaultCategory('general', 'myth_crest')
+        self:AddLabelToDefaultCategory('general', 'spark_drops')
+
+        self:AddLabelToDefaultCategory('currentweekly', 'undermine_weeklies', 19)
+        self:AddLabelToDefaultCategory('currentweekly', 'undermine_rares')
+
+        self:AddLabelToDefaultCategory('raid', 'liberation_of_undermine')
+
+        self:UpdateDefaultCategories('renown')
+
+        self:ReplaceLabelOfDefaultCategory('general', 'spark_omens', 'spark_current')
+        self:RemoveLabelFromDefaultCategory('general', 'timewarped_relic_coffer_key')
+        self:RemoveLabelFromDefaultCategory('general', 'bronze_celebration_token')
+        self:FixOrderOfDefaultCategories()
+
     end
 end
 

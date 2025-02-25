@@ -1206,6 +1206,39 @@ local labelRows = {
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
+	undermine_rares = {
+		IDs = {84917, 84918, 84919, 84920, 84921, 84922, 84926, 84927, 84928, 85004, 84877, 84884, 84895, 84907, 84911, 86298, 86307, 86431, 86428},
+		label = 'Undermine Rares',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		achievementString = "(REP)",
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 19,
+		showAll = true,
+		version = WOW_PROJECT_MAINLINE
+	},
+	undermine_weeklies = {
+		IDS = {85869, 86775, 85879, 85553, 85554, 85913, 85914, 85944, 85945, 85960, 85962, 86177, 86178, 86179, 86180},
+		label = 'Undermine Weeklies',
+		type = 'quest',
+		questType = 'weekly',
+		warband = true,
+		visibility = 'visible',
+		group = 'resetWeekly',
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 7,
+		showAll = true,
+		version = WOW_PROJECT_MAINLINE
+	},
 	-- professions
 	knowledge_tww_treasures = {
 		label = 'Loot Knowledge',

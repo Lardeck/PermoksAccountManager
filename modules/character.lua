@@ -772,7 +772,7 @@ function PermoksAccountManager:CustomEquippedItemsTooltip_OnEnter(button, altDat
 				end
 
 				tooltip:AddLine(string.format("%s:", item.itemSlot),
-					string.format("|T%d:0|t|c%s[%s]|r [%s]", item.itemTexture,
+					string.format("|T%d:22|t|c%s[%s]|r [%s]", item.itemTexture,
 						ITEM_QUALITY_COLORS[item.itemQuality].color:GenerateHexColor(), item.itemName,
 						item.itemLevel or "N/A"))
 			end

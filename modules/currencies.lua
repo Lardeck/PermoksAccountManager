@@ -58,238 +58,231 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
-    -- Shadowlands
-    soul_cinders = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1906].name or 'Soul Cinders'
-        end,
-        type = 'currency',
-        warband = true,
-        key = 1906,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    soul_ash = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1828].name or 'Soul Ash'
-        end,
-        type = 'currency',
-        warband = true,
-        key = 1828,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    stygia = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1767].name or 'Stygia'
-        end,
-        type = 'currency',
-        key = 1767,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    tower_knowledge = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1904].name or 'Tower Knowledge'
-        end,
-        type = 'currency',
-        key = 1904,
-        hideMax = true,
-        tooltip = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    stygian_ember = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1977].name or 'Stygian Ember'
-        end,
-        type = 'currency',
-        key = 1977,
-        customTooltip = function(button, alt_data)
-            PermoksAccountManager:StygianEmbersTooltip_OnEnter(button, alt_data)
-        end,
-        tooltip = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    cataloged_research = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1931].name or 'Cataloged Research'
-        end,
-        type = 'currency',
-        warband = true,
-        key = 1931,
-        abbMax = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    redeemed_soul = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1810].name or 'Redeemed Soul'
-        end,
-        type = 'currency',
-        customTooltip = function(button, altData, labelRow)
-            PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
-        end,
-        tooltip = true,
-        tooltipKeyPath = { 'covenantInfo', 'souls' },
-        key = 1810,
-        group = 'sanctum',
-        version = WOW_PROJECT_MAINLINE
-    },
-    reservoir_anima = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[1813].name or 'Reservoir Anima'
-        end,
-        type = 'currency',
-        customTooltip = function(button, altData, labelRow)
-            PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
-        end,
-        tooltip = true,
-        tooltipKeyPath = { 'covenantInfo', 'anima' },
-        key = 1813,
-        hideMax = true,
-        group = 'sanctum',
-        version = WOW_PROJECT_MAINLINE
-    },
-
-    -- 9.2
-    cosmic_flux = {
-        label = function()
-            return PermoksAccountManager.db.global.currencyInfo[2009] and
-            PermoksAccountManager.db.global.currencyInfo[2009].name or 'Cosmic Flux'
-        end,
-        type = 'currency',
-        warband = true,
-        key = 2009,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    cyphers = {
-        label = L['Cyphers'],
-        type = 'currency',
-        warband = true,
-        key = 1979,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    catalyst_charges = {
-        label = L['Catalyst Charges'],
-        type = 'catalystcharges',
-        key = 2813,
-        hideIcon = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-
-    -- 10.0
-    dragon_isles_supplies = {
-        label = 'Dragon Isles Supplies',
-        type = 'currency',
-        warband = true,
-        key = 2003,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    elemental_overflow = {
-        label = 'Elemental Overflow',
-        type = 'currency',
-        warband = true,
-        key = 2118,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    bloody_tokens = {
-        label = 'Bloody Tokens',
-        type = 'currency',
-        key = 2123,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    storm_sigil = {
-        label = 'Storm Sigil',
-        type = 'currency',
-        key = 2122,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-
-    -- 10.1
-    flightstones = {
-        label = 'Flightstones',
-        type = 'currency',
-        key = 2245,
-        abbMax = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-
-    -- 10.1.5
-    paracausal_flakes = {
-        label = 'Paracausal Flakes',
-        type = 'currency',
-        warband = true,
-        key = 2594,
-        abbMax = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-
-    -- 10.2
-    emerald_dewdrop = {
-        label = 'Emerald Dewdrop',
-        type = 'currency',
-        key = 2650,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    seedbloom = {
-        label = 'Seedbloom',
-        type = 'currency',
-        key = 2651,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
-    dream_infusion = {
-        label = 'Dream Infusion',
-        type = 'currency',
-        key = 2777,
-        passRow = true,
-        group = 'currency',
-        version = WOW_PROJECT_MAINLINE
-    },
+    ---- Shadowlands
+    --soul_cinders = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[1906].name or 'Soul Cinders'
+    --    end,
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 1906,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --soul_ash = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[1828].name or 'Soul Ash'
+    --    end,
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 1828,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --stygia = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[1767].name or 'Stygia'
+    --    end,
+    --    type = 'currency',
+    --    key = 1767,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --tower_knowledge = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[1904].name or 'Tower Knowledge'
+    --    end,
+    --    type = 'currency',
+    --    key = 1904,
+    --    hideMax = true,
+    --    tooltip = true,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --stygian_ember = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[1977].name or 'Stygian Ember'
+    --    end,
+    --    type = 'currency',
+    --    key = 1977,
+    --    customTooltip = function(button, alt_data)
+    --        PermoksAccountManager:StygianEmbersTooltip_OnEnter(button, alt_data)
+    --    end,
+    --    tooltip = true,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --cataloged_research = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[1931].name or 'Cataloged Research'
+    --    end,
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 1931,
+    --    abbMax = true,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --redeemed_soul = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[1810].name or 'Redeemed Soul'
+    --    end,
+    --    type = 'currency',
+    --    customTooltip = function(button, altData, labelRow)
+    --        PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
+    --    end,
+    --    tooltip = true,
+    --    tooltipKeyPath = { 'covenantInfo', 'souls' },
+    --    key = 1810,
+    --    group = 'sanctum',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --reservoir_anima = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[1813].name or 'Reservoir Anima'
+    --    end,
+    --    type = 'currency',
+    --    customTooltip = function(button, altData, labelRow)
+    --        PermoksAccountManager:CustomCovenantCurrencyTooltip(button, altData, labelRow)
+    --    end,
+    --    tooltip = true,
+    --    tooltipKeyPath = { 'covenantInfo', 'anima' },
+    --    key = 1813,
+    --    hideMax = true,
+    --    group = 'sanctum',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+--
+    ---- 9.2
+    --cosmic_flux = {
+    --    label = function()
+    --        return PermoksAccountManager.db.global.currencyInfo[2009] and
+    --        PermoksAccountManager.db.global.currencyInfo[2009].name or 'Cosmic Flux'
+    --    end,
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 2009,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --cyphers = {
+    --    label = L['Cyphers'],
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 1979,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+--
+--
+    ---- 10.0
+    --dragon_isles_supplies = {
+    --    label = 'Dragon Isles Supplies',
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 2003,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --elemental_overflow = {
+    --    label = 'Elemental Overflow',
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 2118,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --bloody_tokens = {
+    --    label = 'Bloody Tokens',
+    --    type = 'currency',
+    --    key = 2123,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --storm_sigil = {
+    --    label = 'Storm Sigil',
+    --    type = 'currency',
+    --    key = 2122,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+--
+    ---- 10.1
+    --flightstones = {
+    --    label = 'Flightstones',
+    --    type = 'currency',
+    --    key = 2245,
+    --    abbMax = true,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+--
+    ---- 10.1.5
+    --paracausal_flakes = {
+    --    label = 'Paracausal Flakes',
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 2594,
+    --    abbMax = true,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+--
+    ---- 10.2
+    --emerald_dewdrop = {
+    --    label = 'Emerald Dewdrop',
+    --    type = 'currency',
+    --    key = 2650,
+    --    passRow = true,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --seedbloom = {
+    --    label = 'Seedbloom',
+    --    type = 'currency',
+    --    key = 2651,
+    --    passRow = true,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+    --dream_infusion = {
+    --    label = 'Dream Infusion',
+    --    type = 'currency',
+    --    key = 2777,
+    --    passRow = true,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
 
     -- 11.0
-    champion_crest = {
-        label = 'Veteran Crests',
+    veteran_crest = {
+        label = 'Weathered Crests',
         type = 'crestcurrency',
-        key = 2914,
+        key = 3107,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
-    veteran_crest = {
-        label = 'Normal Crests',
+    normal_crest = {
+        label = 'Carved Crests',
         type = 'crestcurrency',
-        key = 2915,
+        key = 3108,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
     hero_crest = {
-        label = 'Hero Crests',
+        label = 'Runed Crests',
         type = 'crestcurrency',
-        key = 2916,
+        key = 3109,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
     myth_crest = {
-        label = 'Myth Crests',
+        label = 'Gilded Crests',
         type = 'crestcurrency',
-        key = 2917,
+        key = 3110,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -337,12 +330,44 @@ local labelRows = {
         version = WOW_PROJECT_MAINLINE
     },
 
-    -- 10.0.5
-    bronze_celebration_token = {
-        label = 'Celebration Token',
+    -- 11.0.5
+    --bronze_celebration_token = {
+    --    label = 'Celebration Token',
+    --    type = 'currency',
+    --    warband = true,
+    --    key = 3100,
+    --    group = 'currency',
+    --    version = WOW_PROJECT_MAINLINE
+    --},
+
+    -- 11.1
+    spark_drops = {
+        label = 'Spark Cap',
         type = 'currency',
-        warband = true,
-        key = 3100,
+        key = 3132,
+        group = 'currency',
+        hideIcon = true,
+        version = WOW_PROJECT_MAINLINE,
+    },
+    empty_kajacola_can = {
+        label = 'Empy Kaja\'Cola',
+        type = 'currency',
+        key = 3218,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE,
+    },
+    vintage_kajacola_can = {
+        label = 'Vintage Kaja\'Cola',
+        type = 'currency',
+        key = 3220,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE,
+    },
+    catalyst_charges = {
+        label = L['Catalyst Charges'],
+        type = 'catalystcharges',
+        key = 3116,
+        hideIcon = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -713,7 +738,7 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     local iconString = ''
     local options = self.db.global.options
     local globalCurrencyInfo = self.db.global.currencyInfo[currencyInfo.currencyType]
-    local currencyIcon = globalCurrencyInfo.icon
+    local currencyIcon = globalCurrencyInfo and globalCurrencyInfo.icon
     if not hideIcon and currencyIcon and options.currencyIcons then
         if customIcon then
             iconString = string.format('\124T%s:%d:%d:%d:%d\124t', customIcon.path or currencyIcon,
