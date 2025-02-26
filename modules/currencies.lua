@@ -644,15 +644,15 @@ local function CurrencyTransferUpdate(charInfo)
 end
 
 local function UpdateCatalystCharges(charInfo)
-    if not charInfo.currencyInfo or not charInfo.currencyInfo[2813] then
+    if not charInfo.currencyInfo or not charInfo.currencyInfo[3116] then
         UpdateAllCurrencies(charInfo)
     end
 
-    charInfo.currencyInfo[2813].quantity = C_CurrencyInfo.GetCurrencyInfo(2813).quantity
+    charInfo.currencyInfo[3116].quantity = C_CurrencyInfo.GetCurrencyInfo(3116).quantity
 end
 
 local function CreateCatalystChargeString(currencyInfo)
-    local catalystCharges = currencyInfo and currencyInfo[2813]
+    local catalystCharges = currencyInfo and currencyInfo[3116]
     if not catalystCharges then return '-' end
 
     return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, catalystCharges.maxQuantity)
