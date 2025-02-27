@@ -507,52 +507,52 @@ PermoksAccountManager.dungeons = {
 }
 
 PermoksAccountManager.item = {
-    [171276] = { key = 'flask' },                 -- Flask
-    [172045] = { key = 'foodHaste' },             -- Haste Food
-    [181468] = { key = 'augmentRune' },           -- Rune
-    [172347] = { key = 'armorKit' },              -- Armor Kit
-    [171286] = { key = 'oilHeal' },               -- Heal Oil
-    [171285] = { key = 'oilDPS' },                -- DPS Oil
-    [171267] = { key = 'potHP' },                 -- HP Pot
-    [172233] = { key = 'drum' },                  -- Drum
-    [171272] = { key = 'potManaInstant' },        -- Mana Pot Instant
-    [171268] = { key = 'potManaChannel' },        -- Mana Pot Channel
-    [173049] = { key = 'tome' },                  -- Tome
-    [186017] = { key = 'korthiteCrystal' },       -- Korthite Crystal
-    [187707] = { key = 'progenitorEssentia' },    -- Progenitor Essentia
-    [187802] = { key = 'potCosmicHP' },           -- Cosmic HP Pot
-    [199211] = { key = 'primevalEssence' },       --Primeval Essence
-    [202196] = { key = 'vaultKey' },              -- Zskera Vault Key
-    [190453] = { key = 'spark_ingenuity' },       -- Spark of Ingenuity
-    [199197] = { key = 'spark_ingenuity' },       -- Bottled Essence
-    [204440] = { key = 'spark_shadowflame' },     -- Spark of Shadowflame
-    [204717] = { key = 'spark_shadowflame' },     -- Splintered Spark of Shadowflame
+    [171276] = { key = 'flask' },                   -- Flask
+    [172045] = { key = 'foodHaste' },               -- Haste Food
+    [181468] = { key = 'augmentRune' },             -- Rune
+    [172347] = { key = 'armorKit' },                -- Armor Kit
+    [171286] = { key = 'oilHeal' },                 -- Heal Oil
+    [171285] = { key = 'oilDPS' },                  -- DPS Oil
+    [171267] = { key = 'potHP' },                   -- HP Pot
+    [172233] = { key = 'drum' },                    -- Drum
+    [171272] = { key = 'potManaInstant' },          -- Mana Pot Instant
+    [171268] = { key = 'potManaChannel' },          -- Mana Pot Channel
+    [173049] = { key = 'tome' },                    -- Tome
+    [186017] = { key = 'korthiteCrystal' },         -- Korthite Crystal
+    [187707] = { key = 'progenitorEssentia' },      -- Progenitor Essentia
+    [187802] = { key = 'potCosmicHP' },             -- Cosmic HP Pot
+    [199211] = { key = 'primevalEssence' },         --Primeval Essence
+    [202196] = { key = 'vaultKey' },                -- Zskera Vault Key
+    [190453] = { key = 'spark_ingenuity' },         -- Spark of Ingenuity
+    [199197] = { key = 'spark_ingenuity' },         -- Bottled Essence
+    [204440] = { key = 'spark_shadowflame' },       -- Spark of Shadowflame
+    [204717] = { key = 'spark_shadowflame' },       -- Splintered Spark of Shadowflame
     [204715] = { key = 'unearthed_fragrant_coin' }, -- Unearthed Fragrant Coin
-    [204985] = { key = 'barter_brick' },          -- Barter Brick
-    [206959] = { key = 'spark_dreams' },          -- Spark of Dreams
-    [208396] = { key = 'spark_dreams' },          -- Splintered Spark of Dreams
-    [202171] = { key = 'obsidian_flightstone' },  -- Obsidian Flightstone
-    [207030] = { key = 'dilated_time_capsule' },  -- Dilated Time Capsule
-    [209856] = { key = 'dilated_time_pod' },      -- Dilated Time Pod
-    [207026] = { key = 'dreamsurge_coalescence' }, -- Dreamsurge Coalescence
-    [208153] = { key = 'dreamsurge_chrysalis' },  -- Dreamsurge Chrysalis
-    [210254] = { key = 'dreamsurge_cocoon' },     -- Dreamsurge Cocoon
-    [208066] = { key = 'dreamseeds' },            -- Small Dreamseed
-    [208067] = { key = 'dreamseeds' },            -- Plump Dreamseed
-    [208047] = { key = 'dreamseeds' },            -- Gigantic Dreamseed
-    [211515] = { key = 'spark_awakening' },       -- Splintered Spark of Awakening
-    [211516] = { key = 'spark_awakening' },       -- Spark of Awakening
-    [190456] = { key = 'artisans_mettle' },       -- Artisan's Mettle
+    [204985] = { key = 'barter_brick' },            -- Barter Brick
+    [206959] = { key = 'spark_dreams' },            -- Spark of Dreams
+    [208396] = { key = 'spark_dreams' },            -- Splintered Spark of Dreams
+    [202171] = { key = 'obsidian_flightstone' },    -- Obsidian Flightstone
+    [207030] = { key = 'dilated_time_capsule' },    -- Dilated Time Capsule
+    [209856] = { key = 'dilated_time_pod' },        -- Dilated Time Pod
+    [207026] = { key = 'dreamsurge_coalescence' },  -- Dreamsurge Coalescence
+    [208153] = { key = 'dreamsurge_chrysalis' },    -- Dreamsurge Chrysalis
+    [210254] = { key = 'dreamsurge_cocoon' },       -- Dreamsurge Cocoon
+    [208066] = { key = 'dreamseeds' },              -- Small Dreamseed
+    [208067] = { key = 'dreamseeds' },              -- Plump Dreamseed
+    [208047] = { key = 'dreamseeds' },              -- Gigantic Dreamseed
+    [211515] = { key = 'spark_awakening' },         -- Splintered Spark of Awakening
+    [211516] = { key = 'spark_awakening' },         -- Spark of Awakening
+    [190456] = { key = 'artisans_mettle' },         -- Artisan's Mettle
 
     --- TWW items
-    [211297] = { key = 'spark_omens' },               -- Fractured Spark of Omens
-    [211296] = { key = 'spark_omens' },               -- Spark of Omens
-    [210814] = { key = 'artisans_acuity' },           -- Artisan's Acuity
-    [206350] = { key = 'radiant_remnant' },           -- Radiant Remnant
-    [220520] = { key = 'radiant_echo' },              -- Radiant Echo
-    [212493] = { key = 'firelight_ruby' },            -- Odd Glob of Wax
-    [224642] = { key = 'firelight_ruby' },            -- Firelight Ruby
-    [229899] = { key = 'coffer_key_shard' },          -- Coffer Key Shard
+    [211297] = { key = 'spark_omens' },                 -- Fractured Spark of Omens
+    [211296] = { key = 'spark_omens' },                 -- Spark of Omens
+    [210814] = { key = 'artisans_acuity' },             -- Artisan's Acuity
+    [206350] = { key = 'radiant_remnant' },             -- Radiant Remnant
+    [220520] = { key = 'radiant_echo' },                -- Radiant Echo
+    [212493] = { key = 'firelight_ruby' },              -- Odd Glob of Wax
+    [224642] = { key = 'firelight_ruby' },              -- Firelight Ruby
+    [229899] = { key = 'coffer_key_shard' },            -- Coffer Key Shard
     [231510] = { key = 'timewarped_relic_coffer_key' }, -- Timewarped Relic Coffer Key LFR
     [232365] = { key = 'timewarped_relic_coffer_key' }, -- Timewarped Relic Coffer Key Normal
     [232366] = { key = 'timewarped_relic_coffer_key' }, -- Timewarped Relic Coffer Key Heroic
@@ -673,6 +673,10 @@ PermoksAccountManager.currencyCustomOptions = {
     [2707] = { forceUpdate = true },
     [2706] = { forceUpdate = true },
     [2708] = { forceUpdate = true },
+    [3107] = { forceUpdate = true },
+    [3108] = { forceUpdate = true },
+    [3109] = { forceUpdate = true },
+    [3110] = { forceUpdate = true },
 }
 
 PermoksAccountManager.research = {
@@ -954,7 +958,7 @@ PermoksAccountManager.quests = {
         [61633] = { covenant = 3, sanctum = 1, minSanctumTier = 1, addToMax = 1, questType = 'daily' }, -- Dreamsong Fenn
         -- Necrolords
         [58872] = { covenant = 4, sanctum = 1, minSanctumTier = 1, addToMax = 1, questType = 'daily' }, -- Gieger
-        [61647] = { covenant = 4, sanctum = 1, minSanctumTier = 1, addToMax = 1, questType = 'daily' } -- Chosen Runecoffer
+        [61647] = { covenant = 4, sanctum = 1, minSanctumTier = 1, addToMax = 1, questType = 'daily' }  -- Chosen Runecoffer
     },
     riftbound_cache = {
         [64456] = { questType = 'daily' },
@@ -991,7 +995,7 @@ PermoksAccountManager.quests = {
     jiro_cyphers = {
         [65144] = { questType = 'daily' }, -- Creatii
         [65166] = { questType = 'daily' }, -- Genesii
-        [65167] = { questType = 'daily' } -- Nascii
+        [65167] = { questType = 'daily' }  -- Nascii
     },
     maw_souls = {
         [61332] = { covenant = 1, questType = 'weekly', log = true }, -- kyrian 5 souls
@@ -1009,13 +1013,13 @@ PermoksAccountManager.quests = {
         [61333] = { covenant = 4, questType = 'weekly', log = true }, -- necro 5 souls
         [62864] = { covenant = 4, questType = 'weekly', log = true }, -- necro 10 souls
         [62865] = { covenant = 4, questType = 'weekly', log = true }, -- necro 15 souls
-        [62866] = { covenant = 4, questType = 'weekly', log = true } -- necro 20 souls
+        [62866] = { covenant = 4, questType = 'weekly', log = true }  -- necro 20 souls
     },
     anima_weekly = {
         [61982] = { covenant = 1, questType = 'weekly', log = true }, -- kyrian 1k anima
         [61981] = { covenant = 2, questType = 'weekly', log = true }, -- venthyr 1k anima
         [61984] = { covenant = 3, questType = 'weekly', log = true }, -- night fae 1k anima
-        [61983] = { covenant = 4, questType = 'weekly', log = true } -- necro 1k anima
+        [61983] = { covenant = 4, questType = 'weekly', log = true }  -- necro 1k anima
     },
     battle_plans = {
         [64521] = { questType = 'weekly', log = true } -- Helsworn Battle Plans
@@ -1052,7 +1056,7 @@ PermoksAccountManager.quests = {
     },
     tormentors_weekly = {
         [63854] = { questType = 'weekly' }, -- Tormentors of Torghast
-        [64122] = { questType = 'weekly' } -- Tormentors of Torghast
+        [64122] = { questType = 'weekly' }  -- Tormentors of Torghast
     },
     tormentors_locations = {
         [64692] = { questType = 'weekly' },
@@ -1075,7 +1079,7 @@ PermoksAccountManager.quests = {
         [63824] = { questType = 'weekly' }, -- Kyrian
         [63543] = { questType = 'weekly' }, -- Necrolord
         [63822] = { questType = 'weekly' }, -- Venthyr
-        [63823] = { questType = 'weekly' } -- Nightfae
+        [63823] = { questType = 'weekly' }  -- Nightfae
     },
     assault_vessels = {
         [64056] = { name = 'Venthyr', total = 2, questType = 'weekly' },
@@ -1201,77 +1205,77 @@ PermoksAccountManager.quests = {
         [70522] = { questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 198975 }, --Leatherworking 1
         [70523] = { questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 198976 }, --Leatherworking 2
         [73138] = { questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 204232 }, --Leatherworking 3
-        [70514] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 198967 },   --Enchanting 1
-        [70515] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 198968 },   --Enchanting 2
-        [73136] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 204224 },   --Enchanting 3
-        [70516] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 198969 },  --Engineering 1
-        [70517] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 198970 },  --Engineering 2
-        [73165] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 204227 },  --Engineering 3
-        [70518] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 198971 },  --Inscription 1
-        [70519] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 198972 },  --Inscription 2
-        [73163] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 204229 },  --Inscription 3
-        [70524] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 198977 },    --Tailoring 1
-        [70525] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 198978 },    --Tailoring 2
-        [73153] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 204225 },    --Tailoring 3
-        [70512] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 198965 }, --Blacksmithing 1
-        [70513] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 198966 }, --Blacksmithing 2
-        [73161] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 204230 }, --Blacksmithing 3
-        [70520] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 198973 }, --Jewelcrafting 1
-        [70521] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 198974 }, --Jewelcrafting 2
-        [73168] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 204222 }, --Jewelcrafting 3
-        [70504] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 198963 },      --Alchemy 1
-        [70511] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 198964 },      --Alchemy 2
-        [73166] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 204226 },      --Alchemy 3
-        [71857] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                   --Herbalism 1
-        [71858] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                   --Herbalism 2
-        [71859] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                   --Herbalism 3
-        [71860] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                   --Herbalism 4
-        [71861] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                   --Herbalism 5
-        [71864] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                   --Herbalism 6
-        [70381] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                    --Skinning 1
-        [70383] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                    --Skinning 2
-        [70384] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                    --Skinning 3
-        [70385] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                    --Skinning 4
-        [70386] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                    --Skinning 5
-        [70389] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                    --Skinning 6
-        [72160] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                      --Mining 1
-        [72161] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                      --Mining 2
-        [72162] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                      --Mining 3
-        [72163] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                      --Mining 4
-        [72164] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                      --Mining 5
-        [72165] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                      --Mining 6
+        [70514] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 198967 },     --Enchanting 1
+        [70515] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 198968 },     --Enchanting 2
+        [73136] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 204224 },     --Enchanting 3
+        [70516] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 198969 },    --Engineering 1
+        [70517] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 198970 },    --Engineering 2
+        [73165] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 204227 },    --Engineering 3
+        [70518] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 198971 },    --Inscription 1
+        [70519] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 198972 },    --Inscription 2
+        [73163] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 204229 },    --Inscription 3
+        [70524] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 198977 },      --Tailoring 1
+        [70525] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 198978 },      --Tailoring 2
+        [73153] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 204225 },      --Tailoring 3
+        [70512] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 198965 },  --Blacksmithing 1
+        [70513] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 198966 },  --Blacksmithing 2
+        [73161] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 204230 },  --Blacksmithing 3
+        [70520] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 198973 },  --Jewelcrafting 1
+        [70521] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 198974 },  --Jewelcrafting 2
+        [73168] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 204222 },  --Jewelcrafting 3
+        [70504] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 198963 },        --Alchemy 1
+        [70511] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 198964 },        --Alchemy 2
+        [73166] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 204226 },        --Alchemy 3
+        [71857] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                     --Herbalism 1
+        [71858] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                     --Herbalism 2
+        [71859] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                     --Herbalism 3
+        [71860] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                     --Herbalism 4
+        [71861] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                     --Herbalism 5
+        [71864] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },                     --Herbalism 6
+        [70381] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                      --Skinning 1
+        [70383] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                      --Skinning 2
+        [70384] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                      --Skinning 3
+        [70385] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                      --Skinning 4
+        [70386] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                      --Skinning 5
+        [70389] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },                      --Skinning 6
+        [72160] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                        --Mining 1
+        [72161] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                        --Mining 2
+        [72162] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                        --Mining 3
+        [72163] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                        --Mining 4
+        [72164] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                        --Mining 5
+        [72165] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },                        --Mining 6
     },
     knowledge_df_treasures = {
-        [66375] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193904 },  --Inscription 1
-        [66376] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193905 },  --Inscription 2
+        [66375] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193904 },    --Inscription 1
+        [66376] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 193905 },    --Inscription 2
         [66384] = { questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 193910 }, --Leatherworking 1
         [66385] = { questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 193913 }, --Leatherworking 2
-        [66386] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 193898 },    --Tailoring 1
-        [66387] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 193899 },    --Tailoring 2
-        [66377] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 193900 },   --Enchanting 1
-        [66378] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 193901 },   --Enchanting 2
-        [66381] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 192131 }, --Blacksmithing 1
-        [66382] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 192132 }, --Blacksmithing 2
-        [66379] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 193902 },  --Engineering 1
-        [66380] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 193903 },  --Engineering 2
-        [66388] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 193909 }, --Jewelcrafting 1
-        [66389] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 193907 }, --Jewelcrafting 2
-        [66373] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 193891 },      --Alchemy 1
-        [66374] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 193897 },      --Alchemy 2
+        [66386] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 193898 },      --Tailoring 1
+        [66387] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 193899 },      --Tailoring 2
+        [66377] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 193900 },     --Enchanting 1
+        [66378] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 193901 },     --Enchanting 2
+        [66381] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 192131 },  --Blacksmithing 1
+        [66382] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 192132 },  --Blacksmithing 2
+        [66379] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 193902 },    --Engineering 1
+        [66380] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 193903 },    --Engineering 2
+        [66388] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 193909 },  --Jewelcrafting 1
+        [66389] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 193907 },  --Jewelcrafting 2
+        [66373] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 193891 },        --Alchemy 1
+        [66374] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 193897 },        --Alchemy 2
     },
     knowledge_df_treatise = {
-        [74105] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription' },  -- Inscription
-        [83730] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription' },  -- Inscription 2
-        [74106] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },       -- Mining
-        [74107] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },    -- Herbalism
-        [74108] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy' },      -- Alchemy
-        [74109] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing' }, -- Blacksmithing
-        [74110] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting' },   -- Enchanting
-        [74111] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering' },  -- Engineering
-        [74112] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting' }, -- Jewelcrafting
+        [74105] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription' },    -- Inscription
+        [83730] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription' },    -- Inscription 2
+        [74106] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },         -- Mining
+        [74107] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },      -- Herbalism
+        [74108] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy' },        -- Alchemy
+        [74109] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing' },  -- Blacksmithing
+        [74110] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting' },     -- Enchanting
+        [74111] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering' },    -- Engineering
+        [74112] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting' },  -- Jewelcrafting
         [74113] = { questType = 'weekly', skillLineID = 165, profession = 'Leatherworking' }, -- Leatherworking
-        [74114] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },     -- Skinning
-        [74115] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring' },    -- Tailoring
+        [74114] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },       -- Skinning
+        [74115] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring' },      -- Tailoring
     },
     knowledge_df_weeklies_craft = {
         [70558] = { questType = 'weekly', log = true }, -- Inscription 1
@@ -1584,10 +1588,10 @@ PermoksAccountManager.quests = {
         [78428] = { questType = 'weekly', log = true },
     },
     anniversary_wb = {
-        [47461] = { questType = 'daily', name = "Kazzak" },             -- Kazzak
-        [47462] = { questType = 'daily', name = "Azuregos" },           -- Azuregos
+        [47461] = { questType = 'daily', name = "Kazzak" },               -- Kazzak
+        [47462] = { questType = 'daily', name = "Azuregos" },             -- Azuregos
         [47463] = { questType = 'daily', name = "Dragons of Nightmare" }, -- Dragons of Nightmare
-        [60214] = { questType = 'daily', name = "Doomwalker" },         -- Doomwalker
+        [60214] = { questType = 'daily', name = "Doomwalker" },           -- Doomwalker
     },
     big_dig = {
         [79226] = { questType = 'weekly', warband = true, log = true },
@@ -1595,10 +1599,10 @@ PermoksAccountManager.quests = {
 
     -- 11.0 The War Within
     -- Weekly World Activities
-    tww_world_boss = {                      -- PLACEHOLDER: wrong quest IDs
+    tww_world_boss = {                       -- PLACEHOLDER: wrong quest IDs
         [999990] = { questType = 'weekly' }, -- Kordac, the Dormant Protector
-        [83466] = { questType = 'weekly' }, -- Aggregation of Horrors
-        [83467] = { questType = 'weekly' }, -- Shurrai, Atrocity of the Undersea
+        [83466] = { questType = 'weekly' },  -- Aggregation of Horrors
+        [83467] = { questType = 'weekly' },  -- Shurrai, Atrocity of the Undersea
         [999993] = { questType = 'weekly' }, -- Orta, the Broken Mountain
     },
     worldsoul_weekly = {
@@ -1648,7 +1652,7 @@ PermoksAccountManager.quests = {
         [82678] = { questType = 'weekly', log = true }, -- Archives: The First Disc
         [82679] = { questType = 'weekly', log = true }, -- Archives: Seeking History
     },
-    weekly_meta = {                                   -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
+    weekly_meta = {                                     -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
     },
     archaic_cypher_key = {
         [84370] = { questType = 'weekly', warband = true, log = true }, -- The Key to Success
@@ -1690,14 +1694,14 @@ PermoksAccountManager.quests = {
         [81574] = { questType = 'weekly', warband = true, log = true }, -- Sporadic Growth
         [81632] = { questType = 'weekly', warband = true, log = true }, -- Lizard Looters
     },
-    greater_keyflame_weeklies = {                                     -- not added to default categories because shit rewards
-        [78590] = { questType = 'weekly', log = true },               -- Cutting Edge
-        [78657] = { questType = 'weekly', log = true },               -- The Midnight Sentry
-        [79329] = { questType = 'weekly', log = true },               -- Glowing Harvest
-        [79380] = { questType = 'weekly', log = true },               -- Bog Beast Banishment
-        [79469] = { questType = 'weekly', log = true },               -- Lurking Below
-        [79470] = { questType = 'weekly', log = true },               -- Waters of War
-        [79471] = { questType = 'weekly', log = true },               -- Bleak Sand
+    greater_keyflame_weeklies = {                                       -- not added to default categories because shit rewards
+        [78590] = { questType = 'weekly', log = true },                 -- Cutting Edge
+        [78657] = { questType = 'weekly', log = true },                 -- The Midnight Sentry
+        [79329] = { questType = 'weekly', log = true },                 -- Glowing Harvest
+        [79380] = { questType = 'weekly', log = true },                 -- Bog Beast Banishment
+        [79469] = { questType = 'weekly', log = true },                 -- Lurking Below
+        [79470] = { questType = 'weekly', log = true },                 -- Waters of War
+        [79471] = { questType = 'weekly', log = true },                 -- Bleak Sand
     },
     severed_threads_pact_chosen = {
         [80544] = { questType = 'weekly', warband = true, log = true }, -- Eyes of the Weaver
@@ -1723,120 +1727,120 @@ PermoksAccountManager.quests = {
 
     -- Weekly Rares
     isle_of_dorne_rares = {
-        [84037] = { questType = 'weekly', warband = true, name = 'Tephratennae' },                   -- (daily: 81923)
+        [84037] = { questType = 'weekly', warband = true, name = 'Tephratennae' },                     -- (daily: 81923)
         [84031] = { questType = 'weekly', warband = true, name = 'Kronolith, Might of the Mountain' }, -- (daily: 81902)
-        [84032] = { questType = 'weekly', warband = true, name = 'Shallowshell the Clacker' },       -- (daily: 81903)
-        [84036] = { questType = 'weekly', warband = true, name = 'Clawbreaker K\'zithix' },          -- (daily: 81920)
-        [84029] = { questType = 'weekly', warband = true, name = 'Escaped Cutthroat' },              -- (daily: 81907)
-        [84039] = { questType = 'weekly', warband = true, name = 'Matriarch Charfuria' },            -- (daily: 81921)
-        [84030] = { questType = 'weekly', warband = true, name = 'Tempest Lord Incarnus' },          -- (daily: 81901)
-        [84028] = { questType = 'weekly', warband = true, name = 'Gar\'loc' },                       -- (daily: 81899)
-        [84033] = { questType = 'weekly', warband = true, name = 'Twice-Stinger the Wretched' },     -- (daily: 81904)
-        [84034] = { questType = 'weekly', warband = true, name = 'Flamekeeper Graz' },               -- (daily: 81905)
-        [84026] = { questType = 'weekly', warband = true, name = 'Plaguehart' },                     --  (daily: 81897)
-        [84038] = { questType = 'weekly', warband = true, name = 'Sweetspark the Oozeful' },         -- (daily: 81922)
+        [84032] = { questType = 'weekly', warband = true, name = 'Shallowshell the Clacker' },         -- (daily: 81903)
+        [84036] = { questType = 'weekly', warband = true, name = 'Clawbreaker K\'zithix' },            -- (daily: 81920)
+        [84029] = { questType = 'weekly', warband = true, name = 'Escaped Cutthroat' },                -- (daily: 81907)
+        [84039] = { questType = 'weekly', warband = true, name = 'Matriarch Charfuria' },              -- (daily: 81921)
+        [84030] = { questType = 'weekly', warband = true, name = 'Tempest Lord Incarnus' },            -- (daily: 81901)
+        [84028] = { questType = 'weekly', warband = true, name = 'Gar\'loc' },                         -- (daily: 81899)
+        [84033] = { questType = 'weekly', warband = true, name = 'Twice-Stinger the Wretched' },       -- (daily: 81904)
+        [84034] = { questType = 'weekly', warband = true, name = 'Flamekeeper Graz' },                 -- (daily: 81905)
+        [84026] = { questType = 'weekly', warband = true, name = 'Plaguehart' },                       --  (daily: 81897)
+        [84038] = { questType = 'weekly', warband = true, name = 'Sweetspark the Oozeful' },           -- (daily: 81922)
     },
     ringing_deeps_rares = {
-        [84046] = { questType = 'weekly', warband = true, name = 'Automaxor' },             -- (daily: 81674)
-        [84044] = { questType = 'weekly', warband = true, name = 'Charmonger' },            -- (daily: 81562)
-        [84042] = { questType = 'weekly', warband = true, name = 'Cragmund' },              -- (daily: 80560)
-        [84041] = { questType = 'weekly', warband = true, name = 'Zilthara' },              -- (daily: 80506)
-        [84045] = { questType = 'weekly', warband = true, name = 'Coalesced Monstrosity' }, -- (daily: 81511)
-        [84040] = { questType = 'weekly', warband = true, name = 'Terror of the Forge' },   -- (daily: 80507)
-        [84047] = { questType = 'weekly', warband = true, name = 'Kelpmire' },              -- (daily: 81485)
-        [84043] = { questType = 'weekly', warband = true, name = 'Trungal' },               -- (daily: 80574)
+        [84046] = { questType = 'weekly', warband = true, name = 'Automaxor' },               -- (daily: 81674)
+        [84044] = { questType = 'weekly', warband = true, name = 'Charmonger' },              -- (daily: 81562)
+        [84042] = { questType = 'weekly', warband = true, name = 'Cragmund' },                -- (daily: 80560)
+        [84041] = { questType = 'weekly', warband = true, name = 'Zilthara' },                -- (daily: 80506)
+        [84045] = { questType = 'weekly', warband = true, name = 'Coalesced Monstrosity' },   -- (daily: 81511)
+        [84040] = { questType = 'weekly', warband = true, name = 'Terror of the Forge' },     -- (daily: 80507)
+        [84047] = { questType = 'weekly', warband = true, name = 'Kelpmire' },                -- (daily: 81485)
+        [84043] = { questType = 'weekly', warband = true, name = 'Trungal' },                 -- (daily: 80574)
         [84049] = { questType = 'weekly', warband = true, name = 'Spore-infused Shalewing' }, -- (daily: 81652)
-        [84048] = { questType = 'weekly', warband = true, name = 'Hungerer of the Deeps' }, -- (daily: 81648)
-        [84050] = { questType = 'weekly', warband = true, name = 'Disturbed Earthgorger' }, -- (daily: 80003)
+        [84048] = { questType = 'weekly', warband = true, name = 'Hungerer of the Deeps' },   -- (daily: 81648)
+        [84050] = { questType = 'weekly', warband = true, name = 'Disturbed Earthgorger' },   -- (daily: 80003)
     },
     hallowfall_rares = {
-        [84063] = { questType = 'weekly', warband = true, name = 'Lytfang the Lost' },     -- (daily: 81756)
-        [84051] = { questType = 'weekly', warband = true, name = 'Moth\'ethk' },           -- (daily: 82557)
-        [84064] = { questType = 'weekly', warband = true, name = 'The Perchfather' },      -- (daily: 81791)
-        [84061] = { questType = 'weekly', warband = true, name = 'The Taskmaker' },        -- (daily: 80009)
-        [84066] = { questType = 'weekly', warband = true, name = 'Strength of Beledar' },  -- (daily: 81849)
-        [84060] = { questType = 'weekly', warband = true, name = 'Murkspike' },            -- (daily: 82565)
-        [84053] = { questType = 'weekly', warband = true, name = 'Deathpetal' },           -- (daily: 82559)
-        [84056] = { questType = 'weekly', warband = true, name = 'Duskshadow' },           -- (daily: 82562)
-        [84067] = { questType = 'weekly', warband = true, name = 'Sir Alastair Purefire' }, -- (daily: 81853)
+        [84063] = { questType = 'weekly', warband = true, name = 'Lytfang the Lost' },       -- (daily: 81756)
+        [84051] = { questType = 'weekly', warband = true, name = 'Moth\'ethk' },             -- (daily: 82557)
+        [84064] = { questType = 'weekly', warband = true, name = 'The Perchfather' },        -- (daily: 81791)
+        [84061] = { questType = 'weekly', warband = true, name = 'The Taskmaker' },          -- (daily: 80009)
+        [84066] = { questType = 'weekly', warband = true, name = 'Strength of Beledar' },    -- (daily: 81849)
+        [84060] = { questType = 'weekly', warband = true, name = 'Murkspike' },              -- (daily: 82565)
+        [84053] = { questType = 'weekly', warband = true, name = 'Deathpetal' },             -- (daily: 82559)
+        [84056] = { questType = 'weekly', warband = true, name = 'Duskshadow' },             -- (daily: 82562)
+        [84067] = { questType = 'weekly', warband = true, name = 'Sir Alastair Purefire' },  -- (daily: 81853)
         [84065] = { questType = 'weekly', warband = true, name = 'Horror of the Shallows' }, -- (daily: 81836)
-        [84062] = { questType = 'weekly', warband = true, name = 'Sloshmuck' },            -- (daily: 79271)
-        [84054] = { questType = 'weekly', warband = true, name = 'Croakit' },              -- (daily: 82560)
-        [84068] = { questType = 'weekly', warband = true, name = 'Pride of Beledar' },     -- (daily: 81882)
+        [84062] = { questType = 'weekly', warband = true, name = 'Sloshmuck' },              -- (daily: 79271)
+        [84054] = { questType = 'weekly', warband = true, name = 'Croakit' },                -- (daily: 82560)
+        [84068] = { questType = 'weekly', warband = true, name = 'Pride of Beledar' },       -- (daily: 81882)
         [84052] = { questType = 'weekly', warband = true, name = 'Crazed Cabbage Smacker' }, -- (daily: 82558)
-        [84055] = { questType = 'weekly', warband = true, name = 'Toadstomper' },          -- (daily: 82561)
-        [84059] = { questType = 'weekly', warband = true, name = 'Finclaw Bloodtide' },    -- (daily: 82564)
-        [84058] = { questType = 'weekly', warband = true, name = 'Ravageant' },            -- (daily: 82566)
-        [84057] = { questType = 'weekly', warband = true, name = 'Parasidious' },          -- (daily: 82563)
+        [84055] = { questType = 'weekly', warband = true, name = 'Toadstomper' },            -- (daily: 82561)
+        [84059] = { questType = 'weekly', warband = true, name = 'Finclaw Bloodtide' },      -- (daily: 82564)
+        [84058] = { questType = 'weekly', warband = true, name = 'Ravageant' },              -- (daily: 82566)
+        [84057] = { questType = 'weekly', warband = true, name = 'Parasidious' },            -- (daily: 82563)
     },
     azj_kahet_rares = {
-        [84071] = { questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler' }, -- (daily: 81702)
-        [84072] = { questType = 'weekly', warband = true, name = 'XT-Minecrusher 8700' }, -- (daily: 81703)
+        [84071] = { questType = 'weekly', warband = true, name = 'Kaheti Silk Hauler' },   -- (daily: 81702)
+        [84072] = { questType = 'weekly', warband = true, name = 'XT-Minecrusher 8700' },  -- (daily: 81703)
         [84075] = { questType = 'weekly', warband = true, name = 'Maddened Siegebomber' }, -- (daily: 81706)
-        [84073] = { questType = 'weekly', warband = true, name = 'Cha\'tak' },           -- (daily: 81704)
-        [84076] = { questType = 'weekly', warband = true, name = 'Enduring Gutterface' }, -- (daily: 81707)
-        [84074] = { questType = 'weekly', warband = true, name = 'Monstrous Lasharoth' }, -- (daily: 81705)
-        [84080] = { questType = 'weekly', warband = true, name = 'Umbraclaw Matra' },    -- (daily: 82037)
-        [84082] = { questType = 'weekly', warband = true, name = 'Skirmisher Sa\'zryk' }, -- (daily: 82078)
+        [84073] = { questType = 'weekly', warband = true, name = 'Cha\'tak' },             -- (daily: 81704)
+        [84076] = { questType = 'weekly', warband = true, name = 'Enduring Gutterface' },  -- (daily: 81707)
+        [84074] = { questType = 'weekly', warband = true, name = 'Monstrous Lasharoth' },  -- (daily: 81705)
+        [84080] = { questType = 'weekly', warband = true, name = 'Umbraclaw Matra' },      -- (daily: 82037)
+        [84082] = { questType = 'weekly', warband = true, name = 'Skirmisher Sa\'zryk' },  -- (daily: 82078)
         [84081] = { questType = 'weekly', warband = true, name = 'Deepcrawler Tx\'kesh' }, -- (daily: 82077)
-        [84079] = { questType = 'weekly', warband = true, name = 'Harvester Qixt' },     -- (daily: 82036)
-        [84078] = { questType = 'weekly', warband = true, name = 'The Oozekhan' },       -- (daily: 82035)
-        [84077] = { questType = 'weekly', warband = true, name = 'Jix\'ak the Crazed' }, -- (daily: 82034)
-        [84069] = { questType = 'weekly', warband = true, name = 'The Groundskeeper' },  -- (daily: 81634)
-        [84070] = { questType = 'weekly', warband = true, name = 'Xishorr' },            -- (daily: 81701)
+        [84079] = { questType = 'weekly', warband = true, name = 'Harvester Qixt' },       -- (daily: 82036)
+        [84078] = { questType = 'weekly', warband = true, name = 'The Oozekhan' },         -- (daily: 82035)
+        [84077] = { questType = 'weekly', warband = true, name = 'Jix\'ak the Crazed' },   -- (daily: 82034)
+        [84069] = { questType = 'weekly', warband = true, name = 'The Groundskeeper' },    -- (daily: 81634)
+        [84070] = { questType = 'weekly', warband = true, name = 'Xishorr' },              -- (daily: 81701)
     },
     one_time_reputation_rares = {
-        [85158] = { questType = 'weekly', warband = true, name = 'Alunira', achievementID = 40435, criteriaID = 68225 },              -- Isle of Dorne (daily: 82196)
-        [85160] = { questType = 'weekly', warband = true, name = 'Kereke', achievementID = 40435, criteriaID = 68227 },               -- Isle of Dorne (daily: 82204)
-        [85161] = { questType = 'weekly', warband = true, name = 'Zovex', achievementID = 40435, criteriaID = 68226 },                -- Isle of Dorne (daily: 82203)
-        [85159] = { questType = 'weekly', warband = true, name = 'Rotfist', achievementID = 40435, criteriaID = 68228 },              -- Isle of Dorne (daily: 82205)
+        [85158] = { questType = 'weekly', warband = true, name = 'Alunira', achievementID = 40435, criteriaID = 68225 },                -- Isle of Dorne (daily: 82196)
+        [85160] = { questType = 'weekly', warband = true, name = 'Kereke', achievementID = 40435, criteriaID = 68227 },                 -- Isle of Dorne (daily: 82204)
+        [85161] = { questType = 'weekly', warband = true, name = 'Zovex', achievementID = 40435, criteriaID = 68226 },                  -- Isle of Dorne (daily: 82203)
+        [85159] = { questType = 'weekly', warband = true, name = 'Rotfist', achievementID = 40435, criteriaID = 68228 },                -- Isle of Dorne (daily: 82205)
         [85162] = { questType = 'weekly', warband = true, name = 'Deepflayer Broodmother', achievementID = 40837, criteriaID = 69636 }, -- Ringing Deeps (daily: 80536)
-        [85163] = { questType = 'weekly', warband = true, name = 'Lurker of the Deeps', achievementID = 40837, criteriaID = 69637 },  -- Ringing Deeps (daily: 81633)
-        [85164] = { questType = 'weekly', warband = true, name = 'Beledar\'s Spawn', achievementID = 40851, criteriaID = 69716 },     -- Hallowfall (daily: 81763)
-        [85165] = { questType = 'weekly', warband = true, name = 'Deathtide', achievementID = 40851, criteriaID = 69717 },            -- Hallowfall (daily: 81880)
-        [85167] = { questType = 'weekly', warband = true, name = 'The One Left' },                                                    --  Azj-kahet (daily: 82290)
-        [85166] = { questType = 'weekly', warband = true, name = 'Tka\'ktath' },                                                      --  Azj-kahet (daily: 82289)
+        [85163] = { questType = 'weekly', warband = true, name = 'Lurker of the Deeps', achievementID = 40837, criteriaID = 69637 },    -- Ringing Deeps (daily: 81633)
+        [85164] = { questType = 'weekly', warband = true, name = 'Beledar\'s Spawn', achievementID = 40851, criteriaID = 69716 },       -- Hallowfall (daily: 81763)
+        [85165] = { questType = 'weekly', warband = true, name = 'Deathtide', achievementID = 40851, criteriaID = 69717 },              -- Hallowfall (daily: 81880)
+        [85167] = { questType = 'weekly', warband = true, name = 'The One Left' },                                                      --  Azj-kahet (daily: 82290)
+        [85166] = { questType = 'weekly', warband = true, name = 'Tka\'ktath' },                                                        --  Azj-kahet (daily: 82289)
     },
     undermine_rares = {
-        [84917] = { questType = 'weekly', warband = true, name = 'Scrapbeak' },                 -- (daily: 81702)
-        [84918] = { questType = 'weekly', warband = true, name = 'Ratspit' },                   -- (daily: 81703)
-        [84919] = { questType = 'weekly', warband = true, name = 'Tally Doublespeak' },         -- (daily: 81706)
+        [84917] = { questType = 'weekly', warband = true, name = 'Scrapbeak' },                   -- (daily: 81702)
+        [84918] = { questType = 'weekly', warband = true, name = 'Ratspit' },                     -- (daily: 81703)
+        [84919] = { questType = 'weekly', warband = true, name = 'Tally Doublespeak' },           -- (daily: 81706)
         [84920] = { questType = 'weekly', warband = true, name = 'V.V. Goosworth and Slimesby' }, -- (daily: 81704)
-        [84921] = { questType = 'weekly', warband = true, name = 'Thwack' },                    -- (daily: 81707)
-        [84922] = { questType = 'weekly', warband = true, name = 'S.A.L.' },                    -- (daily: 81705)
-        [84926] = { questType = 'weekly', warband = true, name = 'Nitro' },                     -- (daily: 81705)
-        [84927] = { questType = 'weekly', warband = true, name = 'Candy Stickemup' },           -- (daily: 82037)
-        [84928] = { questType = 'weekly', warband = true, name = 'Grimewick' },                 -- (daily: 82078)
-        [85004] = { questType = 'weekly', warband = true, name = 'Swigs Farsight' },            -- (daily: 82077)
-        [84877] = { questType = 'weekly', warband = true, name = 'Ephemeral Agent Lathyd' },    -- (daily: 82036)
-        [84884] = { questType = 'weekly', warband = true, name = 'The Junk-Wall' },             -- (daily: 82035)
-        [84895] = { questType = 'weekly', warband = true, name = 'Slugger the Smart' },         -- (daily: 82034)
-        [84907] = { questType = 'weekly', warband = true, name = 'Chief Foreman Gutso' },       -- (daily: 81634)
-        [84911] = { questType = 'weekly', warband = true, name = 'Flyboy Snooty' },             -- (daily: 81701)
-        [86298] = { questType = 'weekly', warband = true, name = 'M.A.G.N.O.' },                -- (daily: 81701)
-        [86307] = { questType = 'weekly', warband = true, name = 'Giovante' },                  -- (daily: 81701)
-        [86431] = { questType = 'weekly', warband = true, name = 'Scrapchewer' },               -- (daily: 81701)
-        [86428] = { questType = 'weekly', warband = true, name = 'Volstrike the Charged' },     -- (daily: 81701)
+        [84921] = { questType = 'weekly', warband = true, name = 'Thwack' },                      -- (daily: 81707)
+        [84922] = { questType = 'weekly', warband = true, name = 'S.A.L.' },                      -- (daily: 81705)
+        [84926] = { questType = 'weekly', warband = true, name = 'Nitro' },                       -- (daily: 81705)
+        [84927] = { questType = 'weekly', warband = true, name = 'Candy Stickemup' },             -- (daily: 82037)
+        [84928] = { questType = 'weekly', warband = true, name = 'Grimewick' },                   -- (daily: 82078)
+        [85004] = { questType = 'weekly', warband = true, name = 'Swigs Farsight' },              -- (daily: 82077)
+        [84877] = { questType = 'weekly', warband = true, name = 'Ephemeral Agent Lathyd' },      -- (daily: 82036)
+        [84884] = { questType = 'weekly', warband = true, name = 'The Junk-Wall' },               -- (daily: 82035)
+        [84895] = { questType = 'weekly', warband = true, name = 'Slugger the Smart' },           -- (daily: 82034)
+        [84907] = { questType = 'weekly', warband = true, name = 'Chief Foreman Gutso' },         -- (daily: 81634)
+        [84911] = { questType = 'weekly', warband = true, name = 'Flyboy Snooty' },               -- (daily: 81701)
+        [86298] = { questType = 'weekly', warband = true, name = 'M.A.G.N.O.' },                  -- (daily: 81701)
+        [86307] = { questType = 'weekly', warband = true, name = 'Giovante' },                    -- (daily: 81701)
+        [86431] = { questType = 'weekly', warband = true, name = 'Scrapchewer' },                 -- (daily: 81701)
+        [86428] = { questType = 'weekly', warband = true, name = 'Volstrike the Charged' },       -- (daily: 81701)
     },
 
     -- Professions
     knowledge_tww_treasures = {
-        [83253] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 225234 },      -- Alchemical Sediment
-        [83255] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 225235 },      -- Deepstone Crucible
-        [83256] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 225233 }, -- Dense Bladestone
-        [83257] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 225232 }, -- Coreway Billet
-        [83258] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 225231 },   -- Powdered Fulgurance
-        [83259] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 225230 },   -- Crystalline Repository
-        [83260] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 225228 },  -- Rust-Locked Mechanism
-        [83261] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 225229 },  -- Earthen Induction Coil
-        [83264] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 225226 },  -- Striated Inkstone
-        [83262] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 225227 },  -- Wax-sealed Records
-        [83265] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 225224 }, -- Diaphanous Gem Shards
-        [83266] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 225225 }, -- Deepstone Fragment
+        [83253] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 225234 },        -- Alchemical Sediment
+        [83255] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy', item = 225235 },        -- Deepstone Crucible
+        [83256] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 225233 },  -- Dense Bladestone
+        [83257] = { questType = 'weekly', skillLineID = 164, profession = 'Blacksmithing', item = 225232 },  -- Coreway Billet
+        [83258] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 225231 },     -- Powdered Fulgurance
+        [83259] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting', item = 225230 },     -- Crystalline Repository
+        [83260] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 225228 },    -- Rust-Locked Mechanism
+        [83261] = { questType = 'weekly', skillLineID = 202, profession = 'Engineering', item = 225229 },    -- Earthen Induction Coil
+        [83264] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 225226 },    -- Striated Inkstone
+        [83262] = { questType = 'weekly', skillLineID = 773, profession = 'Inscription', item = 225227 },    -- Wax-sealed Records
+        [83265] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 225224 },  -- Diaphanous Gem Shards
+        [83266] = { questType = 'weekly', skillLineID = 755, profession = 'Jewelcrafting', item = 225225 },  -- Deepstone Fragment
         [83268] = { questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 225222 }, -- Stone-Leather Swatch
         [83267] = { questType = 'weekly', skillLineID = 165, profession = 'Leatherworking', item = 225223 }, -- Sturdy Nerubian Carapace
-        [83270] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 225220 },    -- Chitin Needle
-        [83269] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 225221 },    -- Spool of Webweave
+        [83270] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 225220 },      -- Chitin Needle
+        [83269] = { questType = 'weekly', skillLineID = 197, profession = 'Tailoring', item = 225221 },      -- Spool of Webweave
     },
     knowledge_tww_treatise = {
         [83725] = { questType = 'weekly', skillLineID = 171, profession = 'Alchemy' },
@@ -1852,26 +1856,26 @@ PermoksAccountManager.quests = {
         [83734] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },
     },
     knowledge_tww_gather = {
-        [81416] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' }, -- Deepgrove Petal 1
-        [81417] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' }, -- Deepgrove Petal 2
-        [81418] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' }, -- Deepgrove Petal 3
-        [81419] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' }, -- Deepgrove Petal 4
-        [81420] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' }, -- Deepgrove Petal 5
-        [81421] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' }, -- Deepgrove Rose
+        [81416] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },  -- Deepgrove Petal 1
+        [81417] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },  -- Deepgrove Petal 2
+        [81418] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },  -- Deepgrove Petal 3
+        [81419] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },  -- Deepgrove Petal 4
+        [81420] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },  -- Deepgrove Petal 5
+        [81421] = { questType = 'weekly', skillLineID = 182, profession = 'Herbalism' },  -- Deepgrove Rose
 
-        [83050] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },   -- Slab of Slate 1
-        [83051] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },   -- Slab of Slate 2
-        [83052] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },   -- Slab of Slate 3
-        [83053] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },   -- Slab of Slate 4
-        [83054] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },   -- Slab of Slate 5
-        [83049] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },   -- Erosion Polished Slate
+        [83050] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },     -- Slab of Slate 1
+        [83051] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },     -- Slab of Slate 2
+        [83052] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },     -- Slab of Slate 3
+        [83053] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },     -- Slab of Slate 4
+        [83054] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },     -- Slab of Slate 5
+        [83049] = { questType = 'weekly', skillLineID = 186, profession = 'Mining' },     -- Erosion Polished Slate
 
-        [81459] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' }, -- Toughened Tempest Pelt 1
-        [81460] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' }, -- Toughened Tempest Pelt 2
-        [81461] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' }, -- Toughened Tempest Pelt 3
-        [81462] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' }, -- Toughened Tempest Pelt 4
-        [81463] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' }, -- Toughened Tempest Pelt 5
-        [81464] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' }, -- Abyssal Fur
+        [81459] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },   -- Toughened Tempest Pelt 1
+        [81460] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },   -- Toughened Tempest Pelt 2
+        [81461] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },   -- Toughened Tempest Pelt 3
+        [81462] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },   -- Toughened Tempest Pelt 4
+        [81463] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },   -- Toughened Tempest Pelt 5
+        [81464] = { questType = 'weekly', skillLineID = 393, profession = 'Skinning' },   -- Abyssal Fur
 
         [84290] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting' }, -- Fleeting Arcane Manifestation 1
         [84291] = { questType = 'weekly', skillLineID = 333, profession = 'Enchanting' }, -- Fleeting Arcane Manifestation 2
