@@ -1996,8 +1996,8 @@ function PermoksAccountManager:ReplaceLabelOfDefaultCategory(category, oldLabel,
     if categoryTbl and categoryTbl.childOrder[oldLabel] then
         local index = categoryTbl.childOrder[oldLabel]
 
-        if categoryTbl.childs[index] ~= oldLabel then
-            for i, label in pairs(categoryTbl.childs[index]) do
+        if categoryTbl.childs[index] ~= oldLabel and categoryTbl.childs then
+            for i, label in pairs(categoryTbl.childs) do
                 if label == oldLabel then
                     index = i
                     break
