@@ -94,13 +94,13 @@ end
 ---@param altGUID string
 function PermoksAccountManager:AddCharacterToOrderOptions(altGUID, altData, accountName)
 	local coloredName = RAID_CLASS_COLORS[altData.class]:WrapTextInColorCode(altData.name .. ((altData.realm and "-" .. altData.realm) or ""))
-	local factionIcon = ("|T%s:%d:%d|t"):format(FACTION_LOGO_TEXTURES[PLAYER_FACTION_GROUP[altData.faction]], 0, 0)
+	local factionIcon = altData.faction and altData.faction ~= "Neutral" and ("|T%s:%d:%d|t"):format(FACTION_LOGO_TEXTURES[PLAYER_FACTION_GROUP[altData.faction]], 0, 0)
 
 	options.args.characters.args.customCharacterOrder.args[altGUID] = {
 		order = altData.order,
 		type = "group",
 		inline = true,
-		name = coloredName .. factionIcon,
+		name = coloredName .. (factionIcon or ""),
 		x = altData,
 		args = {
 			order = {
