@@ -444,6 +444,7 @@ PermoksAccountManager.keys = {
     [239] = 'SEAT',  -- Seat of the Triumvirate
     [244] = 'AD',    -- Atal'Dazar
     [245] = 'FH',    -- Freehold
+    [247] = 'ML',    -- Motherlode
     [248] = 'WM',    -- Waycrest Manor
     [251] = 'UNDR',  -- The Underrot
     [353] = 'SIEGE', -- Siege of Boralus
@@ -462,14 +463,15 @@ PermoksAccountManager.keys = {
 
     -- PLACEHOLDER: abbreviations
     [499] = 'PSF',  -- Priory of the Sacred Flame
-    [500] = 'TR',   -- The Rookery
+    [500] = 'ROOK', -- The Rookery
     [501] = 'SV',   -- The Stonevault
     [502] = 'COT',  -- City of Threads
     [503] = 'ARAK', -- Ara-Kara, City of Echoes
     [504] = 'DFC',  -- Darkflame Cleft
     [505] = 'DAWN', -- The Dawnbreaker
-    [506] = 'CIN',  -- Cinderbrew Meadery
+    [506] = 'BREW', -- Cinderbrew Meadery
     [507] = 'GB',   -- Grim Batol
+    [525] = 'FLOOD',-- Floodgate
 }
 
 -- Timewalking Keystones
