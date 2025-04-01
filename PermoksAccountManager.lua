@@ -52,7 +52,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 7
+local INTERNALTWWVERSION = 8
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -783,6 +783,10 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:RemoveLabelFromDefaultCategory('general', 'bronze_celebration_token')
         self:FixOrderOfDefaultCategories()
 
+    end
+
+    if oldInternalVersion < 8 then
+        self:AddLabelToDefaultCategory('general', 'weekly_bounti_map')
     end
 end
 

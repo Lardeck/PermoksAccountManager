@@ -1936,6 +1936,17 @@ PermoksAccountManager.quests = {
         [86178] = { questType = 'weekly', log = true },
         [86179] = { questType = 'weekly', log = true },
         [86180] = { questType = 'weekly', log = true },
+    },
+    undermine_lieutenants_mythic = {
+        [88860] = { questType = 'weekly', name = "Gorbo" },
+        [88868] = { questType = 'weekly', name = "Trashmaster Blazedump" },
+        [88847] = { questType = 'weekly', name = "Skiggy Muckheimer" },
+        [88832] = { questType = 'weekly', name = "Scraps" },
+        [88843] = { questType = 'weekly', name = "King Flamespite" },
+        [88839] = { questType = 'weekly', name = "Professor Boomspark" },
+    },
+    weekly_bounti_map = {
+        [86371] = {questType = 'weekly'}
     }
 }
 

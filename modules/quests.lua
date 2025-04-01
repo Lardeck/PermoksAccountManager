@@ -1239,6 +1239,16 @@ local labelRows = {
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE
 	},
+	weekly_bounti_map = {
+		IDS = {86371},
+		label = 'Weekly Bount. Map',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
+
 	-- professions
 	knowledge_tww_treasures = {
 		label = 'Loot Knowledge',
