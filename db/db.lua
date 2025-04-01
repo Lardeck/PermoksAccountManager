@@ -462,16 +462,16 @@ PermoksAccountManager.keys = {
     [464] = 'RISE',  -- Dawn of the Infinite: Murozond's Rise
 
     -- PLACEHOLDER: abbreviations
-    [499] = 'PSF',  -- Priory of the Sacred Flame
-    [500] = 'ROOK', -- The Rookery
-    [501] = 'SV',   -- The Stonevault
-    [502] = 'COT',  -- City of Threads
-    [503] = 'ARAK', -- Ara-Kara, City of Echoes
-    [504] = 'DFC',  -- Darkflame Cleft
-    [505] = 'DAWN', -- The Dawnbreaker
-    [506] = 'BREW', -- Cinderbrew Meadery
-    [507] = 'GB',   -- Grim Batol
-    [525] = 'FLOOD',-- Floodgate
+    [499] = 'PSF',   -- Priory of the Sacred Flame
+    [500] = 'ROOK',  -- The Rookery
+    [501] = 'SV',    -- The Stonevault
+    [502] = 'COT',   -- City of Threads
+    [503] = 'ARAK',  -- Ara-Kara, City of Echoes
+    [504] = 'DFC',   -- Darkflame Cleft
+    [505] = 'DAWN',  -- The Dawnbreaker
+    [506] = 'BREW',  -- Cinderbrew Meadery
+    [507] = 'GB',    -- Grim Batol
+    [525] = 'FLOOD', -- Floodgate
 }
 
 -- Timewalking Keystones
@@ -2026,17 +2026,17 @@ PermoksAccountManager.vault_rewards = {
     },
     -- World
     [Enum.WeeklyRewardChestThresholdType.World] = {
-        [1] = 600,
-        [2] = 600,
-        [3] = 603,
-        [4] = 616,
-        [5] = 623,
-        [6] = 629,
-        [7] = 636,
-        [8] = 642,
-        [9] = 642,
-        [10] = 642,
-        [11] = 642,
+        [1] = 623,
+        [2] = 623,
+        [3] = 626,
+        [4] = 632,
+        [5] = 636,
+        [6] = 642,
+        [7] = 645,
+        [8] = 649,
+        [9] = 649,
+        [10] = 649,
+        [11] = 649,
     },
     -- Raid
     [Enum.WeeklyRewardChestThresholdType.Raid] = {
