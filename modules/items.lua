@@ -280,7 +280,7 @@ local labelRows = {
     radiant_echo = {
         label = 'Radiant Echo',
         type = 'item',
-        key = 220520,
+        key = 235897,
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },

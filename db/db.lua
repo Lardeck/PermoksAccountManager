@@ -551,7 +551,7 @@ PermoksAccountManager.item = {
     [211296] = { key = 'spark_omens' },                 -- Spark of Omens
     [210814] = { key = 'artisans_acuity' },             -- Artisan's Acuity
     [206350] = { key = 'radiant_remnant' },             -- Radiant Remnant
-    [220520] = { key = 'radiant_echo' },                -- Radiant Echo
+    [235897] = { key = 'radiant_echo' },                -- Radiant Echo
     [212493] = { key = 'firelight_ruby' },              -- Odd Glob of Wax
     [224642] = { key = 'firelight_ruby' },              -- Firelight Ruby
     [229899] = { key = 'coffer_key_shard' },            -- Coffer Key Shard
