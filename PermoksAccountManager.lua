@@ -206,7 +206,7 @@ do
         local font = LSM:Fetch('font', options.font)
 
         normalFont = CreateFont('PAM_NormalFont')
-        normalFont:SetFont(font, 11, outline)
+        normalFont:SetFont(font, options.fontSize, outline)
         normalFont:SetTextColor(1, 1, 1, 1)
 
         smallFont = CreateFont('PAM_SmallFont')
@@ -214,11 +214,11 @@ do
         smallFont:SetTextColor(1, 1, 1, 1)
 
         mediumLargeFont = CreateFont('PAM_MediumLargeFont')
-        mediumLargeFont:SetFont(font, 13, outline)
+        mediumLargeFont:SetFont(font, options.fontSize + 2, outline)
         mediumLargeFont:SetTextColor(1, 1, 1, 1)
 
         largeFont = CreateFont('PAM_LargeFont')
-        largeFont:SetFont(font, 17, outline)
+        largeFont:SetFont(font, max(17, options.fontSize + 2), outline)
         largeFont:SetTextColor(1, 1, 1, 1)
     end
 
