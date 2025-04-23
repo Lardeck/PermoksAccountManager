@@ -1248,6 +1248,15 @@ local labelRows = {
 		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
+	nightfall_weekly = {
+		IDS = {89295},
+		label = 'Nightfall Weekly',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'hidden',
+		group = 'resetWeekly',
+		version = WOW_PROJECT_MAINLINE
+	},
 
 	-- professions
 	knowledge_tww_treasures = {

@@ -193,6 +193,13 @@ function commands.SECRET()
 	end
 end
 
+function commands.SETVERSION(version)
+	version = tonumber(version)
+	if version then
+		PermoksAccountManager.db.global.internalTWWVersion = version
+	end
+end
+
 function commands.CL()
 	PermoksAccountManager.db.global.customLabels = not PermoksAccountManager.db.global.customLabels
 end

@@ -378,6 +378,16 @@ local labelRows = {
         group = 'reputation',
         version = WOW_PROJECT_MAINLINE
     },
+    flames_radiance = {
+        label = function()
+            return PermoksAccountManager.factions[2688].localName or 'Flame\'s Radiance'
+        end,
+        type = 'faction',
+        warband = 'unique',
+        key = 2688,
+        group = 'reputation',
+        version = WOW_PROJECT_MAINLINE
+    },
 
     -- wotlk
     alliance_vanguard = {

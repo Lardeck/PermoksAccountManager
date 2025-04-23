@@ -81,6 +81,7 @@ local default_categories = {
             'weekly_delve_reputation',
             'weekly_coffer_keys',
             'archaic_cypher_key',
+            'nightfall_weekly',
 
             'separator1',
             'the_theater_troupe',
@@ -108,6 +109,7 @@ local default_categories = {
             weekly_delve_reputation = 4,
             weekly_coffer_keys = 5,
             archaic_cypher_key = 6,
+            nightfall_weekly = 7,
 
             separator1 = 10,
             the_theater_troupe = 11,
@@ -178,6 +180,7 @@ local default_categories = {
             'the_general',
             'the_vizier',
             'the_weaver',
+            'flames_radiance',
             -- 'brann_bronzebeard', Makes no sense without a custom string for the level
 
             'separator1',
@@ -198,6 +201,7 @@ local default_categories = {
             the_general = 5,
             the_vizier = 6,
             the_weaver = 7,
+            flames_radiance = 8,
             -- brann_bronzebeard = 8,
 
             separator1 = 10,
@@ -605,6 +609,7 @@ PermoksAccountManager.factions = {
     [2675] = { name = 'Blackwater Cartel', paragon = true, warband = 'unique' },
     [2677] = { name = 'Steamwheedle Cartel', paragon = true, warband = 'unique' },
     [2685] = { name = 'Gallagio Loyalty Rewards Club', paragon = true, type = 'renown', warband = 'unique' },
+    [2688] = { name = 'Flame\'s Radiance', paragon = true, warband = 'unique' },
 }
 
 PermoksAccountManager.currency = {
@@ -1947,6 +1952,9 @@ PermoksAccountManager.quests = {
     },
     weekly_bounti_map = {
         [86371] = {questType = 'weekly'}
+    },
+    nightfall_weekly = {
+        [89295] = {questType = 'weekly'}
     }
 }
 
