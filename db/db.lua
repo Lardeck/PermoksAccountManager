@@ -646,6 +646,7 @@ PermoksAccountManager.currency = {
     [2812] = 0, -- Aspect's Awakened Crest
     [2912] = 0, -- Renascent Awakening (Crucible Charges DF Season 4)
     [3089] = 0, -- Residual Memories (11.0 prepatch currency)
+    [3149] = 0, -- Displaced Corrupted Mementos
 
     -- TWW Currencies
     [2914] = 0, -- Weathered Harbinger Crest
@@ -671,6 +672,13 @@ PermoksAccountManager.currency = {
 
     [3100] = 0, -- Bronze Celebration Token
     [1166] = 0, -- Timewarped Badge
+}
+
+PermoksAccountManager.currencyTrees = {
+    [1057] = {
+        systemID = 20,
+        currencyType = 3728,    -- 3728 = Echo of N'Zoth
+    }
 }
 
 PermoksAccountManager.currencyCustomOptions = {

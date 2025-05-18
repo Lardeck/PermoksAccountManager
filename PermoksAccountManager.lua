@@ -52,7 +52,7 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 9
+local INTERNALTWWVERSION = 10
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local defaultDB = {
@@ -792,6 +792,11 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     if oldInternalVersion < 9 then
         self:AddLabelToDefaultCategory('renown', 'flames_radiance', 8)
         self:AddLabelToDefaultCategory('currentweekly', 'nightfall_weekly', 7)
+    end
+
+    if oldInternalVersion < 10 then
+        self:AddLabelToDefaultCategory('general', 'eye_of_nzoth')
+        self:AddLabelToDefaultCategory('general', 'displaced_corrupted_mementos')
     end
 end
 

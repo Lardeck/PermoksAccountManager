@@ -84,6 +84,7 @@ local labelRows = {
 		label = L['Gold'],
 		type = 'gold',
 		group = 'currency',
+		warband = true,
 		version = false
 	},
 	keystone = {
@@ -463,6 +464,19 @@ end
 
 local function UpdateGold(charInfo)
 	charInfo.gold = floor(GetMoney() / (COPPER_PER_SILVER * SILVER_PER_GOLD)) * 10000
+
+	local db = PermoksAccountManager.db.global
+    local accountData = db.accounts.main.data
+    local warbandData = db.accounts.main.warbandData
+
+	local totalGold = 0
+	for _, altData in pairs(accountData) do
+		if altData.gold then
+			totalGold = totalGold + altData.gold
+		end
+	end
+
+	warbandData.gold = totalGold
 end
 
 local function UpdateILevel(charInfo)

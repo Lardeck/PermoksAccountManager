@@ -292,6 +292,7 @@ local labelRows = {
         type = 'currency',
         key = 3008,
         abbMax = true,
+        warband = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -368,6 +369,24 @@ local labelRows = {
         type = 'catalystcharges',
         key = 3116,
         hideIcon = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- 11.1.5
+    eye_of_nzoth = {
+        label = 'Eye of N\'Zoth',
+        type = 'treecurrency',
+        passRow = true,
+        key = 3728,
+        maxQuantity = 13,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    displaced_corrupted_mementos = {
+        label = 'Corrupted Mementos',
+        type = 'currency',
+        key = 3149,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -525,6 +544,27 @@ local function UpdateAllCurrencies(charInfo)
     end
 end
 
+local function UpdateAllTreeCurrencies(charInfo)
+    local self = PermoksAccountManager
+    charInfo.treeCurrencyInfo = charInfo.treeCurrencyInfo or {}
+
+    local currencyInfo = charInfo.treeCurrencyInfo
+    for treeID, treeInfo in pairs(self.currencyTrees) do
+        
+        local configID = C_Traits.GetConfigIDBySystemID(treeInfo.systemID)
+        local treeCurrencyInfos = configID and C_Traits.GetTreeCurrencyInfo(configID, treeID, true)
+
+        if treeCurrencyInfos then
+            for _, treeCurrencyInfo in ipairs(treeCurrencyInfos) do
+                currencyInfo[treeCurrencyInfo.traitCurrencyID] = charInfo.currencyInfo[treeCurrencyInfo.traitCurrencyID] or {}
+                currencyInfo[treeCurrencyInfo.traitCurrencyID].quantity = treeCurrencyInfo.quantity
+                currencyInfo[treeCurrencyInfo.traitCurrencyID].maxQuantity = treeCurrencyInfo.maxQuantity
+                currencyInfo[treeCurrencyInfo.traitCurrencyID].spent = treeCurrencyInfo.spent
+            end
+        end
+    end
+end
+
 local function SumWarbandCurrencies(warbandCurrency)
     local currencySum = 0
     for _, alt in pairs(warbandCurrency) do
@@ -564,6 +604,7 @@ end
 
 local function Update(charInfo)
     UpdateAllCurrencies(charInfo)
+    UpdateAllTreeCurrencies(charInfo)
 
     -- requesting the warband data has a slight server-delay
     if PermoksAccountManager.isRetail then
@@ -604,6 +645,23 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
     if self.warbandData.currencyInfo and C_CurrencyInfo.IsAccountTransferableCurrency(currencyType) then
         local warbandCurrencyInfo = self.warbandData.currencyInfo
         warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + quantity
+    end
+end
+
+local function UpdateTreeCurrency(charInfo, treeID)
+    local self = PermoksAccountManager
+    if not self.currencyTrees[treeID] then
+        return
+    end
+
+    local treeInfo = self.currencyTrees[treeID]
+    local currencyInfo = charInfo.treeCurrencyInfo[treeInfo.currencyType]
+    
+    local configID = C_Traits.GetConfigIDBySystemID(treeInfo.systemID)
+    local treeCurrencyInfo = configID and C_Traits.GetTreeCurrencyInfo(configID, treeID, true)
+    if treeCurrencyInfo then
+        currencyInfo.quantity = treeCurrencyInfo.quantity
+        currencyInfo.maxQuantity = treeCurrencyInfo.maxQuantity
     end
 end
 
@@ -709,6 +767,13 @@ local function CreateCofferKeyString(labelRow, currencyInfo, itemCounts)
     return PermoksAccountManager:CreateCurrencyString(keyInfo, nil, nil, nil, nil, nil, total)
 end
 
+local function CreateTreeCurrencyString(labelRow, currencyInfo)
+    local info = currencyInfo and currencyInfo[labelRow.key]
+    if info then
+        return PermoksAccountManager:CreateFractionString((info.quantity or 0) + (info.spent or 0), labelRow.maxQuantity or 0)
+    end
+end
+
 local payload = {
     update = Update,
     labels = labelRows,
@@ -717,6 +782,7 @@ local payload = {
         ['PERKS_ACTIVITIES_UDPATED'] = UpdateCatalystCharges,
         ['ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED'] = UpdateAllWarbandCurrencies,
         ['CURRENCY_TRANSFER_LOG_UPDATE'] = CurrencyTransferUpdate,
+        ['TRAIT_TREE_CURRENCY_INFO_UPDATED'] = UpdateTreeCurrency,
     },
     share = {
         [UpdateCurrency] = 'currencyInfo'
@@ -727,6 +793,7 @@ module:AddCustomLabelType('catalystcharges', CreateCatalystChargeString, nil, 'c
 module:AddCustomLabelType('crestcurrency', CreateCrestString, nil, 'currencyInfo')
 module:AddCustomLabelType('valor', CreateValorString, nil, 'currencyInfo')
 module:AddCustomLabelType('cofferkey', CreateCofferKeyString, nil, 'currencyInfo', 'itemCounts')
+module:AddCustomLabelType('treecurrency', CreateTreeCurrencyString, nil, 'treeCurrencyInfo')
 
 -- TODO Create a CreateIconString function instead of two functions for items and currencies
 function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurrent, abbreviateMaximum, hideMaximum,
