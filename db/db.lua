@@ -14,7 +14,6 @@ local default_categories = {
             'mplus_score',
             'catalyst_charges',
             'valorstones',
-            'champion_crest',
             'veteran_crest',
             'normal_crest',
             'hero_crest',
@@ -25,12 +24,9 @@ local default_categories = {
             -- Probably interesting during the first weeks, might wanna (re-)move later
             'separator2',
             'restored_coffer_key',
+            'undercoin',
             'resonance_crystals',
-            'kej',
-            'radiant_remnant',
             'radiant_echo',
-            'empty_kajacola_can',
-            'vintage_kajacola_can'
         },
         childOrder = {
             characterName = 1,
@@ -41,23 +37,19 @@ local default_categories = {
             mplus_score = 6,
             catalyst_charges = 7,
             valorstones = 8,
-            champion_crest = 9,
-            veteran_crest = 10,
-            normal_crest = 11,
-            hero_crest = 12,
-            myth_crest = 13,
-            spark_current = 14,
-            spark_drops = 15,
+            veteran_crest = 9,
+            normal_crest = 10,
+            hero_crest = 11,
+            myth_crest = 12,
+            spark_current = 13,
+            spark_drops = 14,
 
             -- Probably interesting during the first weeks, might wanna (re-)move later
             separator2 = 20,
             restored_coffer_key = 21,
-            resonance_crystals = 22,
-            kej = 23,
-            radiant_remnant = 24,
-            radiant_echo = 25,
-            empty_kajacola_can = 26,
-            vintage_kajacola_can = 27,
+            undercoin = 22,
+            resonance_crystals = 23,
+            radiant_echo = 24,
         },
         hideToggle = true,
         enabled = true
@@ -189,9 +181,14 @@ local default_categories = {
             'blackwater_cartel',
             'steamwheedle_cartel',
             'venture_company',
+
             'separator2',
             'gallagio_loyalty_rewards_club',
             'darkfuse_solutions',
+
+            'separator3',
+            'the_karesh_trust',
+            'manaforge_vandals',
         },
         childOrder = {
             council_of_dornogal = 1,
@@ -214,6 +211,10 @@ local default_categories = {
             separator2 = 20,
             gallagio_loyalty_rewards_club = 21,
             darkfuse_solutions = 22,
+
+            separator3 = 30,
+            the_karesh_trust = 31,
+            manaforge_vandals = 32,
         },
         enabled = true
     },
@@ -222,11 +223,13 @@ local default_categories = {
         name = L['Raid'],
         childs = {
             'nerub_ar_palace',
-            'liberation_of_undermine'
+            'liberation_of_undermine',
+            'manaforge_omega'
         },
         childOrder = {
             nerub_ar_palace = 1,
             liberation_of_undermine = 2,
+            manaforge_omega = 3,
         },
         enabled = true
     },
@@ -268,7 +271,7 @@ local default_categories = {
             big_dig = 51,
             show_your_mettle = 52,
         },
-        enabled = true,
+        enabled = false,
     },
     old_daily = {
         order = 9,
@@ -414,7 +417,7 @@ PermoksAccountManager.labelRows = {
     }
 }
 
-PermoksAccountManager.numDungeons = 8
+PermoksAccountManager.numDungeons = 7
 PermoksAccountManager.keys = {
     [2] = "TJS",     -- Temple of the Jade Serpent
     [165] = "SBG",   -- Shadowmoon Burial Grounds
@@ -476,6 +479,7 @@ PermoksAccountManager.keys = {
     [506] = 'BREW',  -- Cinderbrew Meadery
     [507] = 'GB',    -- Grim Batol
     [525] = 'FLOOD', -- Floodgate
+    [542] = 'ECO',   -- Eco-Dome Al'dani
 }
 
 -- Timewalking Keystones
@@ -499,17 +503,17 @@ PermoksAccountManager.raids = {
     [2657] = { name = GetRealZoneText(2657), englishID = 'nerub_ar_palace', instanceID = 1273, startIndex = 1, endIndex = 8 },
     [2792] = { name = GetRealZoneText(2792), englishID = 'blackrock_depths_raid', instanceID = 1301, startIndex = 1, endIndex = 8 },
     [2769] = { name = GetRealZoneText(2769), englishID = 'liberation_of_undermine', instanceID = 1296, startIndex = 1, endIndex = 8 },
+    [2810] = { name = GetRealZoneText(2810), englishID = 'manaforge_omega', instanceID = 1302, startIndex = 1, endIndex = 8 },
 }
 
 PermoksAccountManager.dungeons = {
-    [1822] = GetRealZoneText(1822), -- Siege of Boralus
-    [670] = GetRealZoneText(670),   -- Grim Batol
-    [2286] = GetRealZoneText(2286), -- The Necrotic Wake
-    [2290] = GetRealZoneText(2290), -- Mists of Tiran Scithe
-    [2652] = GetRealZoneText(2652), -- The Stonevault
+    [2287] = GetRealZoneText(2287), -- Halls of Atonement
+    [2649] = GetRealZoneText(2649), -- Priory of the Sacred Flame
     [2660] = GetRealZoneText(2660), -- Ara-Kara, City of Echoes
     [2662] = GetRealZoneText(2662), -- The Dawnbreaker
-    [2669] = GetRealZoneText(2669), -- City of Threads
+    [2773] = GetRealZoneText(2773), -- Operation: Floodgate
+    [2830] = GetRealZoneText(2830), -- Eco-Dome Al'dani
+    [2441] = GetRealZoneText(2441), -- Tazavesh, the Veiled Market
 }
 
 PermoksAccountManager.item = {
@@ -566,6 +570,10 @@ PermoksAccountManager.item = {
     -- 11.1
     [230905] = { key = 'spark_current' }, -- Fractured Spark of Fortunes
     [230906] = { key = 'spark_current' }, -- Spark of Fortunes
+
+    -- 11.2
+    [231757] = { key = 'spark_current'}, -- Fractured Spark of Starlight
+    [231756] = { key = 'spark_current'}, -- Spark of Starlight
 }
 
 PermoksAccountManager.factions = {
@@ -610,6 +618,10 @@ PermoksAccountManager.factions = {
     [2677] = { name = 'Steamwheedle Cartel', paragon = true, warband = 'unique' },
     [2685] = { name = 'Gallagio Loyalty Rewards Club', paragon = true, type = 'renown', warband = 'unique' },
     [2688] = { name = 'Flame\'s Radiance', paragon = true, warband = 'unique' },
+
+    -- 11.2
+    [2658] = { name = 'The K\'aresh Trust', paragon = true, type = 'renown', warband = 'unique' },
+    [2736] = { name = 'Manaforge Vandals', type = 'renown', warband = 'unique' },
 }
 
 PermoksAccountManager.currency = {
@@ -672,6 +684,16 @@ PermoksAccountManager.currency = {
 
     [3100] = 0, -- Bronze Celebration Token
     [1166] = 0, -- Timewarped Badge
+
+    -- 11.2
+    [3141]  = 0, -- Starlight Spark Dust
+
+    [3284] = 0, -- Weathered Ethereal Crest
+    [3286] = 0, -- Carved Ethereal Crest
+    [3288] = 0, -- Runed Ethereal Crest
+    [3290] = 0, -- Gilded Ethereal Crest
+
+    [3269] = 0, -- Ethereal Voidsplinter (Catalyst Charges TWW Season 3)
 }
 
 PermoksAccountManager.currencyTrees = {
@@ -692,6 +714,10 @@ PermoksAccountManager.currencyCustomOptions = {
     [3108] = { forceUpdate = true },
     [3109] = { forceUpdate = true },
     [3110] = { forceUpdate = true },
+    [3284] = { forceUpdate = true },
+    [3286] = { forceUpdate = true },
+    [3288] = { forceUpdate = true },
+    [3290] = { forceUpdate = true },
 }
 
 PermoksAccountManager.research = {
@@ -1656,6 +1682,17 @@ PermoksAccountManager.quests = {
         [82512] = { questType = 'weekly', log = true }, -- Worldsoul: World Boss
         [82516] = { questType = 'weekly', log = true }, -- Worldsoul: Forging a Pact
         [82659] = { questType = 'weekly', log = true }, -- Worldsoul: Nerub-ar Palace
+        -- [86476] = { questType = 'weekly', log = true }, -- Worldsoul Memory: Early Cartel Wars
+        -- [86478] = { questType = 'weekly', log = true }, -- Worldsoul Memory: Kaja'mite Contact
+        [87417] = { questType = 'weekly', log = true }, -- Worldsoul: Dungeons
+        [87419] = { questType = 'weekly', log = true }, -- Worldsoul: Delves
+        [87422] = { questType = 'weekly', log = true }, -- Worldsoul: Undermine World Quests
+        [87423] = { questType = 'weekly', log = true }, -- Worldsoul: Undermine Explorer
+        [87424] = { questType = 'weekly', log = true }, -- Worldsoul: World Bosses
+        [89502] = { questType = 'weekly', log = true }, -- Worldsoul: Nightfall
+        [89514] = { questType = 'weekly', log = true }, -- Worldsoul: Horrific Visions Revisited
+        [91052] = { questType = 'weekly', log = true }, -- Worldsoul: Overcharged Delves
+        [91855] = { questType = 'weekly', log = true }, -- Worldsoul: K'aresh World Quests
 
         [82746] = { questType = 'weekly', log = true }, -- Delves: Breaking Tough to Loot Stuff
         [82712] = { questType = 'weekly', log = true }, -- Delves: Trouble Up and Down Khaz Algar
@@ -2028,38 +2065,38 @@ end
 PermoksAccountManager.vault_rewards = {
     -- MythicPlus
     [Enum.WeeklyRewardChestThresholdType.Activities] = {
-        [-1] = 636,
-        [0] = 646,
-        [2] = 649,
-        [3] = 649,
-        [4] = 652,
-        [5] = 652,
-        [6] = 655,
-        [7] = 658,
-        [8] = 658,
-        [9] = 658,
-        [10] = 662,
+        [-1] = 678,
+        [0] = 688,
+        [2] = 691,
+        [3] = 694,
+        [4] = 694,
+        [5] = 697,
+        [6] = 697,
+        [7] = 701,
+        [8] = 704,
+        [9] = 704,
+        [10] = 707,
     },
-    -- World
+    -- World/Delves
     [Enum.WeeklyRewardChestThresholdType.World] = {
-        [1] = 623,
-        [2] = 623,
-        [3] = 626,
-        [4] = 632,
-        [5] = 636,
-        [6] = 642,
-        [7] = 645,
-        [8] = 649,
-        [9] = 649,
-        [10] = 649,
-        [11] = 649,
+        [1] = 668,
+        [2] = 671,
+        [3] = 675,
+        [4] = 678,
+        [5] = 684,
+        [6] = 688,
+        [7] = 691,
+        [8] = 694,
+        [9] = 694,
+        [10] = 694,
+        [11] = 694,
     },
     -- Raid
     [Enum.WeeklyRewardChestThresholdType.Raid] = {
-        [17] = 623,
-        [14] = 636,
-        [15] = 649,
-        [16] = 662,
+        [17] = 671,
+        [14] = 684,
+        [15] = 697,
+        [16] = 710,
     }
 }
 

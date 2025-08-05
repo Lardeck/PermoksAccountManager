@@ -1661,7 +1661,7 @@ local function UpdateQuest(charInfo, questID)
 		UpdateCataDailies(charInfo)
 	end
 
-	if C_QuestLog.IsWorldQuest(questID) then
+	if C_QuestLog.IsWorldQuest and C_QuestLog.IsWorldQuest(questID) then
 		UpdateWorldQuests(charInfo, questID)
 	end
 

@@ -67,6 +67,19 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
     },
 
+    -- 11.2
+    manaforge_omega = {
+		label = function()
+            return PermoksAccountManager.raids[2810].name or 'LoU'
+        end,
+		id = 2810,
+		type = 'raid',
+		key = 'manaforge_omega',
+		tooltip = true,
+		group = 'raids',
+		version = WOW_PROJECT_MAINLINE
+    },
+
     -- wotlk
 	-- TOOD: Change db structure so you can get the locale name without calling the function again
 	naxxramas = {
@@ -247,6 +260,35 @@ local labelRows = {
 		group = 'raids',
 		tooltip = true,
 		version = WOW_PROJECT_CATACLYSM_CLASSIC,
+	},
+
+    -- Mists
+    mogushan_vaults = {
+		label = GetRealZoneText(1008),
+		id = 1008,
+		type = 'raid',
+		key = 'mogushan_vaults',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_MISTS_CLASSIC,
+	},
+    heart_of_fear = {
+		label = GetRealZoneText(1009),
+		id = 1009,
+		type = 'raid',
+		key = 'heart_of_fear',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_MISTS_CLASSIC,
+	},
+    terrace_of_endless_spring = {
+		label = GetRealZoneText(996),
+		id = 996,
+		type = 'raid',
+		key = 'terrace_of_endless_spring',
+		group = 'raids',
+		tooltip = true,
+		version = WOW_PROJECT_MISTS_CLASSIC,
 	},
 }
 

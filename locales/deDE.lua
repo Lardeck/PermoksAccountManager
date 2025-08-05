@@ -208,6 +208,7 @@ L['Add/Edit'] = true
 L['Add'] = 'Hinzufügen'
 L['Create'] = 'Erstellen'
 L['Edit'] = 'Bearbeiten'
+L['Save'] = "Speichern"
 L['ID'] = true
 L['Type'] = true
 L['Quest'] = true

@@ -93,7 +93,7 @@ end
 ---comment
 ---@param altGUID string
 function PermoksAccountManager:AddCharacterToOrderOptions(altGUID, altData, accountName)
-	local coloredName = RAID_CLASS_COLORS[altData.class]:WrapTextInColorCode(altData.name .. ((altData.realm and "-" .. altData.realm) or ""))
+	local coloredName = altData.class and RAID_CLASS_COLORS[altData.class]:WrapTextInColorCode((altData.name or "") .. ((altData.realm and "-" .. altData.realm) or "")) or ""
 	local factionIcon = altData.faction and altData.faction ~= "Neutral" and ("|T%s:%d:%d|t"):format(FACTION_LOGO_TEXTURES[PLAYER_FACTION_GROUP[altData.faction]], 0, 0)
 
 	options.args.characters.args.customCharacterOrder.args[altGUID] = {
@@ -1529,20 +1529,15 @@ function PermoksAccountManager:LoadOptionsTemplate()
                 type = 'group',
                 name = function() 
                     if labelData.oldId then
-                        return L['Edit']
+                        return L['Save']
                     else
                         return L['Create']
                     end
                 end,
                 inline = true,
                 args = {
-                    general_options = {
-                        order = 0.5,
-                        name = 'General',
-                        type = 'header',
-                    },
                     name = {
-                        order = 2,
+                        order = 1,
                         name = L['Name'],
                         type = 'input',
                         validate = function(info, value)
@@ -1584,11 +1579,11 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         end
                     },
                     labelType = {
-                        order = 1,
+                        order = 2,
                         name = L['Type'],
                         type = 'select',
-                        values = {item = L['Item'], currency = L['Currency'], quest = L['Quest']},
-                        sorting = {'item', 'currency', 'quest'},
+                        values = {item = L['Item'], currency = L['Currency'], quest = L['Quest'], custom = L['Custom']},
+                        sorting = {'item', 'currency', 'quest', 'custom'},
                         --width = 'half',
                         disabled = function()
                             return labelData.oldId and true or false
@@ -1629,6 +1624,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         order = 5,
                         name = L['Hidden'],
                         type = 'toggle',
+                        desc = 'If you can\'t have this quest in your visible quest log then toggle this option so it gets tracked correctly.',
                         --width = 'half',
                         hidden = function()
                             return labelData.type and labelData.type ~= 'quest' or not labelData.type
@@ -1640,13 +1636,80 @@ function PermoksAccountManager:LoadOptionsTemplate()
                             return labelData.hidden or false
                         end
                     },
+                    custom_options = {
+                        order = 6,
+                        name = 'Custom',
+                        type = 'header',
+                        hidden = function()
+                            return labelData.type and labelData.type ~= 'custom' or not labelData.type
+                        end,
+                    },
+                    custom_events  ={
+                        order = 6.1,
+                        name = 'Events',
+                        type = 'input',
+                        width = 'full',
+                        hidden = function()
+                            return labelData.type and labelData.type ~= 'custom' or not labelData.type
+                        end,
+                        get = function()
+                            return labelData.events
+                        end,
+                        set = function(_, value)
+                            labelData.events = value
+                        end
+                    },
+                    custom_update = {
+                        order = 6.2,
+                        name = 'Update Function',
+                        type = 'input',
+                        multiline = true,
+                        width = 'full',
+                        hidden = function()
+                            return labelData.type and labelData.type ~= 'custom' or not labelData.type
+                        end,
+                        get = function()
+                            if not labelData.update then
+                                return [[function(data)
+
+end]]
+                            else
+                                return labelData.update
+                            end
+                        end,
+                        set = function(_, value)
+                            labelData.update = value
+                        end
+                    },
+                    custom_label_string = {
+                        order = 6.3,
+                        name = 'String Function',
+                        type = 'input',
+                        multiline = true,
+                        width = 'full',
+                        hidden = function()
+                            return labelData.type and labelData.type ~= 'custom' or not labelData.type
+                        end,
+                        get = function()
+                            if not labelData.labelString then
+                                return [[function(data)
+
+end]]
+                            else
+                                return labelData.labelString
+                            end
+                        end,
+                        set = function(_, value)
+                            labelData.labelString = value
+                        end
+                    },
                     sep1 = {
-                        order = 5.5,
+                        order = 19,
                         name = '',
                         type = 'header',
                     },
                     create = {
-                        order = 6,
+                        order = 20,
                         name = function()
                             if labelData.oldId then
                                 return L['Edit']
@@ -1665,7 +1728,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
                         end
                     },
                     delete = {
-                        order = 7,
+                        order = 21,
                         name = L['Delete'],
                         type = 'execute',
                         disabled = function()
@@ -1679,7 +1742,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
                             if labelData.name and labelData.id and labelData.type then
                                 DeleteCustomLabelButton(labelData)
                             end
-                        end
+                        end,
                     }
                 }
             },
@@ -1960,7 +2023,7 @@ function PermoksAccountManager:LoadOptions()
     end
 
     PermoksAccountManager.optionsFrame = AceGUI:Create('Frame')
-    PermoksAccountManager.optionsFrame:EnableResize(false)
+    PermoksAccountManager.optionsFrame:EnableResize(true)
     PermoksAccountManager.optionsFrame:Hide()
 
     AddAccounts()

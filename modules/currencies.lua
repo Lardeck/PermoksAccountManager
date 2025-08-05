@@ -258,7 +258,7 @@ local labelRows = {
     veteran_crest = {
         label = 'Weathered Crests',
         type = 'crestcurrency',
-        key = 3107,
+        key = 3284,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -266,7 +266,7 @@ local labelRows = {
     normal_crest = {
         label = 'Carved Crests',
         type = 'crestcurrency',
-        key = 3108,
+        key = 3286,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -274,7 +274,7 @@ local labelRows = {
     hero_crest = {
         label = 'Runed Crests',
         type = 'crestcurrency',
-        key = 3109,
+        key = 3288,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -282,7 +282,7 @@ local labelRows = {
     myth_crest = {
         label = 'Gilded Crests',
         type = 'crestcurrency',
-        key = 3110,
+        key = 3290,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -345,7 +345,7 @@ local labelRows = {
     spark_drops = {
         label = 'Spark Cap',
         type = 'currency',
-        key = 3132,
+        key = 3141,
         group = 'currency',
         hideIcon = true,
         version = WOW_PROJECT_MAINLINE,
@@ -367,7 +367,7 @@ local labelRows = {
     catalyst_charges = {
         label = L['Catalyst Charges'],
         type = 'catalystcharges',
-        key = 3116,
+        key = 3269,
         hideIcon = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -489,7 +489,7 @@ local labelRows = {
         key = 395,
         abbMax = true,
         group = 'currency',
-        version = WOW_PROJECT_CATACLYSM_CLASSIC
+        version = false
     },
     valor_points = {
         label = 'Valor Points',
@@ -498,7 +498,7 @@ local labelRows = {
         abbMax = true,
         passRow = true,
         group = 'currency',
-        version = WOW_PROJECT_CATACLYSM_CLASSIC
+        version = false
     },
     conquest_points = {
         label = 'Conquest',
@@ -506,7 +506,7 @@ local labelRows = {
         key = 390,
         abbMax = true,
         group = 'currency',
-        version = WOW_PROJECT_CATACLYSM_CLASSIC
+        version = false
     },
     tol_barad_commendations = {
         label = 'Commendations',
@@ -515,6 +515,33 @@ local labelRows = {
         abbMax = true,
         group = 'currency',
         version = WOW_PROJECT_CATACLYSM_CLASSIC
+    },
+
+    -- Mists
+    honor_mists = {
+        label = function()
+            return PermoksAccountManager.db.global.currencyInfo[1901] and
+            PermoksAccountManager.db.global.currencyInfo[1901].name or 'Honor'
+        end,
+        type = 'currency',
+        key = 1901,
+        abbMax = true,
+        customIcon = {
+            height = 20,
+            width = 20,
+            xOffset = -3,
+            yOffset = -1
+        },
+        group = 'currency',
+        version = WOW_PROJECT_MISTS_CLASSIC
+    },
+    ironpaw_token = {
+        label = 'Ironpaw Token',
+        type = 'currency',
+        key = 402,
+        abbMax = true,
+        group = 'currency',
+        version = WOW_PROJECT_MISTS_CLASSIC
     },
 }
 
@@ -546,6 +573,10 @@ end
 
 local function UpdateAllTreeCurrencies(charInfo)
     local self = PermoksAccountManager
+    if not self.currencyTrees then
+        return
+    end
+
     charInfo.treeCurrencyInfo = charInfo.treeCurrencyInfo or {}
 
     local currencyInfo = charInfo.treeCurrencyInfo
@@ -695,22 +726,22 @@ local function CurrencyTransferUpdate(charInfo)
 
     for _, alt in pairs(newWarbandCurrencyInfo) do
         local character = accountData[alt.characterGUID]
-        if character and character.currencyInfo[lastTransferCurrencyType] then
+        if character and character.currencyInfo and character.currencyInfo[lastTransferCurrencyType] then
             character.currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
         end
     end
 end
 
 local function UpdateCatalystCharges(charInfo)
-    if not charInfo.currencyInfo or not charInfo.currencyInfo[3116] then
+    if not charInfo.currencyInfo or not charInfo.currencyInfo[3269] then
         UpdateAllCurrencies(charInfo)
     end
 
-    charInfo.currencyInfo[3116].quantity = C_CurrencyInfo.GetCurrencyInfo(3116).quantity
+    charInfo.currencyInfo[3269].quantity = C_CurrencyInfo.GetCurrencyInfo(3269).quantity
 end
 
 local function CreateCatalystChargeString(currencyInfo)
-    local catalystCharges = currencyInfo and currencyInfo[3116]
+    local catalystCharges = currencyInfo and currencyInfo[3269]
     if not catalystCharges then return '-' end
 
     return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, catalystCharges.maxQuantity)

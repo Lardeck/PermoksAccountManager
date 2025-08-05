@@ -34,7 +34,7 @@ local labelRows = {
 			return alt_data.charLevel or '-'
 		end,
 		group = 'character',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+		version = false
 	},
 	location = {
 		label = L['Location'],
@@ -42,14 +42,14 @@ local labelRows = {
 			return (alt_data.location and PermoksAccountManager:CreateLocationString(alt_data.location)) or '-'
 		end,
 		group = 'character',
-		version = WOW_PROJECT_CATACLYSM_CLASSIC
+		version = false
 	},
 	ilevel = {
 		label = L['Item Level'],
 		data = function(alt_data)
 			return alt_data.ilevel and string.format('%.2f', alt_data.ilevel) or '-'
 		end,
-		version = WOW_PROJECT_MAINLINE
+		version = false
 	},
 	ilevel_wrath = {
 		label = L['Item Level'],
@@ -559,7 +559,7 @@ local function Update(charInfo)
 	UpdateGeneralData(charInfo)
 	UpdateGold(charInfo)
 
-	if PermoksAccountManager.isBC then
+	if not PermoksAccountManager.isRetail then
 		UpdatePlayerLevel(charInfo)
 		UpdateLocation(charInfo)
 	else

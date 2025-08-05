@@ -52,9 +52,10 @@ local LibQTip = LibStub('LibQTip-1.0')
 local L = LibStub('AceLocale-3.0'):GetLocale(addonName)
 local LSM = LibStub('LibSharedMedia-3.0')
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 10
+local INTERNALTWWVERSION = 11
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
+local INTERNALMISTSVERSION = 1
 local defaultDB = {
     profile = {
         minimap = {
@@ -68,7 +69,9 @@ local defaultDB = {
             main = {
                 name = L['Main'],
                 data = {
-
+                    ['**'] = {
+                        customData = {},
+                    }
 				},
                 warbandData = {
                     name = 'Warband'
@@ -145,8 +148,9 @@ local defaultDB = {
             customLabels = {
                 quest = {},
                 item = {},
-                currency = {}
-            }
+                currency = {},
+                custom = {},
+            },
         },
         currentCallings = {},
         quests = {},
@@ -411,6 +415,7 @@ do
         self.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
         self.isWOTLK = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
         self.isCata = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC
+        self.isMists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
         self.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
         -- init databroker
@@ -506,8 +511,11 @@ function PermoksAccountManager:CreateFrames()
         function(self, button)
             managerFrame:StopMovingOrSizing()
 
+            local left = managerFrame:GetLeft()
+            local top = managerFrame:GetTop()
+
             managerFrame:ClearAllPoints()
-            managerFrame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', managerFrame:GetLeft(), managerFrame:GetTop() - UIParent:GetTop())
+            managerFrame:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', left, top - UIParent:GetTop())
 
             managerFrame:SetMovable(false)
         end
@@ -660,16 +668,30 @@ function PermoksAccountManager:CheckForModernize()
     if self.isCata then
         local internalVersion = self.db.global.internalCataVersion
         if not internalVersion or internalVersion < INTERNALCATAVERSION then
-            --self:ModernizeWOTLK(internalVersion)
             self:ModernizeCata(internalVersion)
         end
         self.db.global.internalCataVersion = INTERNALCATAVERSION
+    elseif self.isMists then
+        local internalVersion = self.db.global.internalMistsVersion
+        if not internalVersion or internalVersion < INTERNALMISTSVERSION then
+            self:ModernizeMists(internalVersion)
+        end
+        self.db.global.internalMistsVersion = INTERNALMISTSVERSION
     else
         local internalVersion = self.db.global.internalTWWVersion
         if (internalVersion or 0) < INTERNALTWWVERSION then
             self:Modernize(internalVersion)
         end
         self.db.global.internalTWWVersion = INTERNALTWWVERSION
+    end
+end
+
+function PermoksAccountManager:ModernizeMists(oldInternalVersion)
+    local db = self.db
+
+    if (oldInternalVersion or 0) < 2 then
+        self:ResetCategories()
+        oldInternalVersion = 1
     end
 end
 
@@ -729,7 +751,7 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
     local db = self.db
 
     if not oldInternalVersion then
-        PermoksAccountManager:ResetCategories()
+        self:ResetCategories()
         oldInternalVersion = 1
     end
 
@@ -794,9 +816,11 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
         self:AddLabelToDefaultCategory('currentweekly', 'nightfall_weekly', 7)
     end
 
-    if oldInternalVersion < 10 then
-        self:AddLabelToDefaultCategory('general', 'eye_of_nzoth')
-        self:AddLabelToDefaultCategory('general', 'displaced_corrupted_mementos')
+    if oldInternalVersion < 11 then
+        self.UpdateDefaultCategories('raid')
+        self.UpdateDefaultCategories('renown')
+
+        self:AddLabelToDefaultCategory('general', 'undercoin')
     end
 end
 
@@ -950,7 +974,8 @@ function PermoksAccountManager:OnLogin()
     self.account = db.accounts.main
     self.warbandData = db.accounts.main.warbandData
     local data = self.account.data
-    if guid and not data[guid] and not self:isBlacklisted(guid) and not (level < min_level) then
+
+    if guid and (not data[guid] or not data[guid].name) and not self:isBlacklisted(guid) and not (level < min_level) then
         db.alts = db.alts + 1
         self:AddNewCharacter(self.account, guid)
     end
