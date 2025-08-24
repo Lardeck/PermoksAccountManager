@@ -849,7 +849,7 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     if currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 and (currencyInfo.quantity or 0) > currencyInfo.maxQuantity then
         -- REFACTOR: move this logic to the crest labelRows to remove redundancy
         local id = currencyInfo.currencyType
-        if id ~= 3107 and id ~= 3108 and id ~= 3109 and id ~= 3110 then
+        if id ~= 3248 and id ~= 3286 and id ~= 3288 and id ~= 3290 then
             currencyInfo.quantity = currencyInfo.quantity / 100
         end
     end
