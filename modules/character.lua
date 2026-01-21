@@ -479,6 +479,14 @@ local function UpdateGold(charInfo)
 	warbandData.gold = totalGold
 end
 
+local function UpdateWarbankGold(charInfo)
+	local gold = C_Bank.FetchDepositedMoney(Enum.BankType.Account);
+
+	local db = PermoksAccountManager.db.global
+    local warbandData = db.accounts.main.warbandData
+	warbandData.warbankGold = gold
+end
+
 local function UpdateILevel(charInfo)
 	if not PermoksAccountManager.isBC then
 		charInfo.ilevel = select(2, GetAverageItemLevel())
@@ -664,7 +672,8 @@ local payload = {
 		['PLAYER_LEVEL_UP'] = UpdatePlayerLevel,
 		['ZONE_CHANGED'] = UpdateLocation,
 		['ZONE_CHANGED_NEW_AREA'] = UpdateLocation,
-		['ZONE_CHANGED_INDOORS'] = UpdateLocation
+		['ZONE_CHANGED_INDOORS'] = UpdateLocation,
+		['ACCOUNT_MONEY'] = UpdateWarbankGold,
 	},
 	share = {
 		[UpdateGold] = 'gold',

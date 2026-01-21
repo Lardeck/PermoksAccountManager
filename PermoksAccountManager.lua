@@ -202,6 +202,7 @@ do
 		local options = PermoksAccountManager.db.global.options
 		local outline = options.useOutline and "OUTLINE" or nil
 		local font = LSM:Fetch("font", options.font)
+		font = font or "Fonts\\FRIZQT__.TTF"
 
 		normalFont = CreateFont("PAM_NormalFont")
 		normalFont:SetFont(font, options.fontSize, outline)
