@@ -1367,7 +1367,7 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 	stormarion_assault = {
-		IDS = {89507},
+		IDS = {90962},
 		label = 'Assault (Voidstorm)',
 		type = 'quest',
 		questType = 'weekly',
@@ -1634,7 +1634,7 @@ local function UpdateAllHiddenQuests(charInfo)
 						end
 						charInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
 
-						if warbandInfo and questData.warband and not warbandInfo.questInfo[questType].hidden[key][questID] then
+						if warbandInfo and questData.warband and warbandInfo.questInfo[questType] and warbandInfo.questInfo[questType].hidden and warbandInfo.questInfo[questType].hidden[key] and not warbandInfo.questInfo[questType].hidden[key][questID] then
 							warbandInfo.questInfo[questType].hidden[key][questID] = isComplete or nil
 						end
 					end

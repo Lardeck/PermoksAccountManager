@@ -1927,19 +1927,19 @@ PermoksAccountManager.quests = {
         [89295] = {questType = 'weekly'}
     },
     saltherils_soiree = {
-        [90573] = {questType = 'weekly'},
-        [90574] = {questType = 'weekly'},
-        [90575] = {questType = 'weekly'},
-        [90576] = {questType = 'weekly'},
+        [90573] = {questType = 'weekly', warband = true, log = true},
+        [90574] = {questType = 'weekly', warband = true, log = true},
+        [90575] = {questType = 'weekly', warband = true, log = true},
+        [90576] = {questType = 'weekly', warband = true, log = true},
     },
     abundance = {
-        [89507] = {questType = 'weekly'},
+        [89507] = {questType = 'weekly', warband = true, log = true},
     },
     lost_legends = {
-        [89268] = {questType = 'weekly'},
+        [89268] = {questType = 'weekly', warband = true, log = true},
     },
     stormarion_assault = {
-        [90962] = {questType = 'weekly'},
+        [90962] = {questType = 'weekly', warband = true, log = true},
     }
 }
 
