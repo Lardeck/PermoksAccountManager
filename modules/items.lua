@@ -314,12 +314,12 @@ local labelRows = {
 
     -- 11.1
     spark_current = {
-        label = 'Spark - Fortunes',
+        label = 'Spark - Radiance',
         type = 'spark',
         passRow = true,
-        key = 231756,
-        reagent = 231757,
-        reagentRequired = 2,
+        key = 232875,
+        -- reagent = 231757,
+        -- reagentRequired = 2,
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },

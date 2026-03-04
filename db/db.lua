@@ -13,7 +13,6 @@ local default_categories = {
             'keystone',
             'mplus_score',
             'catalyst_charges',
-            'valorstones',
             'veteran_crest',
             'normal_crest',
             'hero_crest',
@@ -25,8 +24,7 @@ local default_categories = {
             'separator2',
             'restored_coffer_key',
             'undercoin',
-            'resonance_crystals',
-            'radiant_echo',
+            'voidlight_marl',
         },
         childOrder = {
             characterName = 1,
@@ -36,20 +34,18 @@ local default_categories = {
             keystone = 5,
             mplus_score = 6,
             catalyst_charges = 7,
-            valorstones = 8,
-            veteran_crest = 9,
-            normal_crest = 10,
-            hero_crest = 11,
-            myth_crest = 12,
-            spark_current = 13,
-            spark_drops = 14,
+            veteran_crest = 8,
+            normal_crest = 9,
+            hero_crest = 10,
+            myth_crest = 11,
+            spark_current = 12,
+            spark_drops = 13,
 
             -- Probably interesting during the first weeks, might wanna (re-)move later
             separator2 = 20,
             restored_coffer_key = 21,
             undercoin = 22,
-            resonance_crystals = 23,
-            radiant_echo = 24,
+            voidlight_marl = 23,
         },
         hideToggle = true,
         enabled = true
@@ -67,60 +63,21 @@ local default_categories = {
         order = 2,
         name = '(Bi)Weekly',
         childs = {
-            'dungeon_weekly',
-            'weekend_event',
-            'worldsoul_weekly',
-            'weekly_delve_reputation',
-            'weekly_coffer_keys',
-            'archaic_cypher_key',
-            'nightfall_weekly',
-
+            'mythics_done',
             'separator1',
-            'the_theater_troupe',
-            'rollin_down_in_the_deeps',
-            'gearing_up_for_trouble',
-            'awakening_the_machine',
-            'spreading_the_light',
-            'lesser_keyflame_weeklies',
-            'greater_keyflame_weeklies',
-            'severed_threads_pact_weekly',
-            'undermine_weeklies',
-
-            'separator2',
-            'isle_of_dorne_rares',
-            'ringing_deeps_rares',
-            'hallowfall_rares',
-            'azj_kahet_rares',
-            'one_time_reputation_rares',
-            'undermine_rares',
+            'saltherils_soiree',
+            'abundance',
+            'lost_legends',
+            'stormarion_assault',
         },
         childOrder = {
-            dungeon_weekly = 1,
-            weekend_event = 2,
-            worldsoul_weekly = 3,
-            weekly_delve_reputation = 4,
-            weekly_coffer_keys = 5,
-            archaic_cypher_key = 6,
-            nightfall_weekly = 7,
+            mythics_done = 1,
 
             separator1 = 10,
-            the_theater_troupe = 11,
-            rollin_down_in_the_deeps = 12,
-            gearing_up_for_trouble = 13,
-            awakening_the_machine = 14,
-            spreading_the_light = 15,
-            lesser_keyflame_weeklies = 16,
-            greater_keyflame_weeklies = 17,
-            severed_threads_pact_weekly = 18,
-            undermine_weeklies = 19,
-
-            separator2 = 20,
-            isle_of_dorne_rares = 21,
-            ringing_deeps_rares = 22,
-            hallowfall_rares = 23,
-            azj_kahet_rares = 24,
-            one_time_reputation_rares = 25,
-            undermine_rares = 26,
+            saltherils_soiree = 11,
+            abundance = 12,
+            lost_legends = 13,
+            stormarion_assault = 14,
         },
         enabled = true
     },
@@ -143,21 +100,8 @@ local default_categories = {
         order = 4,
         name = L['Professions'],
         childs = {
-            'knowledge_tww_treasures',
-            'knowledge_tww_treatise',
-            'knowledge_tww_gather',
-            'knowledge_tww_weeklies_quest',
-            'separator1',
-            'artisans_acuity',
         },
         childOrder = {
-            knowledge_tww_treasures = 1,
-            knowledge_tww_treatise = 2,
-            knowledge_tww_gather = 3,
-            knowledge_tww_weeklies_quest = 4,
-
-            separator1 = 10,
-            artisans_acuity = 11,
         },
         enabled = true
     },
@@ -165,56 +109,16 @@ local default_categories = {
         order = 5,
         name = L['Reputation'],
         childs = {
-            'council_of_dornogal',
-            'hallowfall_arathi',
-            'the_assembly_of_the_deeps',
-            'the_severed_threads',
-            'the_general',
-            'the_vizier',
-            'the_weaver',
-            'flames_radiance',
-            -- 'brann_bronzebeard', Makes no sense without a custom string for the level
-
-            'separator1',
-            'the_cartels_of_undermine',
-            'bilgewater_cartel',
-            'blackwater_cartel',
-            'steamwheedle_cartel',
-            'venture_company',
-
-            'separator2',
-            'gallagio_loyalty_rewards_club',
-            'darkfuse_solutions',
-
-            'separator3',
-            'the_karesh_trust',
-            'manaforge_vandals',
+            'amani_tribe',
+            'the_singularity',
+            'harati',
+            'silvermoon_court',
         },
         childOrder = {
-            council_of_dornogal = 1,
-            hallowfall_arathi = 2,
-            the_assembly_of_the_deeps = 2,
-            the_severed_threads = 4,
-            the_general = 5,
-            the_vizier = 6,
-            the_weaver = 7,
-            flames_radiance = 8,
-            -- brann_bronzebeard = 8,
-
-            separator1 = 10,
-            the_cartels_of_undermine = 11,
-            bilgewater_cartel = 12,
-            blackwater_cartel = 13,
-            steamwheedle_cartel = 14,
-            venture_company = 15,
-
-            separator2 = 20,
-            gallagio_loyalty_rewards_club = 21,
-            darkfuse_solutions = 22,
-
-            separator3 = 30,
-            the_karesh_trust = 31,
-            manaforge_vandals = 32,
+            amani_tribe = 1,
+            the_singularity = 2,
+            harati = 3,
+            silvermoon_court = 4,
         },
         enabled = true
     },
@@ -222,14 +126,14 @@ local default_categories = {
         order = 6,
         name = L['Raid'],
         childs = {
-            'nerub_ar_palace',
-            'liberation_of_undermine',
-            'manaforge_omega'
+            'the_dreamrift',
+            'the_voidspire',
+            'march_on_queldanas'
         },
         childOrder = {
-            nerub_ar_palace = 1,
-            liberation_of_undermine = 2,
-            manaforge_omega = 3,
+            the_dreamrift = 1,
+            the_voidspire = 2,
+            march_on_queldanas = 3,
         },
         enabled = true
     },
@@ -417,7 +321,7 @@ PermoksAccountManager.labelRows = {
     }
 }
 
-PermoksAccountManager.numDungeons = 7
+PermoksAccountManager.numDungeons = 8
 PermoksAccountManager.keys = {
     [2] = "TJS",     -- Temple of the Jade Serpent
     [165] = "SBG",   -- Shadowmoon Burial Grounds
@@ -500,20 +404,21 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2657] = { name = GetRealZoneText(2657), englishID = 'nerub_ar_palace', instanceID = 1273, startIndex = 1, endIndex = 8 },
-    [2792] = { name = GetRealZoneText(2792), englishID = 'blackrock_depths_raid', instanceID = 1301, startIndex = 1, endIndex = 8 },
-    [2769] = { name = GetRealZoneText(2769), englishID = 'liberation_of_undermine', instanceID = 1296, startIndex = 1, endIndex = 8 },
-    [2810] = { name = GetRealZoneText(2810), englishID = 'manaforge_omega', instanceID = 1302, startIndex = 1, endIndex = 8 },
+    [2912] = { name = GetRealZoneText(2912), englishID = 'the_voidspire', instanceID = 1307, startIndex = 1, endIndex = 6 },
+    [2913] = { name = GetRealZoneText(2913), englishID = 'march_on_queldanas', instanceID = 1308, startIndex = 1, endIndex = 2 },
+    [2939] = { name = GetRealZoneText(2939), englishID = 'the_dreamrift', instanceID = 1314, startIndex = 1, endIndex = 1 },
+
 }
 
 PermoksAccountManager.dungeons = {
-    [2287] = GetRealZoneText(2287), -- Halls of Atonement
-    [2649] = GetRealZoneText(2649), -- Priory of the Sacred Flame
-    [2660] = GetRealZoneText(2660), -- Ara-Kara, City of Echoes
-    [2662] = GetRealZoneText(2662), -- The Dawnbreaker
-    [2773] = GetRealZoneText(2773), -- Operation: Floodgate
-    [2830] = GetRealZoneText(2830), -- Eco-Dome Al'dani
-    [2441] = GetRealZoneText(2441), -- Tazavesh, the Veiled Market
+    [2805] = GetRealZoneText(2805), -- Windrunner Spire
+    [2811] = GetRealZoneText(2811), -- Magisters' Terrace
+    [2813] = GetRealZoneText(2813), -- Murder Row
+    [2825] = GetRealZoneText(2825), -- Den of Nalorakk
+    [2859] = GetRealZoneText(2859), -- The Blinding Vale
+    [2874] = GetRealZoneText(2874), -- Maisara Caverns
+    [2915] = GetRealZoneText(2915), -- Nexus-Point Xenas
+    [2923] = GetRealZoneText(2923), -- Voidscar Arena
 }
 
 PermoksAccountManager.item = {
@@ -574,6 +479,9 @@ PermoksAccountManager.item = {
     -- 11.2
     [231757] = { key = 'spark_current'}, -- Fractured Spark of Starlight
     [231756] = { key = 'spark_current'}, -- Spark of Starlight
+
+    -- 12.0
+    [232875] = { key = 'spark_current'}, -- Spark of Radiance
 }
 
 PermoksAccountManager.factions = {
@@ -622,6 +530,12 @@ PermoksAccountManager.factions = {
     -- 11.2
     [2658] = { name = 'The K\'aresh Trust', paragon = true, type = 'renown', warband = 'unique' },
     [2736] = { name = 'Manaforge Vandals', type = 'renown', warband = 'unique' },
+
+    -- 12.0
+    [2696] = { name = 'Amani Tribe', paragon = true, type = 'renown', warband = 'unique' },
+    [2699] = { name = 'The Singularity', paragon = true, type = 'renown', warband = 'unique' },
+    [2704] = { name = 'Hara\'ti', paragon = true, type = 'renown', warband = 'unique' },
+    [2710] = { name = 'Silvermoon Court', paragon = true, type = 'renown', warband = 'unique' },
 }
 
 PermoksAccountManager.currency = {
@@ -694,6 +608,17 @@ PermoksAccountManager.currency = {
     [3290] = 0, -- Gilded Ethereal Crest
 
     [3269] = 0, -- Ethereal Voidsplinter (Catalyst Charges TWW Season 3)
+
+    -- 12.0
+    [3383] = 0, -- Adventurer Dawncrest
+    [3343] = 0, -- Champion Dawncrest
+    [3345] = 0, -- Hero Dawncrest
+    [3347] = 0, -- Myth Dawncrest
+
+    [3212] = 0, -- Radiant Spark Dust
+    [3378] = 0, -- Dawnlight Manaflux (Catalyst Charges Midnight Season 1)
+
+    [3316] = 0, -- Voidlight Marl
 }
 
 PermoksAccountManager.currencyTrees = {
@@ -2000,6 +1925,21 @@ PermoksAccountManager.quests = {
     },
     nightfall_weekly = {
         [89295] = {questType = 'weekly'}
+    },
+    saltherils_soiree = {
+        [90573] = {questType = 'weekly'},
+        [90574] = {questType = 'weekly'},
+        [90575] = {questType = 'weekly'},
+        [90576] = {questType = 'weekly'},
+    },
+    abundance = {
+        [89507] = {questType = 'weekly'},
+    },
+    lost_legends = {
+        [89268] = {questType = 'weekly'},
+    },
+    stormarion_assault = {
+        [90962] = {questType = 'weekly'},
     }
 }
 

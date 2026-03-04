@@ -84,6 +84,10 @@ local labelRows = {
 		label = L['Gold'],
 		type = 'gold',
 		group = 'currency',
+		tooltip = true,
+		customTooltip = function(button, altData)
+			PermoksAccountManager:CustomGoldTooltip_OnEnter(button, altData)
+		end,
 		warband = true,
 		version = false
 	},
@@ -484,7 +488,7 @@ local function UpdateWarbankGold(charInfo)
 
 	local db = PermoksAccountManager.db.global
     local warbandData = db.accounts.main.warbandData
-	warbandData.warbankGold = gold
+	warbandData.warbankGold = floor(gold / (COPPER_PER_SILVER * SILVER_PER_GOLD)) * 10000
 end
 
 local function UpdateILevel(charInfo)
@@ -566,6 +570,7 @@ end
 local function Update(charInfo)
 	UpdateGeneralData(charInfo)
 	UpdateGold(charInfo)
+	UpdateWarbankGold(charInfo)
 
 	if not PermoksAccountManager.isRetail then
 		UpdatePlayerLevel(charInfo)
@@ -801,6 +806,27 @@ function PermoksAccountManager:CustomEquippedItemsTooltip_OnEnter(button, altDat
 			end
 		end
 	end
+
+	tooltip:SmartAnchorTo(button)
+	tooltip:Show()
+end
+
+function PermoksAccountManager:CustomGoldTooltip_OnEnter(button, warbandData)
+	if not warbandData or not (warbandData.name == "Warband") then
+		return
+	end
+
+	local tooltip = LibQTip:Acquire(addonName .. 'Tooltip', 2, 'LEFT', 'RIGHT')
+	button.tooltip = tooltip
+	tooltip:SetBackdropColor(0, 0, 0, 1)
+	tooltip:AddHeader('Gold:')
+	tooltip:AddSeparator(2, 1, 1, 1)
+
+	tooltip:AddLine("Character Gold:", GetMoneyString(warbandData.gold or 0, true))
+	tooltip:AddLine("Warband Bank:", GetMoneyString(warbandData.warbankGold or 0, true))
+	tooltip:AddSeparator(2, 1, 1, 1)
+	tooltip:AddLine("Total Gold:", GetMoneyString((warbandData.gold or 0) + (warbandData.warbankGold or 0), true))
+
 
 	tooltip:SmartAnchorTo(button)
 	tooltip:Show()

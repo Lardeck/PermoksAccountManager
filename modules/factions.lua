@@ -411,6 +411,48 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
+	-- 12.0
+	silvermoon_court = {
+		label = function()
+			return PermoksAccountManager.factions[2710].localName or "Silvermoon Court"
+		end,
+		type = "faction",
+		warband = "unique",
+		key = 2710,
+		group = "reputation",
+		version = WOW_PROJECT_MAINLINE
+	},
+	the_singularity = {
+		label = function()
+			return PermoksAccountManager.factions[2699].localName or "The Singularity"
+		end,
+		type = "faction",
+		warband = "unique",
+		key = 2699,
+		group = "reputation",
+		version = WOW_PROJECT_MAINLINE
+	},
+	harati = {
+		label = function()
+			return PermoksAccountManager.factions[2704].localName or "Hara'ti"
+		end,
+		type = "faction",
+		warband = "unique",
+		key = 2704,
+		group = "reputation",
+		version = WOW_PROJECT_MAINLINE
+	},
+	amani_tribe = {
+		label = function()
+			return PermoksAccountManager.factions[2696].localName or "Amani Tribe"
+		end,
+		type = "faction",
+		warband = "unique",
+		key = 2696,
+		group = "reputation",
+		version = WOW_PROJECT_MAINLINE
+	},
+
 	-- wotlk
 	alliance_vanguard = {
 		label = function()
@@ -826,10 +868,11 @@ local function GetFactionOrFriendshipInfo(factionId, factionType)
 	end
 	local isParagon = C_Reputation.IsFactionParagon and C_Reputation.IsFactionParagon(factionId)
 
-	if isParagon then
-		barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)
-		barMin, standing, barValue = 0, 9, barValue % barMax
-	elseif factionType == "renown" then
+	--if isParagon then
+	--	barValue, barMax, _, hasReward = C_Reputation.GetFactionParagonInfo(factionId)
+	--	barMin, standing, barValue = 0, 9, barValue % barMax
+	--elseif factionType == "renown" then
+	if factionType == "renown" then
 		renown = C_MajorFactions.GetCurrentRenownLevel(factionId)
 		local majorFactionInfo = C_MajorFactions.GetMajorFactionData(factionId)
 		if majorFactionInfo then

@@ -256,33 +256,33 @@ local labelRows = {
 
     -- 11.0
     veteran_crest = {
-        label = 'Weathered Crests',
+        label = 'Adventurer Crests',
         type = 'crestcurrency',
-        key = 3284,
+        key = 3383,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
     normal_crest = {
-        label = 'Carved Crests',
+        label = 'Champion Crests',
         type = 'crestcurrency',
-        key = 3286,
+        key = 3343,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
     hero_crest = {
-        label = 'Runed Crests',
+        label = 'Hero Crests',
         type = 'crestcurrency',
-        key = 3288,
+        key = 3345,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
     myth_crest = {
-        label = 'Gilded Crests',
+        label = 'Myth Crests',
         type = 'crestcurrency',
-        key = 3290,
+        key = 3347,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -345,7 +345,7 @@ local labelRows = {
     spark_drops = {
         label = 'Spark Cap',
         type = 'currency',
-        key = 3141,
+        key = 3212,
         group = 'currency',
         hideIcon = true,
         version = WOW_PROJECT_MAINLINE,
@@ -367,7 +367,7 @@ local labelRows = {
     catalyst_charges = {
         label = L['Catalyst Charges'],
         type = 'catalystcharges',
-        key = 3269,
+        key = 3378,
         hideIcon = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -387,6 +387,16 @@ local labelRows = {
         label = 'Corrupted Mementos',
         type = 'currency',
         key = 3149,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- 12.0
+    voidlight_marl = {
+        label = 'Voidlight Marl',
+        type = 'currency',
+        warband = true,
+        key = 3316,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -733,15 +743,15 @@ local function CurrencyTransferUpdate(charInfo)
 end
 
 local function UpdateCatalystCharges(charInfo)
-    if not charInfo.currencyInfo or not charInfo.currencyInfo[3269] then
+    if not charInfo.currencyInfo or not charInfo.currencyInfo[3378] then
         UpdateAllCurrencies(charInfo)
     end
 
-    charInfo.currencyInfo[3269].quantity = C_CurrencyInfo.GetCurrencyInfo(3269).quantity
+    charInfo.currencyInfo[3378].quantity = C_CurrencyInfo.GetCurrencyInfo(3378).quantity
 end
 
 local function CreateCatalystChargeString(currencyInfo)
-    local catalystCharges = currencyInfo and currencyInfo[3269]
+    local catalystCharges = currencyInfo and currencyInfo[3378]
     if not catalystCharges then return '-' end
 
     return PermoksAccountManager:CreateFractionString(catalystCharges.quantity, catalystCharges.maxQuantity)

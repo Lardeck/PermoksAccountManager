@@ -1334,7 +1334,49 @@ local labelRows = {
 		required = 2,
 		version = WOW_PROJECT_MAINLINE
 	},
-	
+
+	-- 12.0
+	saltherils_soiree = {
+		IDS = {90573, 90574, 90575, 90576},
+		label = 'Soiree (Eversong)',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		warband = true,
+		version = WOW_PROJECT_MAINLINE
+	},
+	abundance = {
+		IDS = {89507},
+		label = 'Abundance (Zul\'Aman)',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		warband = true,
+		version = WOW_PROJECT_MAINLINE
+	},
+	lost_legends = {
+		IDS = {89268},
+		label = 'Legends (Harandar1)',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		warband = true,
+		version = WOW_PROJECT_MAINLINE
+	},
+	stormarion_assault = {
+		IDS = {89507},
+		label = 'Assault (Voidstorm)',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		warband = true,
+		version = WOW_PROJECT_MAINLINE
+	},
+
 	--wotlk
 	general_dailies = {
 		label = 'General',

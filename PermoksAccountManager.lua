@@ -49,7 +49,7 @@ local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local LSM = LibStub("LibSharedMedia-3.0")
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALTWWVERSION = 11
+local INTERNALMIDNIGHT = 1
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local INTERNALMISTSVERSION = 1
@@ -651,10 +651,10 @@ function PermoksAccountManager:CheckForModernize()
 		self.db.global.internalMistsVersion = INTERNALMISTSVERSION
 	else
 		local internalVersion = self.db.global.internalTWWVersion
-		if (internalVersion or 0) < INTERNALTWWVERSION then
+		if (internalVersion or 0) < INTERNALMIDNIGHT then
 			self:Modernize(internalVersion)
 		end
-		self.db.global.internalTWWVersion = INTERNALTWWVERSION
+		self.db.global.internalTWWVersion = INTERNALMIDNIGHT
 	end
 end
 
@@ -724,73 +724,6 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 	if not oldInternalVersion then
 		self:ResetCategories()
 		oldInternalVersion = 1
-	end
-
-	if oldInternalVersion < 2 then
-		self:ResetQuestCompletion("isle_of_dorne_rares")
-		self:ResetQuestCompletion("ringing_deeps_rares")
-		self:ResetQuestCompletion("hallowfall_rares")
-		self:ResetQuestCompletion("azj_kahet_rares")
-	end
-
-	if oldInternalVersion < 3 then
-		self:UpdateDefaultCategories("currentweekly")
-		self:ResetQuestCompletion("isle_of_dorne_rares", 85158, 85160, 85161, 85159)
-		self:ResetQuestCompletion("ringing_deeps_rares", 85163, 85162)
-		self:ResetQuestCompletion("hallowfall_rares", 85164)
-		self:ResetQuestCompletion("azj_kahet_rares", 85167, 85166)
-	end
-
-	if oldInternalVersion < 4 then
-		self:AddLabelToDefaultCategory("currentweekly", "weekly_delve_reputation", 4)
-		self:AddLabelToDefaultCategory("currentweekly", "weekly_coffer_keys", 4)
-		self:ResetQuestCompletion("hallowfall_rares", 85165)
-	end
-
-	if oldInternalVersion < 5 then
-		self:AddLabelToDefaultCategory("currentweekly", "tww_world_boss", 7)
-	end
-
-	if oldInternalVersion < 6 then
-		self:AddLabelToDefaultCategory("general", "bronze_celebration_token", 26)
-		self:AddLabelToDefaultCategory("general", "timewarped_relic_coffer_key", 27)
-		self:AddLabelToDefaultCategory("raid", "blackrock_depths_raid", 2)
-	end
-
-	if oldInternalVersion < 7 then
-		self:AddLabelToDefaultCategory("general", "veteran_crest")
-		self:AddLabelToDefaultCategory("general", "normal_crest")
-		self:AddLabelToDefaultCategory("general", "hero_crest")
-		self:AddLabelToDefaultCategory("general", "myth_crest")
-		self:AddLabelToDefaultCategory("general", "spark_drops")
-
-		self:AddLabelToDefaultCategory("currentweekly", "undermine_weeklies", 19)
-		self:AddLabelToDefaultCategory("currentweekly", "undermine_rares")
-
-		self:AddLabelToDefaultCategory("raid", "liberation_of_undermine")
-
-		self:UpdateDefaultCategories("renown")
-
-		self:ReplaceLabelOfDefaultCategory("general", "spark_omens", "spark_current")
-		self:RemoveLabelFromDefaultCategory("general", "timewarped_relic_coffer_key")
-		self:RemoveLabelFromDefaultCategory("general", "bronze_celebration_token")
-		self:FixOrderOfDefaultCategories()
-	end
-
-	if oldInternalVersion < 8 then
-		self:AddLabelToDefaultCategory("general", "weekly_bounti_map")
-	end
-
-	if oldInternalVersion < 9 then
-		self:AddLabelToDefaultCategory("renown", "flames_radiance", 8)
-		self:AddLabelToDefaultCategory("currentweekly", "nightfall_weekly", 7)
-	end
-
-	if oldInternalVersion < 11 then
-		self:UpdateDefaultCategories("raid")
-		self:UpdateDefaultCategories("renown")
-
-		self:AddLabelToDefaultCategory("general", "undercoin")
 	end
 end
 
