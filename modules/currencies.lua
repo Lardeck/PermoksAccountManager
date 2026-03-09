@@ -255,10 +255,18 @@ local labelRows = {
     --},
 
     -- 11.0
-    veteran_crest = {
+    adventurer_crest = {
         label = 'Adventurer Crests',
         type = 'crestcurrency',
         key = 3383,
+        passRow = true,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    veteran_crest = {
+        label = 'Veteran Crests',
+        type = 'crestcurrency',
+        key = 3341,
         passRow = true,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
@@ -397,6 +405,14 @@ local labelRows = {
         type = 'currency',
         warband = true,
         key = 3316,
+        group = 'currency',
+        version = WOW_PROJECT_MAINLINE
+    },
+    shard_of_dundun = {
+        label = 'Shard of Dundun',
+        type = 'currency',
+        warband = true,
+        key = 3376,
         group = 'currency',
         version = WOW_PROJECT_MAINLINE
     },
@@ -859,7 +875,7 @@ function PermoksAccountManager:CreateCurrencyString(currencyInfo, abbreviateCurr
     if currencyInfo.maxQuantity and currencyInfo.maxQuantity > 0 and (currencyInfo.quantity or 0) > currencyInfo.maxQuantity then
         -- REFACTOR: move this logic to the crest labelRows to remove redundancy
         local id = currencyInfo.currencyType
-        if id ~= 3248 and id ~= 3286 and id ~= 3288 and id ~= 3290 then
+        if id ~= 3383 and id ~= 3341 and id ~= 3343 and id ~= 3345 and id ~= 3347 then
             currencyInfo.quantity = currencyInfo.quantity / 100
         end
     end

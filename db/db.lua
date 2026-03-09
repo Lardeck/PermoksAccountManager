@@ -13,6 +13,7 @@ local default_categories = {
             'keystone',
             'mplus_score',
             'catalyst_charges',
+            'adventurer_crest',
             'veteran_crest',
             'normal_crest',
             'hero_crest',
@@ -34,12 +35,13 @@ local default_categories = {
             keystone = 5,
             mplus_score = 6,
             catalyst_charges = 7,
-            veteran_crest = 8,
-            normal_crest = 9,
-            hero_crest = 10,
-            myth_crest = 11,
-            spark_current = 12,
-            spark_drops = 13,
+            adventurer_crest = 8,
+            veteran_crest = 9,
+            normal_crest = 10,
+            hero_crest = 11,
+            myth_crest = 12,
+            spark_current = 13,
+            spark_drops = 14,
 
             -- Probably interesting during the first weeks, might wanna (re-)move later
             separator2 = 20,
@@ -611,6 +613,7 @@ PermoksAccountManager.currency = {
 
     -- 12.0
     [3383] = 0, -- Adventurer Dawncrest
+    [3341] = 0, -- Veteran Dawncrest
     [3343] = 0, -- Champion Dawncrest
     [3345] = 0, -- Hero Dawncrest
     [3347] = 0, -- Myth Dawncrest
@@ -619,6 +622,7 @@ PermoksAccountManager.currency = {
     [3378] = 0, -- Dawnlight Manaflux (Catalyst Charges Midnight Season 1)
 
     [3316] = 0, -- Voidlight Marl
+    [3376] = 0, -- Shard of Dundun
 }
 
 PermoksAccountManager.currencyTrees = {
