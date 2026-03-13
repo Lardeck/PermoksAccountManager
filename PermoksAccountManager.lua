@@ -426,7 +426,7 @@ do
 					end
 				end
 			else
-				if arg1 then
+				if arg1 and not issecretvalue(arg1) then
 					arg1 = arg1:lower()
 					local start, ending = arg1:find("^!allkeys")
 					if start then
