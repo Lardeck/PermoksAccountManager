@@ -301,8 +301,10 @@ do
 		return button
 	end
 
+	local categoryButtons = {}
 	function CreateManagerButton(width, height, text)
-		local button = CreateFrame("Button", nil, PermoksAccountManager.managerFrame)
+		local button = CreateFrame("Button", "PAM_ManagerButton_" .. #categoryButtons + 1, PermoksAccountManager.managerFrame)
+		tinsert(categoryButtons, button)
 		button:SetSize(width, height)
 
 		local normalTexture = button:CreateTexture()
@@ -536,7 +538,7 @@ function PermoksAccountManager:CreateMenuButtons()
 
 	-------------------
 	-- Close Button
-	local closeButton = CreateFrame("Button", nil, managerFrame.topDragBar)
+	local closeButton = CreateFrame("Button", "PAM_CloseButton", managerFrame.topDragBar)
 	managerFrame.closeButton = closeButton
 	closeButton:ClearAllPoints()
 	closeButton:SetSize(20, 20)
