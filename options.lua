@@ -409,7 +409,8 @@ local function createDefaultOptions()
 			if info.childs then
 				for i, child in pairs(info.childs) do
 					if
-						PermoksAccountManager.labelRows[child] and not PermoksAccountManager.labelRows[child].hideOption
+						PermoksAccountManager.labelRows[child]
+						and not PermoksAccountManager.labelRows[child].hideOption
 					then
 						args[child] = {
 							order = i,
@@ -2009,9 +2010,13 @@ do
 				if group == "currency" then
 					local globalCurrencyInfo = PermoksAccountManager.db.global.currencyInfo[info.key]
 					local currencyIcon = globalCurrencyInfo and globalCurrencyInfo.icon
-                    if currencyIcon then
-                        name = string.format('\124T%d:18:18\124t%s', currencyIcon, type(name) == "function" and name() or name)
-                    end
+					if currencyIcon then
+						name = string.format(
+							"\124T%d:18:18\124t%s",
+							currencyIcon,
+							type(name) == "function" and name() or name
+						)
+					end
 				end
 
 				labelTable[group].args[key] = labelTable[group].args[key]
@@ -2063,7 +2068,7 @@ function PermoksAccountManager:LoadOptions()
 		db.currentCategories = db.options.defaultCategories
 	end
 
-	PermoksAccountManager.optionsFrame = AceGUI:Create("Frame")
+	PermoksAccountManager.optionsFrame = PermoksAccountManager.optionsFrame or AceGUI:Create("Frame")
 	PermoksAccountManager.optionsFrame:EnableResize(true)
 	PermoksAccountManager.optionsFrame:Hide()
 
@@ -2157,10 +2162,10 @@ function PermoksAccountManager:OptionsToString()
 	local compressed = LibDeflate:CompressDeflate(serialized)
 	local encode = LibDeflate:EncodeForPrint(compressed)
 
-	return encode or "HMM"
+	return encode or "Error"
 end
 
-function PermoksAccountManager:ImportOptions(optionsString)
+function PermoksAccountManager:ParseImportString(optionsString)
 	local decoded = LibDeflate:DecodeForPrint(optionsString)
 	if not decoded then
 		return
@@ -2184,13 +2189,20 @@ function PermoksAccountManager:ImportOptions(optionsString)
 		end
 	end
 
-	PermoksAccountManager.confirm.accept:SetCallback("OnClick", function()
-		PermoksAccountManager.db.global.custom = data.custom
-		PermoksAccountManager.db.global.options = data.options
-		PermoksAccountManager.db.global.internalVersion = data.internalVersion
+	return data
+end
 
-		C_UI.Reload()
-	end)
+function PermoksAccountManager:ImportOptions(optionsString)
+	local data = self:ParseImportString(optionsString)
+	if data then
+		PermoksAccountManager.confirm.accept:SetCallback("OnClick", function()
+			PermoksAccountManager.db.global.custom = data.custom
+			PermoksAccountManager.db.global.options = data.options
+			PermoksAccountManager.db.global.internalVersion = data.internalVersion
 
-	PermoksAccountManager.confirm:Show()
+			C_UI.Reload()
+		end)
+
+		PermoksAccountManager.confirm:Show()
+	end
 end

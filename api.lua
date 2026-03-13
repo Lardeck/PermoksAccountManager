@@ -23,3 +23,15 @@ function api.GetCharactersForAccount(account)
 		return PermoksAccountManager.db.global.accounts[account].data
 	end
 end
+
+function api.Import(importString)
+	local data = PermoksAccountManager:ParseImportString(importString)
+	if data then
+		PermoksAccountManager.db.global.custom = data.custom
+		PermoksAccountManager.db.global.options = data.options
+		PermoksAccountManager.db.global.internalVersion = data.internalVersion
+	end
+
+	--TODO: Handle the import more gracefully. This should work for now. Forcing a reload would probably be more secure.
+	PermoksAccountManager:OnLogin()
+end
