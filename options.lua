@@ -2017,6 +2017,8 @@ do
 							type(name) == "function" and name() or name
 						)
 					end
+				elseif group == "item" and info.key then
+					name = string.format("\124T%d:18:18\124t %s", C_Item.GetItemIconByID(info.key), type(name) == "function" and name() or name)
 				end
 
 				labelTable[group].args[key] = labelTable[group].args[key]
