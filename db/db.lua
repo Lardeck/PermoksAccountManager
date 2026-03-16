@@ -1014,10 +1014,6 @@ PermoksAccountManager.quests = {
         [63199] = { questType = 'weekly' },
         [63433] = { questType = 'weekly' }
     },
-    -- World Boss
-    world_boss = {
-        [82653] = { questType = 'weekly' }, -- Aggregation of Horrors
-    },
     korthia_world_boss = {
         [64531] = { questType = 'weekly' } -- Mor'geth, Tormentor of the Damned
     },
@@ -1940,11 +1936,29 @@ PermoksAccountManager.quests = {
         [89507] = {questType = 'weekly', warband = true, log = true},
     },
     lost_legends = {
-        [89268] = {questType = 'weekly', warband = true, log = true},
+        [88993] = {questType = 'weekly', warband = true, log = true},
+        [88994] = {questType = 'weekly', warband = true, log = true},
+        [88995] = {questType = 'weekly', warband = true, log = true},
+        [88996] = {questType = 'weekly', warband = true, log = true},
+        [88997] = {questType = 'weekly', warband = true, log = true},
+        [88998] = {questType = 'weekly', warband = true, log = true},
+        -- [89268] = {questType = 'weekly', warband = true, log = true},
     },
     stormarion_assault = {
         [90962] = {questType = 'weekly', warband = true, log = true},
-    }
+    },
+    special_assignments = {
+        [92139] = {questType = 'weekly', warband = true, log = true},
+        [92145] = {questType = 'weekly', warband = true, log = true},
+        [93244] = {questType = 'weekly', warband = true, log = true},
+    },
+    -- World Boss
+    world_boss = {
+        [92560] = { questType = 'weekly', log = true }, -- Lu'ashal
+        [92123] = { questType = 'weekly', log = true }, -- Cragpine's Treevenge
+        [92034] = { questType = 'weekly', log = true }, -- Thorm'belan
+        [92636] = { questType = 'weekly', log = true }, -- Predaxas
+    },
 }
 
 PermoksAccountManager.locale = {

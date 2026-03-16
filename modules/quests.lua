@@ -243,21 +243,8 @@ local labelRows = {
 		group = 'resetDaily',
 		version = WOW_PROJECT_MAINLINE
 	},
-	world_boss = {
-		label = L['World Boss'],
-		type = 'quest',
-		questType = 'weekly',
-		visibility = 'hidden',
-		isCompleteTest = true,
-		isComplete = function(alt_data)
-			return alt_data.questInfo and alt_data.questInfo.weekly and
-				PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.world_boss) == 2
-		end,
-		group = 'resetWeekly',
-		version = WOW_PROJECT_MAINLINE
-	},
 	korthia_world_boss = {
-		label = 'Korthia WB',
+		label = 'World Boss Korthia',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
@@ -468,7 +455,7 @@ local labelRows = {
 
 	-- 10.0 Dragonflight
 	dragonflight_world_boss = {
-		label = L['World Boss'],
+		label = 'World Boss DF',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
@@ -950,7 +937,7 @@ local labelRows = {
     -- 11.0 The War Within
 	-- world activities
 	tww_world_boss = {
-		label = L['World Boss'],
+		label = 'World Boss TWW',
 		type = 'quest',
 		questType = 'weekly',
 		visibility = 'hidden',
@@ -1374,6 +1361,29 @@ local labelRows = {
 		visibility = 'visible',
 		group = 'resetWeekly',
 		warband = true,
+		version = WOW_PROJECT_MAINLINE
+	},
+	special_assignments = {
+		IDS = {92139, 92145, 93244},
+		label = 'Special Assignments',
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		group = 'resetWeekly',
+		required = 2,
+		version = WOW_PROJECT_MAINLINE
+	},
+	world_boss = {
+		label = L['World Boss'] .. "Midnight",
+		type = 'quest',
+		questType = 'weekly',
+		visibility = 'visible',
+		-- isCompleteTest = true,
+		-- isComplete = function(alt_data)
+		-- 	return alt_data.questInfo and alt_data.questInfo.weekly and
+		-- 		PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.world_boss) == 2
+		-- end,
+		group = 'resetWeekly',
 		version = WOW_PROJECT_MAINLINE
 	},
 
