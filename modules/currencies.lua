@@ -416,7 +416,7 @@ local labelRows = {
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
-	coffer_key_shard = {
+	coffer_key_shard_currency = {
 		label = "Coffer Key Shards",
 		type = "currency",
 		key = 3310,
