@@ -416,6 +416,13 @@ local labelRows = {
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
+	coffer_key_shard = {
+		label = "Coffer Key Shards",
+		type = "currency",
+		key = 3310,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
 
 	-- wotlk-classic
 	honorBCC = {

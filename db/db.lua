@@ -623,6 +623,8 @@ PermoksAccountManager.currency = {
 
     [3316] = 0, -- Voidlight Marl
     [3376] = 0, -- Shard of Dundun
+
+    [3310] = 0, -- Coffer Key Shards
 }
 
 PermoksAccountManager.currencyTrees = {
