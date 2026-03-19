@@ -530,14 +530,14 @@ local function RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
 		if info.defeatedEncountersInfo and difficulty < 17 then
 			local bossIndex = 1
 			for index = dbInfo.startIndex, dbInfo.endIndex do
-				local bossInfo = info.defeatedEncountersInfo[index]
+				local bossInfo = info.defeatedEncountersInfo[bossIndex]
 				local text = L["Unsaved"]
 				local color = "00ff00"
 
 				if
 					difficulty == 16
-					and localRaidActivityInfo[bossIndex]
-					and localRaidActivityInfo[bossIndex].bestDifficulty == difficulty
+					and localRaidActivityInfo[index]
+					and localRaidActivityInfo[index].bestDifficulty == difficulty
 				then
 					text = L["Killed"]
 					color = "ff0000"
@@ -547,7 +547,7 @@ local function RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
 				end
 
 				tooltip:AddLine(
-					bossIndex .. " " .. EJ_GetEncounterInfo(localRaidActivityInfo[bossIndex].encounterID),
+					bossIndex .. " " .. EJ_GetEncounterInfo(localRaidActivityInfo[index].encounterID),
 					string.format("|cff%s%s|r", color, text)
 				)
 				bossIndex = bossIndex + 1

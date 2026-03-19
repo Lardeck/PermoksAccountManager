@@ -406,8 +406,8 @@ PermoksAccountManager.activityIDToKeys = {
 }
 
 PermoksAccountManager.raids = {
-    [2912] = { name = GetRealZoneText(2912), englishID = 'the_voidspire', instanceID = 1307, startIndex = 1, endIndex = 6 },
-    [2913] = { name = GetRealZoneText(2913), englishID = 'march_on_queldanas', instanceID = 1308, startIndex = 1, endIndex = 2 },
+    [2912] = { name = GetRealZoneText(2912), englishID = 'the_voidspire', instanceID = 1307, startIndex = 0, endIndex = 5 },
+    [2913] = { name = GetRealZoneText(2913), englishID = 'march_on_queldanas', instanceID = 1308, startIndex = 0, endIndex = 1 },
     [2939] = { name = GetRealZoneText(2939), englishID = 'the_dreamrift', instanceID = 1314, startIndex = 1, endIndex = 1 },
 
 }
