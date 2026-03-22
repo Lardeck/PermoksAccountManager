@@ -420,6 +420,7 @@ local labelRows = {
 		label = "Coffer Key Shards",
 		type = "currency",
 		key = 3310,
+		useWeeklyEarned = true,
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
@@ -912,7 +913,8 @@ function PermoksAccountManager:CreateCurrencyString(
 	hideMaximum,
 	customIcon,
 	hideIcon,
-	customQuantitiy
+	customQuantitiy,
+	useWeeklyEarned
 )
 	if not currencyInfo then
 		return
@@ -949,7 +951,7 @@ function PermoksAccountManager:CreateCurrencyString(
 		end
 	end
 
-	local quantity = customQuantitiy or currencyInfo.quantity
+	local quantity = customQuantitiy or (useWeeklyEarned and currencyInfo.quantityEarnedThisWeek) or  currencyInfo.quantity
 	local currencyString = quantity
 	if
 		not hideMaximum

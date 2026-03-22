@@ -303,7 +303,8 @@ do
 
 	local categoryButtons = {}
 	function CreateManagerButton(width, height, text)
-		local button = CreateFrame("Button", "PAM_ManagerButton_" .. #categoryButtons + 1, PermoksAccountManager.managerFrame)
+		local button =
+			CreateFrame("Button", "PAM_ManagerButton_" .. #categoryButtons + 1, PermoksAccountManager.managerFrame)
 		tinsert(categoryButtons, button)
 		button:SetSize(width, height)
 
@@ -1473,7 +1474,9 @@ local InternalLabelFunctions = {
 			column.abbMax,
 			column.hideMax,
 			column.customIcon,
-			column.hideIcon
+			column.hideIcon,
+			nil,
+			column.useWeeklyEarned
 		) or "-"
 	end,
 	faction = function(alt_data, column, key)
