@@ -380,6 +380,14 @@ PermoksAccountManager.keys = {
 	[507] = "GB", -- Grim Batol
 	[525] = "FLOOD", -- Floodgate
 	[542] = "ECO", -- Eco-Dome Al'dani
+
+	[599] = "MT", -- Magister's Terrace
+	[560] = "MC", -- Maisara Caverns
+	[559] = "NPX", -- Nexus-Point Xenas
+	[557] = "WS", -- Windrunner Spire
+	[556] = "POS", -- Pit of Saron
+	[583] = "SEAT", -- Seat of the Triumvirate
+	[161] = "SR", -- Skyreach
 }
 
 -- Timewalking Keystones
