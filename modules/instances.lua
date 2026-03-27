@@ -351,7 +351,7 @@ local function UpdateInstanceInfo(charInfo)
 		end
 
 		if self.isRetail and raidInfo then
-			local index = self.raids[mapID].startIndex - 1
+			local index = self.raids[mapID].startIndex
 			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
 			for boss = 1, numEncounters do
 				local isKilled = select(3, GetSavedInstanceEncounterInfo(i, boss))
