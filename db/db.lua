@@ -731,15 +731,19 @@ PermoksAccountManager.quests = {
 
 	-- General Weeklies (previous expansion quests get deprecated so we replace these IDs instead of adding new ones)
 	weekend_event = {
-		[83345] = { questType = "weekly", log = true }, -- Battleground Event:    A Call to Battle
-		[83347] = { questType = "weekly", log = true }, -- Mythic Dungeon Event:  Emissary of War
-		[83357] = { questType = "weekly", log = true }, -- Pet Battle Event:      The Very Best
-		[83358] = { questType = "weekly", log = true }, -- Arena Event:           The Arena Calls
-		[83366] = { questType = "weekly", log = true }, -- World Quests:          The World Awaits
-		[83359] = { questType = "weekly", log = true }, -- A Shattered Path Through Time
-		[83362] = { questType = "weekly", log = true }, -- A Shrouded Path Through Time
-		[83365] = { questType = "weekly", log = true }, -- A Frozen Path Through Time
-		[83364] = { questType = "weekly", log = true }, -- A Savage Path Through Time
+		[83366] = { questType = "weekly", log = true }, -- The World Awaits (World Quests)
+		[83357] = { questType = "weekly", log = true }, -- The Very Best (Pet Battles)
+		[83358] = { questType = "weekly", log = true }, -- The Arena Calls (Arena)
+		[83347] = { questType = "weekly", log = true }, -- Emmissary of War (Mythic Dungeons)
+		[86731] = { questType = "weekly", log = true }, -- An Original Path Through Time (Timewalking Dungeons)
+		[83362] = { questType = "weekly", log = true }, -- A Shrouded Path Through Time (Timewalking Dungeons, Pandaria)
+		[83359] = { questType = "weekly", log = true }, -- A Shattered Path Through Time (Timewalking Dungeons)
+		[88805] = { questType = "weekly", log = true }, -- A Scarred Path Through Time (Timewalking Dungeons)
+		[83364] = { questType = "weekly", log = true }, -- A Savage Path Through Time (Timewalking Dungeons)
+		[83365] = { questType = "weekly", log = true }, -- A Frozen Path Through Time (Timewaling Dungeons, Wrath of the Lich King)
+		[83360] = { questType = "weekly", log = true }, -- A Fel Path Through Time (Timewalking Dungeons, Legion)
+		[84476] = { questType = "weekly", log = true }, -- A Call to Delves (Delves)
+		[83363] = { questType = "weekly", log = true }, -- A Burning Path Through Time (Timewalking Dungeons, Burning Crusade)
 	},
 	pvp_weekly = {
 		[80184] = { questType = "weekly", log = true }, -- Preserving in Battle
