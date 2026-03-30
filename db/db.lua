@@ -381,11 +381,11 @@ PermoksAccountManager.keys = {
 	[525] = "FLOOD", -- Floodgate
 	[542] = "ECO", -- Eco-Dome Al'dani
 
-	[599] = "MT", -- Magister's Terrace
-	[560] = "MC", -- Maisara Caverns
-	[559] = "NPX", -- Nexus-Point Xenas
-	[557] = "WS", -- Windrunner Spire
 	[556] = "POS", -- Pit of Saron
+	[557] = "WS", -- Windrunner Spire
+	[558] = "MT", -- Magister's Terrace
+	[559] = "NPX", -- Nexus-Point Xenas
+	[560] = "MC", -- Maisara Caverns
 	[583] = "SEAT", -- Seat of the Triumvirate
 	[161] = "SR", -- Skyreach
 }
