@@ -320,16 +320,6 @@ local labelRows = {
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
-	restored_coffer_key = {
-		label = "Restored Coffer Key",
-		type = "cofferkey",
-		passRow = true,
-		key = 3028,
-		reagent = 229899,
-		reagentRequired = 100,
-		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
-	},
 	undercoin = {
 		label = "Undercoin",
 		type = "currency",
@@ -418,9 +408,10 @@ local labelRows = {
 	},
 	coffer_key_shard_currency = {
 		label = "Coffer Key Shards",
-		type = "currency",
+		type = "keyshard",
 		key = 3310,
 		useWeeklyEarned = true,
+		passRow = true,
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
@@ -840,6 +831,25 @@ local function CreateCrestString(labelRow, currencyInfo)
 	end
 end
 
+local function CreateKeyShardString(labelRow, currencyInfo)
+	local keyshardInfo = currencyInfo and currencyInfo[labelRow.key]
+
+	if keyshardInfo then
+		local currencyString = PermoksAccountManager:CreateCurrencyString(
+			keyshardInfo,
+			labelRow.abbCurrent,
+			labelRow.abbMax,
+			labelRow.hideMaximum,
+			labelRow.customIcon,
+			labelRow.hideIcon,
+			keyshardInfo.quantityEarnedThisWeek
+		)
+		return string.format("%d - %s", keyshardInfo.quantity, currencyString)
+	else
+		return "-"
+	end
+end
+
 local function CreateValorString(labelRow, currencyInfo)
 	local info = currencyInfo and currencyInfo[labelRow.key]
 	if info then
@@ -852,26 +862,6 @@ local function CreateValorString(labelRow, currencyInfo)
 			PermoksAccountManager:CreateFractionString(info.totalEarned or 0, maxQuantity or 0)
 		)
 	end
-end
-
-local function CreateCofferKeyString(labelRow, currencyInfo, itemCounts)
-	if not currencyInfo then
-		return "-"
-	end
-
-	local keyInfo = currencyInfo[labelRow.key]
-	local reagentInfo = itemCounts[labelRow.reagent]
-
-	local total = 0
-	if keyInfo then
-		total = total + keyInfo.quantity
-	end
-
-	if reagentInfo then
-		total = total + (reagentInfo.total / labelRow.reagentRequired)
-	end
-
-	return PermoksAccountManager:CreateCurrencyString(keyInfo, nil, nil, nil, nil, nil, total)
 end
 
 local function CreateTreeCurrencyString(labelRow, currencyInfo)
@@ -901,8 +891,8 @@ local payload = {
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType("catalystcharges", CreateCatalystChargeString, nil, "currencyInfo")
 module:AddCustomLabelType("crestcurrency", CreateCrestString, nil, "currencyInfo")
+module:AddCustomLabelType("keyshard", CreateKeyShardString, nil, "currencyInfo")
 module:AddCustomLabelType("valor", CreateValorString, nil, "currencyInfo")
-module:AddCustomLabelType("cofferkey", CreateCofferKeyString, nil, "currencyInfo", "itemCounts")
 module:AddCustomLabelType("treecurrency", CreateTreeCurrencyString, nil, "treeCurrencyInfo")
 
 -- TODO Create a CreateIconString function instead of two functions for items and currencies
@@ -951,7 +941,9 @@ function PermoksAccountManager:CreateCurrencyString(
 		end
 	end
 
-	local quantity = customQuantitiy or (useWeeklyEarned and currencyInfo.quantityEarnedThisWeek) or  currencyInfo.quantity
+	local quantity = customQuantitiy
+		or (useWeeklyEarned and currencyInfo.quantityEarnedThisWeek)
+		or currencyInfo.quantity
 	local currencyString = quantity
 	if
 		not hideMaximum

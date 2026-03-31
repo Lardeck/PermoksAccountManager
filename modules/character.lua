@@ -831,9 +831,6 @@ function PermoksAccountManager:CustomEquippedItemsTooltip_OnEnter(button, altDat
 					end
 				end)
 			else
-				if not item.itemLevel and altData.GUID == UnitGUID("player") then
-				end
-
 				tooltip:AddLine(
 					string.format("%s:", item.itemSlot),
 					string.format(
