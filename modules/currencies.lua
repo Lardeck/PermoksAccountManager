@@ -415,6 +415,16 @@ local labelRows = {
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
+	restored_coffer_key = {
+		label = "Restored Coffer Key",
+		type = "cofferkey",
+		passRow = true,
+		key = 3028,
+		reagent = 229899,
+		reagentRequired = 100,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
 
 	-- wotlk-classic
 	honorBCC = {
@@ -831,6 +841,26 @@ local function CreateCrestString(labelRow, currencyInfo)
 	end
 end
 
+local function CreateCofferKeyString(labelRow, currencyInfo, itemCounts)
+	if not currencyInfo then
+		return "-"
+	end
+
+	local keyInfo = currencyInfo[labelRow.key]
+	local reagentInfo = itemCounts[labelRow.reagent]
+
+	local total = 0
+	if keyInfo then
+		total = total + keyInfo.quantity
+	end
+
+	if reagentInfo then
+		total = total + (reagentInfo.total / labelRow.reagentRequired)
+	end
+
+	return PermoksAccountManager:CreateCurrencyString(keyInfo, nil, nil, nil, nil, nil, total)
+end
+
 local function CreateKeyShardString(labelRow, currencyInfo)
 	local keyshardInfo = currencyInfo and currencyInfo[labelRow.key]
 
@@ -893,6 +923,7 @@ module:AddCustomLabelType("catalystcharges", CreateCatalystChargeString, nil, "c
 module:AddCustomLabelType("crestcurrency", CreateCrestString, nil, "currencyInfo")
 module:AddCustomLabelType("keyshard", CreateKeyShardString, nil, "currencyInfo")
 module:AddCustomLabelType("valor", CreateValorString, nil, "currencyInfo")
+module:AddCustomLabelType("cofferkey", CreateCofferKeyString, nil, "currencyInfo", "itemCounts")
 module:AddCustomLabelType("treecurrency", CreateTreeCurrencyString, nil, "treeCurrencyInfo")
 
 -- TODO Create a CreateIconString function instead of two functions for items and currencies
