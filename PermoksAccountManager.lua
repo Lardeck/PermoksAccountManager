@@ -224,7 +224,7 @@ do
 	--- Update the font path of all previously created fonts.
 	function UpdateFonts()
 		local options = PermoksAccountManager.db.global.options
-		local outline = options.useOutline and "OUTLINE" or nil
+		local outline = options.useOutline and "OUTLINE" or ""
 		local font = LSM:Fetch("font", options.font)
 		normalFont:SetFont(font, options.fontSize, outline)
 		smallFont:SetFont(font, 9, outline)
