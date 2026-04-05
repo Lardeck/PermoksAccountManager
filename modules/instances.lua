@@ -355,7 +355,7 @@ local function UpdateInstanceInfo(charInfo)
 			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
 			for boss = 1, numEncounters do
 				local isKilled = select(3, GetSavedInstanceEncounterInfo(i, boss))
-				raidInfo.defeatedEncountersInfo[index + boss] = isKilled
+				raidInfo.defeatedEncountersInfo[index - 1 + boss] = isKilled
 			end
 		elseif self.isCata and raidInfo then
 			raidInfo.defeatedEncountersInfo = raidInfo.defeatedEncountersInfo or {}
@@ -528,16 +528,16 @@ local function RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
 		tooltip:AddLine(info.difficulty .. ":", self:CreateQuestString(info.defeatedEncounters, info.numEncounters))
 
 		if info.defeatedEncountersInfo and difficulty < 17 then
-			local bossIndex = 1
+			local bossIndex = dbInfo.startAtZero and 0 or 1
 			for index = dbInfo.startIndex, dbInfo.endIndex do
-				local bossInfo = info.defeatedEncountersInfo[bossIndex]
+				local bossInfo = info.defeatedEncountersInfo[index]
 				local text = L["Unsaved"]
 				local color = "00ff00"
 
 				if
 					difficulty == 16
-					and localRaidActivityInfo[index]
-					and localRaidActivityInfo[index].bestDifficulty == difficulty
+					and localRaidActivityInfo[bossIndex]
+					and localRaidActivityInfo[bossIndex].bestDifficulty == difficulty
 				then
 					text = L["Killed"]
 					color = "ff0000"
@@ -547,7 +547,7 @@ local function RetailRaid_OnEnter(tooltip, altData, dbInfo, raidInfo)
 				end
 
 				tooltip:AddLine(
-					bossIndex .. " " .. EJ_GetEncounterInfo(localRaidActivityInfo[index].encounterID),
+					index .. " " .. EJ_GetEncounterInfo(localRaidActivityInfo[bossIndex].encounterID),
 					string.format("|cff%s%s|r", color, text)
 				)
 				bossIndex = bossIndex + 1
