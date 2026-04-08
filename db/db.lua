@@ -2033,7 +2033,13 @@ PermoksAccountManager.quests = {
 	},
     nightmarish_task = {
         [94446] = { questType = 'weekly', log = true },
-    }
+    },
+	weekly_delve_reputation_midnight = {
+		[93822] = { questType = "weekly", warband = "unique", name = "NYI" },
+		[93821] = { questType = "weekly", warband = "unique", name = "NYI" },
+		[93820] = { questType = "weekly", warband = "unique", name = "NYI" },
+		[93819] = { questType = "weekly", warband = "unique", name = "Amani Tribe" },
+	},
 }
 
 PermoksAccountManager.locale = {

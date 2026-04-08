@@ -1455,7 +1455,9 @@ local InternalLabelFunctions = {
 		return PermoksAccountManager:CreateQuestString(
 			questInfo,
 			required,
-			column.plus or (column.plus == nil and required == 1)
+			column.plus or (column.plus == nil and required == 1),
+			nil,
+			column.warband
 		) or "-"
 	end,
 	currency = function(alt_data, column, key)

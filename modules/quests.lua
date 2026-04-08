@@ -1527,6 +1527,22 @@ local labelRows = {
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
 	},
+	weekly_delve_reputation_midnight = {
+		IDs = { 93819, 93820, 93821, 93822 },
+		label = "Midnight Delve Rep",
+		type = "quest",
+		questType = "weekly",
+		warband = true,
+		visibility = "hidden",
+		group = "resetWeekly",
+		tooltip = true,
+		customTooltip = function(...)
+			PermoksAccountManager:CompletedQuestsTooltip_OnEnter(...)
+		end,
+		required = 4,
+		showAll = true,
+		version = WOW_PROJECT_MAINLINE,
+	},
 
 	--wotlk
 	general_dailies = {
@@ -1970,10 +1986,11 @@ function PermoksAccountManager:GetNumCompletedQuests(questInfo)
 	return numCompleted
 end
 
-function PermoksAccountManager:CreateQuestString(questInfo, numDesired, replaceWithPlus, capAtDesired)
+function PermoksAccountManager:CreateQuestString(questInfo, numDesired, replaceWithPlus, capAtDesired, useWarbandInfo)
 	if not questInfo or not numDesired then
 		return
 	end
+
 	local numCompleted = type(questInfo) == "table" and self:GetNumCompletedQuests(questInfo) or questInfo
 	if replaceWithPlus and numCompleted >= numDesired then
 		return string.format("|cff00ff00%s|r", self.db.global.options.questCompletionString)
