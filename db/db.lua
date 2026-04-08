@@ -1996,6 +1996,7 @@ PermoksAccountManager.quests = {
 		[92145] = { questType = "weekly", warband = true, log = true },
 		[93244] = { questType = "weekly", warband = true, log = true },
 		[92063] = { questType = "weekly", warband = true, log = true },
+		[93013] = { questType = "weekly", warband = true, log = true },
 	},
 	-- World Boss
 	world_boss = {
