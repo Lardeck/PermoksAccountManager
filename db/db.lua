@@ -1980,13 +1980,7 @@ PermoksAccountManager.quests = {
 		[89507] = { questType = "weekly", warband = true, log = true },
 	},
 	lost_legends = {
-		[88993] = { questType = "weekly", warband = true, log = true },
-		[88994] = { questType = "weekly", warband = true, log = true },
-		[88995] = { questType = "weekly", warband = true, log = true },
-		[88996] = { questType = "weekly", warband = true, log = true },
-		[88997] = { questType = "weekly", warband = true, log = true },
-		[88998] = { questType = "weekly", warband = true, log = true },
-		-- [89268] = {questType = 'weekly', warband = true, log = true},
+		[93474] = {questType = 'weekly', warband = true, log = true},
 	},
 	stormarion_assault = {
 		[90962] = { questType = "weekly", warband = true, log = true },
