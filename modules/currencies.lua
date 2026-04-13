@@ -724,7 +724,7 @@ local function UpdateCurrency(charInfo, currencyType, quantity, quantityChanged)
 	end
 
 	-- Update Warband amount
-	if self.warbandData.currencyInfo and C_CurrencyInfo.IsAccountTransferableCurrency(currencyType) then
+	if self.warbandData.currencyInfo and C_CurrencyInfo.IsAccountTransferableCurrency(currencyType) and quantity then
 		local warbandCurrencyInfo = self.warbandData.currencyInfo
 		warbandCurrencyInfo[currencyType].quantity = warbandCurrencyInfo[currencyType].altQuantity + quantity
 	end
