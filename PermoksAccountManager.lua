@@ -508,8 +508,10 @@ function PermoksAccountManager:CreateFrames()
 
 		managerFrame:ClearAllPoints()
 		managerFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", left, top - UIParent:GetTop())
-
 		managerFrame:SetMovable(false)
+
+		local position = PermoksAccountManager.db.global.position
+		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset = managerFrame:GetPointByName("TOPLEFT")
 	end)
 	self:UpdateBorder(managerFrame.topDragBar, nil, true)
 
@@ -1767,6 +1769,9 @@ function PermoksAccountManager:UpdateCategory(button, defaultState, name, catego
 			button.Text:SetTextColor(0, 1, 0, 1)
 			self:UpdateCategoryFrameSize(numRows)
 			self.categoryFrame:Show()
+
+			self.db.global.openCategory = category
+			self.db.global.openCategoryRows = numRows
 		end
 	else
 		self:HideCategory(button, category)
@@ -1782,6 +1787,9 @@ function PermoksAccountManager:HideCategory(button, category)
 	if category == self.categoryFrame.openCategory then
 		self.categoryFrame.openCategory = nil
 		self.categoryFrame.openCategoryRows = nil
+
+		self.db.global.openCategory = nil
+		self.db.global.openCategoryRows = nil
 	end
 
 	button.selected:Hide()
@@ -2020,6 +2028,12 @@ function PermoksAccountManager:ShowInterface()
 	self:UpdateCompletionDataForCharacter(self.charInfo)
 	self:UpdateMenu()
 	self:UpdateStrings(self.db.global.currentPage, "general")
+
+	if not self.categoryFrame.openCategory and self.db.global.openCategory then
+		self.categoryFrame.openCategory = self.db.global.openCategory
+		self.categoryFrame.openCategoryRows = self.db.global.openCategoryRows
+	end
+
 	if self.categoryFrame.openCategory then
 		local openCategory = self.categoryFrame.openCategory
 		self:UpdateCategory(self.managerFrame.categoryButtons[openCategory], "closed", nil, openCategory)
