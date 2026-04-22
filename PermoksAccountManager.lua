@@ -1029,12 +1029,13 @@ function PermoksAccountManager:ResetWeeklyActivities(altData)
 		altData.completedWorldQuests = {}
 	end
 
-	-- Crests Earned
+	-- Reset certain currencies
 	if altData.currencyInfo then
 		-- REFACTOR: move this to the currency module and reduce redundancy
-		for _, crestID in ipairs({ 2914, 2915, 2916, 2917 }) do
-			if altData.currencyInfo[crestID] then
-				altData.currencyInfo[crestID].quantity = 0
+		for _, currencyID in ipairs({ 3310 }) do
+			if altData.currencyInfo[currencyID] then
+				--altData.currencyInfo[currencyID].quantity = 0
+				altData.currencyInfo[currencyID].quantityEarnedThisWeek = 0
 			end
 		end
 	end
