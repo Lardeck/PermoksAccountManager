@@ -785,10 +785,12 @@ local function CurrencyTransferUpdate(charInfo)
 		end
 	end
 
-	for _, alt in pairs(newWarbandCurrencyInfo) do
-		local character = accountData[alt.characterGUID]
-		if character and character.currencyInfo and character.currencyInfo[lastTransferCurrencyType] then
-			character.currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
+	if newWarbandCurrencyInfo then
+		for _, alt in pairs(newWarbandCurrencyInfo) do
+			local character = accountData[alt.characterGUID]
+			if character and character.currencyInfo and character.currencyInfo[lastTransferCurrencyType] then
+				character.currencyInfo[lastTransferCurrencyType].quantity = alt.quantity
+			end
 		end
 	end
 end
