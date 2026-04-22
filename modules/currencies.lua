@@ -426,6 +426,17 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE,
 	},
 
+	-- 12.0.5
+	nebulous_voidcore = {
+		label = "Voidcores",
+		type = "voidcores",
+		key = 3418,
+		useWeeklyEarned = true,
+		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+
 	-- wotlk-classic
 	honorBCC = {
 		label = function()
@@ -922,6 +933,7 @@ local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType("catalystcharges", CreateCatalystChargeString, nil, "currencyInfo")
 module:AddCustomLabelType("crestcurrency", CreateCrestString, nil, "currencyInfo")
 module:AddCustomLabelType("keyshard", CreateKeyShardString, nil, "currencyInfo")
+module:AddCustomLabelType("voidcores", CreateKeyShardString, nil, "currencyInfo")
 module:AddCustomLabelType("valor", CreateValorString, nil, "currencyInfo")
 module:AddCustomLabelType("cofferkey", CreateCofferKeyString, nil, "currencyInfo", "itemCounts")
 module:AddCustomLabelType("treecurrency", CreateTreeCurrencyString, nil, "treeCurrencyInfo")
