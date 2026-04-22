@@ -431,7 +431,6 @@ local labelRows = {
 		label = "Voidcores",
 		type = "voidcores",
 		key = 3418,
-		useWeeklyEarned = true,
 		passRow = true,
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
@@ -611,6 +610,7 @@ local function UpdateAllCurrencies(charInfo)
 			currencyInfo[currencyType].totalEarned = info.totalEarned
 			currencyInfo[currencyType].maxWeeklyQuantity = info.maxWeeklyQuantity
 			currencyInfo[currencyType].quantityEarnedThisWeek = info.quantityEarnedThisWeek
+			currencyInfo[currencyType].useTotalEarnedForMaxQty = info.useTotalEarnedForMaxQty
 
 			self.db.global.currencyInfo[currencyType] = self.db.global.currencyInfo[currencyType]
 				or { icon = info.iconFileID, name = info.name }
@@ -872,20 +872,20 @@ local function CreateCofferKeyString(labelRow, currencyInfo, itemCounts)
 	return PermoksAccountManager:CreateCurrencyString(keyInfo, nil, nil, nil, nil, nil, total)
 end
 
-local function CreateKeyShardString(labelRow, currencyInfo)
-	local keyshardInfo = currencyInfo and currencyInfo[labelRow.key]
+local function CreateQuantityTotalQuantityString(labelRow, currencyInfo)
+	local info = currencyInfo and currencyInfo[labelRow.key]
 
-	if keyshardInfo then
+	if info then
 		local currencyString = PermoksAccountManager:CreateCurrencyString(
-			keyshardInfo,
+			info,
 			labelRow.abbCurrent,
 			labelRow.abbMax,
 			labelRow.hideMaximum,
 			labelRow.customIcon,
 			labelRow.hideIcon,
-			keyshardInfo.quantityEarnedThisWeek
+			info.useTotalEarnedForMaxQty and info.totalEarned or info.quantityEarnedThisWeek
 		)
-		return string.format("%d - %s", keyshardInfo.quantity, currencyString)
+		return string.format("%d - %s", info.quantity, currencyString)
 	else
 		return "-"
 	end
@@ -932,8 +932,8 @@ local payload = {
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType("catalystcharges", CreateCatalystChargeString, nil, "currencyInfo")
 module:AddCustomLabelType("crestcurrency", CreateCrestString, nil, "currencyInfo")
-module:AddCustomLabelType("keyshard", CreateKeyShardString, nil, "currencyInfo")
-module:AddCustomLabelType("voidcores", CreateKeyShardString, nil, "currencyInfo")
+module:AddCustomLabelType("keyshard", CreateQuantityTotalQuantityString, nil, "currencyInfo")
+module:AddCustomLabelType("voidcores", CreateQuantityTotalQuantityString, nil, "currencyInfo")
 module:AddCustomLabelType("valor", CreateValorString, nil, "currencyInfo")
 module:AddCustomLabelType("cofferkey", CreateCofferKeyString, nil, "currencyInfo", "itemCounts")
 module:AddCustomLabelType("treecurrency", CreateTreeCurrencyString, nil, "treeCurrencyInfo")
