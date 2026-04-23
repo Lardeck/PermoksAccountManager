@@ -678,6 +678,7 @@ PermoksAccountManager.currencyCustomOptions = {
 	[3345] = { forceUpdate = true },
 	[3347] = { forceUpdate = true },
 	[3310] = { forceUpdate = true },
+	[3418] = { forceUpdate = true },
 }
 
 PermoksAccountManager.research = {
