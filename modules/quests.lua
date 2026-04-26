@@ -1543,6 +1543,14 @@ local labelRows = {
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
 	},
+	thordakk = {
+		label = "March BoE Ogre",
+		type = "quest",
+		questType = "weekly",
+		visibility = "hidden",
+		group = "resetWeekly",
+		version = WOW_PROJECT_MAINLINE,
+	},
 
 	--wotlk
 	general_dailies = {
