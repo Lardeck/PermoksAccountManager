@@ -97,6 +97,7 @@ local defaultDB = {
 				updated = false,
 				labelOffset = 5,
 				frameStrata = "MEDIUM",
+				labelColumnWidth = 140,
 			},
 			characters = {
 				charactersPerPage = 6,
@@ -485,7 +486,7 @@ function PermoksAccountManager:CreateFrames()
 
 	managerFrame.labelColumn = CreateFrame("Button", nil, managerFrame)
 	managerFrame.labelColumn:SetPoint("TOPLEFT", managerFrame, "TOPLEFT", 0, -5)
-	managerFrame.labelColumn:SetPoint("BOTTOMRIGHT", managerFrame, "BOTTOMLEFT", 140, 0)
+	managerFrame.labelColumn:SetPoint("BOTTOMRIGHT", managerFrame, "BOTTOMLEFT", options.other.labelColumnWidth, 0)
 	managerFrame.altColumns = { general = {} }
 	managerFrame.warbandColumns = {}
 
@@ -525,7 +526,7 @@ function PermoksAccountManager:CreateFrames()
 	categoryFrame.labelColumn = cLabelColumn
 	cLabelColumn.categories = {}
 	cLabelColumn:SetPoint("TOPLEFT", categoryFrame, "TOPLEFT", 0, -5)
-	cLabelColumn:SetPoint("BOTTOMRIGHT", categoryFrame, "BOTTOMLEFT", 140, 0)
+	cLabelColumn:SetPoint("BOTTOMRIGHT", categoryFrame, "BOTTOMLEFT", options.other.labelColumnWidth, 0)
 	categoryFrame.altColumns = {}
 
 	local categoryFrameBackdrop = CreateFrame("Frame", nil, categoryFrame, "BackdropTemplate")
@@ -1286,13 +1287,16 @@ local function UpdateOrCreateMenu(category, anchorFrame, parent)
 		local row = PermoksAccountManager.labelRows[row_iden]
 		if row then
 			if row.label then
-				local label_row = labels[row_iden] or CreateLabelButton("label", parent or anchorFrame, row, nil, 140)
+				local label_row = labels[row_iden] or CreateLabelButton("label", parent or anchorFrame, row, nil, db.options.other.labelColumnWidth)
 				if not labels[row_iden] then
 					labels[row_iden] = label_row
 					if not row.hideLabel then
 						label_row:SetText((type(row.label) == "function" and row.label() or row.label) .. ":")
 					end
 				end
+
+				label_row:SetWidth(db.options.other.labelColumnWidth)
+				label_row:GetFontString():SetWidth(db.options.other.labelColumnWidth - 10)
 				label_row:SetPoint("TOPLEFT", anchorFrame, "TOPLEFT", 0, -enabledRows * 20)
 				label_row:Show()
 
@@ -1759,7 +1763,7 @@ function PermoksAccountManager:UpdateCategory(button, defaultState, name, catego
 		self:UpdateWarbandAnchors(category, categoryLabelColumn)
 		self:UpdateAltAnchors(category, self.categoryFrame, categoryLabelColumn)
 		self:UpdateStrings(nil, category, self.categoryFrame)
-		categoryLabelColumn:SetSize(140, (numRows * 20))
+		categoryLabelColumn:SetSize(self.db.global.options.other.labelColumnWidth, (numRows * 20))
 		categoryLabelColumn:Show()
 
 		if numRows > 0 then
@@ -1910,7 +1914,7 @@ function PermoksAccountManager:UpdateManagerFrameSize(widthOnly, heightOnly)
 	local alts = #self.pages[self.db.global.currentPage]
 	local widthPerAlt = self.db.global.options.buttons.widthPerAlt
 	local width = ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0)
-		+ ((alts * widthPerAlt) + 140)
+		+ ((alts * widthPerAlt) + self.db.global.options.other.labelColumnWidth)
 		- min((widthPerAlt - self.db.global.options.buttons.buttonWidth), 20)
 		+ 4
 	local height = self.managerFrame.height
@@ -1947,6 +1951,9 @@ end
 
 function PermoksAccountManager:UpdateAnchorsAndSize(category, widthOnly, heightOnly, updateMenu)
 	if category == "general" then
+		self.managerFrame.labelColumn:SetPoint("BOTTOMRIGHT", self.managerFrame, "BOTTOMLEFT", self.db.global.options.other.labelColumnWidth, 0)
+		self.categoryFrame.labelColumn:SetPoint("BOTTOMRIGHT", self.categoryFrame, "BOTTOMLEFT", self.db.global.options.other.labelColumnWidth, 0)
+
 		if updateMenu then
 			local numRows = UpdateOrCreateMenu("general", self.managerFrame.labelColumn)
 			self.managerFrame.height = max(numRows * 20 + 10, max(0, (self.numCategories - 2) * 30))

@@ -1058,7 +1058,7 @@ function PermoksAccountManager:LoadOptionsTemplate()
 					options[parentKey].updated = options[parentKey].updated or options[parentKey][key]
 					options[parentKey][key] = value
 
-					PermoksAccountManager:UpdateAnchorsAndSize("general", true)
+					PermoksAccountManager:UpdateAnchorsAndSize("general", true, nil, true)
 				end,
 				args = {
 					labelOffset = {
@@ -1067,6 +1067,14 @@ function PermoksAccountManager:LoadOptionsTemplate()
 						name = L["Label Offset"],
 						min = 0,
 						max = 40,
+						bigStep = 1,
+					},
+					labelColumnWidth = {
+						order = 2,
+						type = "range",
+						name = L["Label Column Width"],
+						min = 50,
+						max = 400,
 						bigStep = 1,
 					},
 					frameStrata = {
@@ -1992,6 +2000,7 @@ do
 		},
 	}
 	local function UpdateLabelTable()
+
 		for key, info in pairs(PermoksAccountManager.labelRows) do
 			if not info.hideOption then
 				local group = info.group or "other"

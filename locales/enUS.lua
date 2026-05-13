@@ -163,6 +163,7 @@ L['Category Order'] = true
 L['Create'] = true
 L['Add New'] = true
 L['Label Offset'] = true
+L['Label Column Width'] = true
 L['Width per Alt'] = true
 L['Frame Strata'] = true
 L['Other'] = true
