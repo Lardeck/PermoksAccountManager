@@ -419,6 +419,20 @@ local function createDefaultOptions()
 						}
 					end
 				end
+
+				for i, child in pairs(default_categories[category].childs) do
+					if
+						not args[child]
+						and PermoksAccountManager.labelRows[child]
+						and not PermoksAccountManager.labelRows[child].hideOption
+					then
+						args[child] = {
+							order = i,
+							type = "toggle",
+							name = PermoksAccountManager.labelRows[child].label,
+						}
+					end
+				end
 			end
 		end
 
@@ -2000,7 +2014,6 @@ do
 		},
 	}
 	local function UpdateLabelTable()
-
 		for key, info in pairs(PermoksAccountManager.labelRows) do
 			if not info.hideOption then
 				local group = info.group or "other"
@@ -2027,7 +2040,11 @@ do
 						)
 					end
 				elseif group == "item" and info.key then
-					name = string.format("\124T%d:18:18\124t %s", C_Item.GetItemIconByID(info.key), type(name) == "function" and name() or name)
+					name = string.format(
+						"\124T%d:18:18\124t %s",
+						C_Item.GetItemIconByID(info.key),
+						type(name) == "function" and name() or name
+					)
 				end
 
 				labelTable[group].args[key] = labelTable[group].args[key]
