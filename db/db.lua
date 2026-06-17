@@ -657,6 +657,8 @@ PermoksAccountManager.currency = {
 	[3310] = 0, -- Coffer Key Shards
 
 	[3418] = 0, -- Nebulous Voidcore
+
+	[3405] = 0, -- Field Accolade
 }
 
 PermoksAccountManager.currencyTrees = {

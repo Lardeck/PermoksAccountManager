@@ -435,6 +435,14 @@ local labelRows = {
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
+	field_accolade = {
+		label = "Field Accolade",
+		type = "field_accolade",
+		key = 3405,
+		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
 
 	-- wotlk-classic
 	honorBCC = {
