@@ -49,7 +49,7 @@ local LibQTip = LibStub("LibQTip-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local LSM = LibStub("LibSharedMedia-3.0")
 local VERSION = C_AddOns.GetAddOnMetadata(addonName, "Version")
-local INTERNALMIDNIGHT = 2
+local INTERNALMIDNIGHT = 3
 local INTERNALWOTLKVERSION = 6
 local INTERNALCATAVERSION = 3
 local INTERNALMISTSVERSION = 1
@@ -735,6 +735,11 @@ function PermoksAccountManager:Modernize(oldInternalVersion)
 	if oldInternalVersion < 2 then
 		self:AddLabelToDefaultCategory("general", "adventurer_crest", 7.5)
 		oldInternalVersion = 2
+	end
+
+	if oldInternalVersion < 3 then
+		self:AddLabelToDefaultCategory("raid", "sporefall", 4)
+		oldInternalVersion = 3
 	end
 end
 

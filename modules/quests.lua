@@ -1920,7 +1920,7 @@ end
 
 -- module init
 local function Update(charInfo)
-	C_Timer.After(15, function()
+	C_Timer.After(10, function()
 		UpdateAllQuests(charInfo)
 		UpdateCurrentlyActiveQuests(charInfo)
 		UpdateCataDailies(charInfo)

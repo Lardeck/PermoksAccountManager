@@ -51,6 +51,17 @@ local labelRows = {
 		group = "raids",
 		version = WOW_PROJECT_MAINLINE,
 	},
+	sporefall = {
+		label = function()
+			return PermoksAccountManager.raids[1592].name or "Sporefall"
+		end,
+		id = 1592,
+		type = "raid",
+		key = "sporefall",
+		tooltip = true,
+		group = "raids",
+		version = WOW_PROJECT_MAINLINE,
+	},
 
 	-- wotlk
 	-- TOOD: Change db structure so you can get the locale name without calling the function again
@@ -412,6 +423,7 @@ local retailDifficultyOrder = {
 	[14] = 2,
 	[15] = 3,
 	[16] = 4,
+	[233] = 4,
 }
 
 function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)

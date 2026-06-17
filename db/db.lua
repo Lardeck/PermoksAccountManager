@@ -127,11 +127,13 @@ local default_categories = {
 			"the_dreamrift",
 			"the_voidspire",
 			"march_on_queldanas",
+			"sporefall",
 		},
 		childOrder = {
 			the_dreamrift = 1,
 			the_voidspire = 2,
 			march_on_queldanas = 3,
+			sporefall = 4,
 		},
 		enabled = true,
 	},
@@ -431,6 +433,13 @@ PermoksAccountManager.raids = {
 		startIndex = 1,
 		endIndex = 1,
 	},
+	[1592] = {
+		name = GetRealZoneText(1592),
+		englishID = "sporefall",
+		instanceID = 1305,
+		startIndex = 1,
+		endIndex = 1,
+	}
 }
 
 PermoksAccountManager.dungeons = {
