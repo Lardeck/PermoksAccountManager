@@ -1,7 +1,7 @@
 local addonName, PermoksAccountManager = ...
 local L = LibStub("AceLocale-3.0"):GetLocale(addonName)
 local LibQTip = LibStub("LibQTip-1.0")
-local options
+local equipmentUpdated = false
 
 local module = "character"
 local labelRows = {
@@ -520,11 +520,11 @@ local function UpdateEquip(charInfo, ...)
 	if isEmpty then
 		charInfo.equippedItems[equipmentSlot] = nil
 	else
-		local itemID = GetInventoryItemID("player", equipmentSlot)
-		if itemID then
-			local itemObject = Item:CreateFromItemID(itemID)
+		local itemObject = Item:CreateFromEquipmentSlot(equipmentSlot)
+		if not itemObject:IsItemEmpty() then
 			itemObject:ContinueOnItemLoad(function()
 				local itemLink = GetInventoryItemLink("player", equipmentSlot)
+				local itemID = itemObject:GetItemID()
 				local itemName = itemObject:GetItemName()
 				local itemQuality = itemObject:GetItemQuality()
 				local itemEquipLoc = itemObject:GetInventoryTypeName()
@@ -540,8 +540,6 @@ local function UpdateEquip(charInfo, ...)
 					itemSlot = _G[itemEquipLoc],
 				}
 			end)
-		else
-			charInfo.equippedItems[equipmentSlot] = nil
 		end
 	end
 end
@@ -550,6 +548,15 @@ local function UpdateCharacterEquip(charInfo)
 	for equipmentSlot = 1, 18 do
 		UpdateEquip(charInfo, equipmentSlot)
 	end
+end
+
+local function UpdateCharacterEquipOnce(charInfo)
+	if equipmentUpdated then
+		return
+	end
+
+	RunNextFrame(function() UpdateCharacterEquip(charInfo) end)
+	equipmentUpdated = true
 end
 
 local function UpdateMythicScore(charInfo)
@@ -594,7 +601,6 @@ local function Update(charInfo)
 		UpdateLocation(charInfo)
 	else
 		UpdateILevel(charInfo)
-		UpdateCharacterEquip(charInfo)
 		UpdatePlayerSpecialization(charInfo)
 		UpdateMythicScore(charInfo)
 		UpdateMythicPlusHistory(charInfo)
@@ -696,6 +702,9 @@ local payload = {
 		["ZONE_CHANGED_NEW_AREA"] = UpdateLocation,
 		["ZONE_CHANGED_INDOORS"] = UpdateLocation,
 		["ACCOUNT_MONEY"] = UpdateWarbankGold,
+	},
+	unitEvents = {
+		["UNIT_INVENTORY_CHANGED,player"] = UpdateCharacterEquipOnce,
 	},
 	share = {
 		[UpdateGold] = "gold",
