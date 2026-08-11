@@ -69,6 +69,7 @@ local default_categories = {
 			"abundance",
 			"lost_legends",
 			"stormarion_assault",
+			"weekly_meta",
 		},
 		childOrder = {
 			mythics_done = 1,
@@ -78,6 +79,7 @@ local default_categories = {
 			abundance = 12,
 			lost_legends = 13,
 			stormarion_assault = 14,
+			weekly_meta = 15,
 		},
 		enabled = true,
 	},
@@ -111,12 +113,22 @@ local default_categories = {
 			"the_singularity",
 			"harati",
 			"silvermoon_court",
+			"separator1",
+			"zuljarras_force",
+			"captain_tokka",
+			"delves_current",
+			"prey_current",
 		},
 		childOrder = {
 			amani_tribe = 1,
 			the_singularity = 2,
 			harati = 3,
 			silvermoon_court = 4,
+			separator1 = 5,
+			zuljarras_force = 6,
+			captain_tokka = 7,
+			delves_current = 8,
+			prey_current = 9,
 		},
 		enabled = true,
 	},
@@ -128,12 +140,16 @@ local default_categories = {
 			"the_voidspire",
 			"march_on_queldanas",
 			"sporefall",
+			"the_venomous_abyss",
+			"the_tidebound_grotto",
 		},
 		childOrder = {
 			the_dreamrift = 1,
 			the_voidspire = 2,
 			march_on_queldanas = 3,
 			sporefall = 4,
+			the_venomous_abyss = 5,
+			the_tidebound_grotto = 6,
 		},
 		enabled = true,
 	},
@@ -357,7 +373,6 @@ PermoksAccountManager.keys = {
 	[248] = "WM", -- Waycrest Manor
 	[251] = "UNDR", -- The Underrot
 	[353] = "SIEGE", -- Siege of Boralus
-	[399] = "RLP", -- Ruby Life Pools
 	[400] = "NO", -- The Nokhud Offensive
 	[401] = "AV", -- The Azure Vault
 	[402] = "AA", -- Algeth'ar Academy
@@ -390,6 +405,15 @@ PermoksAccountManager.keys = {
 	[560] = "MC", -- Maisara Caverns
 	[583] = "SEAT", -- Seat of the Triumvirate
 	[161] = "SR", -- Skyreach
+
+	[249] = "KR", -- Kings' Rest
+	[250] = "TOS", -- Temple of Sethraliss
+	[399] = "RLP", -- Ruby Life Pools
+	[584] = "BV", -- The Blinding Vale
+	[585] = "VA", -- Voidscar Arena
+	[586] = "DON", -- Den of Nalorakk
+	[587] = "MR", -- Murder Row
+	[588] = "AOF", -- Altar of Fangs
 }
 
 -- Timewalking Keystones
@@ -439,18 +463,32 @@ PermoksAccountManager.raids = {
 		instanceID = 1305,
 		startIndex = 1,
 		endIndex = 1,
-	}
+	},
+	[3004] = {
+		name = GetRealZoneText(3004),
+		englishID = "the_venomous_abyss",
+		instanceID = 1320,
+		startIndex = 1,
+		endIndex = 8,
+	},
+	[2987] = {
+		name = GetRealZoneText(2987),
+		englishID = "the_tidebound_grotto",
+		instanceID = 1317,
+		startIndex = 1,
+		endIndex = 1,
+	},
 }
 
 PermoksAccountManager.dungeons = {
-	[2805] = GetRealZoneText(2805), -- Windrunner Spire
-	[2811] = GetRealZoneText(2811), -- Magisters' Terrace
+	[2993] = GetRealZoneText(2993), -- Altar of Fangs
 	[2813] = GetRealZoneText(2813), -- Murder Row
 	[2825] = GetRealZoneText(2825), -- Den of Nalorakk
 	[2859] = GetRealZoneText(2859), -- The Blinding Vale
-	[2874] = GetRealZoneText(2874), -- Maisara Caverns
-	[2915] = GetRealZoneText(2915), -- Nexus-Point Xenas
 	[2923] = GetRealZoneText(2923), -- Voidscar Arena
+	[1762] = GetRealZoneText(1762), -- Kings' Rest
+	[2521] = GetRealZoneText(2521), -- Ruby Life Pools
+	[1877] = GetRealZoneText(1877), -- Temple of Sethraliss
 }
 
 PermoksAccountManager.item = {
@@ -514,6 +552,10 @@ PermoksAccountManager.item = {
 
 	-- 12.0
 	[232875] = { key = "spark_current" }, -- Spark of Radiance
+
+	--12.1
+	[274476] = { key = "spark_current" }, -- Spark of Tides
+	[273000] = { key = "corrosive_soul" }, -- Corrosive Soul
 }
 
 PermoksAccountManager.factions = {
@@ -568,6 +610,11 @@ PermoksAccountManager.factions = {
 	[2699] = { name = "The Singularity", paragon = true, type = "renown", warband = "unique" },
 	[2704] = { name = "Hara'ti", paragon = true, type = "renown", warband = "unique" },
 	[2710] = { name = "Silvermoon Court", paragon = true, type = "renown", warband = "unique" },
+
+	[2772] = { name = "Zul'jarra's Force", paragon = true, type = "renown", warband = "unique" },
+	[2773] = { name = "Captain Tokka", paragon = true, type = "renown", warband = "unique" },
+	[2796] = { name = "Delves: Season 2", paragon = false, type = "renown", warband = "unique" },
+	[2808] = { name = "Prey: Season 2", paragon = false, type = "renown", warband = "unique" },
 }
 
 PermoksAccountManager.currency = {
@@ -650,15 +697,22 @@ PermoksAccountManager.currency = {
 
 	[3212] = 0, -- Radiant Spark Dust
 	[3378] = 0, -- Dawnlight Manaflux (Catalyst Charges Midnight Season 1)
-
 	[3316] = 0, -- Voidlight Marl
 	[3376] = 0, -- Shard of Dundun
-
 	[3310] = 0, -- Coffer Key Shards
-
 	[3418] = 0, -- Nebulous Voidcore
-
 	[3405] = 0, -- Field Accolade
+
+	-- 12.1
+	[3442] = 0, -- Adventurer Mistcrest
+	[3443] = 0, -- Veteran Mistcrest
+	[3444] = 0, -- Champion Mistcrest
+	[3445] = 0, -- Hero Mistcrest
+	[3446] = 0, -- Myth Mistcrest
+
+	[3513] = 0, -- Nebulous Voidcore
+	[3448] = 0, -- Corrosive Coin
+	[3509] = 0, -- Tidal Spark Dust
 }
 
 PermoksAccountManager.currencyTrees = {
@@ -1664,8 +1718,6 @@ PermoksAccountManager.quests = {
 		[82678] = { questType = "weekly", log = true }, -- Archives: The First Disc
 		[82679] = { questType = "weekly", log = true }, -- Archives: Seeking History
 	},
-	weekly_meta = { -- PLACEHOLDER: Looks like this weekly doesn't reset but is just a timegated questline. Delete later
-	},
 	archaic_cypher_key = {
 		[84370] = { questType = "weekly", warband = true, log = true }, -- The Key to Success
 	},
@@ -2008,10 +2060,11 @@ PermoksAccountManager.quests = {
 	},
 	-- World Boss
 	world_boss = {
-		[92560] = { questType = "weekly", log = true }, -- Lu'ashal
-		[92123] = { questType = "weekly", log = true }, -- Cragpine's Treevenge
-		[92034] = { questType = "weekly", log = true }, -- Thorm'belan
-		[92636] = { questType = "weekly", log = true }, -- Predaxas
+		-- [92560] = { questType = "weekly", log = true }, -- Lu'ashal
+		-- [92123] = { questType = "weekly", log = true }, -- Cragpine's Treevenge
+		-- [92034] = { questType = "weekly", log = true }, -- Thorm'belan
+		-- [92636] = { questType = "weekly", log = true }, -- Predaxas
+		[97128] = { questType = "weekly", log = true }, -- Lair: Nymrissa Wavecaller
 	},
 	preys_nightmare = {
 		[91211] = { questType = "weekly", log = true },
@@ -2044,6 +2097,10 @@ PermoksAccountManager.quests = {
 		[91267] = { questType = "weekly", log = true },
 		[91268] = { questType = "weekly", log = true },
 		[91269] = { questType = "weekly", log = true },
+		[95023] = { questType = "weekly", log = true },
+		[95021] = { questType = "weekly", log = true },
+		[95024] = { questType = "weekly", log = true },
+		[95022] = { questType = "weekly", log = true },
 	},
 	nightmarish_task = {
 		[94446] = { questType = "weekly", log = true },
@@ -2057,6 +2114,15 @@ PermoksAccountManager.quests = {
 
 	thordakk = {
 		[94562] = { questType = "weekly" },
+	},
+
+	--12.1
+	weekly_meta = {
+		[98172] = { questType = "weekly", log = true }, -- Trailing Xal'atath
+		[96995] = { questType = "weekly", log = true }, -- Turn Back the Surge
+	},
+	unity_against_the_void = {
+		[93744] = { questType = "weekly", log = true }, -- Unity Against the Void
 	},
 }
 
@@ -2122,38 +2188,38 @@ end
 PermoksAccountManager.vault_rewards = {
 	-- MythicPlus
 	[Enum.WeeklyRewardChestThresholdType.Activities] = {
-		[-1] = 230,
-		[0] = 246,
-		[2] = 259,
-		[3] = 259,
-		[4] = 263,
-		[5] = 263,
-		[6] = 266,
-		[7] = 269,
-		[8] = 269,
-		[9] = 269,
-		[10] = 272,
+		[-1] = 269,
+		[0] = 285,
+		[2] = 289,
+		[3] = 289,
+		[4] = 292,
+		[5] = 295,
+		[6] = 298,
+		[7] = 298,
+		[8] = 302,
+		[9] = 302,
+		[10] = 305,
 	},
 	-- World/Delves
 	[Enum.WeeklyRewardChestThresholdType.World] = {
-		[1] = 233,
-		[2] = 237,
-		[3] = 240,
-		[4] = 243,
-		[5] = 246,
-		[6] = 253,
-		[7] = 256,
-		[8] = 259,
-		[9] = 259,
-		[10] = 259,
-		[11] = 259,
+		[1] = 272,
+		[2] = 276,
+		[3] = 279,
+		[4] = 282,
+		[5] = 285,
+		[6] = 292,
+		[7] = 295,
+		[8] = 298,
+		[9] = 298,
+		[10] = 298,
+		[11] = 298,
 	},
 	-- Raid
 	[Enum.WeeklyRewardChestThresholdType.Raid] = {
-		[17] = 233,
-		[14] = 246,
-		[15] = 259,
-		[16] = 272,
+		[17] = 272,
+		[14] = 285,
+		[15] = 298,
+		[16] = 311,
 	},
 }
 

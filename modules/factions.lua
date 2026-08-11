@@ -453,6 +453,48 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE
 	},
 
+	-- 12.1
+	zuljarras_force = {
+		label = function()
+			return PermoksAccountManager.factions[2772].localName or "Zul'jarra"
+		end,
+		type = "faction",
+		warband = "unique",
+		key = 2772,
+		group = "reputation",
+		version = WOW_PROJECT_MAINLINE
+	},
+	captain_tokka = {
+		label = function()
+			return PermoksAccountManager.factions[2773].localName or "Captain Tokka"
+		end,
+		type = "faction",
+		warband = "unique",
+		key = 2773,
+		group = "reputation",
+		version = WOW_PROJECT_MAINLINE
+	},
+	delves_current = {
+		label = function()
+			return PermoksAccountManager.factions[2796].localName or "Delves"
+		end,
+		type = "faction",
+		warband = "unique",
+		key = 2796,
+		group = "reputation",
+		version = WOW_PROJECT_MAINLINE
+	},
+	prey_current = {
+		label = function()
+			return PermoksAccountManager.factions[2808].localName or "Prey"
+		end,
+		type = "faction",
+		warband = "unique",
+		key = 2808,
+		group = "reputation",
+		version = WOW_PROJECT_MAINLINE
+	},
+
 	-- wotlk
 	alliance_vanguard = {
 		label = function()

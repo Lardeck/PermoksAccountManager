@@ -255,46 +255,6 @@ local labelRows = {
 	--},
 
 	-- 11.0
-	adventurer_crest = {
-		label = "Adventurer Crests",
-		type = "crestcurrency",
-		key = 3383,
-		passRow = true,
-		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
-	},
-	veteran_crest = {
-		label = "Veteran Crests",
-		type = "crestcurrency",
-		key = 3341,
-		passRow = true,
-		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
-	},
-	normal_crest = {
-		label = "Champion Crests",
-		type = "crestcurrency",
-		key = 3343,
-		passRow = true,
-		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
-	},
-	hero_crest = {
-		label = "Hero Crests",
-		type = "crestcurrency",
-		key = 3345,
-		passRow = true,
-		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
-	},
-	myth_crest = {
-		label = "Myth Crests",
-		type = "crestcurrency",
-		key = 3347,
-		passRow = true,
-		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
-	},
 	valorstones = {
 		label = "Valorstones",
 		type = "currency",
@@ -340,14 +300,6 @@ local labelRows = {
 	--},
 
 	-- 11.1
-	spark_drops = {
-		label = "Spark Cap",
-		type = "currency",
-		key = 3212,
-		group = "currency",
-		hideIcon = true,
-		version = WOW_PROJECT_MAINLINE,
-	},
 	empty_kajacola_can = {
 		label = "Empy Kaja'Cola",
 		type = "currency",
@@ -359,14 +311,6 @@ local labelRows = {
 		label = "Vintage Kaja'Cola",
 		type = "currency",
 		key = 3220,
-		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
-	},
-	catalyst_charges = {
-		label = L["Catalyst Charges"],
-		type = "catalystcharges",
-		key = 3378,
-		hideIcon = true,
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
@@ -427,19 +371,84 @@ local labelRows = {
 	},
 
 	-- 12.0.5
-	nebulous_voidcore = {
-		label = "Voidcores",
-		type = "voidcores",
-		key = 3418,
-		passRow = true,
-		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
-	},
 	field_accolade = {
 		label = "Field Accolade",
 		type = "field_accolade",
 		key = 3405,
 		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+
+	--12.1
+	spark_drops = {
+		label = "Spark Cap",
+		type = "currency",
+		key = 3509,
+		group = "currency",
+		hideIcon = true,
+		version = WOW_PROJECT_MAINLINE,
+	},
+	adventurer_crest = {
+		label = "Adventurer Crests",
+		type = "crestcurrency",
+		key = 3442,
+		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	veteran_crest = {
+		label = "Veteran Crests",
+		type = "crestcurrency",
+		key = 3443,
+		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	normal_crest = {
+		label = "Champion Crests",
+		type = "crestcurrency",
+		key = 3444,
+		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	hero_crest = {
+		label = "Hero Crests",
+		type = "crestcurrency",
+		key = 3445,
+		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	myth_crest = {
+		label = "Myth Crests",
+		type = "crestcurrency",
+		key = 3446,
+		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	nebulous_voidcore = {
+		label = "Voidcores",
+		type = "voidcores",
+		key = 3447,
+		passRow = true,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	corrosive_coin = {
+		label = "Corrosive Coin",
+		type = "currency",
+		key = 3448,
+		group = "currency",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	catalyst_charges = {
+		label = L["Catalyst Charges"],
+		type = "catalystcharges",
+		key = 3465,
+		hideIcon = true,
 		group = "currency",
 		version = WOW_PROJECT_MAINLINE,
 	},
@@ -804,15 +813,15 @@ local function CurrencyTransferUpdate(charInfo)
 end
 
 local function UpdateCatalystCharges(charInfo)
-	if not charInfo.currencyInfo or not charInfo.currencyInfo[3378] then
+	if not charInfo.currencyInfo or not charInfo.currencyInfo[3465] then
 		UpdateAllCurrencies(charInfo)
 	end
 
-	charInfo.currencyInfo[3378].quantity = C_CurrencyInfo.GetCurrencyInfo(3378).quantity
+	charInfo.currencyInfo[3465].quantity = C_CurrencyInfo.GetCurrencyInfo(3465).quantity
 end
 
 local function CreateCatalystChargeString(currencyInfo)
-	local catalystCharges = currencyInfo and currencyInfo[3378]
+	local catalystCharges = currencyInfo and currencyInfo[3465]
 	if not catalystCharges then
 		return "-"
 	end
@@ -989,7 +998,7 @@ function PermoksAccountManager:CreateCurrencyString(
 	then
 		-- REFACTOR: move this logic to the crest labelRows to remove redundancy
 		local id = currencyInfo.currencyType
-		if id ~= 3383 and id ~= 3341 and id ~= 3343 and id ~= 3345 and id ~= 3347 then
+		if id ~= 3442 and id ~= 3443 and id ~= 3444 and id ~= 3445 and id ~= 3446 then
 			currencyInfo.quantity = currencyInfo.quantity / 100
 		end
 	end

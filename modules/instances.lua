@@ -63,6 +63,30 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE,
 	},
 
+	--12.1
+	the_venomous_abyss = {
+		label = function()
+			return PermoksAccountManager.raids[3004].name or "Venomous Abyss"
+		end,
+		id = 3004,
+		type = "raid",
+		key = "the_venomous_abyss",
+		tooltip = true,
+		group = "raids",
+		version = WOW_PROJECT_MAINLINE,
+	},
+	the_tidebound_grotto = {
+		label = function()
+			return PermoksAccountManager.raids[2987].name or "Tidebound Grotto"
+		end,
+		id = 2987,
+		type = "raid",
+		key = "the_tidebound_grotto",
+		tooltip = true,
+		group = "raids",
+		version = WOW_PROJECT_MAINLINE,
+	},
+
 	-- wotlk
 	-- TOOD: Change db structure so you can get the locale name without calling the function again
 	naxxramas = {

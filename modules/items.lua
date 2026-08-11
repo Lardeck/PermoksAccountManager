@@ -313,13 +313,30 @@ local labelRows = {
     --},
 
     -- 11.1
-    spark_current = {
+    spark_radiance = {
         label = 'Spark - Radiance',
         type = 'spark',
         passRow = true,
         key = 232875,
         -- reagent = 231757,
         -- reagentRequired = 2,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+
+    -- 12.1
+    spark_current = {
+        label = 'Spark - Tides',
+        type = 'spark',
+        passRow = true,
+        key = 274476,
+        group = 'item',
+        version = WOW_PROJECT_MAINLINE
+    },
+    corrosive_soul = {
+        label = 'Corrosive Soul',
+        type = 'item',
+        key = 273000,
         group = 'item',
         version = WOW_PROJECT_MAINLINE
     },
