@@ -100,7 +100,7 @@ local function UpdateCallings(charInfo, callings)
 
     if not callings then
         if not C_AddOns.IsAddOnLoaded('Blizzard_CovenantCallings') then
-            UIParentLoadAddOn('Blizzard_CovenantCallings')
+            LoadAddOnWithErrorHandling('Blizzard_CovenantCallings')
         end
         self:RequestCharacterInfo()
         return
