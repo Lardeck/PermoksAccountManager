@@ -45,11 +45,20 @@ local function CreateVaultRewardString(vaultRewardInfo)
 	end
 end
 
-local function valueChanged(oldTable, newTable, key, checkUneven)
+local function valueChanged(oldTable, newTable, key, checkUneven, newValue)
 	if not oldTable or not newTable or not key then
 		return false
 	end
-	if not oldTable[key] or not newTable[key] then
+
+	if not oldTable[key] then
+		return true
+	end
+
+	if newValue and oldTable[key] ~= newValue then
+		return true
+	end
+
+	if not newTable[key] then
 		return false
 	end
 
@@ -113,14 +122,16 @@ local function UpdateVaultInfo(charInfo, force)
 	local vaultInfo = charInfo.vaultInfo
 	local activities = C_WeeklyRewards.GetActivities()
 	for i, activityInfo in ipairs(activities) do
+		local itemLevel = GetRewardItemLevel(activityInfo.id)
 		if activityInfo.type == Enum.WeeklyRewardChestThresholdType.Raid then
 			vaultInfo.Raid = vaultInfo.Raid or {}
 			local progressChanged = valueChanged(vaultInfo.Raid[activityInfo.index], activityInfo, "progress")
 			local levelChanged = valueChanged(vaultInfo.Raid[activityInfo.index], activityInfo, "level", true)
+			local itemLevelChanged = valueChanged(vaultInfo.Raid[activityInfo.index], activityInfo, "itemLevel", true, itemLevel)
 
-			if not vaultInfo.Raid[activityInfo.index] or progressChanged or levelChanged or force then
+			if not vaultInfo.Raid[activityInfo.index] or progressChanged or levelChanged or itemLevelChanged or force then
 				local data = CopyTable(activityInfo)
-				data.itemLevel = GetRewardItemLevel(activityInfo.id) or data.itemLevel
+				data.itemLevel = itemLevel or data.itemLevel
 				vaultInfo.Raid[activityInfo.index] = data
 			end
 		elseif activityInfo.type == Enum.WeeklyRewardChestThresholdType.Activities then
@@ -130,10 +141,11 @@ local function UpdateVaultInfo(charInfo, force)
 
 			local progressChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, "progress")
 			local levelChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, "level", true)
+			local itemLevelChanged = valueChanged(vaultInfo.MythicPlus[activityInfo.index], activityInfo, "itemLevel", true, itemLevel)
 
-			if not vaultInfo.MythicPlus[activityInfo.index] or progressChanged or levelChanged or force then
+			if not vaultInfo.MythicPlus[activityInfo.index] or progressChanged or levelChanged or itemLevelChanged or force then
 				local data = CopyTable(activityInfo)
-				data.itemLevel = GetRewardItemLevel(activityInfo.id) or data.itemLevel
+				data.itemLevel = itemLevel or data.itemLevel
 
 				vaultInfo.MythicPlus[activityInfo.index] = data
 			end
@@ -141,10 +153,11 @@ local function UpdateVaultInfo(charInfo, force)
 			vaultInfo.World = vaultInfo.World or {}
 			local progressChanged = valueChanged(vaultInfo.World[activityInfo.index], activityInfo, "progress")
 			local levelChanged = valueChanged(vaultInfo.World[activityInfo.index], activityInfo, "level", true)
+			local itemLevelChanged = valueChanged(vaultInfo.World[activityInfo.index], activityInfo, "itemLevel", true, itemLevel)
 
-			if not vaultInfo.World[activityInfo.index] or progressChanged or levelChanged or force then
+			if not vaultInfo.World[activityInfo.index] or progressChanged or levelChanged or itemLevelChanged or force then
 				local data = CopyTable(activityInfo)
-				data.itemLevel = GetRewardItemLevel(activityInfo.id) or data.itemLevel
+				data.itemLevel = itemLevel or data.itemLevel
 
 				vaultInfo.World[activityInfo.index] = data
 			end
@@ -153,6 +166,7 @@ local function UpdateVaultInfo(charInfo, force)
 end
 
 local function UpdateRaidActivity(charInfo)
+	C_MythicPlus.RequestMapInfo()
 	charInfo.raidActivityInfo = C_WeeklyRewards.GetActivityEncounterInfo(Enum.WeeklyRewardChestThresholdType.Raid, 1)
 end
 
