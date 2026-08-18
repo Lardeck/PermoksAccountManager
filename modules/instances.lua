@@ -448,6 +448,7 @@ local retailDifficultyOrder = {
 	[15] = 3,
 	[16] = 4,
 	[233] = 4,
+	[250] = 5,
 }
 
 function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
@@ -459,7 +460,7 @@ function PermoksAccountManager:CreateRaidString(savedInfo, hideDifficulty)
 			(
 				self.isRetail
 				and (
-					retailDifficultyOrder[difficulty] > (retailDifficultyOrder[highestDifficulty] or highestDifficulty)
+					(retailDifficultyOrder[difficulty] or 0) > (retailDifficultyOrder[highestDifficulty] or highestDifficulty)
 				)
 			) or (self.isCata and (difficulty > highestDifficulty))
 		then
