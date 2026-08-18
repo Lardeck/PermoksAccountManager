@@ -613,8 +613,8 @@ PermoksAccountManager.factions = {
 
 	[2772] = { name = "Zul'jarra's Force", paragon = true, type = "renown", warband = "unique" },
 	[2773] = { name = "Captain Tokka", paragon = true, type = "renown", warband = "unique" },
-	[2796] = { name = "Delves: Season 2", paragon = false, type = "renown", warband = "unique" },
-	[2808] = { name = "Prey: Season 2", paragon = false, type = "renown", warband = "unique" },
+	[2796] = { name = "Delves: Season 2", paragon = true, type = "renown", warband = "unique" },
+	[2808] = { name = "Prey: Season 2", paragon = true, type = "renown", warband = "unique" },
 }
 
 PermoksAccountManager.currency = {

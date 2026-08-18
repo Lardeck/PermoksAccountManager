@@ -398,7 +398,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2658,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 	manaforge_vandals = {
 		label = function()
@@ -408,7 +408,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2736,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 
 	-- 12.0
@@ -420,7 +420,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2710,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 	the_singularity = {
 		label = function()
@@ -430,7 +430,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2699,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 	harati = {
 		label = function()
@@ -440,7 +440,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2704,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 	amani_tribe = {
 		label = function()
@@ -450,7 +450,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2696,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 
 	-- 12.1
@@ -462,7 +462,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2772,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 	captain_tokka = {
 		label = function()
@@ -472,7 +472,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2773,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 	delves_current = {
 		label = function()
@@ -482,7 +482,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2796,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 	prey_current = {
 		label = function()
@@ -492,7 +492,7 @@ local labelRows = {
 		warband = "unique",
 		key = 2808,
 		group = "reputation",
-		version = WOW_PROJECT_MAINLINE
+		version = WOW_PROJECT_MAINLINE,
 	},
 
 	-- wotlk
@@ -1007,6 +1007,16 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
 	if not factionInfo then
 		return
 	end
+
+	if factionInfo.renown then
+		return string.format(
+			"%s - %s/%s",
+			BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown),
+			AbbreviateNumbers(factionInfo.current or 0),
+			AbbreviateNumbers(factionInfo.max or 0)
+		)
+	end
+
 	if not factionInfo.standing then
 		return "No Data"
 	end
@@ -1023,16 +1033,9 @@ function PermoksAccountManager:CreateFactionString(factionInfo)
 		standing = factionInfo.standing
 	end
 
-	local color = factionInfo.hasReward and "ff00ff00"
-		or CreateColor(standingColor.r / 255, standingColor.g / 255, standingColor.b / 255):GenerateHexColor()
-	if factionInfo.renown then
-		return string.format(
-			"%s - %s /%s",
-			BLUE_FONT_COLOR:WrapTextInColorCode(factionInfo.renown),
-			AbbreviateNumbers(factionInfo.current or 0),
-			AbbreviateNumbers(factionInfo.max or 0)
-		)
-	elseif factionInfo.max then
+	if factionInfo.max then
+		local color = factionInfo.hasReward and "ff00ff00"
+			or CreateColor(standingColor.r / 255, standingColor.g / 255, standingColor.b / 255):GenerateHexColor()
 		return string.format(
 			"|c%s%s|r/%s |cff%02X%02X%02X%s|r",
 			color,
