@@ -713,6 +713,8 @@ PermoksAccountManager.currency = {
 	[3513] = 0, -- Nebulous Voidcore
 	[3448] = 0, -- Corrosive Coin
 	[3509] = 0, -- Tidal Spark Dust
+
+	[3465] = 0, -- Catalyst Charges
 }
 
 PermoksAccountManager.currencyTrees = {
