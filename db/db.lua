@@ -477,6 +477,7 @@ PermoksAccountManager.raids = {
 		instanceID = 1317,
 		startIndex = 1,
 		endIndex = 1,
+		startAtZero = true,
 	},
 }
 
