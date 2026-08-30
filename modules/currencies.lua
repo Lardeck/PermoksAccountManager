@@ -373,7 +373,7 @@ local labelRows = {
 	-- 12.0.5
 	field_accolade = {
 		label = "Field Accolade",
-		type = "field_accolade",
+		type = "currency",
 		key = 3405,
 		passRow = true,
 		group = "currency",
