@@ -101,7 +101,13 @@ local defaultDB = {
 			},
 			characters = {
 				charactersPerPage = 6,
-				minLevel = GetMaxLevelForExpansionLevel(GetExpansionLevel()) - 10,
+				minLevel = function()
+					if PermoksAccountManager.isRetail then
+						return GetMaxLevelForExpansionLevel(GetExpansionLevel()) - 10
+					else
+						return 1
+					end
+				end,
 				combine = false,
 				sortBy = "order",
 				sortByLesser = true,
@@ -512,7 +518,8 @@ function PermoksAccountManager:CreateFrames()
 		managerFrame:SetMovable(false)
 
 		local position = PermoksAccountManager.db.global.position
-		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset = managerFrame:GetPointByName("TOPLEFT")
+		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset =
+			managerFrame:GetPointByName("TOPLEFT")
 	end)
 	self:UpdateBorder(managerFrame.topDragBar, nil, true)
 
@@ -884,7 +891,7 @@ function PermoksAccountManager:OnLogin()
 	local db = self.db.global
 	local guid = self:GetGUID()
 	local level = UnitLevel("player")
-	local min_level = db.options.characters.minLevel
+	local min_level = db.options.characters.minLevel()
 
 	self.elvui = C_AddOns.IsAddOnLoaded("ElvUI")
 	self.ElvUI_Skins = self.elvui and ElvUI[1]:GetModule("Skins")
@@ -1298,7 +1305,8 @@ local function UpdateOrCreateMenu(category, anchorFrame, parent)
 		local row = PermoksAccountManager.labelRows[row_iden]
 		if row then
 			if row.label then
-				local label_row = labels[row_iden] or CreateLabelButton("label", parent or anchorFrame, row, nil, db.options.other.labelColumnWidth)
+				local label_row = labels[row_iden]
+					or CreateLabelButton("label", parent or anchorFrame, row, nil, db.options.other.labelColumnWidth)
 				if not labels[row_iden] then
 					labels[row_iden] = label_row
 					if not row.hideLabel then
@@ -1962,8 +1970,20 @@ end
 
 function PermoksAccountManager:UpdateAnchorsAndSize(category, widthOnly, heightOnly, updateMenu)
 	if category == "general" then
-		self.managerFrame.labelColumn:SetPoint("BOTTOMRIGHT", self.managerFrame, "BOTTOMLEFT", self.db.global.options.other.labelColumnWidth, 0)
-		self.categoryFrame.labelColumn:SetPoint("BOTTOMRIGHT", self.categoryFrame, "BOTTOMLEFT", self.db.global.options.other.labelColumnWidth, 0)
+		self.managerFrame.labelColumn:SetPoint(
+			"BOTTOMRIGHT",
+			self.managerFrame,
+			"BOTTOMLEFT",
+			self.db.global.options.other.labelColumnWidth,
+			0
+		)
+		self.categoryFrame.labelColumn:SetPoint(
+			"BOTTOMRIGHT",
+			self.categoryFrame,
+			"BOTTOMLEFT",
+			self.db.global.options.other.labelColumnWidth,
+			0
+		)
 
 		if updateMenu then
 			local numRows = UpdateOrCreateMenu("general", self.managerFrame.labelColumn)
