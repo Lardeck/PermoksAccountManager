@@ -1,5 +1,6 @@
-## Interface: 120007, 120100
+## Interface: 120007, 120100, 16001, 20503, 30403, 40400, 50500
 ## Title: Permoks Account Manager
+## Author: Permok
 ## Version: @project-version@
 ## SavedVariables: PermoksAccountManagerDB
 ## X-Curse-Project-ID: 582886
@@ -22,28 +23,37 @@ libs\LibDeflate\LibDeflate.lua
 libs\LibSerialize\LibSerialize.lua
 libs\LibSharedMedia-3.0\lib.xml
 libs\AceGUI-3.0-SharedMediaWidgets\widget.xml
+libs\AceGUIWidget-TwoTextButton.lua [AllowLoadGameType tbc, wrath, cata, mists, camelot][ExcludeLoadGameType standard, vanilla]
 
 modules.lua
 locales\locales.xml
 commands.lua
 communication.lua
 
-db\db.lua
+db\db.lua [AllowLoadGameType standard][ExcludeLoadGameType camelot, classic]
+db\db-forever.lua [AllowLoadGameType camelot][ExcludeLoadGameType standard, classic]
+db\db-bc.lua [AllowLoadGameType tbc][ExcludeLoadGameType mainline]
+db\db-wotlk.lua [AllowLoadGameType wrath][ExcludeLoadGameType mainline]
+db\db-cata.lua [AllowLoadGameType cata][ExcludeLoadGameType mainline]
+db\db-mop.lua [AllowLoadGameType mists][ExcludeLoadGameType mainline]
 
 modules\accounts.lua
 modules\character.lua
-modules\covenant.lua
+modules\covenant.lua [AllowLoadGameType standard][ExcludeLoadGameType camelot, classic]
 modules\currencies.lua
 modules\factions.lua
 modules\instances.lua
 modules\quests.lua
-modules\torghast.lua
-modules\vault.lua
+modules\torghast.lua [AllowLoadGameType standard][ExcludeLoadGameType camelot, classic]
+modules\vault.lua [AllowLoadGameType standard][ExcludeLoadGameType camelot, classic]
 modules\items.lua
-modules\pvp.lua
-modules\research.lua
-modules\retail_professions.lua
+modules\pvp.lua [AllowLoadGameType standard][ExcludeLoadGameType camelot, classic]
+modules\research.lua [AllowLoadGameType standard][ExcludeLoadGameType camelot, classic]
+modules\retail_professions.lua [AllowLoadGameType standard][ExcludeLoadGameType camelot, classic]
+modules\classic_professions.lua [AllowLoadGameType tbc, wrath, cata, mists][ExcludeLoadGameType standard, vanilla, camelot]
+modules\forever_professions.lua [AllowLoadGameType camelot][ExcludeLoadGameType standard, classic]
+modules\guild_attunements.lua [AllowLoadGameType tbc][ExcludeLoadGameType mainline]
 
 PermoksAccountManager.lua
 options.lua
-api.lua
+api.lua [AllowLoadGameType standard][ExcludeLoadGameType camelot, classic]
