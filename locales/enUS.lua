@@ -16,6 +16,7 @@ L['Exalted'] = true
 L['Shadowcloth'] = true
 L['Spellcloth'] = true
 L['Primal Mooncloth'] = true
+L['Mooncloth'] = true
 L['Moonshroud'] = true
 L['Ebonweave'] = true
 L['Spellweave'] = true
