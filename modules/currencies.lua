@@ -453,6 +453,15 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE,
 	},
 
+	-- forever
+	merchants_favor = {
+		label = "Merchant's Favor",
+		type = "currency",
+		key = 3402,
+		group = "currency",
+		version = WOW_PROJECT_CAMELOT,
+	},
+
 	-- wotlk-classic
 	honorBCC = {
 		label = function()
@@ -553,7 +562,7 @@ local labelRows = {
 		key = 395,
 		abbMax = true,
 		group = "currency",
-		version = false,
+		version = WOW_PROJECT_MISTS_CLASSIC,
 	},
 	valor_points = {
 		label = "Valor Points",
@@ -562,7 +571,7 @@ local labelRows = {
 		abbMax = true,
 		passRow = true,
 		group = "currency",
-		version = false,
+		version = WOW_PROJECT_MISTS_CLASSIC,
 	},
 	conquest_points = {
 		label = "Conquest",
@@ -570,7 +579,7 @@ local labelRows = {
 		key = 390,
 		abbMax = true,
 		group = "currency",
-		version = false,
+		version = WOW_PROJECT_MISTS_CLASSIC,
 	},
 	tol_barad_commendations = {
 		label = "Commendations",
