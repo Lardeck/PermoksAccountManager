@@ -971,7 +971,7 @@ local labelRows = {
 		visibility = "hidden",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	worldsoul_weekly = {
 		IDs = {
@@ -1017,7 +1017,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	archaic_cypher_key = {
 		IDs = { 84370 },
@@ -1028,7 +1028,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	the_theater_troupe = {
 		IDs = { 83240 },
@@ -1039,7 +1039,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	rollin_down_in_the_deeps = {
 		IDs = { 82946 },
@@ -1050,7 +1050,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	gearing_up_for_trouble = {
 		IDs = { 83333 },
@@ -1060,7 +1060,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	awakening_the_machine = {
 		IDs = { 84642, 84644, 84646, 84647 },
@@ -1072,7 +1072,7 @@ local labelRows = {
 		group = "resetWeekly",
 		required = 4,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	spreading_the_light = {
 		IDs = { 76586 },
@@ -1083,7 +1083,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	lesser_keyflame_weeklies = {
 		IDs = {
@@ -1117,7 +1117,7 @@ local labelRows = {
 		end,
 		required = 8,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	greater_keyflame_weeklies = {
 		IDs = { 78590, 78657, 79329, 79380, 79469, 79470, 79471 },
@@ -1133,7 +1133,7 @@ local labelRows = {
 		end,
 		required = 7,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	severed_threads_pact_chosen = {
 		IDs = { 80544 },
@@ -1144,7 +1144,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	severed_threads_pact_weekly = {
 		IDs = { 80670, 80671, 80672 },
@@ -1155,7 +1155,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	weekly_delve_reputation = {
 		IDs = { 83317, 83319, 83318, 83320 },
@@ -1172,7 +1172,7 @@ local labelRows = {
 		required = 4,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	weekly_coffer_keys = {
 		IDs = { 84736, 84737, 84738, 84739 },
@@ -1183,7 +1183,7 @@ local labelRows = {
 		group = "resetWeekly",
 		required = 4,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	-- rares
 	isle_of_dorne_rares = {
@@ -1201,7 +1201,7 @@ local labelRows = {
 		required = 12,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	ringing_deeps_rares = {
 		IDs = { 84046, 84044, 84042, 84041, 84045, 84040, 84047, 84043, 84049, 84048, 84050 },
@@ -1218,7 +1218,7 @@ local labelRows = {
 		required = 11,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	hallowfall_rares = {
 		IDs = {
@@ -1254,7 +1254,7 @@ local labelRows = {
 		required = 18,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	azj_kahet_rares = {
 		IDs = { 84071, 84072, 84075, 84073, 84076, 84074, 84080, 84082, 84081, 84079, 84078, 84077, 84069, 84070 },
@@ -1271,7 +1271,7 @@ local labelRows = {
 		required = 14,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	one_time_reputation_rares = {
 		IDs = { 85158, 85160, 85161, 85159, 85163, 85164, 85165, 85167, 85166, 85162 },
@@ -1289,7 +1289,7 @@ local labelRows = {
 		required = 10,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	undermine_rares = {
 		IDs = {
@@ -1327,7 +1327,7 @@ local labelRows = {
 		required = 19,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	undermine_weeklies = {
 		IDS = {
@@ -1360,7 +1360,7 @@ local labelRows = {
 		required = 7,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	weekly_bounti_map = {
 		IDS = { 86371 },
@@ -1370,7 +1370,7 @@ local labelRows = {
 		visibility = "hidden",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	nightfall_weekly = {
 		IDS = { 89295 },
@@ -1380,7 +1380,7 @@ local labelRows = {
 		visibility = "hidden",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 
 	-- professions
@@ -1401,7 +1401,7 @@ local labelRows = {
 		},
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	knowledge_tww_treatise = {
 		label = "Treatise Knowledge",
@@ -1416,7 +1416,7 @@ local labelRows = {
 		required = 2,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 	knowledge_tww_gather = {
 		label = "Gather Knowledge",
@@ -1446,7 +1446,7 @@ local labelRows = {
 		},
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 
 	knowledge_tww_weeklies_quest = {
@@ -1461,7 +1461,7 @@ local labelRows = {
 		end,
 		required = 2,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_WAR_WITHIN
+		expansion = LE_EXPANSION_WAR_WITHIN,
 	},
 
 	-- 12.0
@@ -1474,7 +1474,7 @@ local labelRows = {
 		group = "resetWeekly",
 		warband = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	abundance = {
 		IDS = { 89507 },
@@ -1485,7 +1485,7 @@ local labelRows = {
 		group = "resetWeekly",
 		warband = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	lost_legends = {
 		IDS = { 89268 },
@@ -1496,7 +1496,7 @@ local labelRows = {
 		group = "resetWeekly",
 		warband = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	stormarion_assault = {
 		IDS = { 90962 },
@@ -1507,7 +1507,7 @@ local labelRows = {
 		group = "resetWeekly",
 		warband = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	special_assignments = {
 		IDS = { 92139, 92145, 93244 },
@@ -1518,7 +1518,7 @@ local labelRows = {
 		group = "resetWeekly",
 		required = 3,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	world_boss = {
 		label = L["World Boss"] .. " Midnight",
@@ -1527,7 +1527,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	preys_nightmare = {
 		label = "Nightmare Preys",
@@ -1537,7 +1537,7 @@ local labelRows = {
 		group = "resetWeekly",
 		required = 2,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	nightmarish_task = {
 		label = "Nightmarish Task",
@@ -1546,7 +1546,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	weekly_delve_reputation_midnight = {
 		IDs = { 93819, 93820, 93821, 93822 },
@@ -1563,7 +1563,7 @@ local labelRows = {
 		required = 4,
 		showAll = true,
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 	-- Nvm it's Throggar but it stays like that for now :)
 	thordakk = {
@@ -1573,7 +1573,7 @@ local labelRows = {
 		visibility = "hidden",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 
 	-- 12.1
@@ -1586,7 +1586,7 @@ local labelRows = {
 		visibility = "visible",
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
-		expansion = LE_EXPANSION_MIDNIGHT
+		expansion = LE_EXPANSION_MIDNIGHT,
 	},
 
 	--wotlk
@@ -1760,7 +1760,7 @@ local function UpdateWorldQuests(charInfo, questID)
 end
 
 local function GetQuestInfo(questLogIndex)
-	if not PermoksAccountManager.isRetail then
+	if not PermoksAccountManager.isRetail and not PermoksAccountManager.isForever then
 		local title, _, _, isHeader, _, _, frequency, questID, _, _, _, _, _, _, _, isHidden =
 			GetQuestLogTitle(questLogIndex)
 		return { title = title, isHeader = isHeader, frequency = frequency, isHidden = isHidden, questID = questID }
