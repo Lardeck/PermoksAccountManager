@@ -870,7 +870,7 @@ function PermoksAccountManager:AddNewCharacter(account, guid)
 	local charInfo = data[guid]
 	local _, class = UnitClass("player")
 	charInfo.class = class
-	charInfo.faction = UnitFactionGroup("player")
+	charInfo.factionGroup = UnitFactionGroup("player")
 
 	local name, realm = UnitFullName("player")
 	charInfo.name = name

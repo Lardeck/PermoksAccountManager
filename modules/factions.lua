@@ -495,6 +495,15 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE,
 	},
 
+	-- forever
+	pvp_rank_points = {
+		label = "Rank Points",
+		type = "faction",
+		key = 2800,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+
 	-- wotlk
 	alliance_vanguard = {
 		label = function()

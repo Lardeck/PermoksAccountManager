@@ -30,9 +30,6 @@ local labelRows = {
 	characterLevel = {
 		label = L["Level"],
 		type = "charLevel",
-		data = function(alt_data)
-			return alt_data.charLevel or "-"
-		end,
 		group = "character",
 		version = false,
 	},
@@ -43,6 +40,12 @@ local labelRows = {
 		end,
 		group = "character",
 		version = false,
+	},
+	factionGroup = {
+		label = "Faction Group",
+		type = "factionGroup",
+		group = "character",
+		version = WOW_PROJECT_CAMELOT,
 	},
 	ilevel = {
 		label = L["Item Level"],
@@ -585,10 +588,19 @@ end
 
 local function UpdatePlayerLevel(charInfo, level)
 	charInfo.charLevel = level or UnitLevel("player")
+	charInfo.xpPercentage = UnitXP("player") / UnitXPMax("player")
 end
 
 local function UpdateLocation(charInfo)
 	charInfo.location = C_Map.GetBestMapForUnit("player")
+end
+
+local function UpdateFactionGroup(charInfo)
+	if charInfo.factionGroup then
+		return
+	end
+
+	charInfo.factionGroup = UnitFactionGroup("player")
 end
 
 local function Update(charInfo)
@@ -599,6 +611,7 @@ local function Update(charInfo)
 	if not PermoksAccountManager.isRetail then
 		UpdatePlayerLevel(charInfo)
 		UpdateLocation(charInfo)
+		UpdateFactionGroup(charInfo)
 	else
 		UpdateILevel(charInfo)
 		UpdatePlayerSpecialization(charInfo)
@@ -622,6 +635,22 @@ local function CreateCharacterString(name, specInfo)
 	end
 
 	return string.format("%s %s", name, specString or "")
+end
+
+local function CreateCharacterLevelString(charLevel, xpPercentage)
+	if xpPercentage then
+		return string.format("%d (%.1f%%)", charLevel, xpPercentage * 100)
+	else
+		return charLevel
+	end
+end
+
+local function CreateFactionGroupString(factionGroup)
+	if factionGroup == PLAYER_FACTION_GROUP[PLAYER_FACTION_GROUP.Horde] then
+		return string.format("|A:UI-Character-Info-Honor-Icon-Horde:16:16|a")
+	else
+		return string.format("|A:UI-Character-Info-Honor-Icon-Alliance:16:16|a")
+	end
 end
 
 local function CreateKeystoneString(name, keyInfo)
@@ -698,6 +727,7 @@ local payload = {
 		["ITEM_CHANGED"] = UpdateKeystones,
 		["WEEKLY_REWARDS_UPDATE"] = UpdateMythicScore,
 		["PLAYER_LEVEL_UP"] = UpdatePlayerLevel,
+		["PLAYER_XP_UPDATE"] = UpdatePlayerLevel,
 		["ZONE_CHANGED"] = UpdateLocation,
 		["ZONE_CHANGED_NEW_AREA"] = UpdateLocation,
 		["ZONE_CHANGED_INDOORS"] = UpdateLocation,
@@ -719,6 +749,8 @@ local payload = {
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType("gold", CreateGoldString, true, "gold")
 module:AddCustomLabelType("characterName", CreateCharacterString, nil, "name", "specInfo")
+module:AddCustomLabelType("charLevel", CreateCharacterLevelString, nil, "charLevel", "xpPercentage")
+module:AddCustomLabelType("factionGroup", CreateFactionGroupString, nil, "factionGroup")
 module:AddCustomLabelType("keystone", CreateKeystoneString, nil, "name", "keyInfo")
 module:AddCustomLabelType("twkeystone", CreateTWKeystoneString, nil, "keyInfo")
 module:AddCustomLabelType("dungeonScore", CreateDungeonScoreString, true, "mythicScore")

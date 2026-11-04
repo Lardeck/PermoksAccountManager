@@ -169,9 +169,13 @@ PermoksAccountManager.dungeons = {}
 
 PermoksAccountManager.item = {}
 
-PermoksAccountManager.factions = {}
+PermoksAccountManager.factions = {
+	[2800] = { name = "PVP Rank Points", type = "renown" },
+}
 
-PermoksAccountManager.currency = {}
+PermoksAccountManager.currency = {
+	[3402] = 0, -- Merchant's Favor
+}
 
 PermoksAccountManager.currencyCustomOptions = {}
 
@@ -215,13 +219,13 @@ function PermoksAccountManager:getDefaultCategories(key)
 end
 
 PermoksAccountManager.ICONSTRINGS = {
-	left = "\124T%d:18:18\124t %s",
-	right = "%s \124T%d:18:18\124t",
-	leftBank = "\124T%d:18:18\124t %s (%s)",
-	rightBank = "%s (%s) \124T%d:18:18\124t",
+	left = "\124T%d:16:16\124t %s",
+	right = "%s \124T%d:16:16\124t",
+	leftBank = "\124T%d:0:0\124t %s (%s)",
+	rightBank = "%s (%s) \124T%d:0:0\124t",
 }
 
 PermoksAccountManager.ICONBANKSTRINGS = {
-	left = "\124T%d:18:18\124t %s (%s)",
-	right = "%s (%s) \124T%d:18:18\124t",
+	left = "\124T%d:0:0\124t %s (%s)",
+	right = "%s (%s) \124T%d:0:0\124t",
 }

@@ -987,7 +987,7 @@ function PermoksAccountManager:CreateCurrencyString(
 				customIcon.yOffset or 0
 			)
 		else
-			iconString = string.format("\124T%d:18:18\124t", currencyIcon)
+			iconString = string.format("\124T%d:0:0\124t", currencyIcon)
 		end
 	end
 
