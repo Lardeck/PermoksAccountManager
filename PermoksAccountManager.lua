@@ -1,5 +1,12 @@
 local addonName, PermoksAccountManager = ...
 
+PermoksAccountManager.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
+PermoksAccountManager.isWOTLK = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
+PermoksAccountManager.isCata = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC
+PermoksAccountManager.isMists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
+PermoksAccountManager.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+PermoksAccountManager.isForever = WOW_PROJECT_ID == WOW_PROJECT_CAMELOT
+
 PermoksAccountManager =
 	LibStub("AceAddon-3.0"):NewAddon(PermoksAccountManager, "PermoksAccountManager", "AceConsole-3.0", "AceEvent-3.0")
 
@@ -411,11 +418,6 @@ do
 	--- Initialization called on ADDON_LOADED
 	function PermoksAccountManager:OnInitialize()
 		self.spairs = spairs
-		self.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
-		self.isWOTLK = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
-		self.isCata = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC
-		self.isMists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
-		self.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
 		-- init databroker
 		self.db = LibStub("AceDB-3.0"):New("PermoksAccountManagerDB", defaultDB, true)
