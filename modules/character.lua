@@ -86,7 +86,7 @@ local labelRows = {
 	gold = {
 		label = L["Gold"],
 		type = "gold",
-		group = "currency",
+		group = "character",
 		tooltip = true,
 		customTooltip = function(button, altData)
 			PermoksAccountManager:CustomGoldTooltip_OnEnter(button, altData)
@@ -485,7 +485,11 @@ local function UpdateKeystones(charInfo)
 end
 
 local function UpdateGold(charInfo)
-	charInfo.gold = floor(GetMoney() / (COPPER_PER_SILVER * SILVER_PER_GOLD)) * 10000
+	if PermoksAccountManager.isRetail then
+		charInfo.gold = floor(GetMoney() / (COPPER_PER_SILVER * SILVER_PER_GOLD)) * 10000
+	else
+		charInfo.gold = GetMoney()
+	end
 
 	local db = PermoksAccountManager.db.global
 	local accountData = db.accounts.main.data
@@ -558,7 +562,9 @@ local function UpdateCharacterEquipOnce(charInfo)
 		return
 	end
 
-	RunNextFrame(function() UpdateCharacterEquip(charInfo) end)
+	RunNextFrame(function()
+		UpdateCharacterEquip(charInfo)
+	end)
 	equipmentUpdated = true
 end
 
@@ -904,9 +910,12 @@ function PermoksAccountManager:CustomGoldTooltip_OnEnter(button, warbandData)
 	tooltip:AddHeader("Gold:")
 	tooltip:AddSeparator(2, 1, 1, 1)
 
-	tooltip:AddLine("Total Character Gold:", GetMoneyString(warbandData.gold or 0, true))
-	tooltip:AddLine("Warband Bank:", GetMoneyString(warbandData.warbankGold or 0, true))
-	tooltip:AddSeparator(2, 1, 1, 1)
+	if self.isRetail then
+		tooltip:AddLine("Total Character Gold:", GetMoneyString(warbandData.gold or 0, true))
+		tooltip:AddLine("Warband Bank:", GetMoneyString(warbandData.warbankGold or 0, true))
+		tooltip:AddSeparator(2, 1, 1, 1)
+	end
+
 	tooltip:AddLine("Total Gold:", GetMoneyString((warbandData.gold or 0) + (warbandData.warbankGold or 0), true))
 
 	tooltip:SmartAnchorTo(button)
