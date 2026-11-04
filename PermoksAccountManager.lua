@@ -7,8 +7,7 @@ PermoksAccountManager.isMists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
 PermoksAccountManager.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 PermoksAccountManager.isForever = WOW_PROJECT_ID == WOW_PROJECT_CAMELOT
 
-PermoksAccountManager =
-	LibStub("AceAddon-3.0"):NewAddon(PermoksAccountManager, "PermoksAccountManager", "AceConsole-3.0", "AceEvent-3.0")
+PermoksAccountManager = LibStub("AceAddon-3.0"):NewAddon(PermoksAccountManager, "PermoksAccountManager", "AceConsole-3.0", "AceEvent-3.0")
 
 -- Create minimap icon with LibDataBroker.
 local PermoksAccountManagerLDB = LibStub("LibDataBroker-1.1"):NewDataObject("PermoksAccountManager", {
@@ -317,8 +316,7 @@ do
 
 	local categoryButtons = {}
 	function CreateManagerButton(width, height, text)
-		local button =
-			CreateFrame("Button", "PAM_ManagerButton_" .. #categoryButtons + 1, PermoksAccountManager.managerFrame)
+		local button = CreateFrame("Button", "PAM_ManagerButton_" .. #categoryButtons + 1, PermoksAccountManager.managerFrame)
 		tinsert(categoryButtons, button)
 		button:SetSize(width, height)
 
@@ -440,11 +438,7 @@ do
 					arg1 = arg1:lower()
 					local start, ending = arg1:find("^!allkeys")
 					if start then
-						PermoksAccountManager:PostKeysIntoChat(
-							event == "CHAT_MSG_GUILD" and "guild" or "party",
-							arg1,
-							ending
-						)
+						PermoksAccountManager:PostKeysIntoChat(event == "CHAT_MSG_GUILD" and "guild" or "party", arg1, ending)
 					end
 				end
 			end
@@ -477,13 +471,7 @@ function PermoksAccountManager:CreateFrames()
 	-- Restore saved position
 	if options.savePosition then
 		local position = self.db.global.position
-		managerFrame:SetPoint(
-			position.point or "TOP",
-			WorldFrame,
-			position.relativePoint or "TOP",
-			position.xOffset or 0,
-			position.yOffset or -300
-		)
+		managerFrame:SetPoint(position.point or "TOP", WorldFrame, position.relativePoint or "TOP", position.xOffset or 0, position.yOffset or -300)
 	else
 		managerFrame:SetPoint("TOPLEFT", WorldFrame, "TOPLEFT", WorldFrame:GetWidth() / 3, -300)
 	end
@@ -520,8 +508,7 @@ function PermoksAccountManager:CreateFrames()
 		managerFrame:SetMovable(false)
 
 		local position = PermoksAccountManager.db.global.position
-		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset =
-			managerFrame:GetPointByName("TOPLEFT")
+		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset = managerFrame:GetPointByName("TOPLEFT")
 	end)
 	self:UpdateBorder(managerFrame.topDragBar, nil, true)
 
@@ -893,7 +880,10 @@ function PermoksAccountManager:OnLogin()
 	local db = self.db.global
 	local guid = self:GetGUID()
 	local level = UnitLevel("player")
-	local min_level = db.options.characters.minLevel()
+	local min_level = 1
+	if PermoksAccountManager.isRetail then
+		min_level = GetMaxLevelForExpansionLevel(GetExpansionLevel()) - 10
+	end
 
 	self.elvui = C_AddOns.IsAddOnLoaded("ElvUI")
 	self.ElvUI_Skins = self.elvui and ElvUI[1]:GetModule("Skins")
@@ -906,12 +896,7 @@ function PermoksAccountManager:OnLogin()
 	self.warbandData = db.accounts.main.warbandData
 	local data = self.account.data
 
-	if
-		guid
-		and (not data[guid] or not data[guid].name)
-		and not self:isBlacklisted(guid)
-		and not (level < min_level)
-	then
+	if guid and (not data[guid] or not data[guid].name) and not self:isBlacklisted(guid) and not (level < min_level) then
 		db.alts = db.alts + 1
 		self:AddNewCharacter(self.account, guid)
 	end
@@ -967,8 +952,7 @@ function PermoksAccountManager:CheckForReset()
 	db.dailyReset = resetDaily and currentTime + self:GetNextDailyResetTime() or db.dailyReset
 	db.biweeklyReset = resetBiweekly and currentTime + self:GetNextBiWeeklyResetTime() or db.biweeklyReset
 	if self.isCata then
-		db.threeDayReset = resetThreeDayRaids and currentTime + self:GetNextThreeDayLockoutResetTime()
-			or db.threeDayReset
+		db.threeDayReset = resetThreeDayRaids and currentTime + self:GetNextThreeDayLockoutResetTime() or db.threeDayReset
 	end
 end
 
@@ -1073,12 +1057,7 @@ function PermoksAccountManager:ResetDailyActivities(db, altData)
 	end
 
 	-- Callings
-	if
-		altData.callingsUnlocked
-		and altData.callingInfo
-		and altData.callingInfo.numCallings
-		and altData.callingInfo.numCallings < 3
-	then
+	if altData.callingsUnlocked and altData.callingInfo and altData.callingInfo.numCallings and altData.callingInfo.numCallings < 3 then
 		altData.callingInfo.numCallings = altData.callingInfo.numCallings + 1
 		altData.callingInfo[#altData.callingInfo + 1] = currentTime + self:GetNextDailyResetTime() + (86400 * 2)
 	end
@@ -1276,11 +1255,7 @@ function PermoksAccountManager:UpdatePageButtons()
 				if categoryFrame.openCategory then
 					local category = categoryFrame.openCategory
 					PermoksAccountManager:UpdateWarbandAnchors(category, categoryFrame.labelColumn.categories[category])
-					PermoksAccountManager:UpdateAltAnchors(
-						category,
-						categoryFrame,
-						categoryFrame.labelColumn.categories[category]
-					)
+					PermoksAccountManager:UpdateAltAnchors(category, categoryFrame, categoryFrame.labelColumn.categories[category])
 					PermoksAccountManager:UpdateStrings(nil, category, categoryFrame)
 				end
 			end)
@@ -1307,8 +1282,7 @@ local function UpdateOrCreateMenu(category, anchorFrame, parent)
 		local row = PermoksAccountManager.labelRows[row_iden]
 		if row then
 			if row.label then
-				local label_row = labels[row_iden]
-					or CreateLabelButton("label", parent or anchorFrame, row, nil, db.options.other.labelColumnWidth)
+				local label_row = labels[row_iden] or CreateLabelButton("label", parent or anchorFrame, row, nil, db.options.other.labelColumnWidth)
 				if not labels[row_iden] then
 					labels[row_iden] = label_row
 					if not row.hideLabel then
@@ -1377,8 +1351,7 @@ function PermoksAccountManager:UpdateWarbandAnchors(category, customAnchorFrame)
 	local labelOffset = db.options.other.labelOffset
 	local widthPerAlt = db.options.buttons.widthPerAlt
 
-	managerFrame.warbandColumns[category] = managerFrame.warbandColumns[category]
-		or CreateFrame("Button", nil, customAnchorFrame)
+	managerFrame.warbandColumns[category] = managerFrame.warbandColumns[category] or CreateFrame("Button", nil, customAnchorFrame)
 	local anchorFrame = managerFrame.warbandColumns[category]
 	anchorFrame.rows = anchorFrame.rows or {}
 	anchorFrame:ClearAllPoints()
@@ -1409,25 +1382,8 @@ function PermoksAccountManager:UpdateAltAnchors(category, columnFrame, customAnc
 	for index, alt_guid in ipairs(altDataForPage) do
 		local anchorFrame = altColumns[index] or CreateFrame("Button", nil, customAnchorFrame)
 		anchorFrame:ClearAllPoints()
-		anchorFrame:SetPoint(
-			"TOPLEFT",
-			customAnchorFrame,
-			"TOPRIGHT",
-			((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0)
-				+ (widthPerAlt * (index - 1))
-				+ labelOffset,
-			0
-		)
-		anchorFrame:SetPoint(
-			"BOTTOMRIGHT",
-			customAnchorFrame,
-			"BOTTOMLEFT",
-			((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0)
-				+ (widthPerAlt * index)
-				+ widthPerAlt
-				+ labelOffset,
-			0
-		)
+		anchorFrame:SetPoint("TOPLEFT", customAnchorFrame, "TOPRIGHT", ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + (widthPerAlt * (index - 1)) + labelOffset, 0)
+		anchorFrame:SetPoint("BOTTOMRIGHT", customAnchorFrame, "BOTTOMLEFT", ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + (widthPerAlt * index) + widthPerAlt + labelOffset, 0)
 		anchorFrame.GUID = alt_guid
 		anchorFrame:Show()
 
@@ -1473,20 +1429,12 @@ local InternalLabelFunctions = {
 			required = column.required(alt_data)
 		end
 
-		local questInfo = alt_data.questInfo[column.questType]
-			and alt_data.questInfo[column.questType][column.visibility]
-			and alt_data.questInfo[column.questType][column.visibility][column.key or key]
+		local questInfo = alt_data.questInfo[column.questType] and alt_data.questInfo[column.questType][column.visibility] and alt_data.questInfo[column.questType][column.visibility][column.key or key]
 		if not questInfo then
 			return PermoksAccountManager:CreateQuestString(0, required) or "-"
 		end
 
-		return PermoksAccountManager:CreateQuestString(
-			questInfo,
-			required,
-			column.plus or (column.plus == nil and required == 1),
-			nil,
-			column.warband
-		) or "-"
+		return PermoksAccountManager:CreateQuestString(questInfo, required, column.plus or (column.plus == nil and required == 1), nil, column.warband) or "-"
 	end,
 	currency = function(alt_data, column, key)
 		if not alt_data.currencyInfo then
@@ -1498,16 +1446,7 @@ local InternalLabelFunctions = {
 			return "-"
 		end
 
-		return PermoksAccountManager:CreateCurrencyString(
-			currencyInfo,
-			column.abbCurrent,
-			column.abbMax,
-			column.hideMax,
-			column.customIcon,
-			column.hideIcon,
-			nil,
-			column.useWeeklyEarned
-		) or "-"
+		return PermoksAccountManager:CreateCurrencyString(currencyInfo, column.abbCurrent, column.abbMax, column.hideMax, column.customIcon, column.hideIcon, nil, column.useWeeklyEarned) or "-"
 	end,
 	faction = function(alt_data, column, key)
 		if not alt_data.factions then
@@ -1620,8 +1559,7 @@ function PermoksAccountManager:UpdateRows(childs, rows, anchorFrame, enabledChil
 	for _, row_identifier in pairs(childs) do
 		local labelRow = self.labelRows[row_identifier]
 		if labelRow and enabledChilds[row_identifier] then
-			local row = (not self.isLayoutDirty and rows[row_identifier])
-				or CreateLabelButton("row", anchorFrame, labelRow, enabledRows)
+			local row = (not self.isLayoutDirty and rows[row_identifier]) or CreateLabelButton("row", anchorFrame, labelRow, enabledRows)
 			if (not isWarband and labelRow.warband ~= "unique") or (isWarband and labelRow.warband) then
 				if self.isLayoutDirty or not rows[row_identifier] then
 					local module = self:GetModuleForRow(row_identifier)
@@ -1718,15 +1656,7 @@ function PermoksAccountManager:UpdateColumnForWarband(category)
 	local account = self.account
 	local db = self.db.global
 	local anchorFrame = self.managerFrame.warbandColumns[category]
-	self:UpdateRows(
-		db.currentCategories[category].childs,
-		anchorFrame.rows,
-		anchorFrame,
-		db.currentCategories[category].childOrder,
-		account.warbandData,
-		db.options.buttons,
-		true
-	)
+	self:UpdateRows(db.currentCategories[category].childs, anchorFrame.rows, anchorFrame, db.currentCategories[category].childOrder, account.warbandData, db.options.buttons, true)
 end
 
 function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category)
@@ -1740,14 +1670,7 @@ function PermoksAccountManager:UpdateColumnForAlt(altData, anchorFrame, category
 	end
 
 	local db = self.db.global
-	self:UpdateRows(
-		db.currentCategories[category].childs,
-		anchorFrame.rows,
-		anchorFrame,
-		db.currentCategories[category].childOrder,
-		altData,
-		db.options.buttons
-	)
+	self:UpdateRows(db.currentCategories[category].childs, anchorFrame.rows, anchorFrame, db.currentCategories[category].childOrder, altData, db.options.buttons)
 end
 
 function PermoksAccountManager:UpdateStrings(page, category, columnFrame)
@@ -1772,8 +1695,7 @@ function PermoksAccountManager:UpdateStrings(page, category, columnFrame)
 end
 
 function PermoksAccountManager:UpdateCategory(button, defaultState, name, category)
-	local categoryLabelColumn = self.categoryFrame.labelColumn.categories[category]
-		or CreateFrame("Frame", nil, self.categoryFrame.labelColumn)
+	local categoryLabelColumn = self.categoryFrame.labelColumn.categories[category] or CreateFrame("Frame", nil, self.categoryFrame.labelColumn)
 	self.categoryFrame.labelColumn.categories[category] = categoryLabelColumn
 
 	categoryLabelColumn:SetPoint("TOPLEFT", self.categoryFrame.labelColumn, "TOPLEFT", 0, 0)
@@ -1854,20 +1776,9 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
 	do
 		if PermoksAccountManager.managerFrame.categoryButtons then
 			if category ~= "general" and db.currentCategories[category].enabled then
-				local categoryButton = PermoksAccountManager.managerFrame.categoryButtons[category]
-					or CreateManagerButton(
-						100,
-						25,
-						nameTbl and nameTbl[category] and nameTbl[category].name or row.name
-					)
+				local categoryButton = PermoksAccountManager.managerFrame.categoryButtons[category] or CreateManagerButton(100, 25, nameTbl and nameTbl[category] and nameTbl[category].name or row.name)
 				categoryButton:Show()
-				categoryButton:SetPoint(
-					"TOPRIGHT",
-					PermoksAccountManager.managerFrame.topDragBar,
-					"TOPLEFT",
-					0,
-					-(buttonrows * 26) - 5
-				)
+				categoryButton:SetPoint("TOPRIGHT", PermoksAccountManager.managerFrame.topDragBar, "TOPLEFT", 0, -(buttonrows * 26) - 5)
 				if not PermoksAccountManager.managerFrame.categoryButtons[category] then
 					categoryButton.name = row.name
 				end
@@ -1884,10 +1795,7 @@ function PermoksAccountManager:UpdateOrCreateCategoryButtons()
 				PermoksAccountManager.managerFrame.categoryButtons[category] = categoryButton
 				buttonrows = buttonrows + 1
 			else
-				if
-					PermoksAccountManager.managerFrame.categoryButtons[category]
-					and not PermoksAccountManager.db.global.currentCategories[category].enabled
-				then
+				if PermoksAccountManager.managerFrame.categoryButtons[category] and not PermoksAccountManager.db.global.currentCategories[category].enabled then
 					PermoksAccountManager.managerFrame.categoryButtons[category]:Hide()
 				end
 			end
@@ -1900,16 +1808,9 @@ end
 function PermoksAccountManager:UpdateCategoryButtonsBackground(buttons)
 	if buttons > 0 then
 		local height = buttons * 26
-		local backgroundFrame = self.managerFrame.categoriesBackgroundFrame
-			or CreateFrame("Frame", nil, self.managerFrame, "BackdropTemplate")
+		local backgroundFrame = self.managerFrame.categoriesBackgroundFrame or CreateFrame("Frame", nil, self.managerFrame, "BackdropTemplate")
 		if not self.managerFrame.categoriesBackgroundFrame then
-			backgroundFrame:SetPoint(
-				"TOPRIGHT",
-				self.managerFrame.topDragBar,
-				"TOPLEFT",
-				PermoksAccountManager.db.global.options.border.edgeSize,
-				0
-			)
+			backgroundFrame:SetPoint("TOPRIGHT", self.managerFrame.topDragBar, "TOPLEFT", PermoksAccountManager.db.global.options.border.edgeSize, 0)
 			backgroundFrame:SetFrameLevel(0)
 			self:UpdateBorder(backgroundFrame, nil, true)
 			self.managerFrame.categoriesBackgroundFrame = backgroundFrame
@@ -1934,10 +1835,7 @@ function PermoksAccountManager:UpdateManagerFrameSize(widthOnly, heightOnly)
 
 	local alts = #self.pages[self.db.global.currentPage]
 	local widthPerAlt = self.db.global.options.buttons.widthPerAlt
-	local width = ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0)
-		+ ((alts * widthPerAlt) + self.db.global.options.other.labelColumnWidth)
-		- min((widthPerAlt - self.db.global.options.buttons.buttonWidth), 20)
-		+ 4
+	local width = ((self.isRetail and not self.db.global.options.hideWarband) and widthPerAlt or 0) + ((alts * widthPerAlt) + self.db.global.options.other.labelColumnWidth) - min((widthPerAlt - self.db.global.options.buttons.buttonWidth), 20) + 4
 	local height = self.managerFrame.height
 
 	if widthOnly then
@@ -1972,20 +1870,8 @@ end
 
 function PermoksAccountManager:UpdateAnchorsAndSize(category, widthOnly, heightOnly, updateMenu)
 	if category == "general" then
-		self.managerFrame.labelColumn:SetPoint(
-			"BOTTOMRIGHT",
-			self.managerFrame,
-			"BOTTOMLEFT",
-			self.db.global.options.other.labelColumnWidth,
-			0
-		)
-		self.categoryFrame.labelColumn:SetPoint(
-			"BOTTOMRIGHT",
-			self.categoryFrame,
-			"BOTTOMLEFT",
-			self.db.global.options.other.labelColumnWidth,
-			0
-		)
+		self.managerFrame.labelColumn:SetPoint("BOTTOMRIGHT", self.managerFrame, "BOTTOMLEFT", self.db.global.options.other.labelColumnWidth, 0)
+		self.categoryFrame.labelColumn:SetPoint("BOTTOMRIGHT", self.categoryFrame, "BOTTOMLEFT", self.db.global.options.other.labelColumnWidth, 0)
 
 		if updateMenu then
 			local numRows = UpdateOrCreateMenu("general", self.managerFrame.labelColumn)
@@ -1999,12 +1885,7 @@ function PermoksAccountManager:UpdateAnchorsAndSize(category, widthOnly, heightO
 
 	if self.categoryFrame.openCategory then
 		local openCategory = self.categoryFrame.openCategory
-		self:UpdateCategory(
-			PermoksAccountManager.managerFrame.categoryButtons[openCategory],
-			"closed",
-			nil,
-			openCategory
-		)
+		self:UpdateCategory(PermoksAccountManager.managerFrame.categoryButtons[openCategory], "closed", nil, openCategory)
 	end
 
 	self:UpdateManagerFrameSize(widthOnly, heightOnly)
@@ -2044,8 +1925,7 @@ function PermoksAccountManager:HideInterface()
 	if self.db.global.options.savePosition then
 		local frame = self.managerFrame
 		local position = self.db.global.position
-		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset =
-			frame:GetPointByName("TOPLEFT")
+		position.point, position.relativeTo, position.relativePoint, position.xOffset, position.yOffset = frame:GetPointByName("TOPLEFT")
 	end
 
 	self.managerFrame:Hide()
@@ -2177,11 +2057,7 @@ function PermoksAccountManager:PostKeysIntoChat(channel, msg, ending)
 					tinsert(keyString, keyInfo.keyDungeon .. "+" .. keyInfo.keyLevel)
 				end
 
-				if
-					keyInfo.twKeyLevel
-					and keyInfo.twKeyLevel > 0
-					and (dungeon == "" or keyInfo.twKeyDungeon == dungeon)
-				then
+				if keyInfo.twKeyLevel and keyInfo.twKeyLevel > 0 and (dungeon == "" or keyInfo.twKeyDungeon == dungeon) then
 					tinsert(keyString, keyInfo.twKeyDungeon .. "+" .. keyInfo.twKeyLevel)
 				end
 
@@ -2217,13 +2093,7 @@ do
 					tinsert(affixIDs, i <= affixNum and affixInfo.id or 0)
 				end
 
-				local keystone = keystoneString:format(
-					keyInfo.keyMapID,
-					keyInfo.keyLevel,
-					table.concat(affixIDs, ":"),
-					C_ChallengeMode.GetMapUIInfo(keyInfo.keyMapID),
-					keyInfo.keyLevel
-				)
+				local keystone = keystoneString:format(keyInfo.keyMapID, keyInfo.keyLevel, table.concat(affixIDs, ":"), C_ChallengeMode.GetMapUIInfo(keyInfo.keyMapID), keyInfo.keyLevel)
 
 				if altData.guid == UnitGUID("player") then
 					SendChatMessage(keystone, channel)
@@ -2231,10 +2101,7 @@ do
 					SendChatMessage(string.format("[%s: %s]", altData.name, keystone), channel)
 				end
 			elseif keyInfo and keyInfo.keyLevel and keyInfo.keyLevel > 0 then
-				SendChatMessage(
-					string.format("[%s: %s]", altData.name, keyInfo.keyDungeon .. "+" .. keyInfo.keyLevel),
-					channel
-				)
+				SendChatMessage(string.format("[%s: %s]", altData.name, keyInfo.keyDungeon .. "+" .. keyInfo.keyLevel), channel)
 			end
 		end
 	end
