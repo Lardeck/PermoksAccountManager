@@ -769,7 +769,7 @@ end
 
 local function UpdateTreeCurrency(charInfo, treeID)
 	local self = PermoksAccountManager
-	if not self.currencyTrees[treeID] then
+	if not self.currencyTrees or not self.currencyTrees[treeID] then
 		return
 	end
 
