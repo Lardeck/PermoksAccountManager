@@ -6,7 +6,7 @@ local options
 local module = "forever_professions"
 local labelRows = {
 	primary_profession_1 = {
-		label = "Profession 1 (NYI)",
+		label = "Profession 1",
 		tooltip = function(button, alt_data)
 			PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions.profession1)
 		end,
@@ -17,7 +17,7 @@ local labelRows = {
 		version = WOW_PROJECT_CAMELOT,
 	},
 	primary_profession_2 = {
-		label = "Profession 2 (NYI)",
+		label = "Profession 2",
 		tooltip = function(button, alt_data)
 			PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions.profession2)
 		end,
