@@ -1,12 +1,5 @@
 local addonName, PermoksAccountManager = ...
 
-PermoksAccountManager.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
-PermoksAccountManager.isWOTLK = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
-PermoksAccountManager.isCata = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC
-PermoksAccountManager.isMists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
-PermoksAccountManager.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
-PermoksAccountManager.isForever = WOW_PROJECT_ID == WOW_PROJECT_CAMELOT
-
 PermoksAccountManager = LibStub("AceAddon-3.0"):NewAddon(PermoksAccountManager, "PermoksAccountManager", "AceConsole-3.0", "AceEvent-3.0")
 
 -- Create minimap icon with LibDataBroker.

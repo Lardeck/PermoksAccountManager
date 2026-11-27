@@ -1,5 +1,11 @@
 local addonName, PermoksAccountManager = ...
+
 PermoksAccountManager.isBC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
+PermoksAccountManager.isWOTLK = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
+PermoksAccountManager.isCata = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC
+PermoksAccountManager.isMists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
+PermoksAccountManager.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+PermoksAccountManager.isForever = WOW_PROJECT_ID == WOW_PROJECT_CAMELOT
 
 local ModuleMixin = {}
 function ModuleMixin:Init(moduleName, payload)
