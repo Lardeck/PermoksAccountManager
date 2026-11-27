@@ -190,7 +190,8 @@ local function CreateProfessionString(labelRow, professions, professionCDs)
 		return
 	end
 
-	local professionID = select(labelRow.professionIndex, GetProfessions())
+	local currentProfessions = {GetProfessions()}
+	local professionID = currentProfessions[labelRow.professionIndex]
 	if not professionID or not professions[professionID] then
 		return
 	end
