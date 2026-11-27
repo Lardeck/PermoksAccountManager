@@ -402,8 +402,9 @@ local function createDefaultOptions()
 			addCategoryToggle("default_categories_toggles", category, info.name, info.order)
 		end
 
+		local defaults = default_categories[category]
 		local args = {}
-		if category == "general" or not default_categories[category] then
+		if category == "general" or not defaults then
 			args = nil
 		else
 			if info.childs then
@@ -420,7 +421,7 @@ local function createDefaultOptions()
 					end
 				end
 
-				for i, child in pairs(default_categories[category].childs) do
+				for i, child in pairs(defaults.childs) do
 					if
 						not args[child]
 						and PermoksAccountManager.labelRows[child]
@@ -432,6 +433,13 @@ local function createDefaultOptions()
 							name = PermoksAccountManager.labelRows[child].label,
 						}
 					end
+				end
+			end
+
+			local optionGroup = defaults.optionGroup and PermoksAccountManager:GetCustomLabelTable()[defaults.optionGroup]
+			if optionGroup then
+				for key, option in pairs(optionGroup.args) do
+					args[key] = args[key] or option
 				end
 			end
 		end
