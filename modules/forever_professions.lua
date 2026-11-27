@@ -84,7 +84,7 @@ local function GetCooldownLeft(start, duration)
 	return cdLeftDuration
 end
 
-local function UpdateProfessionInfo(professionID, professions)
+local function UpdateProfessionInfo(professionIndex, professionID, professions)
 	if not professionID then
 		return
 	end
@@ -95,6 +95,7 @@ local function UpdateProfessionInfo(professionID, professions)
 	local profession = professions[professionID]
 	if not profession then
 		professions[professionID] = {
+			professionIndex = professionIndex,
 			professionID = professionID,
 			skillLineID = skillLineID,
 			name = name,
@@ -103,6 +104,7 @@ local function UpdateProfessionInfo(professionID, professions)
 			maxSkillLevel = maxSkillLevel,
 		}
 	else
+		profession.professionIndex = professionIndex
 		profession.skillLevel = skillLevel
 		profession.maxSkillLevel = maxSkillLevel
 	end
@@ -117,10 +119,10 @@ local function UpdateProfessions(charInfo, isReset)
 	local professionsIDs = { GetProfessions() }
 
 	local professions = isReset and {} or charInfo.professions
-	for i = 1, 5 do
-		local professionID = professionsIDs[i]
+	for professionIndex = 1, 5 do
+		local professionID = professionsIDs[professionIndex]
 		if professionID then
-			UpdateProfessionInfo(professionID, professions)
+			UpdateProfessionInfo(professionIndex, professionID, professions)
 		end
 	end
 
@@ -186,17 +188,24 @@ local function GetProfessionCDString(professionName, spellID, isReady)
 end
 
 local function CreateProfessionString(labelRow, professions, professionCDs)
+	
 	if not professions or not professionCDs then
 		return
 	end
 
-	local currentProfessions = {GetProfessions()}
-	local professionID = currentProfessions[labelRow.professionIndex]
-	if not professionID or not professions[professionID] then
+	local professionID, professionInfo
+	for _, info in pairs(professions) do
+		if info.professionIndex and info.professionIndex == labelRow.professionIndex then
+			professionID = info.professionID
+			professionInfo = info
+			break
+		end
+	end
+
+	if not professionInfo then
 		return
 	end
 
-	local professionInfo = professions[professionID]
 	local professionCDInfo = professionCDs[professionID]
 	local professionString = string.format("\124T%d:16:16\124t %d/%d", professionInfo.icon, professionInfo.skillLevel, professionInfo.maxSkillLevel)
 	if not professionCDInfo then
