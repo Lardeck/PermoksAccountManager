@@ -495,15 +495,6 @@ local labelRows = {
 		version = WOW_PROJECT_MAINLINE,
 	},
 
-	-- forever
-	pvp_rank_points = {
-		label = "Rank Points",
-		type = "faction",
-		key = 2800,
-		group = "reputation",
-		version = WOW_PROJECT_CAMELOT,
-	},
-
 	-- wotlk
 	alliance_vanguard = {
 		label = function()
@@ -850,6 +841,556 @@ local labelRows = {
 	},
 }
 
+local foreverLabelRows = {
+	pvp_rank_points = {
+		label = "Rank Points",
+		type = "faction",
+		key = 2800,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	argent_dawn = {
+		label = function()
+			local faction = PermoksAccountManager.factions[529]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 529,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	azeroth_commerce_authority = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2586]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2586,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	barkskin_burrow = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2747]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2747,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	bloodsail_buccaneers = {
+		label = function()
+			local faction = PermoksAccountManager.factions[87]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 87,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	bolderok_clan = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2782]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2782,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	booty_bay = {
+		label = function()
+			local faction = PermoksAccountManager.factions[21]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 21,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	brood_of_nozdormu = {
+		label = function()
+			local faction = PermoksAccountManager.factions[910]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 910,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	brotherhood_of_the_horse = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2826]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2826,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	cenarion_circle = {
+		label = function()
+			local faction = PermoksAccountManager.factions[609]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 609,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	cenarion_scouts = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2719]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2719,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	darkmoon_faire = {
+		label = function()
+			local faction = PermoksAccountManager.factions[909]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 909,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	darkspear_raiders = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2798]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2798,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	darkspear_trolls = {
+		label = function()
+			local faction = PermoksAccountManager.factions[530]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 530,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	darnassus = {
+		label = function()
+			local faction = PermoksAccountManager.factions[69]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 69,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	durotar_supply_and_logistics = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2587]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2587,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	emerald_wardens = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2641]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2641,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	everlook = {
+		label = function()
+			local faction = PermoksAccountManager.factions[577]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 577,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	frostwolf_clan = {
+		label = function()
+			local faction = PermoksAccountManager.factions[729]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 729,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	gadgetzan = {
+		label = function()
+			local faction = PermoksAccountManager.factions[369]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 369,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	gelkis_clan_centaur = {
+		label = function()
+			local faction = PermoksAccountManager.factions[92]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 92,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	gnomeregan_exiles = {
+		label = function()
+			local faction = PermoksAccountManager.factions[54]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 54,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	guardians_of_hyjal = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2765]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2765,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	high_order = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2779]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2779,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	hydraxian_waterlords = {
+		label = function()
+			local faction = PermoksAccountManager.factions[749]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 749,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	ironforge = {
+		label = function()
+			local faction = PermoksAccountManager.factions[47]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 47,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	kirin_tor = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2740]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2740,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	magram_clan_centaur = {
+		label = function()
+			local faction = PermoksAccountManager.factions[93]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 93,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	morogai = {
+		label = function()
+			local faction = PermoksAccountManager.factions[789]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 789,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	nightclaw_druids = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2758]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2758,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	orgrimmar = {
+		label = function()
+			local faction = PermoksAccountManager.factions[76]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 76,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	powderfuse = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2827]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2827,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	ratchet = {
+		label = function()
+			local faction = PermoksAccountManager.factions[470]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 470,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	ravasaur_trainers = {
+		label = function()
+			local faction = PermoksAccountManager.factions[630]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 630,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	ravenholdt = {
+		label = function()
+			local faction = PermoksAccountManager.factions[349]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 349,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	shatterspear_trolls = {
+		label = function()
+			local faction = PermoksAccountManager.factions[629]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 629,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	shendralar = {
+		label = function()
+			local faction = PermoksAccountManager.factions[809]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 809,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	silverwing_sentinels = {
+		label = function()
+			local faction = PermoksAccountManager.factions[890]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 890,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	stormpike_guard = {
+		label = function()
+			local faction = PermoksAccountManager.factions[730]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 730,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	stormwind = {
+		label = function()
+			local faction = PermoksAccountManager.factions[72]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 72,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	syndicate = {
+		label = function()
+			local faction = PermoksAccountManager.factions[70]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 70,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	the_defilers = {
+		label = function()
+			local faction = PermoksAccountManager.factions[510]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 510,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	the_earthen_ring = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2787]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2787,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	the_league_of_arathor = {
+		label = function()
+			local faction = PermoksAccountManager.factions[509]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 509,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	the_watchers = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2819]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2819,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	theramore_expeditionary_force = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2799]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2799,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	thorium_brotherhood = {
+		label = function()
+			local faction = PermoksAccountManager.factions[59]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 59,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	thunder_bluff = {
+		label = function()
+			local faction = PermoksAccountManager.factions[81]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 81,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	timbermaw_hold = {
+		label = function()
+			local faction = PermoksAccountManager.factions[576]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 576,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	undercity = {
+		label = function()
+			local faction = PermoksAccountManager.factions[68]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 68,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	warsong_outriders = {
+		label = function()
+			local faction = PermoksAccountManager.factions[889]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 889,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	wildhammer_clan = {
+		label = function()
+			local faction = PermoksAccountManager.factions[471]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 471,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	windshapers = {
+		label = function()
+			local faction = PermoksAccountManager.factions[2778]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 2778,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	wintersaber_trainers = {
+		label = function()
+			local faction = PermoksAccountManager.factions[589]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 589,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	zandalar_tribe = {
+		label = function()
+			local faction = PermoksAccountManager.factions[270]
+			return faction.localName or faction.name
+		end,
+		type = "faction",
+		key = 270,
+		group = "reputation",
+		version = WOW_PROJECT_CAMELOT,
+	},
+}
+
 local friendshipStandings = {
 	-- Ve'nari
 	["Dubious"] = "1/6",
@@ -968,21 +1509,26 @@ local function UpdateFactions(charInfo)
 	if self.isRetail then
 		self.warbandData.factions = self.warbandData.factions or {}
 	end
+	if self.isForever then
+		charInfo.factionGroup = UnitFactionGroup("player") or charInfo.factionGroup or charInfo.faction
+	end
 
 	local factions = charInfo.factions
 	local warbandFactions = self.warbandData.factions
 
 	for factionId, info in pairs(self.factions) do
-		local current, maximum, standing, name, hasReward, renown = GetFactionOrFriendshipInfo(factionId, info.type)
+		if not info.factionGroup or info.factionGroup == charInfo.factionGroup then
+			local current, maximum, standing, name, hasReward, renown = GetFactionOrFriendshipInfo(factionId, info.type)
 
-		UpdateFaction(factions, factionId, standing, current, maximum, info, hasReward, renown)
+			UpdateFaction(factions, factionId, standing, current, maximum, info, hasReward, renown)
 
-		if warbandFactions then
-			UpdateFaction(warbandFactions, factionId, standing, current, maximum, info, hasReward, renown)
-		end
+			if warbandFactions then
+				UpdateFaction(warbandFactions, factionId, standing, current, maximum, info, hasReward, renown)
+			end
 
-		if not info.localName then
-			info.localName = name
+			if not info.localName then
+				info.localName = name
+			end
 		end
 	end
 end
@@ -994,7 +1540,7 @@ end
 local module = "factions"
 local payload = {
 	update = Update,
-	labels = labelRows,
+	labels = PermoksAccountManager.isForever and foreverLabelRows or labelRows,
 	events = {
 		["UPDATE_FACTION"] = UpdateFactions,
 	},

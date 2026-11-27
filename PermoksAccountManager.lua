@@ -1453,7 +1453,13 @@ local InternalLabelFunctions = {
 			return "-"
 		end
 
-		local factionInfo = alt_data.factions[column.key or key]
+		local factionID = column.key or key
+		local faction = PermoksAccountManager.factions[factionID]
+		if faction and faction.factionGroup and faction.factionGroup ~= (alt_data.factionGroup or alt_data.faction) then
+			return "-"
+		end
+
+		local factionInfo = alt_data.factions[factionID]
 		if not factionInfo then
 			return "-"
 		end
