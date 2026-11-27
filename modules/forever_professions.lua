@@ -240,6 +240,10 @@ local payload = {
 		["BAG_UPDATE_DELAYED"] = UpdateProfessionCDs,
 	},
 	labels = labelRows,
+	share = {
+		[UpdateProfessionCDs] = "professionCDs",
+		[UpdateProfessions] = "professions"
+	}
 }
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType("profession", CreateProfessionString, nil, "professions", "professionCDs")
