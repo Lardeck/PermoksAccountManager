@@ -50,9 +50,7 @@ local labelRows = {
 		warband = true,
 		visibility = "visible",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.dungeon_quests) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -76,9 +74,7 @@ local labelRows = {
 		visibility = "visible",
 		required = 1,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.pvp_quests) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -100,9 +96,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "visible",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.weekend_event) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.weekend_event) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -123,10 +117,7 @@ local labelRows = {
 			return 3
 		end,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.daily
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.visible.korthia_dailies)
-					>= 3
+			return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.visible.korthia_dailies) >= 3
 		end,
 		group = "resetDaily",
 		version = WOW_PROJECT_MAINLINE,
@@ -138,9 +129,7 @@ local labelRows = {
 		visibility = "hidden",
 		required = 4,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.daily
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.riftbound_cache) >= 4
+			return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.riftbound_cache) >= 4
 		end,
 		group = "resetDaily",
 		version = WOW_PROJECT_MAINLINE,
@@ -153,9 +142,7 @@ local labelRows = {
 		required = 15,
 		plus = true,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.daily
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.relic_creatures) >= 15
+			return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.relic_creatures) >= 15
 		end,
 		group = "resetDaily",
 		version = WOW_PROJECT_MAINLINE,
@@ -163,8 +150,7 @@ local labelRows = {
 	dailyQuestCounter = {
 		label = "Daily Quests",
 		data = function(alt_data)
-			return alt_data.completedDailies
-				and PermoksAccountManager:CreateFractionString((alt_data.completedDailies.num or 0), 25)
+			return alt_data.completedDailies and PermoksAccountManager:CreateFractionString((alt_data.completedDailies.num or 0), 25)
 		end,
 		group = "resetDaily",
 		version = WOW_PROJECT_CATACLYSM_CLASSIC,
@@ -177,9 +163,7 @@ local labelRows = {
 		required = 4,
 		plus = true,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.daily
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.relic_gorger) >= 4
+			return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.relic_gorger) >= 4
 		end,
 		group = "resetDaily",
 		version = WOW_PROJECT_MAINLINE,
@@ -191,9 +175,7 @@ local labelRows = {
 		visibility = "hidden",
 		plus = true,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.daily
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.helsworn_chest) >= 1
+			return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.helsworn_chest) >= 1
 		end,
 		group = "resetDaily",
 		version = WOW_PROJECT_MAINLINE,
@@ -208,9 +190,7 @@ local labelRows = {
 			PermoksAccountManager:QuestTooltip_OnEnter(button, alt_data, column)
 		end,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.assault_vessels) >= 2
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.assault_vessels) >= 2
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -222,9 +202,7 @@ local labelRows = {
 		visibility = "hidden",
 		required = 3,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.rift_vessels) >= 3
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.rift_vessels) >= 3
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -235,12 +213,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "hidden",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(
-						alt_data.questInfo.weekly.hidden.adamant_vault_conduit
-					)
-					== 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.adamant_vault_conduit) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -252,9 +225,7 @@ local labelRows = {
 		visibility = "visible",
 		required = 2,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.daily
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) >= 2
+			return alt_data.questInfo and alt_data.questInfo.daily and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.daily.maw_dailies) >= 2
 		end,
 		group = "resetDaily",
 		version = WOW_PROJECT_MAINLINE,
@@ -273,9 +244,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "visible",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.anima_weekly) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.anima_weekly) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -286,9 +255,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "visible",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.maw_souls) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.maw_souls) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -299,10 +266,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "visible",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.korthia_weekly)
-					== 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.visible.korthia_weekly) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -313,10 +277,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "hidden",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.tormentors_weekly)
-					>= 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.tormentors_weekly) >= 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -328,9 +289,7 @@ local labelRows = {
 		visibility = "hidden",
 		required = 6,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.tormentors_locations) >= 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.tormentors_locations) >= 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -342,9 +301,7 @@ local labelRows = {
 		visibility = "hidden",
 		required = 2,
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.assault) >= 2
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hidden.assault) >= 2
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -355,9 +312,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "visible",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.battle_plans) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.battle_plans) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -368,9 +323,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "visible",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.korthia_supplies) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.korthia_supplies) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -389,9 +342,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "hidden",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.wrath) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.wrath) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
@@ -402,9 +353,7 @@ local labelRows = {
 		questType = "weekly",
 		visibility = "hidden",
 		isComplete = function(alt_data)
-			return alt_data.questInfo
-				and alt_data.questInfo.weekly
-				and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hunt) == 1
+			return alt_data.questInfo and alt_data.questInfo.weekly and PermoksAccountManager:GetNumCompletedQuests(alt_data.questInfo.weekly.hunt) == 1
 		end,
 		group = "resetWeekly",
 		version = WOW_PROJECT_MAINLINE,
