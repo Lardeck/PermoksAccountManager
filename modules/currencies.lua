@@ -8,16 +8,17 @@ local labelRows = {
 	-- general currencies
 	honor = {
 		label = function()
-			return PermoksAccountManager.db.global.currencyInfo[1792].name or "Honor"
+			local info = PermoksAccountManager.db.global.currencyInfo[1792]
+			return (info and info.name) or (PermoksAccountManager.isForever and "Honor Points" or "Honor")
 		end,
 		type = "currency",
 		warband = true,
 		key = 1792,
 		abbCurrent = true,
 		abbMax = true,
-		tooltip = true,
+		tooltip = PermoksAccountManager.isRetail,
 		group = "currency",
-		version = WOW_PROJECT_MAINLINE,
+		version = PermoksAccountManager.isForever and WOW_PROJECT_CAMELOT or WOW_PROJECT_MAINLINE,
 	},
 	valor = {
 		label = function()
@@ -458,6 +459,13 @@ local labelRows = {
 		label = "Merchant's Favor",
 		type = "currency",
 		key = 3402,
+		group = "currency",
+		version = WOW_PROJECT_CAMELOT,
+	},
+	tarnished_undermine_real = {
+		label = "Undermine Real",
+		type = "currency",
+		key = 3469,
 		group = "currency",
 		version = WOW_PROJECT_CAMELOT,
 	},

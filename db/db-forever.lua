@@ -241,7 +241,9 @@ PermoksAccountManager.factions = {
 }
 
 PermoksAccountManager.currency = {
+	[1792] = 0, -- Honor Points
 	[3402] = 0, -- Merchant's Favor
+	[3469] = 0, -- Tarnished Undermine Real
 }
 
 PermoksAccountManager.currencyCustomOptions = {}
