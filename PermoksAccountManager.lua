@@ -1527,6 +1527,7 @@ local InternalTooltipFunctions = {
 	item = PermoksAccountManager.ItemTooltip_OnEnter,
 	currency = PermoksAccountManager.CurrencyTooltip_OnEnter,
 	pvp = PermoksAccountManager.PVPTooltip_OnEnter,
+	profession = PermoksAccountManager.ProfessionTooltip_OnEnter,
 }
 
 function PermoksAccountManager:GetInternalLabelFunction(labelRow)

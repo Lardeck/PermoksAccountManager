@@ -7,9 +7,6 @@ local module = "forever_professions"
 local labelRows = {
 	primary_profession_1 = {
 		label = "Profession 1",
-		tooltip = function(button, alt_data)
-			PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions.profession1)
-		end,
 		type = "profession",
 		passRow = true,
 		professionIndex = 1,
@@ -18,9 +15,6 @@ local labelRows = {
 	},
 	primary_profession_2 = {
 		label = "Profession 2",
-		tooltip = function(button, alt_data)
-			PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions.profession2)
-		end,
 		type = "profession",
 		passRow = true,
 		professionIndex = 2,
@@ -29,9 +23,6 @@ local labelRows = {
 	},
 	first_aid = {
 		label = "First Aid",
-		tooltip = function(button, alt_data)
-			PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions.profession2)
-		end,
 		type = "profession",
 		passRow = true,
 		professionIndex = 3,
@@ -40,9 +31,6 @@ local labelRows = {
 	},
 	fishing = {
 		label = "Fishing",
-		tooltip = function(button, alt_data)
-			PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions.profession2)
-		end,
 		type = "profession",
 		passRow = true,
 		professionIndex = 4,
@@ -51,9 +39,6 @@ local labelRows = {
 	},
 	cooking = {
 		label = "Cooking",
-		tooltip = function(button, alt_data)
-			PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, alt_data.professions.profession2)
-		end,
 		type = "profession",
 		passRow = true,
 		professionIndex = 5,
@@ -66,7 +51,7 @@ local labelRows = {
 local function GetCooldownLeft(start, duration)
 	-- Before restarting the GetTime() will always be greater than [start]
 	-- After the restart, [start] is technically always bigger because of the 2^32 offset thing
-	if start < GetTime() then
+	if start <= GetTime() then
 		local cdEndTime = start + duration
 		local cdLeftDuration = cdEndTime - GetTime()
 
@@ -149,14 +134,14 @@ local function UpdateProfessionCDs(charInfo)
 			if self.professionCDs[professionName] and self.professionCDs[professionName].cds then
 				for spellID in pairs(self.professionCDs[professionName].cds) do
 					local cooldownInfo = C_Spell.GetSpellCooldown(spellID)
-					local cooldown = professionCDs[professionID][spellID] or 0
-					if not issecretvalue(cooldownInfo.startTime) then
-						local cooldown = cooldownInfo.startTime > 0 and time() + GetCooldownLeft(cooldownInfo.startTime, cooldownInfo.duration) or 0
-						if not professionCDs[spellID] or professionCDs[spellID] ~= cooldown then
+					if cooldownInfo and not (issecretvalue(cooldownInfo.startTime) or issecretvalue(cooldownInfo.duration)) then
+						local start, duration = cooldownInfo.startTime, cooldownInfo.duration
+						local cooldown = start > 0 and time() + GetCooldownLeft(start, duration) or 0
+						if professionCDs[professionID][spellID] ~= cooldown then
+							professionCDs[professionID][spellID] = cooldown
 							updated = true
 						end
 					end
-					professionCDs[professionID][spellID] = cooldown
 				end
 			end
 		end
@@ -223,8 +208,6 @@ local function CreateProfessionString(labelRow, professions, professionCDs)
 	return professionString
 end
 
-function PermoksAccountManager:ProfessionTooltip_OnEnter(button, alt_data, professions) end
-
 local function Update(charInfo)
 	UpdateProfessions(charInfo)
 	UpdateProfessionCDs(charInfo)
@@ -241,9 +224,45 @@ local payload = {
 	},
 	labels = labelRows,
 	share = {
-		[UpdateProfessionCDs] = "professionCDs",
 		[UpdateProfessions] = "professions"
 	}
 }
 local module = PermoksAccountManager:AddModule(module, payload)
 module:AddCustomLabelType("profession", CreateProfessionString, nil, "professions", "professionCDs")
+
+function PermoksAccountManager.ProfessionTooltip_OnEnter(button, altData, labelRow)
+	if not altData or not altData.professions then
+		return
+	end
+
+	local self = PermoksAccountManager
+	local professionID, professionCDInfo
+	for professionID, info in pairs(altData.professions) do
+		if info.professionIndex == labelRow.professionIndex then
+			professionID = professionID
+			professionCDInfo = self.professionCDs[info.name]
+			break
+		end
+	end
+
+	if not professionCDInfo or not professionCDInfo.cds or not next(professionCDInfo.cds) then
+		return
+	end
+
+	local cooldowns = altData.professionCDs and altData.professionCDs[professionID]
+	local tooltip = LibQTip:Acquire(addonName .. "Tooltip", 2, "RIGHT", "LEFT")
+	button.tooltip = tooltip
+
+	for spellID, name in pairs(professionCDInfo.cds) do
+		local expirationTime = cooldowns and cooldowns[spellID]
+		local status = L["Unknown"]
+		if expirationTime then
+			local seconds = self:GetSecondsRemaining(expirationTime)
+			status = seconds > 0 and self:FormatTimeString(seconds, SecondsToTime(seconds)) or L["|cff00ff00READY|r"]
+		end
+		tooltip:AddLine(name, status)
+	end
+
+	tooltip:SmartAnchorTo(button)
+	tooltip:Show()
+end
