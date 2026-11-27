@@ -38,7 +38,7 @@ local default_categories = {
 	},
 	sharedFactions = {
 		order = 2,
-		name = "Repuation",
+		name = "Reputation",
 		childs = {},
 		childOrder = {},
 		enabled = true,
